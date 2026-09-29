@@ -11,7 +11,7 @@ Run these from `evals/`, or with `npm run -w evals <script>` from the repo root.
 | `npm run baseline:v1` | Runs v1's `fallback*Plan` + `compile*Plan` for every prompt in `prompts/phase0.json`, in the order chords → bass → melody → drums. Bass and melody get the chords' `harmonicContext`. It writes `out/v1/<id>.notes.json` (the same format `core` emits), `out/v1/<id>.mid` (SMF type 1, 960 PPQ, drums on channel 10), `out/v1/<id>.v1.json` (the v1 decisions and adherence evidence) and `out/v1/failures.json`. The v1 modules are loaded read-only from `../flowstate` (override with `--v1-bin` or `FLOWSTATE_V1_BIN`). |
 | `npm run metrics -- <dir> [--prompts prompts/phase0.json]` | Computes symbolic metrics for every `*.notes.json` in `<dir>`. It prints a markdown table and writes `<dir>/metrics.json`. `npm run metrics:v1` is a shortcut for `out/v1`. |
 | `npm run ab -- --a out/v2 --b out/v1 --name <pack> --seed <n>` | Builds `ab/packs/<pack>/`. Each prompt gets a folder `NN-<id>/` holding `option-1.mid`, `option-2.mid` (in seeded random order) and `prompt.txt`. The pack also gets `scoresheet.csv` and `README.txt`. The hidden key is written to `ab/packs/<pack>.key.json`, outside the pack folder. |
-| `npm run ab:score -- --key ab/packs/<pack>.key.json sheet-a.csv sheet-b.csv [--metrics-v2 out/v2/metrics.json --metrics-v1 out/v1/metrics.json]` | Joins the filled sheets (one per listener) with the key. It prints v2's win rate, an exact binomial sign test and the mean score deltas (v2 − v1), per listener and pooled, then a Gate A checklist. |
+| `npm run ab:score -- --key ab/packs/<pack>.key.json sheet.csv [more sheets...] --v2-dir out/v2 [--min-listeners N]` | Joins the filled sheet(s) with the key. It prints v2's win rate, an exact binomial sign test and the mean score deltas (v2 − v1), per listener and pooled, then a Gate A checklist. |
 | `npm test` | Runs node:test tests for the SMF writer and the sign test. |
 
 v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2`). It writes the same `<id>.mid` / `<id>.notes.json` pairs.
@@ -30,7 +30,7 @@ v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/promp
 1. Generate both sides with the same prompts file: `npm run baseline:v1` and the `cloud` plan run into `out/v2`.
 2. Run `npm run metrics -- out/v1` and `npm run metrics -- out/v2`. Sanity-check the v2 output for failures and empty parts before anyone listens.
 3. Build one pack with `npm run ab -- --a out/v2 --b out/v1 --name phase0-r1 --seed <n>`. Give listeners only the `ab/packs/phase0-r1/` folder, never the `.key.json`.
-4. Each listener (at least 2 producers) works through the pack's `README.txt`:
+4. The listener (the owner, by default the only one) works through the pack's `README.txt`:
    - Import both options into the same instrument setup at the prompt's tempo.
    - Loop them and switch back and forth.
    - Fill `scoresheet.csv` without looking at the key, and return it as `scoresheet-<name>.csv`.
@@ -40,7 +40,7 @@ v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/promp
 
 Gate A passes only if all four conditions hold:
 
-- At least 2 listeners returned sheets.
+- At least one listener returned a sheet (`--min-listeners` raises this). With one listener and 20 prompts, p < 0.05 needs at least 15 v2 wins out of 20 non-tie comparisons.
 - v2 wins at least 70% of the non-tie comparisons, pooled across listeners.
 - The exact two-sided sign test on the pooled non-tie comparisons gives p < 0.05. Ties are excluded.
 - v2 realizations contain no unjustified out-of-key notes, per core's `*.report.json` (`--v2-dir out/v2`). Raw out-of-key share is informational only, because v2 uses deliberate colour tones (b9, #9, borrowed chords) that core counts as justified.
@@ -48,7 +48,7 @@ Gate A passes only if all four conditions hold:
 
 `score-ab` prints PASS, FAIL or INCOMPLETE. INCOMPLETE means the metrics files were not passed.
 
-Pooling treats each listener × prompt judgement as independent. With 2–3 listeners on 20 prompts, also check that each listener's direction agrees with the pooled result.
+If more listeners are added later, pooling treats each listener × prompt judgement as independent; check that each listener's direction agrees with the pooled result.
 
 ## v1 baseline fairness notes
 

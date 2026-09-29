@@ -104,8 +104,9 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   console.log(`\nOne-sided p (v2 better than chance): ${pooled.pOneSided.toPrecision(3)}`);
 
   // Gate A (see evals/README.md)
+  const minListeners = Number(args.flags["min-listeners"] ?? "1");
   const checks: [string, boolean | null][] = [
-    [`>= 2 listeners (have ${listeners.length})`, listeners.length >= 2],
+    [`>= ${minListeners} listener(s) (have ${listeners.length})`, listeners.length >= minListeners],
     [`v2 wins >= 70% of non-tie comparisons (${pct(pooled.winRate)})`, pooled.winRate !== null && pooled.winRate >= 0.7],
     [`sign test p < 0.05, two-sided (${pooled.pTwoSided.toPrecision(3)})`, pooled.pTwoSided < 0.05],
   ];
