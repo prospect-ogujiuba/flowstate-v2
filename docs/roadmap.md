@@ -48,7 +48,7 @@ Acceptance: 20-prompt set within v1's supported controls. v1 output generated th
 Result (2026-09-29, owner as sole listener): v2 preferred in 20 of 20 comparisons, no ties, two-sided sign test p = 1.9e-6. Mean musicality 2.6 (v2) vs 1.1 (v1), delta +1.5; fits-prompt delta +1.6. (The neosoul-rhodes-swing row had its scores swapped on the sheet; the owner confirmed and it was corrected.)
 **Caveat that shapes Phase 1:** v2 never scored above 3 out of 5. It beats v1 decisively but isn't yet good enough; quality work (prompting, IR expressiveness, realizer voicing and groove) continues alongside latency.
 
-Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all valid on the first attempt; latency p50 about 62 s (range 41–107 s). All realized with 0 unjustified out-of-key notes. Pack `evals/ab/packs/phase0-r1.zip` is built; the key is in `phase0-r1.key.json`, kept separate. Score with `npm run -w evals ab:score -- <sheets...> --key ab/packs/phase0-r1.key.json --v2-dir out/v2`.
+Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all valid on the first attempt; latency p50 about 62 s (range 41–107 s). All realized with 0 unjustified out-of-key notes. Evidence is committed in `evals/results/phase0/`: the v1 baseline, the v2 round 1 scores and realizations, the pack, the filled sheet, the key and the verdict (see its README for the re-score command).
 
 | Mean per prompt | v1 | v2 |
 | --- | --- | --- |
@@ -67,7 +67,7 @@ Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all va
 
 ### P0-7 Spike 2: WebView UI inside real hosts — `done` (Phase 0 closed 2026-09-29; the rest continues in P1-15)
 Closed by the owner's decision: nothing waits on the Mac tester. Ableton (Windows) confirmed so far: it loads, the drag lands, and the WebView UI runs (WebView2). Checks 1–9 on Windows are not yet reported. Logic/macOS runs as the P1-16 hand-off, after CI has verified the Mac build.
-Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
+Evidence: `docs/spikes/results.md`. Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
 
 Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-through, resize and drag-out of a `.mid` from the WebView work in Ableton, Logic and one of FL or Bitwig.
 
