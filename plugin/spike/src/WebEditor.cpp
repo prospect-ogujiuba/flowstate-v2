@@ -166,9 +166,9 @@ private:
                 const auto r = proc.loadBundledSample();
                 done (object ({ { "ok", r.wasOk() }, { "error", r.getErrorMessage() } }));
             })
-            .withNativeFunction ("startDrag", [this] (const juce::Array<juce::var>&, Browser::NativeFunctionCompletion done)
+            .withNativeFunction ("startDrag", [this] (const juce::Array<juce::var>& args, Browser::NativeFunctionCompletion done)
             {
-                startDrag (std::move (done));
+                startDrag (args.isEmpty() ? -1 : (int) args[0], std::move (done));
             })
             .withNativeFunction ("ping", [] (const juce::Array<juce::var>& args, Browser::NativeFunctionCompletion done)
             {
@@ -232,9 +232,10 @@ private:
                               });
     }
 
-    void startDrag (Browser::NativeFunctionCompletion done)
+    // partIndex < 0 drags every part (one MIDI track each); otherwise just that part.
+    void startDrag (int partIndex, Browser::NativeFunctionCompletion done)
     {
-        const auto file = proc.writeClipToTempMidi();
+        const auto file = proc.writeClipToTempMidi (partIndex);
 
         if (! file.existsAsFile())
         {

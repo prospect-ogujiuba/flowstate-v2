@@ -77,7 +77,7 @@ public:
     juce::String getLastError() const { return lastError; }
 
     /** Writes the loaded clip to a temp .mid (stable path per clip name) for drag-out. */
-    juce::File writeClipToTempMidi() const;
+    juce::File writeClipToTempMidi (int partIndex = -1) const; // < 0 = every part, one track each
 
     void setPreviewEnabled (bool) noexcept;
     bool isPreviewEnabled() const noexcept { return previewEnabled.load(); }

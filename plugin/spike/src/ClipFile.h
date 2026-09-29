@@ -49,9 +49,11 @@ juce::Result parseNotesJson (const juce::String& json, ClipData& out);
 /** Flattens every part into the audition event list (see renderClip). */
 RenderedClip renderForAudition (const ClipData& clip);
 
-/** A type-1 MIDI file with a single track: tempo, time signature, name and all notes
-    (on each part's own channel). Ticks are the clip's PPQ. */
-juce::MidiFile toMidiFile (const ClipData& clip);
+/** A type-1 MIDI file at the clip's PPQ.
+    partIndex < 0: a conductor track (name, tempo, time signature) plus one named track per part,
+    so DAWs import each part onto its own track.
+    partIndex >= 0: a single track holding only that part (with tempo and time signature). */
+juce::MidiFile toMidiFile (const ClipData& clip, int partIndex = -1);
 
 /** JSON-friendly description for the WebView (notes as [tick, dur, pitch, vel] arrays). */
 juce::var toVar (const ClipData& clip);

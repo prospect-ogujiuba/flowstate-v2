@@ -107,3 +107,6 @@ button[aria-pressed="false"] { color: var(--muted); }
 #roll { flex: 1; width: 100%; min-height: 0; border: 1px solid var(--line); border-radius: 6px; background: #101216; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.drag-handles { display: flex; flex-wrap: wrap; gap: 6px; }
+.part-handle { opacity: 0.9; }

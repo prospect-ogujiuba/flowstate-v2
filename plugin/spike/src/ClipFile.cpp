@@ -121,25 +121,21 @@ RenderedClip renderForAudition (const ClipData& clip)
     return renderClip (notes, clip.lengthPpq());
 }
 
-juce::MidiFile toMidiFile (const ClipData& clip)
+namespace
 {
-    juce::MidiMessageSequence track;
+    void addMeta (juce::MidiMessageSequence& track, juce::MidiMessage m)
+    {
+        m.setTimeStamp (0);
+        track.addEvent (m);
+    }
 
-    auto name = juce::MidiMessage::textMetaEvent (3, clip.displayName.upToLastOccurrenceOf (".notes", false, true));
-    name.setTimeStamp (0);
-    track.addEvent (name);
+    void addTimingMeta (juce::MidiMessageSequence& track, const ClipData& clip)
+    {
+        addMeta (track, juce::MidiMessage::tempoMetaEvent ((int) std::lround (60'000'000.0 / clip.tempo)));
+        addMeta (track, juce::MidiMessage::timeSignatureMetaEvent (clip.meterNum, clip.meterDen));
+    }
 
-    auto tempo = juce::MidiMessage::tempoMetaEvent ((int) std::lround (60'000'000.0 / clip.tempo));
-    tempo.setTimeStamp (0);
-    track.addEvent (tempo);
-
-    auto sig = juce::MidiMessage::timeSignatureMetaEvent (clip.meterNum, clip.meterDen);
-    sig.setTimeStamp (0);
-    track.addEvent (sig);
-
-    const auto clipTicks = (double) clip.bars * clip.ticksPerBar;
-
-    for (const auto& part : clip.parts)
+    void addNotes (juce::MidiMessageSequence& track, const ClipPart& part, double clipTicks)
     {
         for (const auto& n : part.notes)
         {
@@ -150,13 +146,52 @@ juce::MidiFile toMidiFile (const ClipData& clip)
     }
 
     // End of track at the clip length so DAWs size the clip to whole bars.
-    track.addEvent (juce::MidiMessage::endOfTrack(), clipTicks);
-    track.sort();
-    track.updateMatchedPairs();
+    void finish (juce::MidiMessageSequence& track, double clipTicks)
+    {
+        track.addEvent (juce::MidiMessage::endOfTrack(), clipTicks);
+        track.sort();
+        track.updateMatchedPairs();
+    }
 
+    juce::String partTrackName (const ClipPart& part)
+    {
+        return part.name.isNotEmpty() ? part.name : (part.role.isNotEmpty() ? part.role : part.id);
+    }
+}
+
+juce::MidiFile toMidiFile (const ClipData& clip, int partIndex)
+{
+    const auto clipTicks = (double) clip.bars * clip.ticksPerBar;
     juce::MidiFile file;
     file.setTicksPerQuarterNote (clip.ppq);
-    file.addTrack (track);
+
+    if (partIndex >= 0 && partIndex < (int) clip.parts.size())
+    {
+        const auto& part = clip.parts[(size_t) partIndex];
+        juce::MidiMessageSequence track;
+        addMeta (track, juce::MidiMessage::textMetaEvent (3, partTrackName (part)));
+        addTimingMeta (track, clip);
+        addNotes (track, part, clipTicks);
+        finish (track, clipTicks);
+        file.addTrack (track);
+        return file;
+    }
+
+    juce::MidiMessageSequence conductor;
+    addMeta (conductor, juce::MidiMessage::textMetaEvent (3, clip.displayName.upToLastOccurrenceOf (".notes", false, true)));
+    addTimingMeta (conductor, clip);
+    finish (conductor, clipTicks);
+    file.addTrack (conductor);
+
+    for (const auto& part : clip.parts)
+    {
+        juce::MidiMessageSequence track;
+        addMeta (track, juce::MidiMessage::textMetaEvent (3, partTrackName (part)));
+        addNotes (track, part, clipTicks);
+        finish (track, clipTicks);
+        file.addTrack (track);
+    }
+
     return file;
 }
 

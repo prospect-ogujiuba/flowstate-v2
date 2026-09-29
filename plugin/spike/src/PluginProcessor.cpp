@@ -359,7 +359,7 @@ void FlowstateSpikeProcessor::timerCallback()
     delete retired.exchange (nullptr, std::memory_order_acq_rel);
 }
 
-juce::File FlowstateSpikeProcessor::writeClipToTempMidi() const
+juce::File FlowstateSpikeProcessor::writeClipToTempMidi (int partIndex) const
 {
     JUCE_ASSERT_MESSAGE_THREAD
 
@@ -370,7 +370,16 @@ juce::File FlowstateSpikeProcessor::writeClipToTempMidi() const
 
     auto base = clip.displayName.upToLastOccurrenceOf (".notes", false, true)
                                 .upToLastOccurrenceOf (".json", false, true);
-    base = juce::File::createLegalFileName (base.isEmpty() ? juce::String ("Flowstate clip") : base);
+    if (base.isEmpty())
+        base = "Flowstate clip";
+
+    if (partIndex >= 0 && partIndex < (int) clip.parts.size())
+    {
+        const auto& part = clip.parts[(size_t) partIndex];
+        base << " - " << (part.name.isNotEmpty() ? part.name : part.id);
+    }
+
+    base = juce::File::createLegalFileName (base);
 
     const auto file = dir.getChildFile (base + ".mid");
     const auto temp = dir.getChildFile (base + ".mid.tmp");
@@ -379,7 +388,7 @@ juce::File FlowstateSpikeProcessor::writeClipToTempMidi() const
     {
         juce::FileOutputStream os (temp);
 
-        if (! os.openedOk() || ! toMidiFile (clip).writeTo (os, 1))
+        if (! os.openedOk() || ! toMidiFile (clip, partIndex).writeTo (os, 1))
             return {};
     }
 

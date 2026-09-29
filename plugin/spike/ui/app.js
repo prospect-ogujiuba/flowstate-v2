@@ -35,6 +35,7 @@ function showClip(c) {
   $("clip-info").textContent =
     `${c.bars} bars · ${c.meter[0]}/${c.meter[1]} · ${c.tempo} bpm (file) · ${c.parts.length} parts · ${notes} notes`;
   roll.setClip(c);
+  renderPartHandles(c);
 }
 
 function setPreviewUi(on) {
@@ -131,20 +132,41 @@ $("ping").addEventListener("click", async () => {
 
 // ---- drag-out ---------------------------------------------------------------------------------
 // The native drag must start while the mouse button is still down, so it is requested on
-// pointerdown. C++ writes the clip to a temp .mid and calls performExternalDragDropOfFiles.
-const handle = $("drag-handle");
-handle.addEventListener("pointerdown", async (e) => {
-  if (e.button !== 0) return;
-  e.preventDefault(); // no text selection / WebView-internal drag
-  handle.classList.add("active");
-  try {
-    const r = await native.startDrag();
-    log(r.ok ? `drag started: ${r.path}` : `drag failed: ${r.error}`);
-  } finally {
-    handle.classList.remove("active");
-  }
-});
-handle.addEventListener("dragstart", (e) => e.preventDefault());
+// pointerdown. C++ writes a temp .mid and calls performExternalDragDropOfFiles.
+// "Drag all" writes one MIDI track per part; each part handle drags just that part.
+function attachDrag(el, partIndex) {
+  el.addEventListener("pointerdown", async (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault(); // no text selection / WebView-internal drag
+    el.classList.add("active");
+    try {
+      const r = await native.startDrag(partIndex);
+      log(r.ok ? `drag started: ${r.path}` : `drag failed: ${r.error}`);
+    } finally {
+      el.classList.remove("active");
+    }
+  });
+  el.addEventListener("dragstart", (e) => e.preventDefault());
+}
+
+attachDrag($("drag-handle"), -1);
+
+function renderPartHandles(c) {
+  const box = $("drag-handles");
+  box.querySelectorAll(".part-handle").forEach((n) => n.remove());
+  (c?.parts ?? []).forEach((p, i) => {
+    if (!p.notes.length) return;
+    const el = document.createElement("div");
+    el.className = "drag-handle part-handle";
+    el.setAttribute("role", "button");
+    el.setAttribute("draggable", "false");
+    const label = p.name || p.role || p.id;
+    el.setAttribute("aria-label", `Drag ${label} to a track`);
+    el.textContent = `⠿ ${label}`;
+    attachDrag(el, i);
+    box.appendChild(el);
+  });
+}
 
 // ---- keyboard: typing vs. DAW shortcuts --------------------------------------------------------
 // Rules (see README "Keyboard"):

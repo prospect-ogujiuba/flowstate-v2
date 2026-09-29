@@ -25,8 +25,8 @@ Legend: `pass`, `fail`, `partial` (explain in notes), `n/a`, blank = not run.
 | 3 | Stop | | | | | |
 | 4 | Routing (Ableton "MIDI From") | | pass | n/a | n/a | |
 | 5 | Logic (MIDI FX drives instrument; preview audible) | n/a | n/a | | | n/a |
-| 6 | Record | | | | | |
-| 7 | Tempo change | | | | | |
+| 6 | Record | | pass | | | |
+| 7 | Tempo change | | pass | | | |
 
 ## Environment
 
@@ -37,3 +37,5 @@ Legend: `pass`, `fail`, `partial` (explain in notes), `n/a`, blank = not run.
 ## Notes and workarounds
 
 - Ableton routing (Windows): the receiving track's MIDI From second dropdown must be set to the plugin entry ("Flowstate Spike"), not "Post FX". "Post FX" carries the MIDI going into the source track's devices, not the plugin's output. Onboarding and docs must say this explicitly.
+- Drag-out (Windows, Ableton): the drag lands, but the spike writes every part into a single MIDI track, so Ableton makes one clip with keys, bass and drums mixed together. Fix (in the spike, pending retest): a drag handle per part, and "Drag all" as a type-1 file with one track per part.
+- MIDI out routing: with the receiving track on "All Channels", one instrument plays every part (keys ch 1, bass ch 2, drums ch 10). Workaround today: one receiving track per part, each filtered to its channel. **Product requirement for v2:** each Flowstate instance gets a per-part output choice ("send: bass only"), so one Flowstate per track works with no channel setup.
