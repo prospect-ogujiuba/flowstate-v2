@@ -1,0 +1,116 @@
+// The plugin's Session: context override, lineage of score IRs, thread, part states and output
+// choices. Processor-owned and mutated on the message thread only (docs/threading.md). JUCE-free,
+// so it is unit-tested without a host. Wire types come from the generated bridge
+// (schema/cpp/include/flowstate/bridge.h); theory comes from core.
+#pragma once
+
+#include "flowstate/bridge.h"
+
+#include <cstdint>
+#include <map>
+#include <optional>
+#include <string>
+#include <vector>
+
+namespace flowstate::plugin {
+
+namespace fb = flowstate::bridge;
+
+// What the host told the audio thread most recently (see HostSync.h).
+struct HostSnapshot {
+    bool hasHost = false;  // the host provides a playhead with a PPQ position
+    bool playing = false;
+    bool recording = false;
+    double ppq = 0.0;
+    double bpm = 120.0;
+    int meterNumerator = 4;
+    int meterDenominator = 4;
+    bool looping = false;
+    double loopStartPpq = 0.0;
+    double loopEndPpq = 0.0;
+
+    fb::Transport toTransport() const;
+};
+
+class Session {
+public:
+    Session(std::string instanceId, std::string buildId);
+
+    // ---- Lineage -------------------------------------------------------------------------------
+    // Adds a node under `parent` (default: the current node), makes it current and clears redo.
+    // Returns its id. The score must be valid IR; realization problems surface in clip().
+    std::string addNode(nlohmann::json score, fb::NodeKind kind, std::optional<std::string> prompt,
+                        std::optional<std::vector<std::string>> partIds, std::int64_t seed, std::int64_t createdAtMs,
+                        std::optional<std::string> parent = std::nullopt);
+
+    bool hasNode(const std::string& id) const;
+    const fb::LineageNode* node(const std::string& id) const;
+    const fb::LineageNode* current() const;
+
+    // Restore / A-B. Clears redo.
+    bool select(const std::string& id);
+    // Undo walks to the current node's parent; redo walks back down the path undo came up.
+    bool canUndo() const;
+    bool canRedo() const { return !redo_.empty(); }
+    bool undo();
+    bool redo();
+    bool rate(const std::string& id, std::optional<fb::Rating> rating);
+
+    // ---- Parts and settings --------------------------------------------------------------------
+    // Part state for a part of the current score; false if the part isn't there.
+    bool setPartState(const fb::PartState& state);
+    void setOverride(const fb::ContextOverride& o) { override_ = o; }
+    const fb::ContextOverride& contextOverride() const { return override_; }
+    void setAudition(const fb::Audition& a) { audition_ = a; }
+    const fb::Audition& audition() const { return audition_; }
+    void setMidiOut(const fb::MidiOut& m) { midiOut_ = m; }
+    const fb::MidiOut& midiOut() const { return midiOut_; }
+    void setPreviewSynth(bool on) { previewSynth_ = on; }
+    bool previewSynth() const { return previewSynth_; }
+    void setProvider(std::optional<fb::ProviderChoice> p) { provider_ = std::move(p); }
+    void addThreadItem(fb::ThreadItem item) { thread_.push_back(std::move(item)); }
+
+    const std::string& instanceId() const { return instanceId_; }
+
+    // ---- Realization ---------------------------------------------------------------------------
+    // The current node's realization (cached; null when there is no current node or it failed).
+    const std::optional<fb::Clip>& clip() const { return clip_; }
+    const std::string& realizeError() const { return realizeError_; }
+    // Any node's realization, e.g. for dragging a thread card that isn't current.
+    std::optional<fb::Clip> realizeNode(const std::string& id, std::string* error = nullptr) const;
+
+    // ---- Views and persistence -----------------------------------------------------------------
+    fb::EffectiveContext effectiveContext(const HostSnapshot& host) const;
+    fb::Session view(const HostSnapshot& host, int captureBars) const;
+
+    fb::SavedSession save() const;
+    // Replaces everything with a saved session. Unknown references (a current id or redo id that
+    // isn't a node) are dropped rather than failing the restore; the reasons go to `warnings`.
+    void restore(const fb::SavedSession& saved, std::vector<std::string>& warnings);
+
+private:
+    void refreshClip();
+    std::string newNodeId();
+
+    std::string instanceId_;
+    std::string buildId_;
+    fb::ContextOverride override_{};
+    std::vector<fb::LineageNode> nodes_;
+    std::optional<std::string> currentId_;
+    std::vector<std::string> redo_;
+    std::vector<fb::ThreadItem> thread_;
+    std::map<std::string, fb::PartState> partStates_;
+    fb::Audition audition_{};
+    fb::MidiOut midiOut_{};
+    bool previewSynth_ = true;
+    std::optional<fb::ProviderChoice> provider_;
+    std::uint64_t nextNodeNumber_ = 1;
+
+    std::optional<fb::Clip> clip_;
+    std::string realizeError_;
+};
+
+// Realizes one score IR with `seed` into the bridge's Clip. Throws flowstate::IrError.
+fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed);
+
+}  // namespace flowstate::plugin

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flowstate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="strip" aria-label="Context">
+    <strong class="brand">Flowstate</strong>
+    <span id="ctx-key" class="pill" title="Key">–</span>
+    <span id="ctx-time" class="pill" title="Tempo and meter">–</span>
+    <span id="ctx-bars" class="pill" title="Bars">–</span>
+    <span id="transport" class="pill muted" aria-live="off">stopped</span>
+  </header>
+
+  <main>
+    <section aria-labelledby="parts-h" class="lanes">
+      <h2 id="parts-h" class="sr-only">Parts</h2>
+      <ul id="parts"></ul>
+      <p id="empty" class="muted">No idea yet. Describe one below.</p>
+    </section>
+    <aside aria-labelledby="thread-h" class="thread">
+      <h2 id="thread-h">Ideas</h2>
+      <ol id="nodes"></ol>
+      <div class="row">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
+        <button id="drag" type="button" title="Drag all parts into your DAW">Drag</button>
+      </div>
+    </aside>
+  </main>
+
+  <form id="prompt" class="prompt" autocomplete="off">
+    <label for="prompt-input" class="sr-only">Describe or ask</label>
+    <input id="prompt-input" type="text" placeholder="Describe or ask…" spellcheck="false">
+    <button type="submit">Send</button>
+  </form>
+  <p id="notice" class="notice" role="status"></p>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
