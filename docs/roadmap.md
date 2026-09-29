@@ -65,15 +65,152 @@ Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all va
 3. Build the pack; the owner listens blind in their DAW and fills the score sheet. With one listener and 20 prompts, p < 0.05 means at least 15 v2 wins out of 20 non-tie comparisons.
 4. **Gate A (music half):** v2 is preferred in ≥ 70% of non-tie comparisons, sign test p < 0.05, one listener (the owner), and zero unjustified out-of-key notes in the v2 realizations (per core's reports). If it fails: tune the prompt, IR and realizer and rerun once; if it fails again, rethink the engine before Phase 1.
 
-### P0-7 Spike 2: WebView UI inside real hosts — `doing` (builds ready; needs DAW testing)
+### P0-7 Spike 2: WebView UI inside real hosts — `done` (Phase 0 closed 2026-09-29; the rest continues in P1-15)
+Closed by the owner's decision: nothing waits on the Mac tester. Ableton (Windows) confirmed so far: it loads, the drag lands, and the WebView UI runs (WebView2). Checks 1–9 on Windows are not yet reported. Logic/macOS runs as the P1-16 hand-off, after CI has verified the Mac build.
 Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
 
 Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-through, resize and drag-out of a `.mid` from the WebView work in Ableton, Logic and one of FL or Bitwig.
 
-### P0-8 Spike 3: MIDI out and transport-locked audition — `doing` (builds ready; needs DAW testing)
+### P0-8 Spike 3: MIDI out and transport-locked audition — `done` (Ableton, Windows: routing, record and tempo ramp pass)
+Findings carried into Phase 1: per-part drag handles and a multi-track "Drag all" (spike fixed, retest pending), and per-part MIDI output (P1-7).
 Same builds as P0-7 (the instrument and MIDI FX variants).
 
 Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and an AU MIDI FX build can play a realized clip in time with the host transport, looped, in Ableton and Logic.
 
 ### P0-9 CI on every push — `done`
 Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core` and typechecks TS on each push and PR.
+
+## Phase 1: core loop (weeks 3–8)
+
+**Goal:** a producer installs Flowstate, opens it on a MIDI track, describes an idea, hears it in time with their song within seconds, shapes it, and drags it in.
+
+**Gate B:** 5 producers install cold (from the signed installer, with no help) and commit a clip to their DAW in their first session.
+
+**Assumptions:** the Studio single-screen layout from the proposal, styled after v1 (look and feel, not v1's tab layout). Dev runs on the `claude-code` backend and BYOK.
+
+### Ordering
+
+Two tracks run in parallel for weeks 3–5, then join.
+
+| Weeks | Engine and service track | Plugin and UI track |
+| --- | --- | --- |
+| 3–4 | P1-1 providers, P1-2 latency, P1-3 quality round 2 | P1-5 bridge schema, P1-6 plugin shell, P1-8 design system |
+| 5–6 | P1-4 agent service, P1-10 instant sketch | P1-7 audition and MIDI out, P1-9 Studio screen, P1-11 session and lineage |
+| 7–8 | P1-13 hosting | P1-12 keys and settings, P1-14 installers, P1-15 CI release checks, P1-16 tester hand-off |
+
+### P1-1 Multi-provider layer on pi-ai — `todo`
+Planner model calls go through `@earendil-works/pi-ai` (OpenAI, OpenRouter, Anthropic, Google and more). `claude-code` stays as the dev backend.
+Acceptance:
+- Provider, model and credential are selected per request (managed or BYOK).
+- The Phase 0 prompt set plans valid scores on at least 3 providers, with results recorded per provider (validity rate, latency p50/p95, metrics).
+- No Pi coding-agent packages are in the dependency tree.
+
+### P1-2 Latency: from 62 s to the targets — `todo`
+Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
+Levers, in order:
+- Stream parts: the model emits one part per JSON line (harmony first) and the plugin realizes each as it lands.
+- Per-route model and effort (fast model for edits and single parts, stronger model for full plans).
+- Prompt caching of the fixed system prompt.
+- A more compact IR encoding if tokens dominate.
+Acceptance: the targets are met on at least one production provider, measured by `evals`, with no validity regression.
+
+### P1-3 Quality round 2 — `todo`
+Phase 0 showed v2 beats v1 20/20, but it never scored above 3/5.
+Work:
+- Prompt tuning per style.
+- IR expressiveness gaps found in the r1 scores (e.g. per-bar chord rhythm variation, melodic development).
+- Realizer voicing movement (8.9 semitones summed vs v1's 2.4; investigate) and groove templates per style.
+Acceptance: blind A/B round 2 (new v2 vs r1 v2) is preferred at ≥ 70%, and mean musicality is ≥ 3.5.
+
+### P1-4 Agent service — `todo`
+The `cloud/` HTTP service:
+- `POST /v1/plan` (streamed SSE events: part started, part done, score done, error).
+- `POST /v1/edit` (IR patch; skeleton only in Phase 1).
+- Health endpoint and a request log without secrets.
+- Feature flags (`byok`), and per-request provider choice from P1-1.
+Acceptance:
+- Contract tests against the bridge schema.
+- Runs locally with one command.
+- A cancelled request stops the provider stream.
+
+### P1-5 Bridge schema — `todo`
+One schema (commands, events, session and score types) generates both the TS and C++ types. It covers WebView ↔ plugin and plugin ↔ service messages.
+Acceptance:
+- Generation runs in CI and fails on drift.
+- A round-trip test in both languages.
+
+### P1-6 Plugin shell — `todo`
+`plugin/` product target, built from the spike's proven pieces:
+- Instrument and MIDI FX variants.
+- Processor-owned `Session`, and a WebView host serving the bundled `ui/`.
+- State save and restore of the session (IR, seeds, selection).
+- Host sync: tempo, meter, bar position and loop, published to the UI; key and tempo override.
+- A MIDI capture ring (last 64 bars).
+Acceptance:
+- pluginval strictness 8 passes on macOS and Windows in CI.
+- Closing and reopening the editor loses nothing.
+- The DAW project reopens with its ideas intact.
+
+### P1-7 Audition and MIDI out — `todo`
+- The spike's scheduler, fed by `core` realizations, with bar-quantized switching between variations.
+- A preview synth.
+- **Per-part output choice for each instance** (all parts, or one part per instance: "send: bass only"), so one Flowstate per track works with no channel setup.
+Acceptance:
+- The scheduler test suite passes.
+- The host smoke test covers part filtering.
+- The spike's sync checks pass in CI.
+
+### P1-8 Design system from v1 — `todo`
+Port v1's visual identity to CSS tokens and components: colours, type, spacing, radii, logo and SVG icons from `docs/design/` and v1 `assets/`, and the dark compact shell. Components: buttons, knobs, toggles, inputs, lanes, cards, sheets and toasts.
+Acceptance:
+- A component gallery page renders in a browser and in the plugin.
+- Side-by-side screenshots match v1's look.
+- Accessibility: every control is labelled and keyboard-reachable.
+
+### P1-9 Studio screen — `todo`
+- Context strip (key, mode, tempo, meter, bars; host values locked, with override).
+- Part lanes (mini piano roll, play/solo, lock, vary, re-roll, density, per-part drag handle).
+- Prompt bar with suggestion chips.
+- Thread drawer (result cards: play, restore, branch, drag).
+- Settings sheet (provider and model, BYOK key, MIDI out, usage).
+Acceptance:
+- Playwright tests against a mocked bridge cover every flow in the proposal's UX section.
+- It works at 720×480 and at larger sizes.
+- The space bar still reaches the DAW.
+
+### P1-10 Instant sketch — `todo`
+`core` makes a rule-based sketch from the context strip alone, in under 100 ms, so every Generate makes sound immediately. AI parts replace sketch parts as they stream in (P1-2).
+Acceptance: under 100 ms for 8 bars × 4 parts; varied across seeds.
+
+### P1-11 Session and lineage — `todo`
+- Every result is a lineage node: initial, regenerate, vary or edit.
+- Undo and redo, A/B between nodes, lock parts.
+- Stored in plugin state, bounded in size.
+Acceptance: survives editor close, project save and reopen, and 50 generations in one session.
+
+### P1-12 Keys and settings — `todo`
+BYOK keys are stored in the OS keychain (macOS Keychain, Windows Credential Manager) and never in DAW state or logs. Behind the `byok` release flag.
+Acceptance:
+- A test proves no key is in saved plugin state.
+- The flag hides the BYOK UI with no code change.
+
+### P1-13 Hosting the agent service — `todo`
+Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits).
+Acceptance: the tester build talks to the hosted service; a deploy is one command from CI.
+
+### P1-14 Installers and signing — `todo`
+- macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.
+- Windows: an installer for VST3 and Standalone, Authenticode signed.
+- Built on each tag.
+Acceptance: installs on a clean machine or user account with no Gatekeeper or SmartScreen bypass steps.
+
+### P1-15 CI release checks — `todo`
+Every tester build is verified before a human sees it:
+- core tests and pluginval on both OSes, and auval on macOS.
+- Headless host smoke (load, sync, MIDI out, per-part filter, state round trip).
+- UI Playwright suite, and an installer smoke on a fresh runner.
+Acceptance: a failing check blocks the artifact; a passing build carries a build ID shown in Settings.
+
+### P1-16 Tester hand-off (Mac friend first) — `todo`
+A tester package per build: signed installer, a one-page checklist (the Phase 0 host checks plus the core loop), and a feedback form that includes the build ID. The first recipient is the Mac tester for Logic.
+Acceptance: the tester completes it without contacting us for setup, and reports come back with build IDs.
