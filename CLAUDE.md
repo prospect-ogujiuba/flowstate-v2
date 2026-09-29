@@ -36,6 +36,8 @@ v1 lives in the sibling repo `../flowstate` (frozen at tag `v1-final`). Use it a
 
 ## Setup
 
+Full machine setup: `docs/dev-setup.md`. Plugin build, tests, pluginval and DAW checks: `docs/testing-plugin.md`.
+
 Needs Node 22+, CMake 3.22+, Ninja and a C++20 compiler. On a machine without Ninja: `uv tool install ninja` (or the system package).
 
 ```sh

@@ -11,6 +11,8 @@ This repo is in **Phase 1** (core loop). Phase 0 closed with Gate A passed. See 
 - `docs/architecture.md`: runtime shape and technology decisions
 - `docs/ir-spec.md`: the score IR, the product's central contract
 - `docs/bridge-spec.md`: messages between the WebView, the plugin and the agent service
+- `docs/dev-setup.md`: tools and libraries to install on a new machine
+- `docs/testing-plugin.md`: building, testing and validating the plugin, and manual DAW checks
 - `CLAUDE.md`: working rules and commands
 
 ```sh
