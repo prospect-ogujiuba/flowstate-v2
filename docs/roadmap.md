@@ -86,7 +86,11 @@ Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core
 
 **Gate B:** 5 producers install cold (from the signed installer, with no help) and commit a clip to their DAW in their first session.
 
-**Assumptions:** the Studio single-screen layout from the proposal, styled after v1 (look and feel, not v1's tab layout). Dev runs on the `claude-code` backend and BYOK.
+**Decisions (2026-09-29):**
+- **Layout:** the single-screen Studio from the proposal, styled after v1 (look and feel, not v1's tab layout).
+- **Signing:** planned on both platforms, an Apple Developer ID and a Windows signing identity (e.g. Azure Trusted Signing). The owner sets up the accounts; CI gets wired to them in P1-14.
+- **Hosting:** decided later. Everything is built against a local agent service until the tester build is ready (weeks 7–8).
+- **Backends:** dev runs on the `claude-code` backend and BYOK.
 
 ### Ordering
 
@@ -194,11 +198,11 @@ Acceptance:
 - A test proves no key is in saved plugin state.
 - The flag hides the BYOK UI with no code change.
 
-### P1-13 Hosting the agent service — `todo`
+### P1-13 Hosting the agent service — `todo` (provider to be decided by weeks 7–8)
 Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits).
 Acceptance: the tester build talks to the hosted service; a deploy is one command from CI.
 
-### P1-14 Installers and signing — `todo`
+### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.
 - Windows: an installer for VST3 and Standalone, Authenticode signed.
 - Built on each tag.
