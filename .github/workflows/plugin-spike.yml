@@ -6,7 +6,7 @@ name: plugin-spike
 on:
   push:
     paths:
-      - "plugin/**"
+      - "plugin/spike/**"
       - ".github/workflows/plugin-spike.yml"
   workflow_dispatch:
 

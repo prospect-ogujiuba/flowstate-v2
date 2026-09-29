@@ -145,7 +145,8 @@ Acceptance:
 - Generation runs in CI and fails on drift.
 - A round-trip test in both languages.
 
-### P1-6 Plugin shell — `todo`
+### P1-6 Plugin shell — `doing` (verified locally on Linux headless; waiting on the macOS and Windows CI run)
+Done so far: `plugin/` with the instrument and MIDI FX variants, a JUCE-free session and bridge controller, host sync with key and tempo override, a 64-bar capture ring, and state save/restore through an immutable snapshot. Tests: session, processor (editor close and reopen, restore from another thread, junk state) and the VST3 host smoke test (two-idea project reopens intact). pluginval strictness 8 passes on both VST3s on Linux; CI runs it on macOS and Windows with auval. Model commands reply `unavailable` until P1-4.
 `plugin/` product target, built from the spike's proven pieces:
 - Instrument and MIDI FX variants.
 - Processor-owned `Session`, and a WebView host serving the bundled `ui/`.
