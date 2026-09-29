@@ -1,0 +1,18 @@
+{
+  "name": "flowstate",
+  "private": true,
+  "type": "module",
+  "workspaces": ["schema", "cloud", "evals"],
+  "scripts": {
+    "build:core": "cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/core",
+    "test:core": "ctest --test-dir build/core --output-on-failure",
+    "schema": "npm run -w schema generate",
+    "typecheck": "tsc -p schema && tsc -p cloud && tsc -p evals",
+    "test": "npm run test:core && npm run -ws --if-present test"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0",
+    "tsx": "^4.20.0",
+    "@types/node": "^24.0.0"
+  }
+}

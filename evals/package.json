@@ -1,0 +1,19 @@
+{
+  "name": "@flowstate/evals",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "baseline:v1": "tsx src/baseline-v1.ts",
+    "metrics": "tsx src/metrics.ts",
+    "metrics:v1": "tsx src/metrics.ts out/v1 --prompts prompts/phase0.json",
+    "ab": "tsx src/build-ab-pack.ts",
+    "ab:score": "tsx src/score-ab.ts",
+    "test": "tsx --test src/*.test.ts",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@flowstate/schema": "*",
+    "@flowstate/cloud": "*",
+    "zod": "^4.1.0"
+  }
+}

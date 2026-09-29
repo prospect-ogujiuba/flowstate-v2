@@ -1,0 +1,56 @@
+# Roadmap
+
+Four phases, each unlocked by a gate that producers can feel. Week ranges are estimates.
+
+| Phase | Weeks | Gate to leave it |
+| --- | --- | --- |
+| 0. Salvage and spikes | 0–2 | **A:** IR plans win the blind A/B against v1, and drag-out works in 3 hosts |
+| 1. Core loop | 3–8 | **B:** 5 producers install cold and commit a clip in their first session |
+| 2. Depth | 9–12 | **C:** committed clips per session and 4-week retention hit target |
+| 3. Public beta | 13–16 | — |
+
+Decided (2026-09-28): **bring-your-own-key ships from day one** as a first-class provider mode alongside managed access. It's what development runs on. A release flag (`byok` in the service's feature config, mirrored in the plugin's Settings) can hide it before launch and turn it back on later without code changes.
+
+Provider layer (decided 2026-09-28): the agent service uses **`@earendil-works/pi-ai`**, Pi's standalone multi-provider package (OpenAI, OpenRouter, Anthropic, Google and more), for both managed and BYOK access. It does not use Pi's coding agent or its runtime. That work is Phase 1.
+
+Mac testing (decided 2026-09-28): CI builds the macOS artifacts; a trusted friend or tester runs the Logic and AU checklist until the MacBook is back.
+
+Model backends in development: `claude-code` (headless Claude Code on the developer's own subscription; dev and evals only, never an end-user path) and `api` (Anthropic API with a key: the BYOK path).
+
+## Phase 0 issues
+
+Status: `todo`, `doing`, `done`, `blocked`.
+
+### P0-1 Freeze v1 — `done`
+- [x] Tag v1 `v1-final` at `806d8a4` (local tag; push when publishing).
+- [x] v1's live-tools security issue is documented; v1 is not being shared, so no patch.
+
+### P0-2 Score IR v0 — `done`
+- [x] `docs/ir-spec.md` and `schema/src/score.ts`, with JSON Schema generation.
+- [ ] Fold in spec ambiguities found while building the realizer.
+
+### P0-3 `core` realizer v0 — `doing`
+Acceptance: all roles and tokens in the spec realized. Deterministic. Properties tested (clip length, range, monophony). Voice-led chords. `fs-realize` CLI emits `.mid`, notes JSON and a report. Builds warning-free on Linux; CI on macOS and Windows.
+
+### P0-4 Planner v0 — `done` (quality tuning continues under P0-6)
+- [x] Prompt + controls -> IR through Claude (`claude-opus-5`, adaptive thinking, high effort), with Zod and semantic validation plus up to two repair passes.
+- [x] Smoke test: valid 4-bar dorian score on the first attempt; 63 s latency at high effort (latency is tuned in Phase 1, target under 8 s).
+- Note: constrained decoding (`output_config.format`) is rejected for this schema ("compiled grammar is too large"), so the planner validates on our side instead.
+
+### P0-5 v1 baseline and A/B tooling — `doing`
+Acceptance: 20-prompt set within v1's supported controls. v1 output generated through v1's own compilers. Metrics script. Blind A/B pack builder and a scorer with a sign test.
+
+### P0-6 Spike 1: blind A/B, LLM-written IR vs v1 — `todo`
+1. `npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2`
+2. `npm run -w evals metrics -- out/v2` and `... out/v1`: compare.
+3. Build the pack, then at least 2 producers listen blind in their DAW and fill the score sheet.
+4. **Gate A (music half):** v2 is preferred in ≥ 70% of non-tie comparisons, sign test p < 0.05, and no regression in out-of-key share. If it fails: tune the prompt, IR and realizer and rerun once; if it fails again, rethink the engine before Phase 1.
+
+### P0-7 Spike 2: WebView UI inside real hosts — `todo` (needs your DAW machine)
+Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-through, resize and drag-out of a `.mid` from the WebView work in Ableton, Logic and one of FL or Bitwig.
+
+### P0-8 Spike 3: MIDI out and transport-locked audition — `todo` (needs your DAW machine)
+Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and an AU MIDI FX build can play a realized clip in time with the host transport, looped, in Ableton and Logic.
+
+### P0-9 CI on every push — `doing`
+Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core` and typechecks TS on each push and PR.

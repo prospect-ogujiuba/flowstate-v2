@@ -1,0 +1,519 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "ir": {
+      "type": "string",
+      "const": "flowstate.score.v0"
+    },
+    "title": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "tempo": {
+          "type": "number",
+          "description": "BPM"
+        },
+        "meterNumerator": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "meterDenominator": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "tonic": {
+          "type": "string",
+          "enum": [
+            "C",
+            "C#",
+            "Db",
+            "D",
+            "D#",
+            "Eb",
+            "E",
+            "F",
+            "F#",
+            "Gb",
+            "G",
+            "G#",
+            "Ab",
+            "A",
+            "A#",
+            "Bb",
+            "B"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "major",
+            "minor",
+            "dorian",
+            "phrygian",
+            "lydian",
+            "mixolydian",
+            "locrian",
+            "harmonic_minor",
+            "melodic_minor",
+            "major_pentatonic",
+            "minor_pentatonic",
+            "blues"
+          ]
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991,
+          "description": "Clip length in bars; authoritative"
+        },
+        "swing": {
+          "type": "number",
+          "description": "0 straight .. 0.5 heavy swing on off-beat steps"
+        },
+        "style": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "tempo",
+        "meterNumerator",
+        "meterDenominator",
+        "tonic",
+        "mode",
+        "bars",
+        "swing",
+        "style"
+      ],
+      "additionalProperties": false
+    },
+    "form": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "startBar": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "bars": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "energy": {
+            "type": "number",
+            "description": "0..1"
+          }
+        },
+        "required": [
+          "name",
+          "startBar",
+          "bars",
+          "energy"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "harmony": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bar": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "1-based bar"
+          },
+          "beat": {
+            "type": "number",
+            "description": "1-based beat within the bar"
+          },
+          "beats": {
+            "type": "number",
+            "description": "Duration in beats"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "Chord symbol, e.g. Cm9, G13, F/A, Bb7#11"
+          }
+        },
+        "required": [
+          "bar",
+          "beat",
+          "beats",
+          "symbol"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "motifs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "degree": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991,
+                  "description": "1-based scale degree of the mode; 8 = tonic an octave up"
+                },
+                "octave": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991,
+                  "description": "Octave offset from the part's register centre"
+                },
+                "alter": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991,
+                  "description": "-1, 0 or +1 semitone chromatic alteration"
+                },
+                "beat": {
+                  "type": "number",
+                  "description": "Onset offset in beats from motif start (0-based)"
+                },
+                "beats": {
+                  "type": "number",
+                  "description": "Duration in beats"
+                },
+                "accent": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "degree",
+                "octave",
+                "alter",
+                "beat",
+                "beats",
+                "accent"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "notes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "chords",
+              "pad",
+              "arp",
+              "bass",
+              "melody",
+              "counter",
+              "drums"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "low": {
+            "type": "string",
+            "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+          },
+          "high": {
+            "type": "string",
+            "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+          },
+          "grid": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Steps per beat for step strings (4 = 16ths in 4/4, 3 = triplets)"
+          },
+          "velocity": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "startBar": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                },
+                "endBar": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991,
+                  "description": "Inclusive"
+                },
+                "rhythm": {
+                  "description": "Step string; tokens depend on role (see spec)",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "voicing": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "close",
+                        "open",
+                        "drop2",
+                        "drop3",
+                        "rootless",
+                        "shell",
+                        "spread",
+                        "quartal",
+                        "power"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "arpPattern": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "up",
+                        "down",
+                        "updown",
+                        "random",
+                        "chord_tones"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "motif": {
+                  "description": "Motif id for melody/counter",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "transforms": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "description": "e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"
+                },
+                "repeatEvery": {
+                  "description": "Motif repeat period in beats; 0 = once",
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "drums": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "voice": {
+                            "type": "string",
+                            "enum": [
+                              "kick",
+                              "snare",
+                              "clap",
+                              "rim",
+                              "closed_hat",
+                              "pedal_hat",
+                              "open_hat",
+                              "low_tom",
+                              "mid_tom",
+                              "high_tom",
+                              "crash",
+                              "ride",
+                              "ride_bell",
+                              "shaker",
+                              "tambourine",
+                              "cowbell"
+                            ]
+                          },
+                          "steps": {
+                            "type": "string",
+                            "description": "Step string: x hit, X accent, g ghost, . rest; | separates bars"
+                          }
+                        },
+                        "required": [
+                          "voice",
+                          "steps"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "fill": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "snare_roll",
+                        "tom_run",
+                        "kick_build",
+                        "crash_end",
+                        "half_time_break"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "notes": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "bar": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "beat": {
+                            "type": "number"
+                          },
+                          "beats": {
+                            "type": "number"
+                          },
+                          "pitch": {
+                            "type": "string",
+                            "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+                          },
+                          "velocity": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": [
+                          "bar",
+                          "beat",
+                          "beats",
+                          "pitch",
+                          "velocity"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "articulation": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "legato",
+                        "normal",
+                        "staccato"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "startBar",
+                "endBar",
+                "rhythm",
+                "voicing",
+                "arpPattern",
+                "motif",
+                "transforms",
+                "repeatEvery",
+                "drums",
+                "fill",
+                "notes",
+                "articulation"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "name",
+          "low",
+          "high",
+          "grid",
+          "velocity",
+          "blocks"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "ir",
+    "title",
+    "context",
+    "form",
+    "harmony",
+    "motifs",
+    "parts"
+  ],
+  "additionalProperties": false
+}

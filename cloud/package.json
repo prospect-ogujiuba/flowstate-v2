@@ -1,0 +1,13 @@
+{
+  "name": "@flowstate/cloud",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "plan": "tsx src/cli-plan.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
+    "@flowstate/schema": "*",
+    "zod": "^4.1.0"
+  }
+}
