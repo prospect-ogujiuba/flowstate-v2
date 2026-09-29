@@ -5,11 +5,13 @@
 // seeded random order. The key (which option is v2) is written OUTSIDE the pack folder:
 //   ab/packs/<name>/                 <- give this folder to listeners
 //   ab/packs/<name>.key.json         <- keep this hidden until scoring
-import { copyFileSync, existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadPrompts, parseArgs } from "./common.ts";
 import { hashSeed, mulberry32 } from "./stats.ts";
+import { writeSmf } from "./smf.ts";
+import type { NotesFile } from "./common.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const evalsRoot = path.join(here, "..");
@@ -27,6 +29,19 @@ const keyFile = path.join(packsRoot, `${name}.key.json`);
 if (existsSync(packDir) && readdirSync(packDir).length && args.flags.force !== "true") throw new Error(`${packDir} exists; pass --force to overwrite`);
 
 const prompts = loadPrompts(promptsFile);
+// Rebuild each clip from its notes with neutral, role-based track names and fixed channels,
+// so no title, track name or channel layout reveals which generator made it.
+const ROLE_ORDER = ["chords", "pad", "arp", "bass", "melody", "counter", "drums"];
+const ROLE_CHANNEL: Record<string, number> = { chords: 0, pad: 4, arp: 5, bass: 1, melody: 2, counter: 3, drums: 9 };
+function blindSmf(notesPath: string): Uint8Array {
+  const doc = JSON.parse(readFileSync(notesPath, "utf8")) as NotesFile;
+  const parts = [...doc.parts].sort((a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role));
+  return writeSmf({
+    ppq: doc.ppq, tempo: doc.tempo, meter: doc.meter, lengthTicks: doc.bars * doc.ticksPerBar,
+    tracks: parts.map((p) => ({ name: p.role[0]!.toUpperCase() + p.role.slice(1), channel: ROLE_CHANNEL[p.role] ?? 6, notes: p.notes })),
+  });
+}
+
 const rand = mulberry32(hashSeed(`ab:${seedText}`));
 mkdirSync(packDir, { recursive: true });
 
@@ -35,7 +50,7 @@ const skipped: { promptId: string; reason: string }[] = [];
 const csvRows = ["prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes"];
 
 prompts.forEach((p) => {
-  const v2File = path.join(dirA, `${p.id}.mid`), v1File = path.join(dirB, `${p.id}.mid`);
+  const v2File = path.join(dirA, `${p.id}.notes.json`), v1File = path.join(dirB, `${p.id}.notes.json`);
   const coin = rand(); // drawn for every prompt so assignments do not shift when one prompt is skipped
   if (!existsSync(v2File) || !existsSync(v1File)) {
     skipped.push({ promptId: p.id, reason: `missing ${!existsSync(v2File) ? "A(v2)" : ""}${!existsSync(v1File) ? " B(v1)" : ""}`.trim() });
@@ -45,8 +60,8 @@ prompts.forEach((p) => {
   const folder = `${String(entries.length + 1).padStart(2, "0")}-${p.id}`;
   const dir = path.join(packDir, folder);
   mkdirSync(dir, { recursive: true });
-  copyFileSync(v2Option === 1 ? v2File : v1File, path.join(dir, "option-1.mid"));
-  copyFileSync(v2Option === 1 ? v1File : v2File, path.join(dir, "option-2.mid"));
+  writeFileSync(path.join(dir, "option-1.mid"), blindSmf(v2Option === 1 ? v2File : v1File));
+  writeFileSync(path.join(dir, "option-2.mid"), blindSmf(v2Option === 1 ? v1File : v2File));
   const c = p.controls;
   writeFileSync(path.join(dir, "prompt.txt"), [
     p.prompt, "",

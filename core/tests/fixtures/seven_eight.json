@@ -1,0 +1,161 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Seven step",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 7,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 2,
+    "swing": 0.2,
+    "style": [
+      "prog"
+    ]
+  },
+  "form": [],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 7,
+      "symbol": "Am9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fmaj7#11"
+    },
+    {
+      "bar": 2,
+      "beat": 5,
+      "beats": 3,
+      "symbol": "E7b9"
+    }
+  ],
+  "motifs": [],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "EP",
+      "low": "C3",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x-.x-.x-.x-.X.",
+          "voicing": "drop2",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Synth bass",
+      "low": "A0",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R-.R.8.5-.g7a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Lead",
+      "low": "A4",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x.xx.xX-.xx.x.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": [
+            {
+              "bar": 2,
+              "beat": 7,
+              "beats": 1,
+              "pitch": "G#5",
+              "velocity": 100
+            }
+          ],
+          "articulation": null
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "..X...X...X.g."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxx"
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

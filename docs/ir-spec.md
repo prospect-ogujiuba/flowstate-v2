@@ -124,6 +124,23 @@ For melody, if `motif` is set, `rhythm` is ignored and the motif's own rhythm is
 6. `swing` delays off-beat steps. Humanization (timing ±, velocity ±) comes from the seed. The same IR and seed always give the same notes.
 7. Output formats: SMF type 1 with one track per part (drums on channel 10), plus a JSON note list and a realization report (warnings, adherence measures).
 
+## Resolved details (as implemented in `core`)
+
+These are the behaviours that matter when writing an IR. The full list is in `core/README.md`.
+
+- **Short step patterns:** a bar shorter than `beatsPerBar × grid` is tiled if its length divides the bar (`"x..."` over 16 steps becomes 4 repeats); otherwise it is padded with rests. Long bars are truncated. Unknown tokens become rests. Each case warns. Without `|`, the string is cut into bar-sized chunks. Holds (`-`) continue across bar lines.
+- **Swing:** delays off-beat steps by `swing × one step length` (0 to 0.75). Only even grids swing; triplet grids never do. Motif notes swing too; literal notes don't.
+- **Energy:** velocity × `1 + (energy − 0.6) × 0.5`, clamped to 0.6–1.25.
+- **Chords and pads:** a held hit that crosses a chord change is re-struck at the change. Holds stop at chord gaps. With no rhythm, each chord is struck once and held. Default voicing is `close` for chords and `open` for pads. If a voicing doesn't fit the range, the next fallback is tried, then close, with a warning.
+- **Bass:** `7` on a chord without a 7th uses the scale's 7th. `a` approaches the next chord's root by a semitone; after the last chord it approaches the first (the clip loops). A slash bass is the root for `R x X g`.
+- **Motifs:** in 5- and 6-note scales, degrees wrap by the scale size. `augment` and `diminish` take an optional factor (`augment:1.5`). A motif that leaves the range is shifted whole by octaves first, so its contour survives.
+- **Fills** cover the last `max(1, numerator/2)` beats of the block's last bar (`half_time_break` covers the whole bar) and replace the snare, tom and hat hits there.
+- **Drums** ignore `low`/`high`. `-` in a drum lane is a rest.
+- **Literal notes:** `bar` is the absolute clip bar. Timing is exact, not quantized.
+- **Overlapping blocks:** the later block in IR order owns the shared bars. On overlapping chords, the later onset wins.
+- **Harmony:** empty harmony means an implicit tonic chord, with a warning. `C2` is read as Csus2 and `C4` as Csus4. Dominant and major `11` chords are voiced without the 3rd.
+- **Out of key:** tones from chord symbols, `alter`, literal notes and bass approaches count as intentional and are not reported.
+
 ## Example
 
 ```json

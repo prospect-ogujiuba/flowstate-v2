@@ -43,7 +43,7 @@ Gate A passes only if all four conditions hold:
 - At least 2 listeners returned sheets.
 - v2 wins at least 70% of the non-tie comparisons, pooled across listeners.
 - The exact two-sided sign test on the pooled non-tie comparisons gives p < 0.05. Ties are excluded.
-- There is no out-of-key regression: v2's mean out-of-key share is no higher than v1's (`--ook-tolerance` can loosen this).
+- v2 realizations contain no unjustified out-of-key notes, per core's `*.report.json` (`--v2-dir out/v2`). Raw out-of-key share is informational only, because v2 uses deliberate colour tones (b9, #9, borrowed chords) that core counts as justified.
   - v2 can use chromatic chord symbols on purpose. If v2 fails only on this check, look at the realization report before overriding the result.
 
 `score-ab` prints PASS, FAIL or INCOMPLETE. INCOMPLETE means the metrics files were not passed.

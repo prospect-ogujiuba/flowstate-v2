@@ -2,7 +2,7 @@
 // Usage: tsx src/score-ab.ts --key ab/packs/<name>.key.json <sheet.csv> [more sheets...]
 //          [--metrics-v2 out/v2/metrics.json --metrics-v1 out/v1/metrics.json] [--ook-tolerance 0]
 // Each sheet is one listener (listener name = file name without .csv).
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "./common.ts";
@@ -109,12 +109,15 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     [`v2 wins >= 70% of non-tie comparisons (${pct(pooled.winRate)})`, pooled.winRate !== null && pooled.winRate >= 0.7],
     [`sign test p < 0.05, two-sided (${pooled.pTwoSided.toPrecision(3)})`, pooled.pTwoSided < 0.05],
   ];
-  if (args.flags["metrics-v2"] && args.flags["metrics-v1"]) {
-    const ook = (f: string) => (JSON.parse(readFileSync(path.resolve(f), "utf8")) as { aggregate: { outOfKey: number | null } }).aggregate.outOfKey;
-    const a = ook(args.flags["metrics-v2"]), b = ook(args.flags["metrics-v1"]);
-    const tol = Number(args.flags["ook-tolerance"] ?? "0");
-    checks.push([`no out-of-key regression: v2 ${pct(a)} <= v1 ${pct(b)} + ${pct(tol)}`, a !== null && b !== null && a <= b + tol]);
-  } else checks.push(["no out-of-key regression (pass --metrics-v2/--metrics-v1 to check)", null]);
+  // Key check uses core's realization reports: colour tones justified by chord symbols, alterations,
+  // literal notes or bass approaches are intended. Raw out-of-key share is informational only.
+  if (args.flags["v2-dir"]) {
+    const dir = path.resolve(args.flags["v2-dir"]);
+    const unjustified = readdirSync(dir)
+      .filter((f) => f.endsWith(".report.json"))
+      .reduce((n, f) => n + (JSON.parse(readFileSync(path.join(dir, f), "utf8")) as { outOfKey: unknown[] }).outOfKey.length, 0);
+    checks.push([`no unjustified out-of-key notes in v2 realizations (${unjustified})`, unjustified === 0]);
+  } else checks.push(["no unjustified out-of-key notes (pass --v2-dir to check)", null]);
   console.log("\n## Gate A\n");
   for (const [label, ok] of checks) console.log(`- [${ok === null ? "?" : ok ? "x" : " "}] ${label}`);
   const verdict = checks.every(([, ok]) => ok === true) ? "PASS" : checks.some(([, ok]) => ok === false) ? "FAIL" : "INCOMPLETE";
