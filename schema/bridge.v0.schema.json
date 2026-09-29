@@ -1,0 +1,2866 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flowstate.bridge.v0",
+  "$defs": {
+    "Role": {
+      "$id": "#/$defs/Role",
+      "type": "string",
+      "enum": [
+        "chords",
+        "pad",
+        "arp",
+        "bass",
+        "melody",
+        "counter",
+        "drums"
+      ]
+    },
+    "Tonic": {
+      "$id": "#/$defs/Tonic",
+      "type": "string",
+      "enum": [
+        "C",
+        "C#",
+        "Db",
+        "D",
+        "D#",
+        "Eb",
+        "E",
+        "F",
+        "F#",
+        "Gb",
+        "G",
+        "G#",
+        "Ab",
+        "A",
+        "A#",
+        "Bb",
+        "B"
+      ]
+    },
+    "Mode": {
+      "$id": "#/$defs/Mode",
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "dorian",
+        "phrygian",
+        "lydian",
+        "mixolydian",
+        "locrian",
+        "harmonic_minor",
+        "melodic_minor",
+        "major_pentatonic",
+        "minor_pentatonic",
+        "blues"
+      ]
+    },
+    "DrumVoice": {
+      "$id": "#/$defs/DrumVoice",
+      "type": "string",
+      "enum": [
+        "kick",
+        "snare",
+        "clap",
+        "rim",
+        "closed_hat",
+        "pedal_hat",
+        "open_hat",
+        "low_tom",
+        "mid_tom",
+        "high_tom",
+        "crash",
+        "ride",
+        "ride_bell",
+        "shaker",
+        "tambourine",
+        "cowbell"
+      ]
+    },
+    "ScoreContext": {
+      "$id": "#/$defs/ScoreContext",
+      "type": "object",
+      "properties": {
+        "tempo": {
+          "type": "number",
+          "description": "BPM"
+        },
+        "meterNumerator": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "meterDenominator": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "tonic": {
+          "$ref": "#/$defs/Tonic"
+        },
+        "mode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991,
+          "description": "Clip length in bars; authoritative"
+        },
+        "swing": {
+          "type": "number",
+          "description": "0 straight .. 0.5 heavy swing on off-beat steps"
+        },
+        "style": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "tempo",
+        "meterNumerator",
+        "meterDenominator",
+        "tonic",
+        "mode",
+        "bars",
+        "swing",
+        "style"
+      ],
+      "additionalProperties": false
+    },
+    "Score": {
+      "$id": "#/$defs/Score",
+      "type": "object",
+      "properties": {
+        "ir": {
+          "type": "string",
+          "const": "flowstate.score.v0"
+        },
+        "title": {
+          "type": "string"
+        },
+        "context": {
+          "$ref": "#/$defs/ScoreContext"
+        },
+        "form": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "startBar": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "bars": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "energy": {
+                "type": "number",
+                "description": "0..1"
+              }
+            },
+            "required": [
+              "name",
+              "startBar",
+              "bars",
+              "energy"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "harmony": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bar": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "1-based bar"
+              },
+              "beat": {
+                "type": "number",
+                "description": "1-based beat within the bar"
+              },
+              "beats": {
+                "type": "number",
+                "description": "Duration in beats"
+              },
+              "symbol": {
+                "type": "string",
+                "description": "Chord symbol, e.g. Cm9, G13, F/A, Bb7#11"
+              }
+            },
+            "required": [
+              "bar",
+              "beat",
+              "beats",
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "motifs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "degree": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991,
+                      "description": "1-based scale degree of the mode; 8 = tonic an octave up"
+                    },
+                    "octave": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991,
+                      "description": "Octave offset from the part's register centre"
+                    },
+                    "alter": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991,
+                      "description": "-1, 0 or +1 semitone chromatic alteration"
+                    },
+                    "beat": {
+                      "type": "number",
+                      "description": "Onset offset in beats from motif start (0-based)"
+                    },
+                    "beats": {
+                      "type": "number",
+                      "description": "Duration in beats"
+                    },
+                    "accent": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "degree",
+                    "octave",
+                    "alter",
+                    "beat",
+                    "beats",
+                    "accent"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "notes"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ScorePart"
+          }
+        }
+      },
+      "required": [
+        "ir",
+        "title",
+        "context",
+        "form",
+        "harmony",
+        "motifs",
+        "parts"
+      ],
+      "additionalProperties": false
+    },
+    "ScorePart": {
+      "$id": "#/$defs/ScorePart",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "name": {
+          "type": "string"
+        },
+        "low": {
+          "type": "string",
+          "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+        },
+        "high": {
+          "type": "string",
+          "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+        },
+        "grid": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991,
+          "description": "Steps per beat for step strings (4 = 16ths in 4/4, 3 = triplets)"
+        },
+        "velocity": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startBar": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "endBar": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "description": "Inclusive"
+              },
+              "rhythm": {
+                "description": "Step string; tokens depend on role (see spec)",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "voicing": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "close",
+                      "open",
+                      "drop2",
+                      "drop3",
+                      "rootless",
+                      "shell",
+                      "spread",
+                      "quartal",
+                      "power"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "arpPattern": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down",
+                      "updown",
+                      "random",
+                      "chord_tones"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "motif": {
+                "description": "Motif id for melody/counter",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "transforms": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"
+              },
+              "repeatEvery": {
+                "description": "Motif repeat period in beats; 0 = once",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "drums": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "voice": {
+                          "$ref": "#/$defs/DrumVoice"
+                        },
+                        "steps": {
+                          "type": "string",
+                          "description": "Step string: x hit, X accent, g ghost, . rest; | separates bars"
+                        }
+                      },
+                      "required": [
+                        "voice",
+                        "steps"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "fill": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "snare_roll",
+                      "tom_run",
+                      "kick_build",
+                      "crash_end",
+                      "half_time_break"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "notes": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "bar": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "beat": {
+                          "type": "number"
+                        },
+                        "beats": {
+                          "type": "number"
+                        },
+                        "pitch": {
+                          "type": "string",
+                          "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+                        },
+                        "velocity": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "bar",
+                        "beat",
+                        "beats",
+                        "pitch",
+                        "velocity"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "articulation": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "legato",
+                      "normal",
+                      "staccato"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "startBar",
+              "endBar",
+              "rhythm",
+              "voicing",
+              "arpPattern",
+              "motif",
+              "transforms",
+              "repeatEvery",
+              "drums",
+              "fill",
+              "notes",
+              "articulation"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "name",
+        "low",
+        "high",
+        "grid",
+        "velocity",
+        "blocks"
+      ],
+      "additionalProperties": false
+    },
+    "ErrorCode": {
+      "$id": "#/$defs/ErrorCode",
+      "type": "string",
+      "enum": [
+        "bad_request",
+        "unknown_node",
+        "unknown_part",
+        "busy",
+        "cancelled",
+        "unavailable",
+        "refused",
+        "truncated",
+        "invalid_score",
+        "provider",
+        "network",
+        "internal"
+      ]
+    },
+    "ErrorInfo": {
+      "$id": "#/$defs/ErrorInfo",
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable; never contains keys or other secrets"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "ProviderChoice": {
+      "$id": "#/$defs/ProviderChoice",
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "pi-ai provider id, e.g. anthropic, openai, openrouter, google"
+        },
+        "model": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "model"
+      ],
+      "additionalProperties": false
+    },
+    "BarRange": {
+      "$id": "#/$defs/BarRange",
+      "type": "object",
+      "properties": {
+        "startBar": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "endBar": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "description": "Inclusive"
+        }
+      },
+      "required": [
+        "startBar",
+        "endBar"
+      ],
+      "additionalProperties": false
+    },
+    "CaptureIntent": {
+      "$id": "#/$defs/CaptureIntent",
+      "type": "string",
+      "enum": [
+        "continue",
+        "harmonize",
+        "add_bass",
+        "add_drums",
+        "answer"
+      ]
+    },
+    "LoopRange": {
+      "$id": "#/$defs/LoopRange",
+      "type": "object",
+      "properties": {
+        "startPpq": {
+          "type": "number"
+        },
+        "endPpq": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "startPpq",
+        "endPpq"
+      ],
+      "additionalProperties": false
+    },
+    "Transport": {
+      "$id": "#/$defs/Transport",
+      "type": "object",
+      "properties": {
+        "playing": {
+          "type": "boolean"
+        },
+        "recording": {
+          "type": "boolean"
+        },
+        "positionPpq": {
+          "type": "number",
+          "description": "Host position in quarter notes"
+        },
+        "bar": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991,
+          "description": "1-based"
+        },
+        "beat": {
+          "type": "number",
+          "description": "1-based, fractional"
+        },
+        "tempo": {
+          "type": "number"
+        },
+        "meterNumerator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "meterDenominator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "loop": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LoopRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "playing",
+        "recording",
+        "positionPpq",
+        "bar",
+        "beat",
+        "tempo",
+        "meterNumerator",
+        "meterDenominator",
+        "loop"
+      ],
+      "additionalProperties": false
+    },
+    "ContextOverride": {
+      "$id": "#/$defs/ContextOverride",
+      "type": "object",
+      "properties": {
+        "tonic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Tonic"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tempo": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 20,
+              "maximum": 400
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "meterNumerator": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "meterDenominator": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bars": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "swing": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.5
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = as the score says"
+        }
+      },
+      "required": [
+        "tonic",
+        "mode",
+        "tempo",
+        "meterNumerator",
+        "meterDenominator",
+        "bars",
+        "swing"
+      ],
+      "additionalProperties": false,
+      "description": "null = follow the host (tempo, meter), the score (swing) or the default (key, bars)"
+    },
+    "KeySource": {
+      "$id": "#/$defs/KeySource",
+      "type": "string",
+      "enum": [
+        "override",
+        "score",
+        "detected",
+        "default"
+      ]
+    },
+    "TimeSource": {
+      "$id": "#/$defs/TimeSource",
+      "type": "string",
+      "enum": [
+        "host",
+        "override",
+        "score",
+        "default"
+      ]
+    },
+    "EffectiveContext": {
+      "$id": "#/$defs/EffectiveContext",
+      "type": "object",
+      "properties": {
+        "tonic": {
+          "$ref": "#/$defs/Tonic"
+        },
+        "mode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "keyFrom": {
+          "$ref": "#/$defs/KeySource"
+        },
+        "tempo": {
+          "type": "number"
+        },
+        "meterNumerator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "meterDenominator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "timeFrom": {
+          "$ref": "#/$defs/TimeSource"
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      },
+      "required": [
+        "tonic",
+        "mode",
+        "keyFrom",
+        "tempo",
+        "meterNumerator",
+        "meterDenominator",
+        "timeFrom",
+        "bars"
+      ],
+      "additionalProperties": false
+    },
+    "NodeKind": {
+      "$id": "#/$defs/NodeKind",
+      "type": "string",
+      "enum": [
+        "sketch",
+        "initial",
+        "regenerate",
+        "vary",
+        "edit",
+        "tweak",
+        "touch"
+      ]
+    },
+    "Rating": {
+      "$id": "#/$defs/Rating",
+      "type": "string",
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
+    "NodeSummary": {
+      "$id": "#/$defs/NodeSummary",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Parts this node changed; null = all"
+        },
+        "title": {
+          "type": "string"
+        },
+        "createdAtMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "cpp": "int64",
+          "description": "Unix time in milliseconds"
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Rating"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "parentId",
+        "kind",
+        "prompt",
+        "partIds",
+        "title",
+        "createdAtMs",
+        "rating"
+      ],
+      "additionalProperties": false
+    },
+    "LineageNode": {
+      "$id": "#/$defs/LineageNode",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAtMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "cpp": "int64",
+          "description": "Unix time in milliseconds"
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Rating"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295,
+          "cpp": "int64"
+        },
+        "score": {
+          "$ref": "#/$defs/Score"
+        }
+      },
+      "required": [
+        "id",
+        "parentId",
+        "kind",
+        "prompt",
+        "partIds",
+        "createdAtMs",
+        "rating",
+        "seed",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "ThreadRole": {
+      "$id": "#/$defs/ThreadRole",
+      "type": "string",
+      "enum": [
+        "user",
+        "assistant"
+      ]
+    },
+    "ThreadItem": {
+      "$id": "#/$defs/ThreadItem",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/ThreadRole"
+        },
+        "text": {
+          "type": "string",
+          "description": "Prompt, or the assistant's reply / answer to a production question"
+        },
+        "nodeId": {
+          "description": "The lineage node this item produced; its result card",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAtMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "cpp": "int64",
+          "description": "Unix time in milliseconds"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "text",
+        "nodeId",
+        "createdAtMs"
+      ],
+      "additionalProperties": false
+    },
+    "PartState": {
+      "$id": "#/$defs/PartState",
+      "type": "object",
+      "properties": {
+        "partId": {
+          "type": "string"
+        },
+        "muted": {
+          "type": "boolean"
+        },
+        "solo": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean",
+          "description": "Kept as-is by generate, vary and edit"
+        },
+        "density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Density knob; 0.5 = as written. A local transform, not a lineage node"
+        }
+      },
+      "required": [
+        "partId",
+        "muted",
+        "solo",
+        "locked",
+        "density"
+      ],
+      "additionalProperties": false
+    },
+    "MidiOut": {
+      "$id": "#/$defs/MidiOut",
+      "type": "object",
+      "properties": {
+        "role": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Role"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Only send this role's part from this instance; null = all parts"
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Send everything on this channel; null = each part's own channel"
+        }
+      },
+      "required": [
+        "role",
+        "channel"
+      ],
+      "additionalProperties": false
+    },
+    "Audition": {
+      "$id": "#/$defs/Audition",
+      "type": "object",
+      "properties": {
+        "nodeId": {
+          "description": "Node to play; null = the current node",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loop": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BarRange"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Bars to loop; null = the whole clip"
+        },
+        "freeRun": {
+          "type": "boolean",
+          "description": "Play on the plugin's own clock while the host is stopped"
+        }
+      },
+      "required": [
+        "nodeId",
+        "loop",
+        "freeRun"
+      ],
+      "additionalProperties": false
+    },
+    "ClipNote": {
+      "$id": "#/$defs/ClipNote",
+      "type": "object",
+      "properties": {
+        "tick": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "dur": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "pitch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "vel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 127
+        }
+      },
+      "required": [
+        "tick",
+        "dur",
+        "pitch",
+        "vel"
+      ],
+      "additionalProperties": false
+    },
+    "DrumVoiceNote": {
+      "$id": "#/$defs/DrumVoiceNote",
+      "type": "object",
+      "properties": {
+        "voice": {
+          "$ref": "#/$defs/DrumVoice"
+        },
+        "pitch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "sublane": {
+          "type": "string",
+          "description": "v1 sublane: kick, snare, clap_rim, hats, toms, cymbals, aux_kit"
+        }
+      },
+      "required": [
+        "voice",
+        "pitch",
+        "sublane"
+      ],
+      "additionalProperties": false
+    },
+    "ClipPart": {
+      "$id": "#/$defs/ClipPart",
+      "type": "object",
+      "properties": {
+        "partId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "name": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClipNote"
+          }
+        },
+        "voices": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/DrumVoiceNote"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Drums only: GM map for sublane rows and split export"
+        }
+      },
+      "required": [
+        "partId",
+        "role",
+        "name",
+        "channel",
+        "notes",
+        "voices"
+      ],
+      "additionalProperties": false
+    },
+    "Clip": {
+      "$id": "#/$defs/Clip",
+      "type": "object",
+      "properties": {
+        "ppq": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "ticksPerBar": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClipPart"
+          }
+        }
+      },
+      "required": [
+        "ppq",
+        "bars",
+        "ticksPerBar",
+        "parts"
+      ],
+      "additionalProperties": false,
+      "description": "core's realization of a node, for lanes and piano rolls"
+    },
+    "Usage": {
+      "$id": "#/$defs/Usage",
+      "type": "object",
+      "properties": {
+        "used": {
+          "type": "number",
+          "minimum": 0
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = no limit (e.g. BYOK)"
+        },
+        "resetsAtMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991,
+              "cpp": "int64",
+              "description": "Unix time in milliseconds"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "used",
+        "limit",
+        "resetsAtMs"
+      ],
+      "additionalProperties": false,
+      "description": "From the service, never estimated locally"
+    },
+    "Settings": {
+      "$id": "#/$defs/Settings",
+      "type": "object",
+      "properties": {
+        "provider": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProviderChoice"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = managed default"
+        },
+        "byokEnabled": {
+          "type": "boolean",
+          "description": "Release flag; read-only for the UI"
+        },
+        "hasKey": {
+          "type": "boolean",
+          "description": "A BYOK key is stored for `provider`; the key itself never crosses the bridge back"
+        },
+        "previewSynth": {
+          "type": "boolean"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "buildId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "byokEnabled",
+        "hasKey",
+        "previewSynth",
+        "usage",
+        "buildId"
+      ],
+      "additionalProperties": false
+    },
+    "GenerationStage": {
+      "$id": "#/$defs/GenerationStage",
+      "type": "string",
+      "enum": [
+        "planning",
+        "streaming"
+      ]
+    },
+    "Generation": {
+      "$id": "#/$defs/Generation",
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        },
+        "stage": {
+          "$ref": "#/$defs/GenerationStage"
+        },
+        "partsDone": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "requestId",
+        "kind",
+        "stage",
+        "partsDone"
+      ],
+      "additionalProperties": false
+    },
+    "Session": {
+      "$id": "#/$defs/Session",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "override": {
+          "$ref": "#/$defs/ContextOverride"
+        },
+        "context": {
+          "$ref": "#/$defs/EffectiveContext"
+        },
+        "captureBars": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 64,
+          "description": "Bars of recently played MIDI available to `generate.capture`"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NodeSummary"
+          }
+        },
+        "currentNodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "canUndo": {
+          "type": "boolean"
+        },
+        "canRedo": {
+          "type": "boolean"
+        },
+        "thread": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ThreadItem"
+          }
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PartState"
+          }
+        },
+        "clip": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Clip"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Realization of currentNodeId"
+        },
+        "audition": {
+          "$ref": "#/$defs/Audition"
+        },
+        "midiOut": {
+          "$ref": "#/$defs/MidiOut"
+        },
+        "settings": {
+          "$ref": "#/$defs/Settings"
+        },
+        "generations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Generation"
+          },
+          "description": "Running requests"
+        }
+      },
+      "required": [
+        "protocol",
+        "instanceId",
+        "override",
+        "context",
+        "captureBars",
+        "nodes",
+        "currentNodeId",
+        "canUndo",
+        "canRedo",
+        "thread",
+        "parts",
+        "clip",
+        "audition",
+        "midiOut",
+        "settings",
+        "generations"
+      ],
+      "additionalProperties": false
+    },
+    "SavedSession": {
+      "$id": "#/$defs/SavedSession",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "override": {
+          "$ref": "#/$defs/ContextOverride"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LineageNode"
+          }
+        },
+        "currentNodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "redo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Node ids undone from currentNodeId, most recent last"
+        },
+        "thread": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ThreadItem"
+          }
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PartState"
+          }
+        },
+        "audition": {
+          "$ref": "#/$defs/Audition"
+        },
+        "midiOut": {
+          "$ref": "#/$defs/MidiOut"
+        },
+        "previewSynth": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "protocol",
+        "instanceId",
+        "override",
+        "nodes",
+        "currentNodeId",
+        "redo",
+        "thread",
+        "parts",
+        "audition",
+        "midiOut",
+        "previewSynth"
+      ],
+      "additionalProperties": false,
+      "description": "Plugin state (getStateInformation). No keys, no provider credentials."
+    },
+    "CaptureUse": {
+      "$id": "#/$defs/CaptureUse",
+      "type": "object",
+      "properties": {
+        "bars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64,
+          "description": "The last N captured bars"
+        },
+        "intent": {
+          "$ref": "#/$defs/CaptureIntent"
+        }
+      },
+      "required": [
+        "bars",
+        "intent"
+      ],
+      "additionalProperties": false
+    },
+    "TweakOp": {
+      "$id": "#/$defs/TweakOp",
+      "type": "string",
+      "enum": [
+        "register",
+        "transpose",
+        "humanize",
+        "simplify",
+        "intensify",
+        "revoice"
+      ]
+    },
+    "Hello": {
+      "$id": "#/$defs/Hello",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "hello"
+        },
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        }
+      },
+      "required": [
+        "type",
+        "protocol"
+      ],
+      "additionalProperties": false
+    },
+    "Generate": {
+      "$id": "#/$defs/Generate",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "generate"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "May be empty (\"Surprise me\")"
+        },
+        "roles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Role"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = the planner chooses"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "Variations to plan in parallel; each becomes a node"
+        },
+        "capture": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CaptureUse"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "\"Use what I just played\""
+        }
+      },
+      "required": [
+        "type",
+        "prompt",
+        "roles",
+        "count",
+        "capture"
+      ],
+      "additionalProperties": false
+    },
+    "Edit": {
+      "$id": "#/$defs/Edit",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "edit"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = any unlocked part"
+        }
+      },
+      "required": [
+        "type",
+        "prompt",
+        "partIds"
+      ],
+      "additionalProperties": false
+    },
+    "Vary": {
+      "$id": "#/$defs/Vary",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "vary"
+        },
+        "partId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "partId"
+      ],
+      "additionalProperties": false
+    },
+    "Reroll": {
+      "$id": "#/$defs/Reroll",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reroll"
+        },
+        "partId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "partId"
+      ],
+      "additionalProperties": false
+    },
+    "Tweak": {
+      "$id": "#/$defs/Tweak",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "tweak"
+        },
+        "partId": {
+          "description": "null = every unlocked part",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "op": {
+          "$ref": "#/$defs/TweakOp"
+        },
+        "amount": {
+          "description": "register: octaves; transpose: semitones; humanize: 0..1; others: null",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "partId",
+        "op",
+        "amount"
+      ],
+      "additionalProperties": false
+    },
+    "EditNotes": {
+      "$id": "#/$defs/EditNotes",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "editNotes"
+        },
+        "partId": {
+          "type": "string"
+        },
+        "remove": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClipNote"
+          },
+          "description": "Notes as they appear in the current clip"
+        },
+        "add": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClipNote"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "partId",
+        "remove",
+        "add"
+      ],
+      "additionalProperties": false
+    },
+    "AddPart": {
+      "$id": "#/$defs/AddPart",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "addPart"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "role",
+        "prompt"
+      ],
+      "additionalProperties": false
+    },
+    "RemovePart": {
+      "$id": "#/$defs/RemovePart",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "removePart"
+        },
+        "partId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "partId"
+      ],
+      "additionalProperties": false
+    },
+    "Cancel": {
+      "$id": "#/$defs/Cancel",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "cancel"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "requestId"
+      ],
+      "additionalProperties": false
+    },
+    "SelectNode": {
+      "$id": "#/$defs/SelectNode",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "selectNode"
+        },
+        "nodeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "nodeId"
+      ],
+      "additionalProperties": false
+    },
+    "Undo": {
+      "$id": "#/$defs/Undo",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "undo"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "Redo": {
+      "$id": "#/$defs/Redo",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "redo"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "RateNode": {
+      "$id": "#/$defs/RateNode",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "rateNode"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Rating"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "nodeId",
+        "rating"
+      ],
+      "additionalProperties": false
+    },
+    "SetPartState": {
+      "$id": "#/$defs/SetPartState",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setPartState"
+        },
+        "state": {
+          "$ref": "#/$defs/PartState"
+        }
+      },
+      "required": [
+        "type",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "SetContextOverride": {
+      "$id": "#/$defs/SetContextOverride",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setContextOverride"
+        },
+        "override": {
+          "$ref": "#/$defs/ContextOverride"
+        }
+      },
+      "required": [
+        "type",
+        "override"
+      ],
+      "additionalProperties": false
+    },
+    "SetAudition": {
+      "$id": "#/$defs/SetAudition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setAudition"
+        },
+        "audition": {
+          "$ref": "#/$defs/Audition"
+        }
+      },
+      "required": [
+        "type",
+        "audition"
+      ],
+      "additionalProperties": false
+    },
+    "SetMidiOut": {
+      "$id": "#/$defs/SetMidiOut",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setMidiOut"
+        },
+        "midiOut": {
+          "$ref": "#/$defs/MidiOut"
+        }
+      },
+      "required": [
+        "type",
+        "midiOut"
+      ],
+      "additionalProperties": false
+    },
+    "SetPreviewSynth": {
+      "$id": "#/$defs/SetPreviewSynth",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setPreviewSynth"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "enabled"
+      ],
+      "additionalProperties": false
+    },
+    "SetProvider": {
+      "$id": "#/$defs/SetProvider",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setProvider"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProviderChoice"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "provider"
+      ],
+      "additionalProperties": false
+    },
+    "SetApiKey": {
+      "$id": "#/$defs/SetApiKey",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "setApiKey"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "key": {
+          "description": "null = delete. Goes straight to the OS keychain; never logged or saved",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "provider",
+        "key"
+      ],
+      "additionalProperties": false
+    },
+    "StartDrag": {
+      "$id": "#/$defs/StartDrag",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "startDrag"
+        },
+        "nodeId": {
+          "description": "null = the current node (a thread card can drag its own node)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = all parts (multi-track drag)"
+        },
+        "splitDrums": {
+          "type": "boolean",
+          "description": "One track per drum sublane"
+        }
+      },
+      "required": [
+        "type",
+        "nodeId",
+        "partIds",
+        "splitDrums"
+      ],
+      "additionalProperties": false
+    },
+    "ExportMidi": {
+      "$id": "#/$defs/ExportMidi",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "exportMidi"
+        },
+        "nodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "splitDrums": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "nodeId",
+        "partIds",
+        "splitDrums"
+      ],
+      "additionalProperties": false
+    },
+    "FocusReason": {
+      "$id": "#/$defs/FocusReason",
+      "type": "string",
+      "enum": [
+        "space",
+        "escape",
+        "blur"
+      ]
+    },
+    "ReleaseFocus": {
+      "$id": "#/$defs/ReleaseFocus",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "releaseFocus"
+        },
+        "reason": {
+          "$ref": "#/$defs/FocusReason"
+        }
+      },
+      "required": [
+        "type",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "Command": {
+      "$id": "#/$defs/Command",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Hello"
+        },
+        {
+          "$ref": "#/$defs/Generate"
+        },
+        {
+          "$ref": "#/$defs/Edit"
+        },
+        {
+          "$ref": "#/$defs/Vary"
+        },
+        {
+          "$ref": "#/$defs/Reroll"
+        },
+        {
+          "$ref": "#/$defs/Tweak"
+        },
+        {
+          "$ref": "#/$defs/EditNotes"
+        },
+        {
+          "$ref": "#/$defs/AddPart"
+        },
+        {
+          "$ref": "#/$defs/RemovePart"
+        },
+        {
+          "$ref": "#/$defs/Cancel"
+        },
+        {
+          "$ref": "#/$defs/SelectNode"
+        },
+        {
+          "$ref": "#/$defs/Undo"
+        },
+        {
+          "$ref": "#/$defs/Redo"
+        },
+        {
+          "$ref": "#/$defs/RateNode"
+        },
+        {
+          "$ref": "#/$defs/SetPartState"
+        },
+        {
+          "$ref": "#/$defs/SetContextOverride"
+        },
+        {
+          "$ref": "#/$defs/SetAudition"
+        },
+        {
+          "$ref": "#/$defs/SetMidiOut"
+        },
+        {
+          "$ref": "#/$defs/SetPreviewSynth"
+        },
+        {
+          "$ref": "#/$defs/SetProvider"
+        },
+        {
+          "$ref": "#/$defs/SetApiKey"
+        },
+        {
+          "$ref": "#/$defs/StartDrag"
+        },
+        {
+          "$ref": "#/$defs/ExportMidi"
+        },
+        {
+          "$ref": "#/$defs/ReleaseFocus"
+        }
+      ]
+    },
+    "Reply": {
+      "$id": "#/$defs/Reply",
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requestId": {
+          "description": "Set when the command started a model request",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "session": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Session"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Set on hello and on any command that changed the session"
+        }
+      },
+      "required": [
+        "ok",
+        "error",
+        "requestId",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "SessionChanged": {
+      "$id": "#/$defs/SessionChanged",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "session"
+        },
+        "session": {
+          "$ref": "#/$defs/Session"
+        }
+      },
+      "required": [
+        "type",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "TransportTick": {
+      "$id": "#/$defs/TransportTick",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "transport"
+        },
+        "transport": {
+          "$ref": "#/$defs/Transport"
+        }
+      },
+      "required": [
+        "type",
+        "transport"
+      ],
+      "additionalProperties": false
+    },
+    "GenerationStarted": {
+      "$id": "#/$defs/GenerationStarted",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "generationStarted"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        }
+      },
+      "required": [
+        "type",
+        "requestId",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "PartReady": {
+      "$id": "#/$defs/PartReady",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "partReady"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "partId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "requestId",
+        "partId"
+      ],
+      "additionalProperties": false
+    },
+    "GenerationDone": {
+      "$id": "#/$defs/GenerationDone",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "generationDone"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "nodeIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "One per variation; empty when the reply was text only"
+        }
+      },
+      "required": [
+        "type",
+        "requestId",
+        "nodeIds"
+      ],
+      "additionalProperties": false
+    },
+    "GenerationFailed": {
+      "$id": "#/$defs/GenerationFailed",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "generationFailed"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorInfo"
+        }
+      },
+      "required": [
+        "type",
+        "requestId",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "NoticeLevel": {
+      "$id": "#/$defs/NoticeLevel",
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ]
+    },
+    "Notice": {
+      "$id": "#/$defs/Notice",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "notice"
+        },
+        "level": {
+          "$ref": "#/$defs/NoticeLevel"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "level",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "PluginEvent": {
+      "$id": "#/$defs/PluginEvent",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SessionChanged"
+        },
+        {
+          "$ref": "#/$defs/TransportTick"
+        },
+        {
+          "$ref": "#/$defs/GenerationStarted"
+        },
+        {
+          "$ref": "#/$defs/PartReady"
+        },
+        {
+          "$ref": "#/$defs/GenerationDone"
+        },
+        {
+          "$ref": "#/$defs/GenerationFailed"
+        },
+        {
+          "$ref": "#/$defs/Notice"
+        }
+      ]
+    },
+    "Reference": {
+      "$id": "#/$defs/Reference",
+      "type": "object",
+      "properties": {
+        "score": {
+          "$ref": "#/$defs/Score"
+        },
+        "intent": {
+          "$ref": "#/$defs/CaptureIntent"
+        }
+      },
+      "required": [
+        "score",
+        "intent"
+      ],
+      "additionalProperties": false
+    },
+    "PlanRequest": {
+      "$id": "#/$defs/PlanRequest",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "context": {
+          "$ref": "#/$defs/ScoreContext"
+        },
+        "roles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Role"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keep": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Score"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Locked parts (and harmony) to plan around; null = fresh plan"
+        },
+        "reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProviderChoice"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "protocol",
+        "prompt",
+        "context",
+        "roles",
+        "keep",
+        "reference",
+        "provider"
+      ],
+      "additionalProperties": false
+    },
+    "EditRequest": {
+      "$id": "#/$defs/EditRequest",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "score": {
+          "$ref": "#/$defs/Score"
+        },
+        "partIds": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Parts the edit may change; locked parts are excluded"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProviderChoice"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "protocol",
+        "prompt",
+        "score",
+        "partIds",
+        "provider"
+      ],
+      "additionalProperties": false
+    },
+    "ScoreHeader": {
+      "$id": "#/$defs/ScoreHeader",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "header"
+        },
+        "score": {
+          "$ref": "#/$defs/Score"
+        }
+      },
+      "required": [
+        "type",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "PartStarted": {
+      "$id": "#/$defs/PartStarted",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "partStarted"
+        },
+        "partId": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        }
+      },
+      "required": [
+        "type",
+        "partId",
+        "role"
+      ],
+      "additionalProperties": false
+    },
+    "PartDone": {
+      "$id": "#/$defs/PartDone",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "partDone"
+        },
+        "part": {
+          "$ref": "#/$defs/ScorePart"
+        }
+      },
+      "required": [
+        "type",
+        "part"
+      ],
+      "additionalProperties": false
+    },
+    "AssistantMessage": {
+      "$id": "#/$defs/AssistantMessage",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "message"
+        },
+        "text": {
+          "type": "string",
+          "description": "For the thread: a short note on the result, or the answer to a question"
+        }
+      },
+      "required": [
+        "type",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "ScoreDone": {
+      "$id": "#/$defs/ScoreDone",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "done"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Score"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null when the request was answered with text only"
+        }
+      },
+      "required": [
+        "type",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "ServiceError": {
+      "$id": "#/$defs/ServiceError",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "error"
+        },
+        "error": {
+          "$ref": "#/$defs/ErrorInfo"
+        }
+      },
+      "required": [
+        "type",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "ServiceEvent": {
+      "$id": "#/$defs/ServiceEvent",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ScoreHeader"
+        },
+        {
+          "$ref": "#/$defs/PartStarted"
+        },
+        {
+          "$ref": "#/$defs/PartDone"
+        },
+        {
+          "$ref": "#/$defs/AssistantMessage"
+        },
+        {
+          "$ref": "#/$defs/ScoreDone"
+        },
+        {
+          "$ref": "#/$defs/ServiceError"
+        }
+      ]
+    },
+    "Health": {
+      "$id": "#/$defs/Health",
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "flowstate.bridge.v0"
+        },
+        "version": {
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "protocol",
+        "version",
+        "ok"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

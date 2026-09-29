@@ -6,9 +6,11 @@
   "scripts": {
     "build:core": "cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/core",
     "test:core": "ctest --test-dir build/core --output-on-failure",
+    "build:bridge": "cmake -S schema/cpp -B build/bridge -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/bridge",
+    "test:bridge": "ctest --test-dir build/bridge --output-on-failure",
     "schema": "npm run -w schema generate",
     "typecheck": "tsc -p schema && tsc -p cloud && tsc -p evals",
-    "test": "npm run test:core && npm run -ws --if-present test"
+    "test": "npm run test:core && npm run test:bridge && npm run -ws --if-present test"
   },
   "devDependencies": {
     "typescript": "^5.9.0",

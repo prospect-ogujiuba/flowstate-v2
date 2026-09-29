@@ -1,0 +1,422 @@
+{
+  "valid": [
+    {
+      "type": "hello",
+      "protocol": "flowstate.bridge.v0"
+    },
+    {
+      "type": "generate",
+      "prompt": "dusty dorian keys and a lazy bass",
+      "roles": [
+        "chords",
+        "bass"
+      ],
+      "count": 1,
+      "capture": null
+    },
+    {
+      "type": "generate",
+      "prompt": "",
+      "roles": null,
+      "count": 3,
+      "capture": null
+    },
+    {
+      "type": "generate",
+      "prompt": "",
+      "roles": [
+        "bass"
+      ],
+      "count": 1,
+      "capture": {
+        "bars": 4,
+        "intent": "add_bass"
+      }
+    },
+    {
+      "type": "edit",
+      "prompt": "make the bass busier in bar 2",
+      "partIds": [
+        "bass"
+      ]
+    },
+    {
+      "type": "edit",
+      "prompt": "darker chords",
+      "partIds": null
+    },
+    {
+      "type": "vary",
+      "partId": "keys"
+    },
+    {
+      "type": "reroll",
+      "partId": "keys"
+    },
+    {
+      "type": "tweak",
+      "partId": "keys",
+      "op": "transpose",
+      "amount": -2
+    },
+    {
+      "type": "tweak",
+      "partId": null,
+      "op": "simplify",
+      "amount": null
+    },
+    {
+      "type": "editNotes",
+      "partId": "keys",
+      "remove": [
+        {
+          "tick": 0,
+          "dur": 900,
+          "pitch": 65,
+          "vel": 84
+        }
+      ],
+      "add": [
+        {
+          "tick": 0,
+          "dur": 900,
+          "pitch": 67,
+          "vel": 84
+        }
+      ]
+    },
+    {
+      "type": "addPart",
+      "role": "arp",
+      "prompt": null
+    },
+    {
+      "type": "addPart",
+      "role": "counter",
+      "prompt": "answer the melody"
+    },
+    {
+      "type": "removePart",
+      "partId": "arp"
+    },
+    {
+      "type": "cancel",
+      "requestId": "r7"
+    },
+    {
+      "type": "selectNode",
+      "nodeId": "n1"
+    },
+    {
+      "type": "undo"
+    },
+    {
+      "type": "redo"
+    },
+    {
+      "type": "rateNode",
+      "nodeId": "n1",
+      "rating": "down"
+    },
+    {
+      "type": "rateNode",
+      "nodeId": "n1",
+      "rating": null
+    },
+    {
+      "type": "setPartState",
+      "state": {
+        "partId": "keys",
+        "muted": false,
+        "solo": true,
+        "locked": false,
+        "density": 0.75
+      }
+    },
+    {
+      "type": "setContextOverride",
+      "override": {
+        "tonic": "F#",
+        "mode": "minor",
+        "tempo": 140.5,
+        "meterNumerator": 7,
+        "meterDenominator": 8,
+        "bars": 8,
+        "swing": 0.2
+      }
+    },
+    {
+      "type": "setContextOverride",
+      "override": {
+        "tonic": null,
+        "mode": null,
+        "tempo": null,
+        "meterNumerator": null,
+        "meterDenominator": null,
+        "bars": null,
+        "swing": null
+      }
+    },
+    {
+      "type": "setAudition",
+      "audition": {
+        "nodeId": "n1",
+        "loop": {
+          "startBar": 1,
+          "endBar": 2
+        },
+        "freeRun": true
+      }
+    },
+    {
+      "type": "setMidiOut",
+      "midiOut": {
+        "role": "bass",
+        "channel": null
+      }
+    },
+    {
+      "type": "setMidiOut",
+      "midiOut": {
+        "role": null,
+        "channel": 3
+      }
+    },
+    {
+      "type": "setPreviewSynth",
+      "enabled": true
+    },
+    {
+      "type": "setProvider",
+      "provider": {
+        "provider": "openrouter",
+        "model": "some/model"
+      }
+    },
+    {
+      "type": "setProvider",
+      "provider": null
+    },
+    {
+      "type": "setApiKey",
+      "provider": "anthropic",
+      "key": "sk-test-not-a-real-key"
+    },
+    {
+      "type": "setApiKey",
+      "provider": "anthropic",
+      "key": null
+    },
+    {
+      "type": "startDrag",
+      "nodeId": null,
+      "partIds": null,
+      "splitDrums": false
+    },
+    {
+      "type": "startDrag",
+      "nodeId": "n1",
+      "partIds": [
+        "beat"
+      ],
+      "splitDrums": true
+    },
+    {
+      "type": "exportMidi",
+      "nodeId": null,
+      "partIds": null,
+      "splitDrums": true
+    },
+    {
+      "type": "releaseFocus",
+      "reason": "space"
+    }
+  ],
+  "invalid": [
+    {
+      "why": "unknown command type",
+      "value": {
+        "type": "explode"
+      },
+      "path": "type"
+    },
+    {
+      "why": "no discriminator",
+      "value": {
+        "prompt": "x"
+      },
+      "path": "type"
+    },
+    {
+      "why": "wrong protocol version",
+      "value": {
+        "type": "hello",
+        "protocol": "flowstate.bridge.v9"
+      },
+      "path": "protocol"
+    },
+    {
+      "why": "nullable keys are still required",
+      "value": {
+        "type": "generate",
+        "prompt": "x",
+        "roles": null,
+        "count": 1
+      },
+      "path": "capture"
+    },
+    {
+      "why": "unknown role",
+      "value": {
+        "type": "generate",
+        "prompt": "x",
+        "roles": [
+          "tuba"
+        ],
+        "count": 1,
+        "capture": null
+      },
+      "path": "roles[0]"
+    },
+    {
+      "why": "more than 4 variations",
+      "value": {
+        "type": "generate",
+        "prompt": "x",
+        "roles": null,
+        "count": 5,
+        "capture": null
+      },
+      "path": "count"
+    },
+    {
+      "why": "unknown capture intent",
+      "value": {
+        "type": "generate",
+        "prompt": "",
+        "roles": null,
+        "count": 1,
+        "capture": {
+          "bars": 4,
+          "intent": "remix"
+        }
+      },
+      "path": "capture.intent"
+    },
+    {
+      "why": "unknown tweak",
+      "value": {
+        "type": "tweak",
+        "partId": null,
+        "op": "explode",
+        "amount": null
+      },
+      "path": "op"
+    },
+    {
+      "why": "zero-length note",
+      "value": {
+        "type": "editNotes",
+        "partId": "keys",
+        "remove": [],
+        "add": [
+          {
+            "tick": 0,
+            "dur": 0,
+            "pitch": 65,
+            "vel": 84
+          }
+        ]
+      },
+      "path": "add[0].dur"
+    },
+    {
+      "why": "density above 1",
+      "value": {
+        "type": "setPartState",
+        "state": {
+          "partId": "keys",
+          "muted": false,
+          "solo": true,
+          "locked": false,
+          "density": 1.5
+        }
+      },
+      "path": "state.density"
+    },
+    {
+      "why": "bars must be an integer",
+      "value": {
+        "type": "setContextOverride",
+        "override": {
+          "tonic": null,
+          "mode": null,
+          "tempo": null,
+          "meterNumerator": null,
+          "meterDenominator": null,
+          "bars": 2.5,
+          "swing": null
+        }
+      },
+      "path": "override.bars"
+    },
+    {
+      "why": "tempo below 20",
+      "value": {
+        "type": "setContextOverride",
+        "override": {
+          "tonic": null,
+          "mode": null,
+          "tempo": 10,
+          "meterNumerator": null,
+          "meterDenominator": null,
+          "bars": null,
+          "swing": null
+        }
+      },
+      "path": "override.tempo"
+    },
+    {
+      "why": "bars are 1-based",
+      "value": {
+        "type": "setAudition",
+        "audition": {
+          "nodeId": "n1",
+          "loop": {
+            "startBar": 0,
+            "endBar": 2
+          },
+          "freeRun": true
+        }
+      },
+      "path": "audition.loop.startBar"
+    },
+    {
+      "why": "channel above 16",
+      "value": {
+        "type": "setMidiOut",
+        "midiOut": {
+          "role": null,
+          "channel": 17
+        }
+      },
+      "path": "midiOut.channel"
+    },
+    {
+      "why": "boolean, not a string",
+      "value": {
+        "type": "setPreviewSynth",
+        "enabled": "yes"
+      },
+      "path": "enabled"
+    },
+    {
+      "why": "unknown focus reason",
+      "value": {
+        "type": "releaseFocus",
+        "reason": "tab"
+      },
+      "path": "reason"
+    }
+  ]
+}

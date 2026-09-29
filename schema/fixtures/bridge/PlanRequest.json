@@ -1,0 +1,228 @@
+{
+  "valid": [
+    {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "lofi dorian keys",
+      "context": {
+        "tempo": 92,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "D",
+        "mode": "dorian",
+        "bars": 2,
+        "swing": 0.1,
+        "style": [
+          "lofi"
+        ]
+      },
+      "roles": null,
+      "keep": null,
+      "reference": null,
+      "provider": null
+    },
+    {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "new melody",
+      "context": {
+        "tempo": 92,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "D",
+        "mode": "dorian",
+        "bars": 2,
+        "swing": 0.1,
+        "style": [
+          "lofi"
+        ]
+      },
+      "roles": [
+        "melody"
+      ],
+      "keep": {
+        "ir": "flowstate.score.v0",
+        "title": "Late bus",
+        "context": {
+          "tempo": 92,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "D",
+          "mode": "dorian",
+          "bars": 2,
+          "swing": 0.1,
+          "style": [
+            "lofi"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 2,
+            "energy": 0.5
+          }
+        ],
+        "harmony": [
+          {
+            "bar": 1,
+            "beat": 1,
+            "beats": 4,
+            "symbol": "Dm9"
+          },
+          {
+            "bar": 2,
+            "beat": 1,
+            "beats": 4,
+            "symbol": "G13"
+          }
+        ],
+        "motifs": [],
+        "parts": [
+          {
+            "id": "keys",
+            "role": "chords",
+            "name": "Keys",
+            "low": "C3",
+            "high": "C5",
+            "grid": 4,
+            "velocity": 84,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 2,
+                "rhythm": "x...x...x...x...",
+                "voicing": "rootless",
+                "arpPattern": null,
+                "motif": null,
+                "transforms": null,
+                "repeatEvery": null,
+                "drums": null,
+                "fill": null,
+                "notes": null,
+                "articulation": "legato"
+              }
+            ]
+          }
+        ]
+      },
+      "reference": null,
+      "provider": null
+    },
+    {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 92,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C#",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0.1,
+        "style": []
+      },
+      "roles": [
+        "drums"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "ir": "flowstate.score.v0",
+          "title": "Late bus",
+          "context": {
+            "tempo": 92,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "tonic": "D",
+            "mode": "dorian",
+            "bars": 2,
+            "swing": 0.1,
+            "style": [
+              "lofi"
+            ]
+          },
+          "form": [
+            {
+              "name": "A",
+              "startBar": 1,
+              "bars": 2,
+              "energy": 0.5
+            }
+          ],
+          "harmony": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 4,
+              "symbol": "Dm9"
+            },
+            {
+              "bar": 2,
+              "beat": 1,
+              "beats": 4,
+              "symbol": "G13"
+            }
+          ],
+          "motifs": [],
+          "parts": [
+            {
+              "id": "keys",
+              "role": "chords",
+              "name": "Keys",
+              "low": "C3",
+              "high": "C5",
+              "grid": 4,
+              "velocity": 84,
+              "blocks": [
+                {
+                  "startBar": 1,
+                  "endBar": 2,
+                  "rhythm": "x...x...x...x...",
+                  "voicing": "rootless",
+                  "arpPattern": null,
+                  "motif": null,
+                  "transforms": null,
+                  "repeatEvery": null,
+                  "drums": null,
+                  "fill": null,
+                  "notes": null,
+                  "articulation": "legato"
+                }
+              ]
+            }
+          ]
+        },
+        "intent": "add_drums"
+      },
+      "provider": {
+        "provider": "openai",
+        "model": "some-model"
+      }
+    }
+  ],
+  "invalid": [
+    {
+      "why": "unknown tonic",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "prompt": "x",
+        "context": {
+          "tempo": 92,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "H",
+          "mode": "dorian",
+          "bars": 2,
+          "swing": 0.1,
+          "style": [
+            "lofi"
+          ]
+        },
+        "roles": null,
+        "keep": null,
+        "reference": null,
+        "provider": null
+      },
+      "path": "context.tonic"
+    }
+  ]
+}

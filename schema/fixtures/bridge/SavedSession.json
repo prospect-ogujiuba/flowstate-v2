@@ -1,0 +1,399 @@
+{
+  "valid": [
+    {
+      "protocol": "flowstate.bridge.v0",
+      "instanceId": "inst-3f2a",
+      "override": {
+        "tonic": "F#",
+        "mode": "minor",
+        "tempo": 140.5,
+        "meterNumerator": 7,
+        "meterDenominator": 8,
+        "bars": 8,
+        "swing": 0.2
+      },
+      "nodes": [
+        {
+          "id": "n1",
+          "parentId": null,
+          "kind": "initial",
+          "prompt": "lofi dorian keys",
+          "partIds": null,
+          "createdAtMs": 1789999990000,
+          "rating": null,
+          "seed": 4294967295,
+          "score": {
+            "ir": "flowstate.score.v0",
+            "title": "Late bus",
+            "context": {
+              "tempo": 92,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "tonic": "D",
+              "mode": "dorian",
+              "bars": 2,
+              "swing": 0.1,
+              "style": [
+                "lofi"
+              ]
+            },
+            "form": [
+              {
+                "name": "A",
+                "startBar": 1,
+                "bars": 2,
+                "energy": 0.5
+              }
+            ],
+            "harmony": [
+              {
+                "bar": 1,
+                "beat": 1,
+                "beats": 4,
+                "symbol": "Dm9"
+              },
+              {
+                "bar": 2,
+                "beat": 1,
+                "beats": 4,
+                "symbol": "G13"
+              }
+            ],
+            "motifs": [],
+            "parts": [
+              {
+                "id": "keys",
+                "role": "chords",
+                "name": "Keys",
+                "low": "C3",
+                "high": "C5",
+                "grid": 4,
+                "velocity": 84,
+                "blocks": [
+                  {
+                    "startBar": 1,
+                    "endBar": 2,
+                    "rhythm": "x...x...x...x...",
+                    "voicing": "rootless",
+                    "arpPattern": null,
+                    "motif": null,
+                    "transforms": null,
+                    "repeatEvery": null,
+                    "drums": null,
+                    "fill": null,
+                    "notes": null,
+                    "articulation": "legato"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "parentId": "n1",
+          "kind": "touch",
+          "prompt": null,
+          "partIds": [
+            "keys"
+          ],
+          "createdAtMs": 1790000000000,
+          "rating": "up",
+          "seed": 7,
+          "score": {
+            "ir": "flowstate.score.v0",
+            "title": "Late bus",
+            "context": {
+              "tempo": 92,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "tonic": "D",
+              "mode": "dorian",
+              "bars": 2,
+              "swing": 0.1,
+              "style": [
+                "lofi"
+              ]
+            },
+            "form": [
+              {
+                "name": "A",
+                "startBar": 1,
+                "bars": 2,
+                "energy": 0.5
+              }
+            ],
+            "harmony": [
+              {
+                "bar": 1,
+                "beat": 1,
+                "beats": 4,
+                "symbol": "Dm9"
+              },
+              {
+                "bar": 2,
+                "beat": 1,
+                "beats": 4,
+                "symbol": "G13"
+              }
+            ],
+            "motifs": [],
+            "parts": [
+              {
+                "id": "keys",
+                "role": "chords",
+                "name": "Keys",
+                "low": "C3",
+                "high": "C5",
+                "grid": 4,
+                "velocity": 84,
+                "blocks": [
+                  {
+                    "startBar": 1,
+                    "endBar": 2,
+                    "rhythm": "x...x...x...x...",
+                    "voicing": "rootless",
+                    "arpPattern": null,
+                    "motif": null,
+                    "transforms": null,
+                    "repeatEvery": null,
+                    "drums": null,
+                    "fill": null,
+                    "notes": null,
+                    "articulation": "legato"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "currentNodeId": "n1",
+      "redo": [
+        "n2"
+      ],
+      "thread": [
+        {
+          "id": "t1",
+          "role": "user",
+          "text": "lofi dorian keys",
+          "nodeId": null,
+          "createdAtMs": 1789999989000
+        },
+        {
+          "id": "t2",
+          "role": "assistant",
+          "text": "Rootless Dm9 to G13, lazy swing.",
+          "nodeId": "n1",
+          "createdAtMs": 1789999990000
+        },
+        {
+          "id": "t3",
+          "role": "user",
+          "text": "how do I sidechain this?",
+          "nodeId": null,
+          "createdAtMs": 1789999995000
+        },
+        {
+          "id": "t4",
+          "role": "assistant",
+          "text": "Put a compressor on the keys and key it from the kick.",
+          "nodeId": null,
+          "createdAtMs": 1789999996000
+        }
+      ],
+      "parts": [
+        {
+          "partId": "keys",
+          "muted": false,
+          "solo": true,
+          "locked": false,
+          "density": 0.75
+        }
+      ],
+      "audition": {
+        "nodeId": "n1",
+        "loop": {
+          "startBar": 1,
+          "endBar": 2
+        },
+        "freeRun": true
+      },
+      "midiOut": {
+        "role": "bass",
+        "channel": 2
+      },
+      "previewSynth": true
+    },
+    {
+      "protocol": "flowstate.bridge.v0",
+      "instanceId": "inst-3f2a",
+      "override": {
+        "tonic": null,
+        "mode": null,
+        "tempo": null,
+        "meterNumerator": null,
+        "meterDenominator": null,
+        "bars": null,
+        "swing": null
+      },
+      "nodes": [],
+      "currentNodeId": null,
+      "redo": [],
+      "thread": [],
+      "parts": [],
+      "audition": {
+        "nodeId": null,
+        "loop": null,
+        "freeRun": false
+      },
+      "midiOut": {
+        "role": null,
+        "channel": null
+      },
+      "previewSynth": false
+    }
+  ],
+  "invalid": [
+    {
+      "why": "seed above uint32",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "instanceId": "inst-3f2a",
+        "override": {
+          "tonic": null,
+          "mode": null,
+          "tempo": null,
+          "meterNumerator": null,
+          "meterDenominator": null,
+          "bars": null,
+          "swing": null
+        },
+        "nodes": [
+          {
+            "id": "n1",
+            "parentId": null,
+            "kind": "initial",
+            "prompt": "lofi dorian keys",
+            "partIds": null,
+            "createdAtMs": 1789999990000,
+            "rating": null,
+            "seed": 4294967296,
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "Late bus",
+              "context": {
+                "tempo": 92,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "D",
+                "mode": "dorian",
+                "bars": 2,
+                "swing": 0.1,
+                "style": [
+                  "lofi"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 2,
+                  "energy": 0.5
+                }
+              ],
+              "harmony": [
+                {
+                  "bar": 1,
+                  "beat": 1,
+                  "beats": 4,
+                  "symbol": "Dm9"
+                },
+                {
+                  "bar": 2,
+                  "beat": 1,
+                  "beats": 4,
+                  "symbol": "G13"
+                }
+              ],
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "keys",
+                  "role": "chords",
+                  "name": "Keys",
+                  "low": "C3",
+                  "high": "C5",
+                  "grid": 4,
+                  "velocity": 84,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 2,
+                      "rhythm": "x...x...x...x...",
+                      "voicing": "rootless",
+                      "arpPattern": null,
+                      "motif": null,
+                      "transforms": null,
+                      "repeatEvery": null,
+                      "drums": null,
+                      "fill": null,
+                      "notes": null,
+                      "articulation": "legato"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "currentNodeId": null,
+        "redo": [],
+        "thread": [],
+        "parts": [],
+        "audition": {
+          "nodeId": null,
+          "loop": null,
+          "freeRun": false
+        },
+        "midiOut": {
+          "role": null,
+          "channel": null
+        },
+        "previewSynth": false
+      },
+      "path": "nodes[0].seed"
+    },
+    {
+      "why": "missing key",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "instanceId": "inst-3f2a",
+        "override": {
+          "tonic": null,
+          "mode": null,
+          "tempo": null,
+          "meterNumerator": null,
+          "meterDenominator": null,
+          "bars": null,
+          "swing": null
+        },
+        "nodes": [],
+        "currentNodeId": null,
+        "thread": [],
+        "parts": [],
+        "audition": {
+          "nodeId": null,
+          "loop": null,
+          "freeRun": false
+        },
+        "midiOut": {
+          "role": null,
+          "channel": null
+        },
+        "previewSynth": false
+      },
+      "path": "redo"
+    }
+  ]
+}

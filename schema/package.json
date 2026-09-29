@@ -4,7 +4,8 @@
   "type": "module",
   "exports": { ".": "./src/index.ts" },
   "scripts": {
-    "generate": "tsx src/generate.ts"
+    "generate": "tsx src/generate.ts",
+    "test": "tsx --test src/*.test.ts"
   },
   "dependencies": { "zod": "^4.1.0" }
 }

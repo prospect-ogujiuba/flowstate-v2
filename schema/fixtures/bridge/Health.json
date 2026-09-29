@@ -1,0 +1,19 @@
+{
+  "valid": [
+    {
+      "protocol": "flowstate.bridge.v0",
+      "version": "0.1.0",
+      "ok": true
+    }
+  ],
+  "invalid": [
+    {
+      "why": "missing key",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "version": "0.1.0"
+      },
+      "path": "ok"
+    }
+  ]
+}

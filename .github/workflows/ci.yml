@@ -23,6 +23,12 @@ jobs:
         run: cmake --build build/core
       - name: Test
         run: ctest --test-dir build/core --output-on-failure
+      - name: Configure bridge
+        run: cmake -S schema/cpp -B build/bridge -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - name: Build bridge
+        run: cmake --build build/bridge
+      - name: Test bridge
+        run: ctest --test-dir build/bridge --output-on-failure
 
   typescript:
     runs-on: ubuntu-24.04
@@ -34,6 +40,13 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
-      - name: Schema is up to date
-        run: npm run schema && git diff --exit-code schema/score.v0.schema.json
+      - name: Generated schema files are up to date
+        run: |
+          npm run schema
+          if [ -n "$(git status --porcelain -- schema)" ]; then
+            git status --porcelain -- schema
+            git diff -- schema
+            echo "::error::Generated files are stale. Run 'npm run schema' and commit the result."
+            exit 1
+          fi
       - run: npm run -ws --if-present test

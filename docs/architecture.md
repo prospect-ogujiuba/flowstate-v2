@@ -20,7 +20,7 @@ DAW ⇄ plugin processor (audio/MIDI thread: host sync, capture ring, audition, 
 | Music engine | C++20 `core`, JUCE-free, native + WASM | One implementation, re-renders under 10 ms, offline edits, server-side plan checks |
 | AI runtime | Cloud agent service, thin tool loop on the Anthropic SDK | No local runtime, Windows works, prompts and models update without a release |
 | Model access | Two provider modes behind one interface: managed (Flowstate's key) and BYOK (the user's key, stored encrypted server-side). BYOK is on from day one behind a release flag. | Development runs on BYOK; the flag lets launch hide or show it without code changes |
-| Contract | Score IR (`docs/ir-spec.md`); a bridge schema generates C++ and TS types | One versioned contract |
+| Contract | Score IR (`docs/ir-spec.md`) and the bridge schema (`docs/bridge-spec.md`), one Zod source each; the bridge generates C++ types for the plugin | One versioned contract per boundary |
 | Persistence | Session in plugin state (IR + seeds); optional cloud sync by project | Ideas survive editor close and project reload |
 
 ## Planner (today)

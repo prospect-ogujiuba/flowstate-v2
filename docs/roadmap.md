@@ -137,7 +137,9 @@ Acceptance:
 - Runs locally with one command.
 - A cancelled request stops the provider stream.
 
-### P1-5 Bridge schema — `todo`
+### P1-5 Bridge schema — `done` (verified locally on Linux with GCC and Clang; macOS and Windows run in CI on the next push)
+Done: `schema/src/bridge.ts` → `bridge.v0.schema.json` and `schema/cpp/include/flowstate/bridge.h` (`flowstate::bridge`). Shared fixtures round-trip in Zod and C++ with matching error paths; CI fails on stale generated files. Spec: `docs/bridge-spec.md`, checked against the proposal's UX flows (talk/tweak/touch, capture, variations, thread, audition, drag and export).
+
 One schema (commands, events, session and score types) generates both the TS and C++ types. It covers WebView ↔ plugin and plugin ↔ service messages.
 Acceptance:
 - Generation runs in CI and fails on drift.
