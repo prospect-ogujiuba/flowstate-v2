@@ -1,0 +1,79 @@
+{
+  "warnings": [
+    "voicing: \"spread\" cannot voice \"Bdim7\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"Bbm9\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 265,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 117,
+        "minPitch": 48,
+        "maxPitch": 77,
+        "rangeLow": 48,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 29,
+        "maxPitch": 44,
+        "rangeLow": 27,
+        "rangeHigh": 51,
+        "outOfKey": 0
+      },
+      {
+        "id": "organ",
+        "role": "melody",
+        "notes": 28,
+        "minPitch": 67,
+        "maxPitch": 80,
+        "rangeLow": 63,
+        "rangeHigh": 80,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 94,
+        "minPitch": 36,
+        "maxPitch": 50,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 3
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 1
+          },
+          {
+            "sublane": "hats",
+            "notes": 49
+          },
+          {
+            "sublane": "kick",
+            "notes": 21
+          },
+          {
+            "sublane": "snare",
+            "notes": 14
+          },
+          {
+            "sublane": "toms",
+            "notes": 6
+          }
+        ]
+      }
+    ]
+  }
+}

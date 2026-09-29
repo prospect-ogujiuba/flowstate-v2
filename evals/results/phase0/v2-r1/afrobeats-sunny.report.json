@@ -1,0 +1,78 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Dbmaj9\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Eb6\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Cm7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Fm9\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Eb7sus4\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 298,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "guitar",
+        "role": "chords",
+        "notes": 104,
+        "minPitch": 56,
+        "maxPitch": 68,
+        "rangeLow": 55,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "logdrum",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 25,
+        "maxPitch": 41,
+        "rangeLow": 25,
+        "rangeHigh": 44,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 23,
+        "minPitch": 68,
+        "maxPitch": 80,
+        "rangeLow": 63,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 145,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 68
+          },
+          {
+            "sublane": "clap_rim",
+            "notes": 21
+          },
+          {
+            "sublane": "hats",
+            "notes": 14
+          },
+          {
+            "sublane": "kick",
+            "notes": 22
+          },
+          {
+            "sublane": "toms",
+            "notes": 20
+          }
+        ]
+      }
+    ]
+  }
+}

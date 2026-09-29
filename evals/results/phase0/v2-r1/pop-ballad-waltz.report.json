@@ -1,0 +1,79 @@
+{
+  "warnings": [
+    "voicing: \"spread\" cannot voice \"C/E\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"Dm7\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"Bbmaj7\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"Gm7\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"C7sus4\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"C7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 162,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "piano",
+        "role": "chords",
+        "notes": 86,
+        "minPitch": 53,
+        "maxPitch": 72,
+        "rangeLow": 53,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 12,
+        "minPitch": 28,
+        "maxPitch": 38,
+        "rangeLow": 28,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 20,
+        "minPitch": 69,
+        "maxPitch": 86,
+        "rangeLow": 60,
+        "rangeHigh": 86,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 44,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 13
+          },
+          {
+            "sublane": "clap_rim",
+            "notes": 7
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 14
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "toms",
+            "notes": 2
+          }
+        ]
+      }
+    ]
+  }
+}

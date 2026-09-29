@@ -1,0 +1,74 @@
+{
+  "warnings": [
+    "voicing: \"spread\" cannot voice \"Fm9\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 127,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "choir",
+        "role": "chords",
+        "notes": 24,
+        "minPitch": 48,
+        "maxPitch": 72,
+        "rangeLow": 48,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 17,
+        "minPitch": 24,
+        "maxPitch": 37,
+        "rangeLow": 24,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 16,
+        "minPitch": 70,
+        "maxPitch": 84,
+        "rangeLow": 60,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 70,
+        "minPitch": 36,
+        "maxPitch": 49,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 4
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 2
+          },
+          {
+            "sublane": "hats",
+            "notes": 40
+          },
+          {
+            "sublane": "kick",
+            "notes": 17
+          },
+          {
+            "sublane": "snare",
+            "notes": 7
+          }
+        ]
+      }
+    ]
+  }
+}

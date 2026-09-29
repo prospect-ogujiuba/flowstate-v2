@@ -1,0 +1,81 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Gm9\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Ebmaj7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Bbadd9\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"D7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 272,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 77,
+        "minPitch": 57,
+        "maxPitch": 72,
+        "rangeLow": 55,
+        "rangeHigh": 74,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 24,
+        "minPitch": 26,
+        "maxPitch": 34,
+        "rangeLow": 26,
+        "rangeHigh": 50,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 20,
+        "minPitch": 66,
+        "maxPitch": 79,
+        "rangeLow": 62,
+        "rangeHigh": 81,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 151,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 64
+          },
+          {
+            "sublane": "clap_rim",
+            "notes": 5
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 1
+          },
+          {
+            "sublane": "hats",
+            "notes": 39
+          },
+          {
+            "sublane": "kick",
+            "notes": 16
+          },
+          {
+            "sublane": "snare",
+            "notes": 26
+          }
+        ]
+      }
+    ]
+  }
+}
