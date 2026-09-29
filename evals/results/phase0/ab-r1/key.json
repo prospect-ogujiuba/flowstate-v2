@@ -1,0 +1,157 @@
+{
+  "pack": "phase0-r1",
+  "seed": "20260928",
+  "createdAt": "2026-09-29T00:29:08.480Z",
+  "prompts": "/home/priz/projects/flowstate-v2/evals/prompts/phase0.json",
+  "a": {
+    "label": "v2",
+    "dir": "/home/priz/projects/flowstate-v2/evals/out/v2"
+  },
+  "b": {
+    "label": "v1",
+    "dir": "/home/priz/projects/flowstate-v2/evals/out/v1"
+  },
+  "entries": [
+    {
+      "promptId": "lofi-rainy-study",
+      "folder": "01-lofi-rainy-study",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/lofi-rainy-study.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/lofi-rainy-study.notes.json"
+    },
+    {
+      "promptId": "trap-dark-bells",
+      "folder": "02-trap-dark-bells",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/trap-dark-bells.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/trap-dark-bells.notes.json"
+    },
+    {
+      "promptId": "house-deep-organ",
+      "folder": "03-house-deep-organ",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/house-deep-organ.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/house-deep-organ.notes.json"
+    },
+    {
+      "promptId": "neosoul-rhodes-swing",
+      "folder": "04-neosoul-rhodes-swing",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/neosoul-rhodes-swing.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/neosoul-rhodes-swing.notes.json"
+    },
+    {
+      "promptId": "pop-uplifting-chorus",
+      "folder": "05-pop-uplifting-chorus",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/pop-uplifting-chorus.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/pop-uplifting-chorus.notes.json"
+    },
+    {
+      "promptId": "drill-uk-phrygian",
+      "folder": "06-drill-uk-phrygian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/drill-uk-phrygian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/drill-uk-phrygian.notes.json"
+    },
+    {
+      "promptId": "afrobeats-sunny",
+      "folder": "07-afrobeats-sunny",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/afrobeats-sunny.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/afrobeats-sunny.notes.json"
+    },
+    {
+      "promptId": "jazz-late-night-trio",
+      "folder": "08-jazz-late-night-trio",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/jazz-late-night-trio.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/jazz-late-night-trio.notes.json"
+    },
+    {
+      "promptId": "cinematic-rising-horns",
+      "folder": "09-cinematic-rising-horns",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/cinematic-rising-horns.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/cinematic-rising-horns.notes.json"
+    },
+    {
+      "promptId": "reggaeton-dembow",
+      "folder": "10-reggaeton-dembow",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/reggaeton-dembow.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/reggaeton-dembow.notes.json"
+    },
+    {
+      "promptId": "dnb-liquid-rolling",
+      "folder": "11-dnb-liquid-rolling",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/dnb-liquid-rolling.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/dnb-liquid-rolling.notes.json"
+    },
+    {
+      "promptId": "ambient-pentatonic-drift",
+      "folder": "12-ambient-pentatonic-drift",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/ambient-pentatonic-drift.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/ambient-pentatonic-drift.notes.json"
+    },
+    {
+      "promptId": "funk-clav-mixolydian",
+      "folder": "13-funk-clav-mixolydian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/funk-clav-mixolydian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/funk-clav-mixolydian.notes.json"
+    },
+    {
+      "promptId": "gospel-68-sunday",
+      "folder": "14-gospel-68-sunday",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/gospel-68-sunday.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/gospel-68-sunday.notes.json"
+    },
+    {
+      "promptId": "rock-anthem-mixolydian",
+      "folder": "15-rock-anthem-mixolydian",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/rock-anthem-mixolydian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/rock-anthem-mixolydian.notes.json"
+    },
+    {
+      "promptId": "pop-ballad-waltz",
+      "folder": "16-pop-ballad-waltz",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/pop-ballad-waltz.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/pop-ballad-waltz.notes.json"
+    },
+    {
+      "promptId": "cinematic-68-lament",
+      "folder": "17-cinematic-68-lament",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/cinematic-68-lament.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/cinematic-68-lament.notes.json"
+    },
+    {
+      "promptId": "techhouse-minimal",
+      "folder": "18-techhouse-minimal",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/techhouse-minimal.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/techhouse-minimal.notes.json"
+    },
+    {
+      "promptId": "jazz-waltz-dorian",
+      "folder": "19-jazz-waltz-dorian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/jazz-waltz-dorian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/jazz-waltz-dorian.notes.json"
+    },
+    {
+      "promptId": "trap-phrygian-choir",
+      "folder": "20-trap-phrygian-choir",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/out/v2/trap-phrygian-choir.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/out/v1/trap-phrygian-choir.notes.json"
+    }
+  ],
+  "skipped": []
+}

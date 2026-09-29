@@ -1,0 +1,7 @@
+slow cinematic build with sweeping string-pad chords, a noble french-horn melody and big tom hits
+
+Tempo: 70 BPM
+Meter: 4/4
+Key: D minor
+Length: 8 bars
+Style: cinematic, orchestral

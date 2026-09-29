@@ -1,0 +1,7 @@
+sparse ambient piece with slow, evolving pad chords, a floating pentatonic melody and barely-there percussion
+
+Tempo: 72 BPM
+Meter: 4/4
+Key: C major pentatonic
+Length: 8 bars
+Style: ambient
