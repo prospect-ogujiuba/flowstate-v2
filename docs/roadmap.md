@@ -62,10 +62,14 @@ Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all va
 3. Build the pack, then at least 2 producers listen blind in their DAW and fill the score sheet.
 4. **Gate A (music half):** v2 is preferred in ≥ 70% of non-tie comparisons, sign test p < 0.05, and no regression in out-of-key share. If it fails: tune the prompt, IR and realizer and rerun once; if it fails again, rethink the engine before Phase 1.
 
-### P0-7 Spike 2: WebView UI inside real hosts — `todo` (needs your DAW machine)
+### P0-7 Spike 2: WebView UI inside real hosts — `doing` (builds ready; needs DAW testing)
+Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
+
 Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-through, resize and drag-out of a `.mid` from the WebView work in Ableton, Logic and one of FL or Bitwig.
 
-### P0-8 Spike 3: MIDI out and transport-locked audition — `todo` (needs your DAW machine)
+### P0-8 Spike 3: MIDI out and transport-locked audition — `doing` (builds ready; needs DAW testing)
+Same builds as P0-7 (the instrument and MIDI FX variants).
+
 Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and an AU MIDI FX build can play a realized clip in time with the host transport, looped, in Ableton and Logic.
 
 ### P0-9 CI on every push — `done`
