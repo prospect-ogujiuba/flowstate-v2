@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Flowstate Spike</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <strong class="brand">Flowstate Spike</strong>
+    <span id="variant" class="pill">instrument</span>
+    <span class="status" aria-live="off">
+      <span id="st-transport" class="pill">no transport</span>
+      <span>BPM <b id="st-bpm">--</b></span>
+      <span>PPQ <b id="st-ppq">--</b></span>
+      <span>Pos <b id="st-pos">--</b></span>
+      <span>Sig <b id="st-sig">--</b></span>
+      <span id="st-loop" class="muted">loop off</span>
+      <span class="muted">active <b id="st-active">0</b> · jumps <b id="st-jumps">0</b></span>
+    </span>
+  </header>
+
+  <section class="controls">
+    <form id="text-form" class="group" autocomplete="off">
+      <label for="text-input" class="sr-only">Prompt</label>
+      <input id="text-input" type="text" placeholder="Type here (DAW shortcuts must not fire)" spellcheck="false">
+      <button type="submit">Send</button>
+    </form>
+
+    <div class="group">
+      <button id="load-clip" type="button">Load clip…</button>
+      <button id="load-sample" type="button">Sample</button>
+      <button id="preview" type="button" aria-pressed="true">Preview sound: on</button>
+      <button id="internal-play" type="button" hidden>Play (internal)</button>
+    </div>
+
+    <div class="group">
+      <div id="drag-handle" class="drag-handle" role="button" aria-label="Drag MIDI clip to a track" draggable="false">
+        ⠿ Drag MIDI
+      </div>
+      <button id="ping" type="button">Bridge latency</button>
+      <span id="ping-result" class="muted">--</span>
+    </div>
+  </section>
+
+  <main class="roll-wrap">
+    <div class="roll-head">
+      <span id="clip-name">no clip</span>
+      <span id="clip-info" class="muted"></span>
+    </div>
+    <canvas id="roll" aria-label="Piano roll of the loaded clip"></canvas>
+  </main>
+
+  <footer class="bar">
+    <span id="log" class="muted">ready</span>
+    <span class="muted">Space with no field focused goes to the DAW · Esc leaves the text field</span>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

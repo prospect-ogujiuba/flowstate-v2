@@ -27,9 +27,11 @@ Status: `todo`, `doing`, `done`, `blocked`.
 
 ### P0-2 Score IR v0 — `done`
 - [x] `docs/ir-spec.md` and `schema/src/score.ts`, with JSON Schema generation.
-- [ ] Fold in spec ambiguities found while building the realizer.
+- [x] Resolved realizer details folded into the spec ("Resolved details").
 
-### P0-3 `core` realizer v0 — `doing`
+### P0-3 `core` realizer v0 — `done`
+Done: 37 test cases / 19k assertions, determinism and properties tested, warning-free; CI green on Linux, macOS and Windows (MSVC).
+
 Acceptance: all roles and tokens in the spec realized. Deterministic. Properties tested (clip length, range, monophony). Voice-led chords. `fs-realize` CLI emits `.mid`, notes JSON and a report. Builds warning-free on Linux; CI on macOS and Windows.
 
 ### P0-4 Planner v0 — `done` (quality tuning continues under P0-6)
@@ -37,10 +39,24 @@ Acceptance: all roles and tokens in the spec realized. Deterministic. Properties
 - [x] Smoke test: valid 4-bar dorian score on the first attempt; 63 s latency at high effort (latency is tuned in Phase 1, target under 8 s).
 - Note: constrained decoding (`output_config.format`) is rejected for this schema ("compiled grammar is too large"), so the planner validates on our side instead.
 
-### P0-5 v1 baseline and A/B tooling — `doing`
+### P0-5 v1 baseline and A/B tooling — `done`
+Done: v1 baseline 20/20 prompts. The pack builder rewrites clips with neutral track names and channels, so options can't be told apart by metadata. The key check uses core's unjustified out-of-key count.
+
 Acceptance: 20-prompt set within v1's supported controls. v1 output generated through v1's own compilers. Metrics script. Blind A/B pack builder and a scorer with a sign test.
 
-### P0-6 Spike 1: blind A/B, LLM-written IR vs v1 — `todo`
+### P0-6 Spike 1: blind A/B, LLM-written IR vs v1 — `doing` (waiting on listeners)
+Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all valid on the first attempt; latency p50 about 62 s (range 41–107 s). All realized with 0 unjustified out-of-key notes. Pack `evals/ab/packs/phase0-r1.zip` is built; the key is in `phase0-r1.key.json`, kept separate. Score with `npm run -w evals ab:score -- <sheets...> --key ab/packs/phase0-r1.key.json --v2-dir out/v2`.
+
+| Mean per prompt | v1 | v2 |
+| --- | --- | --- |
+| chord onsets / bar | 3.8 | 12.0 |
+| bass notes / bar | 1.9 | 4.3 |
+| melody notes / bar | 2.0 | 3.8 |
+| drum hits / bar | 5.0 | 19.2 |
+| drum ghost share | 0 | 0.27 |
+| bar repetition | 0.22 | 0.02 |
+| chord voice movement (semitones, summed) | 2.4 | 8.9 (watch: richer voicings and more changes; listening decides) |
+
 1. `npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2`
 2. `npm run -w evals metrics -- out/v2` and `... out/v1`: compare.
 3. Build the pack, then at least 2 producers listen blind in their DAW and fill the score sheet.
@@ -52,5 +68,5 @@ Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-
 ### P0-8 Spike 3: MIDI out and transport-locked audition — `todo` (needs your DAW machine)
 Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and an AU MIDI FX build can play a realized clip in time with the host transport, looped, in Ableton and Logic.
 
-### P0-9 CI on every push — `doing`
+### P0-9 CI on every push — `done`
 Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core` and typechecks TS on each push and PR.

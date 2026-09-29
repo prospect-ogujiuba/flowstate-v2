@@ -1,0 +1,126 @@
+name: plugin-spike
+
+# Phase 0 spike builds (docs/spikes/webview-host.md, docs/spikes/midi-out.md).
+# Produces unsigned test builds for the DAW machine; no secrets, no notarization.
+
+on:
+  push:
+    paths:
+      - "plugin/**"
+      - ".github/workflows/plugin-spike.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: plugin-spike-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            name: macos-universal
+          - os: windows-2022
+            name: windows-x64
+    runs-on: ${{ matrix.os }}
+    env:
+      BUILD_DIR: build/plugin-spike
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+        with:
+          arch: x64
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v5
+
+      - name: Configure (macOS, universal)
+        if: runner.os == 'macOS'
+        run: >
+          cmake -S plugin/spike -B "$BUILD_DIR" -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+          -DFLOWSTATE_SPIKE_HOST_SMOKE=ON
+
+      - name: Configure (Windows, Ninja + MSVC)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: >
+          cmake -S plugin/spike -B "$BUILD_DIR" -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
+          -DFLOWSTATE_SPIKE_HOST_SMOKE=ON
+
+      - name: Build
+        shell: bash
+        run: cmake --build "$BUILD_DIR" --config Release
+
+      - name: Test (scheduler + VST3 host smoke)
+        shell: bash
+        run: ctest --test-dir "$BUILD_DIR" --output-on-failure
+
+      - name: Ad-hoc sign and verify (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          set -euo pipefail
+          for b in \
+            "$BUILD_DIR/FlowstateSpike_artefacts/Release/VST3/Flowstate Spike.vst3" \
+            "$BUILD_DIR/FlowstateSpike_artefacts/Release/AU/Flowstate Spike.component" \
+            "$BUILD_DIR/FlowstateSpike_artefacts/Release/Standalone/Flowstate Spike.app" \
+            "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/VST3/Flowstate Spike MIDI FX.vst3" \
+            "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/AU/Flowstate Spike MIDI FX.component"; do
+            codesign --force --deep --sign - "$b"
+            codesign --verify --deep --strict --verbose=2 "$b"
+            lipo -info "$b"/Contents/MacOS/* || true
+          done
+
+      - name: AU validation (macOS, informational)
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        run: |
+          mkdir -p ~/Library/Audio/Plug-Ins/Components
+          cp -R "$BUILD_DIR/FlowstateSpike_artefacts/Release/AU/Flowstate Spike.component" ~/Library/Audio/Plug-Ins/Components/
+          cp -R "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/AU/Flowstate Spike MIDI FX.component" ~/Library/Audio/Plug-Ins/Components/
+          killall -9 AudioComponentRegistrar 2>/dev/null || true
+          auval -v aumu Fsp1 Flws
+          auval -v aumi Fspm Flws
+
+      - name: Package (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          set -euo pipefail
+          out="dist/flowstate-spike-${{ matrix.name }}"
+          mkdir -p "$out"
+          # ditto keeps bundle structure, permissions and signatures (upload-artifact drops modes).
+          ditto -c -k --keepParent "$BUILD_DIR/FlowstateSpike_artefacts/Release/VST3/Flowstate Spike.vst3" "$out/Flowstate Spike.vst3.zip"
+          ditto -c -k --keepParent "$BUILD_DIR/FlowstateSpike_artefacts/Release/AU/Flowstate Spike.component" "$out/Flowstate Spike.component.zip"
+          ditto -c -k --keepParent "$BUILD_DIR/FlowstateSpike_artefacts/Release/Standalone/Flowstate Spike.app" "$out/Flowstate Spike.app.zip"
+          ditto -c -k --keepParent "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/VST3/Flowstate Spike MIDI FX.vst3" "$out/Flowstate Spike MIDI FX.vst3.zip"
+          ditto -c -k --keepParent "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/AU/Flowstate Spike MIDI FX.component" "$out/Flowstate Spike MIDI FX.component.zip"
+          cp plugin/spike/ui/sample.notes.json "$out/"
+          git rev-parse HEAD > "$out/COMMIT"
+
+      - name: Package (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="dist/flowstate-spike-${{ matrix.name }}"
+          mkdir -p "$out/VST3" "$out/Standalone"
+          cp -R "$BUILD_DIR/FlowstateSpike_artefacts/Release/VST3/Flowstate Spike.vst3" "$out/VST3/"
+          cp -R "$BUILD_DIR/FlowstateSpikeMidiFx_artefacts/Release/VST3/Flowstate Spike MIDI FX.vst3" "$out/VST3/"
+          cp "$BUILD_DIR/FlowstateSpike_artefacts/Release/Standalone/Flowstate Spike.exe" "$out/Standalone/"
+          cp plugin/spike/ui/sample.notes.json "$out/"
+          git rev-parse HEAD > "$out/COMMIT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flowstate-spike-${{ matrix.name }}
+          path: dist/flowstate-spike-${{ matrix.name }}
+          if-no-files-found: error
+          retention-days: 30
