@@ -23,7 +23,7 @@ Legend: `pass`, `fail`, `partial` (explain in notes), `n/a`, blank = not run.
 | 1 | Sync (100 bars, 60–180 BPM) | | | | | |
 | 2 | Loop and seek | | | | | |
 | 3 | Stop | | | | | |
-| 4 | Routing (Ableton "MIDI From") | | | n/a | n/a | |
+| 4 | Routing (Ableton "MIDI From") | | pass | n/a | n/a | |
 | 5 | Logic (MIDI FX drives instrument; preview audible) | n/a | n/a | | | n/a |
 | 6 | Record | | | | | |
 | 7 | Tempo change | | | | | |
@@ -32,8 +32,8 @@ Legend: `pass`, `fail`, `partial` (explain in notes), `n/a`, blank = not run.
 
 | Host | Version | OS / CPU | Plugin build (CI run / commit) | Tester | Date |
 | --- | --- | --- | --- | --- | --- |
-| | | | | | |
+| Ableton Live 12 | 12 | Windows x64 | plugin-spike run 36504878591 (commit 7a68147) | owner | 2026-09-29 |
 
 ## Notes and workarounds
 
--
+- Ableton routing (Windows): the receiving track's MIDI From second dropdown must be set to the plugin entry ("Flowstate Spike"), not "Post FX". "Post FX" carries the MIDI going into the source track's devices, not the plugin's output. Onboarding and docs must say this explicitly.
