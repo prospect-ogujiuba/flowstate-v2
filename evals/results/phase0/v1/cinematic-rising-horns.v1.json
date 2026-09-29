@@ -1,0 +1,805 @@
+{
+  "promptId": "cinematic-rising-horns",
+  "seed": "c963d9ebc5c2b28d",
+  "lanes": {
+    "chords": {
+      "planIntent": {
+        "density": 0,
+        "energy": 0,
+        "complexity": 0,
+        "rhythmicFeel": "straight",
+        "swingPercent": 0,
+        "rhythmicDivision": "eighth",
+        "syncopation": 0,
+        "repetition": 0,
+        "variation": 0,
+        "articulation": "medium",
+        "noteLengthPercent": 75,
+        "humanizeVelocity": 4,
+        "humanizeTimingMs": 4,
+        "progressionStrategy": "functional",
+        "vocabulary": "sevenths",
+        "voicing": "close",
+        "harmonicRhythmBeats": 4,
+        "inversionTendency": 0,
+        "voiceCount": 4
+      },
+      "decisions": {
+        "progressionDegrees": [
+          "functional degree 1",
+          "functional degree 6",
+          "functional degree 4",
+          "functional degree 5",
+          "functional degree 1",
+          "functional degree 4",
+          "functional degree 2",
+          "functional degree 5"
+        ],
+        "chordSymbols": [
+          "Dm7/A",
+          "A#add9",
+          "Gm6/A#",
+          "Am7",
+          "Dm7/A",
+          "Gm7",
+          "Em7b5/G",
+          "Am7/G"
+        ],
+        "voicings": [
+          [
+            57,
+            60,
+            62,
+            65
+          ],
+          [
+            58,
+            60,
+            62,
+            65
+          ],
+          [
+            58,
+            62,
+            64,
+            67
+          ],
+          [
+            57,
+            60,
+            64,
+            67
+          ],
+          [
+            57,
+            60,
+            62,
+            65
+          ],
+          [
+            55,
+            58,
+            62,
+            65
+          ],
+          [
+            55,
+            58,
+            62,
+            64
+          ],
+          [
+            55,
+            57,
+            60,
+            64
+          ]
+        ],
+        "vocabularies": [
+          "sevenths",
+          "sevenths",
+          "sevenths",
+          "sevenths",
+          "sevenths",
+          "sevenths",
+          "sevenths",
+          "sevenths"
+        ]
+      },
+      "adherence": {
+        "exactClipBeats": 32,
+        "contiguous": true,
+        "eventCount": 8,
+        "expandedVoiceCount": 32,
+        "voiceCounts": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "chordDepths": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "vocabularyMembership": true,
+        "densityTargetVoiceCount": 4,
+        "densityMembership": true,
+        "maxVoiceLeap": 2,
+        "commonToneCount": 16,
+        "scalePitchClasses": [
+          2,
+          4,
+          5,
+          7,
+          9,
+          10,
+          0
+        ]
+      },
+      "deviations": [],
+      "noteCount": 32
+    },
+    "bass": {
+      "planIntent": {
+        "density": 0,
+        "energy": 0,
+        "complexity": 0,
+        "rhythmicFeel": "straight",
+        "swingPercent": 0,
+        "rhythmicDivision": "eighth",
+        "syncopation": 0,
+        "repetition": 0,
+        "variation": 0,
+        "articulation": "medium",
+        "noteLengthPercent": 75,
+        "humanizeVelocity": 4,
+        "humanizeTimingMs": 4,
+        "role": "root",
+        "register": "low",
+        "movement": 0,
+        "lockToKick": 0
+      },
+      "decisions": {
+        "patternId": "bass.root.v1",
+        "rhythmCellId": "rhythm.eighth.v1",
+        "patternDegrees": [
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          4
+        ],
+        "timingOffsets": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "swing": {
+          "feel": "straight",
+          "percent": 0,
+          "offsetTicks": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "shiftedNoteCount": 0
+        },
+        "kickLock": {
+          "requestedLevel": 0,
+          "contextAvailable": false,
+          "immutableOnsetCount": 0,
+          "status": "not_requested",
+          "alignedNoteCount": 0,
+          "alignmentRatio": 0
+        }
+      },
+      "adherence": {
+        "exactClipBeats": 32,
+        "eventCount": 16,
+        "noteCount": 15,
+        "restCount": 1,
+        "pitchMin": 31,
+        "pitchMax": 43,
+        "scaleValid": true,
+        "monophonic": true,
+        "maxLeap": 7,
+        "averageLeap": 2.0714285714285716,
+        "rootFifthRatio": 1,
+        "primaryBeatRatio": 1,
+        "syncopationRatio": 0,
+        "rhythmRepetitionRatio": 0,
+        "pitchRepetitionRatio": 0.5,
+        "variationBarCount": 5,
+        "approachNoteCount": 0,
+        "approachResolutionRatio": 1,
+        "chordAware": true,
+        "chordPrimaryBeatCount": 15,
+        "kickLockStatus": "not_requested",
+        "expressiveBands": {
+          "schema": "flowstate.expressiveMidiAdherenceEvidence.v1",
+          "lane": "bass",
+          "profile": "balanced",
+          "policy": "explicit_over_preset_over_reference",
+          "metrics": {
+            "eventDensity": 0.938,
+            "eventsPerBeat": 0.469,
+            "harmonicDepth": 0,
+            "harmonicMode": "chord-aware",
+            "registerMin": 31,
+            "registerMax": 43,
+            "averageLeap": 2.071,
+            "maximumLeap": 7,
+            "octaveMovementCount": 0,
+            "primaryBeatRatio": 1,
+            "primaryBeatChordToneRatio": 1,
+            "chordToneRatio": 1,
+            "rootOrFifthRatio": 1,
+            "approachNoteCount": 0,
+            "approachResolutionRatio": 1,
+            "restRatio": 0.113,
+            "rhythmicLockRatio": 1,
+            "rhythmRepetitionRatio": 0.714,
+            "finestSubdivisionStepsPerBeat": 1,
+            "syncopationRatio": 0,
+            "pitchRange": 12,
+            "leapRate": 0.214,
+            "repetitionRatio": 0.6,
+            "bassMovement": 2.071,
+            "averagePitch": 36.467,
+            "averageVelocity": 88.8,
+            "velocityRange": 8,
+            "velocitySampleCount": 15,
+            "gatePercent": 75,
+            "gateSampleCount": 15,
+            "complexity": 0.171
+          },
+          "advisoryControls": [
+            "genreHint",
+            "referenceHint",
+            "presetContext",
+            "global.rhythmicFeel",
+            "global.articulation",
+            "global.noteLengthPercent",
+            "global.humanizeVelocity",
+            "global.humanizeTimingMs",
+            "global.variation",
+            "bass.role",
+            "bass.lockToKick"
+          ],
+          "issues": []
+        }
+      },
+      "chordAware": true,
+      "deviations": [],
+      "noteCount": 15
+    },
+    "melody": {
+      "planIntent": {
+        "density": 0,
+        "energy": 0,
+        "complexity": 0,
+        "rhythmicFeel": "straight",
+        "swingPercent": 0,
+        "rhythmicDivision": "eighth",
+        "syncopation": 0,
+        "repetition": 0,
+        "variation": 0,
+        "articulation": "medium",
+        "noteLengthPercent": 75,
+        "humanizeVelocity": 4,
+        "humanizeTimingMs": 4,
+        "contour": "mixed",
+        "register": "mid",
+        "motifStrength": 0,
+        "leapTendency": 0,
+        "phraseLengthBeats": 8
+      },
+      "decisions": {
+        "phraseGrammarId": "phrase.mixed.v1",
+        "motifCellId": "motif.0.v1",
+        "rhythmCellId": "rhythm.eighth.v1",
+        "motifRotation": 2,
+        "seedDegreeOffset": 1,
+        "seedContourVariant": 0,
+        "phrasePitchShapes": [
+          [
+            0,
+            3,
+            7
+          ],
+          [
+            0,
+            3,
+            8
+          ],
+          [
+            0,
+            0,
+            7
+          ],
+          [
+            0,
+            1,
+            -2
+          ]
+        ],
+        "timingOffsets": [
+          0,
+          0.0008563333333333334,
+          0,
+          0,
+          0.0008563333333333334,
+          0,
+          0,
+          0.0008563333333333334,
+          0,
+          0,
+          0.0008563333333333334,
+          0
+        ]
+      },
+      "adherence": {
+        "exactClipBeats": 32,
+        "phraseCount": 4,
+        "notesPerPhrase": 3,
+        "eventCount": 16,
+        "noteCount": 12,
+        "restCount": 4,
+        "finalSilenceBeats": 6.625,
+        "pitchMin": 62,
+        "pitchMax": 72,
+        "scaleValid": true,
+        "monophonic": true,
+        "maxLeap": 8,
+        "motifRecurrenceCount": 0,
+        "motifVariationCount": 3,
+        "syncopationRatio": 0.3333333333333333,
+        "chordAware": true,
+        "chordPrimaryBeatCount": 8
+      },
+      "chordAware": true,
+      "deviations": [
+        "melody intent.phraseLengthBeats=8 (fallback 4 failed: plan_compile_budget_exceeded)"
+      ],
+      "noteCount": 12
+    },
+    "drums": {
+      "planIntent": {
+        "density": 0,
+        "energy": 0,
+        "complexity": 0,
+        "rhythmicFeel": "straight",
+        "swingPercent": 0,
+        "rhythmicDivision": "eighth",
+        "syncopation": 0,
+        "repetition": 0,
+        "variation": 0,
+        "articulation": "medium",
+        "noteLengthPercent": 75,
+        "humanizeVelocity": 4,
+        "humanizeTimingMs": 4,
+        "scope": {
+          "mode": "wholeKit",
+          "sublaneId": "none"
+        },
+        "groove": "backbeat",
+        "fills": 0,
+        "sublaneActivity": {
+          "kick": 0,
+          "snare": 0,
+          "clap_rim": 0,
+          "hats": 0,
+          "toms": 0,
+          "cymbals": 0,
+          "aux_kit": 0
+        },
+        "subdivision": "sixteenth"
+      },
+      "decisions": {
+        "grooveCellId": "drums.backbeat.v1",
+        "meterCellId": "meter.4_4.steps4.v1",
+        "activeSublanes": [
+          "kick",
+          "snare",
+          "hats"
+        ],
+        "parentContext": {
+          "parentIdeaId": "",
+          "parentRevision": 0
+        },
+        "acceptedSiblingSublanes": [],
+        "humanization": {
+          "timingPolicy": "nonnegative_clamped_to_step_and_clip",
+          "events": [
+            {
+              "voiceId": "kick",
+              "stepIndex": 0,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 1,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 4,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -2
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 8,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 10,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 4
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 12,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 4
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 16,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 20,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 24,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 28,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": -4
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 32,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -2
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 36,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 40,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -3
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 44,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": -4
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 48,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 52,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 56,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 60,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 64,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 4
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 68,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 4
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 72,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 76,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 0
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 78,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 80,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 84,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 88,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 92,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 92,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 94,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -3
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 96,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 98,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -3
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 100,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 2
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 102,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 104,
+              "timingOffsetBeats": 0,
+              "velocityDelta": -4
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 104,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 4
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 108,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 112,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 114,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 116,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": -1
+            },
+            {
+              "voiceId": "kick",
+              "stepIndex": 120,
+              "timingOffsetBeats": 0,
+              "velocityDelta": 3
+            },
+            {
+              "voiceId": "closed_hat",
+              "stepIndex": 122,
+              "timingOffsetBeats": 0.004166666666666667,
+              "velocityDelta": 1
+            },
+            {
+              "voiceId": "snare",
+              "stepIndex": 124,
+              "timingOffsetBeats": 0.0020833333333333333,
+              "velocityDelta": 3
+            }
+          ]
+        }
+      },
+      "adherence": {
+        "exactClipBeats": 32,
+        "stepsPerBeat": 4,
+        "maskLength": 128,
+        "hitCount": 42,
+        "voiceCount": 3,
+        "sublaneCount": 3,
+        "channel10Only": true,
+        "maxSimultaneousHits": 2,
+        "terminalStepHitCount": 0,
+        "barVariationCount": 5,
+        "expressiveBands": {
+          "schema": "flowstate.expressiveMidiAdherenceEvidence.v1",
+          "lane": "drums",
+          "profile": "balanced",
+          "policy": "explicit_over_preset_over_reference",
+          "metrics": {
+            "eventDensity": 0.656,
+            "eventsPerBeat": 1.313,
+            "harmonicDepth": 0,
+            "finestSubdivisionStepsPerBeat": 4,
+            "syncopationRatio": 0.19,
+            "pitchRange": 0,
+            "leapRate": 0,
+            "repetitionRatio": 0.929,
+            "bassMovement": 0,
+            "averagePitch": 0,
+            "averageVelocity": 93.143,
+            "velocityRange": 39,
+            "velocitySampleCount": 42,
+            "gatePercent": 49.752,
+            "gateSampleCount": 42,
+            "complexity": 1,
+            "drumActivity": {
+              "kick": 16,
+              "snare": 16,
+              "clapRim": 0,
+              "hats": 10,
+              "toms": 0,
+              "cymbals": 0,
+              "auxKit": 0,
+              "total": 42
+            },
+            "sublaneDensities": {
+              "kick": 0.5,
+              "snare": 0.5,
+              "clapRim": 0,
+              "hats": 0.313,
+              "toms": 0,
+              "cymbals": 0,
+              "auxKit": 0
+            },
+            "pulseAnchorRatio": 1,
+            "backbeatAnchorRatio": 1,
+            "accentCount": 25,
+            "accentRatio": 0.595,
+            "ghostCount": 10,
+            "collisionOnsetCount": 1,
+            "sameSublaneCollisionCount": 0,
+            "maxSimultaneousHits": 2,
+            "orchestrationRatio": 0,
+            "distinctBarPatternCount": 8,
+            "barVariationCount": 7,
+            "repeatedBarRatio": 0,
+            "fillCandidateCount": 0,
+            "fills": 0,
+            "fillPlacementRatio": 1,
+            "finalBarFillCount": 0,
+            "terminalStepHitCount": 0,
+            "clipEndHitCount": 0,
+            "crossClipHitCount": 0
+          },
+          "advisoryControls": [
+            "genreHint",
+            "referenceHint",
+            "presetContext",
+            "global.rhythmicFeel",
+            "global.articulation",
+            "global.noteLengthPercent",
+            "global.humanizeVelocity",
+            "global.humanizeTimingMs",
+            "global.variation",
+            "drums.groove",
+            "drums.swingPercent"
+          ],
+          "issues": []
+        }
+      },
+      "deviations": [],
+      "noteCount": 42
+    }
+  }
+}

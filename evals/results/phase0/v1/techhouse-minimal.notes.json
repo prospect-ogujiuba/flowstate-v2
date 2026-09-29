@@ -1,0 +1,386 @@
+{
+ "ppq": 960,
+ "bars": 4,
+ "ticksPerBar": 3840,
+ "tempo": 126,
+ "meter": [
+  4,
+  4
+ ],
+ "parts": [
+  {
+   "id": "chords",
+   "role": "chords",
+   "name": "v1 Chords",
+   "channel": 1,
+   "notes": [
+    {
+     "tick": 0,
+     "dur": 3840,
+     "pitch": 55,
+     "vel": 96
+    },
+    {
+     "tick": 0,
+     "dur": 3840,
+     "pitch": 58,
+     "vel": 96
+    },
+    {
+     "tick": 0,
+     "dur": 3840,
+     "pitch": 60,
+     "vel": 96
+    },
+    {
+     "tick": 0,
+     "dur": 3840,
+     "pitch": 63,
+     "vel": 96
+    },
+    {
+     "tick": 3840,
+     "dur": 3840,
+     "pitch": 55,
+     "vel": 96
+    },
+    {
+     "tick": 3840,
+     "dur": 3840,
+     "pitch": 58,
+     "vel": 96
+    },
+    {
+     "tick": 3840,
+     "dur": 3840,
+     "pitch": 62,
+     "vel": 96
+    },
+    {
+     "tick": 3840,
+     "dur": 3840,
+     "pitch": 65,
+     "vel": 96
+    },
+    {
+     "tick": 7680,
+     "dur": 3840,
+     "pitch": 56,
+     "vel": 96
+    },
+    {
+     "tick": 7680,
+     "dur": 3840,
+     "pitch": 60,
+     "vel": 96
+    },
+    {
+     "tick": 7680,
+     "dur": 3840,
+     "pitch": 63,
+     "vel": 96
+    },
+    {
+     "tick": 7680,
+     "dur": 3840,
+     "pitch": 65,
+     "vel": 96
+    },
+    {
+     "tick": 11520,
+     "dur": 3840,
+     "pitch": 56,
+     "vel": 96
+    },
+    {
+     "tick": 11520,
+     "dur": 3840,
+     "pitch": 60,
+     "vel": 96
+    },
+    {
+     "tick": 11520,
+     "dur": 3840,
+     "pitch": 63,
+     "vel": 96
+    },
+    {
+     "tick": 11520,
+     "dur": 3840,
+     "pitch": 65,
+     "vel": 96
+    }
+   ]
+  },
+  {
+   "id": "bass",
+   "role": "bass",
+   "name": "v1 Bass",
+   "channel": 2,
+   "notes": [
+    {
+     "tick": 960,
+     "dur": 360,
+     "pitch": 36,
+     "vel": 88
+    },
+    {
+     "tick": 2880,
+     "dur": 360,
+     "pitch": 36,
+     "vel": 87
+    },
+    {
+     "tick": 4800,
+     "dur": 360,
+     "pitch": 31,
+     "vel": 90
+    },
+    {
+     "tick": 5760,
+     "dur": 360,
+     "pitch": 31,
+     "vel": 87
+    },
+    {
+     "tick": 8640,
+     "dur": 360,
+     "pitch": 32,
+     "vel": 91
+    },
+    {
+     "tick": 11520,
+     "dur": 360,
+     "pitch": 29,
+     "vel": 87
+    },
+    {
+     "tick": 12480,
+     "dur": 360,
+     "pitch": 29,
+     "vel": 90
+    },
+    {
+     "tick": 13440,
+     "dur": 360,
+     "pitch": 29,
+     "vel": 88
+    }
+   ]
+  },
+  {
+   "id": "melody",
+   "role": "melody",
+   "name": "v1 Melody",
+   "channel": 3,
+   "notes": [
+    {
+     "tick": 0,
+     "dur": 360,
+     "pitch": 60,
+     "vel": 83
+    },
+    {
+     "tick": 486,
+     "dur": 360,
+     "pitch": 63,
+     "vel": 78
+    },
+    {
+     "tick": 960,
+     "dur": 360,
+     "pitch": 67,
+     "vel": 78
+    },
+    {
+     "tick": 3840,
+     "dur": 360,
+     "pitch": 62,
+     "vel": 81
+    },
+    {
+     "tick": 4326,
+     "dur": 360,
+     "pitch": 63,
+     "vel": 85
+    },
+    {
+     "tick": 4800,
+     "dur": 360,
+     "pitch": 67,
+     "vel": 83
+    },
+    {
+     "tick": 7680,
+     "dur": 360,
+     "pitch": 60,
+     "vel": 84
+    },
+    {
+     "tick": 8166,
+     "dur": 360,
+     "pitch": 63,
+     "vel": 81
+    },
+    {
+     "tick": 8640,
+     "dur": 360,
+     "pitch": 68,
+     "vel": 81
+    },
+    {
+     "tick": 11520,
+     "dur": 360,
+     "pitch": 63,
+     "vel": 79
+    },
+    {
+     "tick": 12006,
+     "dur": 360,
+     "pitch": 63,
+     "vel": 81
+    },
+    {
+     "tick": 12480,
+     "dur": 360,
+     "pitch": 68,
+     "vel": 86
+    }
+   ]
+  },
+  {
+   "id": "drums",
+   "role": "drums",
+   "name": "v1 Drums",
+   "channel": 10,
+   "notes": [
+    {
+     "tick": 0,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 108
+    },
+    {
+     "tick": 240,
+     "dur": 240,
+     "pitch": 42,
+     "vel": 73
+    },
+    {
+     "tick": 960,
+     "dur": 240,
+     "pitch": 38,
+     "vel": 97
+    },
+    {
+     "tick": 1920,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 88
+    },
+    {
+     "tick": 2886,
+     "dur": 234,
+     "pitch": 38,
+     "vel": 95
+    },
+    {
+     "tick": 3840,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 108
+    },
+    {
+     "tick": 4802,
+     "dur": 238,
+     "pitch": 38,
+     "vel": 102
+    },
+    {
+     "tick": 5760,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 83
+    },
+    {
+     "tick": 5768,
+     "dur": 232,
+     "pitch": 42,
+     "vel": 99
+    },
+    {
+     "tick": 6724,
+     "dur": 236,
+     "pitch": 38,
+     "vel": 98
+    },
+    {
+     "tick": 6726,
+     "dur": 234,
+     "pitch": 42,
+     "vel": 80
+    },
+    {
+     "tick": 7680,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 110
+    },
+    {
+     "tick": 8648,
+     "dur": 232,
+     "pitch": 38,
+     "vel": 101
+    },
+    {
+     "tick": 9128,
+     "dur": 232,
+     "pitch": 42,
+     "vel": 76
+    },
+    {
+     "tick": 9600,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 80
+    },
+    {
+     "tick": 10564,
+     "dur": 236,
+     "pitch": 38,
+     "vel": 94
+    },
+    {
+     "tick": 11046,
+     "dur": 234,
+     "pitch": 42,
+     "vel": 79
+    },
+    {
+     "tick": 11520,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 104
+    },
+    {
+     "tick": 12488,
+     "dur": 232,
+     "pitch": 38,
+     "vel": 98
+    },
+    {
+     "tick": 13440,
+     "dur": 240,
+     "pitch": 36,
+     "vel": 80
+    },
+    {
+     "tick": 14404,
+     "dur": 236,
+     "pitch": 38,
+     "vel": 99
+    }
+   ]
+  }
+ ]
+}
