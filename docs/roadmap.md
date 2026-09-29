@@ -44,7 +44,10 @@ Done: v1 baseline 20/20 prompts. The pack builder rewrites clips with neutral tr
 
 Acceptance: 20-prompt set within v1's supported controls. v1 output generated through v1's own compilers. Metrics script. Blind A/B pack builder and a scorer with a sign test.
 
-### P0-6 Spike 1: blind A/B, LLM-written IR vs v1 — `doing` (waiting on listeners)
+### P0-6 Spike 1: blind A/B, LLM-written IR vs v1 — `done`: Gate A music half PASSED
+Result (2026-09-29, owner as sole listener): v2 preferred in 20 of 20 comparisons, no ties, two-sided sign test p = 1.9e-6. Mean musicality 2.5 (v2) vs 1.2 (v1); fits-prompt delta +1.4. One sheet row (neosoul-rhodes-swing) prefers v2 but scores v1 higher; even counted as a loss, the result is 19 of 20.
+**Caveat that shapes Phase 1:** v2 never scored above 3 out of 5. It beats v1 decisively but isn't yet good enough; quality work (prompting, IR expressiveness, realizer voicing and groove) continues alongside latency.
+
 Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all valid on the first attempt; latency p50 about 62 s (range 41–107 s). All realized with 0 unjustified out-of-key notes. Pack `evals/ab/packs/phase0-r1.zip` is built; the key is in `phase0-r1.key.json`, kept separate. Score with `npm run -w evals ab:score -- <sheets...> --key ab/packs/phase0-r1.key.json --v2-dir out/v2`.
 
 | Mean per prompt | v1 | v2 |
