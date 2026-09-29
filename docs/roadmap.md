@@ -60,7 +60,7 @@ Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all va
 1. `npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2`
 2. `npm run -w evals metrics -- out/v2` and `... out/v1`: compare.
 3. Build the pack, then at least 2 producers listen blind in their DAW and fill the score sheet.
-4. **Gate A (music half):** v2 is preferred in ≥ 70% of non-tie comparisons, sign test p < 0.05, and no regression in out-of-key share. If it fails: tune the prompt, IR and realizer and rerun once; if it fails again, rethink the engine before Phase 1.
+4. **Gate A (music half):** v2 is preferred in ≥ 70% of non-tie comparisons, sign test p < 0.05, at least 2 listeners, and zero unjustified out-of-key notes in the v2 realizations (per core's reports). If it fails: tune the prompt, IR and realizer and rerun once; if it fails again, rethink the engine before Phase 1.
 
 ### P0-7 Spike 2: WebView UI inside real hosts — `doing` (builds ready; needs DAW testing)
 Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
