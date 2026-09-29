@@ -9,7 +9,7 @@ This repo is in **Phase 0**: salvage from v1, plus spikes that decide the plan. 
 - `docs/product.md`: what we're building and what we're not
 - `docs/architecture.md`: runtime shape and technology decisions
 - `docs/ir-spec.md`: the score IR, the product's central contract
-- `AGENTS.md`: working rules and commands
+- `CLAUDE.md`: working rules and commands
 
 ```sh
 npm install
