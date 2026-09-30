@@ -81,7 +81,10 @@ else()
     set(_midifx_formats VST3)
 endif()
 
-set(_plugin_sources src/MidiFiles.cpp src/MidiFiles.h src/PluginProcessor.cpp src/PluginProcessor.h)
+configure_file(src/BuildId.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId.cpp" @ONLY)
+set(_build_id_source "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId.cpp")
+set(_plugin_sources src/MidiFiles.cpp src/MidiFiles.h src/PluginProcessor.cpp src/PluginProcessor.h
+    src/BuildId.h "${_build_id_source}")
 if(FLOWSTATE_PLUGIN_HEADLESS)
     list(APPEND _plugin_sources src/HeadlessEditor.cpp)
 else()
@@ -98,8 +101,7 @@ function(flowstate_configure_plugin target)
     target_include_directories(${target} PRIVATE src)
     target_compile_definitions(${target} PUBLIC
         JUCE_VST3_CAN_REPLACE_VST2=0
-        JUCE_DISPLAY_SPLASH_SCREEN=0
-        FLOWSTATE_BUILD_ID="${FLOWSTATE_BUILD_ID}")
+        JUCE_DISPLAY_SPLASH_SCREEN=0)
     # On Linux JUCE defines JUCE_WEB_BROWSER / JUCE_USE_CURL from NEEDS_WEB_BROWSER / NEEDS_CURL.
     if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
         target_compile_definitions(${target} PUBLIC JUCE_USE_CURL=0)
@@ -180,7 +182,8 @@ endif()
 # the instrument's JucePlugin_* macros.
 juce_add_console_app(flowstate_plugin_tests PRODUCT_NAME "Flowstate Plugin Tests")
 target_sources(flowstate_plugin_tests PRIVATE
-    tests/processor_test.cpp src/PluginProcessor.cpp src/MidiFiles.cpp src/HeadlessEditor.cpp)
+    tests/processor_test.cpp src/PluginProcessor.cpp src/MidiFiles.cpp src/HeadlessEditor.cpp
+    "${_build_id_source}")
 target_include_directories(flowstate_plugin_tests PRIVATE src)
 target_include_directories(flowstate_plugin_tests SYSTEM PRIVATE ${doctest_SOURCE_DIR})
 target_compile_definitions(flowstate_plugin_tests PRIVATE
@@ -190,7 +193,6 @@ target_compile_definitions(flowstate_plugin_tests PRIVATE
     JucePlugin_Name="Flowstate"
     JucePlugin_IsSynth=1
     JucePlugin_IsMidiEffect=0
-    FLOWSTATE_BUILD_ID="test"
     FLOWSTATE_CORE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../core/tests/fixtures")
 target_link_libraries(flowstate_plugin_tests PRIVATE
     flowstate_session
