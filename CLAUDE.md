@@ -64,3 +64,11 @@ The plugin fetches JUCE 9.0.2 and builds on Linux headless (no WebView) for loca
 cmake -S plugin -B build/plugin -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/plugin
 ctest --test-dir build/plugin --output-on-failure
 ```
+
+CI builds and testers (need `gh`, logged in; details in `docs/testing-plugin.md` sections 5 and 7):
+
+```sh
+npm run ci:status [-- --watch]               # recent runs on this branch; --watch follows the plugin run
+npm run fetch:build -- windows               # latest green Windows build (+ install.ps1, gallery.ps1) into Windows Downloads on WSL
+npm run pack:mac                             # macOS tester zip in dist/builds: bundles, install.sh, README with the build ID
+```

@@ -67,7 +67,7 @@ Round 1 (2026-09-28): 20/20 prompts planned on the `claude-code` backend, all va
 
 ### P0-7 Spike 2: WebView UI inside real hosts — `done` (Phase 0 closed 2026-09-29; the rest continues in P1-15)
 Closed by the owner's decision: nothing waits on the Mac tester. Ableton (Windows) confirmed so far: it loads, the drag lands, and the WebView UI runs (WebView2). Checks 1–9 on Windows are not yet reported. Logic/macOS runs as the P1-16 hand-off, after CI has verified the Mac build.
-Evidence: `docs/spikes/results.md`. Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. Artifacts: the latest `plugin-spike` run on GitHub Actions (`flowstate-spike-macos-universal`, `flowstate-spike-windows-x64`). Next: run the host checklists in Ableton and FL/Bitwig on Windows, and in Logic on a friend's Mac; record results in `docs/spikes/results.md`.
+Evidence: `docs/spikes/results.md`. Status 2026-09-29: `plugin/spike` builds in CI on the first run (macOS universal, Windows x64). The scheduler tests and a VST3 host smoke test pass on both, and `auval` passes for the AU instrument and the AU MIDI FX. The spike's artifacts have expired. The host checklists now run against the product plugin (`docs/testing-plugin.md`, section 6) in P1-15 and P1-16.
 
 Brief: `docs/spikes/webview-host.md`. Gate A (host half): focus, space-bar pass-through, resize and drag-out of a `.mid` from the WebView work in Ableton, Logic and one of FL or Bitwig.
 
@@ -175,7 +175,7 @@ Done so far (2026-09-29):
 - Side-by-side screenshots against v1: `docs/design/side-by-side-{chat,settings}.png`.
 - Playwright (19 tests, Chromium locally; CI adds WebKit): axe WCAG 2.1 AA, an accessible name on every control, a Tab walk that reaches every control, component behaviour, and the plugin page against a mocked bridge.
 
-Left: the first CI run of the WebView builds, then check 12 in `testing-plugin.md` (the gallery in a DAW, on macOS and Windows).
+Left: check 12 in `testing-plugin.md`, the gallery in a DAW on macOS and Windows. The WebView builds are green in CI (run 36702654122). Get the builds with `npm run fetch:build -- windows` and `npm run pack:mac`.
 Port v1's visual identity to CSS tokens and components: colours, type, spacing, radii, logo and SVG icons from `docs/design/` and v1 `assets/`, and the dark compact shell. Components: buttons, knobs, toggles, inputs, lanes, cards, sheets and toasts.
 Acceptance:
 - A component gallery page renders in a browser and in the plugin.
@@ -227,5 +227,6 @@ Every tester build is verified before a human sees it:
 Acceptance: a failing check blocks the artifact; a passing build carries a build ID shown in Settings.
 
 ### P1-16 Tester hand-off (Mac friend first) — `todo`
+Stand-in until then (2026-09-30): `npm run pack:mac` builds an unsigned tester zip from the latest green CI run, with an install script, a README checklist and the build ID (`docs/testing-plugin.md`, section 7).
 A tester package per build: signed installer, a one-page checklist (the Phase 0 host checks plus the core loop), and a feedback form that includes the build ID. The first recipient is the Mac tester for Logic.
 Acceptance: the tester completes it without contacting us for setup, and reports come back with build IDs.
