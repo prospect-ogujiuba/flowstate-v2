@@ -45,7 +45,8 @@ if(WIN32 AND NOT FLOWSTATE_PLUGIN_HEADLESS)
 endif()
 
 # ------------------------------------------------------------------------------------------------
-# Bundled UI: every file in ui/ except docs, plus JUCE's interop library as juce_interop.js.
+# Bundled UI: the ui/ build output (`npm run build:ui`, flat: the resource provider looks files up
+# by name), plus JUCE's interop library as juce_interop.js.
 set(_juce_interop_js "${JUCE_MODULES_DIR}/juce_gui_extra/native/typescript/webview-interop/dist/index.js")
 if(NOT EXISTS "${_juce_interop_js}")
     message(FATAL_ERROR "JUCE webview interop JS not found at ${_juce_interop_js}")
@@ -53,9 +54,17 @@ endif()
 set(_juce_interop_copy "${CMAKE_BINARY_DIR}/ui-bundle/juce_interop.js")
 configure_file("${_juce_interop_js}" "${_juce_interop_copy}" COPYONLY)
 
-set(FLOWSTATE_UI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../ui")
+set(FLOWSTATE_UI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../ui/dist" CACHE PATH "Built UI to bundle (npm run build:ui)")
+if(NOT EXISTS "${FLOWSTATE_UI_DIR}/index.html")
+    if(FLOWSTATE_PLUGIN_HEADLESS)
+        message(WARNING "No built UI in ${FLOWSTATE_UI_DIR}; the headless build doesn't show it. Run `npm run build:ui` to bundle it.")
+    else()
+        message(FATAL_ERROR "No built UI in ${FLOWSTATE_UI_DIR}. Run `npm ci && npm run build:ui` first.")
+    endif()
+endif()
 file(GLOB _ui_files CONFIGURE_DEPENDS
-    "${FLOWSTATE_UI_DIR}/*.html" "${FLOWSTATE_UI_DIR}/*.js" "${FLOWSTATE_UI_DIR}/*.css")
+    "${FLOWSTATE_UI_DIR}/*.html" "${FLOWSTATE_UI_DIR}/*.js" "${FLOWSTATE_UI_DIR}/*.css"
+    "${FLOWSTATE_UI_DIR}/*.png" "${FLOWSTATE_UI_DIR}/*.svg" "${FLOWSTATE_UI_DIR}/*.woff2")
 juce_add_binary_data(FlowstateUi
     NAMESPACE FlowstateUi
     HEADER_NAME FlowstateUi.h

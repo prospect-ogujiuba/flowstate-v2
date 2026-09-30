@@ -1,0 +1,32 @@
+@import "./tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* The page never scrolls: a scrollable page "handles" Space, and WKWebView then keeps it from the
+   host. Anything that must scroll does so in an inner container. */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-texture), var(--bg);
+  color: var(--text);
+  font: var(--weight-regular) var(--text-base) / var(--leading) var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Positioned, so absolutely placed descendants (.sr-only) never extend the document. */
+#app { position: relative; height: 100%; overflow: hidden; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+.fs-num { font-variant-numeric: tabular-nums; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}

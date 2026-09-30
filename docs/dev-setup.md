@@ -68,6 +68,7 @@ From the repo root:
 
 ```sh
 npm install
+npx -w ui playwright install chromium   # once: the browser for the UI tests
 npm run build:core && npm run test:core
 npm run build:bridge && npm run test:bridge
 npm run typecheck

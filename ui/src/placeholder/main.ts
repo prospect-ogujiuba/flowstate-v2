@@ -1,27 +1,25 @@
 // Placeholder UI for the plugin shell (P1-6): proves the bridge end to end. The Studio screen
-// (P1-9) and the design system (P1-8) replace this directory with the real TypeScript UI.
-// Protocol: docs/bridge-spec.md. No domain logic here; the plugin owns all state.
+// (P1-9) replaces it. Protocol: docs/bridge-spec.md. No domain logic here; the plugin owns all state.
 
-import { getNativeFunction } from "./juce_interop.js";
+import type { Command, Session } from "@flowstate/schema";
+import { onEvent, PROTOCOL, send as sendRaw } from "../host/bridge.ts";
+import { installHostKeys } from "../host/keys.ts";
+import "./style.css";
 
-const PROTOCOL = "flowstate.bridge.v0";
-const native = getNativeFunction("bridge");
-const $ = (id) => document.getElementById(id);
-let session = null;
+const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 
-async function send(command) {
-  const reply = JSON.parse(await native(JSON.stringify(command)));
+async function send(command: Command) {
+  const reply = await sendRaw(command);
   if (!reply.ok && reply.error) notice(reply.error.message);
   if (reply.session) render(reply.session);
   return reply;
 }
 
-function notice(text) {
+function notice(text: string) {
   $("notice").textContent = text;
 }
 
-function render(s) {
-  session = s;
+function render(s: Session) {
   const c = s.context;
   $("ctx-key").textContent = `${c.tonic} ${c.mode.replace("_", " ")}`;
   $("ctx-time").textContent = `${Math.round(c.tempo * 10) / 10} bpm · ${c.meterNumerator}/${c.meterDenominator}`;
@@ -48,13 +46,12 @@ function render(s) {
     li.append(b);
     nodes.append(li);
   }
-  $("undo").disabled = !s.canUndo;
-  $("redo").disabled = !s.canRedo;
-  $("drag").disabled = !s.clip;
+  $<HTMLButtonElement>("undo").disabled = !s.canUndo;
+  $<HTMLButtonElement>("redo").disabled = !s.canRedo;
+  $<HTMLButtonElement>("drag").disabled = !s.clip;
 }
 
-window.__JUCE__.backend.addEventListener("bridge", (json) => {
-  const event = JSON.parse(json);
+onEvent((event) => {
   if (event.type === "session") render(event.session);
   else if (event.type === "transport") {
     const t = event.transport;
@@ -66,23 +63,16 @@ $("undo").addEventListener("click", () => send({ type: "undo" }));
 $("redo").addEventListener("click", () => send({ type: "redo" }));
 $("drag").addEventListener("pointerdown", (e) => {
   e.preventDefault();
-  send({ type: "startDrag", nodeId: null, partIds: null, splitDrums: false });
+  void send({ type: "startDrag", nodeId: null, partIds: null, splitDrums: false });
 });
 $("prompt").addEventListener("submit", (e) => {
   e.preventDefault();
-  const prompt = $("prompt-input").value.trim();
-  send({ type: "generate", prompt, roles: null, count: 1, capture: null });
+  const prompt = $<HTMLInputElement>("prompt-input").value.trim();
+  void send({ type: "generate", prompt, roles: null, count: 1, capture: null });
 });
 
-// Space with nothing focused, and Escape in the prompt, hand focus back to the host (spike P0-7).
-document.addEventListener("keydown", (e) => {
-  const typing = document.activeElement?.tagName === "INPUT";
-  if ((e.code === "Space" && !typing) || (e.key === "Escape" && typing)) {
-    e.preventDefault();
-    document.activeElement?.blur();
-    send({ type: "releaseFocus", reason: e.code === "Space" ? "space" : "escape" });
-  }
-});
-$("prompt-input").addEventListener("blur", () => send({ type: "releaseFocus", reason: "blur" }));
+// Space with nothing typed into, and Escape in the prompt, hand focus back to the host (spike P0-7).
+installHostKeys((reason) => void send({ type: "releaseFocus", reason }));
+$("prompt-input").addEventListener("blur", () => void send({ type: "releaseFocus", reason: "blur" }));
 
-send({ type: "hello", protocol: PROTOCOL });
+void send({ type: "hello", protocol: PROTOCOL });

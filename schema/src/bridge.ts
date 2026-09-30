@@ -238,7 +238,7 @@ export const SavedSession = def("SavedSession", z.object({
 // ---------- WebView -> plugin commands ----------
 // One native function, `bridge`, takes a Command and completes with a Reply.
 
-const msg = <S extends z.ZodRawShape>(id: string, type: string, shape: S) =>
+const msg = <T extends string, S extends z.ZodRawShape>(id: string, type: T, shape: S) =>
   def(id, z.object({ type: z.literal(type), ...shape }));
 
 export const CaptureUse = def("CaptureUse", z.object({

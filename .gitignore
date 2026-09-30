@@ -5,3 +5,5 @@ build/
 .env
 evals/out/
 evals/ab/packs/
+test-results/
+playwright-report/

@@ -15,8 +15,8 @@ Design source: `docs/proposal.md`, the v2 proposal as a living document. The oth
 | `cloud/` | Agent service. Today: the planner (prompt -> IR) and its model backends. | TS |
 | `evals/` | Prompt sets, v1 baseline, metrics, blind A/B packs; committed evidence in `evals/results/` | TS |
 | `plugin/` | JUCE 9 plugin: instrument and MIDI FX variants, processor-owned session, bridge host, host sync, capture. `plugin/spike/` is the frozen Phase 0 spike. See `plugin/README.md`. | C++ |
-| `ui/` | WebView UI bundled into the plugin. Today a placeholder that proves the bridge; the Studio (P1-9) replaces it. | JS (TS from P1-8) |
-| `docs/` | product, architecture, ir-spec, threading, roadmap, spikes | Markdown |
+| `ui/` | WebView UI bundled into the plugin (`ui/dist`, from `npm run build:ui`). The design system and component gallery (P1-8, spec in `docs/design/`), plus a placeholder page that proves the bridge until the Studio (P1-9) replaces it. | TS (Preact, Vite) |
+| `docs/` | product, architecture, ir-spec, bridge-spec, threading, roadmap, design, spikes | Markdown |
 
 v1 lives in the sibling repo `../flowstate` (frozen at tag `v1-final`). Use it as reference only: its visual identity and `assets/` for the design system (P1-8), and its compilers for the baseline. Don't port its code wholesale, and don't edit it.
 
@@ -27,6 +27,7 @@ v1 lives in the sibling repo `../flowstate` (frozen at tag `v1-final`). Use it a
 - The IR is the contract. Change `schema/src/score.ts` and `docs/ir-spec.md` together, then run `npm run schema` to regenerate the JSON Schema.
 - The bridge (WebView <-> plugin <-> service messages) is the other contract. Change `schema/src/bridge.ts` and `docs/bridge-spec.md` together, add fixtures in `schema/fixtures/bridge/`, and run `npm run schema`. Never hand-edit `schema/cpp/include/flowstate/bridge.h`; CI fails on drift.
 - Theory lives in `core` only. Never re-implement voicing, scale or timing logic in TS or in the plugin.
+- UI styling uses the tokens in `ui/src/styles/tokens.css`, never raw colours. Controls are labelled and keyboard-reachable; Space belongs to the DAW, so controls activate with Enter (`docs/design/README.md`).
 - `core` is deterministic: same IR + seed -> identical bytes. Seeded RNG only; no `std::random` distributions.
 - Model calls live in `cloud/` only, behind the `Backend` interface in `cloud/src/backends.ts`. Current backends: `claude-code` (headless Claude Code on the developer's subscription, for dev and evals only, never an end-user path) and `api` (Anthropic SDK, the BYOK path). From P1-1, managed and BYOK access go through `@earendil-works/pi-ai`; no Pi coding-agent packages. Every backend must surface refusals and truncated output (e.g. `refusal`, `max_tokens`) as errors.
 - Audio thread: no allocation, locks or I/O. See `docs/threading.md`.
@@ -47,6 +48,7 @@ npm run build:bridge && npm run test:bridge # generated C++ bridge types, round-
 npm run typecheck                            # all TS packages
 npm test                                     # core + bridge tests + workspace tests (schema, evals)
 npm run schema                               # regenerate JSON Schemas and the C++ bridge header
+npm run build:ui                             # the WebView UI into ui/dist (the plugin build bundles it)
 ```
 
 Planner and evals (the `claude-code` backend is the default; set `FLOWSTATE_PLANNER_BACKEND=api` and `ANTHROPIC_API_KEY` for the API):
