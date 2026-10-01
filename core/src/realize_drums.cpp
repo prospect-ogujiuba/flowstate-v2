@@ -188,8 +188,10 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
             groove = nullptr;  // validateScore warned
         if (groove) {
             for (const auto& gl : groove->lanes) {
-                StepPattern pat = parseSteps(gl.steps, env.time.stepsPerBar(groove->grid), "xXg.-",
-                                             env.where(b) + " groove " + groove->name, env.warnings);
+                // Groove lanes are written in core and tested to parse cleanly; finer bars (a 32nd hat roll)
+                // are read at their resolution without telling the user.
+                std::vector<std::string> quiet;
+                StepPattern pat = parseSteps(gl.steps, env.time.stepsPerBar(groove->grid), "xXg.-", groove->name, quiet);
                 pat.grid = groove->grid;
                 lanes.push_back({gl.voice, pat, gl.late});
             }

@@ -142,29 +142,29 @@ A drums block can call a groove by name instead of writing every lane. Each groo
 
 | Groove | Meter | What it plays |
 | --- | --- | --- |
-| `four_on_floor` | 4/4 | House: kick on every beat, clap on 2 and 4, off-beat open hats, 16th shaker |
-| `tech_house` | 4/4 | Tech house: four-on-the-floor kick, clap on 2 and 4, rolling 16th hats, syncopated rim |
-| `boom_bap` | 4/4 | Boom bap: swung kick pattern, laid-back snare on 2 and 4, accented 8th hats |
-| `lofi` | 4/4 | Lofi: sparse, lazy boom bap; soft kick, late snare, ghosted hats |
-| `trap` | 4/4 | Trap: half-time snare on 3, sparse kicks, 8th hats with 16th rolls |
-| `drill` | 4/4 | UK drill: half-time snare on 3 with a late extra snare, sliding kicks, skippy hats |
-| `dembow` | 4/4 | Reggaeton dembow: kick on every beat, snare on the 3-3-2 dembow accents, 8th hats |
-| `afrobeats` | 4/4 | Afrobeats: tresillo kick, rim clave, soft clap on 2 and 4, busy 16th shaker, conga-style toms |
-| `funk` | 4/4 | Funk: syncopated kick, backbeat snare with ghost notes, 16th hats, open hat on the and of 4 |
+| `four_on_floor` | 4/4 | House: kick on every beat, clap on 2 and 4, off-beat open hats, rolling 16th shaker |
+| `tech_house` | 4/4 | Tech house: four-on-the-floor kick, clap on 2 and 4, off-beat pedal hat, ride on the beat, a pushed ghost snare |
+| `boom_bap` | 4/4 | Boom bap: syncopated kick, laid-back snare on 2 and 4, 8th hats (pair with swing around 0.15) |
+| `lofi` | 4/4 | Lofi: soft kick with an off-beat push, late snare and clap on 2 and 4, ghosted hats (pair with swing) |
+| `trap` | 4/4 | Trap (half-time at 130-170 BPM): sparse kicks, clap on 3, 8th hats with a 32nd roll before the bar line |
+| `drill` | 4/4 | UK drill: half-time snare on 3 then on 4 in bar 2, sliding kicks off the downbeat, tresillo hats |
+| `dembow` | 4/4 | Reggaeton dembow: kick on every beat, snare on the 3-3-2 dembow accents (soft, then strong), light 8th hats |
+| `afrobeats` | 4/4 | Afrobeats: kick on 1, the and of 2, and 4; a rim on the skipping accents instead of a backbeat; accented 16th shaker |
+| `funk` | 4/4 | Funk (Funky Drummer): syncopated kick, backbeat snare with ghost notes, accented 16th hats opening on the e of 2 and 4 |
 | `rock` | 4/4 | Rock: kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat |
 | `pop` | 4/4 | Pop: kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats |
 | `ballad` | 4/4 | Ballad: soft kick on 1 and 3, cross-stick on 2 and 4, gentle 8th hats |
 | `neo_soul` | 4/4 | Neo-soul: behind-the-beat pocket, late snare and hats, ghosted 16ths |
-| `dnb` | 4/4 | Drum and bass: two-step kick and snare with a ghost, 8th hats, 16th shaker |
+| `dnb` | 4/4 | Drum and bass: two-step kick and snare with ghost snares, ride 8ths, off-beat hats |
 | `half_time` | 4/4 | Half-time: kick on 1, snare on 3, 8th hats; slow hip hop and builds |
 | `cinematic_toms` | 4/4 | Cinematic: big low-tom ostinato over kick on 1 and 3, crash on the first downbeat |
 | `sparse_pulse` | 4/4 | Ambient: a soft pulse; kick on 1, ride quarter notes, light shaker |
-| `jazz_swing` | 4/4 | Jazz swing (triplet grid): spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick |
+| `jazz_swing` | 4/4 | Jazz swing (triplet grid): spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick, cross-stick on 4 |
 | `brush_swing` | 4/4 | Brushes (triplet grid): swirling brush snare, feathered kick, hi-hat foot on 2 and 4 |
 | `jazz_waltz` | 3/4 | Jazz waltz (triplet grid): skipping ride, hi-hat foot on 2 and 3, feathered kick |
 | `waltz` | 3/4 | Waltz: kick on 1, cross-stick on 2 and 3, 8th hats |
-| `six_eight` | 6/8 | 6/8: kick on 1, snare on 4, every eighth on the hats; ballads and folk |
-| `gospel_shuffle` | 6/8 | Gospel 6/8: kick on 1 with a push, snare backbeat on 4 with a ghost, accented hats |
+| `six_eight` | 6/8 | 6/8: kick on 1, snare on 4, every eighth on the hats with accents on 1 and 4; ballads and folk |
+| `gospel_shuffle` | 6/8 | Gospel 6/8: kick on 1 with a pickup on 6, snare on 4 with a ghost, accented hats |
 
 ## Realization (what `core` guarantees)
 

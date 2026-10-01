@@ -2,6 +2,7 @@
 
 #include "flowstate/grooves.h"
 #include "flowstate/realize.h"
+#include "flowstate/steps.h"
 
 #include <fstream>
 #include <functional>
@@ -76,6 +77,20 @@ TEST_CASE("grooves: core's library matches the IR contract") {
     CHECK(ours == contract);
 }
 
+TEST_CASE("grooves: every lane is well formed: bars of a whole resolution, known tokens") {
+    for (const auto& g : grooves()) {
+        for (const auto& lane : g.lanes) {
+            CAPTURE(g.name);
+            CAPTURE(toString(lane.voice));
+            std::vector<std::string> w;
+            const int perBar = g.numerator * g.grid;
+            StepPattern p = parseSteps(lane.steps, perBar, "xXg.", "t", w);
+            CHECK(!p.empty());
+            for (const auto& msg : w) CHECK_MESSAGE(msg.find("read as") != std::string::npos, msg);
+        }
+    }
+}
+
 TEST_CASE("grooves: every groove realizes cleanly in its meter") {
     for (const auto& g : grooves()) {
         CAPTURE(g.name);
@@ -106,8 +121,8 @@ TEST_CASE("grooves: dembow places its kicks and snares; block lanes only add voi
 TEST_CASE("grooves: feel sits a lane behind the grid") {
     auto straight = onsets(run(score(4, 4, 1, json{{"groove", "boom_bap"}})));
     auto lazy = onsets(run(score(4, 4, 1, json{{"groove", "lofi"}})));
-    // boom_bap's snare is 0.1 of a 16th late (24 ticks), lofi's 0.2 (48 ticks); the kick is on the grid.
-    CHECK(straight[38].front() == 960 + 24);
+    // boom_bap's snare is 0.12 of a 16th late (29 ticks), lofi's 0.2 (48 ticks); the kick is on the grid.
+    CHECK(straight[38].front() == 960 + 29);
     CHECK(lazy[38].front() == 960 + 48);
     CHECK(lazy[36].front() == 0);
 }
