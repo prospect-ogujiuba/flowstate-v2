@@ -1,0 +1,516 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble D Minor Cinematic Build",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "Opening",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.45
+    },
+    {
+      "name": "Rise",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.6
+    },
+    {
+      "name": "Lift",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 0.78
+    },
+    {
+      "name": "Crest",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 0.95
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bbmaj7/D"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Gm9"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "A7b9"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Dm9"
+    },
+    {
+      "bar": 5,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "F/A"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Bbmaj7"
+    },
+    {
+      "bar": 6,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Cadd9"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Gm9"
+    },
+    {
+      "bar": 7,
+      "beat": 3,
+      "beats": 1,
+      "symbol": "A7sus4"
+    },
+    {
+      "bar": 7,
+      "beat": 4,
+      "beats": 1,
+      "symbol": "A7b9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "horn_call",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4.5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 7,
+          "beats": 1,
+          "accent": true
+        }
+      ]
+    },
+    {
+      "id": "horn_answer",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 1,
+          "beat": 6,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 7,
+          "beats": 1,
+          "accent": true
+        }
+      ]
+    },
+    {
+      "id": "horn_cadence",
+      "notes": [
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 1,
+          "beat": 2.75,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.25,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6.75,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 7.25,
+          "beats": 0.75,
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Sweeping String Pad",
+      "low": "D2",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------|x---------------|x-------x-------|x-------x---x---|x---x---x-------|x-------x---x---|x---x---x---x---|X---------------",
+          "voicing": "spread",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Contrabass and Low Celli",
+      "low": "D1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R---------------|R---------------|R-------5-------|R-------R---a---|R---..8.R---..5.|R---5---R---5---|R---5---R---a---|R---..8.R-------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Noble French Horn",
+      "low": "F3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_call",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_answer",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_call",
+          "transforms": [
+            "transpose:+2",
+            "octave:+1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_cadence",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Cinematic Toms and Bass Drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 104,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "X...............|........x.......|X.......x.......|X.....x.X...x...|X...x...X.......|X...x...X...x...|X.X.X.X.X.X.X.X.|X.......X......."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "X...............|........X.......|X.......X.......|X...X...X...X...|X...X.X.X...X.X.|X.X.X.X.X.X.X.X.|X.X.XX.XX.X.XX.X|X...X...X...X..."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "................|................|....x.......x...|..x...x...x...x.|....X.......X...|..X...X...X...X.|.X.X.XX..X.X.XX.|....X...X...X..."
+            },
+            {
+              "voice": "high_tom",
+              "steps": "................|................|................|............x.x.|................|....x.x.....x.x.|..x.xx.x..x.xx.x|............X.X."
+            },
+            {
+              "voice": "crash",
+              "steps": "................|................|................|................|X...............|................|...............X|X..............."
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

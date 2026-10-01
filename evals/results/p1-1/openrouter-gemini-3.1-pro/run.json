@@ -7,11 +7,11 @@
   "at": "2026-10-01T04:54:54.781Z",
   "stats": {
     "prompts": 20,
-    "planned": 9,
-    "valid": 9,
-    "validityRate": 0.45,
-    "latencyP50Ms": 63853,
-    "latencyP95Ms": 124495
+    "planned": 20,
+    "valid": 20,
+    "validityRate": 1,
+    "latencyP50Ms": 84127,
+    "latencyP95Ms": 145942
   },
   "results": [
     {
@@ -100,58 +100,146 @@
     },
     {
       "id": "cinematic-rising-horns",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 81804,
+      "usage": {
+        "inputTokens": 4477,
+        "outputTokens": 11542,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "ambient-pentatonic-drift",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 84127,
+      "usage": {
+        "inputTokens": 11065,
+        "outputTokens": 11424,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "funk-clav-mixolydian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 85860,
+      "usage": {
+        "inputTokens": 4489,
+        "outputTokens": 11255,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "gospel-68-sunday",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 82057,
+      "usage": {
+        "inputTokens": 4482,
+        "outputTokens": 10959,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "rock-anthem-mixolydian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 104749,
+      "usage": {
+        "inputTokens": 4485,
+        "outputTokens": 11454,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "pop-ballad-waltz",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 95800,
+      "usage": {
+        "inputTokens": 4482,
+        "outputTokens": 12364,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "cinematic-68-lament",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 145942,
+      "usage": {
+        "inputTokens": 12511,
+        "outputTokens": 20365,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "techhouse-minimal",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 107040,
+      "usage": {
+        "inputTokens": 4482,
+        "outputTokens": 12490,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "jazz-waltz-dorian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 84344,
+      "usage": {
+        "inputTokens": 4487,
+        "outputTokens": 11782,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "trap-phrygian-choir",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 56846,
+      "usage": {
+        "inputTokens": 4481,
+        "outputTokens": 7808,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "dnb-liquid-rolling",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/google/gemini-3.1-pro-preview, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 152086,
+      "usage": {
+        "inputTokens": 11191,
+        "outputTokens": 15604,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:30:11.533Z"
     },
     {
       "id": "jazz-late-night-trio",
@@ -176,6 +264,25 @@
         "cacheReadTokens": 0
       },
       "remainingErrors": []
+    }
+  ],
+  "reruns": [
+    {
+      "at": "2026-10-01T11:30:11.533Z",
+      "ids": [
+        "cinematic-rising-horns",
+        "dnb-liquid-rolling",
+        "ambient-pentatonic-drift",
+        "funk-clav-mixolydian",
+        "gospel-68-sunday",
+        "rock-anthem-mixolydian",
+        "pop-ballad-waltz",
+        "techhouse-minimal",
+        "cinematic-68-lament",
+        "jazz-waltz-dorian",
+        "trap-phrygian-choir"
+      ],
+      "concurrency": 2
     }
   ]
 }

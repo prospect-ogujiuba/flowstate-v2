@@ -1,0 +1,206 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic Tech-House Groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.55,
+    "style": [
+      "tech-house",
+      "house",
+      "minimal"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": -1,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": -1,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.25,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Deep Stabs",
+      "low": "C3",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".... ..x. .... .... | .... .... x... .... | .... ..x. .... .... | .... .... ..x. .x..",
+          "voicing": "drop2",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..R. ...R ..R. .R.. | ..R. ...R ..R. R.R. | ..R. ...R ..R. .R.. | ..R. ...R ..R. ..Ra",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Hypnotic Bleep",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "909 Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "clap",
+              "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... x..g"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x..g x..g x..g x..g | x..g x..g x..g x..g | x..g x..g x..g x..g | x..g x..g x.x. x..g"
+            },
+            {
+              "voice": "rim",
+              "steps": "...x .... ...x .... | ...x .... ...x .... | ...x .... ...x .... | ...x .... ...x ..x."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

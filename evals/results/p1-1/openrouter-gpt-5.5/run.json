@@ -7,11 +7,11 @@
   "at": "2026-10-01T04:55:42.275Z",
   "stats": {
     "prompts": 20,
-    "planned": 8,
-    "valid": 8,
-    "validityRate": 0.4,
-    "latencyP50Ms": 112515,
-    "latencyP95Ms": 138095
+    "planned": 20,
+    "valid": 20,
+    "validityRate": 1,
+    "latencyP50Ms": 134969,
+    "latencyP95Ms": 186815
   },
   "results": [
     {
@@ -76,63 +76,159 @@
     },
     {
       "id": "cinematic-rising-horns",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 154175,
+      "usage": {
+        "inputTokens": 4316,
+        "outputTokens": 12693,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "reggaeton-dembow",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 150205,
+      "usage": {
+        "inputTokens": 484,
+        "outputTokens": 12088,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "dnb-liquid-rolling",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 160605,
+      "usage": {
+        "inputTokens": 481,
+        "outputTokens": 12297,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "ambient-pentatonic-drift",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 106947,
+      "usage": {
+        "inputTokens": 479,
+        "outputTokens": 7812,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "funk-clav-mixolydian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 158944,
+      "usage": {
+        "inputTokens": 4325,
+        "outputTokens": 12727,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "gospel-68-sunday",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 210637,
+      "usage": {
+        "inputTokens": 482,
+        "outputTokens": 15724,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "rock-anthem-mixolydian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 186815,
+      "usage": {
+        "inputTokens": 479,
+        "outputTokens": 14758,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "pop-ballad-waltz",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 180402,
+      "usage": {
+        "inputTokens": 484,
+        "outputTokens": 13004,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "cinematic-68-lament",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 169374,
+      "usage": {
+        "inputTokens": 485,
+        "outputTokens": 12682,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "techhouse-minimal",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 133331,
+      "usage": {
+        "inputTokens": 476,
+        "outputTokens": 9391,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "jazz-waltz-dorian",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 171349,
+      "usage": {
+        "inputTokens": 487,
+        "outputTokens": 12824,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "trap-phrygian-choir",
-      "ok": false,
-      "error": "Error: planner call failed (openrouter/openai/gpt-5.5, error): 402: {\"message\":\"This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.\",\"code\":402,\"metadata\":{\"reason\":\"in_flight_budget_exhausted\",\"limit_source\":\"openrouter_in_flight_budget\",\"remedy_hint\":\"Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.\",\"headers\":{\"Retry-After\":\"120\"},\"provider_name\":null}}"
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 131117,
+      "usage": {
+        "inputTokens": 481,
+        "outputTokens": 9321,
+        "cacheReadTokens": 3840
+      },
+      "remainingErrors": [],
+      "rerun": "2026-10-01T11:37:12.348Z"
     },
     {
       "id": "drill-uk-phrygian",
@@ -169,6 +265,26 @@
         "cacheReadTokens": 3840
       },
       "remainingErrors": []
+    }
+  ],
+  "reruns": [
+    {
+      "at": "2026-10-01T11:37:12.348Z",
+      "ids": [
+        "reggaeton-dembow",
+        "cinematic-rising-horns",
+        "ambient-pentatonic-drift",
+        "dnb-liquid-rolling",
+        "funk-clav-mixolydian",
+        "gospel-68-sunday",
+        "rock-anthem-mixolydian",
+        "pop-ballad-waltz",
+        "cinematic-68-lament",
+        "techhouse-minimal",
+        "jazz-waltz-dorian",
+        "trap-phrygian-choir"
+      ],
+      "concurrency": 2
     }
   ]
 }

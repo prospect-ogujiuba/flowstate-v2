@@ -1,0 +1,476 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving Mixolydian Anthem",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "rock",
+      "anthem"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.85
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G5"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F5"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C5"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G5"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G5"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F5"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C5"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "G5"
+    },
+    {
+      "bar": 8,
+      "beat": 3,
+      "beats": 1,
+      "symbol": "F5"
+    },
+    {
+      "bar": 8,
+      "beat": 4,
+      "beats": 1,
+      "symbol": "C5"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.5,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 2,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "rhythm_guitar",
+      "role": "chords",
+      "name": "Overdrive Guitar",
+      "low": "E2",
+      "high": "E4",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "X...X...X..x..X. | X...X...X..x..X. | X...X...X..x..X. | X...X...X.......",
+          "voicing": "power",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "X.......X...X...",
+          "voicing": "power",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Picked Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "R.R.R.R.R.R.R.R.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R.R.R.R.R...R...",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "lead_guitar",
+      "role": "melody",
+      "name": "Lead Anthem",
+      "low": "G3",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-4"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "displace:+0.5"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 5,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 6,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-1",
+            "octave:+1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 7,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-4",
+            "octave:+1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m2",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Heavy Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 115,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.......x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X............... | ................ "
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.......x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X............... | ................ "
+            }
+          ],
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.......x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X...X...X..."
+            },
+            {
+              "voice": "crash",
+              "steps": "X.......X...X..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "................"
+            }
+          ],
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

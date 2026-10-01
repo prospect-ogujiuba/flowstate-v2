@@ -1,0 +1,369 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "gospel",
+      "soul",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj9/C"
+    },
+    {
+      "bar": 3,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "F7#9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbm9"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb13"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 5,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Ab13"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 6,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Ddim7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj9/Eb"
+    },
+    {
+      "bar": 7,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "F7#9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbm11"
+    },
+    {
+      "bar": 8,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb7b9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "organ_lead",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 1,
+          "beat": 2.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 6,
+          "beats": 3,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 10,
+          "beats": 2,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Soul Keys",
+      "low": "F2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----------|x-----------|x-----x-----|x-----x-----|x-----x-----|x-----x-----|x-----x-----|x-----x-----",
+          "voicing": "drop2",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Smooth Bass",
+      "low": "C1",
+      "high": "F2",
+      "grid": 2,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R---.gR---.a|R---.gR---.a|R---.aR---.a|R---.aR---.a",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--g.gR---.a|R--g.gR---.a|R--g.aR---.a|R--g.aR---.a",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    },
+    {
+      "id": "organ",
+      "role": "melody",
+      "name": "Hammond Lead",
+      "low": "C4",
+      "high": "Eb6",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_lead",
+          "transforms": [],
+          "repeatEvery": 24,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_lead",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 24,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rolling Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x."
+            },
+            {
+              "voice": "rim",
+              "steps": "......x.....|......x.....|......x.....|......x....."
+            },
+            {
+              "voice": "kick",
+              "steps": "x.....x...g.|x..g..x...g.|x.....x...g.|x..g..x....."
+            }
+          ],
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "X.x.x.X.x.x.|X.x.x.X.x.x.|X.x.x.X.x.x.|X.x.x.X.x.x."
+            },
+            {
+              "voice": "snare",
+              "steps": "......X.....|......X.....|......X.....|......X....."
+            },
+            {
+              "voice": "kick",
+              "steps": "x...g.x...g.|x..g..x...g.|x...g.x...g.|x..g..x....."
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

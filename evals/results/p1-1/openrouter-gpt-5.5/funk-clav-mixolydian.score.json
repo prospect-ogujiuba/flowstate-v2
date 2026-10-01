@@ -1,0 +1,357 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight E Mix Funk",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A1",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.62
+    },
+    {
+      "name": "A2",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.72
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "E9"
+    },
+    {
+      "bar": 2,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "A13"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "E9"
+    },
+    {
+      "bar": 3,
+      "beat": 4,
+      "beats": 1,
+      "symbol": "D9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "E9"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 1,
+      "symbol": "D9"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 1,
+      "symbol": "B7#9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m_hook",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.25,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": -1,
+          "beat": 2.5,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.75,
+          "beats": 0.25,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "m_answer",
+      "notes": [
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 9,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.25,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.5,
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "clav",
+      "role": "chords",
+      "name": "Clavinet chord stabs",
+      "low": "D3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.....x..x..x..|..x..x..x.....x.|.x....x..x.x...x|x.....x..x..x..X",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap-ish electric bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.g8.R.5g.7.R.a.|R.g8.R.5R.g8.5.a|R.g8.R.5g.7.R.5a|R.g8.R.5R.g5R.a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wah lead riff",
+      "low": "B3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m_hook",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m_answer",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tight funk kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x.x....x.x...|x..x.x..x...x.x.|x..x.x....x.x..x|x..x.x..x..x.x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "..g.X..g.g..X..g|..g.X.g...g.X.g.|.g..X..g.g..X.g.|..g.X..g..g.Xggg"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "XxxxXxgxXxxxXxgx|XxxxXxxxXxgxXxxx|XxgxXxxxXxxxXxgx|XxxxXxgxXxgxXxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".......x.......x|...........x...x|.......x.......x|...........x...x"
+            },
+            {
+              "voice": "crash",
+              "steps": "x...............|................|................|...............X"
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

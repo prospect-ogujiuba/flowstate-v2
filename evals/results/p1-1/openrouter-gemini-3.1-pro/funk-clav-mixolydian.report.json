@@ -1,0 +1,64 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 189,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "clav",
+        "role": "chords",
+        "notes": 56,
+        "minPitch": 61,
+        "maxPitch": 71,
+        "rangeLow": 52,
+        "rangeHigh": 76,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 30,
+        "minPitch": 28,
+        "maxPitch": 52,
+        "rangeLow": 28,
+        "rangeHigh": 52,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 12,
+        "minPitch": 76,
+        "maxPitch": 88,
+        "rangeLow": 64,
+        "rangeHigh": 88,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 91,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 56
+          },
+          {
+            "sublane": "kick",
+            "notes": 14
+          },
+          {
+            "sublane": "snare",
+            "notes": 21
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "dir": "/home/priz/projects/flowstate-v2/evals/out/p1-1/deepseek-v4-pro",
+  "dir": "/home/priz/projects/flowstate-v2/evals/results/p1-1/deepseek-v4-pro",
   "prompts": "/home/priz/projects/flowstate-v2/evals/prompts/phase0.json",
   "ghostVelocity": 55,
-  "generatedAt": "2026-10-01T05:07:59.995Z",
+  "generatedAt": "2026-10-01T11:37:18.018Z",
   "aggregate": {
     "chords/bar": 9.3,
     "bass/bar": 3.9,

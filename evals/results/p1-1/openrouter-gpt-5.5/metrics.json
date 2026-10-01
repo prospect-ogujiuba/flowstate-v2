@@ -1,23 +1,23 @@
 {
-  "dir": "/home/priz/projects/flowstate-v2/evals/out/p1-1/openrouter-gpt-5.5",
+  "dir": "/home/priz/projects/flowstate-v2/evals/results/p1-1/openrouter-gpt-5.5",
   "prompts": "/home/priz/projects/flowstate-v2/evals/prompts/phase0.json",
   "ghostVelocity": 55,
-  "generatedAt": "2026-10-01T05:08:00.222Z",
+  "generatedAt": "2026-10-01T11:37:17.567Z",
   "aggregate": {
-    "chords/bar": 12.875,
-    "bass/bar": 4.828125,
-    "melody/bar": 5.8125,
-    "drums/bar": 25.21875,
-    "pcEntropy": 3.0042384548017655,
-    "distinctPitches": 30.25,
-    "onsetEntropy": 3.005387221311384,
-    "melStepShare": 0.6514374268042746,
-    "melLeapShare": 0.06849476911976912,
-    "voiceMove": 8.715227972267213,
-    "drumVelRange": 81.125,
-    "ghostShare": 0.19590170805863671,
-    "repetition": 0.015625,
-    "outOfKey": 0.06973601235074892
+    "chords/bar": 11.6,
+    "bass/bar": 4.50625,
+    "melody/bar": 5.75,
+    "drums/bar": 20.39375,
+    "pcEntropy": 2.87356955456831,
+    "distinctPitches": 28.55,
+    "onsetEntropy": 2.786064019267638,
+    "melStepShare": 0.6712183908593495,
+    "melLeapShare": 0.05673363208974415,
+    "voiceMove": 9.76598402232936,
+    "drumVelRange": 73.1,
+    "ghostShare": 0.2820646763248996,
+    "repetition": 0.0625,
+    "outOfKey": 0.05392554739267498
   },
   "files": [
     {
@@ -93,6 +93,294 @@
       }
     },
     {
+      "id": "ambient-pentatonic-drift",
+      "bars": 8,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 34,
+          "notesPerBar": 4.25,
+          "distinctPitches": 13,
+          "pitchClassEntropy": 2.279116418421207,
+          "onsetEntropy": 1.1221136771091087,
+          "repetition": 0,
+          "voiceMovement": 17.11764705882353
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 6,
+          "notesPerBar": 0.75,
+          "distinctPitches": 4,
+          "pitchClassEntropy": 1.9182958340544893,
+          "onsetEntropy": 0.6500224216483541,
+          "repetition": 0,
+          "stepShare": 0.4,
+          "leapShare": 0.2,
+          "meanInterval": 5
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 20,
+          "notesPerBar": 2.5,
+          "distinctPitches": 6,
+          "pitchClassEntropy": 2.2854752972273342,
+          "onsetEntropy": 3.121928094887362,
+          "repetition": 0.5,
+          "stepShare": 0.47368421052631576,
+          "leapShare": 0,
+          "meanInterval": 3.263157894736842
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 25,
+          "notesPerBar": 3.125,
+          "distinctPitches": 4,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 2.471251836004466,
+          "repetition": 0,
+          "drumVelocityRange": 28,
+          "ghostShare": 1
+        }
+      ],
+      "summary": {
+        "chords/bar": 4.25,
+        "bass/bar": 0.75,
+        "melody/bar": 2.5,
+        "drums/bar": 3.125,
+        "pcEntropy": 2.2872403597835462,
+        "distinctPitches": 19,
+        "onsetEntropy": 1.8413290074123227,
+        "melStepShare": 0.47368421052631576,
+        "melLeapShare": 0,
+        "voiceMove": 17.11764705882353,
+        "drumVelRange": 28,
+        "ghostShare": 1,
+        "repetition": 0.125,
+        "outOfKey": 0
+      }
+    },
+    {
+      "id": "cinematic-68-lament",
+      "bars": 8,
+      "meter": "6/8",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 61,
+          "notesPerBar": 7.625,
+          "distinctPitches": 18,
+          "pitchClassEntropy": 2.80317300249972,
+          "onsetEntropy": 0.9881108365218301,
+          "repetition": 0,
+          "voiceMovement": 14.421052631578947
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 19,
+          "notesPerBar": 2.375,
+          "distinctPitches": 5,
+          "pitchClassEntropy": 1.562688039303908,
+          "onsetEntropy": 1.4713544870139295,
+          "repetition": 0.25,
+          "stepShare": 0.6666666666666666,
+          "leapShare": 0,
+          "meanInterval": 2.2777777777777777
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 61,
+          "notesPerBar": 7.625,
+          "distinctPitches": 9,
+          "pitchClassEntropy": 2.7578923846760235,
+          "onsetEntropy": 3.44713150336014,
+          "repetition": 0,
+          "stepShare": 0.8166666666666667,
+          "leapShare": 0.05,
+          "meanInterval": 2.283333333333333
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 75,
+          "notesPerBar": 9.375,
+          "distinctPitches": 3,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 2.549847358214472,
+          "repetition": 0.25,
+          "drumVelocityRange": 65,
+          "ghostShare": 0.72
+        }
+      ],
+      "summary": {
+        "chords/bar": 7.625,
+        "bass/bar": 2.375,
+        "melody/bar": 7.625,
+        "drums/bar": 9.375,
+        "pcEntropy": 2.8984532203963775,
+        "distinctPitches": 28,
+        "onsetEntropy": 2.1141110462775927,
+        "melStepShare": 0.8166666666666667,
+        "melLeapShare": 0.05,
+        "voiceMove": 14.421052631578947,
+        "drumVelRange": 65,
+        "ghostShare": 0.72,
+        "repetition": 0.125,
+        "outOfKey": 0.03546099290780142
+      }
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "bars": 8,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 88,
+          "notesPerBar": 11,
+          "distinctPitches": 20,
+          "pitchClassEntropy": 2.885344075952583,
+          "onsetEntropy": 1.8380008920020914,
+          "repetition": 0.25,
+          "voiceMovement": 15.191489361702128
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 22,
+          "notesPerBar": 2.75,
+          "distinctPitches": 13,
+          "pitchClassEntropy": 2.6292196865240967,
+          "onsetEntropy": 2.2655833228877333,
+          "repetition": 0.25,
+          "stepShare": 0.2857142857142857,
+          "leapShare": 0.19047619047619047,
+          "meanInterval": 5.523809523809524
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 34,
+          "notesPerBar": 4.25,
+          "distinctPitches": 9,
+          "pitchClassEntropy": 2.7677344470363145,
+          "onsetEntropy": 3.312795299261005,
+          "repetition": 0,
+          "stepShare": 0.6363636363636364,
+          "leapShare": 0.030303030303030304,
+          "meanInterval": 2.727272727272727
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 106,
+          "notesPerBar": 13.25,
+          "distinctPitches": 5,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.6103483487391563,
+          "repetition": 0,
+          "drumVelocityRange": 37,
+          "ghostShare": 0
+        }
+      ],
+      "summary": {
+        "chords/bar": 11,
+        "bass/bar": 2.75,
+        "melody/bar": 4.25,
+        "drums/bar": 13.25,
+        "pcEntropy": 2.9182928758608386,
+        "distinctPitches": 30,
+        "onsetEntropy": 2.7566819657224966,
+        "melStepShare": 0.6363636363636364,
+        "melLeapShare": 0.030303030303030304,
+        "voiceMove": 15.191489361702128,
+        "drumVelRange": 37,
+        "ghostShare": 0,
+        "repetition": 0.125,
+        "outOfKey": 0.04861111111111111
+      }
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "bars": 8,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 70,
+          "notesPerBar": 8.75,
+          "distinctPitches": 19,
+          "pitchClassEntropy": 2.9212434165764276,
+          "onsetEntropy": 1.4344842427314621,
+          "repetition": 0,
+          "voiceMovement": 11.3
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 30,
+          "notesPerBar": 3.75,
+          "distinctPitches": 17,
+          "pitchClassEntropy": 3.3777471629109446,
+          "onsetEntropy": 2.5362434129830604,
+          "repetition": 0,
+          "stepShare": 0.5172413793103449,
+          "leapShare": 0.06896551724137931,
+          "meanInterval": 3.413793103448276
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 38,
+          "notesPerBar": 4.75,
+          "distinctPitches": 14,
+          "pitchClassEntropy": 2.6721339911632813,
+          "onsetEntropy": 2.9408881217223555,
+          "repetition": 0.5,
+          "stepShare": 0.6216216216216216,
+          "leapShare": 0.10810810810810811,
+          "meanInterval": 3.027027027027027
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 282,
+          "notesPerBar": 35.25,
+          "distinctPitches": 6,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.9574031994845438,
+          "repetition": 0,
+          "drumVelocityRange": 88,
+          "ghostShare": 0.30141843971631205
+        }
+      ],
+      "summary": {
+        "chords/bar": 8.75,
+        "bass/bar": 3.75,
+        "melody/bar": 4.75,
+        "drums/bar": 35.25,
+        "pcEntropy": 3.078771590703288,
+        "distinctPitches": 43,
+        "onsetEntropy": 2.7172547442303556,
+        "melStepShare": 0.6216216216216216,
+        "melLeapShare": 0.10810810810810811,
+        "voiceMove": 11.3,
+        "drumVelRange": 88,
+        "ghostShare": 0.30141843971631205,
+        "repetition": 0.125,
+        "outOfKey": 0.08695652173913043
+      }
+    },
+    {
       "id": "drill-uk-phrygian",
       "bars": 4,
       "meter": "4/4",
@@ -162,6 +450,150 @@
         "ghostShare": 0.09411764705882353,
         "repetition": 0,
         "outOfKey": 0.056818181818181816
+      }
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "bars": 4,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "clav",
+          "role": "chords",
+          "notes": 72,
+          "notesPerBar": 18,
+          "distinctPitches": 11,
+          "pitchClassEntropy": 2.7993119757169174,
+          "onsetEntropy": 3.675783629896564,
+          "repetition": 0,
+          "voiceMovement": 5.73469387755102
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 39,
+          "notesPerBar": 9.75,
+          "distinctPitches": 7,
+          "pitchClassEntropy": 1.9708513644761538,
+          "onsetEntropy": 3.503100295674378,
+          "repetition": 0,
+          "stepShare": 0.4473684210526316,
+          "leapShare": 0.23684210526315788,
+          "meanInterval": 4.657894736842105
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 32,
+          "notesPerBar": 8,
+          "distinctPitches": 8,
+          "pitchClassEntropy": 2.6556390622295662,
+          "onsetEntropy": 3.375,
+          "repetition": 1,
+          "stepShare": 0.41935483870967744,
+          "leapShare": 0.22580645161290322,
+          "meanInterval": 3.967741935483871
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 123,
+          "notesPerBar": 30.75,
+          "distinctPitches": 5,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.9519347992832334,
+          "repetition": 0,
+          "drumVelocityRange": 83,
+          "ghostShare": 0.2032520325203252
+        }
+      ],
+      "summary": {
+        "chords/bar": 18,
+        "bass/bar": 9.75,
+        "melody/bar": 8,
+        "drums/bar": 30.75,
+        "pcEntropy": 2.968354104076475,
+        "distinctPitches": 21,
+        "onsetEntropy": 3.6264546812135436,
+        "melStepShare": 0.41935483870967744,
+        "melLeapShare": 0.22580645161290322,
+        "voiceMove": 5.73469387755102,
+        "drumVelRange": 83,
+        "ghostShare": 0.2032520325203252,
+        "repetition": 0.25,
+        "outOfKey": 0.08391608391608392
+      }
+    },
+    {
+      "id": "gospel-68-sunday",
+      "bars": 8,
+      "meter": "6/8",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 89,
+          "notesPerBar": 11.125,
+          "distinctPitches": 21,
+          "pitchClassEntropy": 3.192051850499369,
+          "onsetEntropy": 2.127526573146746,
+          "repetition": 0,
+          "voiceMovement": 8.82
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 38,
+          "notesPerBar": 4.75,
+          "distinctPitches": 13,
+          "pitchClassEntropy": 3.3720271840976825,
+          "onsetEntropy": 2.730361805932882,
+          "repetition": 0,
+          "stepShare": 0.5675675675675675,
+          "leapShare": 0.05405405405405406,
+          "meanInterval": 3.2972972972972974
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 62,
+          "notesPerBar": 7.75,
+          "distinctPitches": 11,
+          "pitchClassEntropy": 2.8757930234058056,
+          "onsetEntropy": 3.380749476654975,
+          "repetition": 0,
+          "stepShare": 0.7868852459016393,
+          "leapShare": 0,
+          "meanInterval": 2.1475409836065573
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 109,
+          "notesPerBar": 13.625,
+          "distinctPitches": 5,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 2.9480020449895976,
+          "repetition": 0,
+          "drumVelocityRange": 68,
+          "ghostShare": 0.27522935779816515
+        }
+      ],
+      "summary": {
+        "chords/bar": 11.125,
+        "bass/bar": 4.75,
+        "melody/bar": 7.75,
+        "drums/bar": 13.625,
+        "pcEntropy": 3.2488302788153525,
+        "distinctPitches": 42,
+        "onsetEntropy": 2.7966599751810497,
+        "melStepShare": 0.7868852459016393,
+        "melLeapShare": 0,
+        "voiceMove": 8.82,
+        "drumVelRange": 68,
+        "ghostShare": 0.27522935779816515,
+        "repetition": 0,
+        "outOfKey": 0.12698412698412698
       }
     },
     {
@@ -309,6 +741,78 @@
       }
     },
     {
+      "id": "jazz-waltz-dorian",
+      "bars": 8,
+      "meter": "3/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 84,
+          "notesPerBar": 10.5,
+          "distinctPitches": 11,
+          "pitchClassEntropy": 2.7905585496006826,
+          "onsetEntropy": 2.767667928618528,
+          "repetition": 0,
+          "voiceMovement": 5.627118644067797
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 24,
+          "notesPerBar": 3,
+          "distinctPitches": 11,
+          "pitchClassEntropy": 3.153107168362811,
+          "onsetEntropy": 1.584962500721156,
+          "repetition": 0,
+          "stepShare": 0.391304347826087,
+          "leapShare": 0.17391304347826086,
+          "meanInterval": 4.434782608695652
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 39,
+          "notesPerBar": 4.875,
+          "distinctPitches": 9,
+          "pitchClassEntropy": 2.6518090270580212,
+          "onsetEntropy": 3.0181615935399355,
+          "repetition": 0,
+          "stepShare": 0.7368421052631579,
+          "leapShare": 0.05263157894736842,
+          "meanInterval": 2.3421052631578947
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 63,
+          "notesPerBar": 7.875,
+          "distinctPitches": 4,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 2.099333585333227,
+          "repetition": 0,
+          "drumVelocityRange": 64,
+          "ghostShare": 0.4126984126984127
+        }
+      ],
+      "summary": {
+        "chords/bar": 10.5,
+        "bass/bar": 3,
+        "melody/bar": 4.875,
+        "drums/bar": 7.875,
+        "pcEntropy": 2.952419483570342,
+        "distinctPitches": 31,
+        "onsetEntropy": 2.3675314020532117,
+        "melStepShare": 0.7368421052631579,
+        "melLeapShare": 0.05263157894736842,
+        "voiceMove": 5.627118644067797,
+        "drumVelRange": 64,
+        "ghostShare": 0.4126984126984127,
+        "repetition": 0,
+        "outOfKey": 0.04081632653061224
+      }
+    },
+    {
       "id": "lofi-rainy-study",
       "bars": 4,
       "meter": "4/4",
@@ -453,6 +957,78 @@
       }
     },
     {
+      "id": "pop-ballad-waltz",
+      "bars": 8,
+      "meter": "3/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 32,
+          "notesPerBar": 4,
+          "distinctPitches": 12,
+          "pitchClassEntropy": 2.6112949406953985,
+          "onsetEntropy": 2,
+          "repetition": 0.25,
+          "voiceMovement": 6.483870967741935
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 17,
+          "notesPerBar": 2.125,
+          "distinctPitches": 10,
+          "pitchClassEntropy": 2.895423870280316,
+          "onsetEntropy": 1.7633584292311077,
+          "repetition": 0,
+          "stepShare": 0.25,
+          "leapShare": 0.0625,
+          "meanInterval": 4.125
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 34,
+          "notesPerBar": 4.25,
+          "distinctPitches": 7,
+          "pitchClassEntropy": 2.5554026544223842,
+          "onsetEntropy": 2.535848502951414,
+          "repetition": 0,
+          "stepShare": 0.7272727272727273,
+          "leapShare": 0.06060606060606061,
+          "meanInterval": 2.5757575757575757
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 66,
+          "notesPerBar": 8.25,
+          "distinctPitches": 4,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 2.483765995198672,
+          "repetition": 0,
+          "drumVelocityRange": 48,
+          "ghostShare": 0.8333333333333334
+        }
+      ],
+      "summary": {
+        "chords/bar": 4,
+        "bass/bar": 2.125,
+        "melody/bar": 4.25,
+        "drums/bar": 8.25,
+        "pcEntropy": 2.739560892564223,
+        "distinctPitches": 23,
+        "onsetEntropy": 2.1957432318452983,
+        "melStepShare": 0.7272727272727273,
+        "melLeapShare": 0.06060606060606061,
+        "voiceMove": 6.483870967741935,
+        "drumVelRange": 48,
+        "ghostShare": 0.8333333333333334,
+        "repetition": 0.0625,
+        "outOfKey": 0.012048192771084338
+      }
+    },
+    {
       "id": "pop-uplifting-chorus",
       "bars": 8,
       "meter": "4/4",
@@ -525,6 +1101,222 @@
       }
     },
     {
+      "id": "reggaeton-dembow",
+      "bars": 4,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 60,
+          "notesPerBar": 15,
+          "distinctPitches": 12,
+          "pitchClassEntropy": 2.879402337669277,
+          "onsetEntropy": 2.434634703456019,
+          "repetition": 0,
+          "voiceMovement": 14.305555555555555
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 24,
+          "notesPerBar": 6,
+          "distinctPitches": 11,
+          "pitchClassEntropy": 2.867492461184755,
+          "onsetEntropy": 2.584962500721156,
+          "repetition": 0,
+          "stepShare": 0.34782608695652173,
+          "leapShare": 0.13043478260869565,
+          "meanInterval": 4.478260869565218
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 28,
+          "notesPerBar": 7,
+          "distinctPitches": 9,
+          "pitchClassEntropy": 2.824291085081517,
+          "onsetEntropy": 3.208966082694623,
+          "repetition": 0,
+          "stepShare": 0.7777777777777778,
+          "leapShare": 0.037037037037037035,
+          "meanInterval": 2.3333333333333335
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 93,
+          "notesPerBar": 23.25,
+          "distinctPitches": 6,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.5813565097249507,
+          "repetition": 0,
+          "drumVelocityRange": 87,
+          "ghostShare": 0.043010752688172046
+        }
+      ],
+      "summary": {
+        "chords/bar": 15,
+        "bass/bar": 6,
+        "melody/bar": 7,
+        "drums/bar": 23.25,
+        "pcEntropy": 2.975203811670372,
+        "distinctPitches": 29,
+        "onsetEntropy": 2.952479949149187,
+        "melStepShare": 0.7777777777777778,
+        "melLeapShare": 0.037037037037037035,
+        "voiceMove": 14.305555555555555,
+        "drumVelRange": 87,
+        "ghostShare": 0.043010752688172046,
+        "repetition": 0,
+        "outOfKey": 0.05357142857142857
+      }
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "bars": 8,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "guitars",
+          "role": "chords",
+          "notes": 156,
+          "notesPerBar": 19.5,
+          "distinctPitches": 7,
+          "pitchClassEntropy": 2.1215382930368434,
+          "onsetEntropy": 3.1415928085585305,
+          "repetition": 0,
+          "voiceMovement": 6.4
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 64,
+          "notesPerBar": 8,
+          "distinctPitches": 6,
+          "pitchClassEntropy": 1.9192789744377787,
+          "onsetEntropy": 3,
+          "repetition": 0.25,
+          "stepShare": 0.9047619047619048,
+          "leapShare": 0,
+          "meanInterval": 0.6984126984126984
+        },
+        {
+          "id": "lead",
+          "role": "melody",
+          "notes": 46,
+          "notesPerBar": 5.75,
+          "distinctPitches": 7,
+          "pitchClassEntropy": 2.5920231577953112,
+          "onsetEntropy": 2.8080704477256373,
+          "repetition": 0,
+          "stepShare": 0.9111111111111111,
+          "leapShare": 0.022222222222222223,
+          "meanInterval": 2.022222222222222
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 147,
+          "notesPerBar": 18.375,
+          "distinctPitches": 9,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.3369111476685314,
+          "repetition": 0,
+          "drumVelocityRange": 80,
+          "ghostShare": 0.061224489795918366
+        }
+      ],
+      "summary": {
+        "chords/bar": 19.5,
+        "bass/bar": 8,
+        "melody/bar": 5.75,
+        "drums/bar": 18.375,
+        "pcEntropy": 2.341693620944939,
+        "distinctPitches": 20,
+        "onsetEntropy": 3.0716436009881747,
+        "melStepShare": 0.9111111111111111,
+        "melLeapShare": 0.022222222222222223,
+        "voiceMove": 6.4,
+        "drumVelRange": 80,
+        "ghostShare": 0.061224489795918366,
+        "repetition": 0.0625,
+        "outOfKey": 0
+      }
+    },
+    {
+      "id": "techhouse-minimal",
+      "bars": 4,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "chords",
+          "role": "chords",
+          "notes": 32,
+          "notesPerBar": 8,
+          "distinctPitches": 9,
+          "pitchClassEntropy": 2.673794940695399,
+          "onsetEntropy": 1.8770341680403249,
+          "repetition": 0,
+          "voiceMovement": 7.571428571428571
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 18,
+          "notesPerBar": 4.5,
+          "distinctPitches": 1,
+          "pitchClassEntropy": 0,
+          "onsetEntropy": 2.4613201402110088,
+          "repetition": 0.5,
+          "stepShare": 1,
+          "leapShare": 0,
+          "meanInterval": 0
+        },
+        {
+          "id": "melody",
+          "role": "melody",
+          "notes": 14,
+          "notesPerBar": 3.5,
+          "distinctPitches": 6,
+          "pitchClassEntropy": 1.3787834934861753,
+          "onsetEntropy": 2.5216406363433186,
+          "repetition": 0,
+          "stepShare": 0.46153846153846156,
+          "leapShare": 0,
+          "meanInterval": 2.230769230769231
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 92,
+          "notesPerBar": 23,
+          "distinctPitches": 5,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.6365927401492053,
+          "repetition": 0,
+          "drumVelocityRange": 80,
+          "ghostShare": 0.17391304347826086
+        }
+      ],
+      "summary": {
+        "chords/bar": 8,
+        "bass/bar": 4.5,
+        "melody/bar": 3.5,
+        "drums/bar": 23,
+        "pcEntropy": 2.2740584356984135,
+        "distinctPitches": 16,
+        "onsetEntropy": 2.6241469211859645,
+        "melStepShare": 0.46153846153846156,
+        "melLeapShare": 0,
+        "voiceMove": 7.571428571428571,
+        "drumVelRange": 80,
+        "ghostShare": 0.17391304347826086,
+        "repetition": 0.125,
+        "outOfKey": 0
+      }
+    },
+    {
       "id": "trap-dark-bells",
       "bars": 4,
       "meter": "4/4",
@@ -594,6 +1386,78 @@
         "ghostShare": 0.06766917293233082,
         "repetition": 0,
         "outOfKey": 0.14705882352941177
+      }
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "bars": 4,
+      "meter": "4/4",
+      "parts": [
+        {
+          "id": "choir",
+          "role": "chords",
+          "notes": 45,
+          "notesPerBar": 11.25,
+          "distinctPitches": 14,
+          "pitchClassEntropy": 2.644764545125696,
+          "onsetEntropy": 1.290564432903234,
+          "repetition": 0,
+          "voiceMovement": 12.625
+        },
+        {
+          "id": "bass",
+          "role": "bass",
+          "notes": 15,
+          "notesPerBar": 3.75,
+          "distinctPitches": 7,
+          "pitchClassEntropy": 2.4729055953200563,
+          "onsetEntropy": 2.4402239289418524,
+          "repetition": 0,
+          "stepShare": 0.7142857142857143,
+          "leapShare": 0.07142857142857142,
+          "meanInterval": 1.9285714285714286
+        },
+        {
+          "id": "lead",
+          "role": "melody",
+          "notes": 33,
+          "notesPerBar": 8.25,
+          "distinctPitches": 6,
+          "pitchClassEntropy": 2.3514701278995545,
+          "onsetEntropy": 3.1050001799645144,
+          "repetition": 0.5,
+          "stepShare": 0.84375,
+          "leapShare": 0,
+          "meanInterval": 1.875
+        },
+        {
+          "id": "drums",
+          "role": "drums",
+          "notes": 80,
+          "notesPerBar": 20,
+          "distinctPitches": 7,
+          "pitchClassEntropy": null,
+          "onsetEntropy": 3.6207958166003045,
+          "repetition": 0,
+          "drumVelocityRange": 85,
+          "ghostShare": 0.05
+        }
+      ],
+      "summary": {
+        "chords/bar": 11.25,
+        "bass/bar": 3.75,
+        "melody/bar": 8.25,
+        "drums/bar": 20,
+        "pcEntropy": 2.7546047788679244,
+        "distinctPitches": 27,
+        "onsetEntropy": 2.6141460896024764,
+        "melStepShare": 0.84375,
+        "melLeapShare": 0,
+        "voiceMove": 12.625,
+        "drumVelRange": 85,
+        "ghostShare": 0.05,
+        "repetition": 0.125,
+        "outOfKey": 0.03225806451612903
       }
     }
   ]
