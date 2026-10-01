@@ -1,0 +1,115 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark Drill E Phrygian",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "Drop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Em:4 | F:4 | Em:4 | F:4",
+  "motifs": [
+    {
+      "id": "dark_hook",
+      "notes": "1:1 b2:1 1:1 b2:.5 1:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "piano",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... x... ..x.",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "C0",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..a. R--- a.a."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Sinister Synth",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "dark_hook",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.x. ..x. x... ..xx"
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X..X"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xx.x x.xx xxxx xx.."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

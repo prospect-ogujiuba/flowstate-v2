@@ -1,0 +1,69 @@
+{
+  "warnings": [
+    "part bass block 1..4 rhythm: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..4 rhythm: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..4 rhythm: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..4 rhythm: bar 4 has 8 steps, expected 16; read as 8 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 150,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 25,
+        "minPitch": 51,
+        "maxPitch": 73,
+        "rangeLow": 48,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 10,
+        "minPitch": 32,
+        "maxPitch": 37,
+        "rangeLow": 24,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 24,
+        "minPitch": 67,
+        "maxPitch": 75,
+        "rangeLow": 60,
+        "rangeHigh": 96,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 91,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 54
+          },
+          {
+            "sublane": "kick",
+            "notes": 18
+          },
+          {
+            "sublane": "snare",
+            "notes": 19
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "E Phrygian Drill",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "Drop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Em:2 Fmaj7:2 | Em:2 Fm:2 | Em:2 Fmaj7:2 | Em:4",
+  "motifs": [
+    {
+      "id": "drill-lead",
+      "notes": "1:1 b2:1 1:1 r:.5 8-:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E2",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... x... x...",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "E1",
+      "high": "E2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.a. R..R a.R. R.aR"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sinister Synth",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "drill-lead",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x.x. .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X..X"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xx.x xx.x xxxx xx.x"
+            }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... .XXX"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xx.x xx.x xx.x xxxx"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

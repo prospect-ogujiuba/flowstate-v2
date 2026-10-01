@@ -1,0 +1,113 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Ballad Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.5
+    }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Am/C:3 | Bb:3 | F/A:3 | Gm7:3 | C7:3",
+  "motifs": [
+    {
+      "id": "theme",
+      "notes": "1:1 3:1 5:1 | 6:1 5:2 | 4:1 3:1 2:1 | 1:3 | 4:1 6:1 8:1 | 7:1 5:2 | 3:1 2:1 3:1 | 1:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x..x..x..",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R..5..8.."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Piano Lead",
+      "low": "C4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "theme",
+          "repeatEvery": 24
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x........"
+            },
+            {
+              "voice": "rim",
+              "steps": ".x.x.x.x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

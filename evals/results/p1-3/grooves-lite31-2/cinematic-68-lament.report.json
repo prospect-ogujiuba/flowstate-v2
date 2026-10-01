@@ -1,0 +1,73 @@
+{
+  "warnings": [
+    "voicing: \"spread\" cannot voice \"Am\" in range; used a fallback voicing",
+    "voicing: \"spread\" cannot voice \"G\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 409,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "pads",
+        "role": "pad",
+        "notes": 24,
+        "minPitch": 47,
+        "maxPitch": 65,
+        "rangeLow": 45,
+        "rangeHigh": 69,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 48,
+        "minPitch": 33,
+        "maxPitch": 45,
+        "rangeLow": 33,
+        "rangeHigh": 45,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 61,
+        "minPitch": 69,
+        "maxPitch": 77,
+        "rangeLow": 69,
+        "rangeHigh": 88,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 72,
+        "minPitch": 36,
+        "maxPitch": 45,
+        "rangeLow": 24,
+        "rangeHigh": 36,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "kick",
+            "notes": 48
+          },
+          {
+            "sublane": "toms",
+            "notes": 24
+          }
+        ]
+      },
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 204,
+        "minPitch": 48,
+        "maxPitch": 72,
+        "rangeLow": 48,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

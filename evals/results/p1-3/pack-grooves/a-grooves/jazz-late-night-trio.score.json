@@ -1,0 +1,110 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-night Jazz Trio Vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.45,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Bbmaj9:4 | Gm9:4 | Cm9:4 | F13:4 | Bbmaj9:4 | Gm9:4 | Cm7:2 F7b9:2 | Bb6:4",
+  "motifs": [
+    {
+      "id": "vamp_melody",
+      "notes": "3:1 5:1 7:1 8:1 | 6:1 5:1 2:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.. x.. x.. x.. | x.. x.. x.. x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Double Bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R358 | 753R | 57R3 | 875a"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "G3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "vamp_melody",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "vamp_melody",
+          "transforms": [
+            "transpose:2",
+            "octave:1"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushes",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "brush_swing"
+        }
+      ]
+    }
+  ]
+}

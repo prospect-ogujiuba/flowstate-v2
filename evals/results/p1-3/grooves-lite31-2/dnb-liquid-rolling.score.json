@@ -1,0 +1,138 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid F-Minor Flow",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "drum-and-bass",
+      "liquid"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.3
+    },
+    {
+      "name": "Main",
+      "startBar": 3,
+      "bars": 6,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Fm9:4 | Dbmaj9:4 | Bbm9:4 | C7alt:4 | Fm9:4 | Dbmaj9:4 | Eb13:2 C7#9:2 | Fm9:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:1 6:1 8:1 5:1 | 3:1.5 1:.5 2:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes Chords",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- .x-- x--- .x-- | x--- .x-- x--- ....",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ..gR -.R- .a.R"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Atmospheric Pluck",
+      "low": "F4",
+      "high": "F6",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 8,
+          "motif": "m1",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Liquid Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x....... x...x... x......."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ........ ....x... .......x"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x....... x...x... x......."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ........ ....x... .......x"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

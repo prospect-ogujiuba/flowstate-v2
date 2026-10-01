@@ -1,0 +1,73 @@
+{
+  "warnings": [
+    "part keys block 1..8 rhythm: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part keys block 1..8 rhythm: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part keys block 1..8 rhythm: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part keys block 1..8 rhythm: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 4 has 8 steps, expected 16; read as 8 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 346,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 90,
+        "minPitch": 57,
+        "maxPitch": 76,
+        "rangeLow": 48,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 16,
+        "minPitch": 24,
+        "maxPitch": 36,
+        "rangeLow": 24,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 62,
+        "minPitch": 79,
+        "maxPitch": 91,
+        "rangeLow": 67,
+        "rangeHigh": 91,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 178,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 120
+          },
+          {
+            "sublane": "kick",
+            "notes": 32
+          },
+          {
+            "sublane": "snare",
+            "notes": 26
+          }
+        ]
+      }
+    ]
+  }
+}

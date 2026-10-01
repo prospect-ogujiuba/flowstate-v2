@@ -1,0 +1,149 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy Day LoFi",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.35,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    }
+  ],
+  "harmony": "Ebmaj9:4 | Cm9:4 | Fm9:4 | Bb13:4",
+  "motifs": [
+    {
+      "id": "sleepy_melody",
+      "notes": "5:1 4:1 2:1.5 r:.5 | 3:2 r:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... x... ....",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Eb1",
+      "high": "Eb3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... 5... R... a..."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Electric Piano",
+      "low": "Bb3",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "sleepy_melody",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "LoFi Kit",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "lofi",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... x.x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.xg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "LoFi Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "lofi",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... x.x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.xg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

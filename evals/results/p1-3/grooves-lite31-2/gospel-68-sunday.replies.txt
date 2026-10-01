@@ -1,0 +1,180 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:3 Fm9:3 | Bbm9:3 Eb13:3 | Abmaj7:3 Cm7b5:1.5 F7b9:1.5 | Bbm9:3 Eb7#9:3 | Abmaj9:3 C7#5:3 | Fm9:3 Ab7/Gb:3 | Dbmaj9:3 Ddim7:3 | Eb13sus4:3 Eb7:3",
+  "motifs": [
+    {
+      "id": "soul_lick",
+      "notes": "5:1.5 3:1.5 1:1 2:.5 3:.5 | 5:1.5 8:1.5 6:1 5:1 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "B3 Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x-- x--x-- | x--x-- x--x-- | x--x-- x--x-- | x--x-- x--x--",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "Ab1",
+      "high": "Ab3",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Organ",
+      "low": "C4",
+      "high": "Ab5",
+      "grid": 3,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "soul_lick",
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gospel Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "gospel_shuffle",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "B3 Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x----- x----- | x----- x----- | x----- x----- | x----- x----- | x----- x----- | x----- x----- | x----- x----- | x----- x-----",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "Ab1",
+      "high": "Ab3",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R----- 5----- | R----- 5----- | R----- 5----- | R----- 5----- | R----- 5----- | R----- 5----- | R----- 5----- | R----- 5-----"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "B3 Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x-------x--- | x-----x-------x--- | x-----x-------x--- | x-----x-------x--- | x-----x-------x--- | x-----x-------x--- | x-----x-------x--- | x-----x-------x---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "Ab1",
+      "high": "Ab3",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----5----------- | R-----5----------- | R-----5----------- | R-----5----------- | R-----5----------- | R-----5----------- | R-----5----------- | R-----5-----------"
+        }
+      ]
+    }
+  ]
+}

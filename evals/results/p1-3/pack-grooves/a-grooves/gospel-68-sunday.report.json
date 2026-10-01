@@ -1,0 +1,81 @@
+{
+  "warnings": [
+    "part organ block 1..8 rhythm: bar 1 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 2 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 4 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 5 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 6 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 7 has 6 steps, expected 18; read as 6 steps per bar",
+    "part organ block 1..8 rhythm: bar 8 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 1 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 2 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 4 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 5 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 6 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 7 has 6 steps, expected 18; read as 6 steps per bar",
+    "part bass block 1..8 rhythm: bar 8 has 6 steps, expected 18; read as 6 steps per bar",
+    "part drums block 1..7 kick: bar 6 has 12 steps, expected 18; padded with rests",
+    "part drums block 1..7 kick: bar 7 has 12 steps, expected 18; padded with rests"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 295,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "organ",
+        "role": "chords",
+        "notes": 92,
+        "minPitch": 56,
+        "maxPitch": 75,
+        "rangeLow": 48,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 20,
+        "minPitch": 34,
+        "maxPitch": 48,
+        "rangeLow": 32,
+        "rangeHigh": 56,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 53,
+        "minPitch": 77,
+        "maxPitch": 92,
+        "rangeLow": 68,
+        "rangeHigh": 92,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 130,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 45
+          },
+          {
+            "sublane": "kick",
+            "notes": 59
+          },
+          {
+            "sublane": "snare",
+            "notes": 26
+          }
+        ]
+      }
+    ]
+  }
+}

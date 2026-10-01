@@ -1,0 +1,115 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Bright Uplifting Pop Chorus",
+  "context": {
+    "tempo": 118,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.0,
+    "style": [
+      "pop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "G:2 C:2 | G:2 D:2 | Em:2 C:2 | G:1 D:1 G:2 | G:2 C:2 | G:2 D:2 | Em:2 C:2 | G:2 D:2",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "5:.75 6:.25 8:1 | 5:1 3:.5 2:.5 | 1:1.5 5-:.5 | 1:2 r:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Bright Synth Pads",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- x--- x--- x---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Driving Synth Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-x- R-x- R-x- R-x-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Catchy Lead Synth",
+      "low": "G4",
+      "high": "G6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Pop Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "pop"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "pop",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}
