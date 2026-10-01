@@ -1,0 +1,203 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Dorian Jazz Waltz",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.3,
+    "style": ["jazz", "waltz"]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.65
+    }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 3, "symbol": "Gm9" },
+    { "bar": 2, "beat": 1, "beats": 3, "symbol": "Gm9" },
+    { "bar": 3, "beat": 1, "beats": 3, "symbol": "C13" },
+    { "bar": 4, "beat": 1, "beats": 3, "symbol": "C13" },
+    { "bar": 5, "beat": 1, "beats": 3, "symbol": "Am7b5" },
+    { "bar": 6, "beat": 1, "beats": 3, "symbol": "D7b9" },
+    { "bar": 7, "beat": 1, "beats": 3, "symbol": "Gm9" },
+    { "bar": 8, "beat": 1, "beats": 3, "symbol": "D7#9" }
+  ],
+  "motifs": [
+    {
+      "id": "sax_head",
+      "notes": [
+        { "degree": 5, "octave": 0, "alter": 0, "beat": 0, "beats": 1.5, "accent": true },
+        { "degree": 6, "octave": 0, "alter": 0, "beat": 1.5, "beats": 0.5, "accent": false },
+        { "degree": 7, "octave": 0, "alter": 0, "beat": 2, "beats": 1, "accent": true },
+        { "degree": 8, "octave": 0, "alter": 0, "beat": 3, "beats": 2, "accent": false },
+        { "degree": 7, "octave": 0, "alter": 0, "beat": 5, "beats": 1, "accent": false }
+      ]
+    },
+    {
+      "id": "sax_turn",
+      "notes": [
+        { "degree": 6, "octave": 0, "alter": 0, "beat": 0, "beats": 0.75, "accent": true },
+        { "degree": 5, "octave": 0, "alter": 0, "beat": 0.75, "beats": 0.75, "accent": false },
+        { "degree": 4, "octave": 0, "alter": 0, "beat": 1.5, "beats": 0.5, "accent": false },
+        { "degree": 3, "octave": 0, "alter": 0, "beat": 2, "beats": 1, "accent": true }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F3",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "....x...x...|....x--.....|....x...x...|....x--.....|....x...x...|....x---....|....x...x...|..x...x.....",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "G1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R...5...3...|R...5...a...|R...5...3...|R...5...a...|R...5...3...|R...3...a...|R...5...3...|R...5...a...",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "D3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sax_head",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 4,
+          "endBar": 5,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sax_turn",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sax_head",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Jazz Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "X..x..x.X..x|X..x..x.X..x|X..x..x.X..x|X..x..x.X..x|X..x..x.X..x|X..x..x.X..x|X..x..x.X..x|X..x..x.X..x"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "....x.......|....x.......|....x.......|....x.......|....x.......|....x.......|....x.......|....x......."
+            },
+            {
+              "voice": "snare",
+              "steps": "............|.......g....|............|.....g......|............|.......g....|............|.....g.g...."
+            },
+            {
+              "voice": "kick",
+              "steps": "x...........|............|x...........|............|x...........|............|x...........|............"
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```

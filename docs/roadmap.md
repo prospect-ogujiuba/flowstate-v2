@@ -122,13 +122,15 @@ Done so far (2026-10-01):
 - Both backends stream (`claude-code` through `stream-json`), take an abort signal and report time to first token and first answer text.
 - Parts stream out of the reply as it is written (`cloud/src/part-stream.ts`): the IR puts `parts` last, so the head is parsed when the `"parts"` key arrives and each part as its closing brace lands. A part is reported (`onPart`, `firstPartMs`) once head and part pass validation; parts that can't play are recorded with the reason. This needs no prompt change. A JSON Lines reply format was tried first and dropped: Sonnet at low effort ignored it about half the time.
 - `--reasoning` on the CLI. `run.json` records the reasoning level, first-token, first-text and first-part p50/p95, and the unplayable parts; `<id>.replies.txt` keeps the raw replies.
-- First look (claude-code Sonnet, effort low, 4 prompts; not a measurement): 4/4 valid, full plan p50 21 s, first playable part p50 15 s (best 7 s, on a prompt whose drums still needed a repair). Opus at high on one prompt took 56 s. The head (form, harmony and the verbose motif notes) is most of the score, about 4 of 5.4 KB, so no part can play until it is written. Low effort makes small mechanical slips (a 14-step drum bar, a bad enum), and each costs a full-score repair turn.
+- Parts-only repair: when the head is sound, a repair turn asks only for the broken or missing parts, and they stream in too. A head that breaks the request's hard constraints (key, bars, meter) plays nothing.
+- Round 1 on the full Phase 0 set (`evals/results/p1-2/`): Gemini 3.6 Flash (OpenRouter) at reasoning minimal is 20/20 valid, first text p50 0.8 s, first playable part p50 5.1 s, full plan p50 10.2 s (from 84 s for Gemini 3.1 Pro at high in P1-1). Sonnet at low effort (claude-code) is 20/20, first part 20.5 s, full 24.4 s. Symbolic metrics stay in the P1-1 range; no listening yet. DeepSeek Flash keeps thinking at any effort (70–105 s); the Anthropic API account has no credit.
+- What is left: about 4 s of head before the first part (target 3 s), and 8 of 20 plans needing a repair turn (target 8 s full). The repairs are mostly step-count slips.
 
-Next: a smaller head (a compact motif encoding, or motifs after the parts that don't use them); per-part repair (re-send only the broken part while the good ones play); a model × reasoning matrix on fast models through pi (needs keys).
+Next: a smaller head (a compact motif encoding, or motifs after the parts that don't use them; an IR change); fewer repairs (a clearer step-count rule in the spec, with P1-3); blind listening on the Gemini Flash minimal plans to check quality before choosing it.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:
-- Stream parts: the model emits one part per JSON line (harmony first) and the plugin realizes each as it lands.
+- Stream parts: each part is realized as it lands (done in the planner; P1-4 carries it to the plugin). **Update 2026-10-01:** parts stream out of the single JSON reply, not one JSON line per part; the line format was unreliable.
 - Per-route model and effort (fast model for edits and single parts, stronger model for full plans).
 - Prompt caching of the fixed system prompt.
 - A more compact IR encoding if tokens dominate.

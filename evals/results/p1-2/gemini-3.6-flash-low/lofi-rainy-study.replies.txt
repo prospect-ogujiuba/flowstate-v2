@@ -1,0 +1,259 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy-day lofi hip hop loop",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.35,
+    "style": [
+      "lofi",
+      "hip-hop",
+      "boom-bap",
+      "chill"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bb13"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Ebmaj9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Bb7sus4"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "sleepy_melody_a",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 1.0,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.75,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 1.25,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "sleepy_melody_b",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 1.0,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": -1,
+          "alter": 0,
+          "beat": 1.75,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": -1,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 1.5,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- .... | x--- ..x- .... ..x- | x--- ..x- .x-- .... | x--- .x-- x--- ..x-",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- .... ..5- ..a- | R--- .... .... ..a- | R--- .... ..5- ..a- | R--- .... R--- ..a-",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sleepy Keys Lead",
+      "low": "G3",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sleepy_melody_a",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sleepy_melody_b",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Boom Bap Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .x.. | x... .... ..x. .... | x... .... ..x. .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... .... .... ..g. | .... .... .g.. .... | .... .... .... ..g. | .... .... .g.. ...."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.xg x.x. | x.x. x.xg x.x. x.x. | x.x. x.x. x.xg x.x. | x.x. x.xg x.x. x.x."
+            },
+            {
+              "voice": "shaker",
+              "steps": ".x.x .x.x .x.x .x.x | .x.x .x.x .x.x .x.x | .x.x .x.x .x.x .x.x | .x.x .x.x .x.x .x.x"
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```

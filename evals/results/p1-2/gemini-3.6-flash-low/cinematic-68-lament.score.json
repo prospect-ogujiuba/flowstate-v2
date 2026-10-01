@@ -1,0 +1,320 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Celtic Lament in A Minor",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Lament",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.55
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Am"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Am"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "G"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Am"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "C"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Em"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "lament_theme_a",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 3,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "lament_theme_b",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 3,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 8,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 11,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pad & Strings",
+      "low": "C3",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----------|x-----------|x-----------|x-----------|x-----------|x-----------|x-----------|x-----------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Drone Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----5-----|R-----------|R-----5-----|R-----------|R-----5-----|R-----------|R-----5-----|R-----------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wooden Flute",
+      "low": "A3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "lament_theme_a",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "lament_theme_b",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Frame Drum & Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "X.....x.....|X.....x.....|X.....x.....|X.....x.....|X.....x.....|X.....x.....|X.....x.....|X.....x....."
+            },
+            {
+              "voice": "rim",
+              "steps": "......x..x..|......x..x..|......x..x..|......x..x..|......x..x..|......x..x..|......x..x..|......x..x.."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x.|x.x.x.x.x.x."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

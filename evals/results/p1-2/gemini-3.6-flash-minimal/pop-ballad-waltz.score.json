@@ -1,0 +1,333 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Pop Ballad Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "Verse B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "F"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "C/E"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Dm7"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbadd9"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "F/A"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbadd9"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Gm7"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Csus4"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "theme_a",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "theme_b",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano Arpeggio",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x..x..x..x..|x..x..x..x..|x..x..x..x..|x..x..x..x..|x..x..x..x..|x..x..x..x..|x..x..x..x..|x-----------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "F1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----------|R-----------|R-----------|R-----------|R-----------|R-----------|R-----------|R-----------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Vocal Lead",
+      "low": "F3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "theme_a",
+          "transforms": [],
+          "repeatEvery": 3,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "theme_b",
+          "transforms": [],
+          "repeatEvery": 3,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "theme_a",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 3,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "theme_b",
+          "transforms": [
+            "transpose:-1"
+          ],
+          "repeatEvery": 3,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...........|x...........|x...........|x...........|x...........|x...........|x..........."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x...x...|....x...x...|....x...x...|....x...x...|....x...x...|....x...x...|....x...x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x...x...x...|x...x...x...|x...x...x...|x...x...x...|x...x...x...|x...x...x...|x...x...x..."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..........."
+            },
+            {
+              "voice": "crash",
+              "steps": "x..........."
+            }
+          ],
+          "fill": "crash_end",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

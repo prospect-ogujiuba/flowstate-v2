@@ -1,0 +1,70 @@
+{
+  "warnings": [
+    "voicing: \"rootless\" cannot voice \"Dm7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 281,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 96,
+        "minPitch": 50,
+        "maxPitch": 62,
+        "rangeLow": 45,
+        "rangeHigh": 65,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 32,
+        "minPitch": 29,
+        "maxPitch": 43,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 26,
+        "minPitch": 58,
+        "maxPitch": 70,
+        "rangeLow": 58,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 127,
+        "minPitch": 36,
+        "maxPitch": 51,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 48
+          },
+          {
+            "sublane": "hats",
+            "notes": 14
+          },
+          {
+            "sublane": "kick",
+            "notes": 20
+          },
+          {
+            "sublane": "snare",
+            "notes": 45
+          }
+        ]
+      }
+    ]
+  }
+}

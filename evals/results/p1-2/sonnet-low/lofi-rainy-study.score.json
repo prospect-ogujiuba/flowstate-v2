@@ -1,0 +1,240 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy window lofi loop",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.3,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Ebmaj7"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Bb13"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Bb7b9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "sleepy",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 1.5,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- ..x- ---. | x--- ---- ..x- -.x- | x--- ---- ..x- ---. | x--- ---- x--- ..x-",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm upright-sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- --.. ..g. 5-.. | R--- ..g. R--- ..5. | R--- --.. ..g. 5-.. | R--- --.. 5--- ..a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Soft felt keys",
+      "low": "Eb4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sleepy",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sleepy",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dusty boom bap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..g.x... | x.....g. ..x..... | x......g ..x.g... | x.....g. ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g | ....X... ....X... | ....X... ....X..g | ....X... ....X.g."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.g.x.g. x.g.x.gx | x.g.x.g. x.g.x.g. | x.g.x.g. x.g.x.gx | x.g.x.g. x.g.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ......x. | ........ ........ | ........ ......x. | ........ ........"
+            }
+          ],
+          "fill": "none",
+          "notes": [],
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

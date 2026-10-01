@@ -1,0 +1,236 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark Trap Eerie Bell Loop",
+  "context": {
+    "tempo": 140,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C#",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "trap",
+      "dark"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C#m"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C#m"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "A"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G#7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "bell_motif",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 1,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Eerie Pad",
+      "low": "G#2",
+      "high": "E4",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---------------|x---------------|x---------------|x---------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Bass",
+      "low": "C#1",
+      "high": "C#2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-------..R-..a-|R---------------|R-------..R-....|R-------..a-....",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Music Box Bell",
+      "low": "C#4",
+      "high": "C#6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "bell_motif",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "bell_motif",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.......x.......|x.....x.........|x.......x.......|x.......x.x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x...|....x.......x...|....x.......x...|....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.xxxxx.x.x.x.|x.xxxxxx.x.x.x.x|x.x.x.x.xxxxxx.x|x.xxxxxx.x.xxxx."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..............x.|..............x.|..............x.|................"
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```

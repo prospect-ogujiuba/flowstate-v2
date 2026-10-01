@@ -1,0 +1,222 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Anthemic Rock Drive",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": ["rock", "anthem"]
+  },
+  "form": [
+    {
+      "name": "Riff Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    },
+    {
+      "name": "Full Anthem Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.95
+    }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 4, "symbol": "G5" },
+    { "bar": 2, "beat": 1, "beats": 4, "symbol": "F5" },
+    { "bar": 3, "beat": 1, "beats": 4, "symbol": "C5" },
+    { "bar": 4, "beat": 1, "beats": 4, "symbol": "G5" },
+    { "bar": 5, "beat": 1, "beats": 4, "symbol": "G5" },
+    { "bar": 6, "beat": 1, "beats": 4, "symbol": "F5" },
+    { "bar": 7, "beat": 1, "beats": 4, "symbol": "C5" },
+    { "bar": 8, "beat": 1, "beats": 2, "symbol": "F5" },
+    { "bar": 8, "beat": 3, "beats": 2, "symbol": "D5" }
+  ],
+  "motifs": [
+    {
+      "id": "lead_m1",
+      "notes": [
+        { "degree": 5, "octave": 0, "alter": 0, "beat": 0, "beats": 1, "accent": true },
+        { "degree": 8, "octave": 0, "alter": 0, "beat": 1, "beats": 1, "accent": true },
+        { "degree": 7, "octave": 0, "alter": 0, "beat": 2, "beats": 0.5, "accent": false },
+        { "degree": 6, "octave": 0, "alter": 0, "beat": 2.5, "beats": 0.5, "accent": false },
+        { "degree": 5, "octave": 0, "alter": 0, "beat": 3, "beats": 1, "accent": true }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhythm Guitar",
+      "low": "G2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X.x.X.x. X.x.X.x.|X.x.X.x. X.x.X.x.|X.x.X.x. X.x.X.x.|X.x.X.x. X.x.X.x.",
+          "voicing": "power",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X.x.X.x. X.x.X.x.|X.x.X.x. X.x.X.x.|X.x.X.x. X.x.X.x.|X.x.X.x. X.X.X.X.",
+          "voicing": "power",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rock Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.R.R.R. R.R.R.R.|R.R.R.R. R.R.R.R.|R.R.R.R. R.R.R.R.|R.R.R.R. R.R.a.a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X.R.R.R. R.R.R.R.|X.R.R.R. R.R.R.R.|X.R.R.R. R.R.R.R.|X.R.X.R. X.X.X.X.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "lead_m1",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "lead_m1",
+          "transforms": ["octave:+1"],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Stadium Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null,
+          "drums": [
+            { "voice": "crash", "steps": "x...............|................|................|................" },
+            { "voice": "kick", "steps": "x.......x.......|x.......x.......|x.......x.......|x.......x......." },
+            { "voice": "snare", "steps": "....X.......X...|....X.......X...|....X.......X...|....X.......X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null,
+          "drums": [
+            { "voice": "crash", "steps": "x...............|x...............|x...............|x..............." },
+            { "voice": "kick", "steps": "x...x...x...x...|x...x...x...x...|x...x...x...x...|x...x...x...x..." },
+            { "voice": "snare", "steps": "....X.......X...|....X.......X...|....X.......X...|....X.......X..." },
+            { "voice": "open_hat", "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

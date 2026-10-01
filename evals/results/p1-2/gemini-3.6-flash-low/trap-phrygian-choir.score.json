@@ -1,0 +1,236 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Ominous Phrygian Trap",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "trap",
+      "cinematic"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Db"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Db"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Cm"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "phrygian_lead",
+      "notes": [
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 1.5,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 1.25,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Choir",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--------------- | x--------------- | x--------------- | x------- x-------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 115,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X------- ..x- .... | X------- .... ..a. | X------- ..x- .... | X--- ..x- X--- ....",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Menacing Synth Lead",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "phrygian_lead",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "phrygian_lead",
+          "transforms": [
+            "octave:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ........ | x.....x. ........ | x....... ........ | x...x... ........"
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X... | ....X... ....X... | ....X... ....X... | ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.xxxx | x.x.xxxx x.xxxxxx | x.x.x.x. x.x.xxxx | xxxx.xxx xxxxxxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... .... | .... ..x. .... .... | .... ..x. .... .... | .... ..x. .... .x.."
+            },
+            {
+              "voice": "crash",
+              "steps": "X... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

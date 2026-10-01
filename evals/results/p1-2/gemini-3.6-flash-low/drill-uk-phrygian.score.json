@@ -1,0 +1,219 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "UK Drill Dark Phrygian Bounce",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "F"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Dm"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "drill_bell",
+      "notes": [
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 1.5,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... ..x- .... | .... .... x--- .... | x--- .... ..x- .... | x--- .... x--- ....",
+          "voicing": "close",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..R. .... .8.. | R--- ..8. ..a. .... | R--- ..R. .... .8.. | R--- ..a. R--- ....",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Phrygian Lead",
+      "low": "E4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "drill_bell",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... ..x. | x... .... ..x. .... | x... .... x... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... X... ..g. | .... .... X... .g.. | .... .... X... ..g. | .... .... X... X..."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .... x... | .... ..x. .... x... | .... ..x. .... x... | .... ..x. .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx x.x. xx.x x.x. | x.x. x.xx x.x. xxxx | x.xx x.x. xx.x x.x. | x.x. xx.x x.x. xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... .... | .... ..x. .... .... | .... ..x. .... .... | .... ..x. .... ...."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

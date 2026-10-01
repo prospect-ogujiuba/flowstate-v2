@@ -1,0 +1,363 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.6-flash",
+    "reasoning": "low"
+  },
+  "at": "2026-10-01T13:37:38.052Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 19,
+    "valid": 19,
+    "validityRate": 0.95,
+    "latencyP50Ms": 13761,
+    "latencyP95Ms": 20171,
+    "firstTokenP50Ms": 1581,
+    "firstTextP50Ms": 5168,
+    "firstPartP50Ms": 8953,
+    "firstPartP95Ms": 14429,
+    "partsStreamed": 19
+  },
+  "results": [
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10248,
+      "firstTokenMs": 2536,
+      "firstTextMs": 3377,
+      "firstPartMs": 6424,
+      "usage": {
+        "inputTokens": 4479,
+        "outputTokens": 1988,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10776,
+      "firstTokenMs": 2507,
+      "firstTextMs": 3341,
+      "firstPartMs": 7049,
+      "usage": {
+        "inputTokens": 4488,
+        "outputTokens": 2397,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 14731,
+      "firstTokenMs": 2495,
+      "firstTextMs": 4324,
+      "firstPartMs": 8544,
+      "usage": {
+        "inputTokens": 4489,
+        "outputTokens": 3175,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 15004,
+      "firstTokenMs": 2507,
+      "firstTextMs": 6175,
+      "firstPartMs": 10217,
+      "usage": {
+        "inputTokens": 4485,
+        "outputTokens": 3156,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10640,
+      "firstTokenMs": 1616,
+      "firstTextMs": 4128,
+      "firstPartMs": 7113,
+      "usage": {
+        "inputTokens": 4488,
+        "outputTokens": 2267,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 12449,
+      "firstTokenMs": 1581,
+      "firstTextMs": 2490,
+      "firstPartMs": 7609,
+      "usage": {
+        "inputTokens": 4475,
+        "outputTokens": 2853,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 12132,
+      "firstTokenMs": 1718,
+      "firstTextMs": 1941,
+      "firstPartMs": 5649,
+      "usage": {
+        "inputTokens": 6933,
+        "outputTokens": 2524,
+        "cacheReadTokens": 4066
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "blocks.0.drums.3.voice: Invalid option: expected one of \"kick\"|\"snare\"|\"clap\"|\"rim\"|\"closed_hat\"|\"pedal_hat\"|\"open_hat\"|\"low_tom\"|\"mid_tom\"|\"high_tom\"|\"crash\"|\"ride\"|\"ride_bell\"|\"shaker\"|\"tambourine\"|\"cowbell\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 14180,
+      "firstTokenMs": 1908,
+      "firstTextMs": 4254,
+      "firstPartMs": 8953,
+      "usage": {
+        "inputTokens": 2449,
+        "outputTokens": 3146,
+        "cacheReadTokens": 2030
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 13683,
+      "firstTokenMs": 767,
+      "firstTextMs": 767,
+      "firstPartMs": 7016,
+      "usage": {
+        "inputTokens": 7038,
+        "outputTokens": 2743,
+        "cacheReadTokens": 4066
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 low_tom: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 low_tom: bar 2 of pattern has 32 steps, expected 16",
+            "part drums block 1 crash: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 crash: bar 2 of pattern has 32 steps, expected 16",
+            "part drums block 2 low_tom: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 12687,
+      "firstTokenMs": 1770,
+      "firstTextMs": 5723,
+      "firstPartMs": 9014,
+      "usage": {
+        "inputTokens": 4487,
+        "outputTokens": 2691,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": false,
+      "error": "Error: planner call failed (openrouter/google/gemini-3.6-flash, error): Provider finish_reason: error"
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 13761,
+      "firstTokenMs": 1419,
+      "firstTextMs": 5168,
+      "firstPartMs": 8057,
+      "usage": {
+        "inputTokens": 6714,
+        "outputTokens": 2837,
+        "cacheReadTokens": 4064
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 14428,
+      "firstTokenMs": 1439,
+      "firstTextMs": 6810,
+      "firstPartMs": 10606,
+      "usage": {
+        "inputTokens": 4489,
+        "outputTokens": 3222,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 15656,
+      "firstTokenMs": 1404,
+      "firstTextMs": 5701,
+      "firstPartMs": 11305,
+      "usage": {
+        "inputTokens": 4482,
+        "outputTokens": 3372,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 20171,
+      "firstTokenMs": 1411,
+      "firstTextMs": 9876,
+      "firstPartMs": 14429,
+      "usage": {
+        "inputTokens": 4483,
+        "outputTokens": 4273,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 17122,
+      "firstTokenMs": 1591,
+      "firstTextMs": 7467,
+      "firstPartMs": 12934,
+      "usage": {
+        "inputTokens": 4482,
+        "outputTokens": 3969,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 13461,
+      "firstTokenMs": 1577,
+      "firstTextMs": 5330,
+      "firstPartMs": 9730,
+      "usage": {
+        "inputTokens": 4486,
+        "outputTokens": 3069,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10700,
+      "firstTokenMs": 1578,
+      "firstTextMs": 2337,
+      "firstPartMs": 6419,
+      "usage": {
+        "inputTokens": 4487,
+        "outputTokens": 2417,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 16250,
+      "firstTokenMs": 1197,
+      "firstTextMs": 9424,
+      "firstPartMs": 12323,
+      "usage": {
+        "inputTokens": 2450,
+        "outputTokens": 3735,
+        "cacheReadTokens": 2030
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 14114,
+      "firstTokenMs": 1555,
+      "firstTextMs": 6892,
+      "firstPartMs": 10024,
+      "usage": {
+        "inputTokens": 2451,
+        "outputTokens": 3085,
+        "cacheReadTokens": 2030
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    }
+  ]
+}

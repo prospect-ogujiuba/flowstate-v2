@@ -1,0 +1,308 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rising horn call",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "Dawn",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    },
+    {
+      "name": "Rise",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bb"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gm"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "A"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm/F"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bbmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gm"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "A7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "horn",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 7,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "strings",
+      "role": "chords",
+      "name": "String ensemble pad",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cellos and basses",
+      "low": "D1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R---------------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-------5-------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "French horn",
+      "low": "D3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Orchestral percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "X.......x.......|X.......x.......|X.......x.......|X.......x...x.x."
+            },
+            {
+              "voice": "kick",
+              "steps": "x..............."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "X.......x.....x.|X..x....x.......|X.......x.....x.|X.x.x.x........."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "kick",
+              "steps": "x.......x......."
+            },
+            {
+              "voice": "crash",
+              "steps": "x...............|................|................|................"
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

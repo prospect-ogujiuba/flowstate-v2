@@ -1,0 +1,241 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Romantic Dembow Groove",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "reggaeton",
+      "latin"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gm"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Eb"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bb"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.25,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pluck Synth",
+      "low": "G3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x.",
+          "voicing": "close",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "G1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R---...R..R---.. | R---...R..R---.. | R---...R..R---.. | R---...R..R---..",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Romantic Synth Lead",
+      "low": "G4",
+      "high": "G6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dembow Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "...x..x...x..x.. | ...x..x...x..x.. | ...x..x...x..x.. | ...x..x...x..x.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....x.......x... | ....x.......x... | ....x.......x... | ....x.......x..."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

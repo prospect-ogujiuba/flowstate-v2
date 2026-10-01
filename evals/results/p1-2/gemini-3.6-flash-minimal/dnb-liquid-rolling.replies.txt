@@ -1,0 +1,333 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid Sunset 174",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": ["drum-and-bass", "liquid"]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dbmaj7"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Eb11"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm7"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dbmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bbm9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C7b9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.0,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 8,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 1.0,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.0,
+          "beats": 1.0,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "pad",
+      "name": "Lush Analog Pad",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- ---- ---- ----",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F0",
+      "high": "F2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ---R --R- --a.|R--- ---- R--- ..a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Electric Piano Lick",
+      "low": "C3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": ["transpose:-2"],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rolling Breakbeat",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. ....|x... .... .... ..x."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X...|.... X... .... X..."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... .... ..g. ....|.... ..g. .... .g.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x.|x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x.|.... ..x. .... ..x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x... x... x... x...|x... x... x... x..."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": ".... .... .... ...x"
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes Keys",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "..x- ..x- .x-- ....|..x- ..x- .x-- ..x-",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    }
+  ]
+}
+```

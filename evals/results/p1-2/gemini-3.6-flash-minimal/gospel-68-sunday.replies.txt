@@ -1,0 +1,501 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Praise",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.1,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "Verse B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 2,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Bb9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbm11"
+    },
+    {
+      "bar": 3,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb7b9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj7"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "C7#9"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Ddim7"
+    },
+    {
+      "bar": 6,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Ab/Eb"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "F7b9"
+    },
+    {
+      "bar": 7,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Bbm9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Eb13"
+    },
+    {
+      "bar": 8,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Ab69"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "organ_phrase_1",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "organ_call_2",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1.5,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 3,
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Gospel Piano",
+      "low": "C3",
+      "high": "Ab5",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x.-x.- x.-x.- | x.-x.- x.-x.- | x.-x.- x.-x.- | x.-x.- x.-x.-",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x.-x.- x.xx.- | x.-x.- x.-x.- | x.-x.- x.xx.- | x.-x.- x.-x.-",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "Ab1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.--5. R.--a. | R.--.. R.--a. | R.--.. R.--a. | R.--.. R.--a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R.--5. R.3.5. | R.--.. R.--a. | R.--.. R.--a. | R.--5. R.--..",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Hammond B3 Organ",
+      "low": "Eb4",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_phrase_1",
+          "transforms": null,
+          "repeatEvery": 6,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_phrase_1",
+          "transforms": [
+            "transpose:-1"
+          ],
+          "repeatEvery": 6,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_call_2",
+          "transforms": null,
+          "repeatEvery": 6,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "organ_call_2",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 6,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Worship Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... x..... | x..... ..x... | x..... x..... | x..... ..x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "---X-- ---X-- | ---X-- ---X-- | ---X-- ---X-- | ---X-- ---X--"
+            },
+            {
+              "voice": "ride",
+              "steps": "x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "---x-- ---x-- | ---x-- ---x-- | ---x-- ---x-- | ---x-- ---x--"
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... x.x... | x..... ..x... | x..... x.x... | x..... ..x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "---X-- ---X-- | ---X-- ---X-- | ---X-- ---X-- | ---X-- ---X--"
+            },
+            {
+              "voice": "ride",
+              "steps": "x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "---x-- ---x-- | ---x-- ---x-- | ---x-- ---x-- | ---x-- ---x--"
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Worship Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... x..... | x..... ..x... | x..... x..... | x..... ..x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "...X.. ...X.. | ...X.. ...X.. | ...X.. ...X.. | ...X.. ...X.."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... x.x... | x..... ..x... | x..... x.x... | x..... ..x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "...X.. ...X.. | ...X.. ...X.. | ...X.. ...X.. | ...X.. ...X.."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x | x.xx.x x.xx.x"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.."
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```

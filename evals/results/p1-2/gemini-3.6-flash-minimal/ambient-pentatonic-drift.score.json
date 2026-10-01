@@ -1,0 +1,243 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sparse Floating Ambient",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "ambient"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro / A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.35
+    },
+    {
+      "name": "B / Bloom",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.45
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cadd9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Am7"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F69"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gsus4"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cadd9"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Am7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F69"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gsus4"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 3,
+          "accent": true
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Evolving Ambient Chords",
+      "low": "G2",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 50,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------|x---------------|x---------------|x---------------|x---------------|x---------------|x---------------|x---------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 55,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R---------------|R---------------|R---------------|R---------------|R---------------|R---------------|R---------------|R---------------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Floating Pentatonic Bell",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1",
+            "octave:+1"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Minimal Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 35,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...............|................|................|................|x...............|................|................|................"
+            },
+            {
+              "voice": "rim",
+              "steps": "................|........x.......|................|................|................|........x.......|................|................"
+            },
+            {
+              "voice": "shaker",
+              "steps": "....g...g...g...|....g...g...g...|....g...g...g...|....g...g...g...|....g...g...g...|....g...g...g...|....g...g...g...|....g...g...g..."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

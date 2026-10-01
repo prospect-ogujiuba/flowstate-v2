@@ -1,0 +1,281 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight Mixolydian Funk Groove",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.75
+    },
+    {
+      "name": "Groove B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.85
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E7"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "E7"
+    },
+    {
+      "bar": 2,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "D/E"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E7"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "A7"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "D7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "horn_line_1",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.25,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 0.5,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.x ..x. x..x .x.. | .x.x ..x. .x.x x... | .x.x ..x. x..x .x.. | .x.x x..x .x.. x...",
+          "voicing": "drop2",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 102,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X.gR ..8. .gR. 5.a. | X.gR ..8. .5.8 ..a. | X.gR ..8. .gR. 5.a. | X.gR .3.5 X..R ..a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Brass Lead",
+      "low": "E4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_line_1",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "horn_line_1",
+          "transforms": [
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .x.. | x... ..x. .... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... ..g. X... | .... X... .g.. X..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx x.xx x.xx x.xx | x.xx x.xx x.xx x.xx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x. | .... .... .... ..x."
+            }
+          ],
+          "fill": null,
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x... ..x."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... ..g. X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx x.xx x.xx x.xx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... ..x. ...."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
