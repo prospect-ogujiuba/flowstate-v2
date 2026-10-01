@@ -1,0 +1,168 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Lagos Groove",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.08,
+    "style": ["afrobeats", "dancehall", "sunny"]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Abmaj7:2 Bbm7:2 | Dbmaj7:2 Eb7:2 | Abmaj7:2 Bbm7:2 | Fm7:2 Dbmaj7:2",
+  "motifs": [
+    {
+      "id": "afro_pluck",
+      "notes": "5:.25! 8:.25 6:.25 5:.25 | 3:.5 1:.5 r:1 | 5:.25! 7:.25 8:.5 | 6:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "guitar_keys",
+      "role": "chords",
+      "name": "Plucky Electric Guitar",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. x..x ..x. x..x | x..x ..x. x..x ..x. | ..x. x..x ..x. x..x | x... x... x..x x..x",
+          "voicing": "drop2",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "log_bass",
+      "role": "bass",
+      "name": "Log Drum Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..R. --R- X--- | R-R- .... --R. R-a- | R--- ..R. --R- X--- | R--- R--- --R. R---"
+        }
+      ]
+    },
+    {
+      "id": "lead_melody",
+      "role": "melody",
+      "name": "Afro Flute / Synth",
+      "low": "Ab4",
+      "high": "Eb6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "afro_pluck",
+          "repeatEvery": 4,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "perc_drums",
+      "role": "drums",
+      "name": "Shaker & Percussion Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "rim",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x... ..x. | x... ..x. x... x..x | x... ..x. x... ..x. | x... ..x. x... ..x."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... X.X."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x..x.. ..x..x.. | ..x..x.. ..x..x.. | ..x..x.. ..x..x.. | ..x..x.. ..x..X.."
+            },
+            {
+              "voice": "percussion",
+              "steps": "x.x..x.. x.x..x.. | x.x..x.. x.x..x.. | x.x..x.. x.x..x.. | x.x..x.. x.x.xxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "perc_drums",
+      "role": "drums",
+      "name": "Shaker & Percussion Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "crash_end",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x... ..x. | x... ..x. x... x..x | x... ..x. x... ..x. | x... ..x. x... ..x."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... X.X."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x..x.. ..x..x.. | ..x..x.. ..x..x.. | ..x..x.. ..x..x.. | ..x..x.. ..x..X.."
+            },
+            {
+              "voice": "cowbell",
+              "steps": "x.x..x.. x.x..x.. | x.x..x.. x.x..x.. | x.x..x.. x.x..x.. | x.x..x.. x.x.xxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

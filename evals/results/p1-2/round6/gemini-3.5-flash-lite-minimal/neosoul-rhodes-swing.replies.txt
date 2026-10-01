@@ -1,0 +1,151 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody D Dorian Neo-Soul Groove",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.35,
+    "style": ["neo-soul", "rnb"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | A7#9:2 Dm9:2 | Dm9:4 | G13:4 | Bbmaj9:4 | A7#5:2 A7b9:2",
+  "motifs": [
+    {
+      "id": "lead_motif",
+      "notes": "5:1.5 4:.5 b3:1 1:1 | r:.5 1:1.5 b3:1 2:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- ..x- .x-- .... | .... x--- ..x- .x--",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- g.5. R-.. ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Trumpet",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lead_motif",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lead_motif",
+          "transforms": ["transpose:+2", "displace:+0.5"],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Neo-Soul Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ..x..... | x.....x. ....x..." },
+            { "voice": "snare", "steps": "....X... ....X..g | ....X... ..g.X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.....x." },
+            { "voice": "snare", "steps": "....X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Neo-Soul Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ..x..... | x.....x. ....x..." },
+            { "voice": "snare", "steps": "....X... ....X..g | ....X... ..g.X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ........ " },
+            { "voice": "snare", "steps": "....X... ........ " },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. " }
+          ]
+        }
+      ]
+    }
+  ]
+}

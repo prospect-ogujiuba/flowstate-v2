@@ -1,0 +1,115 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy Day LoFi",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.3,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    }
+  ],
+  "harmony": "Ebmaj9:4 | Fm9:4 | Gm7:2 Cm7:2 | Fm9:2 Bb13:2",
+  "motifs": [
+    {
+      "id": "sleepy_line",
+      "notes": "3:1 4:1 5:.5 3:.5 1:1 | r:.5 2:1 3:.5 5:1 7:.5 8:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- -x-- x-x- --x-",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Eb1",
+      "high": "Eb2",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..x. R--- ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soft Lead",
+      "low": "Eb4",
+      "high": "Eb6",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "sleepy_line",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "LoFi Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "kick_build",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. x... ..x."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.gx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

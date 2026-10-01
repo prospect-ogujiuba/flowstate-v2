@@ -1,0 +1,274 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender F Major Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.0,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    { "name": "Verse", "startBar": 1, "bars": 4, "energy": 0.45 },
+    { "name": "Chorus", "startBar": 5, "bars": 4, "energy": 0.75 }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Am7:3 | Bbmaj7:3 | F/A:3 | Gm7:3 | C7:3",
+  "motifs": [
+    {
+      "id": "heartfelt",
+      "notes": "5:1.5 3:.5 1:1 | 2:1 3:1 5:1 | 6:1.5 5:.5 3:1 | 2:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.x.x. | x.x.x. | x.x.x. | x.x.x. | x.x.x. | x.x.x. | x.x.x. | x.x.x.",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Upright Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-- | R-- | R-- | R-- | R-- | R-- | R-- | R--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soft Lead Piano",
+      "low": "F4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "heartfelt",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "heartfelt",
+          "transforms": ["transpose:+0", "octave:+1"],
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Ballad Kit (Brushes)",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x.. | x.. | x.. | x.. | x.. | x.. | x.. | x.." },
+            { "voice": "snare", "steps": "..x | ..x | ..x | ..x | ..x | ..x | ..x | ..X" },
+            { "voice": "closed_hat", "steps": "x.x | x.x | x.x | x.x | x.x | x.x | x.x | x.x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x. | x.x.x.x.x.",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Upright Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-------- | R-------- | R-------- | R-------- | R-------- | R-------- | R-------- | R--------"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soft Lead Piano",
+      "low": "F4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "heartfelt",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "heartfelt",
+          "transforms": ["transpose:+0", "octave:+1"],
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Ballad Kit (Brushes)",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x........ | x........ | x........ | x........ | x........ | x........ | x........ | x........" },
+            { "voice": "snare", "steps": "..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..X......" },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Upright Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-------- | R-------- | R-------- | R-------- | R-------- | R-------- | R-------- | R--------"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soft Lead Piano",
+      "low": "F4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "heartfelt",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "heartfelt",
+          "transforms": ["transpose:+0", "octave:+1"],
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Ballad Kit (Brushes)",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x........ | x........ | x........ | x........ | x........ | x........ | x........ | x........" },
+            { "voice": "snare", "steps": "..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..x...... | ..X......" },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x | x.x.x.x.x" }
+          ]
+        }
+      ]
+    }
+  ]
+}

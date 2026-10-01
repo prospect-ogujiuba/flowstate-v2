@@ -1,0 +1,163 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "G mixolydian rock anthem",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse-Chorus A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.72
+    },
+    {
+      "name": "Verse-Chorus B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.84
+    }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | D5:4 | G5:4 | F5:4 | C5:2 D5:2 | G5:4",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "5:1 5:0.5 6:0.5 5:1 3:0.5 2:0.5 1:1 | 5:1 5:0.5 6:0.5 8:1 6:0.5 5:0.5 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Power Guitars",
+      "low": "G2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x.x.",
+          "voicing": "power",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x.x.|X.x.x.x.X.x.x..X",
+          "voicing": "power",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Pick Bass",
+      "low": "G1",
+      "high": "D3",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.x.x.x.|x.x.x.x.|x.x.x.x.|x.x.x.x.|x.x.x.x.|x.x.x.x.|x.x.x.x.|x.x.x.x."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Anthem Lead",
+      "low": "D4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Arena Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 102,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x..x....|x...x...x..x....|x...x...x..x....|x...x...x..x...."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X...|....X.......X...|....X.......X...|....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx"
+            },
+            {
+              "voice": "crash",
+              "steps": "X...............|................|................|................"
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x..x....|x...x...x..x....|x...x...x..x....|x...x...x..x...."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X...|....X.......X...|....X.......X...|....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx"
+            },
+            {
+              "voice": "crash",
+              "steps": "X...............|X...............|X...............|X..............."
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

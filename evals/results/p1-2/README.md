@@ -101,3 +101,16 @@ Two planner changes, no IR change:
 
 - The model wrote only `swing` and `style` in 59 of 60 contexts; context fell from 129 to 40 B (median).
 - The two failures without the arithmetic line were both `gospel-68-sunday` (6/8), with step counts still wrong after two repairs. With the line, every plan is valid.
+
+## Round 6: other fast models (2026-10-01)
+
+Same planner as round 5; one plan-only run each through OpenRouter (`round6/`):
+
+| Folder | Model, reasoning | Valid | First part p50 / p95 | Full plan p50 / p95 | Repairs |
+| --- | --- | --- | --- | --- | --- |
+| `gemini-3.1-flash-lite-minimal/` | `google/gemini-3.1-flash-lite`, minimal | 18/20 | **2.0 s** | **3.8 s** / 8.3 s | 8 |
+| `gemini-3.5-flash-lite-minimal/` | `google/gemini-3.5-flash-lite`, minimal | 16/20 | 2.2 s | 5.9 s / 9.0 s | 15 |
+| `gpt-mini-latest-low/` | `~openai/gpt-mini-latest`, low (its minimal is unsupported) | 20/20 | 10.6 s | 14.4 s / 18.1 s | — |
+
+- The Flash Lite models are about twice as fast as Gemini 3.6 Flash, but less reliable. Every plan still invalid after two repairs had step-count slips: a bar written at another resolution (8 or 32 steps where 16 were expected), or stray `-` or `r` tokens.
+- GPT mini at low is valid but too slow for the targets.

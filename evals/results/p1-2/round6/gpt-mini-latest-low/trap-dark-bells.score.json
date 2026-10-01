@@ -1,0 +1,119 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark trap bell loop",
+  "context": {
+    "tempo": 140,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C#",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "trap"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "C#m9:4 | Amaj7:4 | Emaj7:4 | G#7b9:4",
+  "motifs": [
+    {
+      "id": "bell1",
+      "notes": "5:1 4:.5 r:.5 3:1 2:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---------------|x---------------|x---------------|x---------------",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808",
+      "low": "C#1",
+      "high": "C#3",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--------------a|x--------------a|x--------------a|x--------------a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Bell",
+      "low": "G#4",
+      "high": "C#7",
+      "grid": 4,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "bell1",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 104,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x.......x...|x.......x...x...|x...x...........|x.......x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X.......|........X.......|........X.......|........X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.xxxxxx.x|x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "................|................|............x...|................"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

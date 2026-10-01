@@ -1,0 +1,144 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble cinematic build",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "Build",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Dm:4 | Gm:4 | Am:4 | Bb:2 C:2 | Dm:4 | Gm:4 | Bb:4 | A7:4",
+  "motifs": [
+    {
+      "id": "horn_theme",
+      "notes": "1:2 3:1 5:1 | 6:2 5:2 | 4:2 3:1 2:1 | 1:4"
+    }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "pad",
+      "name": "String Orchestra",
+      "low": "C2",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- ----",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Contrabass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ----"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "horn_theme",
+          "repeatEvery": 16
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Orchestral Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "X... .... X... ...."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": ".... X... .... X..."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "tom_run",
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "X.X. X.X. X.X. X.X."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Orchestral Brass Section",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-x- x-x- x-x- x-x-",
+          "voicing": "drop2"
+        }
+      ]
+    }
+  ]
+}

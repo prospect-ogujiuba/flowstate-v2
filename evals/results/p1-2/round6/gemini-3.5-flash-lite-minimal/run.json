@@ -1,0 +1,642 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.5-flash-lite",
+    "reasoning": "minimal"
+  },
+  "at": "2026-10-01T15:22:41.407Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 20,
+    "valid": 16,
+    "validityRate": 0.8,
+    "latencyP50Ms": 5940,
+    "latencyP95Ms": 9011,
+    "firstTokenP50Ms": 730,
+    "firstTextP50Ms": 730,
+    "firstPartP50Ms": 2187,
+    "firstPartP95Ms": 6482,
+    "partsStreamed": 20
+  },
+  "results": [
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 4161,
+      "firstTokenMs": 1508,
+      "firstTextMs": 1508,
+      "firstPartMs": 2660,
+      "usage": {
+        "inputTokens": 4809,
+        "outputTokens": 977,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 6093,
+      "firstTokenMs": 1591,
+      "firstTextMs": 1591,
+      "firstPartMs": 2844,
+      "usage": {
+        "inputTokens": 10848,
+        "outputTokens": 1444,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 2 kick: bar 1 of pattern has 8 steps, expected 16",
+            "part drums block 2 snare: bar 1 of pattern has 8 steps, expected 16",
+            "part drums block 2 closed_hat: bar 1 of pattern has 8 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 6578,
+      "firstTokenMs": 1864,
+      "firstTextMs": 1864,
+      "firstPartMs": 3038,
+      "usage": {
+        "inputTokens": 6694,
+        "outputTokens": 1339,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 closed_hat: invalid step token 't'",
+            "part drums block 1 closed_hat: invalid step token 't'",
+            "part drums block 1 closed_hat: invalid step token 't'",
+            "part drums block 1 closed_hat: invalid step token 't'",
+            "part drums block 1 closed_hat: invalid step token 't'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 7065,
+      "firstTokenMs": 1670,
+      "firstTextMs": 1670,
+      "firstPartMs": 5615,
+      "usage": {
+        "inputTokens": 6496,
+        "outputTokens": 1670,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Bb13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Bb13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Bb13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Bb13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3778,
+      "firstTokenMs": 675,
+      "firstTextMs": 675,
+      "firstPartMs": 2187,
+      "usage": {
+        "inputTokens": 4799,
+        "outputTokens": 1092,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3864,
+      "firstTokenMs": 698,
+      "firstTextMs": 698,
+      "firstPartMs": 1871,
+      "usage": {
+        "inputTokens": 4812,
+        "outputTokens": 1104,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 5940,
+      "firstTokenMs": 851,
+      "firstTextMs": 851,
+      "firstPartMs": 2252,
+      "usage": {
+        "inputTokens": 6946,
+        "outputTokens": 1639,
+        "cacheReadTokens": 4064
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "perc_drums",
+          "errors": [
+            "blocks.0.drums.4.voice: Invalid option: expected one of \"kick\"|\"snare\"|\"clap\"|\"rim\"|\"closed_hat\"|\"pedal_hat\"|\"open_hat\"|\"low_tom\"|\"mid_tom\"|\"high_tom\"|\"crash\"|\"ride\"|\"ride_bell\"|\"shaker\"|\"tambourine\"|\"cowbell\"",
+            "blocks.0.fill: Invalid option: expected one of \"none\"|\"snare_roll\"|\"tom_run\"|\"kick_build\"|\"crash_end\"|\"half_time_break\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 5082,
+      "firstTokenMs": 807,
+      "firstTextMs": 807,
+      "firstPartMs": 2181,
+      "usage": {
+        "inputTokens": 6697,
+        "outputTokens": 1316,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 4525,
+      "firstTokenMs": 759,
+      "firstTextMs": 759,
+      "firstPartMs": 1875,
+      "usage": {
+        "inputTokens": 6648,
+        "outputTokens": 1195,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "blocks.0.drums.3.voice: Invalid option: expected one of \"kick\"|\"snare\"|\"clap\"|\"rim\"|\"closed_hat\"|\"pedal_hat\"|\"open_hat\"|\"low_tom\"|\"mid_tom\"|\"high_tom\"|\"crash\"|\"ride\"|\"ride_bell\"|\"shaker\"|\"tambourine\"|\"cowbell\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 8740,
+      "firstTokenMs": 755,
+      "firstTextMs": 755,
+      "firstPartMs": 5367,
+      "usage": {
+        "inputTokens": 9785,
+        "outputTokens": 2447,
+        "cacheReadTokens": 8126
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 4 of pattern has 8 steps, expected 16",
+        "part drums block 1 kick: bar 1 of pattern has 8 steps, expected 12",
+        "part drums block 1 kick: bar 2 of pattern has 8 steps, expected 12",
+        "part drums block 1 kick: bar 3 of pattern has 8 steps, expected 12",
+        "part drums block 1 kick: bar 4 of pattern has 8 steps, expected 12",
+        "part drums block 1 snare: bar 1 of pattern has 8 steps, expected 12"
+      ],
+      "unplayable": [
+        {
+          "part": "keys",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'F13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Edim7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'F13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Edim7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part bass block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'F13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Edim7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'F13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Edim7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part drums block 1 kick: bar 1 of pattern has 8 steps, expected 12",
+            "part drums block 1 kick: bar 2 of pattern has 8 steps, expected 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 4173,
+      "firstTokenMs": 629,
+      "firstTextMs": 629,
+      "firstPartMs": 1680,
+      "usage": {
+        "inputTokens": 6497,
+        "outputTokens": 1072,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 shaker: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 rim: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3739,
+      "firstTokenMs": 619,
+      "firstTextMs": 619,
+      "firstPartMs": 1787,
+      "usage": {
+        "inputTokens": 4813,
+        "outputTokens": 1132,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 7282,
+      "firstTokenMs": 730,
+      "firstTextMs": 730,
+      "firstPartMs": 1935,
+      "usage": {
+        "inputTokens": 9190,
+        "outputTokens": 1791,
+        "cacheReadTokens": 8122
+      },
+      "remainingErrors": [
+        "part drums block 1 closed_hat: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 5114,
+      "firstTokenMs": 672,
+      "firstTextMs": 672,
+      "firstPartMs": 1964,
+      "usage": {
+        "inputTokens": 6786,
+        "outputTokens": 1457,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 crash: bar 1 of pattern has 17 steps, expected 16",
+            "part drums block 1 crash: invalid step token '0'",
+            "part drums block 2 crash: bar 1 of pattern has 17 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3586,
+      "firstTokenMs": 659,
+      "firstTextMs": 659,
+      "firstPartMs": 1788,
+      "usage": {
+        "inputTokens": 741,
+        "outputTokens": 1092,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 6512,
+      "firstTokenMs": 627,
+      "firstTextMs": 627,
+      "firstPartMs": 2684,
+      "usage": {
+        "inputTokens": 13304,
+        "outputTokens": 1695,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 low_tom: bar 1 of pattern has 12 steps, expected 18",
+            "part drums block 1 shaker: bar 1 of pattern has 12 steps, expected 18",
+            "part drums block 1 rim: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 9011,
+      "firstTokenMs": 698,
+      "firstTextMs": 698,
+      "firstPartMs": 2927,
+      "usage": {
+        "inputTokens": 8100,
+        "outputTokens": 2684,
+        "cacheReadTokens": 10159
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 2 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 3 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 4 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 5 of pattern has 6 steps, expected 9"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 3 steps, expected 9",
+            "part bass block 1 rhythm: bar 2 of pattern has 3 steps, expected 9",
+            "part bass block 1 rhythm: bar 3 of pattern has 3 steps, expected 9",
+            "part bass block 1 rhythm: bar 4 of pattern has 3 steps, expected 9",
+            "part bass block 1 rhythm: bar 5 of pattern has 3 steps, expected 9"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 3 steps, expected 9",
+            "part drums block 1 kick: bar 2 of pattern has 3 steps, expected 9",
+            "part drums block 1 kick: bar 3 of pattern has 3 steps, expected 9",
+            "part drums block 1 kick: bar 4 of pattern has 3 steps, expected 9",
+            "part drums block 1 kick: bar 5 of pattern has 3 steps, expected 9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 12219,
+      "firstTokenMs": 887,
+      "firstTextMs": 887,
+      "firstPartMs": 7727,
+      "usage": {
+        "inputTokens": 8853,
+        "outputTokens": 3777,
+        "cacheReadTokens": 10163
+      },
+      "remainingErrors": [
+        "part chords block 1 rhythm: invalid step token 'r'",
+        "part chords block 1 rhythm: invalid step token 'r'",
+        "part drums block 1 snare: bar 1 of pattern has 12 steps, expected 18",
+        "part drums block 1 snare: invalid step token '-'",
+        "part drums block 1 snare: invalid step token '-'",
+        "part drums block 1 snare: invalid step token '-'",
+        "part drums block 1 snare: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "harmony: bad token 'Bbm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part chords block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 2 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 3 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 4 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony: bad token 'Bbm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part bass block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: invalid step token 'r'",
+            "part bass block 1 rhythm: invalid step token 'r'",
+            "part bass block 1 rhythm: invalid step token 'r'"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony: bad token 'Bbm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony: bad token 'Bbm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part drums block 1 kick: bar 1 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 6047,
+      "firstTokenMs": 623,
+      "firstTextMs": 623,
+      "firstPartMs": 2106,
+      "usage": {
+        "inputTokens": 8747,
+        "outputTokens": 1453,
+        "cacheReadTokens": 8120
+      },
+      "remainingErrors": [
+        "part drums block 1 kick: bar 1 of pattern has 8 steps, expected 16",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: bar 2 of pattern has 8 steps, expected 16",
+        "part drums block 1 kick: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 7936,
+      "firstTokenMs": 767,
+      "firstTextMs": 767,
+      "firstPartMs": 6482,
+      "usage": {
+        "inputTokens": 6887,
+        "outputTokens": 2396,
+        "cacheReadTokens": 4064
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Am7b5' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'C13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Am7b5' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'C13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Am7b5' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'C13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony: bad token 'Dm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'Am7b5' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "harmony: bad token 'C13' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        }
+      ]
+    }
+  ]
+}
