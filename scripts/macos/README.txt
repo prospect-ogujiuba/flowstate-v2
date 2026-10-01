@@ -46,6 +46,20 @@ WHAT TO CHECK
    slot and play. The instrument still sounds. (Ableton can't open MIDI
    effect plug-ins, so skip this one there.)
 9. Two at once: two Flowstate windows open together both work.
+10. Design gallery (the most important one for us right now):
+   a. Quit Logic. In Terminal, paste this line and press Return:
+        FLOWSTATE_UI_PAGE=gallery.html "/Applications/Logic Pro.app/Contents/MacOS/Logic Pro"
+      (If your Logic is called "Logic Pro X", use that name in both places.)
+   b. Open Flowstate on a track. Instead of the normal window you see a
+      page of buttons, knobs and switches.
+   c. Press Tab repeatedly: it moves through the controls with a cyan
+      outline. If Tab only reaches text boxes, turn on System Settings >
+      Keyboard > Keyboard navigation and try again.
+   d. Knobs turn with the arrow keys and by dragging.
+   e. The settings panel opens, and Esc closes it.
+   f. With a button outlined, press Space: Logic starts or stops, and the
+      button is NOT pressed.
+   g. Quit Logic. Opening it normally brings back the normal window.
 
 
 REPORTING
