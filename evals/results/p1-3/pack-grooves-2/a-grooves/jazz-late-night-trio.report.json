@@ -1,0 +1,80 @@
+{
+  "warnings": [
+    "part bass block 1..8 rhythm: bar 1 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 2 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 3 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 4 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 5 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 6 has 4 steps, expected 12; read as 4 steps per bar",
+    "part bass block 1..8 rhythm: bar 7 has 4 steps, expected 12; read as 4 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 284,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 120,
+        "minPitch": 48,
+        "maxPitch": 67,
+        "rangeLow": 41,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 37,
+        "minPitch": 33,
+        "maxPitch": 46,
+        "rangeLow": 28,
+        "rangeHigh": 47,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 28,
+        "minPitch": 65,
+        "maxPitch": 77,
+        "rangeLow": 58,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 99,
+        "minPitch": 36,
+        "maxPitch": 51,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 8
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 43
+          },
+          {
+            "sublane": "hats",
+            "notes": 14
+          },
+          {
+            "sublane": "kick",
+            "notes": 32
+          },
+          {
+            "sublane": "snare",
+            "notes": 2
+          }
+        ]
+      }
+    ]
+  }
+}

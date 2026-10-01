@@ -1,0 +1,160 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Midnight Bb Jazz Trio",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.6,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro/Vamp",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Bbmaj9:2 Cm9:2 | Dm7b5:2 G7alt:2 | Cm11:2 F13:2 | Bbmaj9:1 Bb7#11:1 Ebmaj9:1 Ebm6:1 | Bbmaj9:2 Cm9:2 | Dm7b5:2 G7alt:2 | Cm11:2 F13:2 | Bbmaj9:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:1 6:1 8:1 3+:1 | 5+:1.5 2+:0.5 1+:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x........",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R357 | R357 | R357 | R35a | R357 | R357 | R357 | R1.5."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Trumpet",
+      "low": "Bb3",
+      "high": "F5",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "jazz_swing"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "jazz_swing",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R357 | R357 | R357 | R35a | R357 | R357 | R357 | R357...R1"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R357 | R357 | R357 | R35a | R357 | R357 | R357 | R357 R357 1..."
+        }
+      ]
+    }
+  ]
+}

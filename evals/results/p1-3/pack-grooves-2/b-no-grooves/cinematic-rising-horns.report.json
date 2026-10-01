@@ -1,0 +1,62 @@
+{
+  "warnings": [
+    "part drums block 1..7 low_tom: bar 4 has 8 steps, expected 16; read as 8 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 92,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "strings",
+        "role": "chords",
+        "notes": 30,
+        "minPitch": 49,
+        "maxPitch": 70,
+        "rangeLow": 36,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 16,
+        "minPitch": 31,
+        "maxPitch": 38,
+        "rangeLow": 26,
+        "rangeHigh": 50,
+        "outOfKey": 0
+      },
+      {
+        "id": "horn",
+        "role": "melody",
+        "notes": 9,
+        "minPitch": 62,
+        "maxPitch": 70,
+        "rangeLow": 43,
+        "rangeHigh": 74,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 37,
+        "minPitch": 36,
+        "maxPitch": 50,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "kick",
+            "notes": 1
+          },
+          {
+            "sublane": "toms",
+            "notes": 36
+          }
+        ]
+      }
+    ]
+  }
+}

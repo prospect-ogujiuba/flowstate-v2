@@ -1,0 +1,71 @@
+{
+  "warnings": [
+    "part drums block 1..8: kick lane ignored; the groove \"dnb\" plays it",
+    "part drums block 1..8: closed_hat lane ignored; the groove \"dnb\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 291,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 64,
+        "minPitch": 55,
+        "maxPitch": 80,
+        "rangeLow": 48,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 48,
+        "minPitch": 17,
+        "maxPitch": 29,
+        "rangeLow": 17,
+        "rangeHigh": 36,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 20,
+        "minPitch": 77,
+        "maxPitch": 85,
+        "rangeLow": 65,
+        "rangeHigh": 89,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 159,
+        "minPitch": 36,
+        "maxPitch": 51,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 64
+          },
+          {
+            "sublane": "hats",
+            "notes": 30
+          },
+          {
+            "sublane": "kick",
+            "notes": 16
+          },
+          {
+            "sublane": "snare",
+            "notes": 49
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "warnings": [
+    "part drums block 1..4: closed_hat lane ignored; the groove \"trap\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 161,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 64,
+        "minPitch": 56,
+        "maxPitch": 73,
+        "rangeLow": 49,
+        "rangeHigh": 73,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 20,
+        "minPitch": 30,
+        "maxPitch": 37,
+        "rangeLow": 25,
+        "rangeHigh": 49,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 21,
+        "minPitch": 85,
+        "maxPitch": 97,
+        "rangeLow": 73,
+        "rangeHigh": 97,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 56,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 3
+          },
+          {
+            "sublane": "hats",
+            "notes": 35
+          },
+          {
+            "sublane": "kick",
+            "notes": 6
+          },
+          {
+            "sublane": "snare",
+            "notes": 12
+          }
+        ]
+      }
+    ]
+  }
+}

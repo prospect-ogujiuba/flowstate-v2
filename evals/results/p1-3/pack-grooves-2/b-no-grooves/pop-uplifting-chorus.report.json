@@ -1,0 +1,109 @@
+{
+  "warnings": [
+    "part chords block 1..8 rhythm: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 5 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 6 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 7 has 8 steps, expected 16; read as 8 steps per bar",
+    "part chords block 1..8 rhythm: bar 8 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 5 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 6 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 7 has 8 steps, expected 16; read as 8 steps per bar",
+    "part bass block 1..8 rhythm: bar 8 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 5 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 6 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 7 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 kick: bar 8 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 5 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 6 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 7 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 snare: bar 8 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 1 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 2 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 3 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 4 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 5 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 6 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 7 has 8 steps, expected 16; read as 8 steps per bar",
+    "part drums block 1..8 closed_hat: bar 8 has 8 steps, expected 16; read as 8 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 250,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 91,
+        "minPitch": 54,
+        "maxPitch": 76,
+        "rangeLow": 48,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 15,
+        "minPitch": 28,
+        "maxPitch": 43,
+        "rangeLow": 28,
+        "rangeHigh": 55,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 56,
+        "minPitch": 81,
+        "maxPitch": 88,
+        "rangeLow": 67,
+        "rangeHigh": 91,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 88,
+        "minPitch": 36,
+        "maxPitch": 49,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 1
+          },
+          {
+            "sublane": "hats",
+            "notes": 56
+          },
+          {
+            "sublane": "kick",
+            "notes": 22
+          },
+          {
+            "sublane": "snare",
+            "notes": 9
+          }
+        ]
+      }
+    ]
+  }
+}

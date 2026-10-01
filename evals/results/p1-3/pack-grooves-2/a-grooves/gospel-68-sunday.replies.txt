@@ -1,0 +1,116 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:3 Fm7:3 | Bbm9:3 Eb13:3 | Abmaj7:3 Cm7:3 | Fm7:3 Bbm9:1.5 Eb13:1.5 | Abmaj9:3 C7#9:3 | Fm9:3 Bb13:3 | Bbm9:3 Eb13:3 | Abmaj7:3 Ab7:3",
+  "motifs": [
+    {
+      "id": "soul_line",
+      "notes": "5:1 6:1 8:1 | 3:2 1:1 | 2:1 3:1 5:1 | 6:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "organ",
+      "role": "chords",
+      "name": "B3 Organ",
+      "low": "C3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x-- | x--x-- | x--x-- | x--x-- | x--x-- | x--x-- | x--x-- | x--x--",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--5-- | R--5-- | R--5-- | R--a-- | R--5-- | R--5-- | R--5-- | R--5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soul Organ",
+      "low": "Ab4",
+      "high": "Ab6",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "soul_line",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "soul_line",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "gospel_shuffle"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "gospel_shuffle",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
