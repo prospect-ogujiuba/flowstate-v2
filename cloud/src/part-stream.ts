@@ -8,6 +8,26 @@ import { validateScore } from "./validate.ts";
 export type Head = Omit<Score, "parts">;
 export interface Unplayable { part: string; errors: string[] }
 
+const issues = (r: { error: { issues: { path: PropertyKey[]; message: string }[] } }) =>
+  r.error.issues.slice(0, 5).map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`);
+
+/** A part's label for messages: its id, else its role. */
+export const partLabel = (value: unknown) => {
+  const v = (value ?? {}) as { id?: unknown; role?: unknown };
+  return String(v.id ?? v.role ?? "?");
+};
+
+/** Checks one part against the head: the schema, then the semantic checks on the head plus this part alone. */
+export function checkPart(head: Head | null, value: unknown): { part: Part } | { errors: string[] } {
+  if (!head) return { errors: ["the head before parts is missing or invalid"] };
+  const part = Part.safeParse(value);
+  if (!part.success) return { errors: issues(part) };
+  const partial = Score.safeParse({ ...head, parts: [part.data] });
+  if (!partial.success) return { errors: issues(partial) };
+  const errors = validateScore(partial.data);
+  return errors.length > 0 ? { errors: errors.slice(0, 5) } : { part: part.data };
+}
+
 export class PartStream {
   /** Parts that passed the schema and the semantic checks against the head, in order. */
   readonly playable: Part[] = [];
@@ -27,7 +47,16 @@ export class PartStream {
   private partStart = -1;
   private headTried = false;
 
-  constructor(private readonly onPart?: (part: Part) => void) {}
+  /**
+   * With a known head (a parts-only repair reply), parts are checked against it instead of the reply's own.
+   * headCheck adds the request's hard constraints: a head that breaks them plays nothing.
+   */
+  constructor(
+    private readonly onPart?: (part: Part) => void,
+    private readonly options: { knownHead?: Head; headCheck?: (head: Head) => string[] } = {},
+  ) {
+    if (options.knownHead) this.head = options.knownHead;
+  }
 
   push(delta: string) {
     this.text += delta;
@@ -78,34 +107,28 @@ export class PartStream {
 
   // The head is the object up to the "parts" key, closed off.
   private readHead(partsKeyAt: number) {
-    if (this.headTried) return;
+    if (this.headTried || this.options.knownHead) return;
     this.headTried = true;
     const body = this.text.slice(this.start, partsKeyAt).trimEnd().replace(/,$/, "");
     try {
-      this.head = JSON.parse(`${body}}`) as Head;
+      const head = JSON.parse(`${body}}`) as Head;
+      const bare = Score.safeParse({ ...head, parts: [] });
+      this.head = bare.success && (this.options.headCheck?.(bare.data) ?? []).length === 0 ? head : null;
     } catch {
       this.head = null;
     }
   }
 
   private readPart(text: string) {
-    let value: { id?: unknown; role?: unknown };
+    let value: unknown;
     try {
       value = JSON.parse(text);
     } catch (err) {
       return void this.unplayable.push({ part: "?", errors: [`not JSON: ${String(err)}`] });
     }
-    const label = String(value.id ?? value.role ?? "?");
-    const issues = (r: { error: { issues: { path: PropertyKey[]; message: string }[] } }) =>
-      r.error.issues.slice(0, 5).map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`);
-    if (!this.head) return void this.unplayable.push({ part: label, errors: ["the head before parts is missing or invalid"] });
-    const part = Part.safeParse(value);
-    if (!part.success) return void this.unplayable.push({ part: label, errors: issues(part) });
-    const partial = Score.safeParse({ ...this.head, parts: [part.data] });
-    if (!partial.success) return void this.unplayable.push({ part: label, errors: issues(partial) });
-    const errors = validateScore(partial.data);
-    if (errors.length > 0) return void this.unplayable.push({ part: label, errors: errors.slice(0, 5) });
-    this.playable.push(part.data);
-    this.onPart?.(part.data);
+    const checked = checkPart(this.head, value);
+    if ("errors" in checked) return void this.unplayable.push({ part: partLabel(value), errors: checked.errors });
+    this.playable.push(checked.part);
+    this.onPart?.(checked.part);
   }
 }

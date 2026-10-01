@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Score, IR_ID, type Part } from "@flowstate/schema";
-import { PartStream, type Unplayable } from "./part-stream.ts";
+import { checkPart, partLabel, PartStream, type Head, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
 import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
 
@@ -55,7 +55,7 @@ export interface PlanResult {
   /** First attempt: first streamed token (thinking or text), and first answer text. */
   firstTokenMs: number | null;
   firstTextMs: number | null;
-  /** First attempt: when the first part became playable (head and part both valid), while the score streamed. */
+  /** When the first part became playable (head and part both valid), while the score streamed. */
   firstPartMs: number | null;
   /** First attempt: streamed parts that were not playable as they landed, and why. */
   unplayable: Unplayable[];
@@ -64,13 +64,17 @@ export interface PlanResult {
 }
 
 export interface PlanOptions {
-  /** Each playable part of the first attempt, as soon as it lands. A repair replaces the whole score. */
+  /**
+   * Each playable part as soon as it lands, from the first reply and from parts-only repairs. A later call
+   * with the same part id replaces the earlier part.
+   */
   onPart?: (part: Part, atMs: number) => void;
   signal?: AbortSignal;
 }
 
 // No constrained decoding: the IR schema compiles to a grammar larger than the API accepts.
-// The model writes JSON text; strict Zod parsing plus semantic validation drive up to two repair passes.
+// The model writes JSON text; strict Zod parsing plus semantic validation drive up to two repair passes,
+// of only the broken parts when the head is sound.
 const MAX_ATTEMPTS = 3;
 
 function extractJson(text: string): unknown {
@@ -103,63 +107,148 @@ export function defaultBackend(): Backend {
   return (envBackend ??= backendFor(selectionFromEnv()));
 }
 
+/** The model's score so far: a head and raw parts. Part repairs replace or add parts by id. */
+interface Draft { head: Head; parts: unknown[] }
+
+type Review =
+  | { ok: true; score: Score }
+  | { ok: false; scope: "score"; errors: string[]; score: Score | null }
+  | { ok: false; scope: "parts"; errors: string[]; score: Score | null; badParts: string[] };
+
+// Head problems need the whole score rewritten (every part depends on the head). Problems that sit in
+// single parts, or a missing lane, need only those parts.
+function review(draft: Draft, req: PlanRequest): Review {
+  const assembled = Score.safeParse({ ...draft.head, parts: draft.parts });
+  const score = assembled.success ? assembled.data : null;
+  const bare = Score.safeParse({ ...draft.head, parts: [] });
+  if (!bare.success)
+    return { ok: false, scope: "score", score, errors: bare.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`) };
+  const headErrors = [...validateScore(bare.data), ...headMismatches(bare.data, req)];
+  if (headErrors.length > 0) return { ok: false, scope: "score", score, errors: headErrors };
+
+  const errors: string[] = [];
+  const badParts: string[] = [];
+  for (const value of draft.parts) {
+    const checked = checkPart(draft.head, value);
+    if ("errors" in checked) {
+      badParts.push(partLabel(value));
+      errors.push(...checked.errors.map((e) => (e.startsWith("part ") ? e : `part ${partLabel(value)}: ${e}`)));
+    }
+  }
+  // Across parts: duplicate ids and missing lanes.
+  if (score) errors.push(...validateScore(score).filter((e) => e.startsWith("duplicate part id")));
+  const roles = new Set(draft.parts.map((p) => (p as { role?: unknown })?.role));
+  for (const lane of req.controls.lanes) if (!roles.has(lane)) errors.push(`missing requested lane '${lane}': add a part for it`);
+  if (errors.length === 0 && score) return { ok: true, score };
+  return { ok: false, scope: "parts", score, errors, badParts };
+}
+
+function draftFrom(text: string): Draft {
+  const raw = extractJson(text);
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw new SyntaxError("the reply is not a JSON object");
+  const { parts, ...head } = raw as Record<string, unknown>;
+  return { head: head as Head, parts: Array.isArray(parts) ? parts : [] };
+}
+
+// A parts-only repair: each returned part replaces the draft's part with the same id, else the first broken
+// part with the same role; anything else is added.
+function mergeParts(draft: Draft, text: string, badParts: string[]): Draft {
+  const raw = extractJson(text) as { parts?: unknown };
+  if (!Array.isArray(raw?.parts)) throw new SyntaxError("the repair reply has no parts array");
+  const parts = [...draft.parts];
+  const open = new Set(badParts);
+  for (const fixed of raw.parts) {
+    const { id, role } = (fixed ?? {}) as { id?: unknown; role?: unknown };
+    let i = parts.findIndex((p) => (p as { id?: unknown })?.id === id);
+    if (i < 0) i = parts.findIndex((p) => open.has(partLabel(p)) && (p as { role?: unknown })?.role === role);
+    if (i >= 0) {
+      open.delete(partLabel(parts[i]));
+      parts[i] = fixed;
+    } else parts.push(fixed);
+  }
+  return { head: draft.head, parts };
+}
+
 export async function planScore(req: PlanRequest, backend: Backend = defaultBackend(), options: PlanOptions = {}): Promise<PlanResult> {
   const started = Date.now();
   const usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0 };
   const turns: Turn[] = [{ role: "user", text: userMessage(req) }];
-  let lastErrors: string[] = [];
   let first: Pick<Completion, "firstTokenMs" | "firstTextMs"> = { firstTokenMs: null, firstTextMs: null };
   let firstPartMs: number | null = null;
   let unplayable: Unplayable[] = [];
   const replies: string[] = [];
+  let draft: Draft | null = null;
+  // What the next reply is: the whole score, or only the listed parts (with the draft's head).
+  let next: { scope: "score" } | { scope: "parts"; badParts: string[] } = { scope: "score" };
+  let lastErrors: string[] = [];
+
+  const reportPart = (part: Part) => {
+    const at = Date.now() - started;
+    firstPartMs ??= at;
+    options.onPart?.(part, at);
+  };
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    // Only the first attempt streams parts out: a repair replaces the whole score.
-    const parts = attempt === 1
-      ? new PartStream((part) => {
-          const at = Date.now() - started;
-          firstPartMs ??= at;
-          options.onPart?.(part, at);
-        })
-      : null;
+    // A parts-only repair keeps the head, so its parts stream too. A full rewrite may change the head, so it
+    // streams only while nothing has been reported yet: earlier parts could clash with the new head.
+    const headCheck = (head: Head) => headMismatches({ ...head, parts: [] }, req);
+    const stream = next.scope === "parts" && draft
+      ? new PartStream(reportPart, { knownHead: draft.head })
+      : firstPartMs === null ? new PartStream(reportPart, { headCheck }) : null;
     const completion = await backend.complete(SYSTEM_PROMPT, turns, {
-      ...(parts ? { onText: (d: string) => parts.push(d) } : {}),
+      ...(stream ? { onText: (d: string) => stream.push(d) } : {}),
       ...(options.signal ? { signal: options.signal } : {}),
     });
-    if (parts) unplayable = parts.unplayable;
     const { text } = completion;
     replies.push(text);
-    if (attempt === 1) first = { firstTokenMs: completion.firstTokenMs, firstTextMs: completion.firstTextMs };
+    if (attempt === 1) {
+      first = { firstTokenMs: completion.firstTokenMs, firstTextMs: completion.firstTextMs };
+      unplayable = stream!.unplayable;
+    }
     usage.inputTokens += completion.inputTokens;
     usage.outputTokens += completion.outputTokens;
     usage.cacheReadTokens += completion.cacheReadTokens;
 
-    let score: Score | null = null;
+    let result: Review;
     try {
-      const parsed = Score.safeParse(extractJson(text));
-      if (parsed.success) score = parsed.data;
-      else lastErrors = parsed.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`);
+      draft = next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text);
+      result = review(draft, req);
     } catch (err) {
+      // Unreadable reply: ask again for the same thing.
       lastErrors = [`response was not valid JSON: ${String(err)}`];
-    }
-    if (score) {
-      lastErrors = [...validateScore(score), ...constraintMismatches(score, req)];
-      if (lastErrors.length === 0 || attempt === MAX_ATTEMPTS)
-        return { score, attempts: attempt, validationErrors: lastErrors, usage, latencyMs: Date.now() - started, ...first, firstPartMs, unplayable, replies };
-    } else if (attempt === MAX_ATTEMPTS) {
-      throw new Error(`planner output invalid after ${attempt} attempts: ${lastErrors.slice(0, 5).join("; ")}`);
+      if (attempt === MAX_ATTEMPTS) throw new Error(`planner output invalid after ${attempt} attempts: ${lastErrors.join("; ")}`);
+      turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, lastErrors) });
+      continue;
     }
 
-    turns.push({ role: "assistant", text });
-    turns.push({
-      role: "user",
-      text: `The score has problems. Return the complete corrected score as a single JSON object, keeping everything else the same:\n- ${lastErrors.slice(0, 40).join("\n- ")}`,
+    const done = (score: Score, errors: string[]): PlanResult => ({
+      score, attempts: attempt, validationErrors: errors, usage, latencyMs: Date.now() - started,
+      ...first, firstPartMs, unplayable, replies,
     });
+    if (result.ok) return done(result.score, []);
+    lastErrors = result.errors;
+    if (attempt === MAX_ATTEMPTS) {
+      if (result.score) return done(result.score, result.errors);
+      throw new Error(`planner output invalid after ${attempt} attempts: ${result.errors.slice(0, 5).join("; ")}`);
+    }
+    next = result.scope === "parts" ? { scope: "parts", badParts: result.badParts } : { scope: "score" };
+    turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, result.errors) });
   }
   throw new Error("unreachable");
 }
 
-function constraintMismatches(score: Score, req: PlanRequest): string[] {
+function repairRequest(next: { scope: "score" } | { scope: "parts"; badParts: string[] }, errors: string[]): string {
+  const list = `- ${errors.slice(0, 40).join("\n- ")}`;
+  if (next.scope === "score")
+    return `The score has problems. Return the complete corrected score as a single JSON object, keeping everything else the same:\n${list}`;
+  return [
+    "Some parts have problems. The head (context, form, harmony, motifs) and the other parts are fine and stay as they are.",
+    `Return only the corrected or missing parts, each complete and keeping its id, as a single JSON object {"parts": [...]}:`,
+    list,
+  ].join("\n");
+}
+
+function headMismatches(score: Score, req: PlanRequest): string[] {
   const c = req.controls;
   const ctx = score.context;
   const errors: string[] = [];
@@ -168,7 +257,5 @@ function constraintMismatches(score: Score, req: PlanRequest): string[] {
   if (ctx.tonic !== c.tonic || ctx.mode !== c.mode) errors.push(`key must be ${c.tonic} ${c.mode}`);
   if (ctx.meterNumerator !== c.meterNumerator || ctx.meterDenominator !== c.meterDenominator)
     errors.push(`meter must be ${c.meterNumerator}/${c.meterDenominator}`);
-  const roles = new Set(score.parts.map((p) => p.role));
-  for (const lane of c.lanes) if (!roles.has(lane as never)) errors.push(`missing requested lane '${lane}'`);
   return errors;
 }

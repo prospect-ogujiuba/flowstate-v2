@@ -21,8 +21,14 @@ function setup(...replies: string[]) {
   const faux = fauxProvider({ provider: "faux", models: [{ id: "faux-model" }], tokenSize: { min: 8, max: 64 } });
   const models = createModels();
   models.setProvider(faux.provider);
-  faux.setResponses(replies.map((text) => fauxAssistantMessage(text)));
-  return { backend: backendFor({ provider: "faux", model: "faux-model", credential: { kind: "managed" } }, models) };
+  // The last user message of each request, i.e. what the planner asked for.
+  const requests: string[] = [];
+  faux.setResponses(replies.map((text) => (ctx) => {
+    const last = ctx.messages.at(-1);
+    requests.push(typeof last?.content === "string" ? last.content : JSON.stringify(last?.content));
+    return fauxAssistantMessage(text);
+  }));
+  return { backend: backendFor({ provider: "faux", model: "faux-model", credential: { kind: "managed" } }, models), requests };
 }
 
 describe("planScore", () => {
@@ -37,18 +43,39 @@ describe("planScore", () => {
     assert.deepEqual(result.unplayable, []);
   });
 
-  it("holds back a broken part, and does not stream the repair again", async () => {
+  it("repairs only the broken part, and streams the fix", async () => {
     const bad = structuredClone(score);
     bad.parts[0]!.blocks[0]!.startBar = 99;
-    const { backend } = setup(JSON.stringify(bad), JSON.stringify(score));
+    const { backend, requests } = setup(JSON.stringify(bad), JSON.stringify({ parts: [score.parts[0]] }));
     const seen: string[] = [];
     const result = await planScore(request, backend, { onPart: (p) => seen.push(p.id) });
-    assert.deepEqual(seen, score.parts.slice(1).map((p) => p.id));
+    assert.deepEqual(seen, [...score.parts.slice(1).map((p) => p.id), score.parts[0]!.id]);
     assert.deepEqual(result.unplayable.map((u) => u.part), [score.parts[0]!.id]);
     assert.match(result.unplayable[0]!.errors.join(), /bars 99/);
+    assert.match(requests[1]!, /Return only the corrected or missing parts/);
     assert.equal(result.attempts, 2);
-    assert.equal(result.replies.length, 2);
     assert.deepEqual(result.validationErrors, []);
+    assert.deepEqual(result.score, score);
+  });
+
+  it("asks for a missing lane as a part", async () => {
+    const short = { ...score, parts: score.parts.slice(0, -1) };
+    const missing = score.parts.at(-1)!;
+    const { backend, requests } = setup(JSON.stringify(short), JSON.stringify({ parts: [missing] }));
+    const result = await planScore(request, backend);
+    assert.match(requests[1]!, new RegExp(`missing requested lane '${missing.role}'`));
+    assert.deepEqual(result.score, score);
+  });
+
+  it("rewrites the whole score when the head is wrong, and plays only the rewrite", async () => {
+    const wrongKey = { ...score, context: { ...score.context, tonic: "C" } };
+    const { backend, requests } = setup(JSON.stringify(wrongKey), JSON.stringify(score));
+    const seen: string[] = [];
+    const result = await planScore(request, backend, { onPart: (p) => seen.push(p.id) });
+    assert.match(requests[1]!, /complete corrected score/);
+    // A head in the wrong key plays nothing; nothing has played, so the rewrite streams.
+    assert.deepEqual(seen, score.parts.map((p) => p.id));
+    assert.deepEqual(result.score, score);
   });
 
   it("stops when the request is aborted", async () => {
