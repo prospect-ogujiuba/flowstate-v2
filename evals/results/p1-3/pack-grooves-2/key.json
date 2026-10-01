@@ -1,0 +1,157 @@
+{
+  "pack": "p1-3-grooves-2",
+  "seed": "1004",
+  "createdAt": "2026-10-01T23:21:51.004Z",
+  "prompts": "/home/priz/projects/flowstate-v2/evals/prompts/phase0.json",
+  "a": {
+    "label": "v2",
+    "dir": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves"
+  },
+  "b": {
+    "label": "v1",
+    "dir": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves"
+  },
+  "entries": [
+    {
+      "promptId": "lofi-rainy-study",
+      "folder": "01-lofi-rainy-study",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/lofi-rainy-study.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/lofi-rainy-study.notes.json"
+    },
+    {
+      "promptId": "trap-dark-bells",
+      "folder": "02-trap-dark-bells",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/trap-dark-bells.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/trap-dark-bells.notes.json"
+    },
+    {
+      "promptId": "house-deep-organ",
+      "folder": "03-house-deep-organ",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/house-deep-organ.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/house-deep-organ.notes.json"
+    },
+    {
+      "promptId": "neosoul-rhodes-swing",
+      "folder": "04-neosoul-rhodes-swing",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/neosoul-rhodes-swing.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/neosoul-rhodes-swing.notes.json"
+    },
+    {
+      "promptId": "pop-uplifting-chorus",
+      "folder": "05-pop-uplifting-chorus",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/pop-uplifting-chorus.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/pop-uplifting-chorus.notes.json"
+    },
+    {
+      "promptId": "drill-uk-phrygian",
+      "folder": "06-drill-uk-phrygian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/drill-uk-phrygian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/drill-uk-phrygian.notes.json"
+    },
+    {
+      "promptId": "afrobeats-sunny",
+      "folder": "07-afrobeats-sunny",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/afrobeats-sunny.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/afrobeats-sunny.notes.json"
+    },
+    {
+      "promptId": "jazz-late-night-trio",
+      "folder": "08-jazz-late-night-trio",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/jazz-late-night-trio.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/jazz-late-night-trio.notes.json"
+    },
+    {
+      "promptId": "cinematic-rising-horns",
+      "folder": "09-cinematic-rising-horns",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/cinematic-rising-horns.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/cinematic-rising-horns.notes.json"
+    },
+    {
+      "promptId": "reggaeton-dembow",
+      "folder": "10-reggaeton-dembow",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/reggaeton-dembow.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/reggaeton-dembow.notes.json"
+    },
+    {
+      "promptId": "dnb-liquid-rolling",
+      "folder": "11-dnb-liquid-rolling",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/dnb-liquid-rolling.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/dnb-liquid-rolling.notes.json"
+    },
+    {
+      "promptId": "ambient-pentatonic-drift",
+      "folder": "12-ambient-pentatonic-drift",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/ambient-pentatonic-drift.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/ambient-pentatonic-drift.notes.json"
+    },
+    {
+      "promptId": "funk-clav-mixolydian",
+      "folder": "13-funk-clav-mixolydian",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/funk-clav-mixolydian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/funk-clav-mixolydian.notes.json"
+    },
+    {
+      "promptId": "gospel-68-sunday",
+      "folder": "14-gospel-68-sunday",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/gospel-68-sunday.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/gospel-68-sunday.notes.json"
+    },
+    {
+      "promptId": "rock-anthem-mixolydian",
+      "folder": "15-rock-anthem-mixolydian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/rock-anthem-mixolydian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/rock-anthem-mixolydian.notes.json"
+    },
+    {
+      "promptId": "pop-ballad-waltz",
+      "folder": "16-pop-ballad-waltz",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/pop-ballad-waltz.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/pop-ballad-waltz.notes.json"
+    },
+    {
+      "promptId": "cinematic-68-lament",
+      "folder": "17-cinematic-68-lament",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/cinematic-68-lament.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/cinematic-68-lament.notes.json"
+    },
+    {
+      "promptId": "techhouse-minimal",
+      "folder": "18-techhouse-minimal",
+      "v2Option": 2,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/techhouse-minimal.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/techhouse-minimal.notes.json"
+    },
+    {
+      "promptId": "jazz-waltz-dorian",
+      "folder": "19-jazz-waltz-dorian",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/jazz-waltz-dorian.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/jazz-waltz-dorian.notes.json"
+    },
+    {
+      "promptId": "trap-phrygian-choir",
+      "folder": "20-trap-phrygian-choir",
+      "v2Option": 1,
+      "v2File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/a-grooves/trap-phrygian-choir.notes.json",
+      "v1File": "/home/priz/projects/flowstate-v2/evals/results/p1-3/pack-grooves-2/b-no-grooves/trap-phrygian-choir.notes.json"
+    }
+  ],
+  "skipped": []
+}

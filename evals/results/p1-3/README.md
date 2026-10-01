@@ -26,3 +26,7 @@ Three changes since the first grooves pack:
 `pack-grooves-2/a-grooves/` (Gemini 3.1 Flash Lite, off): 20/20 valid, first part p50 2.0 s, full plan 3.2 s; 19 of 20 plans use a groove (only the 6/8 cinematic lament doesn't). `b-no-grooves/` is the same baseline as round 1, realized with today's `core`. Blind pack `p1-3-grooves-2` (seed 1004; a = grooves).
 
 Score a returned sheet: `npm run -w evals ab:score -- --key ab/packs/p1-3-grooves-2.key.json <sheet.csv> --v2-dir results/p1-3/pack-grooves-2/a-grooves`
+
+### Result (owner, rendered, 2026-10-01)
+
+Grooves 14, no grooves 3, ties 3: 82% of non-tie comparisons, sign test p = 0.013 (`pack-grooves-2/scoresheet-owner.csv`, `key.json`). Mean musicality 3.45 with grooves vs 3.00 without (+0.45); fits prompt 4.20 vs 3.40 (+0.80). The biggest fit gains are on the groove-defined styles: reggaeton +3, trap +3, afrobeats +2, gospel +2, trap choir +2. The three losses (lofi, neo-soul, jazz waltz) are each 1 point of musicality with equal or lower fit. The ties are drum and bass, rock and the pop waltz. Musicality is still just under P1-3's 3.5 bar.
