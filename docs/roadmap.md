@@ -131,7 +131,7 @@ Done so far (2026-10-01):
 - `--reasoning off` really turns thinking off (pi-ai raises a level a model lacks to the next one it has, so DeepSeek's "minimal" had been "low"). A sweep of 10 fast models from 8 vendors showed step counts failing everywhere, mostly bars written at half or double the grid's resolution. Core now reads such bars at that resolution (IR semantics; docs/ir-spec.md "Bar length"), and the validator matches core.
 - **Targets met** on DeepSeek `deepseek-flash` with thinking off (two runs, `evals/results/p1-2/round7/`): 40/40 valid, first part p50 2.3 s, full plan p50 4.2 s. Gemini 3.1 Flash Lite: 39/40, 2.0 s and 3.6 s.
 
-Open before closing P1-2: blind listening (fast plans against a slow, careful reference) to confirm the fast path doesn't cost quality.
+- Blind listening (owner, `evals/results/p1-2/pack-fast-vs-careful/`): fast (DeepSeek Flash, off) against careful (GPT-5.5, high) preferred 7 to 11 with 1 tie, p = 0.48; musicality 2.74 vs 2.89 of 5. No clear quality cost, but both score low, lowest on groove-defined styles (afrobeats, gospel, funk), which is P1-3's work.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:
