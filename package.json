@@ -2,7 +2,11 @@
   "name": "flowstate",
   "private": true,
   "type": "module",
-  "workspaces": ["schema", "cloud", "evals"],
+  "workspaces": [
+    "schema",
+    "cloud",
+    "evals"
+  ],
   "scripts": {
     "build:core": "cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/core",
     "test:core": "ctest --test-dir build/core --output-on-failure",
@@ -10,7 +14,10 @@
     "test:bridge": "ctest --test-dir build/bridge --output-on-failure",
     "schema": "npm run -w schema generate",
     "typecheck": "tsc -p schema && tsc -p cloud && tsc -p evals",
-    "test": "npm run test:core && npm run test:bridge && npm run -ws --if-present test"
+    "test": "npm run test:core && npm run test:bridge && npm run -ws --if-present test",
+    "ci:status": "bash scripts/ci-status.sh",
+    "fetch:build": "bash scripts/fetch-build.sh",
+    "pack:mac": "bash scripts/pack-macos-testers.sh"
   },
   "devDependencies": {
     "typescript": "^5.9.0",
