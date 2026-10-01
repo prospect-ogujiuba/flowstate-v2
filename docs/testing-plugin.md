@@ -167,7 +167,7 @@ What the plugin can do today:
 - It passes MIDI through.
 - It saves its state with the project.
 
-It can't make ideas or sound yet: generating needs the agent service (P1-4) or the instant sketch (P1-10), and audition is P1-7. Record the results in `docs/spikes/results.md` style, with the build ID (a CI build is named `<commit>-<run>`, a local build is `dev`).
+It can't make ideas or sound yet: generating needs the agent service (P1-4) or the instant sketch (P1-10), and audition is P1-7. Record the results in `docs/host-checks.md`, with the build ID (a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 
@@ -182,7 +182,7 @@ For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Able
 6. **Prompt reply:** send "moody chords". The notice line reads "Generating needs the agent service, which isn't connected yet." (expected in this build).
 7. **Resize:** drag the corner to a new size, close the window and reopen it. It comes back at the same size, and it can't be made smaller than 720×480.
 8. **State:** save the project, close it and reopen it. The plugin loads without errors, and the window size persists.
-9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: MIDI FX slot; in Ableton: the VST3 on the track before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through.
+9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: the MIDI FX slot; in Bitwig or FL Studio: before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through. **Ableton: n/a.** Ableton can't open a VST3 MIDI effect (it says "This VST3 plug-in could not be opened"); there, the instrument variant sends MIDI to other tracks through MIDI From.
 10. **Multiple instances:** open two Flowstate windows at once. Both render, and each follows the transport.
 11. **Drag (placeholder):** the Drag button stays disabled, since there's no idea yet. Drag-out is covered again in P1-7 with real ideas.
 
@@ -201,6 +201,6 @@ Until the signed installers (P1-14) and the tester package (P1-16) exist, send t
 1. Wait for a green `plugin` run on the commit you want (`npm run ci:status -- --watch`).
 2. `npm run pack:mac` (add `-- --branch main` if you're on another branch).
 3. Send `dist/builds/flowstate-macos-<build id>.zip` by any means (AirDrop, Drive, email). Its `README.txt` has the install steps, a short checklist (checks 1–10 above, in plain words) and what to report, with the build ID filled in.
-4. Record what comes back in `docs/spikes/results.md` style, keyed by build ID.
+4. Record what comes back in `docs/host-checks.md`, with the build ID.
 
 The tester README lives in `scripts/macos/README.txt`. Update it when section 6 changes. The pack script fills in `{{BUILD_ID}}`.

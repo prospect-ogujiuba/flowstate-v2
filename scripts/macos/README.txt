@@ -42,8 +42,9 @@ WHAT TO CHECK
    trigger DAW shortcuts. Press Esc, then Space: the DAW transport toggles.
 6. Resize: drag the window corner, close and reopen it. Same size.
 7. Saving: save the project, close it, reopen it. No errors, same size.
-8. MIDI FX: put Flowstate MIDI FX before an instrument and play. The
-   instrument still sounds.
+8. MIDI FX (Logic): put Flowstate MIDI FX in an instrument track's MIDI FX
+   slot and play. The instrument still sounds. (Ableton can't open MIDI
+   effect plug-ins, so skip this one there.)
 9. Two at once: two Flowstate windows open together both work.
 
 
