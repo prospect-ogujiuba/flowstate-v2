@@ -1,0 +1,269 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Afrobeats Groove",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "afrobeats",
+      "sunny"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Eb7sus4"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 1.5,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Plucky Guitar",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. ..x. ..x. ..x.|..x. ..x. ..x. ..x.|..x. ..x. .... ..x.|..x. ..x. ..x. ..X.",
+          "voicing": "shell",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... ..5. g... ..R.|R... ..5. g... ..5.|R... ..5. g... ..R.|R... ..5. g... ..a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sunny Hook",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Shaker Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. .... ..x.|x... ..x. .... ..x.|x... ..x. .... ....|x... ..x. .... ..X."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x...|.... x... .... x...|.... x... .... x...|.... x... .... x..g"
+            },
+            {
+              "voice": "shaker",
+              "steps": "X.x. x.x. x.x. x.x.|x.x. X.x. x.x. x.x.|x.x. x.x. X.x. x.x.|x.x. x.x. x.x. X.x."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

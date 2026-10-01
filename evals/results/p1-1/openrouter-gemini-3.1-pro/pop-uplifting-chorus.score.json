@@ -1,0 +1,483 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Uplifting Pop Chorus",
+  "context": {
+    "tempo": 118,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "uplifting",
+      "anthem"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.85
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "D"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "D"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Em"
+    },
+    {
+      "bar": 7,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "D/F#"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "hookA",
+      "notes": [
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 4.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 5.5,
+          "beats": 2.5,
+          "accent": true
+        }
+      ]
+    },
+    {
+      "id": "hookB",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 8,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 4.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 1,
+          "alter": 0,
+          "beat": 5.5,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 6.5,
+          "beats": 1.5,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "hookC",
+      "notes": [
+        {
+          "degree": 8,
+          "octave": 1,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": 1,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 1,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 3,
+          "octave": 1,
+          "alter": 0,
+          "beat": 3.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 1,
+          "alter": 0,
+          "beat": 6,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 1,
+          "alter": 0,
+          "beat": 7,
+          "beats": 1,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Big Pop Synth",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Driving Bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.x.x.x.x.x.x.x.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Vocal Hook",
+      "low": "D4",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hookA",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hookB",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hookA",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hookC",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.xx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x...x...x...x."
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.xx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x...x...x...x."
+            }
+          ],
+          "fill": "crash_end",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

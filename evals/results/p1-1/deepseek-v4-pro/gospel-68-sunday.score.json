@@ -1,0 +1,486 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.1,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 0.72
+    },
+    {
+      "name": "A'",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 0.65
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 2,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Bb9sus4"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Eb9sus4"
+    },
+    {
+      "bar": 3,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "G7#9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Cm9"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "F9"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbm11"
+    },
+    {
+      "bar": 5,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb9sus4"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 6,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bb9sus4"
+    },
+    {
+      "bar": 7,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb9sus4"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Abmaj9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 3,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 8,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "notes": [
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 3,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 8,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "m3",
+      "notes": [
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 3,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 8,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    },
+    {
+      "id": "m4",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3,
+          "beats": 3,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 3,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Hammond B3",
+      "low": "C3",
+      "high": "D5",
+      "grid": 1,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x.x | x--x.x | x--x.x | x--x-x | x--x.x | x--x.x | x--x.x | x-----",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 1,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--5-- | R-aR-5 | R-aR-5 | R-aR-5 | R-aR-5 | R-aR-5 | R-aR-5 | R--5--",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soulful organ lead",
+      "low": "C4",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m2",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m3",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m4",
+          "transforms": null,
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Soft gospel kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x.....x..x.. | x.....x..... | x.....x..x.. | x.....x..... | x.....x..x.. | x.....x..... | x.....x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "......X..g.. | ......X..... | ......X..g.. | ......X.g... | ......X..g.. | ......X..... | ......X..g.. | ......X..g.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.X.x.x. | x.x.x.X.x.x. | x.x.x.X.x.x. | x.x.x.X.x.xx | x.x.x.X.x.x. | x.x.x.X.x.x. | x.x.x.X.x.xx | x.x.x.X.x.x."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

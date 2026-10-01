@@ -1,0 +1,240 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Floating pentatonic ambient",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "ambient"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.35
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.45
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 8,
+      "symbol": "Cmaj9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 8,
+      "symbol": "Am7"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 8,
+      "symbol": "Fmaj9"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 8,
+      "symbol": "Cmaj9/G"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2.5,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 1.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 2,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Ambient pad",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---------------|----------------|x---------------|----------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x---------------|----------------|x---------------|----------------",
+          "voicing": "spread",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R---------------|5---------------|R---------------|5---------------|R---------------|5---------------|R---------------|----------------",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Floating flute",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Ambient kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 52,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...............|................|x...............|................|x...............|................|x...............|................"
+            },
+            {
+              "voice": "rim",
+              "steps": "........x.......|................|................|........x.......|........x.......|................|................|........x......."
+            },
+            {
+              "voice": "shaker",
+              "steps": "................|................|................|................|............x...|................|............x...|................"
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Warm Organ Deep House",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.1,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Am9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cmaj7"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G7"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Am9"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E7#9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.5,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 2,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4.75,
+          "beats": 0.25,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 3,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "organ",
+      "role": "chords",
+      "name": "Warm Organ Stabs",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "..x...x...x.....|..x...x...x...x.|..x...x...x.....|..x...x...x...X.|..x...x...x.....|..x...x...x...x.|..x...x...x.....|..x...x...x...X.",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Offbeat Deep Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "..R...5...R...5.|..R...5...R...8.|..R...R...5...R.|..R...5...R...5.|..R...5...R...5.|..R...5...R...8.|..R...5...R...5.|..R...5...R...X.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Deep House Lead",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Deep House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "clap",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x...x...x...xg"
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "clap",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x...x...x...xg"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..............x."
+            }
+          ],
+          "fill": "crash_end",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
