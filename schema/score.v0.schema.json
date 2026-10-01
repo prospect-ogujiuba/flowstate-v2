@@ -416,7 +416,7 @@
                   ]
                 },
                 "groove": {
-                  "description": "Drums: a named groove; lanes in `drums` replace its lanes for the same voices",
+                  "description": "Drums: a named groove; lanes in `drums` only add voices it doesn't have",
                   "anyOf": [
                     {
                       "type": "string",

@@ -175,7 +175,8 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
     for (const auto& b : env.blocks()) {
         const Block& blk = env.block(b);
         std::vector<DrumHit> hits;
-        // A groove's lanes first; a lane the block writes itself replaces the groove's lane for that voice.
+        // A named groove's lanes are the groove: a lane the block writes for a voice the groove already has is
+        // ignored (warned), so the groove stays recognisable. Block lanes add the voices the groove lacks.
         struct Lane {
             DrumVoice voice;
             StepPattern pat;
@@ -185,18 +186,24 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
         const Groove* groove = blk.groove ? findGroove(*blk.groove) : nullptr;
         if (groove && (groove->numerator != env.time.numerator() || groove->denominator != env.time.denominator()))
             groove = nullptr;  // validateScore warned
-        if (blk.drums)
-            for (const auto& lane : *blk.drums)
-                lanes.push_back({lane.voice, env.pattern(b, lane.steps, "xXg.-", toString(lane.voice)), 0.0});
         if (groove) {
             for (const auto& gl : groove->lanes) {
-                const bool replaced = blk.drums && std::any_of(blk.drums->begin(), blk.drums->end(),
-                                                               [&](const DrumLane& l) { return l.voice == gl.voice; });
-                if (replaced) continue;
                 StepPattern pat = parseSteps(gl.steps, env.time.stepsPerBar(groove->grid), "xXg.-",
                                              env.where(b) + " groove " + groove->name, env.warnings);
                 pat.grid = groove->grid;
                 lanes.push_back({gl.voice, pat, gl.late});
+            }
+        }
+        if (blk.drums) {
+            for (const auto& lane : *blk.drums) {
+                const bool inGroove = groove && std::any_of(groove->lanes.begin(), groove->lanes.end(),
+                                                            [&](const GrooveLane& g) { return g.voice == lane.voice; });
+                if (inGroove) {
+                    env.warnOnce(env.where(b) + ": " + toString(lane.voice) + " lane ignored; the groove \"" +
+                                 groove->name + "\" plays it");
+                    continue;
+                }
+                lanes.push_back({lane.voice, env.pattern(b, lane.steps, "xXg.-", toString(lane.voice)), 0.0});
             }
         }
         for (const auto& lane : lanes) {

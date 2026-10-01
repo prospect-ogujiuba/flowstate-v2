@@ -5,7 +5,7 @@ const STEP_TOKENS: Record<string, RegExp> = {
   chords: /^[.xX-]$/,
   pad: /^[.xX-]$/,
   arp: /^[.xX-]$/,
-  bass: /^[.xXg\-R3578a]$/,
+  bass: /^[.xXg\-R12345678a]$/,
   melody: /^[.xX\-R3578]$/,
   counter: /^[.xX\-R3578]$/,
   drums: /^[.xXg-]$/, // "-" in a drum lane is a rest

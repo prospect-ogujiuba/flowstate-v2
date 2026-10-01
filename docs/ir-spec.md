@@ -110,7 +110,7 @@ A block covers `startBar..endBar` (inclusive). Only the fields that matter for t
 | `motif` | melody, counter | Id of the motif to play |
 | `transforms` | melody, counter | Applied in order: `transpose:+2` (degrees), `invert`, `retrograde`, `displace:+0.5` (beats), `augment`, `diminish`, `octave:+1` |
 | `repeatEvery` | melody, counter | Motif repeat period in beats; 0 = once at the block start |
-| `groove` | drums | A named groove from the table below: an idiomatic pattern with its own feel. Lanes in `drums` replace the groove's lane for the same voice, so you can keep the groove and rewrite one voice. |
+| `groove` | drums | A named groove from the table below: an idiomatic pattern with its own feel. Lanes in `drums` add voices the groove doesn't have; a lane for a voice the groove already plays is ignored. |
 | `drums` | drums | `[{ voice, steps }]`: one step string per voice |
 | `fill` | drums | `none snare_roll tom_run kick_build crash_end half_time_break`: a fill in the block's last bar |
 | `notes` | any | Literal notes `[{ bar, beat, beats, pitch, velocity }]`. They are added on top of the block content, then quantized and range-checked. `pitch` is a note name. |
@@ -126,6 +126,8 @@ A block covers `startBar..endBar` (inclusive). Only the fields that matter for t
 | `X` | accented hit | accented root | accent | accented next step |
 | `g` | — | ghost root | ghost note | — |
 | `R` `3` `5` `7` `8` | — | root, third, fifth, seventh, octave of the current chord | — | chord tone |
+| `1` | — | root (same as `R`) | — | — |
+| `2` `4` `6` | — | the scale note a 2nd, 4th or 6th above the chord root (passing and neighbour tones) | — | — |
 | `a` | — | chromatic approach into the next chord's root | — | — |
 
 For melody, if `motif` is set, `rhythm` is ignored and the motif's own rhythm is used. If only `rhythm` is set, the realizer draws a stepwise line over chord tones. That is the instant-sketch path.
@@ -136,7 +138,7 @@ For melody, if `motif` is set, `rhythm` is ignored and the motif's own rhythm is
 
 ### Grooves
 
-A drums block can call a groove by name instead of (or as well as) writing every lane. Each groove is for one meter; in another meter it is ignored. Prefer the groove that fits the style, then vary it: rewrite a lane in `drums`, add a `fill`, or use another groove in a later block for a new section.
+A drums block can call a groove by name instead of writing every lane. Each groove is for one meter; in another meter it is ignored. The groove's lanes are the groove: `drums` lanes only add voices it doesn't have (a lane for a voice it already plays is ignored). Prefer the groove that fits the style, then vary it with a `fill`, an added voice, or another groove (or your own lanes, without a groove) in a later block for a new section.
 
 | Groove | Meter | What it plays |
 | --- | --- | --- |

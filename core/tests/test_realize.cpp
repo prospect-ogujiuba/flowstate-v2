@@ -399,6 +399,21 @@ TEST_CASE("a step string at another resolution plays the rhythm it spells") {
     CHECK(onsets == std::set<Tick>{0, 3840});
 }
 
+TEST_CASE("bass: 2, 4 and 6 are the scale notes above the chord root; 1 is the root") {
+    json s = baseScore();
+    s["context"]["bars"] = 1;
+    s["harmony"] = "C:2 Dm:2";
+    json b = block(1, 1);
+    b["rhythm"] = "1.2.4.6.1.....6.";
+    s["parts"] = json::array({part("bass", "bass", "E1", "G2", 4, json::array({b}))});
+    Realization r = run(s, 1, false);
+    std::vector<int> pcs;
+    for (const auto& n : r.parts[0].notes) pcs.push_back(mod12(n.pitch));
+    // Over C: C D F A; over Dm: D, then B (the key's 6th above D).
+    CHECK(pcs == std::vector<int>{0, 2, 5, 9, 2, 11});
+    CHECK(r.outOfKey.empty());
+}
+
 TEST_CASE("bad motif string tokens are skipped with a warning") {
     json s = baseScore();
     s["context"]["bars"] = 1;

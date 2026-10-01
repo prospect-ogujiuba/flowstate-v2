@@ -133,7 +133,7 @@ export const Block = z.object({
   transforms: z.array(z.string()).nullable().optional().describe("e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"),
   repeatEvery: z.number().nullable().optional().describe("Motif repeat period in beats; 0 = once"),
   drums: z.array(DrumLane).nullable().optional(),
-  groove: GrooveName.nullable().optional().describe("Drums: a named groove; lanes in `drums` replace its lanes for the same voices"),
+  groove: GrooveName.nullable().optional().describe("Drums: a named groove; lanes in `drums` only add voices it doesn't have"),
   fill: Fill.nullable().optional(),
   notes: z.array(LiteralNote).nullable().optional(),
   articulation: Articulation.nullable().optional(),

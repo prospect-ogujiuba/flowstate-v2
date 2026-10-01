@@ -85,16 +85,22 @@ TEST_CASE("grooves: every groove realizes cleanly in its meter") {
     }
 }
 
-TEST_CASE("grooves: dembow places its kicks and snares, and a block lane replaces only that voice") {
+TEST_CASE("grooves: dembow places its kicks and snares; block lanes only add voices the groove lacks") {
     auto hits = onsets(run(score(4, 4, 1, json{{"groove", "dembow"}})));
     CHECK(hits[36] == std::vector<Tick>{0, 960, 1920, 2880});
     CHECK(hits[38] == std::vector<Tick>{720, 1440, 2640, 3360});  // 16th steps 3, 6, 11, 14
     CHECK(hits[42].size() == 8);
 
-    json own = {{"groove", "dembow"}, {"drums", json::array({json{{"voice", "kick"}, {"steps", "x..............."}}})}};
-    auto mixed = onsets(run(score(4, 4, 1, own)));
-    CHECK(mixed[36] == std::vector<Tick>{0});
-    CHECK(mixed[38] == hits[38]);
+    json own = {{"groove", "dembow"},
+                {"drums", json::array({json{{"voice", "kick"}, {"steps", "x..............."}},
+                                       json{{"voice", "cowbell"}, {"steps", "x...x...x...x..."}}})}};
+    Realization r = run(score(4, 4, 1, own));
+    auto mixed = onsets(r);
+    CHECK(mixed[36] == hits[36]);  // the groove's kick, not the block's
+    CHECK(mixed[56].size() == 4);  // the added cowbell plays
+    bool warned = false;
+    for (const auto& w : r.warnings) warned = warned || w.find("kick lane ignored") != std::string::npos;
+    CHECK(warned);
 }
 
 TEST_CASE("grooves: feel sits a lane behind the grid") {

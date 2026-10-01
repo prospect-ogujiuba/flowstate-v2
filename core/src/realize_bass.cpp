@@ -1,4 +1,4 @@
-// Bass: chord-relative step tokens (R 3 5 7 8 a x X g) anchored low and
+// Bass: chord-relative step tokens (R 1 2 3 4 5 6 7 8 a x X g) anchored low and
 // voice-led root to root.
 #include "realize_internal.h"
 
@@ -96,7 +96,7 @@ std::vector<RawNote> realizeBassPart(const PartEnv& env) {
         };
         std::vector<Ev> evs;
         if (blk.rhythm) {
-            auto pat = env.pattern(b, *blk.rhythm, "R3578axXg-.", "rhythm");
+            auto pat = env.pattern(b, *blk.rhythm, "R12345678axXg-.", "rhythm");
             for (const auto& ev : stepEvents(pat, b.bars())) {
                 Tick raw = env.stepTick(b, ev.step, pat);
                 if (!env.owns(b.index, raw)) continue;
@@ -136,6 +136,16 @@ std::vector<RawNote> realizeBassPart(const PartEnv& env) {
                 const Chord& c = span->chord;
                 switch (ev.token) {
                     case '3': n.pitch = line.tone(c.root + (c.third >= 0 ? c.third : 7)); break;
+                    case '2':
+                    case '4':
+                    case '6': {
+                        // The scale note a 2nd, 4th or 6th above the chord root: passing and neighbour tones.
+                        int p = 60 + mod12(c.root);
+                        for (int k = 1; k < ev.token - '0'; ++k) p = env.scale.stepUp(p);
+                        n.pitch = line.tone(p);
+                        n.justified = env.scale.contains(p);
+                        break;
+                    }
                     case '5': n.pitch = line.tone(c.root + (c.fifth >= 0 ? c.fifth : 7)); break;
                     case '7': {
                         int iv = seventhInterval(c, env.scale);
@@ -144,7 +154,7 @@ std::vector<RawNote> realizeBassPart(const PartEnv& env) {
                         break;
                     }
                     case '8': n.pitch = line.anchor() + 12 <= env.high ? line.anchor() + 12 : line.anchor(); break;
-                    default: n.pitch = line.anchor(); break;  // R x X g
+                    default: n.pitch = line.anchor(); break;  // R 1 x X g
                 }
             }
             Tick held = ev.end - ev.start;
