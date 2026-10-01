@@ -1,0 +1,343 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy window lofi loop",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.2,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "mist",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.48
+    },
+    {
+      "name": "lift",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.56
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Ebmaj9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Gm7"
+    },
+    {
+      "bar": 2,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "C7b13"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 3,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Bb13"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Ebmaj9/G"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 1,
+      "symbol": "Abmaj9"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 1,
+      "symbol": "Bb13"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "sleepy_keys",
+      "notes": [
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 0.5,
+          "beats": 0.75,
+          "accent": true
+        },
+        {
+          "degree": 6,
+          "octave": 0,
+          "alter": 0,
+          "beat": 1.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 7,
+          "octave": 0,
+          "alter": 0,
+          "beat": 2,
+          "beats": 1,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 3.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 4.5,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 5,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 6.75,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": -1,
+          "beat": 7.25,
+          "beats": 0.5,
+          "accent": true
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 8,
+          "beats": 1,
+          "accent": true
+        },
+        {
+          "degree": 4,
+          "octave": 0,
+          "alter": 0,
+          "beat": 9.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 3,
+          "octave": 0,
+          "alter": 0,
+          "beat": 10,
+          "beats": 0.75,
+          "accent": false
+        },
+        {
+          "degree": 5,
+          "octave": 0,
+          "alter": 0,
+          "beat": 11.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 12.5,
+          "beats": 1.25,
+          "accent": true
+        },
+        {
+          "degree": 7,
+          "octave": -1,
+          "alter": 0,
+          "beat": 13.75,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 2,
+          "octave": 0,
+          "alter": 0,
+          "beat": 14.25,
+          "beats": 0.5,
+          "accent": false
+        },
+        {
+          "degree": 1,
+          "octave": 0,
+          "alter": 0,
+          "beat": 15,
+          "beats": 0.75,
+          "accent": false
+        }
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes seventh stabs",
+      "low": "Bb2",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---..x-......x.|x---......x-..x.|x---..x-..x.....|x---....x---..x.",
+          "voicing": "rootless",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm tape bass",
+      "low": "Eb1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--...5.R-....a.|R--...7.R-5...a.|R--...5.R-7...a.|R--...5.R-..5.a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soft sleepy felt keys",
+      "low": "Eb4",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 64,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "sleepy_keys",
+          "transforms": [],
+          "repeatEvery": 0,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Laid-back dusty boom bap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..g..x.x.....x.|x.....x.x.x...x.|x..g..x...x...x.|x.....x.x...x.x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X......gX..g|..g.X......gX...|....X.g....gX...|....X......gX.g."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.xgx.|x.x.xgx.x.x.x.x.|x.x.x.xgx.x.x.x.|x.x.x.x.x.xgx.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "................|..............x.|................|..............x."
+            }
+          ],
+          "fill": "none",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

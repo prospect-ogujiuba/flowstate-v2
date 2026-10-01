@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "plan": "tsx src/cli-plan.ts"
+    "plan": "tsx src/cli-plan.ts",
+    "test": "tsx --test src/*.test.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.129.0",
+    "@earendil-works/pi-ai": "^0.99.2",
     "@flowstate/schema": "*",
     "zod": "^4.1.0"
   }

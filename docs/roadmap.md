@@ -15,7 +15,7 @@ Provider layer (decided 2026-09-28): the agent service uses **`@earendil-works/p
 
 Mac testing (decided 2026-09-28): CI builds the macOS artifacts; a trusted friend or tester runs the Logic and AU checklist until the MacBook is back.
 
-Model backends in development: `claude-code` (headless Claude Code on the developer's own subscription; dev and evals only, never an end-user path) and `api` (Anthropic API with a key: the BYOK path).
+Model backends in development: `claude-code` (headless Claude Code on the developer's own subscription; dev and evals only, never an end-user path) and `pi` (any provider through pi-ai, with a managed or BYOK key; from P1-1).
 
 ## Phase 0 issues
 
@@ -102,7 +102,15 @@ Two tracks run in parallel for weeks 3–5, then join.
 | 5–6 | P1-4 agent service, P1-10 instant sketch | P1-7 audition and MIDI out, P1-9 Studio screen, P1-11 session and lineage |
 | 7–8 | P1-13 hosting | P1-12 keys and settings, P1-14 installers, P1-15 CI release checks, P1-16 tester hand-off |
 
-### P1-1 Multi-provider layer on pi-ai — `todo`
+### P1-1 Multi-provider layer on pi-ai — `doing` (code done; the OpenRouter runs need credit to finish)
+Done so far (2026-09-30):
+- The `pi` backend in `cloud/src/backends.ts` works with every pi-ai provider. `backendFor({ provider, model, credential })` selects the backend per request, with a managed or BYOK credential. `planScore` takes the backend per call, and the CLI takes `--provider/--model`.
+- `run.json` records the backend and stats: validity rate and latency p50/p95.
+- `cloud` tests use pi-ai's faux provider to cover selection, BYOK key passing, repair turns, refusals and truncation, and a lockfile check that keeps out Pi coding-agent packages.
+- Smoke runs (one prompt, `lofi-rainy-study`) were valid on the first attempt on DeepSeek `deepseek-v4-pro` (141 s) and OpenRouter `openai/gpt-5.5` (98 s). The Anthropic account had no API credit.
+
+Eval run (2026-10-01, `evals/results/p1-1/`): DeepSeek `deepseek-v4-pro` is 20/20 valid (p50 172 s, p95 271 s). OpenRouter `openai/gpt-5.5` (8/20) and `google/gemini-3.1-pro-preview` (9/20) stopped when the OpenRouter credit ran out (`402`). Every score they returned was valid.
+Left: top up OpenRouter and re-run those two models (the commands are in `evals/results/p1-1/README.md`).
 Planner model calls go through `@earendil-works/pi-ai` (OpenAI, OpenRouter, Anthropic, Google and more). `claude-code` stays as the dev backend.
 Acceptance:
 - Provider, model and credential are selected per request (managed or BYOK).
