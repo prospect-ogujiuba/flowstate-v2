@@ -1,0 +1,143 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-night jazz trio vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.35,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Bbmaj7:4 | Em7b5:2 A7alt:2 | Dm7:2 G7:2 | Cm7:4 | Fmaj7:2 Bm7b5:2 | Bbmaj9:4 | Gm7:2 C7:2 | Fmaj7:4",
+  "motifs": [
+    {
+      "id": "m_comping",
+      "notes": "5:0.5 3:0.5 r:0.5 1:0.5 5:0.5 b7:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano",
+      "low": "A2",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...- ... x...- ...",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright bass",
+      "low": "D1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R..5 7..3 R..5 a..."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R..5 7..3 R..5 7..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R..5 7..3 R..5 a..."
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R..5 7..3 R..5 7..."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor sax",
+      "low": "Bb2",
+      "high": "F4",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "motif": "m_comping",
+          "transforms": [
+            "transpose:+3"
+          ],
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 4,
+          "endBar": 5,
+          "rhythm": "x..x ..x. x..x ..x.",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "motif": "m_comping",
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushes",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x..... | x....... ..x....."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X... | ....X... ....X..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

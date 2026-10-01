@@ -8,7 +8,7 @@ const STEP_TOKENS: Record<string, RegExp> = {
   bass: /^[.xXg\-R3578a]$/,
   melody: /^[.xX\-R3578]$/,
   counter: /^[.xX\-R3578]$/,
-  drums: /^[.xXg]$/,
+  drums: /^[.xXg-]$/, // "-" in a drum lane is a rest
 };
 
 const NOTE_NAME = /^[A-G](#|b)?-?\d$/;
@@ -45,13 +45,19 @@ function checkMotifString(id: string, notes: string, errors: string[]) {
   }
 }
 
+// A bar whose length is a whole multiple or divisor of the expected count (up to 8x) is a resolution,
+// which core reads as written (docs/ir-spec.md); only other lengths are errors. Without "|", core cuts
+// the string into bars of the expected length, and so does this check.
 function checkSteps(label: string, steps: string, tokens: RegExp, stepsPerBar: number, errors: string[]) {
-  const bars = steps.replace(/\s+/g, "").split("|");
+  const clean = steps.replace(/\s+/g, "").replace(/^\|+|\|+$/g, "");
+  if (!clean) return;
+  const bars = clean.includes("|") ? clean.split("|") : clean.match(new RegExp(`.{1,${stepsPerBar}}`, "g"))!;
+  const related = (n: number) => n > 0 && (stepsPerBar % n === 0 || (n % stepsPerBar === 0 && n / stepsPerBar <= 8));
   bars.forEach((bar, i) => {
-    if (bar.length !== stepsPerBar)
+    if (!related(bar.length))
       errors.push(`${label}: bar ${i + 1} of pattern has ${bar.length} steps, expected ${stepsPerBar}`);
-    for (const ch of bar) if (!tokens.test(ch)) errors.push(`${label}: invalid step token '${ch}'`);
   });
+  for (const ch of clean.replace(/\|/g, "")) if (!tokens.test(ch)) errors.push(`${label}: invalid step token '${ch}'`);
 }
 
 export function validateScore(score: Score): string[] {

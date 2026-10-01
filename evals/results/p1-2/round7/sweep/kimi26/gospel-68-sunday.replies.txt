@@ -1,0 +1,217 @@
+===== attempt 1 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Light",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.12,
+    "style": ["gospel", "soul"]
+  },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.45 },
+    { "name": "Verse", "startBar": 3, "bars": 4, "energy": 0.55 },
+    { "name": "Chorus", "startBar": 7, "bars": 2, "energy": 0.75 }
+  ],
+  "harmony": "Abmaj7:6 | Eb9/G:6 | Dbmaj9:6 | C7#9:6 | Fm9:6 | Bb13:6 | Eb9sus:3 Eb9:3 | Abmaj7:3 Dbmaj9:3",
+  "motifs": [
+    { "id": "leadA", "notes": "5:1.5 r:.5 3:1 2:1 1:2 | 5+:1 r:.5 4:1 3:1.5 r:1" },
+    { "id": "leadB", "notes": "1:2 2:1 3:1.5 5:1.5 | 6:1 5:2 r:1 3:1 2:1" }
+  ],
+  "parts": [
+    {
+      "id": "organ_chords",
+      "role": "chords",
+      "name": "Hammond B3",
+      "low": "Eb2",
+      "high": "Eb5",
+      "grid": 3,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x.. x.. x.. x.. x.. x.. | x.. x.. x.. x.. x.. x..",
+          "voicing": "open"
+        },
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "rhythm": "x.. .x. x.. x.. .x. x.. | x.. .x. x.. x.. .x. x.. | x.. x.. .x. x.. x.. .x. | x.. x.. x.. .x. x.. x..",
+          "voicing": "open"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x.. x.. x.. x.. x.. x.. | x.. .x. x.. x.. .x. x..",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright bass",
+      "low": "Ab1",
+      "high": "Ab3",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.. ..5 ..R ..a ..R ..5 | R.. ..5 ..R ..a ..R ..5 | R.. ..5 ..R ..a ..R ..5 | R.. ..5 ..R ..a ..R ..5"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R.. ..5 ..R ..7 ..R ..5 | R.. ..5 ..R ..a ..R ..5"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R.. ..5 ..R ..5 ..R ..5 | R.. ..5 ..R ..5 ..R ..5"
+        }
+      ]
+    },
+    {
+      "id": "organ_lead",
+      "role": "melody",
+      "name": "Leslie organ lead",
+      "low": "Ab3",
+      "high": "Ab5",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "leadA",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "leadA",
+          "transforms": ["transpose:+2", "displace:+0.5"],
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "leadB",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "leadB",
+          "transforms": ["transpose:+2", "octave:+1"],
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ... | x.. ... x.. ..." },
+            { "voice": "snare", "steps": "... x.. ... x.. | ... x.. ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x | x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "... ... ... ... | ... ... ... ..." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ... | x.. ... x.. ... | x.. ... x.. ... | x.. ... x.. ..." },
+            { "voice": "snare", "steps": "... x.. ... x.. | ... x.. ... x.. | ... x.. ... x.. | ... x.. ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x | x.x x.x x.x x.x | x.x x.x x.x x.x | x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "... ... ... ... | ... ... ... ... | ... ... ... ... | ... ... ... ..." }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ... | x.. ... x.. x.." },
+            { "voice": "snare", "steps": "... x.. ... x.. | ... x.. ... X.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x | x.x x.x x.x x.x" },
+            { "voice": "crash", "steps": "... ... ... ... | ... ... x.. ..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+ ```json
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... ... x.. ... ... | x.. ... ... x.. ... ..." },
+            { "voice": "snare", "steps": "... ... x.. ... ... x.. | ... ... x.. ... ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x x.x x.x | x.x x.x x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "... ... ... ... ... ... | ... ... ... ... ... ..." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... ... x.. ... ... | x.. ... ... x.. ... ... | x.. ... ... x.. ... ... | x.. ... ... x.. ... ..." },
+            { "voice": "snare", "steps": "... ... x.. ... ... x.. | ... ... x.. ... ... x.. | ... ... x.. ... ... x.. | ... ... x.. ... ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x x.x x.x | x.x x.x x.x x.x x.x x.x | x.x x.x x.x x.x x.x x.x | x.x x.x x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "... ... ... ... ... ... | ... ... ... ... ... ... | ... ... ... ... ... ... | ... ... ... ... ... ..." }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... ... x.. ... ... | x.. ... ... x.. ... x.." },
+            { "voice": "snare", "steps": "... ... x.. ... ... x.. | ... ... x.. ... ... X.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x x.x x.x | x.x x.x x.x x.x x.x x.x" },
+            { "voice": "crash", "steps": "... ... ... ... ... ... | ... ... x.. ... ... ..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

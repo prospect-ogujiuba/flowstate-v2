@@ -1,0 +1,123 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight funk groove",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "E9:1 | A13:1 | E9:1 | B7#9:1 | E9:1 | A13:1 | E9:1 | C7:1 | F#m7:1 | B7#9:1 | E9:2",
+  "motifs": [
+    {
+      "id": "stab1",
+      "notes": "1:.25! 3:.25 5:.25 7:.25"
+    },
+    {
+      "id": "lick1",
+      "notes": "5:.5! 4:.25 3:.25 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "clav",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x.x.",
+          "voicing": "shell"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R...x...R..xR... | R...x...R..xR... | R...x...R..xR... | R...x...R.x.R..."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Brass stabs",
+      "low": "B3",
+      "high": "F#5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "stab1",
+          "repeatEvery": 1
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "lick1",
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "kit",
+      "role": "drums",
+      "name": "Funk kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x... | ....x.......x... | ....x.......x... | ....x...x.x.x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.1-flash-lite",
+    "reasoning": "off"
+  },
+  "at": "2026-10-01T15:30:47.024Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 18,
+    "valid": 17,
+    "validityRate": 0.85,
+    "latencyP50Ms": 4549,
+    "latencyP95Ms": 17127,
+    "firstTokenP50Ms": 967,
+    "firstTextP50Ms": 967,
+    "firstPartP50Ms": 2489,
+    "firstPartP95Ms": 15729,
+    "partsStreamed": 18
+  },
+  "results": [
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5337,
+      "firstTokenMs": 3043,
+      "firstTextMs": 3043,
+      "firstPartMs": 3997,
+      "usage": {
+        "inputTokens": 4811,
+        "outputTokens": 669,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6792,
+      "firstTokenMs": 2962,
+      "firstTextMs": 2962,
+      "firstPartMs": 4303,
+      "usage": {
+        "inputTokens": 4815,
+        "outputTokens": 743,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 7153,
+      "firstTokenMs": 4317,
+      "firstTextMs": 4317,
+      "firstPartMs": 6247,
+      "usage": {
+        "inputTokens": 4812,
+        "outputTokens": 846,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 10312,
+      "firstTokenMs": 3286,
+      "firstTextMs": 3286,
+      "firstPartMs": 4310,
+      "usage": {
+        "inputTokens": 12725,
+        "outputTokens": 1451,
+        "cacheReadTokens": 4063
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 64 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": false,
+      "error": "Error: planner call failed (openrouter/google/gemini-3.1-flash-lite, error): google/gemini-3.1-flash-lite is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations"
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3362,
+      "firstTokenMs": 665,
+      "firstTextMs": 665,
+      "firstPartMs": 2033,
+      "usage": {
+        "inputTokens": 4803,
+        "outputTokens": 705,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 7017,
+      "firstTokenMs": 4192,
+      "firstTextMs": 4192,
+      "firstPartMs": 5462,
+      "usage": {
+        "inputTokens": 4807,
+        "outputTokens": 879,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 4787,
+      "firstTokenMs": 1824,
+      "firstTextMs": 1824,
+      "firstPartMs": 3175,
+      "usage": {
+        "inputTokens": 4803,
+        "outputTokens": 939,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 4549,
+      "firstTokenMs": 551,
+      "firstTextMs": 551,
+      "firstPartMs": 1537,
+      "usage": {
+        "inputTokens": 10564,
+        "outputTokens": 828,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3941,
+      "firstTokenMs": 1002,
+      "firstTextMs": 1002,
+      "firstPartMs": 2489,
+      "usage": {
+        "inputTokens": 4802,
+        "outputTokens": 865,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 5522,
+      "firstTokenMs": 898,
+      "firstTextMs": 898,
+      "firstPartMs": 2212,
+      "usage": {
+        "inputTokens": 10609,
+        "outputTokens": 1062,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 2859,
+      "firstTokenMs": 484,
+      "firstTextMs": 484,
+      "firstPartMs": 1665,
+      "usage": {
+        "inputTokens": 4815,
+        "outputTokens": 619,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 17127,
+      "firstTokenMs": 14679,
+      "firstTextMs": 14679,
+      "firstPartMs": 15729,
+      "usage": {
+        "inputTokens": 4814,
+        "outputTokens": 675,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 4311,
+      "firstTokenMs": 967,
+      "firstTextMs": 967,
+      "firstPartMs": 2572,
+      "usage": {
+        "inputTokens": 4807,
+        "outputTokens": 916,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3335,
+      "firstTokenMs": 708,
+      "firstTextMs": 708,
+      "firstPartMs": 2047,
+      "usage": {
+        "inputTokens": 4805,
+        "outputTokens": 945,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3141,
+      "firstTokenMs": 776,
+      "firstTextMs": 776,
+      "firstPartMs": 1974,
+      "usage": {
+        "inputTokens": 4811,
+        "outputTokens": 843,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3071,
+      "firstTokenMs": 766,
+      "firstTextMs": 766,
+      "firstPartMs": 1786,
+      "usage": {
+        "inputTokens": 4804,
+        "outputTokens": 762,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 3474,
+      "firstTokenMs": 762,
+      "firstTextMs": 762,
+      "firstPartMs": 2276,
+      "usage": {
+        "inputTokens": 4810,
+        "outputTokens": 924,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": false,
+      "error": "Error: planner call failed (openrouter/google/gemini-3.1-flash-lite, error): google/gemini-3.1-flash-lite is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations"
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 12945,
+      "firstTokenMs": 1677,
+      "firstTextMs": 1677,
+      "firstPartMs": 8768,
+      "usage": {
+        "inputTokens": 18194,
+        "outputTokens": 2927,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [
+        "part chords block 1 rhythm: bar 3 of pattern has 24 steps, expected 18",
+        "part chords block 1 rhythm: bar 4 of pattern has 24 steps, expected 18",
+        "part chords block 1 rhythm: bar 5 of pattern has 24 steps, expected 18",
+        "part chords block 1 rhythm: bar 6 of pattern has 24 steps, expected 18",
+        "part drums block 1 kick: bar 3 of pattern has 24 steps, expected 18",
+        "part drums block 1 kick: bar 4 of pattern has 24 steps, expected 18",
+        "part drums block 1 closed_hat: bar 1 of pattern has 12 steps, expected 18",
+        "part drums block 1 closed_hat: bar 2 of pattern has 12 steps, expected 18",
+        "part drums block 1 closed_hat: bar 3 of pattern has 12 steps, expected 18"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "harmony lasts 49 beats, but the clip is 48 beats",
+            "part chords block 1 rhythm: bar 1 of pattern has 6 steps, expected 18",
+            "part chords block 1 rhythm: bar 2 of pattern has 6 steps, expected 18",
+            "part chords block 1 rhythm: bar 3 of pattern has 6 steps, expected 18",
+            "part chords block 1 rhythm: bar 4 of pattern has 6 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony lasts 49 beats, but the clip is 48 beats",
+            "part bass block 1 rhythm: bar 1 of pattern has 6 steps, expected 18",
+            "part bass block 1 rhythm: bar 2 of pattern has 6 steps, expected 18",
+            "part bass block 1 rhythm: bar 3 of pattern has 6 steps, expected 18",
+            "part bass block 1 rhythm: bar 4 of pattern has 6 steps, expected 18"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony lasts 49 beats, but the clip is 48 beats"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony lasts 49 beats, but the clip is 48 beats",
+            "part drums block 1 kick: bar 1 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 2 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 3 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 4 of pattern has 12 steps, expected 18"
+          ]
+        }
+      ]
+    }
+  ]
+}

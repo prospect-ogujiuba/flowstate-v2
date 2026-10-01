@@ -1,0 +1,144 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Haunting Celtic Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.55
+    }
+  ],
+  "harmony": "Am:6 | G:6 | Am:6 | E7:6 | Am:6 | F:6 | Am:6 | G:3 E7:3",
+  "motifs": [
+    {
+      "id": "flute_phrase",
+      "notes": "5:.5 6:.5 5:.5 3:1 r:.5 1:1 r:.5 b3:1 1:.5 r:.5 3:.5 5:.5"
+    },
+    {
+      "id": "flute_phrase_b",
+      "notes": "6:.5 8:.5 6:.5 5:1 r:.5 3:1 r:.5 1:1 r:.5 #2:.5 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pad strings",
+      "low": "C3",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x----- ---- -- | x----- ---- -- | x----- ---- -- | x----- ---- --",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cello drone",
+      "low": "A1",
+      "high": "E3",
+      "grid": 2,
+      "velocity": 52,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R----- ---- -- | R----- ---- -- | R----- ---- -- | 5----- ---- --"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R----- ---- -- | 3----- ---- -- | R----- ---- -- | 5----- 3----- --"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "D4",
+      "high": "A5",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "flute_phrase",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "flute_phrase",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "flute_phrase_b",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "flute_phrase",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Frame drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 48,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "tambourine",
+              "steps": "x.. ... ... | x.. ... ... | x.. ... ... | x.. ... ..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

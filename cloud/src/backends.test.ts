@@ -81,6 +81,14 @@ describe("backendFor", () => {
     assert.equal(seen?.reasoning, "high");
   });
 
+  it("sends no thinking level for reasoning off, so the provider does not think", async () => {
+    const { faux, models } = fauxSetup();
+    let seen: SimpleStreamOptions | undefined;
+    faux.setResponses([(_ctx, options) => ((seen = options), fauxAssistantMessage("ok"))]);
+    await backendFor({ ...managed(), reasoning: "off" }, models).complete("s", [{ role: "user", text: "x" }]);
+    assert.ok(seen && !("reasoning" in seen));
+  });
+
   it("replays repair turns as a conversation", async () => {
     const { faux, models } = fauxSetup();
     let roles: string[] = [];

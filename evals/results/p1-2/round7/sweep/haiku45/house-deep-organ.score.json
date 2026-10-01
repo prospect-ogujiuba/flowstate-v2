@@ -1,0 +1,205 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep house groove with organ stabs",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Am7:4 | Dm7:4 | Fmaj7:4 | Em7:4 | Am7:4 | Dm7:4 | Fmaj7:2 G7:2 | Em7:4",
+  "motifs": [
+    {
+      "id": "organ_stab",
+      "notes": "5:0.5! 3:0.5 1:1"
+    },
+    {
+      "id": "organ_fill",
+      "notes": "8:0.5! 6:0.5 5:0.5! 3:0.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "organ",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- ---- ----",
+          "voicing": "close"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "x--- -x-- --x- ----",
+          "voicing": "close"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "motif": "organ_fill",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bouncy Bass",
+      "low": "A0",
+      "high": "E2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- ..5. R-.. ..5."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. .g.5"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R.R. ..5. R.R. ..5."
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R.R. ..5g R.R. ..5g"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Synth Pad",
+      "low": "A3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "---- ---- ---- ----"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "motif": "organ_stab",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "---- ---- ---- ----"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Deep House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": ".... .x.x .... .x.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .x.. ...."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": ".x.x .x.x .x.x .x.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .x.. .x.."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": ".x.x .x.x .x.x .x.x"
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

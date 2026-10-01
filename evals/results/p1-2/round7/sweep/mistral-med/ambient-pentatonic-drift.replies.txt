@@ -1,0 +1,93 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Floating pentatonic haze",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0.0,
+    "style": ["ambient"]
+  },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.2 },
+    { "name": "A", "startBar": 3, "bars": 4, "energy": 0.4 },
+    { "name": "Outro", "startBar": 7, "bars": 2, "energy": 0.2 }
+  ],
+  "harmony": "C:4 | F:4 | G:4 | Am:4 | C:4 | F:4 | G:2 Am:2",
+  "motifs": [
+    { "id": "m1", "notes": "1:2 3:1 5:1 | 6:2 5:1 3:1 | 1:2 3:1 5:1 | 6:2 5:1 2:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Evolving Pad",
+      "low": "C3",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 50,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x-------", "voicing": "open" },
+        { "startBar": 3, "endBar": 6, "rhythm": "x------x", "voicing": "spread" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x-------", "voicing": "open" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Subtle Bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 45,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": "R-----R-", "notes": [
+          { "bar": 1, "beat": 0, "beats": 4, "pitch": "C2" },
+          { "bar": 3, "beat": 0, "beats": 4, "pitch": "F2" },
+          { "bar": 5, "beat": 0, "beats": 4, "pitch": "G2" },
+          { "bar": 7, "beat": 0, "beats": 2, "pitch": "A2" },
+          { "bar": 7, "beat": 2, "beats": 2, "pitch": "C2" }
+        ]}
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Floating Melody",
+      "low": "C4",
+      "high": "G6",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 8 },
+        { "startBar": 3, "endBar": 6, "motif": "m1", "transforms": ["transpose:+2"], "repeatEvery": 8 },
+        { "startBar": 7, "endBar": 8, "motif": "m1", "transforms": ["transpose:+1", "displace:+1"], "repeatEvery": 8 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Barely-There Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 30,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "drums": [
+          { "voice": "closed_hat", "steps": "x...............x..............." },
+          { "voice": "ride_bell", "steps": "....x...........x............" }
+        ]}
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{"parts": [{"id": "bass", "role": "bass", "name": "Subtle Bass", "low": "C1", "high": "G2", "grid": 2, "velocity": 45, "blocks": [{"startBar": 1, "endBar": 8, "rhythm": "R-----R-", "notes": [{"bar": 1, "beat": 0, "beats": 4, "pitch": "C2", "velocity": 45}, {"bar": 3, "beat": 0, "beats": 4, "pitch": "F2", "velocity": 45}, {"bar": 5, "beat": 0, "beats": 4, "pitch": "G2", "velocity": 45}, {"bar": 7, "beat": 0, "beats": 2, "pitch": "A2", "velocity": 45}, {"bar": 7, "beat": 2, "beats": 2, "pitch": "C2", "velocity": 45}]}]}, {"id": "drums", "role": "drums", "name": "Barely-There Percussion", "low": "C1", "high": "C6", "grid": 4, "velocity": 30, "blocks": [{"startBar": 1, "endBar": 8, "drums": [{"voice": "closed_hat", "steps": "x.......x......."}, {"voice": "ride_bell", "steps": "....x.......x...."}]}]}]}
+
+===== attempt 3 =====
+{"parts": [{"id": "drums", "role": "drums", "name": "Barely-There Percussion", "low": "C1", "high": "C6", "grid": 4, "velocity": 30, "blocks": [{"startBar": 1, "endBar": 8, "drums": [{"voice": "closed_hat", "steps": "x.......x......."}, {"voice": "ride_bell", "steps": "....x....x....."}]}]}]}

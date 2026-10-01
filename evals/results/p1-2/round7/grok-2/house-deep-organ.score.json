@@ -1,0 +1,127 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Warm house stabs",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Am9:4 | Dm9:4 | Gm9:4 | C9:4 | Fmaj9:4 | Bm7b5:4 | E7:4 | Am9:4",
+  "motifs": [
+    {
+      "id": "stab",
+      "notes": "1:1 5:1 3:1 7:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x- | x-x- x-x- x-x- x-x-",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bouncy Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5-- | R--- .5-- R--- .5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Warm Lead",
+      "low": "C4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "stab",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "stab",
+          "transforms": [
+            "transpose:+3"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x...x...x...x...x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....x.......x.......x.......x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x.......x.......x..."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

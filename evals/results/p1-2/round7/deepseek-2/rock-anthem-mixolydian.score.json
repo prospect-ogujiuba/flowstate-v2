@@ -1,0 +1,144 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Mixolydian Anthem",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.75
+    },
+    {
+      "name": "Verse",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.85
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 1
+    },
+    {
+      "name": "Outro",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 0.9
+    }
+  ],
+  "harmony": "G5:4 | C5:4 | G5:4 | D5:4 | G5:4 | C5:4 | D5:4 | G5:4",
+  "motifs": [
+    {
+      "id": "riff",
+      "notes": "1:1! 5:1 b7:1 5:1 | 4:1! 1:1 5:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Distorted Power Chords",
+      "low": "E2",
+      "high": "G4",
+      "grid": 2,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x-",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 2,
+      "velocity": 102,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-R-R-R- | R-R-R-R- | R-R-R-R- | R-R-R-R- | R-R-R-R- | R-R-R-R- | R-R-R-R- | R-R-R-R-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G4",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "riff",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "riff",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 115,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x---x--- | x---x--- | x---x--- | x---x--- | x---x--- | x---x--- | x---x--- | x---x---"
+            },
+            {
+              "voice": "snare",
+              "steps": "----X--- | ----X--- | ----X--- | ----X--- | ----X--- | ----X--- | ----X--- | ----X---"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x-"
+            },
+            {
+              "voice": "crash",
+              "steps": "X------- | -------- | -------- | -------- | X------- | -------- | -------- | --------"
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-night jazz trio vamp (Bb extended + walking + brush swing)",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.18,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "Vamp",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.62
+    }
+  ],
+  "harmony": "Bbmaj9:2 | Dm9:2 | Gm11:2 | C7alt:2 | Fmaj7:2 | Bb13:2 | Ebmaj9:2 | A7alt:1 Ebmaj9:1",
+  "motifs": [
+    {
+      "id": "melA",
+      "notes": "5:.5 6:.5 8:1 7:.5 6:.5 5:1 3:.5 4:.5"
+    },
+    {
+      "id": "melB",
+      "notes": "5:.5 4:.5 3:1 2:.5 3:.5 4:1 6:.5 7:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano / guitar comp",
+      "low": "Bb2",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x...",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Walking bass",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.xX..5 X..a..5X | R.x3..5 7..a..3 | R.x3..5 7..a..3 | R.xX..5 a..7..5 | R.xX..5 a..7..5 | R.x5..7 X..a..7 | R.x3..5 7..a..3 | R.x3..5 7..a..3"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Trio lead (tenor-ish line)",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "melA",
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "melB",
+          "transforms": [
+            "displace:+0.25"
+          ],
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush swing kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... | x....... | x....... | x....... | x....... | x....... | x....... | x......."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... | ....X... | ....X... | ....X... | ....X... | ....X... | ....X... | ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x. | x.x.x.x. | x.x.x.x. | x.x.x.x. | x.x.x.x. | x.x.x.x. | x.x.x.x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x...x... | x...x... | x...x... | x...x... | x...x... | x...x... | x...x... | x...x..."
+            }
+          ],
+          "fill": "half_time_break"
+        }
+      ]
+    }
+  ]
+}

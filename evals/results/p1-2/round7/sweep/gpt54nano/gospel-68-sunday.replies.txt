@@ -1,0 +1,318 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday-morning gospel (Ab major, 6/8) 8-bar loop",
+  "context": {
+    "tempo": 90,
+    "swing": 0.18,
+    "style": ["gospel", "soul"]
+  },
+  "form": [{ "name": "All", "startBar": 1, "bars": 8, "energy": 0.62 }],
+  "harmony": "AbMaj7:2 Dm7:2 Fm7:1 Ab13:2 Eb7:1 | AbMaj7:2 Dm7:2 Fm7:1 Ab13:2 Eb7:1 | C7:1 | Fm7:1 Bb7:1 Eb7:1 AbMaj7:4",
+  "motifs": [
+    {
+      "id": "org_m1",
+      "notes": "5:1 x:1 6:0.5 5:0.5 4:1 3:1 2:0.5 2+:0.5 r:0.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush passing chords (organ bed)",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x...",
+          "voicing": "drop2",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rolling gospel bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R...R... R...R... R...R... R...R... | R...R... R...R... R...R... R...R...",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soul organ lead",
+      "low": "Ab3",
+      "high": "F5",
+      "grid": 3,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "org_m1",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "org_m1",
+          "transforms": ["transpose:+2", "displace:+0.25"],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle rolling groove",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "half_time_break",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x...x... x...x... x...x... x...x... x...x... x...x... x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X... ....X... ....X... ....X... ....X... ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....3... ....3... ....3... ....3... ....3... ....3... ....3... ....3..."
+            },
+            {
+              "voice": "ride",
+              "steps": ".......... .......... .......... .......... .......... .......... .......... .........."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday-morning gospel (Ab major, 6/8) 8-bar loop",
+  "context": {
+    "tempo": 90,
+    "swing": 0.18,
+    "style": ["gospel", "soul"]
+  },
+  "form": [{ "name": "All", "startBar": 1, "bars": 8, "energy": 0.62 }],
+  "harmony": "AbMaj7:2 Dm7:2 Fm7:1 Ab13:2 Eb7:1 | AbMaj7:2 Dm7:2 Fm7:1 Ab13:2 Eb7:1 | C7:1 | Fm7:1 Bb7:1 Eb7:1 AbMaj7:4",
+  "motifs": [
+    {
+      "id": "org_m1",
+      "notes": "5:1 6:1 6:0.5 5:0.5 4:1 3:1 2:0.5 2+:0.5 r:0.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush passing chords (organ bed)",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x...",
+          "voicing": "drop2",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rolling gospel bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R...R... R...R... R...R... R...R... R...R... R...R... R...R... R...R...",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soul organ lead",
+      "low": "Ab3",
+      "high": "F5",
+      "grid": 3,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "org_m1",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "org_m1",
+          "transforms": ["transpose:+2", "displace:+0.25"],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle rolling groove",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "half_time_break",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x...x... x...x... x...x... x...x... x...x... x...x... x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X... ....X... ....X... ....X... ....X... ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....3... ....3... ....3... ....3... ....3... ....3... ....3... ....3..."
+            },
+            {
+              "voice": "ride",
+              "steps": ".......... .......... .......... .......... .......... .......... .......... .........."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush passing chords (organ bed)",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x...",
+          "voicing": "drop2",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rolling gospel bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R...R... R...R... R...R... R...R... R...R... R...R...",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle rolling groove",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "half_time_break",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x... x...x...x... x...x...x... x...x...x... x...x...x... x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X....... ....X....... ....X....... ....X....... ....X....... ....X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x... x.x.x.x... x.x.x.x... x.x.x.x... x.x.x.x... x.x.x.x..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........3... ........3... ........3... ........3... ........3... ........3..."
+            },
+            {
+              "voice": "ride",
+              "steps": "............ ............ ............ ............ ............ ............"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

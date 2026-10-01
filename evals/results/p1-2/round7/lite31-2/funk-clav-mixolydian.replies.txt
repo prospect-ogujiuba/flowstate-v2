@@ -1,0 +1,114 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight E Mixolydian Funk",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "E7:2 A7:2 | E7:2 B7:2 | E7:2 A7:2 | E7:1 B7:1 E7:2",
+  "motifs": [
+    {
+      "id": "lick",
+      "notes": "1:0.5 3:0.5 5:0.5 6:0.5 | 8:1 7:0.5 5:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. .x.x ..x. x.x.",
+          "voicing": "shell"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.g. x.R. .xR. gR.x"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Brass Hit",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lick",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .x.. x... .xx."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

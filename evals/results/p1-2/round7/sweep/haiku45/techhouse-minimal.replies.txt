@@ -1,0 +1,148 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Minimal tech-house groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.35,
+    "style": ["tech-house", "house"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "Cm7:4 | Cm7:4 | Cm7:4 | Cm7:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Stab synth",
+      "low": "C3",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x....... .......x ..x..... .......x",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- R--- R--- R---"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth line",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 0,
+      "blocks": []
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x....... x...x... x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ....x... ....x... ....x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Stab synth",
+      "low": "C3",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x....... .......x | ..x..... .......x",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... x....... | x...x... x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ....x... | ....x... ....x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

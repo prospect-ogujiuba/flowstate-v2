@@ -1,0 +1,123 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Midnight Trio Vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.6,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "Head",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Bbmaj9:2 Cm9:2 | Dm7:2 G7b13:2 | Cm9:2 F13:2 | Bbmaj9:2 Faug7:2 | Bbmaj9:2 Cm9:2 | Dm7:2 G7#5:2 | Cm9:2 F7b9:2 | Bb6/9:4",
+  "motifs": [
+    {
+      "id": "vamp_theme",
+      "notes": "5:1 6:1 8:1 5:1 | 3:2 r:1 5:.5 4:.5 | 2:1 3:1 5:1 2:1 | 1:4"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x... .x.. x... .x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "xxxx xxxx xxxx xxxx"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "vamp_theme",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "vamp_theme",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... x... ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x.x. .... x.x."
+            },
+            {
+              "voice": "ride",
+              "steps": "xxxx xxxx xxxx xxxx"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble Ascent in D minor",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.35
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Dm:4 | Bb:4 | Gm:4 | A:4 | Dm:4 | Bb:4 | Gm:2 A:2 | Dm:4",
+  "motifs": [
+    {
+      "id": "horn",
+      "notes": "5:1! 4:.5 3:.5 | 2:1 1:1 r:1 | 5:1! 6:.5 5:.5 | 3:1 2:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "String Pad",
+      "low": "D3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X-------",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X---x---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Low Strings",
+      "low": "D1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-------"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "D3",
+      "high": "D5",
+      "grid": 2,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "horn",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "horn",
+          "transforms": [
+            "transpose:+2",
+            "octave:+1"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Toms",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x-------"
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "--x-----"
+            },
+            {
+              "voice": "high_tom",
+              "steps": "----x---"
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

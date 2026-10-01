@@ -1,0 +1,75 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic Tech-House",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.2,
+    "style": ["tech-house", "house"]
+  },
+  "form": [
+    {"name": "A", "startBar": 1, "bars": 4, "energy": 0.65}
+  ],
+  "harmony": "Cm:4 | Cm:4 | Cm:4 | Cm:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Stabs",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "rhythm": "x... .... .... .... | .... x... .... .... | x... .... .... .... | .... x... .... ....", "voicing": "shell"}
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Hypno Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "rhythm": "R--- ---- ---- ---- | ---- ---- R--- ---- | R--- ---- ---- ---- | ---- ---- R--- ----"}
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Top",
+      "low": "G4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "rhythm": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."}
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "fill": "none", "drums": [
+          {"voice": "kick", "steps": "x... .... x... .... | x... .... x... .... | x... .... x... .... | x... .... x... ...."},
+          {"voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."},
+          {"voice": "open_hat", "steps": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."},
+          {"voice": "snare", "steps": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."}
+        ]}
+      ]
+    }
+  ]
+}

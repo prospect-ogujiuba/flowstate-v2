@@ -1,0 +1,221 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody dorian night-cruise",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.22,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.45
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Dm9:2 r:1 Fmaj7:1 | Bbmaj7:2 Gm7:2 | Em7b5:2 A7#9:2 | Dm9:2 r:1.5 G7#9:.5 | Gm7:2 C9:2 | Fmaj7:2 Bbmaj9:2 | Em7b5:2 A7#9:2 | Dm9:4",
+  "motifs": [
+    {
+      "id": "call",
+      "notes": "5:.75 4:.25 3:1.5 r:.5 | 5:1 4:.5 3:1.5"
+    },
+    {
+      "id": "answer",
+      "notes": "1+:1 r:.5 b7:.5 6:1 | 5:1.5 r:.5 3+:1"
+    },
+    {
+      "id": "lift",
+      "notes": "5:.75! 4:.25 3:.5 4:.5 5:1 | b7:1 6:.5 5:1.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "rhodes",
+      "role": "chords",
+      "name": "Rhodes MKI",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... ..x. x... x... | x... ..x. x... x... | x... ..x. x... x... | x... ..x. x... x...",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x... ..x. x... x... | x... ..x. x... x... | x... ..x. x... x... | x... ..x. x... x...",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm finger bass",
+      "low": "D1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ...5 ..R- ..a. | R-.. ...5 R--- ..5.",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- .3.. R-.. ..a. | R--- ...5 R-.. a---",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Muted trumpet",
+      "low": "D4",
+      "high": "A5",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "call",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "lift",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "call",
+          "transforms": [
+            "transpose:+3",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Laid-back kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .....x x... | x... .....x x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x... | .... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... x... .... | .... .... x... ...."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... ..X. x... | .... x... ..X. x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... .... | .... .... x... ...."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .....x x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... ..g. ...."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

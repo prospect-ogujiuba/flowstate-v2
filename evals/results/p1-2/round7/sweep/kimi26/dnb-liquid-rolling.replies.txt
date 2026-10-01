@@ -1,0 +1,358 @@
+===== attempt 1 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid DnB: deep rollers with lush pads",
+  "context": { "swing": 0.08, "style": ["drum-and-bass", "liquid"] },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.45 },
+    { "name": "Drop A", "startBar": 3, "bars": 2, "energy": 0.75 },
+    { "name": "Build-Drop B", "startBar": 5, "bars": 2, "energy": 0.88 },
+    { "name": "Outro", "startBar": 7, "bars": 2, "energy": 0.55 }
+  ],
+  "harmony": "Fm9:4 | Bbm9:4 | DbMaj7:4 | AbMaj7:4 | Eb7:4 | AbMaj7:4 | Gm7:4 | C7:4",
+  "motifs": [
+    { "id": "m1", "notes": "5-.75: 4-.5 r:.25 1:1 3-.75: 4:1.5 r:.5" },
+    { "id": "m2", "notes": "3-.5! 4-.25 r:.25 5:1 6-.5: 5:1 3:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "pads",
+      "role": "pad",
+      "name": "Lush pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x------- x-------", "voicing": "open", "articulation": "normal" },
+        { "startBar": 3, "endBar": 6, "rhythm": "x------- x-------", "voicing": "open", "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x--- x---", "voicing": "open", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "sub",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--- ..R. R--- .a..", "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "rhythm": "R-.- -R.- R--- ..R.", "articulation": "legato" },
+        { "startBar": 5, "endBar": 6, "rhythm": "R-.- R-.- -R.- R-.-", "articulation": "legato" },
+        { "startBar": 7, "endBar": 8, "rhythm": "R--- ..R. R-.- .a..", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Soft lead",
+      "low": "F4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 3, "endBar": 4, "motif": "m1", "transforms": ["displace:+1"], "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 5, "endBar": 6, "motif": "m2", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "motif": "m1", "transforms": ["transpose:-2", "retrograde"], "repeatEvery": 4, "articulation": "normal" }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Breakbeat kit",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.......|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ....x..." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.x.....|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "....x... ........" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "fill": "kick_build",
+          "drums": [
+            { "voice": "kick", "steps": "x..xx..x xxxx....|" },
+            { "voice": "snare", "steps": "....x... .x..x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "x....... ........" }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x...x..." },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "crash", "steps": "........ .......x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid DnB: deep rollers with lush pads",
+  "context": { "swing": 0.08, "style": ["drum-and-bass", "liquid"] },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.45 },
+    { "name": "Drop A", "startBar": 3, "bars": 2, "energy": 0.75 },
+    { "name": "Build-Drop B", "startBar": 5, "bars": 2, "energy": 0.88 },
+    { "name": "Outro", "startBar": 7, "bars": 2, "energy": 0.55 }
+  ],
+  "harmony": "Fm9:4 | Bbm9:4 | DbMaj7:4 | AbMaj7:4 | Eb7:4 | AbMaj7:4 | Gm7:4 | C7:4",
+  "motifs": [
+    { "id": "m1", "notes": "5:.75! 4:.25 r:.25 1:1 3:.75 4:1.5 r:.5" },
+    { "id": "m2", "notes": "3:.5! 4:.25 r:.25 5:1 6:.5 5:1 3:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "pads",
+      "role": "pad",
+      "name": "Lush pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x------- x-------", "voicing": "open", "articulation": "normal" },
+        { "startBar": 3, "endBar": 6, "rhythm": "x------- x-------", "voicing": "open", "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x--- x---", "voicing": "open", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "sub",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--- ..R. R--- .a..", "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "rhythm": "R-.- -R.- R--- ..R.", "articulation": "legato" },
+        { "startBar": 5, "endBar": 6, "rhythm": "R-.- R-.- -R.- R-.-", "articulation": "legato" },
+        { "startBar": 7, "endBar": 8, "rhythm": "R--- ..R. R-.- .a..", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Soft lead",
+      "low": "F4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 3, "endBar": 4, "motif": "m1", "transforms": ["displace:+1"], "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 5, "endBar": 6, "motif": "m2", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "motif": "m1", "transforms": ["transpose:-2", "retrograde"], "repeatEvery": 4, "articulation": "normal" }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Breakbeat kit",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.......|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ....x..." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.x.....|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "....x... ........" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "fill": "kick_build",
+          "drums": [
+            { "voice": "kick", "steps": "x..xx..x xxxx....|" },
+            { "voice": "snare", "steps": "....x... .x..x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "x....... ........" }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x...x..." },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "crash", "steps": "........ .......x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+ ```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Electric piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x- x-", "voicing": "close", "articulation": "normal" },
+        { "startBar": 3, "endBar": 6, "rhythm": "x- x-", "voicing": "close", "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x- x-", "voicing": "close", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "pads",
+      "role": "pad",
+      "name": "Lush pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x- x-", "voicing": "open", "articulation": "normal" },
+        { "startBar": 3, "endBar": 6, "rhythm": "x- x-", "voicing": "open", "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x- x-", "voicing": "open", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "sub",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--- ..R. R--- .a..", "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "rhythm": "R-.- -R.- R--- ..R.", "articulation": "legato" },
+        { "startBar": 5, "endBar": 6, "rhythm": "R-.- R-.- -R.- R-.-", "articulation": "legato" },
+        { "startBar": 7, "endBar": 8, "rhythm": "R--- ..R. R-.- .a..", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Soft lead",
+      "low": "F4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 3, "endBar": 4, "motif": "m1", "transforms": ["displace:+1"], "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 5, "endBar": 6, "motif": "m2", "repeatEvery": 4, "articulation": "normal" },
+        { "startBar": 7, "endBar": 8, "motif": "m1", "transforms": ["transpose:-2", "retrograde"], "repeatEvery": 4, "articulation": "normal" }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Breakbeat kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.......|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ....x..." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x.x.....|" },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "....x... ........" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "fill": "kick_build",
+          "drums": [
+            { "voice": "kick", "steps": "x..xx..x xxxx....|" },
+            { "voice": "snare", "steps": "....x... .x..x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "x....... ........" }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x...x..." },
+            { "voice": "snare", "steps": "....x... ....x..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "crash", "steps": "........ .......x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

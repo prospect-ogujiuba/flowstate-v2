@@ -1,0 +1,162 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "E Phrygian Night Run",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.58
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Em:4 | F:4 | Em:4 | Dm:2 F:2",
+  "motifs": [
+    {
+      "id": "drill_hook",
+      "notes": "1:.5 r:.5 b2:.5 1:.5 r:.5 5:.5 b2:.5 1:.5"
+    },
+    {
+      "id": "hook_answer",
+      "notes": "r:.5 5:.5 b2:.5 1:.5 r:.5 b2:.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... .... ..x.",
+          "voicing": "close",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 103,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R... ..a. R..5 ...a"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R... .a.. R.5. ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Piano Hook",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 69,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "drill_hook",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "hook_answer",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "UK Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x...x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".......x ........"
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... ..x...x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx.x.x x.x.xx.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".......x .......x"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

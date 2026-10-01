@@ -1,0 +1,134 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Dorian Jazz Waltz",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.25,
+    "style": [
+      "jazz",
+      "waltz"
+    ]
+  },
+  "form": [
+    {
+      "name": "Head",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Gm9:3 | C13:3 | Gm9:3 | C13:3 | Fmaj7:3 | Bbmaj7:3 | Am7b5:1.5 D7b9:1.5 | Gm9:3",
+  "motifs": [
+    {
+      "id": "sax_line",
+      "notes": "5:1.5 8:1 7:.5 | 5:1 3:1 2:1 | 1:1.5 4:1 6:.5 | 5:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "piano",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "C3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.. x.. x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.. 5.. 3.."
+        }
+      ]
+    },
+    {
+      "id": "sax",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "G3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "sax_line",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "sax_line",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Jazz Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x.x x.x x.x"
+            },
+            {
+              "voice": "kick",
+              "steps": "x.. ... ..."
+            },
+            {
+              "voice": "snare",
+              "steps": "... .x. ..."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x.x x.x x.x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

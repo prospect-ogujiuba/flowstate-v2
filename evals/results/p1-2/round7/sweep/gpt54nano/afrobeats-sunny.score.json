@@ -1,0 +1,123 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Afrobeats Pluck Groove (Ab)",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.18,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Abmaj7:1 | Eb7:1 | Bb7:1 | Abmaj7:1 | Abmaj7:1 | Eb7:1 | Bb7:1 | Fm7:1 | Abmaj7:1 | Eb7:1 | Bb7:1 | Abmaj7:1 | Abmaj7:1 | Eb7:1 | Bb7:1 | Abmaj7:1",
+  "motifs": [
+    {
+      "id": "mel1",
+      "notes": "5:.5 6:.5 5:.5 3:.5 5:1 6:.5 5:.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Plucky guitar chords",
+      "low": "Ab3",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x.x..x..| x.x..x..| x.x..x..| x.x..x.."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bouncing log-drum bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.x.R... 5x..a...  R.x.R... 5x..a...  R.x.R... 5x..a...  R.x.R... 5x..a..."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Afro pluck lead",
+      "low": "Ab4",
+      "high": "Eb6",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "mel1",
+          "transforms": [
+            "displace:+0.25"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Shaker-heavy kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...| x...x...| x...x...| x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X...| ....X...| ....X...| ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.| x.x.x.x.| x.x.x.x.| x.x.x.x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.| x.x.x.x.| x.x.x.x.| x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....x...| ....x...| ....x...| ....x..."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

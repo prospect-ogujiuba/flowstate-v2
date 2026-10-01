@@ -1,0 +1,368 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid DnB with lush pads and sub bass",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.25,
+    "style": ["drum-and-bass", "liquid"]
+  },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.5 },
+    { "name": "Build", "startBar": 3, "bars": 3, "energy": 0.65 },
+    { "name": "Peak", "startBar": 6, "bars": 3, "energy": 0.8 }
+  ],
+  "harmony": "Fm9:4 | Bbm7:4 | Ebmaj7:4 | Abmaj7:2 Gm7b5:2 | Fm9:4 | Bbm9:4 | Cm7b5:4 | Dbmaj7:2 Fm9:2",
+  "motifs": [
+    {
+      "id": "pad_texture",
+      "notes": "5:0.5 b7:0.5 1+:1 5:0.5 b3:0.5 b7:1 | 4:0.5 b6:0.5 1+:1 5:0.5 b3:0.5 b7:1"
+    },
+    {
+      "id": "counter_melody",
+      "notes": "b7:0.75! 5:0.25 1+:0.5 b3:1 | r:0.5 5:0.75 b7:0.25 1+:1 b6:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "pads",
+      "role": "chords",
+      "name": "Lush Pad",
+      "low": "A2",
+      "high": "F4",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- | x--- | x--- | x--- | x--- | x--- | x--- | x---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F0",
+      "high": "A1",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-.- ..R- | R-.- ..R- | R-.- ..R- | R-.- ..R- | R-.- ..5- | R-.- ..R- | R-.- ..5- | R-.- ..R-"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Ambient Counter",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "counter_melody",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 5,
+          "motif": "counter_melody",
+          "repeatEvery": 4,
+          "transforms": ["transpose:+2"]
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "motif": "counter_melody",
+          "repeatEvery": 4,
+          "transforms": ["transpose:+3"]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "DnB Kit",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x | x...x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... | ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 5,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x | x.x.x..x | x...x.xx"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g | ....x... | ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x. | x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ | .....x.. | ......."
+            }
+          ]
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.x.x..x | x...x.xx | x.x.x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g | ....x... | ....x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x. | x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ | .....x.. | ..x....."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "pads",
+      "role": "chords",
+      "name": "Lush Pad",
+      "low": "A2",
+      "high": "F4",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- x--- | x--- x--- | x--- x--- | x--- x--- | x--- x--- | x--- x--- | x--- x--- | x--- x---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F0",
+      "high": "A1",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-.- ..R- R-.- ..R- | R-.- ..R- R-.- ..R- | R-.- ..R- R-.- ..R- | R-.- ..R- R-.- ..R- | R-.- ..5- R-.- ..R- | R-.- ..R- R-.- ..R- | R-.- ..5- R-.- ..R- | R-.- ..R- R-.- ..R-"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "DnB Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x x...x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 5,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x x.x.x..x x...x.xx"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g ....x... ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ .....x.. ........"
+            }
+          ]
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.x.x..x x...x.xx x.x.x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g ....x... ....x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ .....x.. ..x....."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+```json
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "DnB Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x x...x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 5,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x | x.x.x..x | x...x.xx"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g | ....x... | ....x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x. | x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ | .....x.. | ........"
+            }
+          ]
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.x.x..x | x...x.xx | x.x.x..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....x..g | ....x... | ....x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. | x.x.x.x. | x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ | .....x.. | ..x....."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

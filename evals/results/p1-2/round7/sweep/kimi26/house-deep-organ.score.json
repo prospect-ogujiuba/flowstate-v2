@@ -1,0 +1,284 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep house organ groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.08,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "intro",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.45
+    },
+    {
+      "name": "build",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.65
+    },
+    {
+      "name": "drop",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 0.85
+    },
+    {
+      "name": "break",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 0.55
+    }
+  ],
+  "harmony": "Am7:4 | Dm7:4 | FMaj7:4 | G6:4 | Am7:4 | Dm7:4 | FMaj7:4 | G6:2 E7:2",
+  "motifs": [
+    {
+      "id": "stab1",
+      "notes": "5:.5 3:.5 1:1"
+    },
+    {
+      "id": "stab2",
+      "notes": "6:.5 4:.5 2:1"
+    },
+    {
+      "id": "hook",
+      "notes": "5:.75 6:.25 5:.5 3:1 1:.5 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x... x... x... x...",
+          "voicing": "close",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x..x x..x x..x x..x",
+          "voicing": "close",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x.xx x.xx x.xx x.xx",
+          "voicing": "close",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x... x... x... x.x.",
+          "voicing": "close",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": ".x.. .x.. .x.. .x.."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": ".x.x .x.x .x.x .x.x"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": ".x.. xx.. .x.. xx..",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": ".x.. .x.. .x.. gxg."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck",
+      "low": "E4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "stab1",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "stab2",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "hook",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "hook",
+          "transforms": [
+            "octave:+1",
+            "transpose:+2"
+          ],
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "909 Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x... | .... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... x... .... | .... .... x... ...."
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x... | .... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... x... .... | .... .... x... ...."
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x... | .... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx | xxxx xxxx xxxx xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... x... .... | .... .... x... ...."
+            }
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... xx.. x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x... | .... x... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... x... .... | .... .... .... x..."
+            },
+            {
+              "voice": "crash",
+              "steps": ".... .... .... .... | .... .... .... x..."
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

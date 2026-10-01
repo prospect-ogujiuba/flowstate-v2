@@ -1,0 +1,252 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Mixolydian Rock Anthem",
+  "context": {
+    "swing": 0,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse/Chorus Build",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    },
+    {
+      "name": "Full Anthem",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 1.0
+    }
+  ],
+  "harmony": "G5:4 | D5:4 | Em5:4 | C5:4 | G5:4 | D5:4 | Em5:4 | C5:4",
+  "motifs": [
+    {
+      "id": "m_rock_lead",
+      "notes": "3:.5! 5:.5 7:.5 5:.5 r:.5 3:.5 2:.5 1:.5!"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Distorted Guitar",
+      "low": "E2",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- x--- x--- x---",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Picked Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-R-R-R-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m_rock_lead",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m_rock_lead",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x.x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x.....x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x.x......x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x.....x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x.x......x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday-morning gospel ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.2,
+    "style": ["gospel", "soul"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.55 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "Abmaj7:6 | Bbm7:6 | Ebmaj7:6 | Abmaj7:3 Db9:3 | Gbmaj7:6 | Cm7b5:6 | Bbm7:3 Ebsus4:3 | Abmaj7:6",
+  "motifs": [
+    {
+      "id": "gospel_line",
+      "notes": "5:1.5 6:.75! 5:.75 4:1.5 | r:.75 3:1.5 4:1.5! 5:1.5 r:.75"
+    },
+    {
+      "id": "gospel_answer",
+      "notes": "6:1.5! 5:1.5 4:.75 3:.75 | 2:1.5 r:.75 3:1.5 4:1.5 r:1.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Organ",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x- -- -- | x- -- -- | x- -- -- | x- -x -- | x- -- -- | x- -- -- | x- -x -- | x- -- --",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 3,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.. ..R | R.. ..R | R.. ..R | R.. ..a | R.. ..R | R.. ..R | R.. ..a | R.. ..R"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soulful Organ Lead",
+      "low": "Eb4",
+      "high": "Bb5",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "gospel_line",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "gospel_answer",
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "gospel_line",
+          "transforms": ["transpose:+1"],
+          "repeatEvery": 6
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "gospel_answer",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle Kit",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.. ..x | x.. ..x | x.. ..x | x.. ..x | x.. ..x | x.. ..x | x.. ..x | x.. ..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "... x.. | ... x.. | ... x.. | ... x.. | ... x.g | ... x.. | ... x.g | ... x.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x .x. | x.x .x. | x.x .x. | x.x .x. | x.x .x. | x.x .x. | x.x .x. | x.x .x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "... ... | ... ..x | ... ... | ... ..x | ... ... | ... ..x | ... ... | ... ..x"
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Organ",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- -- | x--- -- | x--- -- | x--- -x | x--- -- | x--- -- | x--- -x | x--- --",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 3,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.. ... ..R | R.. ... ..R | R.. ... ..R | R.. ... ..a | R.. ... ..R | R.. ... ..R | R.. ... ..a | R.. ... ..R"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.. ... ..x | x.. ... ..x | x.. ... ..x | x.. ... ..x | x.. ... ..x | x.. ... ..x | x.. ... ..x | x.. ... ..x"
+            },
+            {
+              "voice": "snare",
+              "steps": "... x.. ... | ... x.. ... | ... x.. ... | ... x.. ... | ... x.. ..g | ... x.. ... | ... x.. ..g | ... x.. ..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x .x. ... | x.x .x. ... | x.x .x. ... | x.x .x. ... | x.x .x. ... | x.x .x. ... | x.x .x. ... | x.x .x. ..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "... ... ..x | ... ... ..x | ... ... ..x | ... ... ..x | ... ... ..x | ... ... ..x | ... ... ..x | ... ... ..x"
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Organ",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x----- -- | x----- -- | x----- -- | x----- -x | x----- -- | x----- -- | x----- -x | x----- --",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 3,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.. ... ..R ... | R.. ... ..R ... | R.. ... ..R ... | R.. ... ..a ... | R.. ... ..R ... | R.. ... ..R ... | R.. ... ..a ... | R.. ... ..R ..."
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ... | x.. ... ..x ..."
+            },
+            {
+              "voice": "snare",
+              "steps": "... x.. ... ... | ... x.. ... ... | ... x.. ... ... | ... x.. ... ... | ... x.. ... ..g | ... x.. ... ... | ... x.. ... ..g | ... x.. ... ..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ... | x.x .x. ... ..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "... ... ..x ... | ... ... ..x ... | ... ... ..x ... | ... ... ..x ... | ... ... ..x ... | ... ... ..x ... | ... ... ..x ... | ... ... ..x ..."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}
+```

@@ -1,0 +1,273 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight funk (E mixolydian)",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.18,
+    "style": ["funk"]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "E7:2 A7:2 | Bm7:2 A7:2 | E7:2 D7:2 | A7:2 E7:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "1:0.5 3:0.5 r:0.25 5:0.25 4:0.5 3:0.5 r:0.5 3:0.5 1:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet stabs",
+      "low": "E3",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x..X x...x..X x...x..X x...x..X| x...x..X x...x..X x...x..X x...x..X| x..X..x. ..x..X.x ..x..X.x. x..X..x.| x...x..X x...x..X x...x..X x...x..X",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap-ish bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-x-x. a-x.x. R-x-a. g-x.x.| R-x-x. a-x.x. 7-x-6. a-x.x.| R-x-a. g-x.x. R-x-x. a-x.x.| R-x-x. a-x.x. 7-x-6. a-x.x.",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Funk lead (octave ticks)",
+      "low": "G4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 2,
+          "transforms": []
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 2,
+          "transforms": ["transpose:+2", "displace:+0.5"]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x... ..x..x.. x...x... ..x..x..| x...x... ..x..x.. x...x... ..x..x..| x...x... ..x..x.. x...x... ..x..x..| x...x... ..x..x.. x...x... ..x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X... ....X... ....X...| ....X... ....X... ....X... ....X...| ....X... ....X... ....X... ....X...| ....X... ....X... ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.| x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.| x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.| x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ........ ....X... ........| ........ ........ ....X... ........| ........ ........ ....X... ........| ........ ........ ....X... ........"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet stabs",
+      "low": "E3",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x..X x...x..X x...x..X x...x..X| x...x..X x...x..X x...x..X x...x..X| x...x..X x...x..X x..X..x. x..X..x.| x...x..X x...x..X x...x..X x...x..X",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap-ish bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x-| R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x-| R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x- R-x-x.-a.x.x-| R-x-a.-g.x.x- R-x-a.-g.x.x- R-x-a.-g.x.x- R-x-a.-g.x.x-",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x...| ..x..x.. ..x..x..| x...x...x...x...| ..x..x.. ..x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X...| ....X.......X...| ....X.......X...| ....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.x.| x.x.x.x.x.x.x.x.x.| x.x.x.x.x.x.x.x.x.| x.x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ........| ........ ....X...| ........ ........| ........ ....X..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet stabs",
+      "low": "E3",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x...x...X.. x...x...x...X.. x...x...x...X.. x...x...x...X..| x...x...x...X.. x...x...x...X.. x...x...x...X.. x...x...x...X..| x...x...x...X.. x...x...x...X.. x...x...x...X.. x...x...x...X..| x...x...x...X.. x...x...x...X.. x...x...x...X.. x...x...x...X..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap-ish bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-x-x.-a R-x-x.-a R-x-x.-a R-x-x.-a| R-x-x.-a R-x-x.-a R-x-x.-a R-x-x.-a| R-x-a.-g R-x-x.-a R-x-a.-g R-x-x.-a| R-x-x.-a R-x-x.-a R-x-x.-a R-x-x.-a",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x...| ..x..x.. ..x..x..| x...x...x...x...| ..x..x.. ..x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X...| ....X.......X...| ....X.......X...| ....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x| x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x| x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x| x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x x.x.x.x.x.x.x.x.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ........| ........ ....X...| ........ ........| ........ ....X..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

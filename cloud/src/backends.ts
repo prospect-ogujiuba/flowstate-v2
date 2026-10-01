@@ -41,8 +41,11 @@ export interface ModelSelection {
   provider: string;
   model: string;
   credential: Credential;
-  reasoning?: ThinkingLevel;
+  /** Thinking effort; "off" asks the provider not to think at all. Default "high". */
+  reasoning?: Reasoning;
 }
+
+export type Reasoning = ThinkingLevel | "off";
 
 const DEFAULT_MODEL: Record<string, string> = { "claude-code": "opus", anthropic: "claude-opus-5" };
 const MAX_OUTPUT_TOKENS = 32000;
@@ -65,7 +68,7 @@ export function backendFor(sel: ModelSelection, collection: Models = builtinColl
  * FLOWSTATE_PLANNER_MODEL, FLOWSTATE_PLANNER_REASONING. Keys come from the provider's environment
  * variable (ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY, ...).
  */
-export function selectionFromEnv(overrides: { provider?: string; model?: string; reasoning?: ThinkingLevel } = {}): ModelSelection {
+export function selectionFromEnv(overrides: { provider?: string; model?: string; reasoning?: Reasoning } = {}): ModelSelection {
   const backend = process.env.FLOWSTATE_PLANNER_BACKEND ?? "claude-code";
   let provider: string;
   if (backend === "claude-code") provider = "claude-code";
@@ -75,7 +78,7 @@ export function selectionFromEnv(overrides: { provider?: string; model?: string;
   provider = overrides.provider ?? provider;
   const model = overrides.model ?? process.env.FLOWSTATE_PLANNER_MODEL ?? DEFAULT_MODEL[provider];
   if (!model) throw new Error(`no default model for provider '${provider}'; set FLOWSTATE_PLANNER_MODEL or --model`);
-  const reasoning = overrides.reasoning ?? (process.env.FLOWSTATE_PLANNER_REASONING as ThinkingLevel | undefined);
+  const reasoning = overrides.reasoning ?? (process.env.FLOWSTATE_PLANNER_REASONING as Reasoning | undefined);
   return { provider, model, credential: { kind: "managed" }, ...(reasoning ? { reasoning } : {}) };
 }
 
@@ -105,8 +108,10 @@ function piBackend(sel: ModelSelection, models: Models): Backend {
       const started = Date.now();
       let firstTokenMs: number | null = null;
       let firstTextMs: number | null = null;
+      // pi-ai turns thinking off when no level is given. A level the model lacks is raised to the next one it has.
+      const level = sel.reasoning ?? "high";
       const stream = models.streamSimple(model, context, {
-        reasoning: sel.reasoning ?? "high",
+        ...(level === "off" ? {} : { reasoning: level }),
         maxTokens: Math.min(MAX_OUTPUT_TOKENS, model.maxTokens),
         ...(apiKey ? { apiKey } : {}),
         ...(options.signal ? { signal: options.signal } : {}),
@@ -150,7 +155,7 @@ function toMessage(t: Turn, model: { api: AssistantMessage["api"]; provider: str
   };
 }
 
-function claudeCodeBackend(model: string, reasoning: ThinkingLevel): Backend {
+function claudeCodeBackend(model: string, reasoning: Reasoning): Backend {
   // A clean working directory keeps repo CLAUDE.md/AGENTS.md out of the planner's context.
   const cwd = mkdtempSync(path.join(os.tmpdir(), "flowstate-planner-"));
   const env = { ...process.env };
@@ -165,8 +170,8 @@ function claudeCodeBackend(model: string, reasoning: ThinkingLevel): Backend {
     complete(system, turns, options = {}) {
       const args = [
         "-p", "--output-format", "stream-json", "--verbose", "--include-partial-messages",
-        // claude has no "minimal" effort; low is its floor.
-        "--model", model, "--effort", reasoning === "minimal" ? "low" : reasoning,
+        // claude has no "off" or "minimal" effort; low is its floor.
+        "--model", model, "--effort", reasoning === "minimal" || reasoning === "off" ? "low" : reasoning,
         "--tools", "", "--no-session-persistence", "--system-prompt", system,
       ];
       return new Promise((resolve, reject) => {

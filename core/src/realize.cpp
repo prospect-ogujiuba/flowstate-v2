@@ -60,11 +60,12 @@ int PartEnv::velocity(Tick t, bool accent, bool ghost, double metricScale) const
     return clampVelocity(v);
 }
 
-Tick PartEnv::stepTick(const BlockSpan& b, int globalStep) const {
-    const int spb = time.stepsPerBar(part.grid);
+Tick PartEnv::stepTick(const BlockSpan& b, int globalStep, int scale) const {
+    const int grid = part.grid * std::max(1, scale);
+    const int spb = time.stepsPerBar(grid);
     const int bar = globalStep / spb;
     const int idx = globalStep % spb;
-    return b.start + static_cast<Tick>(bar) * time.ticksPerBar() + time.stepOffset(idx, part.grid);
+    return b.start + static_cast<Tick>(bar) * time.ticksPerBar() + time.stepOffset(idx, grid);
 }
 
 StepPattern PartEnv::pattern(const BlockSpan& b, const std::string& text, const std::string& allowed,

@@ -1,0 +1,151 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning 6/8",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.35,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 3,
+      "energy": 0.75
+    },
+    {
+      "name": "C",
+      "startBar": 8,
+      "bars": 1,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "Abmaj9:6 | Dbmaj7:6 | Bbm7:6 | Eb13:6 | Abmaj9:6 | Dbmaj7:6 | Cm7:6 | Bbm7:3 Eb7sus4:3",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:1 4:.5 3:.5 2:1 1:2 | 3:1 5:.5 4:.5 3:1 2:1.5"
+    },
+    {
+      "id": "m2",
+      "notes": "1:1.5 2:.5 3:1 5:2 | 4:1 3:.5 2:.5 1:2.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Church Piano",
+      "low": "Ab2",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x-",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Eb1",
+      "high": "Ab2",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5-- | R--5-- R--5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Hammond Organ",
+      "low": "Eb4",
+      "high": "Ab5",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "motif": "m2",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "motif": "m1",
+          "transforms": [
+            "octave:+1",
+            "augment:1.5"
+          ],
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x- | x---x- x---x-"
+            },
+            {
+              "voice": "snare",
+              "steps": "----g- ----g- | ----g- ----g- | ----g- ----g- | ----g- ----g- | ----g- ----g- | ----g- ----g- | ----g- ----g- | ----g- ----g-"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x- | x-x-x- x-x-x-"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

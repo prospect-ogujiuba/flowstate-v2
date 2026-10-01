@@ -1,0 +1,203 @@
+===== attempt 1 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Drifting through still water",
+  "context": { "tempo": 72, "meterNumerator": 4, "meterDenominator": 4, "tonic": "C", "mode": "major_pentatonic", "bars": 8, "swing": 0, "style": ["ambient"] },
+  "form": [
+    { "name": "float", "startBar": 1, "bars": 3, "energy": 0.2 },
+    { "name": "swell", "startBar": 4, "bars": 2, "energy": 0.4 },
+    { "name": "dissolve", "startBar": 6, "bars": 3, "energy": 0.15 }
+  ],
+  "harmony": "Cmaj7#11:8 | Fmaj9#11:8 | Gsus2:8 | Cmaj7#11:4 | Dm11:4 | Fmaj7#11:8 | r:4 | Cmaj7#11:4",
+  "motifs": [
+    { "id": "drift", "notes": "5:2 3:1.5 r:.5 | 6:1 5:2 8:1" },
+    { "id": "glimmer", "notes": "1:1.5 3:.5 5:2 | r:1 6:1 5:2" },
+    { "id": "fade", "notes": "3:2 r:1 1:1 | 5:.75 r:.25 3:2 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "chords",
+      "name": "Warm pad",
+      "low": "C3",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 48,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": "x------- | -------- | -------- | --------", "voicing": "open", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "low_bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 40,
+      "blocks": [
+        { "startBar": 1, "endBar": 3, "rhythm": "R------- | -------- | --------" },
+        { "startBar": 4, "endBar": 5, "rhythm": "R---..a. | R-------" },
+        { "startBar": 6, "endBar": 8, "rhythm": "R------- | -------- | R--....." }
+      ]
+    },
+    {
+      "id": "voice",
+      "role": "melody",
+      "name": "Glass marimba",
+      "low": "C4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 55,
+      "blocks": [
+        { "startBar": 1, "endBar": 3, "motif": "drift" },
+        { "startBar": 4, "endBar": 5, "motif": "glimmer", "transforms": ["octave:+1"] },
+        { "startBar": 6, "endBar": 8, "motif": "fade", "transforms": ["displace:+1"] }
+      ]
+    },
+    {
+      "id": "perc",
+      "role": "drums",
+      "name": "Soft kit",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 30,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... .... .... | x... .... .... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": ".... .... .... .... | .... x... .... .... | .... .... .... ...." },
+            { "voice": "shaker", "steps": ".... .... x... .... | .... .... .... x... | .... x... .... ...." }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 5,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": "..x. .... ..x. .... | .... x... .... x..." },
+            { "voice": "shaker", "steps": "x... x... x... x... | x... x... x... x..." },
+            { "voice": "ride_bell", "steps": ".... .... .... .... | .... ..x. .... ...." }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... .... .... | x... .... .... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": ".... .... .... x... | .... .... .... .... | .... .... .... ...." },
+            { "voice": "shaker", "steps": ".... x... .... .... | .... .... x... .... | .... .... .... x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Drifting through still water",
+  "context": { "tempo": 72, "meterNumerator": 4, "meterDenominator": 4, "tonic": "C", "mode": "major_pentatonic", "bars": 8, "swing": 0, "style": ["ambient"] },
+  "form": [
+    { "name": "float", "startBar": 1, "bars": 3, "energy": 0.2 },
+    { "name": "swell", "startBar": 4, "bars": 2, "energy": 0.4 },
+    { "name": "dissolve", "startBar": 6, "bars": 3, "energy": 0.15 }
+  ],
+  "harmony": "Cmaj7#11:4 | Fmaj9#11:4 | Gsus2:4 | Cmaj7#11:2 Dm11:2 | Fmaj7#11:4 | r:2 Cmaj7#11:2 | Cmaj7#11:4 | r:4",
+  "motifs": [
+    { "id": "drift", "notes": "5:2 3:1.5 r:.5 | 6:1 5:2 8:1" },
+    { "id": "glimmer", "notes": "1:1.5 3:.5 5:2 | r:1 6:1 5:2" },
+    { "id": "fade", "notes": "3:2 r:1 1:1 | 5:.75 r:.25 3:2 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "chords",
+      "name": "Warm pad",
+      "low": "C3",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 48,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": "x------- | -------- | -------- | --------", "voicing": "open", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "low_bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 40,
+      "blocks": [
+        { "startBar": 1, "endBar": 3, "rhythm": "R------- | -------- | --------" },
+        { "startBar": 4, "endBar": 5, "rhythm": "R---..a. | R-------" },
+        { "startBar": 6, "endBar": 8, "rhythm": "R------- | -------- | R--....." }
+      ]
+    },
+    {
+      "id": "voice",
+      "role": "melody",
+      "name": "Glass marimba",
+      "low": "C4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 55,
+      "blocks": [
+        { "startBar": 1, "endBar": 3, "motif": "drift" },
+        { "startBar": 4, "endBar": 5, "motif": "glimmer", "transforms": ["octave:+1"] },
+        { "startBar": 6, "endBar": 8, "motif": "fade", "transforms": ["displace:+1"] }
+      ]
+    },
+    {
+      "id": "perc",
+      "role": "drums",
+      "name": "Soft kit",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 30,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... .... .... | x... .... .... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": ".... .... .... .... | .... x... .... .... | .... .... .... ...." },
+            { "voice": "shaker", "steps": ".... .... x... .... | .... .... .... x... | .... x... .... ...." }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 5,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": "..x. .... ..x. .... | .... x... .... x..." },
+            { "voice": "shaker", "steps": "x... x... x... x... | x... x... x... x..." },
+            { "voice": "ride_bell", "steps": ".... .... .... .... | .... ..x. .... ...." }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... .... .... | x... .... .... .... | x... .... .... ...." },
+            { "voice": "closed_hat", "steps": ".... .... .... x... | .... .... .... .... | .... .... .... ...." },
+            { "voice": "shaker", "steps": ".... x... .... .... | .... .... x... .... | .... .... .... x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

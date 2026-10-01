@@ -1,0 +1,197 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Ominous cinematic trap with phrygian menace",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "trap",
+      "cinematic"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 1,
+      "energy": 0.5
+    },
+    {
+      "name": "Drop",
+      "startBar": 2,
+      "bars": 3,
+      "energy": 0.9
+    }
+  ],
+  "harmony": "Cm:2 Cm/Eb:2 | Ab:2 Fm:2 | Cm:2 Cm/Eb:2 | Ab:2 Db:2",
+  "motifs": [
+    {
+      "id": "leadA",
+      "notes": "1:.5 2:.5 1:1.5 r:.5 | r:.5 1:.5 b2:.5 1:1.5 r:.5"
+    },
+    {
+      "id": "leadB",
+      "notes": "1:.5 b2:.5 1:1 r:.5 b3:.5 | 1:1.5 r:.5 b2:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "choir",
+      "role": "chords",
+      "name": "Dark choir pad",
+      "low": "C2",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "x... .... .... ....",
+          "voicing": "open"
+        },
+        {
+          "startBar": 2,
+          "endBar": 4,
+          "rhythm": "x.x. x.x. x.x. x.x.",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "sub808",
+      "role": "bass",
+      "name": "808 sub",
+      "low": "C0",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "R... ..R. .... .R.."
+        },
+        {
+          "startBar": 2,
+          "endBar": 4,
+          "rhythm": "R... .... R... ..R. | R... .... R... ..R. | R... .... R-X. .R..",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Phrygian lead",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "leadA",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "leadB",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "kit",
+      "role": "drums",
+      "name": "Trap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... x... ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x."
+            }
+          ]
+        },
+        {
+          "startBar": 2,
+          "endBar": 3,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x."
+            },
+            {
+              "voice": "crash",
+              "steps": "x... .... .... ...."
+            }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

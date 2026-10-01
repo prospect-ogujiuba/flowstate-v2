@@ -1,0 +1,138 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic Minimal Tech House Groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.2,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Cm7:4 | Cm7:4 | Cm7:4 | Cm7:4",
+  "motifs": [
+    {
+      "id": "stab_lead",
+      "notes": "r:.5 1:.25! 1:.25 r:1.5 b3:.25! r:1.25"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Sparse Dub Stabs",
+      "low": "G3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. .... x... .... | .... ..x. .... .... | ..x. .... .... ..x. | .... x... .... ....",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Hypnotic Rolling Bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--. .R-- .R-- .R.. | R--. .R-- .R-- .R.g | R--. .R-- .R-- .R.. | R--. .R-- .R-- .R.a",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Syncopated Lead Accent",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "stab_lead",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "stab_lead",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.25"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tech House Drum Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "clap",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..X. .... ..X. | .... ..X. .... ..X. | .... ..X. .... ..X. | .... ..X. .... ..X."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x. x.x. x.xg x.x. | x.x. x.x. x.x. x.xg | x.x. x.x. x.xg x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .... .... | .... ..x. .x.. .... | .... ..x. .... .... | .... ..x. .x.. ..g."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rain on the Window",
+  "context": {
+    "swing": 0.18,
+    "style": ["lofi", "hip-hop"]
+  },
+  "form": [
+    {
+      "name": "Dusty loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.58
+    }
+  ],
+  "harmony": "Ebmaj7:4 | Cm7:4 | Fm7:4 | Bb7:4",
+  "motifs": [
+    {
+      "id": "sleepy_keys",
+      "notes": "3:.75 5:.5 6:.75 r:.5 5:.5 3:1 | 2:.75 3:.5 5:.75 r:.5 3:.5 2:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "G2",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... ..x- ....",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Muted electric bass",
+      "low": "Eb1",
+      "high": "Bb2",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- .... ..5. ...a",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sleepy felt keys",
+      "low": "G4",
+      "high": "Eb6",
+      "grid": 4,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "sleepy_keys",
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "sleepy_keys",
+          "transforms": ["transpose:+1", "displace:+0.5"],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dusty boom bap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ....x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x...x... x...x..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ .......x"
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x...x... x.x.x..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ .......x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

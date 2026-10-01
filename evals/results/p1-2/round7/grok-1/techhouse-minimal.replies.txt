@@ -1,0 +1,76 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic tech-house",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.2,
+    "style": ["tech-house", "house"]
+  },
+  "form": [
+    {"name": "A", "startBar": 1, "bars": 4, "energy": 0.6}
+  ],
+  "harmony": "Cm:8 | Cm:8",
+  "motifs": [
+    {"id": "stab", "notes": "1:0.5 r:0.5"}
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Stabs",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "rhythm": "x... .... .... .... | .... x... .... .... | x... .... .... .... | .... x... .... ....", "voicing": "power"}
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Hypno 808",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "rhythm": "R--- ---- ---- ---- | ---- ---- ---- ---- | R--- ---- ---- ---- | ---- ---- ---- ----"}
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Top stab",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "motif": "stab", "repeatEvery": 4}
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {"startBar": 1, "endBar": 4, "fill": "none", "drums": [
+          {"voice": "kick", "steps": "x... .... x... ...."},
+          {"voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x."},
+          {"voice": "open_hat", "steps": ".... x... .... x..."}
+        ]}
+      ]
+    }
+  ]
+}

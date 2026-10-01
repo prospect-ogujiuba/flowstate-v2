@@ -1,0 +1,151 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Pop Ballad Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Bbadd9:3 | F/A:3 | Gm7:3 | Bb/C:3 | F:3",
+  "motifs": [
+    {
+      "id": "theme_a",
+      "notes": "3:1 2:.5 1:.5 2:1 | 3:2 5:1 | 6:1 5:.5 3:.5 2:1 | 1:2.5 r:.5"
+    },
+    {
+      "id": "theme_b",
+      "notes": "3:1 5:1 6:1 | 8:1.5 7:.5 6:1 | 5:1 3:.5 2:.5 3:1 | 2:2.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Acoustic Piano Chords",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...x..x..x. | x...x..x..x. | x...x..x..x. | x...x..x..x. | x...x..x..x. | x...x..x..x. | x...x..x..x. | x........... ",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "R........... | R........... | R........... | R........... | R........... | R........... | R.........a. ",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R........... ",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Piano Lead Melody",
+      "low": "C4",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "theme_a"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "theme_b"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Soft Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x........... | x........... | x........... | x........... | x........... | x........... | x........... "
+            },
+            {
+              "voice": "snare",
+              "steps": "....x...x... | ....x...x... | ....x...x... | ....x...x... | ....x...x... | ....x...x... | ....x...x... "
+            },
+            {
+              "voice": "ride",
+              "steps": "x...x...x... | x...x...x... | x...x...x... | x...x...x... | x...x...x... | x...x...x... | x...x...x... "
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x........... "
+            },
+            {
+              "voice": "ride",
+              "steps": "x........... "
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid DnB 8-bar",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.0,
+    "style": ["drum-and-bass", "liquid"]
+  },
+  "form": [
+    { "name": "intro", "startBar": 1, "bars": 2, "energy": 0.4 },
+    { "name": "build", "startBar": 3, "bars": 2, "energy": 0.65 },
+    { "name": "drop", "startBar": 5, "bars": 4, "energy": 0.85 }
+  ],
+  "harmony": "Fm9:4 | Ebadd9:4 | Dbadd9:4 | Bbm11:4 | Fm9:4 | Ebadd9:4 | Dbadd9:4 | Bbm11:4",
+  "motifs": [
+    { "id": "padline", "notes": "5:2 4:1 3:1 | 2:2 1:1 2:1" },
+    { "id": "leadhook", "notes": "5:0.5 3:0.5 4:0.5 2:0.5 5:0.5 3:0.5 4:0.5 r:0.5 | 5:0.5 3:0.5 4:0.5 2:0.5 5:0.5 3:0.5 4:0.5 r:0.5" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush Pads",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": "x--- ---- | x--- ---- | x--- ---- | x--- ---- | x--- ---- | x--- ---- | x--- ---- | x--- ----", "voicing": "spread" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Deep Sub",
+      "low": "F0",
+      "high": "F2",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "R--- --R- ---- R--- | R--- --R- ---- R--- | R--- --R- ---- R--- | R--- --R- ---- R---" },
+        { "startBar": 5, "endBar": 8, "rhythm": "R--- --R- ---- R--- | R--- --R- ---- R--- | R--- --R- ---- R--- | R--- --R- ---- R---" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Liquid Lead",
+      "low": "F4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "padline", "repeatEvery": 4 },
+        { "startBar": 5, "endBar": 8, "motif": "leadhook", "repeatEvery": 4 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Two-Step Break",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x... .... .... .... | x... .... .... .... | x... .... .... .... | x... .... .... .... | x... .... .... .... | x... .... .... .... | x... .... .... .... | x... .... .... ...." },
+            { "voice": "snare", "steps": ".... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... ...." },
+            { "voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x." },
+            { "voice": "open_hat", "steps": ".... .... .... x... | .... .... .... x... | .... .... .... x... | .... .... .... x... | .... .... .... x... | .... .... .... x... | .... .... .... x... | .... .... .... x... " }
+          ]
+        }
+      ]
+    }
+  ]
+}

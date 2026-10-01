@@ -1,0 +1,208 @@
+===== attempt 1 =====
+ ```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Midnight jazz vamp in Bb",
+  "context": { "swing": 0.4, "style": ["jazz", "swing"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.45 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "Bbmaj7:4 | G7#11:4 | Cm7:4 | F7#9:4 | Bbmaj7:4 | Eb9#11:4 | Cm7:4 | F7sus4:2 F7:2",
+  "motifs": [
+    { "id": "head", "notes": "5:1.5 6:.5 5:1 3:1 | r:.5 1:1 3:1 2:2.5" },
+    { "id": "answer", "notes": "3:1 r:.5 5:1 7:1 6:.5 | 5:2 r:2" },
+    { "id": "bridge_lick", "notes": "1+:1 r:.5 b7:1 6:1 5:.5 | r:.5 4:1 5:1 3:1.5" }
+  ],
+  "parts": [
+    {
+      "id": "comp",
+      "role": "chords",
+      "name": "Electric Piano",
+      "low": "Bb2",
+      "high": "D6",
+      "grid": 3,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x.. x.. x.. x..",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x. x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "walk",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R 3 5 7 | R 3 5 7 | R b3 5 b7 | R 3 5 b9 | R 3 5 6 | R 3 5 b7 | R b3 5 b7 | R 5 3 a"
+        }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "Bb3",
+      "high": "F5",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "head",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "bridge_lick",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "head",
+          "transforms": ["transpose:+2", "invert"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "kit",
+      "role": "drums",
+      "name": "Brushed Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ... | x.. ... x.. ... | x.. ... x.. ... | x.. ... x.. ..." },
+            { "voice": "snare", "steps": "... x.. ... x.. | ... x.. ... x.. | ... x.. ... x.. | ... x.. ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x | x.x x.x x.x x.x | x.x x.x x.x x.x | x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x.." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ... | x.. x.. x.. ... | x.. ... x.. ..." },
+            { "voice": "snare", "steps": "... x.. ... x.. | ... x.. ... x.. | ... x.. ... x.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x | x.x x.x x.x x.x | x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x.." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.. ... x.. ..." },
+            { "voice": "snare", "steps": "... x.. ... g.." },
+            { "voice": "closed_hat", "steps": "x.x x.x x.x x.x" },
+            { "voice": "ride", "steps": "x.. x.. x.. x.." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "comp",
+      "role": "chords",
+      "name": "Electric Piano",
+      "low": "Bb2",
+      "high": "D6",
+      "grid": 3,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x.. x.. x.. x..",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x.. | x.. x.. x.. x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "walk",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R3 57 | R3 57 | R3 5b7 | R3 5b9 | R3 56 | R3 5b7 | R3 5b7 | R5 3a"
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+```json
+{
+  "parts": [
+    {
+      "id": "walk",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R3 5 7 | R3 5 7 | R3 5 7 | R3 5 9 | R3 5 6 | R3 5 7 | R3 5 7 | R5 3 a"
+        }
+      ]
+    }
+  ]
+}
+```

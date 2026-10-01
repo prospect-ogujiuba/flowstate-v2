@@ -1,0 +1,300 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro/Verse",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:3 Fm9:3 | Bbm9:3 Eb13:3 | Abmaj7:2 Cm7:2 Fm7:2 | Bbm7:2 Bdim7:2 Cm7:2 | Dbmaj7:2 Eb/Db:2 Cm7:2 | F7b9:2 Bbm7:2 Eb13:3 | Abmaj9:4 Eb/G:2 | Fm7:2 Bbm7:2 Eb7:2",
+  "motifs": [
+    {
+      "id": "organ_soul",
+      "notes": "1:1 3:1 5:1 6:2 5:1 | 4:1 3:1 2:1 1:1 7-:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Hammond Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x-- | x--x-- | x-x-x- | x-x-x- | x-x-x- | x-x-x- | x----- | x--x--",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Ab1",
+      "high": "Ab2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.5.R. | R.5.R. | R-R-R- | R-R-R- | R-R-R- | R-R-R- | R.5.R. | R-----"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Organ Lead",
+      "low": "Ab3",
+      "high": "Ab5",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "motif": "organ_soul",
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gospel Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x.....x..... | x..x..x..x.. | x..x..x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "..x.....x... | ..x.....x... | ..x..g..x..g | ..x..g..x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro/Verse",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:3 Fm9:3 | Bbm9:3 Eb13:3 | Abmaj7:2 Cm7:2 Fm7:2 | Bbm7:2 Bdim7:2 Cm7:2 | Dbmaj7:2 Eb/Db:2 Cm7:2 | F7b9:2 Bbm7:2 Eb7:2 | Abmaj9:6 | Fm7:2 Bbm7:2 Eb7:2",
+  "motifs": [
+    {
+      "id": "organ_soul",
+      "notes": "1:1 3:1 5:1 6:2 5:1 | 4:1 3:1 2:1 1:1 7-:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Hammond Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x-- | x--x-- | x-x-x- | x-x-x- | x-x-x- | x-x-x- | x----- | x--x--",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Ab1",
+      "high": "Ab2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.5.R. | R.5.R. | R-R-R- | R-R-R- | R-R-R- | R-R-R- | R.5.R. | R-----"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Organ Lead",
+      "low": "Ab3",
+      "high": "Ab5",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "motif": "organ_soul",
+          "repeatEvery": 6
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gospel Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x.....x..... | x..x..x..x.. | x..x..x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "..x.....x... | ..x.....x... | ..x..g..x..g | ..x..g..x..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Hammond Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x-----x----- | x-----x-----x----- | x---x---x---x---x---x--- | x---x---x---x---x---x--- | x---x---x---x---x---x--- | x---x---x---x---x---x--- | x----------------- | x-----x-----x-----",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Ab1",
+      "high": "Ab2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.5...R.5...R.5... | R.5...R.5...R.5... | R-R-R-R-R-R-R-R-R- | R-R-R-R-R-R-R-R-R- | R-R-R-R-R-R-R-R-R- | R-R-R-R-R-R-R-R-R- | R.5...R.5...R.5... | R-----------------"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gospel Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x.....x..... | x.....x.....x..... | x...x...x...x...x...x... | x...x...x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "..x.........x..... | ..x.........x..... | ..x...g...x...g... | ..x...g...x...g..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

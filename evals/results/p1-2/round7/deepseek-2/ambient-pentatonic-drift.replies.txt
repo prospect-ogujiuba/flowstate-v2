@@ -1,0 +1,115 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "C pentatonic ambient drift",
+  "context": {
+    "swing": 0,
+    "style": ["ambient"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.35 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.55 }
+  ],
+  "harmony": "Cmaj9:8 | Fmaj9:8 | Am7:8 | G6:8",
+  "motifs": [
+    { "id": "m1", "notes": "5:2 6:1 8:1.5 r:.5 6:1 5:2" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x------- x-------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R------- R-------",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R------- R---5---",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Airy flute",
+      "low": "C4",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "transforms": ["displace:+0.5"],
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "transforms": ["transpose:+2", "displace:+1"],
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Barely there",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 44,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x------- --------" },
+            { "voice": "shaker", "steps": "--x---x- --x---x-" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            { "voice": "kick", "steps": "x------- --------" },
+            { "voice": "shaker", "steps": "--x---x- --x---x-" },
+            { "voice": "ride", "steps": "-------- x-------" }
+          ]
+        }
+      ]
+    }
+  ]
+}

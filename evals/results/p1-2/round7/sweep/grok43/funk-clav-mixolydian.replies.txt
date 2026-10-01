@@ -1,0 +1,29 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight Funk Groove",
+  "context": { "tempo": 104, "meterNumerator": 4, "meterDenominator": 4, "tonic": "E", "mode": "mixolydian", "bars": 4, "swing": 0.05, "style": ["funk"] },
+  "form": [ { "name": "A", "startBar": 1, "bars": 4, "energy": 0.75 } ],
+  "harmony": "E9:4 | D9:4 | A9:4 | B7#9:4",
+  "motifs": [ { "id": "stab", "notes": "3:.25 5:.25 8:.25 7:.25" } ],
+  "parts": [
+    { "id": "chords", "role": "chords", "name": "Clavinet", "low": "G3", "high": "C6", "grid": 4, "velocity": 100,
+      "blocks": [ { "startBar": 1, "endBar": 4, "rhythm": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.", "voicing": "shell" } ] },
+    { "id": "bass", "role": "bass", "name": "Slap Bass", "low": "E1", "high": "G3", "grid": 4, "velocity": 110,
+      "blocks": [ { "startBar": 1, "endBar": 4, "rhythm": "R..x.x.. R..x.x.. R..x.x.. R..x.x.." } ] },
+    { "id": "melody", "role": "melody", "name": "Clav Stabs", "low": "D4", "high": "G6", "grid": 4, "velocity": 95,
+      "blocks": [ { "startBar": 1, "endBar": 4, "motif": "stab", "repeatEvery": 1 } ] },
+    { "id": "drums", "role": "drums", "name": "Funk Kit", "low": "C1", "high": "C6", "grid": 4, "velocity": 100,
+      "blocks": [ { "startBar": 1, "endBar": 4, "fill": "none", "drums": [
+        { "voice": "kick", "steps": "x...x... x...x... x...x... x...x..." },
+        { "voice": "snare", "steps": "....X... ....X... ....X... ....X..." },
+        { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+        { "voice": "open_hat", "steps": "....x... ....x... ....x... ....x..." } ] } ] }
+  ]
+}
+
+===== attempt 2 =====
+{"parts":[{"id":"chords","role":"chords","name":"Clavinet","low":"G3","high":"C6","grid":4,"velocity":100,"blocks":[{"startBar":1,"endBar":4,"rhythm":"x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.","voicing":"shell"}]},{"id":"bass","role":"bass","name":"Slap Bass","low":"E1","high":"G3","grid":4,"velocity":110,"blocks":[{"startBar":1,"endBar":4,"rhythm":"R..x.x.. R..x.x.. R..x.x.. R..x.x.."}]},{"id":"drums","role":"drums","name":"Funk Kit","low":"C1","high":"C6","grid":4,"velocity":100,"blocks":[{"startBar":1,"endBar":4,"fill":"none","drums":[{"voice":"kick","steps":"x...x... x...x... x...x... x...x..."},{"voice":"snare","steps":"....X... ....X... ....X... ....X..."},{"voice":"closed_hat","steps":"x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."},{"voice":"open_hat","steps":"....x... ....x... ....x... ....x..."}]}]}]}
+
+===== attempt 3 =====
+{"parts":[{"id":"chords","role":"chords","name":"Clavinet","low":"G3","high":"C6","grid":4,"velocity":100,"blocks":[{"startBar":1,"endBar":4,"rhythm":"x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x.","voicing":"shell"}]},{"id":"bass","role":"bass","name":"Slap Bass","low":"E1","high":"G3","grid":4,"velocity":110,"blocks":[{"startBar":1,"endBar":4,"rhythm":"R..x.x.. R..x.x.. R..x.x.. R..x.x.."}]},{"id":"drums","role":"drums","name":"Funk Kit","low":"C1","high":"C6","grid":4,"velocity":100,"blocks":[{"startBar":1,"endBar":4,"fill":"none","drums":[{"voice":"kick","steps":"x...x... x...x... x...x... x...x..."},{"voice":"snare","steps":"....X... ....X... ....X... ....X..."},{"voice":"closed_hat","steps":"x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x."},{"voice":"open_hat","steps":"....x... ....x... ....x... ....x..."}]}]}]}

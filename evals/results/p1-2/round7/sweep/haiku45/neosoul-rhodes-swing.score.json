@@ -1,0 +1,205 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody D dorian late night",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.35,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | Fmaj7:2 A7#9:2 | Dm9:4 | Bbmaj7:4 | Em7:2 Gm7:2 | A7#9:4",
+  "motifs": [
+    {
+      "id": "m_lead",
+      "notes": "5:1! 3:.5 4:.5 r:.5 5:1.5 | 1+:1 b7:.5 5:.5 r:.5 3:1"
+    },
+    {
+      "id": "m_counter",
+      "notes": "1:1 3:1 5:1 r:1 | 3:.75! 2:.25 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x. -... .x--",
+          "voicing": "close"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- ..x. -... .x--",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. ..7."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.. ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m_lead",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m_lead",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m_counter",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m_lead",
+          "transforms": [
+            "invert"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x..... | x....... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "........ x....... | ........ x.g....."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x..... ..x..... | ..x..... ..x.x..."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "x...x... x...x... | x...x... x...x..."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x..... | x....... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "........ x....... | ........ x.g....."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x.x... ..x.x... | ..x.x... ..x.x..."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "x...x... x...x... | x...x... x...x..."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x....."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x.x... ..x.x..."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "x...x... x...x..."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -180,7 +180,7 @@ void realizeSketchBlock(const PartEnv& env, const BlockSpan& b, const StepPatter
     int repeats = 0;
     for (std::size_t i = 0; i < events.size(); ++i) {
         const auto& ev = events[i];
-        const Tick raw = env.stepTick(b, ev.step);
+        const Tick raw = env.stepTick(b, ev.step, pat);
         if (!env.owns(b.index, raw)) continue;
         const ChordSpan* span = env.harmony.at(raw);
         const Chord& chord = span ? span->chord : tonicTriad;
@@ -190,7 +190,7 @@ void realizeSketchBlock(const PartEnv& env, const BlockSpan& b, const StepPatter
         const double rel = static_cast<double>((raw - b.start) % phraseLen) / static_cast<double>(phraseLen);
         const double arch = std::sin(kPi * rel);
         const double target = counter ? centre - 4.0 * arch + 1.0 : centre + 5.0 * arch - 1.0;
-        const Tick nextRaw = i + 1 < events.size() ? env.stepTick(b, events[i + 1].step) : b.end;
+        const Tick nextRaw = i + 1 < events.size() ? env.stepTick(b, events[i + 1].step, pat) : b.end;
         const bool phraseEnd = i + 1 == events.size() ||
                                (nextRaw - b.start) / phraseLen != (raw - b.start) / phraseLen;
         const bool strong = metricWeight(env.time, raw) >= 0.5 || ev.token == 'X';
@@ -263,12 +263,12 @@ void realizeSketchBlock(const PartEnv& env, const BlockSpan& b, const StepPatter
         }
         p = pitch;
 
-        const Tick s = env.swungStep(b, ev.step);
-        const Tick e = std::min(env.swungStep(b, ev.step + ev.length), b.end);
+        const Tick s = env.swungStep(b, ev.step, pat);
+        const Tick e = std::min(env.swungStep(b, ev.step + ev.length, pat), b.end);
         RawNote n;
         n.tick = s;
         if (art == Articulation::Legato) {
-            Tick next = i + 1 < events.size() ? env.swungStep(b, events[i + 1].step) : b.end;
+            Tick next = i + 1 < events.size() ? env.swungStep(b, events[i + 1].step, pat) : b.end;
             n.dur = std::max(e - s, std::min(next, b.end) - s);
         } else {
             n.dur = std::max<Tick>(1, static_cast<Tick>(static_cast<double>(e - s) * gateFor(art)));

@@ -1,0 +1,275 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Phrygian Slide Drill",
+  "context": {
+    "swing": 0.0,
+    "style": ["drill", "uk-drill"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.55 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.75 }
+  ],
+  "harmony": "Em:4 | Cmaj7:2 Am:2 | Em:4 | Fmaj7:2 B7:2",
+  "motifs": [
+    { "id": "pianoMotif", "notes": "1:1 b2:.5 1:.5 r:.5 b3:1 4:.5 b3:1" },
+    { "id": "slideMotif", "notes": "1:2 b2:1 1:1 | r:1 1-.5 b2:.5 1:1 1:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E3",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x...x...",
+          "voicing": "close",
+          "motif": "pianoMotif"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x...x...",
+          "voicing": "close",
+          "motif": "pianoMotif",
+          "transforms": ["transpose:+1"]
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Slide",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R....... R....... R....... R.......",
+          "articulation": "legato",
+          "notes": [
+            { "bar": 1, "beat": 1, "beats": 1.5, "pitch": "E1", "velocity": 100 },
+            { "bar": 1, "beat": 3.5, "beats": 0.5, "pitch": "E1", "velocity": 90 },
+            { "bar": 1, "beat": 4, "beats": 0.5, "pitch": "F1", "velocity": 85 },
+            { "bar": 2, "beat": 1, "beats": 1.5, "pitch": "C1", "velocity": 98 },
+            { "bar": 2, "beat": 3, "beats": 1, "pitch": "A0", "velocity": 86 },
+            { "bar": 3, "beat": 1, "beats": 1, "pitch": "E1", "velocity": 102 },
+            { "bar": 3, "beat": 2.5, "beats": 0.5, "pitch": "E1", "velocity": 88 },
+            { "bar": 3, "beat": 3, "beats": 0.5, "pitch": "F1", "velocity": 84 },
+            { "bar": 3, "beat": 4, "beats": 0.5, "pitch": "G1", "velocity": 82 },
+            { "bar": 4, "beat": 1, "beats": 1, "pitch": "F1", "velocity": 96 },
+            { "bar": 4, "beat": 2.5, "beats": 0.5, "pitch": "F1", "velocity": 84 },
+            { "bar": 4, "beat": 3, "beats": 1, "pitch": "B0", "velocity": 90 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Ominous Bell",
+      "low": "E4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "slideMotif",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "slideMotif",
+          "transforms": ["transpose:+1", "displace:+0.25"],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "UK Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x....... ..x..... x....... ....x..." },
+            { "voice": "snare", "steps": "....x... ..x..... ....x... ..x....." },
+            { "voice": "clap", "steps": "....x... ........ ....x... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ..x..... ........ ..x....." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x....... ..x..... x....... ....x..." },
+            { "voice": "snare", "steps": "....x... ..x..x.. ....x... ..x.x.x." },
+            { "voice": "clap", "steps": "....x... ........ ....x... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ..x..... ........ ..x....." },
+            { "voice": "rim", "steps": "..x...x. ........ ..x...x. ........" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Phrygian Slide Drill",
+  "context": {
+    "swing": 0.0,
+    "style": ["drill", "uk-drill"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.55 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.75 }
+  ],
+  "harmony": "Em:4 | Cmaj7:2 Am:2 | Em:4 | Fmaj7:2 B7:2",
+  "motifs": [
+    { "id": "pianoMotif", "notes": "1:1 b2:.5 1:.5 r:.5 b3:1 4:.5 b3:1" },
+    { "id": "slideMotif", "notes": "1:2 b2:1 1:1 | r:1 1-:.5 b2:.5 1:1 1:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E3",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x...x...",
+          "voicing": "close",
+          "motif": "pianoMotif"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x...x...",
+          "voicing": "close",
+          "motif": "pianoMotif",
+          "transforms": ["transpose:+1"]
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Slide",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R....... R....... R....... R.......",
+          "articulation": "legato",
+          "notes": [
+            { "bar": 1, "beat": 1, "beats": 1.5, "pitch": "E1", "velocity": 100 },
+            { "bar": 1, "beat": 3.5, "beats": 0.5, "pitch": "E1", "velocity": 90 },
+            { "bar": 1, "beat": 4, "beats": 0.5, "pitch": "F1", "velocity": 85 },
+            { "bar": 2, "beat": 1, "beats": 1.5, "pitch": "C1", "velocity": 98 },
+            { "bar": 2, "beat": 3, "beats": 1, "pitch": "A0", "velocity": 86 },
+            { "bar": 3, "beat": 1, "beats": 1, "pitch": "E1", "velocity": 102 },
+            { "bar": 3, "beat": 2.5, "beats": 0.5, "pitch": "E1", "velocity": 88 },
+            { "bar": 3, "beat": 3, "beats": 0.5, "pitch": "F1", "velocity": 84 },
+            { "bar": 3, "beat": 4, "beats": 0.5, "pitch": "G1", "velocity": 82 },
+            { "bar": 4, "beat": 1, "beats": 1, "pitch": "F1", "velocity": 96 },
+            { "bar": 4, "beat": 2.5, "beats": 0.5, "pitch": "F1", "velocity": 84 },
+            { "bar": 4, "beat": 3, "beats": 1, "pitch": "B0", "velocity": 90 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Ominous Bell",
+      "low": "E4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "slideMotif",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "slideMotif",
+          "transforms": ["transpose:+1", "displace:+0.25"],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "UK Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x....... ..x..... x....... ....x..." },
+            { "voice": "snare", "steps": "....x... ..x..... ....x... ..x....." },
+            { "voice": "clap", "steps": "....x... ........ ....x... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ..x..... ........ ..x....." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x....... ..x..... x....... ....x..." },
+            { "voice": "snare", "steps": "....x... ..x..x.. ....x... ..x.x.x." },
+            { "voice": "clap", "steps": "....x... ........ ....x... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "........ ..x..... ........ ..x....." },
+            { "voice": "rim", "steps": "..x...x. ........ ..x...x. ........" }
+          ]
+        }
+      ]
+    }
+  ]
+}

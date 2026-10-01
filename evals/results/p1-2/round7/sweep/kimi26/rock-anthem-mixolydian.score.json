@@ -1,0 +1,256 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Anthem rock stomper",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.8
+    },
+    {
+      "name": "Verse",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.6
+    },
+    {
+      "name": "Pre-Chorus",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 0.85
+    },
+    {
+      "name": "Chorus",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 1
+    }
+  ],
+  "harmony": "G5:2 D5:2 | C5:2 G5:2 | G5:2 D5:2 | C5:2 G5:2 | Em:2 D:2 | C:2 G:2 | G:1 D:1 C:1 G:1 | G:2 D:2",
+  "motifs": [
+    {
+      "id": "chant",
+      "notes": "1:.5! 1:.5 r:.5 5:.5! 5:1 | 4:.5 3:.5 r:.5 b7:.5! 1:1"
+    },
+    {
+      "id": "lift",
+      "notes": "3:.5! 4:.5 5:1 r:.5 5+:.5! | 4:1 r:.5 3:.5 b7:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "guitars",
+      "role": "chords",
+      "name": "Power Chords",
+      "low": "E2",
+      "high": "D5",
+      "grid": 2,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x-x-x-x-",
+          "voicing": "power"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x-x-..x-",
+          "voicing": "power"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x-x-x-xx",
+          "voicing": "power"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x-x-x-x-",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rock Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-R-R-R-"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R-R-5-7-"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R-R-R-R-"
+        }
+      ]
+    },
+    {
+      "id": "vox",
+      "role": "melody",
+      "name": "Lead Vocal Synth",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "chant",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "chant",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "lift",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "chant",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Arena Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X..............."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........x......."
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x..."
+            },
+            {
+              "voice": "crash",
+              "steps": "...............X"
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

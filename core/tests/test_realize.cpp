@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -367,6 +368,35 @@ TEST_CASE("harmony string: bar positions, rests, fractions and bad tokens") {
     for (const auto& w : warnings)
         if (w.rfind("harmony token", 0) == 0) ++bad;
     CHECK(bad == 3);  // "F/A" has no duration, "x" none either, "Am:0" is zero length
+}
+
+TEST_CASE("a step string at another resolution plays the rhythm it spells") {
+    // A kick written in 8ths on a 16th grid lands on beats 1 and 3, not four on the floor.
+    json s = baseScore();
+    s["context"]["bars"] = 1;
+    json drums = block(1, 1);
+    drums["drums"] = json::array({json{{"voice", "kick"}, {"steps", "x...x..."}}});
+    // 16ths written on an 8th grid keep every hit (bar lines mark the bar; without them, long strings are cut into bars).
+    json hats = block(1, 1);
+    hats["drums"] = json::array({json{{"voice", "closed_hat"}, {"steps", "xxxxxxxxxxxxxxxx |"}}});
+    s["parts"] = json::array({part("kit", "drums", "C1", "C6", 4, json::array({drums})),
+                              part("hats", "drums", "C1", "C6", 2, json::array({hats}))});
+    Realization r = run(s, 1, false);
+    std::vector<Tick> kicks, hatTicks;
+    for (const auto& n : find(r, "kit").notes) kicks.push_back(n.tick);
+    for (const auto& n : find(r, "hats").notes) hatTicks.push_back(n.tick);
+    CHECK(kicks == std::vector<Tick>{0, 1920});
+    REQUIRE(hatTicks.size() == 16);
+    CHECK(hatTicks[1] == 240);
+    // A chord written one step per beat on a grid of 2, held: one chord per bar, not two.
+    json c = baseScore();
+    json b = block(1, 2);
+    b["rhythm"] = "x--- | x---";
+    c["parts"] = json::array({part("keys", "chords", "C3", "C5", 2, json::array({b}))});
+    Realization rc = run(c, 1, false);
+    std::set<Tick> onsets;
+    for (const auto& n : rc.parts[0].notes) onsets.insert(n.tick);
+    CHECK(onsets == std::set<Tick>{0, 3840});
 }
 
 TEST_CASE("bad motif string tokens are skipped with a warning") {

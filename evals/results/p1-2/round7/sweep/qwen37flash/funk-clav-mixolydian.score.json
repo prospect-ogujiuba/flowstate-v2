@@ -1,0 +1,126 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "E Mixolydian Clavinet Funk",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "Em7:4 | Dmaj7:4 | A7:4 | B7b9:4",
+  "motifs": [
+    {
+      "id": "m_funk_lead",
+      "notes": "3:.25! r:.25 5:.25 6:.25 5:.5 3:.25 r:.25 1:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "clavinet",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... x... x... x...",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R..X ..5. .X.a R..X ..5. .X.a R..X ..a. .X.R R..X ..5. .X.a"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Synth Lead",
+      "low": "E3",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m_funk_lead",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m_funk_lead",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".x.... .x.... .x.... .x...."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Open Sky Chorus",
+  "context": {
+    "tempo": 118,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "uplifting",
+      "anthemic"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.78
+    },
+    {
+      "name": "Chorus B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.92
+    }
+  ],
+  "harmony": "G:4 | D:4 | Em:4 | C:4 | G:4 | D:4 | C:2 D:2 | G:4",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "5:.5 5:.5 6:1 5:.5 3:.5 2:1 r:.5 | 3:.5 3:.5 5:1 6:.5 5:.5 3:1 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Bright Piano",
+      "low": "G2",
+      "high": "D5",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x...|x...x...|x...x...|x...x...",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x...x...|x...x...|x...x...|x...x...",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Driving Pop Bass",
+      "low": "G1",
+      "high": "D3",
+      "grid": 2,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R...5...|R...5...|R...5...|R...5..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R...5...|R...5...|R...5...|R...5..."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Vocal Hook",
+      "low": "D4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Pop Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 104,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "X... .... ..x. ....|X... .... ..x. ....|X... .... ..x. ....|X... .... ..x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X...|.... X... .... X...|.... X... .... X...|.... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X...............|................|................|................"
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "X... .... ..x. ....|X... .... ..x. ....|X... .... ..x. ....|X... .... ..x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X...|.... X... .... X...|.... X... .... X...|.... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X...............|................|................|................"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..............x.|..............x.|..............x.|..............x."
+            }
+          ],
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

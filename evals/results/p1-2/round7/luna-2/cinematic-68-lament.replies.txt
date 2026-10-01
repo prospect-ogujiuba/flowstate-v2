@@ -1,0 +1,148 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Ashen Shore Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": ["cinematic", "folk"]
+  },
+  "form": [
+    { "name": "Invocation", "startBar": 1, "bars": 2, "energy": 0.42 },
+    { "name": "Lament", "startBar": 3, "bars": 4, "energy": 0.58 },
+    { "name": "Release", "startBar": 7, "bars": 2, "energy": 0.48 }
+  ],
+  "harmony": "Am(add9):6 | Am(add9):6 | Fmaj7:6 | C/G:6 | Gsus4:6 | Am:6 | Fmaj7:6 | Am:6",
+  "motifs": [
+    {
+      "id": "lament",
+      "notes": "5:1 6:1 5:1 | 3:1.5 r:.5 1:1 | 2:1 3:1 5:1 | 6:1.5 5:.5 3:1"
+    },
+    {
+      "id": "answer",
+      "notes": "1:1 2:1 3:1 | 5:1.5 r:.5 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Low bowed strings",
+      "low": "A2",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 48,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Celtic drone",
+      "low": "A1",
+      "high": "E3",
+      "grid": 2,
+      "velocity": 54,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R----- 5----- R----- 5----- R----- 5----- R----- R-----",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Solo flute",
+      "low": "A4",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "lament",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "transforms": ["octave:+1"],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "lament",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "lament",
+          "transforms": ["retrograde"],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Soft frame drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 42,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            { "voice": "low_tom", "steps": "x..........." },
+            { "voice": "tambourine", "steps": "......x....." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "drums": [
+            { "voice": "low_tom", "steps": "x..........." },
+            { "voice": "tambourine", "steps": "......x....." },
+            { "voice": "mid_tom", "steps": "..........x." }
+          ],
+          "fill": "tom_run"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "drums": [
+            { "voice": "low_tom", "steps": "x..........." },
+            { "voice": "tambourine", "steps": "......x....." }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

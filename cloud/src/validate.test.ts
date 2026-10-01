@@ -53,3 +53,35 @@ describe("validateScore harmony", () => {
     assert.ok(errors.some((e) => e.includes(`lasts ${clip + 4} beats`)));
   });
 });
+
+describe("validateScore step strings", () => {
+  const withRhythm = (rhythm: string, grid = 4) => {
+    const s = structuredClone(score);
+    const part = s.parts.find((p) => p.role === "chords")!;
+    part.grid = grid;
+    part.blocks = [{ startBar: 1, endBar: s.context.bars, rhythm }];
+    return validateScore(Score.parse(s));
+  };
+  const perBar = score.context.meterNumerator * 4;
+
+  it("accepts bars at another resolution, which core reads as written", () => {
+    assert.deepEqual(withRhythm(`${"x...".repeat(perBar / 8)} | ${"x.".repeat(perBar)}`), []);
+  });
+
+  it("rejects bars whose length is not a resolution", () => {
+    const errors = withRhythm(`${"x".repeat(perBar - 1)} | ${"x".repeat(perBar + 1)}`);
+    assert.equal(errors.filter((e) => e.includes("steps, expected")).length, 2);
+  });
+
+  it("cuts strings without bar lines into bars, as core does", () => {
+    assert.deepEqual(withRhythm("x...".repeat(perBar / 2)), []);
+    assert.equal(withRhythm("x".repeat(perBar + 3)).length, 1);
+  });
+
+  it("treats - in a drum lane as a rest", () => {
+    const s = structuredClone(score);
+    const drums = s.parts.find((p) => p.role === "drums")!;
+    drums.blocks = [{ startBar: 1, endBar: s.context.bars, drums: [{ voice: "kick", steps: `x---${".".repeat(drums.grid * s.context.meterNumerator - 4)}` }] }];
+    assert.deepEqual(validateScore(Score.parse(s)), []);
+  });
+});

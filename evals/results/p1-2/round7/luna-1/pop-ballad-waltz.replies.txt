@@ -1,0 +1,186 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender F Waltz",
+  "context": {
+    "swing": 0.08,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.48
+    },
+    {
+      "name": "Lift",
+      "startBar": 5,
+      "bars": 2,
+      "energy": 0.62
+    },
+    {
+      "name": "Resolve",
+      "startBar": 7,
+      "bars": 2,
+      "energy": 0.52
+    }
+  ],
+  "harmony": "Fmaj7:3 | C/E:3 | Dm7:3 | Bbmaj7:3 | F/A:3 | Gm7:3 | C7:3 | Fmaj7:3",
+  "motifs": [
+    {
+      "id": "heart",
+      "notes": "5:1 6:.5 5:.5 3:1 | 2:1 3:.5 5:.5 6:1 | 5:1 4:.5 3:.5 2:1 | 1:1.5 r:1.5"
+    },
+    {
+      "id": "answer",
+      "notes": "3:1 5:.5 6:.5 8:1 | 7:1 6:.5 5:.5 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Piano",
+      "low": "C3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x..x..x..",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x..x..x..",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x..x..x..",
+          "voicing": "close",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Soft Piano Bass",
+      "low": "F2",
+      "high": "C4",
+      "grid": 3,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R..5..7.."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R..5..7.."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Piano Melody",
+      "low": "C4",
+      "high": "A5",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "heart",
+          "repeatEvery": 12,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "answer",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "heart",
+          "transforms": ["transpose:-2"],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Subtle Waltz Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 46,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.. ..x ..x ..x ..x ..x ..x ..x"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.. x.. x.. x.. x.. x.. x.. x.."
+            },
+            {
+              "voice": "rim",
+              "steps": "... x.. ... x.. ... x.. ... x.."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "X.. ..x ..x ..x ..x ..x ..x ..x"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.. x.. x.. x.. x.. x.. x.. x.."
+            },
+            {
+              "voice": "rim",
+              "steps": "... x.. ... x.. ... x.. ... x.."
+            },
+            {
+              "voice": "crash",
+              "steps": "...... ...... ...... ...x.."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{"parts":[{"id":"drums","role":"drums","name":"Subtle Waltz Kit","low":"C1","high":"C6","grid":3,"velocity":46,"blocks":[{"startBar":1,"endBar":4,"drums":[{"voice":"kick","steps":"x.. ..x ..x ..x ..x ..x ..x ..x"},{"voice":"closed_hat","steps":"x.. x.. x.. x.. x.. x.. x.. x.."},{"voice":"rim","steps":"... x.. ... x.. ... x.. ... x.."}]},{"startBar":5,"endBar":8,"fill":"none","drums":[{"voice":"kick","steps":"X.. ..x ..x ..x ..x ..x ..x ..x"},{"voice":"closed_hat","steps":"x.. x.. x.. x.. x.. x.. x.. x.."},{"voice":"rim","steps":"... x.. ... x.. ... x.. ... x.."},{"voice":"crash","steps":"...... ...... ...... ...x.."}]}]}]}
+
+===== attempt 3 =====
+{"parts":[{"id":"drums","role":"drums","name":"Subtle Waltz Kit","low":"C1","high":"C6","grid":3,"velocity":46,"blocks":[{"startBar":1,"endBar":4,"drums":[{"voice":"kick","steps":"x...... ..x...... ..x...... ..x......"},{"voice":"closed_hat","steps":"x...... x...... x...... x......"},{"voice":"rim","steps":"...x...... ...x...... ...x...... ...x......"}]},{"startBar":5,"endBar":8,"fill":"none","drums":[{"voice":"kick","steps":"X...... ..x...... ..x...... ..x......"},{"voice":"closed_hat","steps":"x...... x...... x...... x......"},{"voice":"rim","steps":"...x...... ...x...... ...x...... ...x......"},{"voice":"crash","steps":"...... ...... ...... ...x.."}]}]}]}

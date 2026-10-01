@@ -1,0 +1,136 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight funk groove with clavinet stabs",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.2,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Emaj7:4 | Amaj7:4 | Emaj7:4 | B7:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E3",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x..x ..x. x..x ..x.",
+          "voicing": "drop2"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "R.g5 3..g R.g5 3.g."
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "R.g3 5..g R.g3 5.g."
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "R.g5 3..g R.g5 3.g."
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "R.g7 5..g R.g7 5.g."
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drum kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x... | ....x.......x... | x...x...x...x... | ....x.......x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X... | ....X.......X... | ....X.......X... | ....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth lead",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "..x. .x.x ..x. .x.."
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "..x. .x.x ..x. .x.."
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "..x. .x.x ..x. .x.."
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "..x. .x.x ..x. .x.X"
+        }
+      ]
+    }
+  ]
+}

@@ -128,9 +128,10 @@ Done so far (2026-10-01):
 - Block fields that don't apply may be left out instead of written as null (IR change, additive). Scores shrink by a quarter to a third. **Gemini Flash minimal meets the full-plan target: p50 7.3 s**, 20/20 valid, first part p50 3.8 s; repairs 4 of 20. Sonnet low: full 20.1 s, first part 15.9 s.
 - Compact harmony strings (IR change, additive), and the planner's request now says one part per lane with the lane name as its role (the model often wrote the chords lane as a pad, which cost a repair). Over three runs each on Gemini Flash minimal: 60/60 valid, first part p50 3.5 s (from 3.8 s; 18 of 60 under 3 s), full plan p50 7.8 s.
 - The planner fills the context fields the session fixes (key, mode, bars, meter, tempo) from the request, so the model writes only swing and style, and a wrong key or length needs no repair. The request also states the step count per bar for the meter; without it the 6/8 gospel prompt failed 2 of 3 runs. Over three runs: **60/60 valid, first part p50 3.2 s (28 of 60 under 3 s), full plan p50 7.3 s** on Gemini Flash minimal.
-- What is left: the first part, 3.2 s against 3 s. About 0.9 s of that is the provider's time to first token.
+- `--reasoning off` really turns thinking off (pi-ai raises a level a model lacks to the next one it has, so DeepSeek's "minimal" had been "low"). A sweep of 10 fast models from 8 vendors showed step counts failing everywhere, mostly bars written at half or double the grid's resolution. Core now reads such bars at that resolution (IR semantics; docs/ir-spec.md "Bar length"), and the validator matches core.
+- **Targets met** on DeepSeek `deepseek-flash` with thinking off (two runs, `evals/results/p1-2/round7/`): 40/40 valid, first part p50 2.3 s, full plan p50 4.2 s. Gemini 3.1 Flash Lite: 39/40, 2.0 s and 3.6 s.
 
-Next: try other fast models for the first part (time to first token and throughput differ by provider); fewer repairs (P1-3); blind listening on the Gemini Flash minimal plans before choosing it.
+Open before closing P1-2: blind listening (fast plans against a slow, careful reference) to confirm the fast path doesn't cost quality.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:

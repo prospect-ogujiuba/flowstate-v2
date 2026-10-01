@@ -181,7 +181,7 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
                     for (int s = 0; s < pat.stepsPerBar; ++s) {
                         char t = pat.at(bar, s);
                         if (t != 'x' && t != 'X' && t != 'g') continue;
-                        Tick raw = env.stepTick(b, bar * pat.stepsPerBar + s);
+                        Tick raw = env.stepTick(b, bar * pat.stepsPerBar + s, pat);
                         if (env.owns(b.index, raw)) hits.push_back({raw, lane.voice, t, 1.0});
                     }
                 }

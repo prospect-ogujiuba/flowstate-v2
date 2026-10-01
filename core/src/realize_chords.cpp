@@ -66,9 +66,9 @@ std::vector<RawNote> realizeChordPart(const PartEnv& env) {
         if (blk.rhythm) {
             auto pat = env.pattern(b, *blk.rhythm, "xX-.", "rhythm");
             for (const auto& ev : stepEvents(pat, b.bars())) {
-                Tick s = env.swungStep(b, ev.step);
-                if (!env.owns(b.index, env.stepTick(b, ev.step))) continue;
-                Tick e = std::min(env.swungStep(b, ev.step + ev.length), b.end);
+                Tick s = env.swungStep(b, ev.step, pat);
+                if (!env.owns(b.index, env.stepTick(b, ev.step, pat))) continue;
+                Tick e = std::min(env.swungStep(b, ev.step + ev.length, pat), b.end);
                 splitAtChords(env, s, e, ev.token == 'X', b.index, art, b.end, hits);
             }
         } else {

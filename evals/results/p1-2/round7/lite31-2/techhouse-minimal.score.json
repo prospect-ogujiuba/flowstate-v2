@@ -1,0 +1,117 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic Tech-House Groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.25,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Cm7:4 | Cm7:4 | Cm7:4 | Cm7:4",
+  "motifs": [
+    {
+      "id": "arp-motif",
+      "notes": "1:0.5 r:0.5 3:0.5 r:0.5 5:1 1+:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Deep Chord Stab",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".... x... .... ..x.",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x-x- x-x- x-x- x-x-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Pluck",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "arp-motif",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tech Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": ".x.x .x.x .x.x .x.x"
+            },
+            {
+              "voice": "clap",
+              "steps": ".... x... .... x..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "...x ...x ...x ...x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

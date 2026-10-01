@@ -1,0 +1,190 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Cinematic dark-hero ascent",
+  "context": { "tempo": 70, "meterNumerator": 4, "meterDenominator": 4, "tonic": "D", "mode": "minor", "bars": 8, "swing": 0, "style": ["cinematic", "orchestral"] },
+  "form": [
+    { "name": "Intro", "startBar": 1, "bars": 2, "energy": 0.3 },
+    { "name": "Rise", "startBar": 3, "bars": 2, "energy": 0.55 },
+    { "name": "Climax", "startBar": 5, "bars": 2, "energy": 0.85 },
+    { "name": "Release", "startBar": 7, "bars": 2, "energy": 0.6 }
+  ],
+  "harmony": "Dm:4 | Bbmaj7:4 | Fmaj7:4 | C:4 | Gm:4 | A:4 | Dm:2 Bb:2 | F:2 C:2",
+  "motifs": [
+    { "id": "horn_ascend", "notes": "1:2 3:1 5:1 | 6:1.5 5:.5 4:2 | 3:1 5:1 6:1 8:1 | 7:3 r:1" },
+    { "id": "horn_peak", "notes": "5:1.5! 6:.5 8:2 | 7:1 6:1 5:1 4:1 | 3:2 1:2" }
+  ],
+  "parts": [
+    { "id": "strings", "role": "pad", "name": "String ensemble", "low": "A2", "high": "F5", "grid": 2, "velocity": 60, "blocks": [
+      { "startBar": 1, "endBar": 2, "rhythm": "x------- | x-------", "voicing": "open", "articulation": "legato" },
+      { "startBar": 3, "endBar": 4, "rhythm": "x-x----- | x-x-----", "voicing": "open", "articulation": "legato" },
+      { "startBar": 5, "endBar": 6, "rhythm": "x-x-x--- | x-x-x---", "voicing": "spread", "articulation": "legato" },
+      { "startBar": 7, "endBar": 8, "rhythm": "x------- | x---....", "voicing": "open", "articulation": "legato" }
+    ] },
+    { "id": "bass", "role": "bass", "name": "Timpani bass", "low": "D1", "high": "D3", "grid": 2, "velocity": 72, "blocks": [
+      { "startBar": 1, "endBar": 2, "rhythm": "R------- | R-------", "articulation": "legato" },
+      { "startBar": 3, "endBar": 4, "rhythm": "R---R--- | R---R---", "articulation": "legato" },
+      { "startBar": 5, "endBar": 6, "rhythm": "R-R-R--- | R-R-R-R-", "articulation": "legato" },
+      { "startBar": 7, "endBar": 8, "rhythm": "R------- | R-------", "articulation": "legato" }
+    ] },
+    { "id": "horn", "role": "melody", "name": "French horn", "low": "D3", "high": "A5", "grid": 4, "velocity": 78, "blocks": [
+      { "startBar": 1, "endBar": 2, "motif": "horn_ascend", "repeatEvery": 0 },
+      { "startBar": 3, "endBar": 4, "motif": "horn_ascend", "transforms": ["transpose:+2", "octave:+1"], "repeatEvery": 0 },
+      { "startBar": 5, "endBar": 6, "motif": "horn_peak", "repeatEvery": 0 },
+      { "startBar": 7, "endBar": 8, "motif": "horn_ascend", "transforms": ["transpose:+2"], "repeatEvery": 0 }
+    ] },
+    { "id": "toms", "role": "drums", "name": "Concert toms", "low": "C2", "high": "C4", "grid": 4, "velocity": 100, "blocks": [
+      { "startBar": 1, "endBar": 2, "drums": [
+        { "voice": "low_tom", "steps": "x...x... | x...x..." },
+        { "voice": "mid_tom", "steps": "....x... | ....x..." }
+      ], "fill": "none" },
+      { "startBar": 3, "endBar": 4, "drums": [
+        { "voice": "low_tom", "steps": "x.x.x... | x.x.x..." },
+        { "voice": "mid_tom", "steps": "....x.x. | ....x.x." },
+        { "voice": "high_tom", "steps": "......x. | ......x." }
+      ], "fill": "tom_run" },
+      { "startBar": 5, "endBar": 6, "drums": [
+        { "voice": "low_tom", "steps": "x.x.x.x. | x.x.x.x." },
+        { "voice": "mid_tom", "steps": "..x...x. | ..x...x." },
+        { "voice": "high_tom", "steps": "....x.x. | ....x.x." },
+        { "voice": "crash", "steps": "x....... | x......." }
+      ], "fill": "tom_run" },
+      { "startBar": 7, "endBar": 8, "drums": [
+        { "voice": "low_tom", "steps": "x....... | x......." },
+        { "voice": "mid_tom", "steps": "........ | x......." }
+      ], "fill": "none" }
+    ] }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "String ensemble",
+      "low": "A2",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x------- | x-------",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x-x----- | x-x-----",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x-x-x--- | x-x-x---",
+          "voicing": "spread",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x------- | x---....",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "toms",
+      "role": "drums",
+      "name": "Concert toms",
+      "low": "C2",
+      "high": "C4",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x...x...x...x... | x...x...x...x..."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "....x.......x... | ....x.......x..."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x.x.x...x.x.x... | x.x.x...x.x.x..."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "....x.x......x.x | ....x.x......x.x"
+            },
+            {
+              "voice": "high_tom",
+              "steps": "......x.......x. | ......x.......x."
+            }
+          ],
+          "fill": "tom_run"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "..x...x...x...x. | ..x...x...x...x."
+            },
+            {
+              "voice": "high_tom",
+              "steps": "....x.x......x.x | ....x.x......x.x"
+            },
+            {
+              "voice": "crash",
+              "steps": "x............... | x..............."
+            }
+          ],
+          "fill": "tom_run"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x............... | x..............."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "................ | x..............."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}
+```

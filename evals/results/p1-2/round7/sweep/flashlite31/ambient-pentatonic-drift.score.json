@@ -1,0 +1,115 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sparse Ambient Evolve",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "ambient"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.3
+    },
+    {
+      "name": "Evolve",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.5
+    }
+  ],
+  "harmony": "Cmaj9:4 | Fmaj7/C:4 | Am7:4 | Gsus4:4 | Cmaj9:4 | Fmaj9:4 | Am9:4 | G6:4",
+  "motifs": [
+    {
+      "id": "float",
+      "notes": "1:2 3:1 5:1 | 6:2 5:1.5 3:.5 | 8:2 6:1 5:1 | 3:4"
+    }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "chords",
+      "name": "Soft Evolving Pad",
+      "low": "C2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 50,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Synth",
+      "low": "C1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 45,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.......",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Ambient Bell",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "float",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "percussion",
+      "role": "drums",
+      "name": "Ethereal Shakers",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 40,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "x...x... x...x.x."
+            },
+            {
+              "voice": "ride",
+              "steps": "....x... ........ "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

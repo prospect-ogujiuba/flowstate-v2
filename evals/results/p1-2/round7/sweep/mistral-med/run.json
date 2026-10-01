@@ -1,0 +1,800 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "mistralai/mistral-medium-3.1",
+    "reasoning": "off"
+  },
+  "at": "2026-10-01T15:31:13.166Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 20,
+    "valid": 9,
+    "validityRate": 0.45,
+    "latencyP50Ms": 10678,
+    "latencyP95Ms": 17002,
+    "firstTokenP50Ms": 619,
+    "firstTextP50Ms": 619,
+    "firstPartP50Ms": 4255,
+    "firstPartP95Ms": 10176,
+    "partsStreamed": 20
+  },
+  "results": [
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13628,
+      "firstTokenMs": 3997,
+      "firstTextMs": 3997,
+      "firstPartMs": 5410,
+      "usage": {
+        "inputTokens": 6575,
+        "outputTokens": 1441,
+        "cacheReadTokens": 10368
+      },
+      "remainingErrors": [
+        "part drums block 1 kick: bar 1 of pattern has 17 steps, expected 16",
+        "part drums block 1 snare: bar 1 of pattern has 18 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "blocks.0.notes.0.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.1.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.2.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.3.velocity: Invalid input: expected number, received undefined"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 34 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 34 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13667,
+      "firstTokenMs": 3992,
+      "firstTextMs": 3992,
+      "firstPartMs": 10176,
+      "usage": {
+        "inputTokens": 11084,
+        "outputTokens": 1434,
+        "cacheReadTokens": 5632
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 1 of pattern has 15 steps, expected 16",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 30 steps, expected 16"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "part melody block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 15325,
+      "firstTokenMs": 4167,
+      "firstTextMs": 4167,
+      "firstPartMs": 8047,
+      "usage": {
+        "inputTokens": 7006,
+        "outputTokens": 1777,
+        "cacheReadTokens": 10496
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 4 of pattern has 8 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 56 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 ride: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 17830,
+      "firstTokenMs": 4171,
+      "firstTextMs": 4171,
+      "firstPartMs": 8585,
+      "usage": {
+        "inputTokens": 7047,
+        "outputTokens": 2182,
+        "cacheReadTokens": 10368
+      },
+      "remainingErrors": [
+        "part drums block 1 kick: bar 1 of pattern has 18 steps, expected 16",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6122,
+      "firstTokenMs": 595,
+      "firstTextMs": 595,
+      "firstPartMs": 2670,
+      "usage": {
+        "inputTokens": 168,
+        "outputTokens": 820,
+        "cacheReadTokens": 4608
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5461,
+      "firstTokenMs": 528,
+      "firstTextMs": 528,
+      "firstPartMs": 2811,
+      "usage": {
+        "inputTokens": 164,
+        "outputTokens": 951,
+        "cacheReadTokens": 4608
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 9970,
+      "firstTokenMs": 655,
+      "firstTextMs": 655,
+      "firstPartMs": 2661,
+      "usage": {
+        "inputTokens": 1824,
+        "outputTokens": 1528,
+        "cacheReadTokens": 15232
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: invalid step token '1'",
+            "part bass block 1 rhythm: invalid step token '1'",
+            "part bass block 1 rhythm: invalid step token '1'",
+            "part bass block 1 rhythm: invalid step token '1'"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 crash: bar 1 of pattern has 33 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 6369,
+      "firstTokenMs": 697,
+      "firstTextMs": 697,
+      "firstPartMs": 2509,
+      "usage": {
+        "inputTokens": 1052,
+        "outputTokens": 851,
+        "cacheReadTokens": 9344
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 30 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 33 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 30 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 17002,
+      "firstTokenMs": 560,
+      "firstTextMs": 560,
+      "firstPartMs": 12555,
+      "usage": {
+        "inputTokens": 2852,
+        "outputTokens": 2780,
+        "cacheReadTokens": 15360
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 28 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "blocks.0.notes.0.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.1.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.2.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.3.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.4.velocity: Invalid input: expected number, received undefined"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "part melody block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13814,
+      "firstTokenMs": 511,
+      "firstTextMs": 511,
+      "firstPartMs": 4255,
+      "usage": {
+        "inputTokens": 2609,
+        "outputTokens": 2360,
+        "cacheReadTokens": 15360
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 1 of pattern has 32 steps, expected 8",
+        "part bass block 1 rhythm: invalid step token '1'",
+        "part bass block 1 rhythm: invalid step token '1'",
+        "part drums block 3 crash: bar 1 of pattern has 16 steps, expected 8"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 16 steps, expected 8"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 64 steps, expected 8",
+            "part bass block 1 rhythm: invalid step token '1'"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 12959,
+      "firstTokenMs": 551,
+      "firstTextMs": 551,
+      "firstPartMs": 5207,
+      "usage": {
+        "inputTokens": 2086,
+        "outputTokens": 1797,
+        "cacheReadTokens": 15232
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 54 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 47 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 52 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 52 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 64 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 64 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 7811,
+      "firstTokenMs": 876,
+      "firstTextMs": 876,
+      "firstPartMs": 1885,
+      "usage": {
+        "inputTokens": 1564,
+        "outputTokens": 1170,
+        "cacheReadTokens": 14848
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 4 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 4 of pattern has 8 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 24 steps, expected 16"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "part melody block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 10678,
+      "firstTokenMs": 842,
+      "firstTextMs": 842,
+      "firstPartMs": 3876,
+      "usage": {
+        "inputTokens": 1976,
+        "outputTokens": 1566,
+        "cacheReadTokens": 15360
+      },
+      "remainingErrors": [
+        "part drums block 1 ride_bell: bar 1 of pattern has 15 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "blocks.0.notes.0.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.1.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.2.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.3.velocity: Invalid input: expected number, received undefined",
+            "blocks.0.notes.4.velocity: Invalid input: expected number, received undefined"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 ride_bell: bar 1 of pattern has 29 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 8009,
+      "firstTokenMs": 540,
+      "firstTextMs": 540,
+      "firstPartMs": 3074,
+      "usage": {
+        "inputTokens": 1469,
+        "outputTokens": 1207,
+        "cacheReadTokens": 15104
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 snare: bar 2 of pattern has 17 steps, expected 16",
+            "part drums block 1 crash: bar 1 of pattern has 17 steps, expected 16",
+            "part drums block 1 crash: bar 2 of pattern has 17 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13397,
+      "firstTokenMs": 535,
+      "firstTextMs": 535,
+      "firstPartMs": 4749,
+      "usage": {
+        "inputTokens": 2459,
+        "outputTokens": 2038,
+        "cacheReadTokens": 15488
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 1 of pattern has 26 steps, expected 18",
+        "part bass block 1 rhythm: bar 2 of pattern has 26 steps, expected 18",
+        "part bass block 1 rhythm: bar 3 of pattern has 26 steps, expected 18",
+        "part bass block 1 rhythm: bar 4 of pattern has 25 steps, expected 18",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'",
+        "part drums block 1 kick: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 2 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 3 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 4 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 2 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 3 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 4 of pattern has 11 steps, expected 18"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 14 steps, expected 18",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 12575,
+      "firstTokenMs": 658,
+      "firstTextMs": 658,
+      "firstPartMs": 9578,
+      "usage": {
+        "inputTokens": 2532,
+        "outputTokens": 2216,
+        "cacheReadTokens": 15232
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)",
+            "part chords block 1 rhythm: bar 1 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 2 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 3 of pattern has 6 steps, expected 9",
+            "part chords block 1 rhythm: bar 4 of pattern has 6 steps, expected 9"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "harmony: bad token 'Gm7' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 10980,
+      "firstTokenMs": 606,
+      "firstTextMs": 606,
+      "firstPartMs": 4424,
+      "usage": {
+        "inputTokens": 2027,
+        "outputTokens": 1867,
+        "cacheReadTokens": 15104
+      },
+      "remainingErrors": [
+        "part chords block 1 rhythm: bar 1 of pattern has 15 steps, expected 18",
+        "part bass block 1 rhythm: bar 1 of pattern has 15 steps, expected 18",
+        "part drums block 1 low_tom: bar 1 of pattern has 15 steps, expected 18",
+        "part drums block 1 low_tom: invalid step token '-'",
+        "part drums block 1 low_tom: invalid step token '-'",
+        "part drums block 1 low_tom: invalid step token '-'",
+        "part drums block 1 low_tom: invalid step token '-'"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 15 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 16 steps, expected 18"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 low_tom: bar 1 of pattern has 16 steps, expected 18",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'",
+            "part drums block 1 low_tom: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 8093,
+      "firstTokenMs": 721,
+      "firstTextMs": 721,
+      "firstPartMs": 6123,
+      "usage": {
+        "inputTokens": 1723,
+        "outputTokens": 1357,
+        "cacheReadTokens": 14848
+      },
+      "remainingErrors": [
+        "part chords block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part chords block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part chords block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part chords block 1 rhythm: bar 4 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part bass block 1 rhythm: bar 4 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 1 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 2 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 3 of pattern has 8 steps, expected 16",
+        "part melody block 1 rhythm: bar 4 of pattern has 8 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 20 steps, expected 16"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 28 steps, expected 16"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "part melody block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 7437,
+      "firstTokenMs": 610,
+      "firstTextMs": 610,
+      "firstPartMs": 3095,
+      "usage": {
+        "inputTokens": 1323,
+        "outputTokens": 1277,
+        "cacheReadTokens": 9344
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: invalid step token '6'"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 8365,
+      "firstTokenMs": 619,
+      "firstTextMs": 619,
+      "firstPartMs": 2304,
+      "usage": {
+        "inputTokens": 1734,
+        "outputTokens": 1310,
+        "cacheReadTokens": 14976
+      },
+      "remainingErrors": [
+        "part drums block 1 kick: bar 4 of pattern has 8 steps, expected 16",
+        "part drums block 1 snare: bar 4 of pattern has 10 steps, expected 16"
+      ],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 35 steps, expected 16",
+            "part drums block 1 snare: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 closed_hat: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 open_hat: bar 1 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Dorian Afterglow Waltz",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.18,
+    "style": [
+      "jazz",
+      "waltz"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.68
+    }
+  ],
+  "harmony": "Gm9:3 | C13:3 | Gm9:3 | Dm7:3 | Ebmaj7:3 | C13:3 | Am7b5:3 | D7#9:3",
+  "motifs": [
+    {
+      "id": "sax_theme",
+      "notes": "5:.75 6:.25 1+:1 r:.5 7:.5 6:.5 | 5:1 3:.5 2:.5 1:.75 r:.25"
+    },
+    {
+      "id": "sax_answer",
+      "notes": "1+:.75 2+:.25 3+:1 2+:.5 1+:.5 6:.5 5:.5 | 4:.75 3:.25 2:.5 1:.75 r:.75"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Soft jazz piano",
+      "low": "G2",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x.",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x...x.",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright bass",
+      "low": "G1",
+      "high": "D3",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.5.7.",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R.5.7.",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lyrical tenor sax",
+      "low": "G3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "sax_theme",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "sax_answer",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "sax_theme",
+          "transforms": [
+            "transpose:+2",
+            "augment:1.1"
+          ],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Light ride jazz kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 57,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x.x.x."
+            },
+            {
+              "voice": "kick",
+              "steps": "x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "...x.."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x.x.x."
+            },
+            {
+              "voice": "kick",
+              "steps": "x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "...x.."
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

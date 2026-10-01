@@ -66,7 +66,7 @@ std::vector<RawNote> realizeArpPart(const PartEnv& env) {
         std::vector<int> pool;
         for (std::size_t e = 0; e < events.size(); ++e) {
             const auto& ev = events[e];
-            Tick raw = env.stepTick(b, ev.step);
+            Tick raw = env.stepTick(b, ev.step, pat);
             if (!env.owns(b.index, raw)) continue;
             const ChordSpan* span = env.harmony.at(raw);
             if (!span) continue;
@@ -101,12 +101,12 @@ std::vector<RawNote> realizeArpPart(const PartEnv& env) {
             lastIndex = idx;
             ++counter;
 
-            Tick s = env.swungStep(b, ev.step);
-            Tick end = std::min(env.swungStep(b, ev.step + ev.length), b.end);
+            Tick s = env.swungStep(b, ev.step, pat);
+            Tick end = std::min(env.swungStep(b, ev.step + ev.length, pat), b.end);
             Tick dur;
             if (art == Articulation::Legato) {
                 Tick next = b.end;
-                if (e + 1 < events.size()) next = env.swungStep(b, events[e + 1].step);
+                if (e + 1 < events.size()) next = env.swungStep(b, events[e + 1].step, pat);
                 dur = std::max(end - s, std::min(next, b.end) - s);
             } else {
                 dur = std::max<Tick>(1, static_cast<Tick>(static_cast<double>(end - s) * gateFor(art)));

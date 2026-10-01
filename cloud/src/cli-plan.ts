@@ -8,9 +8,8 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { backendFor, selectionFromEnv } from "./backends.ts";
+import { backendFor, selectionFromEnv, type Reasoning } from "./backends.ts";
 import { planScore, type PlanRequest } from "./planner.ts";
-import type { ThinkingLevel } from "@earendil-works/pi-ai";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.join(here, "..", "..");
@@ -34,7 +33,7 @@ const realizeOnly = process.argv.includes("--realize-only");
 const selection = selectionFromEnv({
   provider: process.argv.includes("--provider") ? arg("provider") : undefined,
   model: process.argv.includes("--model") ? arg("model") : undefined,
-  reasoning: process.argv.includes("--reasoning") ? (arg("reasoning") as ThinkingLevel) : undefined,
+  reasoning: process.argv.includes("--reasoning") ? (arg("reasoning") as Reasoning) : undefined,
 });
 const backend = realizeOnly ? null : backendFor(selection);
 if (!planOnly && !existsSync(realizer)) throw new Error(`realizer not built at ${realizer}; run npm run build:core`);

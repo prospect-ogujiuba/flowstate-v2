@@ -1,0 +1,175 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Cinematic orchestral build",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": ["cinematic", "orchestral"]
+  },
+  "form": [
+    { "name": "Build A", "startBar": 1, "bars": 2, "energy": 0.4 },
+    { "name": "Build B", "startBar": 3, "bars": 2, "energy": 0.6 },
+    { "name": "Build C", "startBar": 5, "bars": 2, "energy": 0.8 },
+    { "name": "Apex", "startBar": 7, "bars": 2, "energy": 1.0 }
+  ],
+  "harmony": "Dm:2 Bb:2 | Dm:2 Bb:2 | Gm:2 A:2 | Dm:2 A7:2 | Dm:2 Bb:2 | Gm:2 A7:2 | Dm:4 | A7:2 Dm:2",
+  "motifs": [
+    {
+      "id": "horn_a",
+      "notes": "5:.5 5:.5 6:1 5:.5 3:.5 1:2"
+    },
+    {
+      "id": "horn_b",
+      "notes": "6:.5 6:.5 8:1 6:.5 4:.5 2:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "strings",
+      "role": "chords",
+      "name": "Sweeping Strings",
+      "low": "D3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x- --", "voicing": "open" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x- --", "voicing": "open" },
+        { "startBar": 5, "endBar": 6, "rhythm": "x- x-", "voicing": "open" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x- --", "voicing": "open" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cello",
+      "low": "D2",
+      "high": "D4",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R- -." },
+        { "startBar": 3, "endBar": 4, "rhythm": "R- -." },
+        { "startBar": 5, "endBar": 6, "rhythm": "R- R-" },
+        { "startBar": 7, "endBar": 8, "rhythm": "R- -." }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "horn_a", "repeatEvery": 4 },
+        { "startBar": 3, "endBar": 4, "motif": "horn_a", "repeatEvery": 4, "transforms": ["transpose:+2"] },
+        { "startBar": 5, "endBar": 6, "motif": "horn_b", "repeatEvery": 4 },
+        { "startBar": 7, "endBar": 8, "motif": "horn_b", "repeatEvery": 4, "transforms": ["transpose:+2"] }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Timpani & Toms",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "drums": [
+          { "voice": "low_tom", "steps": "x... .... .... ...." },
+          { "voice": "kick", "steps": "x... x... .... ...." }
+        ] },
+        { "startBar": 3, "endBar": 4, "drums": [
+          { "voice": "low_tom", "steps": "x... x... .... ...." },
+          { "voice": "mid_tom", "steps": ".... .... x... x..." },
+          { "voice": "kick", "steps": "x... x... x... ...." }
+        ] },
+        { "startBar": 5, "endBar": 6, "drums": [
+          { "voice": "low_tom", "steps": "x..x x... .... ...." },
+          { "voice": "mid_tom", "steps": ".... .... x..x x..." },
+          { "voice": "high_tom", "steps": ".... x... .... x..." },
+          { "voice": "kick", "steps": "x... x... x..x x..." }
+        ] },
+        { "startBar": 7, "endBar": 8, "fill": "tom_run", "drums": [
+          { "voice": "kick", "steps": "x..x x..x x..x x..x" }
+        ] }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "strings",
+      "role": "chords",
+      "name": "Sweeping Strings",
+      "low": "D3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x--- ----", "voicing": "open" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x--- ----", "voicing": "open" },
+        { "startBar": 5, "endBar": 6, "rhythm": "x--- x---", "voicing": "open" },
+        { "startBar": 7, "endBar": 8, "rhythm": "x--- ----", "voicing": "open" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cello",
+      "low": "D2",
+      "high": "D4",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--- -..." },
+        { "startBar": 3, "endBar": 4, "rhythm": "R--- -..." },
+        { "startBar": 5, "endBar": 6, "rhythm": "R--- R---" },
+        { "startBar": 7, "endBar": 8, "rhythm": "R--- -..." }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Timpani & Toms",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "drums": [
+          { "voice": "low_tom", "steps": "x... .... .... ...." },
+          { "voice": "kick", "steps": "x... x... .... ...." }
+        ] },
+        { "startBar": 3, "endBar": 4, "drums": [
+          { "voice": "low_tom", "steps": "x... x... .... ...." },
+          { "voice": "mid_tom", "steps": ".... .... x... x..." },
+          { "voice": "kick", "steps": "x... x... x... ...." }
+        ] },
+        { "startBar": 5, "endBar": 6, "drums": [
+          { "voice": "low_tom", "steps": "x..x x... .... ...." },
+          { "voice": "mid_tom", "steps": ".... .... x..x x..." },
+          { "voice": "high_tom", "steps": ".... x... .... x..." },
+          { "voice": "kick", "steps": "x... x... x..x x..." }
+        ] },
+        { "startBar": 7, "endBar": 8, "fill": "tom_run", "drums": [
+          { "voice": "kick", "steps": "x..x x..x x..x x..x" }
+        ] }
+      ]
+    }
+  ]
+}
+```

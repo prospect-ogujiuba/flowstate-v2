@@ -1,0 +1,177 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Cold Phrygian Drill",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Em:4 | Cmaj7:4 | Am:4 | B7:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "1:1.5 r:.5 b2:1 1:1"
+    },
+    {
+      "id": "m2",
+      "notes": "5:.75 4:.25 3:1 b2:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--- ---- x--- ----",
+          "voicing": "close"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x--- --x- x--- --x-",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Slide",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- --a- R--- ----"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- --a- R--- --a-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Whistle Lead",
+      "low": "E4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "motif": "m1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-2"
+          ],
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m2",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ...x..x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ........"
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x....... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....x... ...x..x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "....x... ........"
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

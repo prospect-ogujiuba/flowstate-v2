@@ -71,8 +71,10 @@ TEST_CASE("step strings: bar lines and implicit bar splitting") {
 
 TEST_CASE("step strings: wrong lengths are repaired with warnings") {
     std::vector<std::string> w;
-    auto tiled = parseSteps("x...", 16, "xX-.", "t", w);
-    CHECK(tiled.bars[0] == "x...x...x...x...");
+    // A bar at a quarter of the grid's resolution is spread over the bar, not repeated.
+    auto coarse = parseSteps("x...", 16, "xX-.", "t", w);
+    CHECK(coarse.scale == 1);
+    CHECK(coarse.bars[0] == "x---............");
     CHECK(w.size() == 1);
     w.clear();
     auto padded = parseSteps("x.x", 16, "xX-.", "t", w);
@@ -81,7 +83,7 @@ TEST_CASE("step strings: wrong lengths are repaired with warnings") {
     w.clear();
     auto truncated = parseSteps("x.x.x|x", 4, "xX-.", "t", w);
     CHECK(truncated.bars[0] == "x.x.");
-    CHECK(truncated.bars[1] == "xxxx");
+    CHECK(truncated.bars[1] == "x---");  // one step spread over the bar
     CHECK(w.size() == 2);
     w.clear();
     auto bad = parseSteps("x?g.", 4, "xX-.", "t", w);
@@ -153,4 +155,27 @@ TEST_CASE("seeded RNG is platform independent") {
         CHECK(x >= -1.0);
         CHECK(x <= 1.0);
     }
+}
+
+TEST_CASE("step strings: bars at another resolution are read at the finest one") {
+    std::vector<std::string> w;
+    // Half resolution (8 steps where 16 are expected): each step covers two.
+    auto half = parseSteps("x...x... | x.x.x..x", 16, "xX-.", "t", w);
+    CHECK(half.scale == 1);
+    CHECK(half.bars[0] == "x-......x-......");
+    CHECK(half.bars[1] == "x-..x-..x-....x-");
+    CHECK(w.size() == 2);
+    w.clear();
+    // Double resolution (16 where 8 are expected): the pattern is read at 16, and a normal bar is expanded.
+    auto dbl = parseSteps("x.xxx.x.x.x.x.xx | x-..x...", 8, "xX-.", "t", w);
+    CHECK(dbl.scale == 2);
+    CHECK(dbl.stepsPerBar == 16);
+    CHECK(dbl.bars[0] == "x.xxx.x.x.x.x.xx");
+    CHECK(dbl.bars[1] == "x---....x-......");
+    CHECK(w.size() == 1);
+    w.clear();
+    // Far beyond the cap, or unrelated lengths, are still truncated or padded.
+    auto huge = parseSteps(std::string(64, 'x'), 4, "xX-.", "t", w);
+    CHECK(huge.scale == 1);
+    CHECK(huge.bars[0] == "xxxx");
 }

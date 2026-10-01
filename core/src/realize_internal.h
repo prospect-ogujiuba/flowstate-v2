@@ -50,10 +50,14 @@ public:
     // Base velocity scaled by energy, plus accent / ghost / metric shaping.
     int velocity(Tick t, bool accent, bool ghost, double metricScale) const;
 
-    // Absolute tick of a block-relative global step (before swing).
-    Tick stepTick(const BlockSpan& b, int globalStep) const;
+    // Absolute tick of a block-relative global step (before swing), at the part's grid times `scale`
+    // (a pattern read finer than the grid, see StepPattern::scale).
+    Tick stepTick(const BlockSpan& b, int globalStep, int scale = 1) const;
+    Tick stepTick(const BlockSpan& b, int globalStep, const StepPattern& pat) const { return stepTick(b, globalStep, pat.scale); }
     // Swung tick of a block-relative global step.
-    Tick swungStep(const BlockSpan& b, int globalStep) const { return swing.apply(stepTick(b, globalStep)); }
+    Tick swungStep(const BlockSpan& b, int globalStep, const StepPattern& pat) const {
+        return swing.apply(stepTick(b, globalStep, pat));
+    }
     double stepTicks() const { return time.stepTicks(part.grid); }
 
     StepPattern pattern(const BlockSpan& b, const std::string& text, const std::string& allowed,

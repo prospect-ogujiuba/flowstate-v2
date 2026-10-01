@@ -1,0 +1,82 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep house organ groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": ["house", "deep-house"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 8, "energy": 0.7 }
+  ],
+  "harmony": "Am9:4 | Dm9:4 | Fmaj7:4 | E7#9:4 | Am9:4 | Dm9:4 | Fmaj7:4 | E7#9:4",
+  "motifs": [
+    { "id": "lead", "notes": "1:1 r:.5 3:.5 5:.5 7:.5 | 8:1 r:1 5:.5 3:.5 1:1" }
+  ],
+  "parts": [
+    {
+      "id": "organ",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": ".... x... .... x...", "voicing": "drop2" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "House Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": ".x.x .x.x .x.x .x.x" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck Synth",
+      "low": "A4",
+      "high": "A6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "motif": "lead", "repeatEvery": 8 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            { "voice": "kick", "steps": "x... x... x... x..." },
+            { "voice": "closed_hat", "steps": "..x. ..x. ..x. ..x." },
+            { "voice": "open_hat", "steps": ".... x... .... x..." },
+            { "voice": "snare", "steps": ".... x... .... x..." }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

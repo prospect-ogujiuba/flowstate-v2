@@ -1,0 +1,94 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Grit and Glory",
+  "context": {
+    "swing": 0,
+    "style": ["rock"]
+  },
+  "form": [
+    { "name": "Riff", "startBar": 1, "bars": 4, "energy": 0.78 },
+    { "name": "Anthem", "startBar": 5, "bars": 4, "energy": 0.95 }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | G5:4 | G5:4 | Bb5:4 | F5:4 | G5:4",
+  "motifs": [
+    { "id": "anthem", "notes": "5:.5 5:.5 6:1 5:.5 3:.5 2:1 | r:.5 3:.5 5:1 6:.5 5:.5 1:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Distorted Power Chords",
+      "low": "G2",
+      "high": "D5",
+      "grid": 2,
+      "velocity": 108,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "x-x-x-x- x-x-x-x-", "voicing": "power", "articulation": "staccato" },
+        { "startBar": 5, "endBar": 8, "rhythm": "x-x-x-x- x-x-x-x-", "voicing": "power", "articulation": "staccato" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Driving Pick Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 2,
+      "velocity": 106,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "R-R-R-R- R-R-R-R-" },
+        { "startBar": 5, "endBar": 8, "rhythm": "R-R-R-R- R-R-R-R-" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Anthem Lead Guitar",
+      "low": "G3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "motif": "anthem", "repeatEvery": 8 },
+        { "startBar": 5, "endBar": 8, "motif": "anthem", "transforms": ["octave:+1"], "repeatEvery": 8 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Arena Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 112,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x...x... x...x..." },
+            { "voice": "snare", "steps": "....X... ....X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "crash", "steps": "X....... ........" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "kick", "steps": "X...x... X...x..." },
+            { "voice": "snare", "steps": "....X... ....X..." },
+            { "voice": "open_hat", "steps": "x.x.x.x. x.x.x.x." },
+            { "voice": "crash", "steps": "X....... ........" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{"parts":[{"id":"chords","role":"chords","name":"Distorted Power Chords","low":"G2","high":"D5","grid":2,"velocity":108,"blocks":[{"startBar":1,"endBar":4,"rhythm":"x-x-x-x-","voicing":"power","articulation":"staccato"},{"startBar":5,"endBar":8,"rhythm":"x-x-x-x-","voicing":"power","articulation":"staccato"}]},{"id":"bass","role":"bass","name":"Driving Pick Bass","low":"G1","high":"G3","grid":2,"velocity":106,"blocks":[{"startBar":1,"endBar":4,"rhythm":"R-R-R-R-"},{"startBar":5,"endBar":8,"rhythm":"R-R-R-R-"}]},{"id":"drums","role":"drums","name":"Arena Rock Kit","low":"C1","high":"C6","grid":2,"velocity":112,"blocks":[{"startBar":1,"endBar":4,"fill":"tom_run","drums":[{"voice":"kick","steps":"x...x..."},{"voice":"snare","steps":"....X..."},{"voice":"closed_hat","steps":"x.x.x.x."},{"voice":"crash","steps":"X......."}]},{"startBar":5,"endBar":8,"fill":"crash_end","drums":[{"voice":"kick","steps":"X...x..."},{"voice":"snare","steps":"....X..."},{"voice":"open_hat","steps":"x.x.x.x."},{"voice":"crash","steps":"X......."}]}]}]}

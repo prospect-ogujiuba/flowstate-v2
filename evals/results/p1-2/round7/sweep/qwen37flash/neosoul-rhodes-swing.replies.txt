@@ -1,0 +1,149 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dusty Dorian Nights",
+  "context": {
+    "swing": 0.18,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    },
+    {
+      "name": "Chorus Lift",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | Fmaj7:2 A7#9:2 | Dm9:4 | Bb13:4 | Cmaj7:4 | G13:4",
+  "motifs": [
+    {
+      "id": "mel_idea",
+      "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5"
+    },
+    {
+      "id": "counter_idea",
+      "notes": "7:.5 5:.5 3:1 5:.5 7:.5 8:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x... x..- .x.. -..- | x... x..- .x.. -..-",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wurlitzer Lead",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "mel_idea",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "mel_idea",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "mel_idea",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "counter_idea",
+          "transforms": [
+            "retrograde"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Lo-Fi Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x. ..x..... "
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.xgx."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

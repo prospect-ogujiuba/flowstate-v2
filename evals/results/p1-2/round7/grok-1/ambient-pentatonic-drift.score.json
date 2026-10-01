@@ -1,0 +1,113 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sparse Ambient",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "ambient"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.35
+    }
+  ],
+  "harmony": "C:8 | Am:8",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "1:3 3:2 5:3 r:2 2:3 1:2 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-------",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 44,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-------"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-------"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Floating Lead",
+      "low": "C4",
+      "high": "C7",
+      "grid": 2,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 6,
+          "motif": "m1",
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Textural Perc",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 38,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "closed_hat",
+              "steps": "........"
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.......x......."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

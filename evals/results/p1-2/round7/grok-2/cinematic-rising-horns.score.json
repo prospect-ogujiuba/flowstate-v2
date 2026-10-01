@@ -1,0 +1,166 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Cinematic D minor build",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    },
+    {
+      "name": "Build",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "Dm:8 | Bb:8 | F:8 | C:8",
+  "motifs": [
+    {
+      "id": "horn",
+      "notes": "5:2 4:1 3:1 2:2 1:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "String pad",
+      "low": "G2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x------- x------- | x------- x------- | x------- x------- | x------- x-------",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Low strings",
+      "low": "D1",
+      "high": "D3",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R------- -------- | R------- -------- | R------- -------- | R------- --------"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R------- ----R--- | R------- ----R--- | R------- ----R--- | R------- ----R---"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "French horn",
+      "low": "D3",
+      "high": "A4",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "horn",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "horn",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "horn",
+          "transforms": [
+            "transpose:+4"
+          ],
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "horn",
+          "transforms": [
+            "transpose:+7"
+          ],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Timpani & toms",
+      "low": "C1",
+      "high": "C4",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x------- --------"
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "-------- x-------"
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x------- x-------"
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "-------- x-------"
+            },
+            {
+              "voice": "high_tom",
+              "steps": "----x--- ----x---"
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

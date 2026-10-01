@@ -98,10 +98,10 @@ std::vector<RawNote> realizeBassPart(const PartEnv& env) {
         if (blk.rhythm) {
             auto pat = env.pattern(b, *blk.rhythm, "R3578axXg-.", "rhythm");
             for (const auto& ev : stepEvents(pat, b.bars())) {
-                Tick raw = env.stepTick(b, ev.step);
+                Tick raw = env.stepTick(b, ev.step, pat);
                 if (!env.owns(b.index, raw)) continue;
-                evs.push_back({ev.token, raw, env.swungStep(b, ev.step),
-                               std::min(env.swungStep(b, ev.step + ev.length), b.end)});
+                evs.push_back({ev.token, raw, env.swungStep(b, ev.step, pat),
+                               std::min(env.swungStep(b, ev.step + ev.length, pat), b.end)});
             }
         } else {
             // No rhythm: root on every chord change, held.

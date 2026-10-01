@@ -114,3 +114,25 @@ Same planner as round 5; one plan-only run each through OpenRouter (`round6/`):
 
 - The Flash Lite models are about twice as fast as Gemini 3.6 Flash, but less reliable. Every plan still invalid after two repairs had step-count slips: a bar written at another resolution (8 or 32 steps where 16 were expected), or stray `-` or `r` tokens.
 - GPT mini at low is valid but too slow for the targets.
+
+## Round 7: thinking off, a wider sweep, and bars at another resolution (2026-10-01)
+
+Three changes:
+- **Thinking off.** `--reasoning off` sends no thinking level, which pi-ai turns into "thinking disabled" (DeepSeek `thinking: disabled`, OpenRouter `effort: "none"`). Before, a level a model lacks was silently raised to the next one it has (pi-ai's `clampThinkingLevel`): DeepSeek's "minimal" was really "low", which is why it thought for 70–105 s in round 1.
+- **A wider sweep** (`round7/sweep/`, one plan-only run each, before the next change): 10 fast models from 8 vendors with thinking off, plus Gemini 3.6 Flash at minimal as a control. Step counts were the failure for every vendor. Across all runs so far, 3,942 bars had the wrong length: 26% exactly half, 24% exactly double, 11% four times, 14% off by 1–3 steps.
+- **Bars at another resolution** (IR semantics, core and the planner's validator): a bar whose length is a whole multiple or divisor of the expected count is read at that resolution and spread evenly over the bar, instead of tiled or truncated. Sampled cases show this is what the models mean (`"x...x..."` on a 16-step kick bar is beats 1 and 3, not four on the floor). `-` in a drum lane, a rest per the spec, is no longer rejected. Re-checking the sweep's first attempts offline, this alone would have avoided 10 of DeepSeek Flash's 15 repairs, and about half on most models.
+
+With all three, two plan-only runs each on the five most promising models (`round7/<model>-<n>/`):
+
+| Model (via) | Reasoning | Valid | First part p50 / p95 | Full plan p50 / p95 | First parts under 3 s | Repairs |
+| --- | --- | --- | --- | --- | --- | --- |
+| DeepSeek `deepseek-flash` (DeepSeek) | off | **40/40** | **2.26 s** / 5.4 s | **4.18 s** / 7.0 s | 27 of 40 | 4, 3 |
+| Google `gemini-3.1-flash-lite` (OpenRouter) | off | 39/40 | 2.03 s / 5.8 s | 3.57 s / 7.7 s | 29 of 39 | 4, 0 |
+| Google `gemini-3.6-flash` (OpenRouter) | minimal | 40/40 | 3.12 s / 7.3 s | 6.93 s / 11.3 s | 18 of 40 | 3, 4 |
+| OpenAI `gpt-6-luna` (OpenRouter) | off | 38/40 | 4.16 s / 9.5 s | 9.60 s / 14.1 s | 3 of 38 | 5, 3 |
+| xAI `grok-4.3` (OpenRouter) | off | 34/40 | 3.94 s / 11.2 s | 7.14 s / 13.5 s | 9 of 34 | 6, 9 |
+
+- DeepSeek Flash with thinking off meets both P1-2 targets (first part under 3 s, full plan under 8 s) with every plan valid. Gemini 3.1 Flash Lite is as fast, with one failure in 40.
+- What still fails is genuine counting slips (15 steps for 16, 17 for 18) and one malformed JSON reply.
+- Sweep models not carried forward: Claude Haiku 4.5 (15/20, first part 6.0 s), Kimi K2.6 (13/20, 13 s), Mistral Medium 3.1 (9/20), Qwen 3.7 Flash (8/20, rate limits), GPT-5.4 nano (0/20: wrong lengths and numbers for `low`/`high`). GLM 5.3 Flash did not finish.
+- Whether these plans sound good is for the blind listening pack, not these numbers.
