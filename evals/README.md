@@ -12,7 +12,9 @@ Run these from `evals/`, or with `npm run -w evals <script>` from the repo root.
 | `npm run metrics -- <dir> [--prompts prompts/phase0.json]` | Computes symbolic metrics for every `*.notes.json` in `<dir>`. It prints a markdown table and writes `<dir>/metrics.json`. `npm run metrics:v1` is a shortcut for `out/v1`. |
 | `npm run ab -- --a out/v2 --b out/v1 --name <pack> --seed <n>` | Builds `ab/packs/<pack>/`. Each prompt gets a folder `NN-<id>/` holding `option-1.mid`, `option-2.mid` (in seeded random order) and `prompt.txt`. The pack also gets `scoresheet.csv` and `README.txt`. The hidden key is written to `ab/packs/<pack>.key.json`, outside the pack folder. |
 | `npm run ab:score -- --key ab/packs/<pack>.key.json sheet.csv [more sheets...] --v2-dir out/v2 [--min-listeners N]` | Joins the filled sheet(s) with the key. It prints v2's win rate, an exact binomial sign test and the mean score deltas (v2 − v1), per listener and pooled, then a Gate A checklist. |
-| `npm test` | Runs node:test tests for the SMF writer and the sign test. |
+| `npm run render -- ab/packs/<pack>` | Renders a pack to audio for listening without a DAW: `option-1.mp3` and `option-2.mp3` in each folder, plus `player.html` at the pack root (see "Rendered listening"). Needs ffmpeg and the SoundFont (`npm run soundfont`). |
+| `npm run soundfont` | Downloads the GeneralUser GS SoundFont (free for any use) into `soundfonts/`, which git ignores, and checks its pinned checksum. |
+| `npm test` | Runs node:test tests for the SMF writer and reader, the sign test and the render templates. |
 
 v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2`). It writes the same `<id>.mid` / `<id>.notes.json` pairs.
 
@@ -24,6 +26,16 @@ v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/promp
 - **Chords:** average voice movement between consecutive onsets. For each note in the new chord, take its smallest semitone distance to any note in the previous chord, then sum.
 - **Drums:** velocity range, and ghost share (hits at velocity 55 or below).
 - **Per file:** out-of-key share. This is the share of pitched notes outside the prompt's tonic/mode. The prompt is matched by the filename id.
+
+## Rendered listening
+
+Setting up instruments in a DAW for every prompt takes longer than the listening, and a quick stock setup can hide what the notes do. `npm run render` plays each blind MIDI file through a fixed General MIDI sound template and writes loudness-matched MP3s (same integrated loudness, so neither option wins by being louder), then writes `player.html`:
+
+- Open `player.html` from the pack folder in a browser. Per prompt it loops both options; <kbd>1</kbd> and <kbd>2</kbd> switch between them at the same position.
+- Fill in the scores there. They are kept in the browser as you go; **Save scoresheet.csv** downloads a sheet in the same format `ab:score` reads.
+- The sound template comes from the prompt's style tags (eight families in `src/render-templates.ts`: 808, 909, dusty, brushes, cinematic, afro, rock, acoustic), and instrument words in the prompt set the role named in the same clause ("an eerie bell melody" plays the melody on bells). Both options of a prompt always share a template. Edit the table to change a sound; keep it stable between rounds so scores stay comparable.
+
+Rendering takes about 7 seconds per prompt. GeneralUser GS is a General MIDI bank: consistent and decent, not production quality. If a template sounds wrong for a style, fix the table rather than judging around it.
 
 ## Phase 0 A/B procedure
 

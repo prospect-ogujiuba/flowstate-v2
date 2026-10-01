@@ -8,12 +8,15 @@
     "metrics:v1": "tsx src/metrics.ts out/v1 --prompts prompts/phase0.json",
     "ab": "tsx src/build-ab-pack.ts",
     "ab:score": "tsx src/score-ab.ts",
+    "render": "tsx src/render-pack.ts",
+    "soundfont": "bash scripts/fetch-soundfont.sh",
     "test": "tsx --test src/*.test.ts",
     "typecheck": "tsc -p ."
   },
   "dependencies": {
-    "@flowstate/schema": "*",
     "@flowstate/cloud": "*",
+    "@flowstate/schema": "*",
+    "spessasynth_core": "^4.3.22",
     "zod": "^4.1.0"
   }
 }

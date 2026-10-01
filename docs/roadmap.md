@@ -132,6 +132,7 @@ Done so far (2026-10-01):
 - **Targets met** on DeepSeek `deepseek-flash` with thinking off (two runs, `evals/results/p1-2/round7/`): 40/40 valid, first part p50 2.3 s, full plan p50 4.2 s. Gemini 3.1 Flash Lite: 39/40, 2.0 s and 3.6 s.
 
 - Blind listening (owner, `evals/results/p1-2/pack-fast-vs-careful/`): fast (DeepSeek Flash, off) against careful (GPT-5.5, high) preferred 7 to 11 with 1 tie, p = 0.48; musicality 2.74 vs 2.89 of 5. No clear quality cost, but both score low, lowest on groove-defined styles (afrobeats, gospel, funk), which is P1-3's work.
+- Rendered listening (`npm run -w evals render`, `evals/README.md`): a pack renders to loudness-matched MP3s through fixed per-genre General MIDI templates, with a `player.html` that switches options in sync and saves the score sheet. Listening no longer needs a DAW setup per prompt, and every round sounds the same.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:
