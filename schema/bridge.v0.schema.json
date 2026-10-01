@@ -219,50 +219,59 @@
                 "type": "string"
               },
               "notes": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "degree": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991,
-                      "description": "1-based scale degree of the mode; 8 = tonic an octave up"
-                    },
-                    "octave": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991,
-                      "description": "Octave offset from the part's register centre"
-                    },
-                    "alter": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991,
-                      "description": "-1, 0 or +1 semitone chromatic alteration"
-                    },
-                    "beat": {
-                      "type": "number",
-                      "description": "Onset offset in beats from motif start (0-based)"
-                    },
-                    "beats": {
-                      "type": "number",
-                      "description": "Duration in beats"
-                    },
-                    "accent": {
-                      "type": "boolean"
-                    }
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "description": "Compact form: \"<pitch>:<beats>[!]\" tokens played in sequence, e.g. \"5:.75! 4:.25 b3:1 r:.5 1+:1/3\""
                   },
-                  "required": [
-                    "degree",
-                    "octave",
-                    "alter",
-                    "beat",
-                    "beats",
-                    "accent"
-                  ],
-                  "additionalProperties": false
-                }
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "degree": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991,
+                          "description": "1-based scale degree of the mode; 8 = tonic an octave up"
+                        },
+                        "octave": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991,
+                          "description": "Octave offset from the part's register centre"
+                        },
+                        "alter": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991,
+                          "description": "-1, 0 or +1 semitone chromatic alteration"
+                        },
+                        "beat": {
+                          "type": "number",
+                          "description": "Onset offset in beats from motif start (0-based)"
+                        },
+                        "beats": {
+                          "type": "number",
+                          "description": "Duration in beats"
+                        },
+                        "accent": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "degree",
+                        "octave",
+                        "alter",
+                        "beat",
+                        "beats",
+                        "accent"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Note-object form (older scores)"
+                  }
+                ]
               }
             },
             "required": [

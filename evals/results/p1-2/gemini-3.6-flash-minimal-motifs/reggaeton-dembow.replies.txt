@@ -1,0 +1,197 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Reggaeton Romantico",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.0,
+    "style": ["reggaeton", "latin"]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Gm"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Eb"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "romantic_lead",
+      "notes": "5:1.5! 4:.5 3:1 | 2:.5 1:.5 2:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pluck Synth",
+      "low": "G3",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x...x. ..x...x.|..x...x. ..x...x.|..x...x. ..x...x.|..x...x. ..x...x.",
+          "voicing": "close",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "G1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..R. ..R. ....|R--- ..R. ..R. ....|R--- ..R. ..R. ....|R--- ..R. ..a. ....",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Romantic Lead Synth",
+      "low": "G4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "romantic_lead",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "romantic_lead",
+          "transforms": [
+            "transpose:-1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dembow Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x...|x...x...x...x...|x...x...x...x...|x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "...x..x....x..x.|...x..x....x..x.|...x..x....x..x.|...x..x....x..x."
+            },
+            {
+              "voice": "rim",
+              "steps": "...X..X....X..X.|...X..X....X..X.|...X..X....X..X.|...X..X....X..X."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x...x...x...x.|..x...x...x...x.|..x...x...x...x.|..x...x...x...x."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
+```

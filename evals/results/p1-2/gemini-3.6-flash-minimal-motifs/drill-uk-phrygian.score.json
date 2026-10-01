@@ -1,0 +1,202 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "UK Drill Dark Piano Loop",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "F"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "F"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "Am"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "drill_lead",
+      "notes": "1:0.5 b2:0.5 1:0.5 r:0.5 | b2:0.5 3:0.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Grand Piano",
+      "low": "E2",
+      "high": "E4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... .... x--- | .... .... x--- .... | x--- .... .... x--- | .... x--- .... ....",
+          "voicing": "close",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub 808",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..R- --8- .... | R--- ..R- --a- .... | R--- ..R- --8- .... | R--- ..R- -8-- a...",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Filtered Stabs",
+      "low": "E4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "drill_lead",
+          "transforms": [],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "drill_lead",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Drum Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .... | x... .... ..x. .... | x... .... .... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... ..X. .... | .... .... ..X. ..g. | .... .... ..X. .... | .... .... ..X. .X.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx x.x. xx.x x.x. | x.xx x.xx .xxx x.x. | x.xx x.x. xx.x x.x. | x.xx x.xx .xxx x.xx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... .... | .... ..x. .... .... | .... ..x. .... .... | .... ..x. .... ...."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... .... .... ..x. | .... .... .... .... | .... .... .... ..x. | .... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

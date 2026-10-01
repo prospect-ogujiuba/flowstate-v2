@@ -1,0 +1,204 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Clav Funk in E",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "A13"
+    },
+    {
+      "bar": 3,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "E9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "D9"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "B7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "r:.5 5:.25 6:.25 5:.5 3:.5 r:.5 1:.5 2:.5 b3:.25 3:.75"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x..x ..x. .x.. x.x. | x..x ..x. .x.. ..x. | x..x ..x. x..x ..x. | x.x. .x.. x..x ..x.",
+          "voicing": "shell",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X..g ..x. g.x. 5.a. | X..g ..x. g.8. ..5. | X..g ..x. 5.x. g.X. | X..g ..5. x.g. 3.a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Funk guitar lead",
+      "low": "E4",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hook",
+          "transforms": null,
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x ..x. .x.. ..x. | x..x ..x. .x.. .... | x..x ..x. .x.. ..x. | x..x ..x. .x.x ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X..g .g.. X..g | .... X..g .g.. X..g | .... X..g .g.. X..g | .... X..g .g.. X.gX"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xgxg xgxg xgxg xgxg | xgxg xgxg xgxg xgxg | xgxg xgxg xgxg xgxg | xgxg xgxg xgxg xgxg"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x. | .... .... .... ..x. | .... .... .... ..x. | .... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

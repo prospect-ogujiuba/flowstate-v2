@@ -279,6 +279,58 @@ TEST_CASE("motif transforms: transpose, invert, retrograde, displace, augment, o
     CHECK(ticks == std::vector<Tick>{0, 480, 960});
 }
 
+TEST_CASE("motif notes as a compact string realize the same as the note array") {
+    json s = baseScore();
+    s["context"]["bars"] = 2;
+    auto realizeWith = [&](json notes) {
+        json t = s;
+        t["motifs"] = json::array({json{{"id", "m"}, {"notes", notes}}});
+        json b = block(1, 2);
+        b["motif"] = "m";
+        b["repeatEvery"] = 0;
+        t["parts"] = json::array({part("lead", "melody", "C3", "C6", 4, json::array({b}))});
+        return run(t, 1, false);
+    };
+    auto note = [](int degree, int octave, int alter, double beat, double beats, bool accent) {
+        return json{{"degree", degree}, {"octave", octave}, {"alter", alter}, {"beat", beat}, {"beats", beats}, {"accent", accent}};
+    };
+    // Rests move the onset; fractions give triplets; marks give octave, alteration and accent.
+    Realization fromArray = realizeWith(json::array({
+        note(5, 0, 0, 0, 0.75, true), note(4, 0, 0, 0.75, 0.25, false), note(3, 0, -1, 1, 1, false),
+        note(1, 1, 0, 2.5, 1.0 / 3, false), note(2, -1, 1, 2.5 + 1.0 / 3, 1.0 / 3, false), note(8, 0, 0, 3.5, 1.5, false)}));
+    Realization fromString = realizeWith("5:.75! 4:.25 b3:1 | r:.5 1+:1/3 #2-:1/3 r:1/3 8:1.5");
+    REQUIRE(fromArray.parts[0].notes.size() == 6);
+    REQUIRE(fromString.parts[0].notes.size() == fromArray.parts[0].notes.size());
+    for (std::size_t i = 0; i < fromArray.parts[0].notes.size(); ++i) {
+        const auto& a = fromArray.parts[0].notes[i];
+        const auto& b = fromString.parts[0].notes[i];
+        CHECK(a.tick == b.tick);
+        CHECK(a.dur == b.dur);
+        CHECK(a.pitch == b.pitch);
+        CHECK(a.vel == b.vel);
+    }
+    CHECK(fromString.warnings == fromArray.warnings);
+}
+
+TEST_CASE("bad motif string tokens are skipped with a warning") {
+    json s = baseScore();
+    s["context"]["bars"] = 1;
+    s["motifs"] = json::array({json{{"id", "m"}, {"notes", "1:1 x:.5 3 5:0 q5:.5 5++-:.5 5:1"}}});
+    json b = block(1, 1);
+    b["motif"] = "m";
+    b["repeatEvery"] = 0;
+    s["parts"] = json::array({part("lead", "melody", "C3", "C6", 4, json::array({b}))});
+    Realization r = run(s, 1, false);
+    // "x:.5", "q5:.5" and "5++-:.5" are rests of their length; "3" and "5:0" are skipped.
+    REQUIRE(r.parts[0].notes.size() == 2);
+    CHECK(r.parts[0].notes[0].tick == 0);
+    CHECK(r.parts[0].notes[1].tick == 2400);  // beat 2.5
+    int motifWarnings = 0;
+    for (const auto& w : r.warnings)
+        if (w.rfind("motifs[0].notes token", 0) == 0) ++motifWarnings;
+    CHECK(motifWarnings == 5);
+}
+
 TEST_CASE("melody sketch: rhythm only gives a stepwise, chord-anchored line") {
     json s = baseScore();
     s["context"]["bars"] = 4;

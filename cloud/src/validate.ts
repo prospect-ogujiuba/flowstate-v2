@@ -12,6 +12,18 @@ const STEP_TOKENS: Record<string, RegExp> = {
 };
 
 const NOTE_NAME = /^[A-G](#|b)?-?\d$/;
+// Compact motif token: <pitch>:<beats>[!], pitch r or [b|#]degree with +/- octave marks, beats decimal or fraction.
+const MOTIF_TOKEN = /^(r|[b#]?\d{1,2}(\++|-+)?):(\d*\.?\d+|\d+\/\d+)!?$/;
+
+function checkMotifString(id: string, notes: string, errors: string[]) {
+  for (const token of notes.trim().split(/\s+/)) {
+    if (token === "|" || token === "") continue;
+    const m = MOTIF_TOKEN.exec(token);
+    const beats = m ? (m[3]!.includes("/") ? Number(m[3]!.split("/")[0]) / Number(m[3]!.split("/")[1]) : Number(m[3])) : NaN;
+    if (!m || !(beats > 0) || !Number.isFinite(beats))
+      errors.push(`motif ${id}: bad token '${token}' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)`);
+  }
+}
 
 function checkSteps(label: string, steps: string, tokens: RegExp, stepsPerBar: number, errors: string[]) {
   const bars = steps.replace(/\s+/g, "").split("|");
@@ -46,6 +58,7 @@ export function validateScore(score: Score): string[] {
   }
 
   const motifIds = new Set(score.motifs.map((m) => m.id));
+  for (const m of score.motifs) if (typeof m.notes === "string") checkMotifString(m.id, m.notes, errors);
   const partIds = new Set<string>();
   for (const part of score.parts) {
     if (partIds.has(part.id)) errors.push(`duplicate part id '${part.id}'`);

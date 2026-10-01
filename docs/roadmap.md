@@ -124,9 +124,10 @@ Done so far (2026-10-01):
 - `--reasoning` on the CLI. `run.json` records the reasoning level, first-token, first-text and first-part p50/p95, and the unplayable parts; `<id>.replies.txt` keeps the raw replies.
 - Parts-only repair: when the head is sound, a repair turn asks only for the broken or missing parts, and they stream in too. A head that breaks the request's hard constraints (key, bars, meter) plays nothing.
 - Round 1 on the full Phase 0 set (`evals/results/p1-2/`): Gemini 3.6 Flash (OpenRouter) at reasoning minimal is 20/20 valid, first text p50 0.8 s, first playable part p50 5.1 s, full plan p50 10.2 s (from 84 s for Gemini 3.1 Pro at high in P1-1). Sonnet at low effort (claude-code) is 20/20, first part 20.5 s, full 24.4 s. Symbolic metrics stay in the P1-1 range; no listening yet. DeepSeek Flash keeps thinking at any effort (70–105 s); the Anthropic API account has no credit.
-- What is left: about 4 s of head before the first part (target 3 s), and 8 of 20 plans needing a repair turn (target 8 s full). The repairs are mostly step-count slips.
+- Compact motif strings (IR change, additive: the note-object form is still accepted). `"5:.75! 4:.25 b3:1 r:.5 1+:1/3"`: tokens in sequence, onsets implied. Core parses both forms identically; the spec teaches the string. On Gemini Flash minimal: motifs 384 → 98 B (median) while twice as long, head 1056 → 710 B, first part p50 5.1 → 4.4 s, full plan p50 10.4 s, 20/20 valid. On Sonnet low: motifs 597 → 101 B, first part 20.5 → 16.6 s, full 24.4 → 22.3 s, 20/20. No repair came from a motif token.
+- What is left: about 3.5 s from first text to first part (target 3 s total), and 8–11 of 20 plans needing a repair turn (target 8 s full). The repairs are mechanical slips: step counts, `-` in drum lanes, enum values, constraint misses.
 
-Next: a smaller head (a compact motif encoding, or motifs after the parts that don't use them; an IR change); fewer repairs (a clearer step-count rule in the spec, with P1-3); blind listening on the Gemini Flash minimal plans to check quality before choosing it.
+Next: fewer repairs (a clearer step-count rule in the spec, with P1-3); a smaller first part (block fields that may be omitted instead of written as null are about a fifth of the score); blind listening on the Gemini Flash minimal plans before choosing it.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:

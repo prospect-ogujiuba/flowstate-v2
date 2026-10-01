@@ -36,3 +36,20 @@ What the numbers say:
 - Anthropic API runs could not be made: the account has no credit.
 
 Whether the fast plans sound good enough is for blind listening, not these metrics.
+
+## Round 2: compact motif strings (2026-10-01)
+
+Motif notes are now written as a compact string (`"5:.75! 4:.25 b3:1 r:.5 1+:1/3"`, see `docs/ir-spec.md`) instead of note objects, so the head is smaller. Same prompt set and planner; the IR spec in the prompt now teaches the string form.
+
+| Folder | Backend / model | Valid | First part p50 / p95 | Full plan p50 / p95 | Repairs | Head (median) | Motifs (median) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `gemini-3.6-flash-minimal/` (round 1) | OpenRouter `google/gemini-3.6-flash`, minimal | 20/20 | 5.1 s / 7.6 s | 10.2 s / 17.3 s | 8 | 1056 B | 384 B, 5 notes |
+| `gemini-3.6-flash-minimal-motifs/` | same | 20/20 | 4.4 s / 6.9 s | 10.4 s / 14.5 s | 11 | 710 B | 98 B, 10 tokens |
+| `sonnet-low/` (round 1) | claude-code `sonnet`, low | 20/20 | 20.5 s / 27.1 s | 24.4 s / 35.8 s | 2 | 1209 B | 597 B |
+| `sonnet-low-motifs/` | same | 20/20 | 16.6 s / 21.7 s | 22.3 s / 29.7 s | 8 | 814 B | 101 B |
+
+- Every motif (27/27 on Gemini, 37/37 on Sonnet) was written in the string form, and no repair came from a motif token.
+- Gemini's repairs are the same mechanical slips as round 1 (step counts, `-` in drum lanes, enum values, constraint misses); 8 against 11 is within run-to-run noise.
+- Sonnet's repairs rose from 2 to 8. Two were broken JSON (mismatched brackets; a JavaScript `.replace(...)` call inside a string), two were step counts or `-`, and three were a drums block that left out the required `notes: null` key. That omission happened once in round 1 too (1 of 153 blocks, against 3 of 131 now). Overloading the name `notes` (motif string vs block literal notes) may play a part, but the sample is small. Letting block fields be omitted would remove this class of error.
+- Bytes before the first part fell from 1.47 to 1.08 KB, and the first part came 0.7 s sooner. Motifs got longer (10 tokens against 5 notes) while their bytes fell to a quarter.
+- Metrics stay in range. Gemini: chords/bar 11.31, melody/bar 3.54, pcEntropy 2.78, onsetEntropy 2.36, voiceMove 8.36, ghostShare 0.18, outOfKey 0.07. Melodies are a little more stepwise (step share 0.61 → 0.67) and less repetitive (0.25 → 0.18). Sonnet: chords/bar 10.69, melody/bar 3.71, pcEntropy 2.77, onsetEntropy 2.36, voiceMove 9.25, ghostShare 0.21, outOfKey 0.05, step share 0.60 → 0.66, repetition 0.13 → 0.09.

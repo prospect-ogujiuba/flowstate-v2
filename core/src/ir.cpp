@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <cmath>
 #include <set>
 #include <utility>
@@ -176,6 +177,85 @@ T clampWarn(Reader& r, T value, T lo, T hi, const std::string& path) {
         return c;
     }
     return value;
+}
+
+// A motif's notes in the compact string form: whitespace-separated tokens played one after another.
+// "<pitch>:<beats>[!]", where pitch is "r" (rest) or [b|#]<degree> plus "+"/"-" marks per octave up/down,
+// and beats is a decimal or a fraction ("1/3"). "|" tokens are visual bar marks and are ignored.
+// Onsets are the running sum of durations. Bad tokens are skipped with a warning.
+std::optional<double> parseBeats(const std::string& t) {
+    if (t.empty()) return std::nullopt;
+    auto parseDecimal = [](const std::string& d) -> std::optional<double> {
+        if (d.empty() || d.find_first_not_of("0123456789.") != std::string::npos) return std::nullopt;
+        if (std::count(d.begin(), d.end(), '.') > 1 || d == ".") return std::nullopt;
+        return std::stod(d.front() == '.' ? "0" + d : d);
+    };
+    std::optional<double> v;
+    if (auto slash = t.find('/'); slash != std::string::npos) {
+        auto num = parseDecimal(t.substr(0, slash)), den = parseDecimal(t.substr(slash + 1));
+        if (num && den && *den > 0) v = *num / *den;
+    } else {
+        v = parseDecimal(t);
+    }
+    if (!v || !std::isfinite(*v) || *v <= 0) return std::nullopt;
+    return v;
+}
+
+std::vector<MotifNote> parseMotifString(Reader& r, const std::string& text, const std::string& path) {
+    std::vector<MotifNote> notes;
+    double at = 0.0;
+    std::size_t index = 0;
+    std::size_t pos = 0;
+    while (pos < text.size()) {
+        std::size_t start = text.find_first_not_of(" \t\n\r", pos);
+        if (start == std::string::npos) break;
+        std::size_t end = text.find_first_of(" \t\n\r", start);
+        if (end == std::string::npos) end = text.size();
+        std::string tok = text.substr(start, end - start);
+        pos = end;
+        if (tok == "|") continue;
+        std::string tp = path + " token " + std::to_string(++index) + " \"" + tok + "\"";
+
+        bool accent = !tok.empty() && tok.back() == '!';
+        if (accent) tok.pop_back();
+        auto colon = tok.find(':');
+        if (colon == std::string::npos) {
+            r.warn(tp, "expected <pitch>:<beats>; skipped");
+            continue;
+        }
+        auto beats = parseBeats(tok.substr(colon + 1));
+        if (!beats) {
+            r.warn(tp, "duration must be a positive number or fraction; skipped");
+            continue;
+        }
+        std::string pitch = tok.substr(0, colon);
+        if (pitch == "r") {
+            at += *beats;
+            continue;
+        }
+        MotifNote mn;
+        mn.beat = at;
+        mn.beats = *beats;
+        mn.accent = accent;
+        std::size_t i = 0;
+        if (i < pitch.size() && (pitch[i] == 'b' || pitch[i] == '#')) mn.alter = pitch[i++] == 'b' ? -1 : 1;
+        std::size_t digits = i;
+        while (digits < pitch.size() && std::isdigit(static_cast<unsigned char>(pitch[digits]))) ++digits;
+        std::string marks = pitch.substr(digits);
+        bool up = marks.find_first_not_of('+') == std::string::npos;
+        bool down = marks.find_first_not_of('-') == std::string::npos;
+        if (digits == i || digits - i > 2 || (!up && !down)) {
+            r.warn(tp, "unknown pitch; played as a rest");
+            at += *beats;
+            continue;
+        }
+        mn.degree = std::stoi(pitch.substr(i, digits - i));
+        int octave = static_cast<int>(marks.size()) * (up ? 1 : -1);
+        mn.octave = clampWarn(r, octave, -4, 4, tp + " octave");
+        notes.push_back(mn);
+        at += *beats;
+    }
+    return notes;
 }
 
 Context parseContext(Reader& r, const json& j) {
@@ -361,7 +441,9 @@ Score parseScore(const std::string& jsonText, std::vector<std::string>& warnings
             std::string mp = "motifs[" + std::to_string(i) + "]";
             Motif motif;
             motif.id = r.string(m, "id", "", mp);
-            if (const json* notes = r.array(m, "notes", mp, true)) {
+            if (m.is_object() && m.contains("notes") && m.at("notes").is_string()) {
+                motif.notes = parseMotifString(r, m.at("notes").get<std::string>(), mp + ".notes");
+            } else if (const json* notes = r.array(m, "notes", mp, true)) {
                 for (std::size_t k = 0; k < notes->size(); ++k) {
                     const json& n = (*notes)[k];
                     std::string np = mp + ".notes[" + std::to_string(k) + "]";

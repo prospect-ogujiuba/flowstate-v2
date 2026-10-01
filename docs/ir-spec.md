@@ -58,13 +58,21 @@ The machine-readable source of truth is `schema/score.ts` (a Zod schema). `schem
 
 ### Motif
 
-`{ id, notes: MotifNote[] }`, where `MotifNote` is `{ degree, octave, alter, beat, beats, accent }`:
+`{ id, notes }`. Write `notes` as a compact string of tokens, played one after another:
 
-- `degree`: a 1-based scale degree of the current mode (1 = tonic). Degrees above 7 or below 1 wrap into neighbouring octaves (8 = tonic, one octave up; 0 = the 7th degree, one octave down).
-- `octave`: an offset relative to the part's register centre.
-- `alter`: −1, 0 or +1 semitone, for chromatic notes that are intended.
-- `beat` and `beats`: onset and duration relative to the motif start, in beats (0-based offset).
-- `accent`: raises velocity.
+```
+"notes": "5:.75! 4:.25 b3:1 | r:.5 1+:1/3 #2-:1/3 r:1/3 8:1.5"
+```
+
+- Each token is `<pitch>:<beats>`, with an optional `!` for an accent (raises velocity). Tokens are separated by spaces.
+- `<pitch>` is a 1-based scale degree of the current mode (1 = tonic), or `r` for a rest. Degrees above 7 or below 1 wrap into neighbouring octaves (8 = tonic, one octave up; 0 = the 7th degree, one octave down).
+  - A `b` or `#` prefix alters the degree by a semitone, for chromatic notes that are intended.
+  - Each trailing `+` or `-` moves it an octave up or down from the part's register centre (`5+`, `1--`).
+- `<beats>` is the duration in beats: a decimal (`1`, `.5`, `1.5`) or a fraction (`1/3` for a triplet).
+- Onsets are implied: each note starts where the previous token ended. Leave gaps with rests. Notes in a motif don't overlap.
+- A `|` token is a visual mark (e.g. at a bar line) and has no timing effect.
+
+**Older form**, still accepted: `notes: MotifNote[]` with `MotifNote = { degree, octave, alter, beat, beats, accent }`. `beat` is the onset from the motif start (0-based) and `alter` is −1, 0 or +1. The two forms realize identically.
 
 ## Part
 
@@ -133,7 +141,7 @@ These are the behaviours that matter when writing an IR. The full list is in `co
 - **Energy:** velocity × `1 + (energy − 0.6) × 0.5`, clamped to 0.6–1.25.
 - **Chords and pads:** a held hit that crosses a chord change is re-struck at the change. Holds stop at chord gaps. With no rhythm, each chord is struck once and held. Default voicing is `close` for chords and `open` for pads. If a voicing doesn't fit the range, the next fallback is tried, then close, with a warning.
 - **Bass:** `7` on a chord without a 7th uses the scale's 7th. `a` approaches the next chord's root by a semitone; after the last chord it approaches the first (the clip loops). A slash bass is the root for `R x X g`.
-- **Motifs:** in 5- and 6-note scales, degrees wrap by the scale size. `augment` and `diminish` take an optional factor (`augment:1.5`). A motif that leaves the range is shifted whole by octaves first, so its contour survives.
+- **Motifs:** in 5- and 6-note scales, degrees wrap by the scale size. In the compact string, a token that can't be read is skipped with a warning; one with a readable duration but an unknown pitch becomes a rest of that length. `augment` and `diminish` take an optional factor (`augment:1.5`). A motif that leaves the range is shifted whole by octaves first, so its contour survives.
 - **Fills** cover the last `max(1, numerator/2)` beats of the block's last bar (`half_time_break` covers the whole bar) and replace the snare, tom and hat hits there.
 - **Drums** ignore `low`/`high`. `-` in a drum lane is a rest.
 - **Literal notes:** `bar` is the absolute clip bar. Timing is exact, not quantized.
@@ -156,11 +164,7 @@ These are the behaviours that matter when writing an IR. The full list is in `co
     { "bar": 4, "beat": 1, "beats": 2, "symbol": "Fmaj7" },
     { "bar": 4, "beat": 3, "beats": 2, "symbol": "A7#9" }
   ],
-  "motifs": [ { "id": "m1", "notes": [
-    { "degree": 5, "octave": 0, "alter": 0, "beat": 0, "beats": 0.75, "accent": true },
-    { "degree": 4, "octave": 0, "alter": 0, "beat": 0.75, "beats": 0.25, "accent": false },
-    { "degree": 3, "octave": 0, "alter": 0, "beat": 1, "beats": 1, "accent": false },
-    { "degree": 1, "octave": 0, "alter": 0, "beat": 2.5, "beats": 1.5, "accent": false } ] } ],
+  "motifs": [ { "id": "m1", "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5" } ],
   "parts": [
     { "id": "keys", "role": "chords", "name": "Rhodes", "low": "A2", "high": "D5", "grid": 4, "velocity": 76,
       "blocks": [ { "startBar": 1, "endBar": 4, "rhythm": "x--- ..x- .x-- ....", "voicing": "rootless" } ] },

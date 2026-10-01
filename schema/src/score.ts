@@ -69,7 +69,10 @@ export const MotifNote = z.object({
 
 export const Motif = z.object({
   id: z.string(),
-  notes: z.array(MotifNote),
+  notes: z.union([
+    z.string().describe('Compact form: "<pitch>:<beats>[!]" tokens played in sequence, e.g. "5:.75! 4:.25 b3:1 r:.5 1+:1/3"'),
+    z.array(MotifNote).describe("Note-object form (older scores)"),
+  ]),
 });
 
 export const DrumLane = z.object({

@@ -1,0 +1,68 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 262,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 80,
+        "minPitch": 51,
+        "maxPitch": 75,
+        "rangeLow": 48,
+        "rangeHigh": 79,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 24,
+        "minPitch": 29,
+        "maxPitch": 41,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 18,
+        "minPitch": 67,
+        "maxPitch": 84,
+        "rangeLow": 60,
+        "rangeHigh": 84,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 140,
+        "minPitch": 36,
+        "maxPitch": 49,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 3
+          },
+          {
+            "sublane": "hats",
+            "notes": 78
+          },
+          {
+            "sublane": "kick",
+            "notes": 24
+          },
+          {
+            "sublane": "snare",
+            "notes": 35
+          }
+        ]
+      }
+    ]
+  }
+}

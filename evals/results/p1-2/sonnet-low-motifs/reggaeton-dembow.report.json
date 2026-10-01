@@ -1,0 +1,70 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"D7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 181,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 52,
+        "minPitch": 55,
+        "maxPitch": 72,
+        "rangeLow": 55,
+        "rangeHigh": 74,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 16,
+        "minPitch": 31,
+        "maxPitch": 39,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 22,
+        "minPitch": 79,
+        "maxPitch": 91,
+        "rangeLow": 67,
+        "rangeHigh": 91,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 91,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 7
+          },
+          {
+            "sublane": "hats",
+            "notes": 42
+          },
+          {
+            "sublane": "kick",
+            "notes": 16
+          },
+          {
+            "sublane": "snare",
+            "notes": 26
+          }
+        ]
+      }
+    ]
+  }
+}

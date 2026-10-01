@@ -1,0 +1,323 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Rolling Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.1,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 6,
+      "symbol": "Ab"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Fm7"
+    },
+    {
+      "bar": 2,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Bbm7"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Db"
+    },
+    {
+      "bar": 3,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Dbm6"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Ab/Eb"
+    },
+    {
+      "bar": 4,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "F7"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Bbm9"
+    },
+    {
+      "bar": 5,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb13"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Abmaj7"
+    },
+    {
+      "bar": 6,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Ab7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Dbmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Dbm6"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 3,
+      "symbol": "Ab/Eb"
+    },
+    {
+      "bar": 8,
+      "beat": 4,
+      "beats": 3,
+      "symbol": "Eb7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:1.5! 6:.5 5:1 | 3:3 | r:.5 3:.5 5:1 6:1.5! 5:.5 | 3:2"
+    },
+    {
+      "id": "m2",
+      "notes": "8:1.5! 7:.5 6:1 | 5:3 | 6:1 5:.5 3:.5 2:1 3:.5 | 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Gospel piano",
+      "low": "Ab2",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x--x--",
+          "voicing": "drop2",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Round bass",
+      "low": "E1",
+      "high": "Ab2",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--..-5--8-a",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Hammond organ",
+      "low": "C4",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": null,
+          "repeatEvery": 12,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m2",
+          "transforms": null,
+          "repeatEvery": 12,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 12,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "m2",
+          "transforms": null,
+          "repeatEvery": 12,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "......X....g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xgx.x.xgx."
+            }
+          ],
+          "fill": "tom_run",
+          "notes": null,
+          "articulation": null
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x.xx.."
+            },
+            {
+              "voice": "snare",
+              "steps": "..g...X..g.g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xgx.x.xgx."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.....x....."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}

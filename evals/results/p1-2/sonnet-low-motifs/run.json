@@ -1,0 +1,406 @@
+{
+  "backend": {
+    "name": "claude-code",
+    "provider": "claude-code",
+    "model": "sonnet",
+    "reasoning": "low"
+  },
+  "at": "2026-10-01T14:00:35.668Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 20,
+    "valid": 20,
+    "validityRate": 1,
+    "latencyP50Ms": 22341,
+    "latencyP95Ms": 29692,
+    "firstTokenP50Ms": 3807,
+    "firstTextP50Ms": 12952,
+    "firstPartP50Ms": 16582,
+    "firstPartP95Ms": 21650,
+    "partsStreamed": 20
+  },
+  "results": [
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 21065,
+      "firstTokenMs": 5462,
+      "firstTextMs": 14995,
+      "firstPartMs": 17128,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2210,
+        "cacheReadTokens": 2550
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 26891,
+      "firstTokenMs": 5430,
+      "firstTextMs": 17768,
+      "firstPartMs": 21650,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 3290,
+        "cacheReadTokens": 2550
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 27518,
+      "firstTokenMs": 5244,
+      "firstTextMs": 5244,
+      "firstPartMs": 8243,
+      "usage": {
+        "inputTokens": 6,
+        "outputTokens": 3073,
+        "cacheReadTokens": 20036
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "blocks.0.notes: Invalid input: expected array, received undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 29529,
+      "firstTokenMs": 5369,
+      "firstTextMs": 14571,
+      "firstPartMs": 18408,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 3600,
+        "cacheReadTokens": 11293
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 snare: bar 1 of pattern has 17 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 15465,
+      "firstTokenMs": 3651,
+      "firstTextMs": 7619,
+      "firstPartMs": 10584,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 1958,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 22341,
+      "firstTokenMs": 3717,
+      "firstTextMs": 14986,
+      "firstPartMs": 17617,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2547,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 28462,
+      "firstTokenMs": 3807,
+      "firstTextMs": 3807,
+      "firstPartMs": 7680,
+      "usage": {
+        "inputTokens": 6,
+        "outputTokens": 3912,
+        "cacheReadTokens": 26229
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "?",
+          "errors": [
+            "not JSON: SyntaxError: Expected ',' or '}' after property value in JSON at position 280 (line 1 column 281)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 12144,
+      "firstTokenMs": 2709,
+      "firstTextMs": 2709,
+      "firstPartMs": 6623,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 1707,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 26978,
+      "firstTokenMs": 3075,
+      "firstTextMs": 18143,
+      "firstPartMs": 21544,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 3523,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 14434,
+      "firstTokenMs": 2857,
+      "firstTextMs": 2857,
+      "firstPartMs": 6335,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 1523,
+        "cacheReadTokens": 17486
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "blocks.0.notes: Invalid input: expected array, received undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 17771,
+      "firstTokenMs": 4062,
+      "firstTextMs": 4062,
+      "firstPartMs": 7549,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 1553,
+        "cacheReadTokens": 17486
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "perc",
+          "errors": [
+            "blocks.0.notes: Invalid input: expected array, received undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 19096,
+      "firstTokenMs": 3352,
+      "firstTextMs": 3352,
+      "firstPartMs": 6830,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 1881,
+        "cacheReadTokens": 17486
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "blocks.0.notes: Invalid input: expected array, received undefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 29692,
+      "firstTokenMs": 3287,
+      "firstTextMs": 20293,
+      "firstPartMs": 23986,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 3955,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 31160,
+      "firstTokenMs": 4051,
+      "firstTextMs": 15194,
+      "firstPartMs": 19383,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 3681,
+        "cacheReadTokens": 17486
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 2 ride: invalid step token '-'",
+            "part drums block 2 ride: invalid step token '-'",
+            "part drums block 2 ride: invalid step token '-'",
+            "part drums block 2 ride: invalid step token '-'",
+            "part drums block 2 ride: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 22501,
+      "firstTokenMs": 3822,
+      "firstTextMs": 13465,
+      "firstPartMs": 17169,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2968,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 21304,
+      "firstTokenMs": 3243,
+      "firstTextMs": 12685,
+      "firstPartMs": 16092,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2840,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 21602,
+      "firstTokenMs": 2965,
+      "firstTextMs": 12952,
+      "firstPartMs": 16582,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 3034,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 18784,
+      "firstTokenMs": 5893,
+      "firstTextMs": 5893,
+      "firstPartMs": 8792,
+      "usage": {
+        "inputTokens": 4,
+        "outputTokens": 1420,
+        "cacheReadTokens": 17486
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 rim: bar 1 of pattern has 4 steps, expected 16",
+            "part drums block 1 rim: bar 2 of pattern has 7 steps, expected 16",
+            "part drums block 1 rim: bar 3 of pattern has 4 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 22662,
+      "firstTokenMs": 6512,
+      "firstTextMs": 16641,
+      "firstPartMs": 18948,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2326,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 25007,
+      "firstTokenMs": 6480,
+      "firstTextMs": 16612,
+      "firstPartMs": 20170,
+      "usage": {
+        "inputTokens": 2,
+        "outputTokens": 2924,
+        "cacheReadTokens": 8743
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Choir of Ash",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "trap",
+      "cinematic"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Cm"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Db"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Db"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "G7b9"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "menace",
+      "notes": "1:.75! 2:.25 1:.5 r:.5 5:1 r:1 | r:.5 4:.5 3:.5 2:.5 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "choir",
+      "role": "chords",
+      "name": "Dark choir",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---------------",
+          "voicing": "open",
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "rhythm": "R-----.gR--.R-..",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "R--.--R-..R-..a.",
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Dark brass lead",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "menace",
+          "transforms": null,
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": "menace",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8,
+          "drums": null,
+          "fill": null,
+          "notes": null,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": null,
+          "voicing": null,
+          "arpPattern": null,
+          "motif": null,
+          "transforms": null,
+          "repeatEvery": null,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x......x..x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "........X......."
+            },
+            {
+              "voice": "clap",
+              "steps": "........x......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.xxx.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..............x."
+            }
+          ],
+          "fill": "snare_roll",
+          "notes": null,
+          "articulation": null
+        }
+      ]
+    }
+  ]
+}
