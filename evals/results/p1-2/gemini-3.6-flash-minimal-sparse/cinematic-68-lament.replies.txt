@@ -1,0 +1,141 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Haunting Celtic Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": ["cinematic", "folk"]
+  },
+  "form": [
+    { "name": "Statement", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Answer", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 2, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 3, "beat": 1, "beats": 6, "symbol": "G" },
+    { "bar": 4, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 5, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 6, "beat": 1, "beats": 6, "symbol": "C" },
+    { "bar": 7, "beat": 1, "beats": 6, "symbol": "G" },
+    { "bar": 8, "beat": 1, "beats": 6, "symbol": "Am" }
+  ],
+  "motifs": [
+    {
+      "id": "lament_phrase",
+      "notes": "1:1.5 3:1.5 | 2:1 3:.5 2:1 1:.5 | 0:1.5 2:1.5 | 1:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pad & Strings Drones",
+      "low": "A2",
+      "high": "E4",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x-----",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Drone Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wooden Flute",
+      "low": "A3",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament_phrase",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lament_phrase",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Bodhrán Frame Drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x.....|x.....x.....|x.....x.....|x.....x.....|x.....x.....|x.....x.....|x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "..x..x..x..x|..x..x..x..x|..x..x..x..x|..x..x..x..x|..x..x..x..x|..x..x..x..x|..x..x..x..x"
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "tom_run",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "..x..x..x..x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

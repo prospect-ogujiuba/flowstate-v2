@@ -26,3 +26,15 @@ describe("validateScore motifs", () => {
     assert.deepEqual(errors.map((e) => e.match(/'([^']*)'/)![1]), ["x:1", "3", "5:0", "5++-:1", "1:1/0"]);
   });
 });
+
+describe("validateScore blocks", () => {
+  it("accepts blocks that leave out the fields that do not apply", () => {
+    const strip = (v: unknown): unknown =>
+      Array.isArray(v) ? v.map(strip)
+        : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).filter(([, x]) => x !== null).map(([k, x]) => [k, strip(x)]))
+        : v;
+    const sparse = { ...score, parts: strip(score.parts) };
+    assert.notEqual(JSON.stringify(sparse).length, JSON.stringify(score).length);
+    assert.deepEqual(validateScore(Score.parse(sparse)), []);
+  });
+});

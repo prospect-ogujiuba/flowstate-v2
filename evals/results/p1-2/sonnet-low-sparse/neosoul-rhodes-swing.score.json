@@ -1,0 +1,253 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Smoky Rhodes pocket",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.3,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.68
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "G13"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Em9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Fmaj7"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "A7#9"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dm11"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Bbmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Em7"
+    },
+    {
+      "bar": 7,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "A7b9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "Dm9"
+    },
+    {
+      "bar": 8,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "G13"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "r:.5 5:.75! 4:.25 3:1 r:.5 1:1"
+    },
+    {
+      "id": "m2",
+      "notes": "r:1 3:.5 5:.5 6:1.5! 5:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- ..x- .x-- .... | x--- --.. ..x- ....",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "R--- ..g. 5.R. ..a."
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.. 7.a."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Muted flute",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m2",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m2",
+          "transforms": [
+            "octave:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Lazy kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x. ..x..... | x.....x. ..x...x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g | ....X..g ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.xgx."
+            },
+            {
+              "voice": "shaker",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x. ..x..... | x..x..x. ..x...x."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g | g...X... ....X..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xgx.x. x.x.xgxg"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "........ ......x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

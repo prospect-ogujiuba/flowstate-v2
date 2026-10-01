@@ -88,7 +88,7 @@ The machine-readable source of truth is `schema/score.ts` (a Zod schema). `schem
 
 ### Block
 
-A block covers `startBar..endBar` (inclusive). Only the fields that matter for the part's role are read; the others are `null`.
+A block covers `startBar..endBar` (inclusive). Only the fields that matter for the part's role are read. Leave the others out; a field that is absent and one that is `null` mean the same.
 
 | Field | Roles | Meaning |
 | --- | --- | --- |
@@ -182,4 +182,4 @@ These are the behaviours that matter when writing an IR. The full list is in `co
 }
 ```
 
-In the example, block fields that are not shown are `null`. The Zod schema requires every key, so outputs are schema-stable.
+In the example, block fields that do not apply are left out. Every other key is required.

@@ -312,6 +312,19 @@ TEST_CASE("motif notes as a compact string realize the same as the note array") 
     CHECK(fromString.warnings == fromArray.warnings);
 }
 
+TEST_CASE("block fields left out realize the same as null") {
+    json full = json::parse(readFixture("example.json"));
+    json omitted = full;
+    for (auto& p : omitted["parts"])
+        for (auto& b : p["blocks"])
+            for (auto it = b.begin(); it != b.end();)
+                it = it.value().is_null() ? b.erase(it) : std::next(it);
+    REQUIRE(omitted.dump() != full.dump());
+    Realization a = run(full, 7), b = run(omitted, 7);
+    CHECK(writeSmf(a) == writeSmf(b));
+    CHECK(a.warnings == b.warnings);
+}
+
 TEST_CASE("bad motif string tokens are skipped with a warning") {
     json s = baseScore();
     s["context"]["bars"] = 1;

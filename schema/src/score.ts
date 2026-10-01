@@ -91,16 +91,16 @@ export const LiteralNote = z.object({
 export const Block = z.object({
   startBar: z.number().int(),
   endBar: z.number().int().describe("Inclusive"),
-  rhythm: z.string().nullable().describe("Step string; tokens depend on role (see spec)"),
-  voicing: Voicing.nullable(),
-  arpPattern: ArpPattern.nullable(),
-  motif: z.string().nullable().describe("Motif id for melody/counter"),
-  transforms: z.array(z.string()).nullable().describe("e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"),
-  repeatEvery: z.number().nullable().describe("Motif repeat period in beats; 0 = once"),
-  drums: z.array(DrumLane).nullable(),
-  fill: Fill.nullable(),
-  notes: z.array(LiteralNote).nullable(),
-  articulation: Articulation.nullable(),
+  rhythm: z.string().nullable().optional().describe("Step string; tokens depend on role (see spec)"),
+  voicing: Voicing.nullable().optional(),
+  arpPattern: ArpPattern.nullable().optional(),
+  motif: z.string().nullable().optional().describe("Motif id for melody/counter"),
+  transforms: z.array(z.string()).nullable().optional().describe("e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"),
+  repeatEvery: z.number().nullable().optional().describe("Motif repeat period in beats; 0 = once"),
+  drums: z.array(DrumLane).nullable().optional(),
+  fill: Fill.nullable().optional(),
+  notes: z.array(LiteralNote).nullable().optional(),
+  articulation: Articulation.nullable().optional(),
 });
 
 export const Part = z.object({

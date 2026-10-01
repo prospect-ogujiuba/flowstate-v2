@@ -25,7 +25,7 @@ What good looks like:
 
 Honour the request's explicit constraints (key, mode, bars, meter, tempo, lanes) exactly. Where the request is vague, choose boldly and musically rather than blandly. Only include the lanes requested.
 
-The IR specification follows. Follow it exactly: step strings must have exactly (beats per bar x grid) steps per bar, and every key is present, with null for block fields that do not apply.
+The IR specification follows. Follow it exactly: step strings must have exactly (beats per bar x grid) steps per bar. Every key is present, except block fields that do not apply to the part's role: leave those out.
 
 Reply with the score as a single JSON object and nothing else.
 

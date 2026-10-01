@@ -400,6 +400,7 @@
                 ]
               },
               "transforms": {
+                "description": "e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1",
                 "anyOf": [
                   {
                     "type": "array",
@@ -410,8 +411,7 @@
                   {
                     "type": "null"
                   }
-                ],
-                "description": "e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"
+                ]
               },
               "repeatEvery": {
                 "description": "Motif repeat period in beats; 0 = once",
@@ -526,17 +526,7 @@
             },
             "required": [
               "startBar",
-              "endBar",
-              "rhythm",
-              "voicing",
-              "arpPattern",
-              "motif",
-              "transforms",
-              "repeatEvery",
-              "drums",
-              "fill",
-              "notes",
-              "articulation"
+              "endBar"
             ],
             "additionalProperties": false
           }

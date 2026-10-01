@@ -53,3 +53,19 @@ Motif notes are now written as a compact string (`"5:.75! 4:.25 b3:1 r:.5 1+:1/3
 - Sonnet's repairs rose from 2 to 8. Two were broken JSON (mismatched brackets; a JavaScript `.replace(...)` call inside a string), two were step counts or `-`, and three were a drums block that left out the required `notes: null` key. That omission happened once in round 1 too (1 of 153 blocks, against 3 of 131 now). Overloading the name `notes` (motif string vs block literal notes) may play a part, but the sample is small. Letting block fields be omitted would remove this class of error.
 - Bytes before the first part fell from 1.47 to 1.08 KB, and the first part came 0.7 s sooner. Motifs got longer (10 tokens against 5 notes) while their bytes fell to a quarter.
 - Metrics stay in range. Gemini: chords/bar 11.31, melody/bar 3.54, pcEntropy 2.78, onsetEntropy 2.36, voiceMove 8.36, ghostShare 0.18, outOfKey 0.07. Melodies are a little more stepwise (step share 0.61 → 0.67) and less repetitive (0.25 → 0.18). Sonnet: chords/bar 10.69, melody/bar 3.71, pcEntropy 2.77, onsetEntropy 2.36, voiceMove 9.25, ghostShare 0.21, outOfKey 0.05, step share 0.60 → 0.66, repetition 0.13 → 0.09.
+
+## Round 3: block fields may be left out (2026-10-01)
+
+Block fields that don't apply to a part's role may now be left out instead of written as `null` (IR change, additive: nulls are still accepted; core treats both the same, and a test checks the MIDI is byte-identical). The prompt now says to leave them out. Motif strings from round 2 stay.
+
+| Folder | Backend / model | Valid | First part p50 / p95 | Full plan p50 / p95 | Repairs | Score (median) | Before first part |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `gemini-3.6-flash-minimal-motifs/` (round 2) | OpenRouter `google/gemini-3.6-flash`, minimal | 20/20 | 4.4 s / 6.3 s | 10.4 s / 14.5 s | 11 | 2968 B | 1079 B |
+| `gemini-3.6-flash-minimal-sparse/` | same | 20/20 | 3.8 s / 6.2 s | **7.3 s** / 13.4 s | 4 | 2225 B | 996 B |
+| `sonnet-low-motifs/` (round 2) | claude-code `sonnet`, low | 20/20 | 16.6 s / 21.7 s | 22.3 s / 29.7 s | 8 | 3167 B | 1208 B |
+| `sonnet-low-sparse/` | same | 20/20 | 15.9 s / 23.1 s | 20.1 s / 31.7 s | 5 | 2042 B | 988 B |
+
+- Both models left out every unused field (0 nulls per block, from about 7). Scores shrank by a quarter to a third.
+- Gemini Flash minimal meets the full-plan target (7.3 s p50 against 8 s). Fewer bytes also meant fewer repairs on both models (11 → 4, 8 → 5), though the samples are small.
+- The first part moved less (996 B before it): the head is now most of that, and harmony is its largest piece (344 B median for 8 chords on Gemini).
+- Metrics stay in range. Gemini: chords/bar 10.30, melody/bar 3.20, pcEntropy 2.87, onsetEntropy 2.29, voiceMove 8.41, ghostShare 0.16, outOfKey 0.08, step share 0.57, repetition 0.15. Sonnet: chords/bar 11.46, melody/bar 3.54, pcEntropy 2.78, onsetEntropy 2.36, voiceMove 8.96, ghostShare 0.24, outOfKey 0.05, step share 0.60, repetition 0.15.

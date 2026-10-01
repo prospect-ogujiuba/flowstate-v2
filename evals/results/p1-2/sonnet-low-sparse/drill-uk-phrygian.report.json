@@ -1,0 +1,66 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Fmaj7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 125,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 27,
+        "minPitch": 50,
+        "maxPitch": 67,
+        "rangeLow": 48,
+        "rangeHigh": 67,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 13,
+        "minPitch": 28,
+        "maxPitch": 39,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 12,
+        "minPitch": 67,
+        "maxPitch": 83,
+        "rangeLow": 64,
+        "rangeHigh": 83,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 73,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 39
+          },
+          {
+            "sublane": "kick",
+            "notes": 13
+          },
+          {
+            "sublane": "snare",
+            "notes": 21
+          }
+        ]
+      }
+    ]
+  }
+}

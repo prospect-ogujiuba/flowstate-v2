@@ -1,0 +1,72 @@
+{
+  "warnings": [
+    "harmony[4] \"Bdm\": partly unrecognised chord symbol \"Bdm\"; using \"B\"",
+    "voicing: \"open\" cannot voice \"Db\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Bdm\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 127,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 15,
+        "minPitch": 55,
+        "maxPitch": 72,
+        "rangeLow": 55,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 11,
+        "minPitch": 24,
+        "maxPitch": 25,
+        "rangeLow": 24,
+        "rangeHigh": 36,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 18,
+        "minPitch": 69,
+        "maxPitch": 76,
+        "rangeLow": 60,
+        "rangeHigh": 79,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 83,
+        "minPitch": 36,
+        "maxPitch": 49,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 1
+          },
+          {
+            "sublane": "hats",
+            "notes": 57
+          },
+          {
+            "sublane": "kick",
+            "notes": 6
+          },
+          {
+            "sublane": "snare",
+            "notes": 19
+          }
+        ]
+      }
+    ]
+  }
+}

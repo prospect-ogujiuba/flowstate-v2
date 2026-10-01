@@ -1,0 +1,179 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning Gospel Ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.15,
+    "style": ["gospel", "soul"]
+  },
+  "form": [
+    { "name": "Verse", "startBar": 1, "bars": 4, "energy": 0.55 },
+    { "name": "Chorus", "startBar": 5, "bars": 4, "energy": 0.75 }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 6, "symbol": "Ab" },
+    { "bar": 2, "beat": 1, "beats": 3, "symbol": "Fm7" },
+    { "bar": 2, "beat": 4, "beats": 3, "symbol": "Bb9" },
+    { "bar": 3, "beat": 1, "beats": 3, "symbol": "Bbm7" },
+    { "bar": 3, "beat": 4, "beats": 3, "symbol": "Eb7b9" },
+    { "bar": 4, "beat": 1, "beats": 3, "symbol": "Abmaj7" },
+    { "bar": 4, "beat": 4, "beats": 3, "symbol": "Eb7sus4" },
+    { "bar": 5, "beat": 1, "beats": 6, "symbol": "Dbmaj7" },
+    { "bar": 6, "beat": 1, "beats": 3, "symbol": "C7b9" },
+    { "bar": 6, "beat": 4, "beats": 3, "symbol": "Fm9" },
+    { "bar": 7, "beat": 1, "beats": 3, "symbol": "Bbm11" },
+    { "bar": 7, "beat": 4, "beats": 3, "symbol": "Eb13" },
+    { "bar": 8, "beat": 1, "beats": 6, "symbol": "Ab" }
+  ],
+  "motifs": [
+    {
+      "id": "organ_call",
+      "notes": "3:1 5:1 1+:1 | 2+:2 1+:1 | b7:1.5 6:1.5 | 5:3"
+    },
+    {
+      "id": "organ_response",
+      "notes": "6:1 1+:1 2+:1 | 3+:2.5 r:.5 | 2+:1 1+:1 6:1 | 5:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano & Pads",
+      "low": "Ab2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--x-- x--x-- | x--x-- x--x-- | x--x-- x--x-- | x--x-- x--x--",
+          "voicing": "open",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-x-x- x-x-x- | x--x-- x--x-- | x-x-x- x-x-x- | x----- ------",
+          "voicing": "spread",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Bass",
+      "low": "C1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--.5. R--.a. | R--.5. R--.a. | R--.5. R--.a. | R--.5. R--.a.",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--3-- 5--R-- | R--.5. R--.a. | R--3-- 5--a-- | R----- ------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Hammond Organ Lead",
+      "low": "C4",
+      "high": "Ab6",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "organ_call",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "organ_response",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gospel Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... ...... | x..... ..x... | x..... ...... | x..... ...x.."
+            },
+            {
+              "voice": "snare",
+              "steps": "...... x..... | ...... x..... | ...... x..... | ...... x....."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.x.x. x.x.x. | x.x.x. x.x.x. | x.x.x. x.x.x. | x.x.x. x.x.x."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.. | ...x.. ...x.."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..... ......"
+            },
+            {
+              "voice": "snare",
+              "steps": "...... x.x.x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.x.x. ......"
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "...x.. ......"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

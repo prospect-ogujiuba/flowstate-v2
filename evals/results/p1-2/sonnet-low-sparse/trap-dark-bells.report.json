@@ -1,0 +1,71 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Amaj7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"G#7b9\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 113,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "pad",
+        "role": "chords",
+        "notes": 14,
+        "minPitch": 49,
+        "maxPitch": 66,
+        "rangeLow": 48,
+        "rangeHigh": 67,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 10,
+        "minPitch": 25,
+        "maxPitch": 33,
+        "rangeLow": 25,
+        "rangeHigh": 40,
+        "outOfKey": 0
+      },
+      {
+        "id": "bells",
+        "role": "melody",
+        "notes": 12,
+        "minPitch": 73,
+        "maxPitch": 87,
+        "rangeLow": 72,
+        "rangeHigh": 91,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 77,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 3
+          },
+          {
+            "sublane": "hats",
+            "notes": 45
+          },
+          {
+            "sublane": "kick",
+            "notes": 14
+          },
+          {
+            "sublane": "snare",
+            "notes": 15
+          }
+        ]
+      }
+    ]
+  }
+}

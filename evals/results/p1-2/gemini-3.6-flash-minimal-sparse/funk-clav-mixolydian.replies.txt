@@ -1,0 +1,158 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight Funk Clavinet Groove",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.08,
+    "style": ["funk"]
+  },
+  "form": [
+    {
+      "name": "Main Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E7"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "E7"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "A7"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 2,
+      "symbol": "B7"
+    },
+    {
+      "bar": 4,
+      "beat": 3,
+      "beats": 2,
+      "symbol": "D7"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "funk_lead",
+      "notes": "r:.5 1:.25 b3:.25 | 3:.5 5:.5 8:.25 b7:.25 5:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.x x..x .x.x x... | .x.x x..x .x.x x.x. | .x.x x..x .x.x x... | .x.x ..x. .x.x x.x.",
+          "voicing": "drop2",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X..g .8.g .X.g .a.R | X..g .8.g .X.g .a.R | X..g .8.g .X.g .a.R | X.5. .R.g .X.g .a.R",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead",
+      "low": "E4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "funk_lead",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "funk_lead",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. ..x. .x.. | x... ..x. ..x. .... | x... ..x. ..x. .x.. | x... ..x. .x.. x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .g.. X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ...x .... ...x | .... ...x .... ...x | .... ...x .... ...x | .... ...x .... ...x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
