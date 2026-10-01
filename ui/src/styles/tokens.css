@@ -1,0 +1,134 @@
+/* Flowstate design tokens (P1-8). Values come from v1's JUCE UI (../flowstate/Source/ui) and its
+   design tree; docs/design/README.md maps each token to its v1 source. The UI is dark-only, like v1.
+   Components use these tokens and never raw colours. */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --bg: #070708;
+  --bg-texture:
+    radial-gradient(ellipse at 50% 55%, rgb(255 255 255 / 0.018), transparent 60%),
+    radial-gradient(circle, rgb(255 255 255 / 0.045) 0 1px, transparent 1.6px) 0 0 / 9px 9px,
+    radial-gradient(circle, rgb(255 255 255 / 0.03) 0 1px, transparent 1.6px) 4.5px 4.5px / 9px 9px;
+  --bar-bg:                                             /* header-bg.png: dark wood grain */
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 0.018) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(177deg, rgb(0 0 0 / 0.25) 0 2px, transparent 2px 7px),
+    linear-gradient(180deg, #121214, #0b0b0d);
+  --footer-bg: #000000;
+  --surface: #1f1f22;                                   /* popup menu */
+  --surface-2: #21262c;                                 /* assistant bubble, cards */
+  --surface-3: #2a2f36;
+  --control: #222222;                                   /* nav and secondary buttons */
+  --control-hover: #2e2e2e;
+  --control-press: #484f66;                             /* v1 pressed header button (72,82,118) */
+  --input-bg: #f6f8fc;                                  /* v1 settings fields are light */
+  --input-text: #15171c;
+  --input-border: rgb(0 0 0 / 0.12);
+  --input-disabled: rgb(246 248 252 / 0.55);
+  --prompt-bg: rgb(255 255 255 / 0.1);                  /* chat box shell */
+  --prompt-field: rgb(0 0 0 / 0.3);
+  --overlay: rgb(8 9 12 / 0.62);                        /* modal scrim */
+  --glass: rgb(255 255 255 / 0.086);                    /* header icon buttons (alpha 22) */
+
+  /* Lines */
+  --line: rgb(255 255 255 / 0.15);                      /* field outline (alpha 38) */
+  --line-soft: rgb(255 255 255 / 0.094);
+  --line-strong: #5c5c5c;                               /* nav button outline */
+
+  /* Text */
+  --text: rgb(246 248 255 / 0.93);
+  --text-2: rgb(232 236 255 / 0.72);
+  --text-3: #bec4d2;
+  --placeholder: #878787;
+
+  /* Brand and interaction */
+  --accent: #ffe800;                                    /* v1's yellow: active nav, track chip, submit */
+  --accent-hover: #fff04d;
+  --accent-press: #e0cc00;
+  --accent-soft: rgb(255 232 0 / 0.14);
+  --on-accent: #10100d;
+  --focus: #96e1ff;                                     /* v1 focus outline */
+  --user: #1088ff;                                      /* user message bubble */
+  --idea: #ffcc33;                                      /* lightning / lightbulb icons */
+
+  /* Status */
+  --ok: #56ff64;
+  --warn: #ffc15c;
+  --danger: #ff7480;
+  --danger-solid: #be202e;
+  --danger-solid-hover: #e02d3c;
+  --toast-info: #1c233a;
+  --toast-ok: #18422d;
+  --toast-warn: #4e3a14;
+  --toast-error: #4e1c26;
+
+  /* Level meter: green to red, with v1's stops */
+  --meter-low: #34e157;
+  --meter-mid: #f6f13c;
+  --meter-high: #ff7e1f;
+  --meter-clip: #ff362b;
+  --meter-peak: rgb(255 255 255 / 0.82);
+  --meter-gradient: linear-gradient(90deg, var(--meter-low) 0%, var(--meter-mid) 78%, var(--meter-high) 95%, var(--meter-clip) 100%);
+  --meter-track: rgb(21 25 30 / 0.73);
+
+  /* Part colours for lanes and the piano roll (v2 addition; v1 had one lane colour) */
+  --part-chords: #96e1ff;
+  --part-bass: #ffc15c;
+  --part-melody: #ffe800;
+  --part-drums: #ff7480;
+  --part-extra: #56ff64;
+
+  /* Type: v1 drew with JUCE's default system sans */
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-2xs: 10.5px;   /* footer, track chip */
+  --text-xs: 11px;      /* nav buttons, helper text */
+  --text-sm: 12px;      /* inputs, selects */
+  --text-md: 12.5px;    /* form labels, modal buttons */
+  --text-base: 13px;    /* body, toasts */
+  --text-lg: 14px;      /* message titles, sheet body */
+  --text-xl: 16px;      /* section titles */
+  --text-2xl: 21px;     /* sheet titles */
+  --weight-regular: 400;
+  --weight-bold: 700;
+  --leading: 1.35;
+
+  /* Spacing: 4 px base, plus v1's 10 (inner padding) and 28 (header side padding) */
+  --space-0: 2px;
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;       /* gap */
+  --space-4: 10px;      /* inner padding */
+  --space-5: 12px;      /* outer padding */
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 28px;
+
+  /* Radii */
+  --radius-sm: 4px;     /* fields, nav buttons */
+  --radius-md: 6px;
+  --radius-lg: 10px;    /* cards, lanes */
+  --radius-xl: 14px;    /* sheets (v1 modalCornerRadius) */
+  --radius-2xl: 24px;   /* prompt box */
+  --radius-pill: 999px;
+
+  /* Sizes */
+  --control-h: 26px;
+  --control-h-sm: 20px;
+  --bar-h: 60px;        /* v1 header */
+  --footer-h: 40px;     /* v1 footer */
+
+  /* Elevation */
+  --shadow-sheet: 0 18px 48px rgb(0 0 0 / 0.6);
+  --shadow-toast: 0 6px 20px rgb(0 0 0 / 0.45);
+
+  /* Motion */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; }
+}

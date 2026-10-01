@@ -12,6 +12,7 @@ on:
       - "core/**"
       - "schema/**"
       - "ui/**"
+      - "package-lock.json"
       - ".github/workflows/plugin.yml"
   pull_request:
   workflow_dispatch:
@@ -57,6 +58,23 @@ jobs:
             libxcomposite-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxrender-dev \
             libgl1-mesa-dev xvfb
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build the UI
+        shell: bash
+        run: npm ci && npm run build:ui
+
+      # Compiler cache: JUCE is most of the compile, and it doesn't change between runs. Keyed per
+      # job; the build ID lives in one generated file (plugin/src/BuildId.cpp.in) so hits survive.
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: plugin-${{ matrix.name }}
+          max-size: 1G
+
       - name: Build id
         shell: bash
         run: echo "FLOWSTATE_BUILD_ID=$(git rev-parse --short HEAD)-${{ github.run_number }}" >> "$GITHUB_ENV"
@@ -66,6 +84,7 @@ jobs:
         run: >
           cmake -S plugin -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release
           "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+          -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           "-DFLOWSTATE_BUILD_ID=$FLOWSTATE_BUILD_ID"
 
       - name: Configure (Windows, Ninja + MSVC)
@@ -74,12 +93,16 @@ jobs:
         run: >
           cmake -S plugin -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release
           -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl
+          -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           "-DFLOWSTATE_BUILD_ID=$FLOWSTATE_BUILD_ID"
 
+      # No LTO: this job only tests and ships nothing, so LTO would only slow it down.
       - name: Configure (Linux, headless)
         if: runner.os == 'Linux'
         run: >
           cmake -S plugin -B "$BUILD_DIR" -G Ninja -DCMAKE_BUILD_TYPE=Release
+          -DFLOWSTATE_PLUGIN_LTO=OFF
+          -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           "-DFLOWSTATE_BUILD_ID=$FLOWSTATE_BUILD_ID"
 
       - name: Build

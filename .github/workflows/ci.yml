@@ -49,4 +49,6 @@ jobs:
             echo "::error::Generated files are stale. Run 'npm run schema' and commit the result."
             exit 1
           fi
-      - run: npm run -ws --if-present test
+      - name: Playwright browsers (UI tests)
+        run: npx -w ui playwright install --with-deps chromium webkit
+      - run: npm run --workspaces --if-present test

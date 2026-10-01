@@ -1,5 +1,6 @@
 #include "PluginProcessor.h"
 
+#include "BuildId.h"
 #include "MidiFiles.h"
 
 namespace flowstate::plugin {
@@ -22,7 +23,7 @@ FlowstateProcessor::FlowstateProcessor()
 #else
     : juce::AudioProcessor(BusesProperties().withOutput("Output", juce::AudioChannelSet::stereo(), true)),
 #endif
-      session(juce::Uuid().toDashedString().toStdString(), FLOWSTATE_BUILD_ID),
+      session(juce::Uuid().toDashedString().toStdString(), kBuildId),
       controller(session, *this) {
     controller.onChanged = [this] { sessionChanged(); };
     snapshotState();

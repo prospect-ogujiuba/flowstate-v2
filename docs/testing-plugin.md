@@ -4,6 +4,12 @@ How to build the Flowstate plugin, run its automated tests, validate it, and che
 
 ## 1. Configure
 
+The plugin bundles the built UI from `ui/dist`, so build it first, and again after UI changes (the next plugin build picks it up):
+```sh
+npm ci && npm run build:ui
+```
+Configuring a WebView build (macOS, Windows) without it fails with `No built UI in .../ui/dist`. The headless Linux build only warns.
+
 Pick the block for your OS. Each creates `build/plugin` and is needed once, or again after pulling CMake changes.
 
 macOS (native architecture; CI builds universal):
@@ -108,18 +114,50 @@ Expected: each ends with `AU VALIDATION SUCCEEDED.`
 
 ## 5. Install into a DAW
 
-Copy the built bundles (or the CI artifacts from the `plugin` workflow run, named `flowstate-macos-universal` and `flowstate-windows-x64`):
+Install either your own build (below) or a CI build from GitHub Actions. Every push that touches the plugin runs the `plugin` workflow. A green run keeps two artifacts for 30 days, `flowstate-windows-x64` and `flowstate-macos-universal`, each with a `BUILD_ID` file (`<commit>-<run>`). The macOS bundles are only ad-hoc signed until P1-14, so macOS blocks them until the quarantine flag is cleared. The install scripts do that.
 
-| OS | VST3 | AU |
-| --- | --- | --- |
-| Windows | `C:\Program Files\Common Files\VST3\` | — |
-| macOS | `~/Library/Audio/Plug-Ins/VST3/` | `~/Library/Audio/Plug-Ins/Components/` |
+### A CI build on Windows
 
-CI artifacts on macOS are ad-hoc signed; after unzipping a download, clear the quarantine flag:
+From WSL (or any shell with `gh` logged in), in the repo:
 ```sh
-xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/VST3/Flowstate.vst3 ~/Library/Audio/Plug-Ins/Components/Flowstate.component
+npm run fetch:build -- windows              # latest green run on the current branch
+npm run fetch:build -- windows --branch main
+npm run fetch:build -- windows --run 36702654122
 ```
+On WSL this writes `flowstate-windows-x64` into your Windows Downloads folder, with `install.ps1` and `gallery.ps1` next to the build (elsewhere, into `dist/builds`). It prints the install commands with the full path filled in. From WSL they use `powershell.exe`, since plain `powershell` isn't found there. From Windows PowerShell, in that folder:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1              # asks for admin; replaces any older copy
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall
+```
+Close DAWs that have Flowstate loaded first: Windows won't replace a loaded plug-in. Then rescan plug-ins in the DAW.
+
+### A CI build on macOS
+
+```sh
+npm run pack:mac                            # or: -- --branch main, -- --run <id>
+```
+This writes `dist/builds/flowstate-macos-<build id>.zip`: the bundles, `install.sh` and a `README.txt`. On the Mac, unzip it, then in Terminal run `bash <path to install.sh>` (typing `bash ` and dragging the file in works). It installs, per user:
+
+| Bundle | Folder |
+| --- | --- |
+| `Flowstate.vst3`, `Flowstate MIDI FX.vst3` | `~/Library/Audio/Plug-Ins/VST3/` |
+| `Flowstate.component`, `Flowstate MIDI FX.component` | `~/Library/Audio/Plug-Ins/Components/` |
+| `Flowstate.app` (Standalone) | `~/Applications/` |
+
+It clears the quarantine flag on each one and restarts `AudioComponentRegistrar`, so AU hosts see the new components. `bash install.sh --uninstall` removes them all. Running a `.sh` through `bash` gets past Gatekeeper; double-clicking a script or bundle doesn't.
+
+### Your own build
+
+Copy the bundles from `build/plugin/*_artefacts/Release/` (see "Where the outputs go") into the same folders: VST3 on Windows goes in `C:\Program Files\Common Files\VST3\`. Local builds aren't quarantined.
+
 Then rescan plug-ins in the DAW. The plug-ins appear as **Flowstate** (an instrument) and **Flowstate MIDI FX** (a MIDI effect, or an AU MIDI FX in Logic), made by "Flowstate".
+
+### CI status
+
+```sh
+npm run ci:status                 # the last 10 runs on the current branch
+npm run ci:status -- --watch      # follow the newest plugin run; exits non-zero if it fails
+```
 
 ## 6. Manual checks in a DAW
 
@@ -129,7 +167,7 @@ What the plugin can do today:
 - It passes MIDI through.
 - It saves its state with the project.
 
-It can't make ideas or sound yet: generating needs the agent service (P1-4) or the instant sketch (P1-10), and audition is P1-7. Record the results in `docs/spikes/results.md` style, with the build ID (a CI build is named `<commit>-<run>`, a local build is `dev`).
+It can't make ideas or sound yet: generating needs the agent service (P1-4) or the instant sketch (P1-10), and audition is P1-7. Record the results in `docs/host-checks.md`, with the build ID (a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 
@@ -144,8 +182,25 @@ For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Able
 6. **Prompt reply:** send "moody chords". The notice line reads "Generating needs the agent service, which isn't connected yet." (expected in this build).
 7. **Resize:** drag the corner to a new size, close the window and reopen it. It comes back at the same size, and it can't be made smaller than 720×480.
 8. **State:** save the project, close it and reopen it. The plugin loads without errors, and the window size persists.
-9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: MIDI FX slot; in Ableton: the VST3 on the track before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through.
+9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: the MIDI FX slot; in Bitwig or FL Studio: before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through. **Ableton: n/a.** Ableton can't open a VST3 MIDI effect (it says "This VST3 plug-in could not be opened"); there, the instrument variant sends MIDI to other tracks through MIDI From.
 10. **Multiple instances:** open two Flowstate windows at once. Both render, and each follows the transport.
 11. **Drag (placeholder):** the Drag button stays disabled, since there's no idea yet. Drag-out is covered again in P1-7 with real ideas.
 
+12. **Component gallery (P1-8):** quit the DAW, then start it from a terminal with `FLOWSTATE_UI_PAGE=gallery.html` in its environment. On macOS, run the app's binary directly, because `open -a` doesn't pass the variable on: `FLOWSTATE_UI_PAGE=gallery.html "/Applications/Ableton Live 12 Suite.app/Contents/MacOS/Live"`. On Windows, run `set FLOWSTATE_UI_PAGE=gallery.html` in a Command Prompt, then start the DAW's `.exe` from that same prompt. With a CI build, `gallery.ps1` in the downloaded folder does this: `powershell -ExecutionPolicy Bypass -File .\gallery.ps1 -Daw "C:\...\daw.exe"`, or with no `-Daw`, the Standalone app. The plugin window shows the gallery instead of the placeholder. Check:
+    - It looks like the browser gallery (`npm run -w ui dev`, then `/gallery.html`) and like `docs/design/side-by-side-*.png`.
+    - Tab reaches every control, with a cyan focus ring. On macOS, WKWebView follows the system setting: with **Keyboard navigation** off (System Settings → Keyboard), Tab reaches only text fields and Option-Tab reaches the rest.
+    - Knobs turn with the arrow keys and by dragging. The settings sheet opens, Escape closes it, and focus returns to the button that opened it.
+    - With a button focused, Space toggles the DAW transport and doesn't press the button.
+
 Report anything that differs, with the host name and version, the OS and the build ID.
+
+## 7. Sending a build to testers
+
+Until the signed installers (P1-14) and the tester package (P1-16) exist, send the zip from `npm run pack:mac`. The repo is private, so testers can't download from Actions themselves.
+
+1. Wait for a green `plugin` run on the commit you want (`npm run ci:status -- --watch`).
+2. `npm run pack:mac` (add `-- --branch main` if you're on another branch).
+3. Send `dist/builds/flowstate-macos-<build id>.zip` by any means (AirDrop, Drive, email). Its `README.txt` has the install steps, a short checklist (checks 1–10 above, in plain words) and what to report, with the build ID filled in.
+4. Record what comes back in `docs/host-checks.md`, with the build ID.
+
+The tester README lives in `scripts/macos/README.txt`. Update it when section 6 changes. The pack script fills in `{{BUILD_ID}}`.
