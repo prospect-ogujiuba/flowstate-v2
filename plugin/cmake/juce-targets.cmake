@@ -71,6 +71,19 @@ juce_add_binary_data(FlowstateUi
     SOURCES ${_ui_files} "${_juce_interop_copy}")
 set_target_properties(FlowstateUi PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
+# Bundled MIDI library: library/catalog (catalog.json and the normalized clips, flat), generated and
+# committed by `npm run -w library build` (docs/library.md).
+file(GLOB _library_files CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/../library/catalog/*.json" "${CMAKE_CURRENT_SOURCE_DIR}/../library/catalog/*.mid")
+if(NOT _library_files)
+    message(FATAL_ERROR "No library catalog in library/catalog. Run `npm run -w library build`.")
+endif()
+juce_add_binary_data(FlowstateLibrary
+    NAMESPACE FlowstateLibrary
+    HEADER_NAME FlowstateLibrary.h
+    SOURCES ${_library_files})
+set_target_properties(FlowstateLibrary PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 # ------------------------------------------------------------------------------------------------
 # Plugins
 if(APPLE)
@@ -116,6 +129,7 @@ function(flowstate_configure_plugin target)
         PRIVATE
             flowstate_session
             FlowstateUi
+            FlowstateLibrary
             juce::juce_audio_utils
             juce::juce_gui_extra
         PUBLIC
@@ -196,6 +210,7 @@ target_compile_definitions(flowstate_plugin_tests PRIVATE
     FLOWSTATE_CORE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../core/tests/fixtures")
 target_link_libraries(flowstate_plugin_tests PRIVATE
     flowstate_session
+    FlowstateLibrary
     juce::juce_audio_utils
     juce::juce_recommended_config_flags)
 flowstate_plugin_warnings(flowstate_plugin_tests)

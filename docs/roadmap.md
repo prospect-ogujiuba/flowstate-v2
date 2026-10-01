@@ -102,6 +102,8 @@ Two tracks run in parallel for weeks 3–5, then join.
 | 5–6 | P1-4 agent service, P1-10 instant sketch | P1-7 audition and MIDI out, P1-9 Studio screen, P1-11 session and lineage |
 | 7–8 | P1-13 hosting | P1-12 keys and settings, P1-14 installers, P1-15 CI release checks, P1-16 tester hand-off |
 
+P1-17 (the built-in MIDI library) ran alongside both tracks; the Studio (P1-9) shows it.
+
 ### P1-1 Multi-provider layer on pi-ai — `done` (2026-10-01)
 Done so far (2026-09-30):
 - The `pi` backend in `cloud/src/backends.ts` works with every pi-ai provider. `backendFor({ provider, model, credential })` selects the backend per request, with a managed or BYOK credential. `planScore` takes the backend per call, and the CLI takes `--provider/--model`.
@@ -262,3 +264,31 @@ Acceptance: a failing check blocks the artifact; a passing build carries a build
 Stand-in until then (2026-09-30): `npm run pack:mac` builds an unsigned tester zip from the latest green CI run, with an install script, a README checklist and the build ID (`docs/testing-plugin.md`, section 7).
 A tester package per build: signed installer, a one-page checklist (the Phase 0 host checks plus the core loop), and a feedback form that includes the build ID. The first recipient is the Mac tester for Logic.
 Acceptance: the tester completes it without contacting us for setup, and reports come back with build IDs.
+
+### P1-17 Built-in MIDI library — `done` (2026-10-01; verified locally on Linux, CI on macOS and Windows on the next push)
+Flowstate ships with a MIDI library, starting with GodFlow's pack, credited "MIDI by GodFlow (flowknows) for Flowstate." (GodFlow / Flowstate). Library clips and AI results are one catalog the Studio can search, preview, drag and start from. Spec: `docs/library.md`.
+
+**Decision: clips are stored as MIDI and as IR.** Each clip keeps its normalized MIDI, and `core`'s new MIDI→IR analyzer also writes it as score IR. The IR is what makes a library clip interchangeable with an AI result: it goes into the lineage, takes the same tweaks and re-voicing, can be locked while the model writes around it, and is read by the model in its own language as a style example. It is tractable: on the GodFlow pack the IR plays back every clip's rhythm exactly (onset F1 1.0, 29/29), and chord pitch classes with 0.75–1.0 overlap. The MIDI stays because the IR is a description, and core re-voices chords. Preview and drag-out play the clip exactly as written, and the gap is recorded per clip as fidelity.
+
+Done:
+- `library/packs/godflow`: 29 clips (16 R&B/jazz, 6 world and 5 pop chord clips, 2 hip-hop basses), `manifest.json` in the new `flowstate.libraryPack.v2` (Zod in `schema/src/library.ts`, JSON Schema generated), and `CREDITS.md`. Owner's calls (2026-10-01): v1's pop "melodies" are chord stacks, so they import as pop chords; the world clips keep `world`; bass-01/03/04 stay out (outside C1–C4), with the reasons in the manifest; no drums, so no fake drum entries.
+- `core`: an SMF reader, the analyzer (`analyze.h`, CLI `fs-analyze`) and catalog search (`catalog.h`).
+  - The analyzer keeps v1's profiler measures and lane thresholds. It adds rolled-chord onsets, key detection (blank with the reason when unreliable: 13 of 29 keys are detected), grid and swing, chord naming through core's parser, IR per lane, a fidelity check and descriptors.
+  - Search ranks by key and tempo fit to the session.
+- `library/`: `validate` (v1's path-safety, "no silent files", no leaked names, consistent credit, honest lanes), `build` (writes `library/catalog`: `catalog.json` plus normalized clips without source track names) and `check` (drift, in CI).
+- Bridge: `CatalogEntry` (library clip with `credit`, or AI result with prompt and lineage), `LibraryCatalog` (a bridge root, with C++ types), the commands `searchCatalog`, `previewEntry`, `useEntry` and `dragEntry`, `Reply.catalog`, `Session.preview`, the node kind `library`, and `entryId` on nodes. Fixtures round-trip in Zod and C++.
+- Plugin: the catalog is bundled (`juce_add_binary_data`) and the four commands are handled. A clip becomes a `library` node; its credit travels to the vary, edit, tweak and touch nodes made from it, and into dragged files as copyright text. Plugin state is version 2, and version 1 states still restore.
+- Planner: `--examples N` shows up to N matching library clips as style examples, in IR with the credit (off by default; `run.json` records which).
+
+Acceptance:
+- [x] Every entry of a pack imports, or fails with a precise, path-free reason (`lane_conflict`, `bass_range`, `not_drums`, `malformed`, ...), tested on the GodFlow pack and on throwaway bad packs.
+- [x] Every clip is classified for search: lane, genres, key and mode (or the reason they are blank), tempo and range, meter, bars, energy, density, complexity, groove and feel.
+- [x] The credit is next to the content (`CREDITS.md`) and on every catalog entry, and it travels with nodes and dragged files.
+- [x] One catalog model for library clips and AI results, with search, preview, use and drag in the bridge contract and the plugin. Tests cover core search, the session controller and the processor.
+- [x] Adding a pack is documented and repeatable: a manifest, `npm run -w library validate`, then `build`. CI fails on a stale catalog.
+
+Left for other issues:
+- The Studio's library browser (P1-9).
+- Preview playback in time with the host (the audition scheduler, P1-7).
+- Whether style examples improve plans: an eval run with and without `--examples`, then blind listening (P1-3).
+- A transpose-to-session-key action for a used clip (core's `tweak transpose`).

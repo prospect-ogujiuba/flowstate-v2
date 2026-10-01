@@ -40,6 +40,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v5
+      - name: Build core's CLIs (the library importer runs fs-analyze)
+        run: |
+          cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release -DFLOWSTATE_CORE_BUILD_TESTS=OFF
+          cmake --build build/core
+      - name: Library catalog is up to date
+        run: npm run -w library check
       - name: Generated schema files are up to date
         run: |
           npm run schema

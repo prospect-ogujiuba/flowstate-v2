@@ -48,6 +48,8 @@ v1 answered the hard questions, and v2 inherits those answers rather than its co
 | Partner-pack manifest and licensing rules | `docs/specs/partner-midi-pack-manifest.md`, `content-scope.js` | Style-example library policy |
 | Visual identity: dark compact shell, logo, palette | `docs/design/`, `assets/` | CSS design tokens |
 
+> **Update (2026-10-01):** The partner-pack rules became the built-in library (P1-17, `library.md`). The GodFlow pack ships with Flowstate, credited "MIDI by GodFlow (flowknows) for Flowstate."; the owner holds the rights, so v1's `licensed-out` classification no longer applies. The manifest is now `flowstate.libraryPack.v2`, and v1's path-safety and "no fake entries" rules carry over. A partner marketplace is still out of scope.
+
 The biggest intangible asset is knowing where AI MIDI breaks: rigid progressions, repetitive melodies, control combinations that fail, and fallbacks that quietly substitute output. v2's eval suite should encode each of those failures as a regression test on day one.
 
 ## v1 analysis: what is structurally wrong
@@ -205,6 +207,8 @@ The IR is the product's central contract: the model writes it, the engine perfor
 - **Layered authority.** The model owns musical choices: progression, motif, phrasing, groove, drum patterns and their variation. Hard constraints (key, meter, length, range) are enforced by the realizer, never trusted. User controls such as density and energy become soft targets in the prompt plus measured deltas checked by the engine.
 - **Escape hatch.** A part can carry literal notes (`"notes": [...]`) when the model wants exact pitches, for example a specific hook. The realizer still quantizes and range-checks them.
 - **Bidirectional.** A MIDI→IR analyzer (built from v1's content profiler and lane classifier) turns any clip, from the DAW, a pack or the user, back into IR. That makes "continue this", "write a bass for my chords" and style examples all the same operation.
+
+> **Update (2026-10-01):** The analyzer exists for library clips (`core`'s `analyze.h`, `fs-analyze`; `library.md`). It keeps v1's profiler measures and lane thresholds, and adds key detection (left blank, with the reason, when it isn't reliable), grid and swing, chord naming, IR per lane and a fidelity check against the original. Library clips keep their MIDI too, because core re-voices chords: the IR is close, not identical.
 
 ### The realizer (C++ `core`, one implementation)
 

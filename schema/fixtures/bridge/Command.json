@@ -230,6 +230,54 @@
     {
       "type": "releaseFocus",
       "reason": "space"
+    },
+    {
+      "type": "searchCatalog",
+      "query": {
+        "text": "neo-soul",
+        "origins": null,
+        "roles": [
+          "chords"
+        ],
+        "genres": null,
+        "fitContext": true,
+        "limit": 20,
+        "offset": 0
+      }
+    },
+    {
+      "type": "searchCatalog",
+      "query": {
+        "text": "",
+        "origins": [
+          "library",
+          "ai"
+        ],
+        "roles": null,
+        "genres": [
+          "rnb",
+          "hip-hop"
+        ],
+        "fitContext": false,
+        "limit": 100,
+        "offset": 40
+      }
+    },
+    {
+      "type": "previewEntry",
+      "entryId": "lib:godflow/rnb-jazz-chords-15"
+    },
+    {
+      "type": "previewEntry",
+      "entryId": null
+    },
+    {
+      "type": "useEntry",
+      "entryId": "lib:godflow/bass-05"
+    },
+    {
+      "type": "dragEntry",
+      "entryId": "node:n2"
     }
   ],
   "invalid": [
@@ -417,6 +465,52 @@
         "reason": "tab"
       },
       "path": "reason"
+    },
+    {
+      "why": "a page of zero entries",
+      "value": {
+        "type": "searchCatalog",
+        "query": {
+          "text": "neo-soul",
+          "origins": null,
+          "roles": [
+            "chords"
+          ],
+          "genres": null,
+          "fitContext": true,
+          "limit": 0,
+          "offset": 0
+        }
+      },
+      "path": "query.limit"
+    },
+    {
+      "why": "unknown catalog origin",
+      "value": {
+        "type": "searchCatalog",
+        "query": {
+          "text": "neo-soul",
+          "origins": [
+            "partner"
+          ],
+          "roles": [
+            "chords"
+          ],
+          "genres": null,
+          "fitContext": true,
+          "limit": 20,
+          "offset": 0
+        }
+      },
+      "path": "query.origins[0]"
+    },
+    {
+      "why": "useEntry without an entry",
+      "value": {
+        "type": "useEntry",
+        "entryId": null
+      },
+      "path": "entryId"
     }
   ]
 }

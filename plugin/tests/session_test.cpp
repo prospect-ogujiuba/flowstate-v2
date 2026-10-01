@@ -8,6 +8,7 @@
 #include "session/Session.h"
 
 #include <fstream>
+#include <iterator>
 #include <sstream>
 
 using namespace flowstate::plugin;
@@ -45,6 +46,8 @@ struct FakePlatform final : Platform {
         CHECK(meta.tempo > 0.0);
         lastParts = partIds;
         lastSplit = splitDrums;
+        lastCredit = meta.credit;
+        lastClip = clip;
         return std::nullopt;
     }
     std::optional<fb::ErrorInfo> exportMidi(const fb::Clip&, const MidiMeta&,
@@ -52,6 +55,17 @@ struct FakePlatform final : Platform {
         return fb::ErrorInfo{fb::ErrorCode::Cancelled, "chooser dismissed"};
     }
     void releaseFocus(fb::FocusReason reason) override { lastFocus = reason; }
+
+    // The repo's built library (library/catalog), as the plugin bundles it.
+    bool withLibrary = true;
+    std::string lastCredit;
+    std::optional<fb::Clip> lastClip;
+    std::optional<std::vector<std::uint8_t>> libraryResource(const std::string& name) override {
+        if (!withLibrary) return std::nullopt;
+        std::ifstream in(std::string(FLOWSTATE_LIBRARY_DIR) + "/" + name, std::ios::binary);
+        if (!in.good()) return std::nullopt;
+        return std::vector<std::uint8_t>((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    }
 };
 
 json reply(Controller& c, const json& command) { return json::parse(c.handleJson(command.dump())); }
@@ -373,4 +387,125 @@ TEST_CASE("capture history: bars available and the 64-bar window") {
     REQUIRE(last.size() == 1);
     CHECK(last[0].pitch == 64);
     CHECK(last[0].hostPpq == 17.0);
+}
+
+TEST_CASE("catalog: library clips and AI results in one search") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    const auto ai = s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::string("late-night dorian loop"),
+                              std::nullopt, 1, 10);
+
+    const json query = {{"text", ""}, {"origins", nullptr}, {"roles", nullptr}, {"genres", nullptr},
+                        {"fitContext", false}, {"limit", 100}, {"offset", 0}};
+    auto r = reply(c, {{"type", "searchCatalog"}, {"query", query}});
+    REQUIRE(r["ok"] == true);
+    CHECK(r["session"].is_null());
+    const auto total = r["catalog"]["total"].get<int>();
+    CHECK(total == 30);  // 29 GodFlow clips + the AI result
+    int library = 0;
+    for (const auto& e : r["catalog"]["entries"]) {
+        if (e["origin"] == "library") {
+            ++library;
+            CHECK(e["credit"]["text"] == "MIDI by GodFlow (flowknows) for Flowstate.");
+        } else {
+            CHECK(e["id"] == "node:" + ai);
+            CHECK(e["prompt"] == "late-night dorian loop");
+            CHECK(e["credit"].is_null());
+        }
+    }
+    CHECK(library == 29);
+
+    auto q = query;
+    q["origins"] = {"ai"};
+    CHECK(reply(c, {{"type", "searchCatalog"}, {"query", q}})["catalog"]["total"] == 1);
+    q = query;
+    q["roles"] = {"bass"};
+    CHECK(reply(c, {{"type", "searchCatalog"}, {"query", q}})["catalog"]["total"] == 3);  // 2 bass clips + the example's bass
+    q = query;
+    q["text"] = "neo-soul";
+    q["limit"] = 5;
+    r = reply(c, {{"type", "searchCatalog"}, {"query", q}});
+    CHECK(r["catalog"]["total"] == 17);  // 16 R&B clips + the example score, tagged neo-soul
+    CHECK(r["catalog"]["entries"].size() == 5);
+
+    // Fit to the session: C major at 120 puts a C major clip (rnb-jazz-chords-15/16) first.
+    s.setOverride(fb::ContextOverride{fb::Tonic::C, fb::Mode::Major, 120.0, 4, 4, std::nullopt, std::nullopt});
+    q = query;
+    q["roles"] = {"chords"};
+    q["fitContext"] = true;
+    r = reply(c, {{"type", "searchCatalog"}, {"query", q}});
+    CHECK(r["catalog"]["entries"][0]["tonic"] == "C");
+}
+
+TEST_CASE("catalog: preview, use and drag a library clip; the credit travels") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    const std::string id = "lib:godflow/rnb-jazz-chords-15";
+
+    auto r = reply(c, {{"type", "previewEntry"}, {"entryId", id}});
+    CHECK(r["session"]["preview"] == id);
+    CHECK(reply(c, {{"type", "previewEntry"}, {"entryId", "lib:godflow/nope"}})["error"]["code"] == "bad_request");
+    CHECK(reply(c, {{"type", "previewEntry"}, {"entryId", nullptr}})["session"]["preview"].is_null());
+
+    r = reply(c, {{"type", "dragEntry"}, {"entryId", id}});
+    CHECK(r["ok"] == true);
+    CHECK(platform.lastTitle == "R&B jazz chords 15");
+    CHECK(platform.lastCredit == "MIDI by GodFlow (flowknows) for Flowstate.");
+    REQUIRE(platform.lastClip);
+    CHECK(platform.lastClip->bars == 4);
+    CHECK((platform.lastClip->parts.front().role == fb::Role::Chords));
+    CHECK(platform.lastClip->parts.front().notes.size() == 19);  // the notes as written, not the IR's
+
+    r = reply(c, {{"type", "useEntry"}, {"entryId", id}});
+    REQUIRE(r["ok"] == true);
+    const auto& node = r["session"]["nodes"].back();
+    CHECK(node["kind"] == "library");
+    CHECK(node["entryId"] == id);
+    CHECK(r["session"]["clip"]["parts"].size() == 1);
+    const auto libNode = node["id"].get<std::string>();
+
+    // An edit of it keeps the credit; a fresh plan doesn't; AI search leaves library nodes out.
+    s.addNode(s.current()->score, fb::NodeKind::Tweak, std::nullopt, std::nullopt, 2, 20);
+    CHECK(s.current()->entryId == id);
+    r = reply(c, {{"type", "startDrag"}, {"nodeId", nullptr}, {"partIds", nullptr}, {"splitDrums", false}});
+    CHECK(platform.lastCredit == "MIDI by GodFlow (flowknows) for Flowstate.");
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::string("x"), std::nullopt, 3, 30);
+    CHECK_FALSE(s.current()->entryId);
+    const json aiOnly = {{"text", ""}, {"origins", {"ai"}}, {"roles", nullptr}, {"genres", nullptr},
+                         {"fitContext", false}, {"limit", 10}, {"offset", 0}};
+    r = reply(c, {{"type", "searchCatalog"}, {"query", aiOnly}});
+    CHECK(r["catalog"]["total"] == 1);
+
+    // Using an AI result selects its node.
+    r = reply(c, {{"type", "useEntry"}, {"entryId", "node:" + libNode}});
+    CHECK(r["session"]["currentNodeId"] == libNode);
+    CHECK(reply(c, {{"type", "useEntry"}, {"entryId", "node:ghost"}})["error"]["code"] == "unknown_node");
+}
+
+TEST_CASE("catalog: a build without a library searches AI results only") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withLibrary = false;
+    Controller c(s, platform);
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    const json query = {{"text", ""}, {"origins", nullptr}, {"roles", nullptr}, {"genres", nullptr},
+                        {"fitContext", false}, {"limit", 10}, {"offset", 0}};
+    CHECK(reply(c, {{"type", "searchCatalog"}, {"query", query}})["catalog"]["total"] == 1);
+    CHECK(reply(c, {{"type", "useEntry"}, {"entryId", "lib:godflow/bass-02"}})["error"]["code"] == "bad_request");
+}
+
+TEST_CASE("state version 1 (before library nodes) still restores") {
+    Session s("inst", "test");
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 7, 10);
+    PluginState state;
+    state.session = s.save();
+    auto blob = json::parse(encodeState(state));
+    blob["version"] = 1;
+    for (auto& n : blob["session"]["nodes"]) n.erase("entryId");
+    std::string error;
+    const auto decoded = decodeState(blob.dump(), error);
+    REQUIRE_MESSAGE(decoded, error);
+    CHECK_FALSE(decoded->session.nodes.front().entryId);
 }

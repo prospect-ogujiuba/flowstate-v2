@@ -39,13 +39,16 @@ public:
     // ---- Lineage -------------------------------------------------------------------------------
     // Adds a node under `parent` (default: the current node), makes it current and clears redo.
     // Returns its id. The score must be valid IR; realization problems surface in clip().
+    // `entryId` names the library clip a node starts from. A vary, edit, tweak or touch node without
+    // one inherits its parent's, so the clip's credit stays with what is made from it.
     std::string addNode(nlohmann::json score, fb::NodeKind kind, std::optional<std::string> prompt,
                         std::optional<std::vector<std::string>> partIds, std::int64_t seed, std::int64_t createdAtMs,
-                        std::optional<std::string> parent = std::nullopt);
+                        std::optional<std::string> parent = std::nullopt, std::optional<std::string> entryId = std::nullopt);
 
     bool hasNode(const std::string& id) const;
     const fb::LineageNode* node(const std::string& id) const;
     const fb::LineageNode* current() const;
+    const std::vector<fb::LineageNode>& nodes() const { return nodes_; }
 
     // Restore / A-B. Clears redo.
     bool select(const std::string& id);
@@ -69,6 +72,9 @@ public:
     bool previewSynth() const { return previewSynth_; }
     void setProvider(std::optional<fb::ProviderChoice> p) { provider_ = std::move(p); }
     void addThreadItem(fb::ThreadItem item) { thread_.push_back(std::move(item)); }
+    // The catalog entry previewing in time with the host (not saved with the project).
+    void setPreview(std::optional<std::string> entryId) { preview_ = std::move(entryId); }
+    const std::optional<std::string>& preview() const { return preview_; }
 
     const std::string& instanceId() const { return instanceId_; }
 
@@ -104,6 +110,7 @@ private:
     fb::MidiOut midiOut_{};
     bool previewSynth_ = true;
     std::optional<fb::ProviderChoice> provider_;
+    std::optional<std::string> preview_;
     std::uint64_t nextNodeNumber_ = 1;
 
     std::optional<fb::Clip> clip_;
@@ -112,5 +119,8 @@ private:
 
 // Realizes one score IR with `seed` into the bridge's Clip. Throws flowstate::IrError.
 fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed);
+
+// The fixed drum voice -> GM note -> v1 sublane table a drum ClipPart carries.
+std::vector<fb::DrumVoiceNote> drumVoiceMap();
 
 }  // namespace flowstate::plugin

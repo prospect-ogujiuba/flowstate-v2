@@ -2,7 +2,8 @@
 
 `flowstate_core` is Flowstate v2's music engine: a JUCE-free C++20 static library that realizes a
 `flowstate.score.v0` score IR (see `../docs/ir-spec.md`, shape in `../schema/src/score.ts`) into
-MIDI, deterministically. `fs-realize` is its command-line front end.
+MIDI, deterministically. `fs-realize` is its command-line front end. It also reads MIDI back into
+IR (`fs-analyze`, the analyzer behind the built-in library).
 
 The library uses only the standard library (plus nlohmann/json, which stays inside the `.cpp`
 files), so it can also build with Emscripten and MSVC. Randomness comes from an in-house SplitMix64
@@ -39,6 +40,18 @@ build/core/fs-realize --in score.json [--seed N] [--out-mid out.mid] \
   "clipEndTick","parts":[{"id","role","notes","minPitch","maxPitch","rangeLow","rangeHigh",
   "outOfKey","sublanes"?}]}}`.
 
+`fs-analyze` is the MIDI→IR analyzer behind the built-in library (`../docs/library.md`):
+
+```sh
+build/core/fs-analyze --in clip.mid [--lane chords|bass|melody|drums] [--key "Eb minor"] [--title T] \
+    [--name N] [--style tag1,tag2] [--out-json analysis.json] [--out-mid normalized.mid]
+```
+
+It prints (or writes) the lane scores and evidence, the key or the reason it is blank, the grid, the
+descriptors, the harmony it found, the score IR and the IR's fidelity to the original. `--out-mid`
+writes the normalized clip. It exits with 3 when the clip can't be imported, with the reason in the
+JSON (`error.code`, `error.message`).
+
 The CLI exits with 1 and a clear message on invalid JSON, a wrong `ir` id, or missing required
 structure. It exits with 2 on bad arguments. Recoverable problems (such as wrong-length step
 strings, overlaps or unknown transforms) are repaired and listed as warnings.
@@ -64,6 +77,9 @@ strings, overlaps or unknown transforms) are repaired and listed as warnings.
 | `realize_drums.cpp` | Drum lanes, GM mapping, sublanes, fills, groove dynamics |
 | `smf.{h,cpp}` | Standard MIDI File writer |
 | `output.{h,cpp}` | Note list and report JSON, golden checksum |
+| `midi_read.{h,cpp}` | Standard MIDI File reader (type 0/1, PPQ), rescaled to 960 PPQ |
+| `analyze.{h,cpp}` | MIDI→IR analyzer: profile and lane (v1's measures), key, grid, chord naming, IR per lane, fidelity, descriptors |
+| `catalog.{h,cpp}` | Catalog search over library clips and AI results; key and tempo fit |
 
 ## Realization notes
 

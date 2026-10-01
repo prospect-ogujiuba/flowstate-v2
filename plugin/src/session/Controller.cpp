@@ -1,5 +1,7 @@
 #include "session/Controller.h"
 
+#include "flowstate/theory.h"
+
 #include <algorithm>
 #include <type_traits>
 
@@ -16,6 +18,7 @@ Overloaded(Ts...) -> Overloaded<Ts...>;
 
 MidiMeta metaOf(const fb::LineageNode& node) {
     MidiMeta meta;
+    // The credit is filled in by Controller::metaFor.
     const auto& s = node.score;
     const auto t = s.find("title");
     meta.title = t != s.end() && t->is_string() && !t->get<std::string>().empty() ? t->get<std::string>() : "Flowstate idea";
@@ -28,6 +31,31 @@ MidiMeta metaOf(const fb::LineageNode& node) {
 }
 
 }  // namespace
+
+const Library* Controller::library() {
+    if (library_) return &*library_;
+    if (!libraryError_.empty()) return nullptr;
+    const auto bytes = platform_.libraryResource("catalog.json");
+    if (!bytes) {
+        library_.emplace();
+        return &*library_;
+    }
+    try {
+        library_ = Library::parse(std::string(bytes->begin(), bytes->end()));
+    } catch (const std::exception& e) {
+        libraryError_ = std::string("The built-in library is damaged: ") + e.what();
+        return nullptr;
+    }
+    return &*library_;
+}
+
+MidiMeta Controller::metaFor(const fb::LineageNode& node) {
+    MidiMeta meta = metaOf(node);
+    if (node.entryId)
+        if (const auto* lib = library())
+            if (const auto* clip = lib->find(*node.entryId); clip && clip->entry.credit) meta.credit = clip->entry.credit->text;
+    return meta;
+}
 
 fb::Reply Controller::ok(bool changed) {
     fb::Reply r;
@@ -65,7 +93,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
         std::string why;
         auto clip = session_.realizeNode(node->id, &why);
         if (!clip) error = fail(fb::ErrorCode::InvalidScore, "This idea can't be realized: " + why);
-        meta = metaOf(*node);
+        meta = metaFor(*node);
         return clip;
     };
 
@@ -163,6 +191,96 @@ fb::Reply Controller::handle(const fb::Command& command) {
             },
             [&](const fb::ReleaseFocus& c) {
                 platform_.releaseFocus(c.reason);
+                return ok(false);
+            },
+            [&](const fb::SearchCatalog& c) {
+                const auto* lib = library();
+                if (lib == nullptr) return fail(fb::ErrorCode::Internal, libraryError_);
+                std::vector<fb::CatalogEntry> entries;
+                for (const auto& clip : lib->clips()) entries.push_back(clip.entry);
+                for (const auto& n : session_.nodes())
+                    if (isAiResult(n)) entries.push_back(entryForNode(n));
+                std::vector<CatalogItem> items;
+                items.reserve(entries.size());
+                for (const auto& e : entries) items.push_back(catalogItem(e));
+
+                const auto& q = c.query;
+                CatalogSearch search;
+                search.text = q.text;
+                if (q.origins) {
+                    const auto has = [&](fb::CatalogOrigin o) { return std::find(q.origins->begin(), q.origins->end(), o) != q.origins->end(); };
+                    search.includeLibrary = has(fb::CatalogOrigin::Library);
+                    search.includeAi = has(fb::CatalogOrigin::Ai);
+                }
+                if (q.roles)
+                    for (const auto r : *q.roles)
+                        if (const auto role = roleFromString(fb::toString(r))) search.roles.push_back(*role);
+                if (q.genres) search.genres = *q.genres;
+                if (q.fitContext) {
+                    const auto ctx = session_.effectiveContext(platform_.host());
+                    search.fit = CatalogFit{pitchClassFromName(fb::toString(ctx.tonic)),
+                                            modeFromString(fb::toString(ctx.mode)).value_or(Mode::Major), ctx.tempo,
+                                            ctx.meterNumerator, ctx.meterDenominator};
+                }
+                search.limit = q.limit;
+                search.offset = q.offset;
+                const auto found = searchCatalog(items, search);
+                fb::Reply r;
+                r.ok = true;
+                fb::CatalogPage page;
+                page.total = found.total;
+                for (const auto& h : found.hits) page.entries.push_back(entries[h.index]);
+                r.catalog = std::move(page);
+                return r;
+            },
+            [&](const fb::PreviewEntry& c) {
+                if (c.entryId) {
+                    const auto* lib = library();
+                    const bool known = (lib != nullptr && lib->find(*c.entryId) != nullptr) ||
+                                       (c.entryId->rfind("node:", 0) == 0 && session_.hasNode(c.entryId->substr(5)));
+                    if (!known) return fail(fb::ErrorCode::BadRequest, "No catalog entry " + *c.entryId + ".");
+                }
+                session_.setPreview(c.entryId);
+                return ok(true);
+            },
+            [&](const fb::UseEntry& c) {
+                if (c.entryId.rfind("node:", 0) == 0) {
+                    const auto id = c.entryId.substr(5);
+                    return session_.select(id) ? ok(true) : unknownNode(id);
+                }
+                const auto* lib = library();
+                const auto* clip = lib != nullptr ? lib->find(c.entryId) : nullptr;
+                if (clip == nullptr) return fail(fb::ErrorCode::BadRequest, "No catalog entry " + c.entryId + ".");
+                session_.addNode(clip->score, fb::NodeKind::Library, std::nullopt, std::nullopt, 1, platform_.nowMs(),
+                                 std::nullopt, clip->entry.id);
+                return ok(true);
+            },
+            [&](const fb::DragEntry& c) {
+                if (c.entryId.rfind("node:", 0) == 0) {
+                    fb::Reply error;
+                    MidiMeta meta;
+                    const auto clip = clipFor(c.entryId.substr(5), error, meta);
+                    if (!clip) return error;
+                    if (auto e = platform_.startDrag(*clip, meta, std::nullopt, false)) return fail(e->code, e->message);
+                    return ok(false);
+                }
+                const auto* lib = library();
+                const auto* item = lib != nullptr ? lib->find(c.entryId) : nullptr;
+                if (item == nullptr) return fail(fb::ErrorCode::BadRequest, "No catalog entry " + c.entryId + ".");
+                if (item->entry.credit && !item->entry.credit->allowsExport)
+                    return fail(fb::ErrorCode::BadRequest, "This clip's license doesn't allow dragging it out.");
+                const auto bytes = platform_.libraryResource(item->file);
+                if (!bytes) return fail(fb::ErrorCode::Internal, "The clip's MIDI is missing from this build.");
+                std::string why;
+                const auto clip = clipFromMidi(*bytes, item->entry, why);
+                if (!clip) return fail(fb::ErrorCode::Internal, "The clip's MIDI can't be read: " + why);
+                MidiMeta meta;
+                meta.title = item->entry.title;
+                meta.credit = item->entry.credit ? item->entry.credit->text : "";
+                meta.tempo = item->entry.tempo;
+                meta.meterNumerator = item->entry.meterNumerator;
+                meta.meterDenominator = item->entry.meterDenominator;
+                if (auto e = platform_.startDrag(*clip, meta, std::nullopt, false)) return fail(e->code, e->message);
                 return ok(false);
             },
         },

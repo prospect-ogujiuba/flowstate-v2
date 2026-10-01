@@ -28,7 +28,12 @@ std::optional<PluginState> decodeState(const std::string& blob, std::string& err
     }
     PluginState state;
     try {
-        bridge::from_json(j.at("session"), state.session);
+        auto session = j.at("session");
+        // Version 1 had no entryId on lineage nodes: none of them came from the library.
+        if (j["version"].get<int>() < 2 && session.contains("nodes") && session["nodes"].is_array())
+            for (auto& node : session["nodes"])
+                if (node.is_object() && !node.contains("entryId")) node["entryId"] = nullptr;
+        bridge::from_json(session, state.session);
     } catch (const bridge::ParseError& e) {
         error = std::string("session: ") + e.what();
         return std::nullopt;

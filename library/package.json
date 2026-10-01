@@ -1,0 +1,15 @@
+{
+  "name": "@flowstate/library",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "tsx src/cli.ts validate",
+    "build": "tsx src/cli.ts build",
+    "check": "tsx src/cli.ts check",
+    "test": "tsx --test src/*.test.ts"
+  },
+  "dependencies": {
+    "@flowstate/schema": "*",
+    "zod": "^4.1.0"
+  }
+}

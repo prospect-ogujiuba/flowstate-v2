@@ -3,7 +3,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { GROOVES, Score, IR_ID, type Part } from "@flowstate/schema";
+import { GROOVES, Score, IR_ID, type LibraryClip, type Part } from "@flowstate/schema";
+import { examplesText } from "./examples.ts";
 import { checkPart, partLabel, PartStream, type Head, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
 import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
@@ -43,6 +44,8 @@ export interface PlanRequest {
     style: string[];
     lanes: string[];
   };
+  /** Library clips to show as style examples (examples.ts); none by default. */
+  examples?: LibraryClip[];
 }
 
 export interface PlanResult {
@@ -102,6 +105,7 @@ function userMessage(req: PlanRequest): string {
     ...grooveHint(c),
     "",
     `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
+    ...(req.examples?.length ? ["", examplesText(req.examples)] : []),
   ].join("\n");
 }
 

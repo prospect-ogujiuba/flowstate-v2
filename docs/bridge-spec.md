@@ -85,12 +85,23 @@ The proposal's three interaction modes map to commands like this:
 | `startDrag` | Starts an OS drag of a `.mid` for a node (a thread card or the current node): one part, several parts, or all parts; `splitDrums` gives one track per drum sublane | — |
 | `exportMidi` | The same content, saved through a native file chooser | — |
 | `releaseFocus` | Hands keyboard focus back to the host (Space, Esc, blur) | — |
+| `searchCatalog` | Searches library clips and AI results together (filters, words, fit to the session). Details below the table. | `catalog` |
+| `previewEntry` | Which catalog entry previews in time with the host; `null` stops it | `session` |
+| `useEntry` | A library clip becomes a new `library` node under the current one; an AI result (`node:<id>`) is selected | `session` |
+| `dragEntry` | Starts an OS drag of a catalog entry as written: a library clip's own MIDI, or an AI result's node | — |
 
 More on `generate`:
 - `prompt` may be empty ("Surprise me").
 - `count` from 1 to 4 plans variations in parallel, and each variation becomes a node.
 - `capture` is "Use what I just played": the last N captured bars, with an intent of `continue`, `harmonize`, `add_bass`, `add_drums` or `answer`.
 - Locked parts go to the service as `keep`.
+
+The catalog (`docs/library.md`):
+- `CatalogEntry` is one shape for both origins. A library clip (`lib:<pack>/<clip>`) carries `credit`, which the UI shows wherever the clip appears. An AI result (`node:<id>`) carries its `prompt`, `kind` and `createdAtMs`. Fields only the analyzer measures (energy, density, complexity, groove) are `null` for AI results.
+- AI results are the session's nodes, except sketches and nodes started from a library clip.
+- `searchCatalog` replies with `Reply.catalog`: the `total` matches and one page of `entries` (`limit`, `offset`). With `fitContext`, other meters are left out and the rest rank by key and tempo fit to the effective context; `core` does the ranking.
+- A node made by `useEntry` has `entryId` set. Its `vary`, `edit`, `tweak` and `touch` descendants inherit it, so the credit travels; a fresh plan doesn't. Drag and export of such a node write the credit into the file's copyright text.
+- `LibraryCatalog` is the built-in library as the plugin bundles it (`library/catalog/catalog.json`, generated). It is a bridge root, so it has C++ types and shared fixtures, although it never crosses the bridge as a message.
 
 Events:
 - `session`: the full `Session`, sent after any change.
@@ -106,11 +117,12 @@ Events:
 - **Clip:** the realization of the current node, for lanes and piano rolls. Drum parts carry their voice→GM note→sublane map.
 - **Capture:** `captureBars` is how much played MIDI is available to "Use what I just played".
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
+- **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `hasKey` says whether a BYOK key is stored, and the key itself never comes back. `usage` comes from the service.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;
-- full `LineageNode`s with their scores and seeds;
+- full `LineageNode`s with their scores, seeds and `entryId` (plugin state version 2; a version 1 state restores with `entryId: null`);
 - the redo stack and the thread;
 - part states, audition and the MIDI-out choice.
 
@@ -137,7 +149,7 @@ Both POSTs answer with an SSE stream. Each `data:` line is one `ServiceEvent`:
 
 Fields on the requests:
 - `PlanRequest.keep` carries the locked parts and harmony to plan around ("keep the chords, new melody").
-- `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent.
+- `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip").
 - For `edit`, the model returns a patch. The service applies and validates it, and streams the changed parts and the full result, so the plugin never applies patches itself.
 
 Variations: the plugin sends one `PlanRequest` per variation, concurrently.

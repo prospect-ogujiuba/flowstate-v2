@@ -25,6 +25,16 @@ fb::Transport HostSnapshot::toTransport() const {
     return t;
 }
 
+std::vector<fb::DrumVoiceNote> drumVoiceMap() {
+    std::vector<fb::DrumVoiceNote> voices;
+    for (int v = 0; v <= static_cast<int>(DrumVoice::Cowbell); ++v) {
+        const auto voice = static_cast<DrumVoice>(v);
+        const int note = drumVoiceNote(voice);
+        voices.push_back({fb::parseDrumVoice(toString(voice)).value_or(fb::DrumVoice::Kick), note, drumSublaneForNote(note)});
+    }
+    return voices;
+}
+
 fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed) {
     std::vector<std::string> warnings;
     const Score parsed = parseScore(score.dump(), warnings);
@@ -45,16 +55,7 @@ fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed) {
         part.notes.reserve(p.notes.size());
         for (const auto& n : p.notes)
             part.notes.push_back({static_cast<int>(n.tick), static_cast<int>(n.dur), n.pitch, n.vel});
-        if (p.role == Role::Drums) {
-            std::vector<fb::DrumVoiceNote> voices;
-            for (int v = 0; v <= static_cast<int>(DrumVoice::Cowbell); ++v) {
-                const auto voice = static_cast<DrumVoice>(v);
-                const int note = drumVoiceNote(voice);
-                voices.push_back({fb::parseDrumVoice(toString(voice)).value_or(fb::DrumVoice::Kick), note,
-                                  drumSublaneForNote(note)});
-            }
-            part.voices = std::move(voices);
-        }
+        if (p.role == Role::Drums) part.voices = drumVoiceMap();
         clip.parts.push_back(std::move(part));
     }
     return clip;
@@ -72,7 +73,8 @@ std::string Session::newNodeId() {
 
 std::string Session::addNode(nlohmann::json score, fb::NodeKind kind, std::optional<std::string> prompt,
                              std::optional<std::vector<std::string>> partIds, std::int64_t seed,
-                             std::int64_t createdAtMs, std::optional<std::string> parent) {
+                             std::int64_t createdAtMs, std::optional<std::string> parent,
+                             std::optional<std::string> entryId) {
     fb::LineageNode n;
     n.id = newNodeId();
     n.parentId = parent ? parent : currentId_;
@@ -83,6 +85,12 @@ std::string Session::addNode(nlohmann::json score, fb::NodeKind kind, std::optio
     n.createdAtMs = createdAtMs;
     n.seed = seed;
     n.score = std::move(score);
+    n.entryId = std::move(entryId);
+    // Edits of a library clip's content keep its credit; a fresh plan doesn't.
+    const bool derived = kind == fb::NodeKind::Vary || kind == fb::NodeKind::Edit || kind == fb::NodeKind::Tweak ||
+                         kind == fb::NodeKind::Touch;
+    if (!n.entryId && derived && n.parentId)
+        if (const auto* p = node(*n.parentId)) n.entryId = p->entryId;
     nodes_.push_back(std::move(n));
     currentId_ = nodes_.back().id;
     redo_.clear();
@@ -245,6 +253,7 @@ fb::Session Session::view(const HostSnapshot& host, int captureBars) const {
         summary.title = n.score.contains("title") && n.score["title"].is_string() ? n.score["title"].get<std::string>() : "";
         summary.createdAtMs = n.createdAtMs;
         summary.rating = n.rating;
+        summary.entryId = n.entryId;
         s.nodes.push_back(std::move(summary));
     }
     s.currentNodeId = currentId_;
@@ -264,6 +273,7 @@ fb::Session Session::view(const HostSnapshot& host, int captureBars) const {
     s.settings.hasKey = false;
     s.settings.previewSynth = previewSynth_;
     s.settings.buildId = buildId_;
+    s.preview = preview_;
     return s;
 }
 

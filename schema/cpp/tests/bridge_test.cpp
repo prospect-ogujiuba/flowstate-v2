@@ -46,6 +46,7 @@ const std::map<std::string, std::function<json(const json&)>>& roots() {
         {"EditRequest", roundTrip<fb::EditRequest>},
         {"ServiceEvent", roundTrip<fb::ServiceEvent>},
         {"Health", roundTrip<fb::Health>},
+        {"LibraryCatalog", roundTrip<fb::LibraryCatalog>},
     };
     return table;
 }

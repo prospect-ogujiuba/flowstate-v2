@@ -3,6 +3,7 @@
 // Message thread only.
 #pragma once
 
+#include "session/Library.h"
 #include "session/Session.h"
 
 #include <functional>
@@ -10,9 +11,11 @@
 
 namespace flowstate::plugin {
 
-// File metadata for drag and export: the idea's title, tempo and meter.
+// File metadata for drag and export: the idea's title, tempo and meter, and the credit of the
+// library clip it came from (written as the file's copyright text).
 struct MidiMeta {
     std::string title;
+    std::string credit;
     double tempo = 120.0;
     int meterNumerator = 4;
     int meterDenominator = 4;
@@ -32,6 +35,12 @@ public:
                                                     const std::optional<std::vector<std::string>>& partIds,
                                                     bool splitDrums) = 0;
     virtual void releaseFocus(fb::FocusReason reason) = 0;
+    // A file of the bundled library (library/catalog): "catalog.json" or a clip's file name.
+    // Nullopt when the build carries no library.
+    virtual std::optional<std::vector<std::uint8_t>> libraryResource(const std::string& name) {
+        (void)name;
+        return std::nullopt;
+    }
 };
 
 class Controller {
@@ -52,9 +61,14 @@ public:
 private:
     fb::Reply ok(bool changed);
     static fb::Reply fail(fb::ErrorCode code, std::string message);
+    // The bundled library, loaded on first use. Null (with libraryError_ set) when it is malformed.
+    const Library* library();
+    MidiMeta metaFor(const fb::LineageNode& node);
 
     Session& session_;
     Platform& platform_;
+    std::optional<Library> library_;
+    std::string libraryError_;
 };
 
 }  // namespace flowstate::plugin

@@ -63,6 +63,7 @@ set_target_properties(flowstate_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 add_library(flowstate_session STATIC
     src/session/Capture.cpp
     src/session/Controller.cpp
+    src/session/Library.cpp
     src/session/PluginState.cpp
     src/session/Session.cpp)
 target_include_directories(flowstate_session PUBLIC src)
@@ -83,7 +84,8 @@ if(FLOWSTATE_PLUGIN_BUILD_TESTS)
     target_link_libraries(flowstate_session_tests PRIVATE flowstate_session)
     target_include_directories(flowstate_session_tests SYSTEM PRIVATE ${doctest_SOURCE_DIR})
     target_compile_definitions(flowstate_session_tests PRIVATE
-        FLOWSTATE_CORE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../core/tests/fixtures")
+        FLOWSTATE_CORE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../core/tests/fixtures"
+        FLOWSTATE_LIBRARY_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../library/catalog")
     flowstate_plugin_warnings(flowstate_session_tests)
     add_test(NAME session COMMAND flowstate_session_tests)
 endif()

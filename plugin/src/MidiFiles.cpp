@@ -34,6 +34,8 @@ juce::MidiFile clipToMidiFile(const fb::Clip& clip, const MidiMeta& meta,
 
     juce::MidiMessageSequence conductor;
     conductor.addEvent(juce::MidiMessage::textMetaEvent(3, juce::String::fromUTF8(meta.title.c_str())), 0);
+    if (!meta.credit.empty())
+        conductor.addEvent(juce::MidiMessage::textMetaEvent(2, juce::String::fromUTF8(meta.credit.c_str())), 0);  // copyright
     conductor.addEvent(juce::MidiMessage::tempoMetaEvent(static_cast<int>(60000000.0 / std::max(1.0, meta.tempo))), 0);
     conductor.addEvent(juce::MidiMessage::timeSignatureMetaEvent(meta.meterNumerator, meta.meterDenominator), 0);
     auto end = juce::MidiMessage::endOfTrack();

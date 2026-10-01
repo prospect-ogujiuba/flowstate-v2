@@ -36,7 +36,8 @@
             "partIds": null,
             "title": "Late bus",
             "createdAtMs": 1789999990000,
-            "rating": null
+            "rating": null,
+            "entryId": null
           },
           {
             "id": "n2",
@@ -48,7 +49,8 @@
             ],
             "title": "Late bus",
             "createdAtMs": 1790000000000,
-            "rating": "up"
+            "rating": "up",
+            "entryId": null
           }
         ],
         "currentNodeId": "n2",
@@ -183,14 +185,17 @@
               "keys"
             ]
           }
-        ]
-      }
+        ],
+        "preview": null
+      },
+      "catalog": null
     },
     {
       "ok": true,
       "error": null,
       "requestId": "r7",
-      "session": null
+      "session": null,
+      "catalog": null
     },
     {
       "ok": false,
@@ -199,7 +204,8 @@
         "message": "No node n9."
       },
       "requestId": null,
-      "session": null
+      "session": null,
+      "catalog": null
     },
     {
       "ok": true,
@@ -252,7 +258,97 @@
           "usage": null,
           "buildId": "dev-0001"
         },
-        "generations": []
+        "generations": [],
+        "preview": null
+      },
+      "catalog": null
+    },
+    {
+      "ok": true,
+      "error": null,
+      "requestId": null,
+      "session": null,
+      "catalog": {
+        "total": 2,
+        "entries": [
+          {
+            "id": "lib:godflow/rnb-jazz-chords-15",
+            "origin": "library",
+            "title": "R&B jazz chords 15",
+            "roles": [
+              "chords"
+            ],
+            "genres": [
+              "rnb",
+              "neo-soul",
+              "jazz"
+            ],
+            "tags": [
+              "extended-voicings"
+            ],
+            "feel": "neo-soul jazz voicings",
+            "tonic": "C",
+            "mode": "major",
+            "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+            "tempo": 120,
+            "tempoMin": 112,
+            "tempoMax": 128,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "bars": 4,
+            "energy": 0.336,
+            "density": 0.2,
+            "complexity": 0,
+            "groove": "straight",
+            "credit": {
+              "packId": "godflow",
+              "packTitle": "Flowstate MIDI Starter",
+              "producer": "GodFlow (flowknows)",
+              "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+              "licenseId": "flowstate-built-in",
+              "allowsExport": true,
+              "allowsStyleExamples": true
+            },
+            "nodeId": null,
+            "prompt": null,
+            "kind": null,
+            "createdAtMs": null
+          },
+          {
+            "id": "node:n2",
+            "origin": "ai",
+            "title": "Late bus",
+            "roles": [
+              "chords",
+              "bass",
+              "melody",
+              "drums"
+            ],
+            "genres": [
+              "lofi"
+            ],
+            "tags": [],
+            "feel": null,
+            "tonic": "D",
+            "mode": "dorian",
+            "keyNote": "From the plan",
+            "tempo": 92,
+            "tempoMin": 84,
+            "tempoMax": 100,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "bars": 4,
+            "energy": null,
+            "density": null,
+            "complexity": null,
+            "groove": null,
+            "credit": null,
+            "nodeId": "n2",
+            "prompt": "lofi dorian keys",
+            "kind": "vary",
+            "createdAtMs": 1790000000000
+          }
+        ]
       }
     }
   ],
@@ -266,7 +362,8 @@
           "message": "x"
         },
         "requestId": null,
-        "session": null
+        "session": null,
+        "catalog": null
       },
       "path": "error.code"
     },
@@ -308,7 +405,8 @@
               "partIds": null,
               "title": "Late bus",
               "createdAtMs": 1789999990000,
-              "rating": null
+              "rating": null,
+              "entryId": null
             },
             {
               "id": "n2",
@@ -320,7 +418,8 @@
               ],
               "title": "Late bus",
               "createdAtMs": 1790000000000,
-              "rating": "up"
+              "rating": "up",
+              "entryId": null
             }
           ],
           "currentNodeId": "n2",
@@ -423,8 +522,10 @@
                 "keys"
               ]
             }
-          ]
-        }
+          ],
+          "preview": null
+        },
+        "catalog": null
       },
       "path": "session.clip.parts[0].notes[0].pitch"
     },
@@ -466,7 +567,8 @@
               "partIds": null,
               "title": "Late bus",
               "createdAtMs": 1789999990000,
-              "rating": null
+              "rating": null,
+              "entryId": null
             },
             {
               "id": "n2",
@@ -478,7 +580,8 @@
               ],
               "title": "Late bus",
               "createdAtMs": 1790000000000,
-              "rating": "up"
+              "rating": "up",
+              "entryId": null
             }
           ],
           "currentNodeId": "n2",
@@ -608,8 +711,10 @@
                 "keys"
               ]
             }
-          ]
-        }
+          ],
+          "preview": null
+        },
+        "catalog": null
       },
       "path": "session.clip.parts[1].voices[0].voice"
     },
@@ -653,7 +758,8 @@
               ],
               "title": "Late bus",
               "createdAtMs": -1,
-              "rating": "up"
+              "rating": "up",
+              "entryId": null
             }
           ],
           "currentNodeId": "n2",
@@ -788,8 +894,10 @@
                 "keys"
               ]
             }
-          ]
-        }
+          ],
+          "preview": null
+        },
+        "catalog": null
       },
       "path": "session.nodes[0].createdAtMs"
     },
@@ -831,7 +939,8 @@
               "partIds": null,
               "title": "Late bus",
               "createdAtMs": 1789999990000,
-              "rating": null
+              "rating": null,
+              "entryId": null
             },
             {
               "id": "n2",
@@ -843,7 +952,8 @@
               ],
               "title": "Late bus",
               "createdAtMs": 1790000000000,
-              "rating": "up"
+              "rating": "up",
+              "entryId": null
             }
           ],
           "currentNodeId": "n2",
@@ -957,10 +1067,104 @@
                 "keys"
               ]
             }
+          ],
+          "preview": null
+        },
+        "catalog": null
+      },
+      "path": "session.thread[0].role"
+    },
+    {
+      "why": "energy above 1",
+      "value": {
+        "ok": true,
+        "error": null,
+        "requestId": null,
+        "session": null,
+        "catalog": {
+          "total": 2,
+          "entries": [
+            {
+              "id": "lib:godflow/rnb-jazz-chords-15",
+              "origin": "library",
+              "title": "R&B jazz chords 15",
+              "roles": [
+                "chords"
+              ],
+              "genres": [
+                "rnb",
+                "neo-soul",
+                "jazz"
+              ],
+              "tags": [
+                "extended-voicings"
+              ],
+              "feel": "neo-soul jazz voicings",
+              "tonic": "C",
+              "mode": "major",
+              "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+              "tempo": 120,
+              "tempoMin": 112,
+              "tempoMax": 128,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 1.5,
+              "density": 0.2,
+              "complexity": 0,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            {
+              "id": "node:n2",
+              "origin": "ai",
+              "title": "Late bus",
+              "roles": [
+                "chords",
+                "bass",
+                "melody",
+                "drums"
+              ],
+              "genres": [
+                "lofi"
+              ],
+              "tags": [],
+              "feel": null,
+              "tonic": "D",
+              "mode": "dorian",
+              "keyNote": "From the plan",
+              "tempo": 92,
+              "tempoMin": 84,
+              "tempoMax": 100,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": null,
+              "density": null,
+              "complexity": null,
+              "groove": null,
+              "credit": null,
+              "nodeId": "n2",
+              "prompt": "lofi dorian keys",
+              "kind": "vary",
+              "createdAtMs": 1790000000000
+            }
           ]
         }
       },
-      "path": "session.thread[0].role"
+      "path": "catalog.entries[0].energy"
     }
   ]
 }

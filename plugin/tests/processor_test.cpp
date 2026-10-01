@@ -189,3 +189,18 @@ int main(int argc, char** argv) {
     doctest::Context context(argc, argv);
     return context.run();
 }
+
+TEST_CASE("library: the bundled catalog is searchable and a clip becomes an idea") {
+    FlowstateProcessor p;
+    const json query = {{"text", ""}, {"origins", {"library"}}, {"roles", nullptr}, {"genres", nullptr},
+                        {"fitContext", false}, {"limit", 100}, {"offset", 0}};
+    auto r = command(p, {{"type", "searchCatalog"}, {"query", query}});
+    REQUIRE(r["ok"] == true);
+    CHECK(r["catalog"]["total"] == 29);
+    for (const auto& e : r["catalog"]["entries"]) CHECK(e["credit"]["text"] == "MIDI by GodFlow (flowknows) for Flowstate.");
+
+    r = command(p, {{"type", "useEntry"}, {"entryId", "lib:godflow/bass-05"}});
+    REQUIRE(r["ok"] == true);
+    CHECK(r["session"]["nodes"].back()["kind"] == "library");
+    CHECK(r["session"]["clip"]["parts"][0]["role"] == "bass");
+}

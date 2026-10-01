@@ -136,6 +136,7 @@ void validateScore(const Score& score, std::vector<std::string>& warnings);
 const char* toString(Role role);
 const char* toString(DrumVoice voice);
 const char* toString(VoicingFamily family);
+const char* toString(Mode mode);
 std::optional<Role> roleFromString(const std::string& s);
 std::optional<Mode> modeFromString(const std::string& s);
 std::optional<VoicingFamily> voicingFromString(const std::string& s);

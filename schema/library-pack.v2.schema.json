@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "flowstate.libraryPack.v2"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Equals the pack's folder name"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "credit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Attribution text, shown with every clip"
+    },
+    "creditFile": {
+      "type": "string",
+      "description": "Relative path of the pack's credit and license note"
+    },
+    "license": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allowsPreview": {
+          "type": "boolean"
+        },
+        "allowsExport": {
+          "type": "boolean",
+          "description": "Drag-out and export of the clip"
+        },
+        "allowsStyleExamples": {
+          "type": "boolean",
+          "description": "The planner may show the clip to a model as a style example"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "allowsPreview",
+        "allowsExport",
+        "allowsStyleExamples"
+      ],
+      "additionalProperties": false
+    },
+    "laneNotes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Why a lane has no clips, so nothing fake fills it"
+    },
+    "omitted": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "file",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Source files deliberately left out, and why"
+    },
+    "entries": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Unique in the pack; the catalog id is lib:<pack>/<id>"
+          },
+          "file": {
+            "type": "string",
+            "description": "Relative path of the .mid inside the pack: forward slashes, no '..', no absolute prefix"
+          },
+          "lane": {
+            "type": "string",
+            "enum": [
+              "chords",
+              "bass",
+              "melody",
+              "drums"
+            ],
+            "description": "The clip's lane; the analyzer fails the entry if the content clearly says otherwise"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "genres": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "description": "Style tags in the planner's vocabulary: hip-hop, rnb, neo-soul, pop, ..."
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            }
+          },
+          "feel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "tempoMin": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 20,
+                "maximum": 400
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = the file's tempo minus 8"
+          },
+          "tempoMax": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 20,
+                "maximum": 400
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null = the file's tempo plus 8"
+          },
+          "key": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "tonic": {
+                    "type": "string",
+                    "enum": [
+                      "C",
+                      "C#",
+                      "Db",
+                      "D",
+                      "D#",
+                      "Eb",
+                      "E",
+                      "F",
+                      "F#",
+                      "Gb",
+                      "G",
+                      "G#",
+                      "Ab",
+                      "A",
+                      "A#",
+                      "Bb",
+                      "B"
+                    ]
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "major",
+                      "minor",
+                      "dorian",
+                      "phrygian",
+                      "lydian",
+                      "mixolydian",
+                      "locrian",
+                      "harmonic_minor",
+                      "melodic_minor",
+                      "major_pentatonic",
+                      "minor_pentatonic",
+                      "blues"
+                    ]
+                  }
+                },
+                "required": [
+                  "tonic",
+                  "mode"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "A key the producer knows; wins over detection. null = detect"
+          },
+          "notes": {
+            "description": "Musical note for people and models; no file paths or source names",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "file",
+          "lane",
+          "title",
+          "genres",
+          "tags",
+          "feel",
+          "tempoMin",
+          "tempoMax",
+          "key",
+          "notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "producer",
+    "credit",
+    "creditFile",
+    "license",
+    "laneNotes",
+    "omitted",
+    "entries"
+  ],
+  "additionalProperties": false
+}

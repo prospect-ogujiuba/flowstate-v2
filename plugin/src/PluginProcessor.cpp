@@ -1,6 +1,7 @@
 #include "PluginProcessor.h"
 
 #include "BuildId.h"
+#include "FlowstateLibrary.h"
 #include "MidiFiles.h"
 
 namespace flowstate::plugin {
@@ -250,6 +251,19 @@ void FlowstateProcessor::timerCallback() {
 // ---- Platform --------------------------------------------------------------------------------------
 
 std::int64_t FlowstateProcessor::nowMs() { return juce::Time::currentTimeMillis(); }
+
+// The built-in library (library/catalog), embedded by juce_add_binary_data and looked up by file name.
+std::optional<std::vector<std::uint8_t>> FlowstateProcessor::libraryResource(const std::string& name) {
+    for (int i = 0; i < FlowstateLibrary::namedResourceListSize; ++i) {
+        const auto* resource = FlowstateLibrary::namedResourceList[i];
+        if (name != FlowstateLibrary::getNamedResourceOriginalFilename(resource)) continue;
+        int size = 0;
+        const auto* data = static_cast<const std::uint8_t*>(static_cast<const void*>(FlowstateLibrary::getNamedResource(resource, size)));
+        if (data == nullptr) return std::nullopt;
+        return std::vector<std::uint8_t>(data, data + size);
+    }
+    return std::nullopt;
+}
 
 std::optional<fb::ErrorInfo> FlowstateProcessor::startDrag(const fb::Clip& clip, const MidiMeta& meta,
                                                            const std::optional<std::vector<std::string>>& partIds,

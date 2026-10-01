@@ -1,0 +1,3163 @@
+{
+  "schema": "flowstate.libraryCatalog.v1",
+  "packs": [
+    {
+      "id": "godflow",
+      "title": "Flowstate MIDI Starter",
+      "producer": "GodFlow (flowknows)",
+      "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+      "licenseId": "flowstate-built-in",
+      "notes": [
+        "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+        "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01).",
+        "Left out bass-01: Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones.",
+        "Left out bass-03: A C#4 in the last-bar fill leaves the bass range C1-C4.",
+        "Left out bass-04: A dancehall line between G3 and F4, above the bass range C1-C4."
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-01",
+        "origin": "library",
+        "title": "R&B jazz chords 01",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between C major (r 0.81) and A minor (r 0.76)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.373,
+        "density": 0.273,
+        "complexity": 0.3,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-01.mid",
+      "sha256": "d139bd9f4cd94b853ceb939a1ce01e6c16c75e876771b7248e12c4f9603cf335",
+      "harmony": [
+        "C69/D",
+        "Cadd9/E",
+        "Fadd9",
+        "Cadd9/G",
+        "G#dim",
+        "A11"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.917,
+        "notes": 0.893,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 01",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "C69/D:1.5 Cadd9/E:1.5 Fadd9:5 | Cadd9/G:1.5 G#dim:1.5 A11:5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 01",
+            "low": "D3",
+            "high": "E5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -x -- x- | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-02",
+        "origin": "library",
+        "title": "R&B jazz chords 02",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": "F",
+        "mode": "major",
+        "keyNote": "Detected: F major, r 0.72, ahead of C major by 0.05",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.355,
+        "density": 0.238,
+        "complexity": 0.467,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-02.mid",
+      "sha256": "e138b45b873d2c0dd3fb0cf37d5d32b407379506b557982160e3706dec72e274",
+      "harmony": [
+        "Dm9",
+        "E7",
+        "Fmaj7",
+        "Fm69/E",
+        "Fmaj9"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.84,
+        "notes": 0.833,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 02",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "F",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm9:1.5 E7:1.5 Fmaj7:5 | Fm69/E:3 Fmaj9:5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 02",
+            "low": "D2",
+            "high": "G4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -x -- x- | -- -- -- .. | x- -- -. x- | -- -- -- --",
+                "voicing": "rootless"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-03",
+        "origin": "library",
+        "title": "R&B jazz chords 03",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between A minor (r 0.74) and C major (r 0.71)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.147,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-03.mid",
+      "sha256": "de04e8ef48fefa9179e75b55681ab64deba21449c56c25c9af246885f757a704",
+      "harmony": [
+        "Fmaj7",
+        "Em7",
+        "Dm7",
+        "Cmaj7",
+        "Dm6",
+        "Eaug"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.979,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 03",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "A",
+          "mode": "minor",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Fmaj7:4 | Em7:4 | Dm7:4 | Cmaj7:4 | Dm6:8 | Eaug:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 03",
+            "low": "B2",
+            "high": "A4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "x- -- -- -- | x- -- -- -- | x- -- -- -- | x- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "close"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-04",
+        "origin": "library",
+        "title": "R&B jazz chords 04",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between E minor (r 0.73) and G major (r 0.69)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 16,
+        "energy": 0.304,
+        "density": 0.135,
+        "complexity": 0.272,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-04.mid",
+      "sha256": "fcdf0cc85c285736c1d2387cf19dc235a2bb65a604fcc17b9a0bdd354fcd97a0",
+      "harmony": [
+        "Fmaj9",
+        "G69/E",
+        "Dm9",
+        "Cmaj9",
+        "D69/B",
+        "E9",
+        "Am9",
+        "A#7#5/G#",
+        "Gm9",
+        "C9"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.96,
+        "notes": 0.95,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 04",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "minor",
+          "bars": 16,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 16,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Fmaj9:4 | G69/E:4 | Dm9:4 | Cmaj9:4 | D69/B:8 | E9:8 | Am9:8 | A#7#5/G#:8 | Gm9:8 | C9:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 04",
+            "low": "E2",
+            "high": "C5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 16,
+                "rhythm": "x- -- -- -- | x- -- -- -- | x- -- -- -- | x- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-05",
+        "origin": "library",
+        "title": "R&B jazz chords 05",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit D minor, r 0.65)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0.204,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-05.mid",
+      "sha256": "d0e340422128624725edbfa387166cdaefa8db3bbbdf71bd271a186442fed3a5",
+      "harmony": [
+        "Dm9",
+        "G11",
+        "A11",
+        "Dbdim7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.85,
+        "notes": 0.889,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 05",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "D",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm9:4 | G11:4 | A11:4 | Dbdim7:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 05",
+            "low": "G2",
+            "high": "E4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- --",
+                "voicing": "rootless"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-06",
+        "origin": "library",
+        "title": "R&B jazz chords 06",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": "E",
+        "mode": "minor",
+        "keyNote": "Detected: E minor, r 0.81, ahead of G major by 0.07",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0.167,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-06.mid",
+      "sha256": "cb7b453a22f0b351e98ed6f072855a3d5af10f3da74bf2983528352d61b794d9",
+      "harmony": [
+        "Em7",
+        "Fmaj9",
+        "G",
+        "Am7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.95,
+        "notes": 0.811,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 06",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Em7:3 Fmaj9:5 | G:3 Am7:5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 06",
+            "low": "G2",
+            "high": "G4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- x- | -- -- -- --",
+                "voicing": "close"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-07",
+        "origin": "library",
+        "title": "R&B jazz chords 07",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": "A",
+        "mode": "minor",
+        "keyNote": "Detected: A minor, r 0.93, ahead of C major by 0.13",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0.217,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-07.mid",
+      "sha256": "8f5934910341f765dc7cdc0dc84dfb89dd3005dfda2f02e93bcfed9c0bdafb0f",
+      "harmony": [
+        "Am7",
+        "Em7",
+        "Fmaj7",
+        "Dm7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.75,
+        "notes": 0.774,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 07",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "A",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Am7:4 | Em7:2 Fmaj7:2 | Dm7:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 07",
+            "low": "D3",
+            "high": "C5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -- | x- -- x- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "shell"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-08",
+        "origin": "library",
+        "title": "R&B jazz chords 08",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between C major (r 0.83) and E minor (r 0.82)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.283,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-08.mid",
+      "sha256": "071c09a223566311ab223085136a4f59645755581133aa1a7671560bc286c9df",
+      "harmony": [
+        "Dm11",
+        "G7b9",
+        "Cmaj7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.833,
+        "notes": 0.824,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 08",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm11:4 | G7b9:4 | Cmaj7:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 08",
+            "low": "C3",
+            "high": "G5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -- | x- -- -- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-09",
+        "origin": "library",
+        "title": "R&B jazz chords 09",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit D minor, r 0.67)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0.167,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-09.mid",
+      "sha256": "36fbc47d8cf51ab9b4df6b0fd7441f4d2290a1d9e168f410b85485dc9589ff1b",
+      "harmony": [
+        "Fmaj7",
+        "Dm7",
+        "Em7",
+        "Bm7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 09",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "D",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Fmaj7:3 Dm7:5 | Em7:3 Bm7:5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 09",
+            "low": "B2",
+            "high": "A4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- x- | -- -- -- --",
+                "voicing": "close"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-10",
+        "origin": "library",
+        "title": "R&B jazz chords 10",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between C major (r 0.78) and G major (r 0.76)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.314,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-10.mid",
+      "sha256": "5ee0d1b398f3e02b57bbf63a6669eca0eecaf0e20be000d210d8527ca81fdcc9",
+      "harmony": [
+        "A11",
+        "D9/F#",
+        "Dm11/G",
+        "Cmaj9",
+        "Dm6",
+        "Eaug"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.906,
+        "notes": 0.889,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 10",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "A11:8 | D9/F#:8 | Dm11/G:8 | Cmaj9:4 | Dm6:2 Eaug:2",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 10",
+            "low": "C3",
+            "high": "F5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | -- -- -- -- | x- -- -- -- | x- -- x- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-11",
+        "origin": "library",
+        "title": "R&B jazz chords 11",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between D minor (r 0.75) and C major (r 0.75)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.416,
+        "density": 0.36,
+        "complexity": 0.509,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-11.mid",
+      "sha256": "f1108ac7f06f286af0bf2178b367f6ece7064e253c53419779ff9beb0c5e60dd",
+      "harmony": [
+        "A11",
+        "Fmaj7",
+        "Dm9",
+        "G11",
+        "A11",
+        "Fmaj7",
+        "Dm9",
+        "G11",
+        "E/G#"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.898,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 11",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "D",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "A11:1.75 Fmaj7:2.25 | Dm9:1.75 G11:2.25 | A11:1.75 Fmaj7:2.25 | Dm9:1.75 G11:1.25 E/G#:1",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 11",
+            "low": "D2",
+            "high": "G4",
+            "grid": 4,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x--- ---x ---- ---- | x--- ---x ---- ---- | x--- ---x ---- ---- | x--- ---x ---- x---",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-12",
+        "origin": "library",
+        "title": "R&B jazz chords 12",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between G major (r 0.83) and C major (r 0.78)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.128,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-12.mid",
+      "sha256": "c807c377779646b9fd79ed7b094aa2e0b47de668803da2a2fac895a3463f9105",
+      "harmony": [
+        "Dm7",
+        "C",
+        "Gadd9"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.875,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 12",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "G",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm7:4 | C:4 | Gadd9:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 12",
+            "low": "C3",
+            "high": "F5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -- | x- -- -- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-13",
+        "origin": "library",
+        "title": "R&B jazz chords 13",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit D minor, r 0.70)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0.204,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-13.mid",
+      "sha256": "5a375968fa5c6c2780592f29077f46e068461e3c42d31ce6ef81f46396d7d6fd",
+      "harmony": [
+        "A11",
+        "Dbdim7",
+        "Dm9",
+        "G11"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.889,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 13",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "D",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "A11:4 | Dbdim7:4 | Dm9:4 | G11:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 13",
+            "low": "Db3",
+            "high": "E5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-14",
+        "origin": "library",
+        "title": "R&B jazz chords 14",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between E minor (r 0.78) and G major (r 0.74)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.244,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-14.mid",
+      "sha256": "7fcf058613905bb860b2c30b664cc6873e9d8763ec0937e7d479d761c27fbb42",
+      "harmony": [
+        "Am9",
+        "Em7",
+        "Dm9"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.938,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 14",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Am9:8 | Em7:4 | Dm9:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 14",
+            "low": "D3",
+            "high": "G5",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -- | -- -- -- -- | x- -- -- -- | x- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-15",
+        "origin": "library",
+        "title": "R&B jazz chords 15",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": "C",
+        "mode": "major",
+        "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.336,
+        "density": 0.2,
+        "complexity": 0,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-15.mid",
+      "sha256": "df74a26375c3d0b8ca60a86fe32d5470cb0167c927571783d92336cf5857727e",
+      "harmony": [
+        "Am",
+        "F",
+        "C",
+        "G"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.973,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 15",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Am:4 | F:4 | C:4 | G:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 15",
+            "low": "F2",
+            "high": "E4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/rnb-jazz-chords-16",
+        "origin": "library",
+        "title": "R&B jazz chords 16",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "rnb",
+          "neo-soul",
+          "jazz"
+        ],
+        "tags": [
+          "extended-voicings"
+        ],
+        "feel": "neo-soul jazz voicings",
+        "tonic": "C",
+        "mode": "major",
+        "keyNote": "Detected: C major, r 0.93, ahead of A minor by 0.26",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.315,
+        "density": 0.158,
+        "complexity": 0.128,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--rnb-jazz-chords-16.mid",
+      "sha256": "9c48c72f199b3c788fd43052db158f6afce8084570c511a7a37157c3c8574388",
+      "harmony": [
+        "C",
+        "Em7",
+        "Fmaj7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.96,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "R&B jazz chords 16",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rnb",
+            "neo-soul",
+            "jazz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "C:4 | Em7:4 | Fmaj7:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "R&B jazz chords 16",
+            "low": "E2",
+            "high": "E4",
+            "grid": 2,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -- | x- -- -- -- | x- -- -- -- | -- -- -- --",
+                "voicing": "drop3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-01",
+        "origin": "library",
+        "title": "World chords 01",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit E major, r 0.64)",
+        "tempo": 90,
+        "tempoMin": 82,
+        "tempoMax": 98,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.517,
+        "density": 0.333,
+        "complexity": 0.367,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-01.mid",
+      "sha256": "68cb2efffe37fe72b9a4b55740eeca7890732d287b0aca0f0aad94c724219a1f",
+      "harmony": [
+        "F#m7",
+        "C#m7",
+        "Bm7",
+        "F#m7",
+        "C#m7",
+        "Bm7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.75,
+        "notes": 0.75,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 01",
+        "context": {
+          "tempo": 90,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "F#m7:1.5 C#m7:4 Bm7:2.5 | F#m7:1.5 C#m7:4 Bm7:2.5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 01",
+            "low": "B1",
+            "high": "C#5",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- .x -- --",
+                "voicing": "shell"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-02",
+        "origin": "library",
+        "title": "World chords 02",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": "G#",
+        "mode": "minor",
+        "keyNote": "Detected: G# minor, r 0.93, ahead of B major by 0.14",
+        "tempo": 100,
+        "tempoMin": 92,
+        "tempoMax": 108,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.565,
+        "density": 0.429,
+        "complexity": 0.569,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-02.mid",
+      "sha256": "4222b1ca8b7db535f1301a80e44a86e41d3ec9fae1423e0306de7d716013dcd8",
+      "harmony": [
+        "G#m9",
+        "Emaj9",
+        "C#m9",
+        "G#m9",
+        "Emaj9",
+        "C#m9",
+        "G#m9",
+        "Emaj9",
+        "C#m9",
+        "E69",
+        "G#m11",
+        "C#m11"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.972,
+        "notes": 0.909,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 02",
+        "context": {
+          "tempo": 100,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "G#",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "G#m9:1.5 Emaj9:1 C#m9:1.5 | G#m9:1.5 Emaj9:1 C#m9:1.5 | G#m9:1.5 Emaj9:1 C#m9:1.5 | E69:1.5 G#m11:1 C#m11:1.5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 02",
+            "low": "C#2",
+            "high": "F#4",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- .x -x --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-03",
+        "origin": "library",
+        "title": "World chords 03",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit Bb minor, r 0.66)",
+        "tempo": 120,
+        "tempoMin": 112,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.45,
+        "density": 0.2,
+        "complexity": 0.117,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-03.mid",
+      "sha256": "0d17f0609c61a21168e007b3940b4fe79ebc9d84bf27e04f4298be2df3b0c373",
+      "harmony": [
+        "Abm7",
+        "Bbm7",
+        "Ebm7",
+        "Bbm7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.909,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 03",
+        "context": {
+          "tempo": 120,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "Bb",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Abm7:4 | Bbm7:4 | Ebm7:4 | Bbm7:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 03",
+            "low": "Eb2",
+            "high": "Bb4",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-04",
+        "origin": "library",
+        "title": "World chords 04",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": "F",
+        "mode": "major",
+        "keyNote": "Detected: F major, r 0.81, ahead of D minor by 0.07",
+        "tempo": 108,
+        "tempoMin": 100,
+        "tempoMax": 116,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.517,
+        "density": 0.333,
+        "complexity": 0.2,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-04.mid",
+      "sha256": "18c3bed8ebe8de06aa58222a3dfd8da076346f085c6eb81e49b79bb4d14188ea",
+      "harmony": [
+        "Dm",
+        "F",
+        "C",
+        "Bb"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.889,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 04",
+        "context": {
+          "tempo": 108,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "F",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm:4 | F:4 | C:4 | Bb:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 04",
+            "low": "C3",
+            "high": "A4",
+            "grid": 4,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x-.x -... .... ....",
+                "voicing": "close"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-05",
+        "origin": "library",
+        "title": "World chords 05",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": "E",
+        "mode": "minor",
+        "keyNote": "Detected: E minor, r 0.79, ahead of E major by 0.18",
+        "tempo": 110,
+        "tempoMin": 102,
+        "tempoMax": 118,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.487,
+        "density": 0.273,
+        "complexity": 0.167,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-05.mid",
+      "sha256": "36d61e06f91f7cff2f201c8d60f9b110e85cd1a814d80aebf1c835162cad72ae",
+      "harmony": [
+        "Fmaj7",
+        "Amadd9",
+        "Em7",
+        "Fmaj7",
+        "Amadd9",
+        "Em7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.889,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 05",
+        "context": {
+          "tempo": 110,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Fmaj7:4 | Amadd9:1 Em7:3 | Fmaj7:4 | Amadd9:1 Em7:3",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 05",
+            "low": "E2",
+            "high": "E4",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- .. | x- x- -- --",
+                "voicing": "drop2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/world-chords-06",
+        "origin": "library",
+        "title": "World chords 06",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "world"
+        ],
+        "tags": [
+          "syncopated",
+          "modal-color"
+        ],
+        "feel": "world-influenced progression",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between B major (r 0.75) and Gb major (r 0.72)",
+        "tempo": 95,
+        "tempoMin": 87,
+        "tempoMax": 103,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.56,
+        "density": 0.333,
+        "complexity": 0.036,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--world-chords-06.mid",
+      "sha256": "131ee9b57edbdf44747f30aea68d329ba8df0ccc05a925f3a922696e6733b351",
+      "harmony": [
+        "E",
+        "F#",
+        "G#m",
+        "D#m7",
+        "E",
+        "F#",
+        "G#m",
+        "D#m7",
+        "Emaj7",
+        "F#",
+        "G#m7",
+        "F#",
+        "E",
+        "F#",
+        "G#m",
+        "D#m7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.803,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "World chords 06",
+        "context": {
+          "tempo": 95,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "B",
+          "mode": "major",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "world"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "E:2 F#:2 | G#m:2 D#m7:2 | E:2 F#:2 | G#m:2 D#m7:2 | Emaj7:2 F#:2 | G#m7:2 F#:2 | E:2 F#:2 | G#m:2 D#m7:2",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "World chords 06",
+            "low": "F#2",
+            "high": "D#5",
+            "grid": 2,
+            "velocity": 100,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "x- -- x- --",
+                "voicing": "drop2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/pop-chords-01",
+        "origin": "library",
+        "title": "Pop chords 01",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "hook",
+          "stacked"
+        ],
+        "feel": "bright stacked hook",
+        "tonic": "F#",
+        "mode": "minor",
+        "keyNote": "Detected: F# minor, r 0.93, ahead of Gb major by 0.24",
+        "tempo": 115,
+        "tempoMin": 107,
+        "tempoMax": 123,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.628,
+        "density": 0.556,
+        "complexity": 0.257,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--pop-chords-01.mid",
+      "sha256": "c6cfb744f1f7153b2e8263ed0af0e02924aad78f7e407cd665c770982cc4b563",
+      "harmony": [
+        "C#m",
+        "Bm7",
+        "F#m",
+        "C#m",
+        "Bm7",
+        "F#m"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.854,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop chords 01",
+        "context": {
+          "tempo": 115,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "F#",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "C#m:2 Bm7:4 F#m:2 | C#m:2 Bm7:4 F#m:2",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "Pop chords 01",
+            "low": "B2",
+            "high": "A4",
+            "grid": 4,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x--x -.x- x-.. x-.. | x-.. x-.. x-.x -.x-",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/pop-chords-02",
+        "origin": "library",
+        "title": "Pop chords 02",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "hook",
+          "stacked"
+        ],
+        "feel": "wide pop hook",
+        "tonic": "B",
+        "mode": "minor",
+        "keyNote": "Detected: B minor, r 0.81, ahead of D major by 0.17",
+        "tempo": 105,
+        "tempoMin": 97,
+        "tempoMax": 113,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.45,
+        "density": 0.2,
+        "complexity": 0.304,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--pop-chords-02.mid",
+      "sha256": "a72518d34ef1b0dd2a30f2682979f0eb531df4160c9294748c5782e810ab270a",
+      "harmony": [
+        "Em11",
+        "B11",
+        "Gmaj9",
+        "B11"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.858,
+        "notes": 0.818,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop chords 02",
+        "context": {
+          "tempo": 105,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "B",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Em11:3 B11:5 | Gmaj9:3 B11:5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "Pop chords 02",
+            "low": "B1",
+            "high": "F#5",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- x- | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/pop-chords-03",
+        "origin": "library",
+        "title": "Pop chords 03",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "hook",
+          "stacked"
+        ],
+        "feel": "simple hook",
+        "tonic": "F#",
+        "mode": "minor",
+        "keyNote": "Detected: F# minor, r 0.82, ahead of D major by 0.14",
+        "tempo": 110,
+        "tempoMin": 102,
+        "tempoMax": 118,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.494,
+        "density": 0.2,
+        "complexity": 0.337,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--pop-chords-03.mid",
+      "sha256": "5f129f51d8b61eece3077c70941055151c935478f81ba2ea065d6a273db1640a",
+      "harmony": [
+        "F#m7",
+        "Dmaj7",
+        "D",
+        "C#m7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.923,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop chords 03",
+        "context": {
+          "tempo": 110,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "F#",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "F#m7:3.5 Dmaj7:4.5 | D:3.5 C#m7:4.5",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "Pop chords 03",
+            "low": "D2",
+            "high": "B4",
+            "grid": 2,
+            "velocity": 100,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "x- -- -- -x | -- -- -- --",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/pop-chords-04",
+        "origin": "library",
+        "title": "Pop chords 04",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "hook",
+          "stacked"
+        ],
+        "feel": "up-tempo hook",
+        "tonic": "B",
+        "mode": "minor",
+        "keyNote": "Detected: B minor, r 0.75, ahead of A major by 0.07",
+        "tempo": 157,
+        "tempoMin": 149,
+        "tempoMax": 165,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.56,
+        "density": 0.333,
+        "complexity": 0.317,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--pop-chords-04.mid",
+      "sha256": "5aef305864fd12b61a3bb1f6256b18e034b35b003ab2bffe74971d99d17e84ee",
+      "harmony": [
+        "Bm7",
+        "Em7",
+        "A7",
+        "Bm7",
+        "Em7",
+        "A7",
+        "Bm7"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 0.75,
+        "notes": 0.75,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop chords 04",
+        "context": {
+          "tempo": 157,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "B",
+          "mode": "minor",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Bm7:4 | Em7:4 | A7:4 | Bm7:8 | Em7:4 | A7:4 | Bm7:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "Pop chords 04",
+            "low": "A2",
+            "high": "D5",
+            "grid": 2,
+            "velocity": 100,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "x. x. .x -- | x- -- .. ..",
+                "voicing": "shell"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/pop-chords-05",
+        "origin": "library",
+        "title": "Pop chords 05",
+        "roles": [
+          "chords"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "hook",
+          "stacked"
+        ],
+        "feel": "extended hook",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: ambiguous between E minor (r 0.76) and E major (r 0.72)",
+        "tempo": 107,
+        "tempoMin": 99,
+        "tempoMax": 115,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.503,
+        "density": 0.22,
+        "complexity": 0.291,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--pop-chords-05.mid",
+      "sha256": "221ee9ca3bbc22a831de41f393a4f6122259b5925fcac5c82ab799aa43a7a638",
+      "harmony": [
+        "Em7",
+        "Bm7",
+        "Em7",
+        "A",
+        "F#m7",
+        "Em7",
+        "Bm7",
+        "Em7",
+        "A"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 0.977,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop chords 05",
+        "context": {
+          "tempo": 107,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "minor",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Em7:4 | Bm7:4 | Em7:4 | A:3 F#m7:1 | Em7:4 | Bm7:4 | Em7:4 | A:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "chords",
+            "role": "chords",
+            "name": "Pop chords 05",
+            "low": "B2",
+            "high": "E5",
+            "grid": 2,
+            "velocity": 100,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "x- -- -- -- | x- -- -- -. | x- -- -- .. | x- -- -. x- | x- -- -- -. | x- -- -- -- | x- -- -- -. | x- -- -- -.",
+                "voicing": "spread"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/bass-02",
+        "origin": "library",
+        "title": "Hip-hop bass 02",
+        "roles": [
+          "bass"
+        ],
+        "genres": [
+          "hip-hop"
+        ],
+        "tags": [
+          "root-motion",
+          "pocket"
+        ],
+        "feel": "steady pocket",
+        "tonic": "E",
+        "mode": "major",
+        "keyNote": "Detected: E major, r 0.76, ahead of A major by 0.05",
+        "tempo": 90,
+        "tempoMin": 82,
+        "tempoMax": 98,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 8,
+        "energy": 0.564,
+        "density": 0.429,
+        "complexity": 0.375,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--bass-02.mid",
+      "sha256": "0df95277baee3a046ed62d19f4ca41b1ed84cd0d51c8f3824220203d6f0ac439",
+      "harmony": [
+        "C#m",
+        "A",
+        "C#m",
+        "A",
+        "C#m",
+        "A",
+        "C#m",
+        "A"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 8
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Hip-hop bass 02",
+        "context": {
+          "tempo": 90,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "E",
+          "mode": "major",
+          "bars": 8,
+          "swing": 0,
+          "style": [
+            "hip-hop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 8,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "bass",
+            "role": "bass",
+            "name": "Hip-hop bass 02",
+            "low": "G#2",
+            "high": "F#3",
+            "grid": 4,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 8,
+                "rhythm": "R-.. .... .... ..3. | R--. .... .... .... | R-.. .... .... 3-.. | R-.. .... ..57 ....",
+                "notes": [
+                  {
+                    "bar": 1,
+                    "beat": 4.75,
+                    "beats": 0.2292,
+                    "pitch": "F#3",
+                    "velocity": 79
+                  },
+                  {
+                    "bar": 2,
+                    "beat": 4,
+                    "beats": 0.5333,
+                    "pitch": "B2",
+                    "velocity": 96
+                  },
+                  {
+                    "bar": 3,
+                    "beat": 4.5,
+                    "beats": 0.3083,
+                    "pitch": "F#3",
+                    "velocity": 87
+                  },
+                  {
+                    "bar": 4,
+                    "beat": 4,
+                    "beats": 0.975,
+                    "pitch": "B2",
+                    "velocity": 96
+                  },
+                  {
+                    "bar": 5,
+                    "beat": 4.75,
+                    "beats": 0.1542,
+                    "pitch": "F#3",
+                    "velocity": 88
+                  },
+                  {
+                    "bar": 6,
+                    "beat": 4,
+                    "beats": 0.5542,
+                    "pitch": "B2",
+                    "velocity": 91
+                  },
+                  {
+                    "bar": 7,
+                    "beat": 4.5,
+                    "beats": 0.3125,
+                    "pitch": "F#3",
+                    "velocity": 86
+                  },
+                  {
+                    "bar": 8,
+                    "beat": 4,
+                    "beats": 0.95,
+                    "pitch": "B2",
+                    "velocity": 97
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:godflow/bass-05",
+        "origin": "library",
+        "title": "Hip-hop bass 05",
+        "roles": [
+          "bass"
+        ],
+        "genres": [
+          "hip-hop"
+        ],
+        "tags": [
+          "minimal",
+          "anchor"
+        ],
+        "feel": "sparse pocket",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: no clear tonal centre (best fit A minor, r 0.61)",
+        "tempo": 90,
+        "tempoMin": 82,
+        "tempoMax": 98,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.679,
+        "density": 0.515,
+        "complexity": 0.251,
+        "groove": "straight",
+        "credit": {
+          "packId": "godflow",
+          "packTitle": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "godflow--bass-05.mid",
+      "sha256": "edc7d4aec3eb97f9de42ceedb1d57c6e9b3156f857b8ecda2377e74fba4c02c5",
+      "harmony": [
+        "Dm",
+        "F",
+        "Am"
+      ],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Hip-hop bass 05",
+        "context": {
+          "tempo": 90,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "A",
+          "mode": "minor",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "hip-hop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "Dm:4 | F:4 | Am:8",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "bass",
+            "role": "bass",
+            "name": "Hip-hop bass 05",
+            "low": "F2",
+            "high": "D3",
+            "grid": 4,
+            "velocity": 107,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "rhythm": "R-.X R-.. .... .... | ...3 3... R--R R-.. | R--X R-.. .... .... | R--X R-.. 7--7 7-.."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

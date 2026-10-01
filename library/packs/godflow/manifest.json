@@ -1,0 +1,573 @@
+{
+  "schema": "flowstate.libraryPack.v2",
+  "id": "godflow",
+  "title": "Flowstate MIDI Starter",
+  "producer": "GodFlow (flowknows)",
+  "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+  "creditFile": "CREDITS.md",
+  "license": {
+    "id": "flowstate-built-in",
+    "name": "Flowstate built-in content",
+    "allowsPreview": true,
+    "allowsExport": true,
+    "allowsStyleExamples": true
+  },
+  "laneNotes": [
+    "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+    "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01)."
+  ],
+  "omitted": [
+    {
+      "file": "bass-01.mid",
+      "reason": "Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones."
+    },
+    {
+      "file": "bass-03.mid",
+      "reason": "A C#4 in the last-bar fill leaves the bass range C1-C4."
+    },
+    {
+      "file": "bass-04.mid",
+      "reason": "A dancehall line between G3 and F4, above the bass range C1-C4."
+    }
+  ],
+  "entries": [
+    {
+      "id": "rnb-jazz-chords-01",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-01.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 01",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-02",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-02.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 02",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-03",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-03.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 03",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-04",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-04.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 04",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-05",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-05.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 05",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-06",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-06.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 06",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-07",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-07.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 07",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-08",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-08.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 08",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-09",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-09.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 09",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-10",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-10.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 10",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-11",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-11.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 11",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-12",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-12.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 12",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-13",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-13.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 13",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-14",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-14.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 14",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-15",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-15.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 15",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "rnb-jazz-chords-16",
+      "file": "midi/chords/rnb-jazz/rnb-jazz-chords-16.mid",
+      "lane": "chords",
+      "title": "R&B jazz chords 16",
+      "genres": [
+        "rnb",
+        "neo-soul",
+        "jazz"
+      ],
+      "tags": [
+        "extended-voicings"
+      ],
+      "feel": "neo-soul jazz voicings",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-01",
+      "file": "midi/chords/world/world-chords-01.mid",
+      "lane": "chords",
+      "title": "World chords 01",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 82,
+      "tempoMax": 98,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-02",
+      "file": "midi/chords/world/world-chords-02.mid",
+      "lane": "chords",
+      "title": "World chords 02",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 92,
+      "tempoMax": 108,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-03",
+      "file": "midi/chords/world/world-chords-03.mid",
+      "lane": "chords",
+      "title": "World chords 03",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 112,
+      "tempoMax": 128,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-04",
+      "file": "midi/chords/world/world-chords-04.mid",
+      "lane": "chords",
+      "title": "World chords 04",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 100,
+      "tempoMax": 116,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-05",
+      "file": "midi/chords/world/world-chords-05.mid",
+      "lane": "chords",
+      "title": "World chords 05",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 102,
+      "tempoMax": 118,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "world-chords-06",
+      "file": "midi/chords/world/world-chords-06.mid",
+      "lane": "chords",
+      "title": "World chords 06",
+      "genres": [
+        "world"
+      ],
+      "tags": [
+        "syncopated",
+        "modal-color"
+      ],
+      "feel": "world-influenced progression",
+      "tempoMin": 87,
+      "tempoMax": 103,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "pop-chords-01",
+      "file": "midi/chords/pop/pop-chords-01.mid",
+      "lane": "chords",
+      "title": "Pop chords 01",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "hook",
+        "stacked"
+      ],
+      "feel": "bright stacked hook",
+      "tempoMin": 107,
+      "tempoMax": 123,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "pop-chords-02",
+      "file": "midi/chords/pop/pop-chords-02.mid",
+      "lane": "chords",
+      "title": "Pop chords 02",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "hook",
+        "stacked"
+      ],
+      "feel": "wide pop hook",
+      "tempoMin": 97,
+      "tempoMax": 113,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "pop-chords-03",
+      "file": "midi/chords/pop/pop-chords-03.mid",
+      "lane": "chords",
+      "title": "Pop chords 03",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "hook",
+        "stacked"
+      ],
+      "feel": "simple hook",
+      "tempoMin": 102,
+      "tempoMax": 118,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "pop-chords-04",
+      "file": "midi/chords/pop/pop-chords-04.mid",
+      "lane": "chords",
+      "title": "Pop chords 04",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "hook",
+        "stacked"
+      ],
+      "feel": "up-tempo hook",
+      "tempoMin": 149,
+      "tempoMax": 165,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "pop-chords-05",
+      "file": "midi/chords/pop/pop-chords-05.mid",
+      "lane": "chords",
+      "title": "Pop chords 05",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "hook",
+        "stacked"
+      ],
+      "feel": "extended hook",
+      "tempoMin": 99,
+      "tempoMax": 115,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "bass-02",
+      "file": "midi/bass/bass-02.mid",
+      "lane": "bass",
+      "title": "Hip-hop bass 02",
+      "genres": [
+        "hip-hop"
+      ],
+      "tags": [
+        "root-motion",
+        "pocket"
+      ],
+      "feel": "steady pocket",
+      "tempoMin": 82,
+      "tempoMax": 98,
+      "key": null,
+      "notes": null
+    },
+    {
+      "id": "bass-05",
+      "file": "midi/bass/bass-05.mid",
+      "lane": "bass",
+      "title": "Hip-hop bass 05",
+      "genres": [
+        "hip-hop"
+      ],
+      "tags": [
+        "minimal",
+        "anchor"
+      ],
+      "feel": "sparse pocket",
+      "tempoMin": 82,
+      "tempoMax": 98,
+      "key": null,
+      "notes": null
+    }
+  ]
+}

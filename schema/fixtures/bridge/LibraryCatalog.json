@@ -1,0 +1,935 @@
+{
+  "valid": [
+    {
+      "schema": "flowstate.libraryCatalog.v1",
+      "packs": [
+        {
+          "id": "godflow",
+          "title": "Flowstate MIDI Starter",
+          "producer": "GodFlow (flowknows)",
+          "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "notes": [
+            "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+            "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01).",
+            "Left out bass-01: Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones.",
+            "Left out bass-03: A C#4 in the last-bar fill leaves the bass range C1-C4.",
+            "Left out bass-04: A dancehall line between G3 and F4, above the bass range C1-C4."
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "entry": {
+            "id": "lib:godflow/rnb-jazz-chords-15",
+            "origin": "library",
+            "title": "R&B jazz chords 15",
+            "roles": [
+              "chords"
+            ],
+            "genres": [
+              "rnb",
+              "neo-soul",
+              "jazz"
+            ],
+            "tags": [
+              "extended-voicings"
+            ],
+            "feel": "neo-soul jazz voicings",
+            "tonic": "C",
+            "mode": "major",
+            "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+            "tempo": 120,
+            "tempoMin": 112,
+            "tempoMax": 128,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "bars": 4,
+            "energy": 0.336,
+            "density": 0.2,
+            "complexity": 0,
+            "groove": "straight",
+            "credit": {
+              "packId": "godflow",
+              "packTitle": "Flowstate MIDI Starter",
+              "producer": "GodFlow (flowknows)",
+              "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+              "licenseId": "flowstate-built-in",
+              "allowsExport": true,
+              "allowsStyleExamples": true
+            },
+            "nodeId": null,
+            "prompt": null,
+            "kind": null,
+            "createdAtMs": null
+          },
+          "file": "godflow--rnb-jazz-chords-15.mid",
+          "sha256": "df74a26375c3d0b8ca60a86fe32d5470cb0167c927571783d92336cf5857727e",
+          "harmony": [
+            "Am",
+            "F",
+            "C",
+            "G"
+          ],
+          "fidelity": {
+            "rhythm": 1,
+            "pitch": 1,
+            "notes": 0.973,
+            "literalNotes": 0
+          },
+          "score": {
+            "ir": "flowstate.score.v0",
+            "title": "R&B jazz chords 15",
+            "context": {
+              "tempo": 120,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "tonic": "C",
+              "mode": "major",
+              "bars": 4,
+              "swing": 0,
+              "style": [
+                "rnb",
+                "neo-soul",
+                "jazz"
+              ]
+            },
+            "form": [
+              {
+                "name": "A",
+                "startBar": 1,
+                "bars": 4,
+                "energy": 0.6
+              }
+            ],
+            "harmony": "Am:4 | F:4 | C:4 | G:4",
+            "motifs": [],
+            "parts": [
+              {
+                "id": "chords",
+                "role": "chords",
+                "name": "R&B jazz chords 15",
+                "low": "F2",
+                "high": "E4",
+                "grid": 2,
+                "velocity": 60,
+                "blocks": [
+                  {
+                    "startBar": 1,
+                    "endBar": 4,
+                    "rhythm": "x- -- -- --",
+                    "voicing": "spread"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "entry": {
+            "id": "lib:godflow/bass-05",
+            "origin": "library",
+            "title": "Hip-hop bass 05",
+            "roles": [
+              "bass"
+            ],
+            "genres": [
+              "hip-hop"
+            ],
+            "tags": [
+              "minimal",
+              "anchor"
+            ],
+            "feel": "sparse pocket",
+            "tonic": null,
+            "mode": null,
+            "keyNote": "Blank: no clear tonal centre (best fit A minor, r 0.61)",
+            "tempo": 90,
+            "tempoMin": 82,
+            "tempoMax": 98,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "bars": 4,
+            "energy": 0.679,
+            "density": 0.515,
+            "complexity": 0.251,
+            "groove": "straight",
+            "credit": {
+              "packId": "godflow",
+              "packTitle": "Flowstate MIDI Starter",
+              "producer": "GodFlow (flowknows)",
+              "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+              "licenseId": "flowstate-built-in",
+              "allowsExport": true,
+              "allowsStyleExamples": true
+            },
+            "nodeId": null,
+            "prompt": null,
+            "kind": null,
+            "createdAtMs": null
+          },
+          "file": "godflow--bass-05.mid",
+          "sha256": "edc7d4aec3eb97f9de42ceedb1d57c6e9b3156f857b8ecda2377e74fba4c02c5",
+          "harmony": [
+            "Dm",
+            "F",
+            "Am"
+          ],
+          "fidelity": {
+            "rhythm": 1,
+            "pitch": 1,
+            "notes": 1,
+            "literalNotes": 0
+          },
+          "score": {
+            "ir": "flowstate.score.v0",
+            "title": "Hip-hop bass 05",
+            "context": {
+              "tempo": 90,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "tonic": "A",
+              "mode": "minor",
+              "bars": 4,
+              "swing": 0,
+              "style": [
+                "hip-hop"
+              ]
+            },
+            "form": [
+              {
+                "name": "A",
+                "startBar": 1,
+                "bars": 4,
+                "energy": 0.6
+              }
+            ],
+            "harmony": "Dm:4 | F:4 | Am:8",
+            "motifs": [],
+            "parts": [
+              {
+                "id": "bass",
+                "role": "bass",
+                "name": "Hip-hop bass 05",
+                "low": "F2",
+                "high": "D3",
+                "grid": 4,
+                "velocity": 107,
+                "blocks": [
+                  {
+                    "startBar": 1,
+                    "endBar": 4,
+                    "rhythm": "R-.X R-.. .... .... | ...3 3... R--R R-.. | R--X R-.. .... .... | R--X R-.. 7--7 7-.."
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "schema": "flowstate.libraryCatalog.v1",
+      "packs": [],
+      "clips": []
+    }
+  ],
+  "invalid": [
+    {
+      "why": "v1's manifest schema id",
+      "value": {
+        "schema": "flowstate.partnerMidiPack.v1",
+        "packs": [
+          {
+            "id": "godflow",
+            "title": "Flowstate MIDI Starter",
+            "producer": "GodFlow (flowknows)",
+            "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+            "licenseId": "flowstate-built-in",
+            "notes": [
+              "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+              "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01).",
+              "Left out bass-01: Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones.",
+              "Left out bass-03: A C#4 in the last-bar fill leaves the bass range C1-C4.",
+              "Left out bass-04: A dancehall line between G3 and F4, above the bass range C1-C4."
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "entry": {
+              "id": "lib:godflow/rnb-jazz-chords-15",
+              "origin": "library",
+              "title": "R&B jazz chords 15",
+              "roles": [
+                "chords"
+              ],
+              "genres": [
+                "rnb",
+                "neo-soul",
+                "jazz"
+              ],
+              "tags": [
+                "extended-voicings"
+              ],
+              "feel": "neo-soul jazz voicings",
+              "tonic": "C",
+              "mode": "major",
+              "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+              "tempo": 120,
+              "tempoMin": 112,
+              "tempoMax": 128,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 0.336,
+              "density": 0.2,
+              "complexity": 0,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--rnb-jazz-chords-15.mid",
+            "sha256": "df74a26375c3d0b8ca60a86fe32d5470cb0167c927571783d92336cf5857727e",
+            "harmony": [
+              "Am",
+              "F",
+              "C",
+              "G"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 0.973,
+              "literalNotes": 0
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "R&B jazz chords 15",
+              "context": {
+                "tempo": 120,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "C",
+                "mode": "major",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "rnb",
+                  "neo-soul",
+                  "jazz"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Am:4 | F:4 | C:4 | G:4",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "chords",
+                  "role": "chords",
+                  "name": "R&B jazz chords 15",
+                  "low": "F2",
+                  "high": "E4",
+                  "grid": 2,
+                  "velocity": 60,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "x- -- -- --",
+                      "voicing": "spread"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "entry": {
+              "id": "lib:godflow/bass-05",
+              "origin": "library",
+              "title": "Hip-hop bass 05",
+              "roles": [
+                "bass"
+              ],
+              "genres": [
+                "hip-hop"
+              ],
+              "tags": [
+                "minimal",
+                "anchor"
+              ],
+              "feel": "sparse pocket",
+              "tonic": null,
+              "mode": null,
+              "keyNote": "Blank: no clear tonal centre (best fit A minor, r 0.61)",
+              "tempo": 90,
+              "tempoMin": 82,
+              "tempoMax": 98,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 0.679,
+              "density": 0.515,
+              "complexity": 0.251,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--bass-05.mid",
+            "sha256": "edc7d4aec3eb97f9de42ceedb1d57c6e9b3156f857b8ecda2377e74fba4c02c5",
+            "harmony": [
+              "Dm",
+              "F",
+              "Am"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 1,
+              "literalNotes": 0
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "Hip-hop bass 05",
+              "context": {
+                "tempo": 90,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "A",
+                "mode": "minor",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "hip-hop"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Dm:4 | F:4 | Am:8",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "bass",
+                  "role": "bass",
+                  "name": "Hip-hop bass 05",
+                  "low": "F2",
+                  "high": "D3",
+                  "grid": 4,
+                  "velocity": 107,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "R-.X R-.. .... .... | ...3 3... R--R R-.. | R--X R-.. .... .... | R--X R-.. 7--7 7-.."
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "path": "schema"
+    },
+    {
+      "why": "a clip of zero bars",
+      "value": {
+        "schema": "flowstate.libraryCatalog.v1",
+        "packs": [
+          {
+            "id": "godflow",
+            "title": "Flowstate MIDI Starter",
+            "producer": "GodFlow (flowknows)",
+            "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+            "licenseId": "flowstate-built-in",
+            "notes": [
+              "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+              "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01).",
+              "Left out bass-01: Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones.",
+              "Left out bass-03: A C#4 in the last-bar fill leaves the bass range C1-C4.",
+              "Left out bass-04: A dancehall line between G3 and F4, above the bass range C1-C4."
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "entry": {
+              "id": "lib:godflow/rnb-jazz-chords-15",
+              "origin": "library",
+              "title": "R&B jazz chords 15",
+              "roles": [
+                "chords"
+              ],
+              "genres": [
+                "rnb",
+                "neo-soul",
+                "jazz"
+              ],
+              "tags": [
+                "extended-voicings"
+              ],
+              "feel": "neo-soul jazz voicings",
+              "tonic": "C",
+              "mode": "major",
+              "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+              "tempo": 120,
+              "tempoMin": 112,
+              "tempoMax": 128,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 0,
+              "energy": 0.336,
+              "density": 0.2,
+              "complexity": 0,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--rnb-jazz-chords-15.mid",
+            "sha256": "df74a26375c3d0b8ca60a86fe32d5470cb0167c927571783d92336cf5857727e",
+            "harmony": [
+              "Am",
+              "F",
+              "C",
+              "G"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 0.973,
+              "literalNotes": 0
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "R&B jazz chords 15",
+              "context": {
+                "tempo": 120,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "C",
+                "mode": "major",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "rnb",
+                  "neo-soul",
+                  "jazz"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Am:4 | F:4 | C:4 | G:4",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "chords",
+                  "role": "chords",
+                  "name": "R&B jazz chords 15",
+                  "low": "F2",
+                  "high": "E4",
+                  "grid": 2,
+                  "velocity": 60,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "x- -- -- --",
+                      "voicing": "spread"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "entry": {
+              "id": "lib:godflow/bass-05",
+              "origin": "library",
+              "title": "Hip-hop bass 05",
+              "roles": [
+                "bass"
+              ],
+              "genres": [
+                "hip-hop"
+              ],
+              "tags": [
+                "minimal",
+                "anchor"
+              ],
+              "feel": "sparse pocket",
+              "tonic": null,
+              "mode": null,
+              "keyNote": "Blank: no clear tonal centre (best fit A minor, r 0.61)",
+              "tempo": 90,
+              "tempoMin": 82,
+              "tempoMax": 98,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 0.679,
+              "density": 0.515,
+              "complexity": 0.251,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--bass-05.mid",
+            "sha256": "edc7d4aec3eb97f9de42ceedb1d57c6e9b3156f857b8ecda2377e74fba4c02c5",
+            "harmony": [
+              "Dm",
+              "F",
+              "Am"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 1,
+              "literalNotes": 0
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "Hip-hop bass 05",
+              "context": {
+                "tempo": 90,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "A",
+                "mode": "minor",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "hip-hop"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Dm:4 | F:4 | Am:8",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "bass",
+                  "role": "bass",
+                  "name": "Hip-hop bass 05",
+                  "low": "F2",
+                  "high": "D3",
+                  "grid": 4,
+                  "velocity": 107,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "R-.X R-.. .... .... | ...3 3... R--R R-.. | R--X R-.. .... .... | R--X R-.. 7--7 7-.."
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "path": "clips[0].entry.bars"
+    },
+    {
+      "why": "negative literal-note count",
+      "value": {
+        "schema": "flowstate.libraryCatalog.v1",
+        "packs": [
+          {
+            "id": "godflow",
+            "title": "Flowstate MIDI Starter",
+            "producer": "GodFlow (flowknows)",
+            "credit": "MIDI by GodFlow (flowknows) for Flowstate.",
+            "licenseId": "flowstate-built-in",
+            "notes": [
+              "No drums: the pack has no GodFlow drum MIDI, and Flowstate does not make fake drum entries.",
+              "No melodies: v1's five pop 'melody' files are chord stacks on every onset, so they are pop chords here (owner's call, 2026-10-01).",
+              "Left out bass-01: Notes from C2 to B4 leave the bass range C1-C4; the line is also 32 bars with 16 empty ones.",
+              "Left out bass-03: A C#4 in the last-bar fill leaves the bass range C1-C4.",
+              "Left out bass-04: A dancehall line between G3 and F4, above the bass range C1-C4."
+            ]
+          }
+        ],
+        "clips": [
+          {
+            "entry": {
+              "id": "lib:godflow/rnb-jazz-chords-15",
+              "origin": "library",
+              "title": "R&B jazz chords 15",
+              "roles": [
+                "chords"
+              ],
+              "genres": [
+                "rnb",
+                "neo-soul",
+                "jazz"
+              ],
+              "tags": [
+                "extended-voicings"
+              ],
+              "feel": "neo-soul jazz voicings",
+              "tonic": "C",
+              "mode": "major",
+              "keyNote": "Detected: C major, r 0.96, ahead of A minor by 0.14",
+              "tempo": 120,
+              "tempoMin": 112,
+              "tempoMax": 128,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 0.336,
+              "density": 0.2,
+              "complexity": 0,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--rnb-jazz-chords-15.mid",
+            "sha256": "df74a26375c3d0b8ca60a86fe32d5470cb0167c927571783d92336cf5857727e",
+            "harmony": [
+              "Am",
+              "F",
+              "C",
+              "G"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 0.973,
+              "literalNotes": 0
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "R&B jazz chords 15",
+              "context": {
+                "tempo": 120,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "C",
+                "mode": "major",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "rnb",
+                  "neo-soul",
+                  "jazz"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Am:4 | F:4 | C:4 | G:4",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "chords",
+                  "role": "chords",
+                  "name": "R&B jazz chords 15",
+                  "low": "F2",
+                  "high": "E4",
+                  "grid": 2,
+                  "velocity": 60,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "x- -- -- --",
+                      "voicing": "spread"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "entry": {
+              "id": "lib:godflow/bass-05",
+              "origin": "library",
+              "title": "Hip-hop bass 05",
+              "roles": [
+                "bass"
+              ],
+              "genres": [
+                "hip-hop"
+              ],
+              "tags": [
+                "minimal",
+                "anchor"
+              ],
+              "feel": "sparse pocket",
+              "tonic": null,
+              "mode": null,
+              "keyNote": "Blank: no clear tonal centre (best fit A minor, r 0.61)",
+              "tempo": 90,
+              "tempoMin": 82,
+              "tempoMax": 98,
+              "meterNumerator": 4,
+              "meterDenominator": 4,
+              "bars": 4,
+              "energy": 0.679,
+              "density": 0.515,
+              "complexity": 0.251,
+              "groove": "straight",
+              "credit": {
+                "packId": "godflow",
+                "packTitle": "Flowstate MIDI Starter",
+                "producer": "GodFlow (flowknows)",
+                "text": "MIDI by GodFlow (flowknows) for Flowstate.",
+                "licenseId": "flowstate-built-in",
+                "allowsExport": true,
+                "allowsStyleExamples": true
+              },
+              "nodeId": null,
+              "prompt": null,
+              "kind": null,
+              "createdAtMs": null
+            },
+            "file": "godflow--bass-05.mid",
+            "sha256": "edc7d4aec3eb97f9de42ceedb1d57c6e9b3156f857b8ecda2377e74fba4c02c5",
+            "harmony": [
+              "Dm",
+              "F",
+              "Am"
+            ],
+            "fidelity": {
+              "rhythm": 1,
+              "pitch": 1,
+              "notes": 1,
+              "literalNotes": -1
+            },
+            "score": {
+              "ir": "flowstate.score.v0",
+              "title": "Hip-hop bass 05",
+              "context": {
+                "tempo": 90,
+                "meterNumerator": 4,
+                "meterDenominator": 4,
+                "tonic": "A",
+                "mode": "minor",
+                "bars": 4,
+                "swing": 0,
+                "style": [
+                  "hip-hop"
+                ]
+              },
+              "form": [
+                {
+                  "name": "A",
+                  "startBar": 1,
+                  "bars": 4,
+                  "energy": 0.6
+                }
+              ],
+              "harmony": "Dm:4 | F:4 | Am:8",
+              "motifs": [],
+              "parts": [
+                {
+                  "id": "bass",
+                  "role": "bass",
+                  "name": "Hip-hop bass 05",
+                  "low": "F2",
+                  "high": "D3",
+                  "grid": 4,
+                  "velocity": 107,
+                  "blocks": [
+                    {
+                      "startBar": 1,
+                      "endBar": 4,
+                      "rhythm": "R-.X R-.. .... .... | ...3 3... R--R R-.. | R--X R-.. .... .... | R--X R-.. 7--7 7-.."
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "path": "clips[1].fidelity.literalNotes"
+    }
+  ]
+}

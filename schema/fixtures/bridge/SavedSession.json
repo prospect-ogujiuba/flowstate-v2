@@ -21,6 +21,7 @@
           "partIds": null,
           "createdAtMs": 1789999990000,
           "rating": null,
+          "entryId": null,
           "seed": 4294967295,
           "score": {
             "ir": "flowstate.score.v0",
@@ -99,6 +100,7 @@
           ],
           "createdAtMs": 1790000000000,
           "rating": "up",
+          "entryId": null,
           "seed": 7,
           "score": {
             "ir": "flowstate.score.v0",
@@ -278,6 +280,7 @@
             "partIds": null,
             "createdAtMs": 1789999990000,
             "rating": null,
+            "entryId": null,
             "seed": 4294967296,
             "score": {
               "ir": "flowstate.score.v0",

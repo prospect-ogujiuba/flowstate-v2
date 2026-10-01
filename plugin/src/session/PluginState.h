@@ -1,5 +1,5 @@
 // What getStateInformation writes: a small JSON envelope around the bridge's SavedSession.
-// {"format":"flowstate.plugin.state","version":1,"session":{SavedSession},"editor":{"width","height"}}
+// {"format":"flowstate.plugin.state","version":2,"session":{SavedSession},"editor":{"width","height"}}
 // No keys or credentials ever go in here (docs/bridge-spec.md, P1-12).
 #pragma once
 
@@ -12,7 +12,8 @@
 namespace flowstate::plugin {
 
 inline constexpr const char* kStateFormat = "flowstate.plugin.state";
-inline constexpr int kStateVersion = 1;
+// 2: lineage nodes carry `entryId` (the library clip they started from).
+inline constexpr int kStateVersion = 2;
 
 struct PluginState {
     bridge::SavedSession session;

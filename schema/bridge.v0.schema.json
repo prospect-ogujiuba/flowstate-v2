@@ -1093,7 +1093,8 @@
         "vary",
         "edit",
         "tweak",
-        "touch"
+        "touch",
+        "library"
       ]
     },
     "Rating": {
@@ -1159,6 +1160,13 @@
               "type": "null"
             }
           ]
+        },
+        "entryId": {
+          "description": "The library clip this node started from (lib:<pack>/<clip>); its credit travels with the node",
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
@@ -1169,7 +1177,8 @@
         "partIds",
         "title",
         "createdAtMs",
-        "rating"
+        "rating",
+        "entryId"
       ],
       "additionalProperties": false
     },
@@ -1225,6 +1234,12 @@
             }
           ]
         },
+        "entryId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "seed": {
           "type": "integer",
           "minimum": 0,
@@ -1243,6 +1258,7 @@
         "partIds",
         "createdAtMs",
         "rating",
+        "entryId",
         "seed",
         "score"
       ],
@@ -1666,6 +1682,520 @@
       ],
       "additionalProperties": false
     },
+    "CatalogOrigin": {
+      "$id": "#/$defs/CatalogOrigin",
+      "type": "string",
+      "enum": [
+        "library",
+        "ai"
+      ]
+    },
+    "Groove": {
+      "$id": "#/$defs/Groove",
+      "type": "string",
+      "enum": [
+        "straight",
+        "swing",
+        "triplet"
+      ]
+    },
+    "ClipCredit": {
+      "$id": "#/$defs/ClipCredit",
+      "type": "object",
+      "properties": {
+        "packId": {
+          "type": "string"
+        },
+        "packTitle": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "description": "Attribution, shown wherever the clip is: card, preview, drag and export"
+        },
+        "licenseId": {
+          "type": "string"
+        },
+        "allowsExport": {
+          "type": "boolean"
+        },
+        "allowsStyleExamples": {
+          "type": "boolean",
+          "description": "The planner may show the clip to a model as a style example"
+        }
+      },
+      "required": [
+        "packId",
+        "packTitle",
+        "producer",
+        "text",
+        "licenseId",
+        "allowsExport",
+        "allowsStyleExamples"
+      ],
+      "additionalProperties": false
+    },
+    "CatalogEntry": {
+      "$id": "#/$defs/CatalogEntry",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "lib:<pack>/<clip> for library clips, node:<nodeId> for AI results"
+        },
+        "origin": {
+          "$ref": "#/$defs/CatalogOrigin"
+        },
+        "title": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Role"
+          },
+          "description": "The parts in the clip; a library clip has one"
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Style tags in the planner's vocabulary (lowercase kebab-case)"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "feel": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tonic": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Tonic"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = not known reliably; keyNote says why"
+        },
+        "mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Mode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keyNote": {
+          "description": "How the key was found, or why it is blank",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tempo": {
+          "type": "number",
+          "description": "As written"
+        },
+        "tempoMin": {
+          "type": "number",
+          "description": "Tempo range the clip suits"
+        },
+        "tempoMax": {
+          "type": "number"
+        },
+        "meterNumerator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "meterDenominator": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "energy": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "0..1 from core's analysis; null for AI results until analyzed"
+        },
+        "density": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "complexity": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "groove": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Groove"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClipCredit"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Set for library clips"
+        },
+        "nodeId": {
+          "description": "Set for AI results",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/NodeKind"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAtMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991,
+              "cpp": "int64",
+              "description": "Unix time in milliseconds"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "origin",
+        "title",
+        "roles",
+        "genres",
+        "tags",
+        "feel",
+        "tonic",
+        "mode",
+        "keyNote",
+        "tempo",
+        "tempoMin",
+        "tempoMax",
+        "meterNumerator",
+        "meterDenominator",
+        "bars",
+        "energy",
+        "density",
+        "complexity",
+        "groove",
+        "credit",
+        "nodeId",
+        "prompt",
+        "kind",
+        "createdAtMs"
+      ],
+      "additionalProperties": false
+    },
+    "ClipFidelity": {
+      "$id": "#/$defs/ClipFidelity",
+      "type": "object",
+      "properties": {
+        "rhythm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Onset F1 between the IR's realization and the original MIDI"
+        },
+        "pitch": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Mean pitch-class overlap of matched onsets"
+        },
+        "notes": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Note F1 (exact pitch; pitch class for chords)"
+        },
+        "literalNotes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Original notes the IR keeps as literal notes"
+        }
+      },
+      "required": [
+        "rhythm",
+        "pitch",
+        "notes",
+        "literalNotes"
+      ],
+      "additionalProperties": false
+    },
+    "LibraryClip": {
+      "$id": "#/$defs/LibraryClip",
+      "type": "object",
+      "properties": {
+        "entry": {
+          "$ref": "#/$defs/CatalogEntry"
+        },
+        "file": {
+          "type": "string",
+          "description": "Normalized SMF next to the catalog: flat file name, no directories"
+        },
+        "sha256": {
+          "type": "string",
+          "description": "Of the pack's source file, so a changed source shows up as drift"
+        },
+        "harmony": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Chord symbols in order, as the analyzer named them"
+        },
+        "fidelity": {
+          "$ref": "#/$defs/ClipFidelity"
+        },
+        "score": {
+          "$ref": "#/$defs/Score"
+        }
+      },
+      "required": [
+        "entry",
+        "file",
+        "sha256",
+        "harmony",
+        "fidelity",
+        "score"
+      ],
+      "additionalProperties": false
+    },
+    "LibraryPack": {
+      "$id": "#/$defs/LibraryPack",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "credit": {
+          "type": "string"
+        },
+        "licenseId": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Lane notes and omissions, e.g. why a pack has no drums"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "producer",
+        "credit",
+        "licenseId",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "LibraryCatalog": {
+      "$id": "#/$defs/LibraryCatalog",
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "string",
+          "const": "flowstate.libraryCatalog.v1"
+        },
+        "packs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LibraryPack"
+          }
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LibraryClip"
+          }
+        }
+      },
+      "required": [
+        "schema",
+        "packs",
+        "clips"
+      ],
+      "additionalProperties": false
+    },
+    "CatalogQuery": {
+      "$id": "#/$defs/CatalogQuery",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Words matched against title, genres, tags, feel, producer and prompt; empty = any"
+        },
+        "origins": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/CatalogOrigin"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = both"
+        },
+        "roles": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Role"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "null = any; an entry matches if it has one of these parts"
+        },
+        "genres": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fitContext": {
+          "type": "boolean",
+          "description": "Rank by fit to the session's key, tempo and meter, and leave out other meters"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "text",
+        "origins",
+        "roles",
+        "genres",
+        "fitContext",
+        "limit",
+        "offset"
+      ],
+      "additionalProperties": false
+    },
+    "CatalogPage": {
+      "$id": "#/$defs/CatalogPage",
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Matches before limit and offset"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CatalogEntry"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "entries"
+      ],
+      "additionalProperties": false
+    },
     "Session": {
       "$id": "#/$defs/Session",
       "type": "object",
@@ -1745,6 +2275,13 @@
             "$ref": "#/$defs/Generation"
           },
           "description": "Running requests"
+        },
+        "preview": {
+          "description": "Catalog entry being previewed in time with the host; null = none",
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
@@ -1763,7 +2300,8 @@
         "audition",
         "midiOut",
         "settings",
-        "generations"
+        "generations",
+        "preview"
       ],
       "additionalProperties": false
     },
@@ -2436,6 +2974,84 @@
       ],
       "additionalProperties": false
     },
+    "SearchCatalog": {
+      "$id": "#/$defs/SearchCatalog",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "searchCatalog"
+        },
+        "query": {
+          "$ref": "#/$defs/CatalogQuery"
+        }
+      },
+      "required": [
+        "type",
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "PreviewEntry": {
+      "$id": "#/$defs/PreviewEntry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "previewEntry"
+        },
+        "entryId": {
+          "description": "null = stop previewing",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "entryId"
+      ],
+      "additionalProperties": false
+    },
+    "UseEntry": {
+      "$id": "#/$defs/UseEntry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "useEntry"
+        },
+        "entryId": {
+          "type": "string",
+          "description": "A library clip becomes a new `library` node; an AI result is selected"
+        }
+      },
+      "required": [
+        "type",
+        "entryId"
+      ],
+      "additionalProperties": false
+    },
+    "DragEntry": {
+      "$id": "#/$defs/DragEntry",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "dragEntry"
+        },
+        "entryId": {
+          "type": "string",
+          "description": "Drags the clip as written: a library clip's MIDI, or an AI result's node"
+        }
+      },
+      "required": [
+        "type",
+        "entryId"
+      ],
+      "additionalProperties": false
+    },
     "FocusReason": {
       "$id": "#/$defs/FocusReason",
       "type": "string",
@@ -2537,6 +3153,18 @@
         },
         {
           "$ref": "#/$defs/ReleaseFocus"
+        },
+        {
+          "$ref": "#/$defs/SearchCatalog"
+        },
+        {
+          "$ref": "#/$defs/PreviewEntry"
+        },
+        {
+          "$ref": "#/$defs/UseEntry"
+        },
+        {
+          "$ref": "#/$defs/DragEntry"
         }
       ]
     },
@@ -2574,13 +3202,25 @@
             }
           ],
           "description": "Set on hello and on any command that changed the session"
+        },
+        "catalog": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CatalogPage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Set on searchCatalog"
         }
       },
       "required": [
         "ok",
         "error",
         "requestId",
-        "session"
+        "session",
+        "catalog"
       ],
       "additionalProperties": false
     },

@@ -568,6 +568,7 @@ void validateScore(const Score& score, std::vector<std::string>& warnings) {
 const char* toString(Role role) { return reverseLookup(kRoles, role); }
 const char* toString(DrumVoice voice) { return reverseLookup(kDrumVoices, voice); }
 const char* toString(VoicingFamily family) { return reverseLookup(kVoicings, family); }
+const char* toString(Mode mode) { return reverseLookup(kModes, mode); }
 std::optional<Role> roleFromString(const std::string& s) { return lookup(kRoles, s); }
 std::optional<Mode> modeFromString(const std::string& s) { return lookup(kModes, s); }
 std::optional<VoicingFamily> voicingFromString(const std::string& s) { return lookup(kVoicings, s); }

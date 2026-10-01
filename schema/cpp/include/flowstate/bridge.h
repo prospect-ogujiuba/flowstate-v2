@@ -215,10 +215,12 @@ enum class ErrorCode { BadRequest, UnknownNode, UnknownPart, Busy, Cancelled, Un
 enum class CaptureIntent { Continue, Harmonize, AddBass, AddDrums, Answer };
 enum class KeySource { Override, Score, Detected, Default };
 enum class TimeSource { Host, Override, Score, Default };
-enum class NodeKind { Sketch, Initial, Regenerate, Vary, Edit, Tweak, Touch };
+enum class NodeKind { Sketch, Initial, Regenerate, Vary, Edit, Tweak, Touch, Library };
 enum class Rating { Up, Down };
 enum class ThreadRole { User, Assistant };
 enum class GenerationStage { Planning, Streaming };
+enum class CatalogOrigin { Library, Ai };
+enum class Groove { Straight, Swing, Triplet };
 enum class TweakOp { Register, Transpose, Humanize, Simplify, Intensify, Revoice };
 enum class FocusReason { Space, Escape, Blur };
 enum class NoticeLevel { Info, Warning, Error };
@@ -296,6 +298,7 @@ struct NodeSummary {
     std::string title;
     std::int64_t createdAtMs = 0;
     std::optional<Rating> rating;
+    std::optional<std::string> entryId;
 };
 
 struct LineageNode {
@@ -306,6 +309,7 @@ struct LineageNode {
     std::optional<std::vector<std::string>> partIds;
     std::int64_t createdAtMs = 0;
     std::optional<Rating> rating;
+    std::optional<std::string> entryId;
     std::int64_t seed = 0;
     json score;
 };
@@ -388,6 +392,89 @@ struct Generation {
     std::vector<std::string> partsDone;
 };
 
+struct ClipCredit {
+    std::string packId;
+    std::string packTitle;
+    std::string producer;
+    std::string text;
+    std::string licenseId;
+    bool allowsExport = false;
+    bool allowsStyleExamples = false;
+};
+
+struct CatalogEntry {
+    std::string id;
+    CatalogOrigin origin = CatalogOrigin::Library;
+    std::string title;
+    std::vector<Role> roles;
+    std::vector<std::string> genres;
+    std::vector<std::string> tags;
+    std::optional<std::string> feel;
+    std::optional<Tonic> tonic;
+    std::optional<Mode> mode;
+    std::optional<std::string> keyNote;
+    double tempo = 0.0;
+    double tempoMin = 0.0;
+    double tempoMax = 0.0;
+    int meterNumerator = 1;
+    int meterDenominator = 1;
+    int bars = 1;
+    std::optional<double> energy;
+    std::optional<double> density;
+    std::optional<double> complexity;
+    std::optional<Groove> groove;
+    std::optional<ClipCredit> credit;
+    std::optional<std::string> nodeId;
+    std::optional<std::string> prompt;
+    std::optional<NodeKind> kind;
+    std::optional<std::int64_t> createdAtMs;
+};
+
+struct ClipFidelity {
+    double rhythm = 0.0;
+    double pitch = 0.0;
+    double notes = 0.0;
+    int literalNotes = 0;
+};
+
+struct LibraryClip {
+    CatalogEntry entry;
+    std::string file;
+    std::string sha256;
+    std::vector<std::string> harmony;
+    ClipFidelity fidelity;
+    json score;
+};
+
+struct LibraryPack {
+    std::string id;
+    std::string title;
+    std::string producer;
+    std::string credit;
+    std::string licenseId;
+    std::vector<std::string> notes;
+};
+
+struct LibraryCatalog {
+    std::vector<LibraryPack> packs;
+    std::vector<LibraryClip> clips;
+};
+
+struct CatalogQuery {
+    std::string text;
+    std::optional<std::vector<CatalogOrigin>> origins;
+    std::optional<std::vector<Role>> roles;
+    std::optional<std::vector<std::string>> genres;
+    bool fitContext = false;
+    int limit = 1;
+    int offset = 0;
+};
+
+struct CatalogPage {
+    int total = 0;
+    std::vector<CatalogEntry> entries;
+};
+
 struct Session {
     std::string instanceId;
     ContextOverride override;
@@ -404,6 +491,7 @@ struct Session {
     MidiOut midiOut;
     Settings settings;
     std::vector<Generation> generations;
+    std::optional<std::string> preview;
 };
 
 struct SavedSession {
@@ -525,17 +613,34 @@ struct ExportMidi {
     bool splitDrums = false;
 };
 
+struct SearchCatalog {
+    CatalogQuery query;
+};
+
+struct PreviewEntry {
+    std::optional<std::string> entryId;
+};
+
+struct UseEntry {
+    std::string entryId;
+};
+
+struct DragEntry {
+    std::string entryId;
+};
+
 struct ReleaseFocus {
     FocusReason reason = FocusReason::Space;
 };
 
-using Command = std::variant<Hello, Generate, Edit, Vary, Reroll, Tweak, EditNotes, AddPart, RemovePart, Cancel, SelectNode, Undo, Redo, RateNode, SetPartState, SetContextOverride, SetAudition, SetMidiOut, SetPreviewSynth, SetProvider, SetApiKey, StartDrag, ExportMidi, ReleaseFocus>;
+using Command = std::variant<Hello, Generate, Edit, Vary, Reroll, Tweak, EditNotes, AddPart, RemovePart, Cancel, SelectNode, Undo, Redo, RateNode, SetPartState, SetContextOverride, SetAudition, SetMidiOut, SetPreviewSynth, SetProvider, SetApiKey, StartDrag, ExportMidi, ReleaseFocus, SearchCatalog, PreviewEntry, UseEntry, DragEntry>;
 
 struct Reply {
     bool ok = false;
     std::optional<ErrorInfo> error;
     std::optional<std::string> requestId;
     std::optional<Session> session;
+    std::optional<CatalogPage> catalog;
 };
 
 struct SessionChanged {
@@ -674,6 +779,14 @@ const char* toString(GenerationStage value);
 std::optional<GenerationStage> parseGenerationStage(std::string_view text);
 void to_json(json& j, GenerationStage value);
 void from_json(const json& j, GenerationStage& value);
+const char* toString(CatalogOrigin value);
+std::optional<CatalogOrigin> parseCatalogOrigin(std::string_view text);
+void to_json(json& j, CatalogOrigin value);
+void from_json(const json& j, CatalogOrigin& value);
+const char* toString(Groove value);
+std::optional<Groove> parseGroove(std::string_view text);
+void to_json(json& j, Groove value);
+void from_json(const json& j, Groove& value);
 const char* toString(TweakOp value);
 std::optional<TweakOp> parseTweakOp(std::string_view text);
 void to_json(json& j, TweakOp value);
@@ -728,6 +841,22 @@ void to_json(json& j, const Settings& value);
 void from_json(const json& j, Settings& value);
 void to_json(json& j, const Generation& value);
 void from_json(const json& j, Generation& value);
+void to_json(json& j, const ClipCredit& value);
+void from_json(const json& j, ClipCredit& value);
+void to_json(json& j, const CatalogEntry& value);
+void from_json(const json& j, CatalogEntry& value);
+void to_json(json& j, const ClipFidelity& value);
+void from_json(const json& j, ClipFidelity& value);
+void to_json(json& j, const LibraryClip& value);
+void from_json(const json& j, LibraryClip& value);
+void to_json(json& j, const LibraryPack& value);
+void from_json(const json& j, LibraryPack& value);
+void to_json(json& j, const LibraryCatalog& value);
+void from_json(const json& j, LibraryCatalog& value);
+void to_json(json& j, const CatalogQuery& value);
+void from_json(const json& j, CatalogQuery& value);
+void to_json(json& j, const CatalogPage& value);
+void from_json(const json& j, CatalogPage& value);
 void to_json(json& j, const Session& value);
 void from_json(const json& j, Session& value);
 void to_json(json& j, const SavedSession& value);
@@ -780,6 +909,14 @@ void to_json(json& j, const StartDrag& value);
 void from_json(const json& j, StartDrag& value);
 void to_json(json& j, const ExportMidi& value);
 void from_json(const json& j, ExportMidi& value);
+void to_json(json& j, const SearchCatalog& value);
+void from_json(const json& j, SearchCatalog& value);
+void to_json(json& j, const PreviewEntry& value);
+void from_json(const json& j, PreviewEntry& value);
+void to_json(json& j, const UseEntry& value);
+void from_json(const json& j, UseEntry& value);
+void to_json(json& j, const DragEntry& value);
+void from_json(const json& j, DragEntry& value);
 void to_json(json& j, const ReleaseFocus& value);
 void from_json(const json& j, ReleaseFocus& value);
 template <typename U>
@@ -1152,6 +1289,7 @@ inline const char* toString(NodeKind value) {
         case NodeKind::Edit: return "edit";
         case NodeKind::Tweak: return "tweak";
         case NodeKind::Touch: return "touch";
+        case NodeKind::Library: return "library";
     }
     return "?";
 }
@@ -1164,6 +1302,7 @@ inline std::optional<NodeKind> parseNodeKind(std::string_view text) {
     if (text == "edit") return NodeKind::Edit;
     if (text == "tweak") return NodeKind::Tweak;
     if (text == "touch") return NodeKind::Touch;
+    if (text == "library") return NodeKind::Library;
     return std::nullopt;
 }
 
@@ -1242,6 +1381,54 @@ inline void from_json(const json& j, GenerationStage& value) {
     if (!j.is_string()) throw ParseError("", "expected a string");
     const auto parsed = parseGenerationStage(j.get_ref<const std::string&>());
     if (!parsed) throw ParseError("", "unknown generationStage '" + j.get<std::string>() + "'");
+    value = *parsed;
+}
+
+inline const char* toString(CatalogOrigin value) {
+    switch (value) {
+        case CatalogOrigin::Library: return "library";
+        case CatalogOrigin::Ai: return "ai";
+    }
+    return "?";
+}
+
+inline std::optional<CatalogOrigin> parseCatalogOrigin(std::string_view text) {
+    if (text == "library") return CatalogOrigin::Library;
+    if (text == "ai") return CatalogOrigin::Ai;
+    return std::nullopt;
+}
+
+inline void to_json(json& j, CatalogOrigin value) { j = toString(value); }
+
+inline void from_json(const json& j, CatalogOrigin& value) {
+    if (!j.is_string()) throw ParseError("", "expected a string");
+    const auto parsed = parseCatalogOrigin(j.get_ref<const std::string&>());
+    if (!parsed) throw ParseError("", "unknown catalogOrigin '" + j.get<std::string>() + "'");
+    value = *parsed;
+}
+
+inline const char* toString(Groove value) {
+    switch (value) {
+        case Groove::Straight: return "straight";
+        case Groove::Swing: return "swing";
+        case Groove::Triplet: return "triplet";
+    }
+    return "?";
+}
+
+inline std::optional<Groove> parseGroove(std::string_view text) {
+    if (text == "straight") return Groove::Straight;
+    if (text == "swing") return Groove::Swing;
+    if (text == "triplet") return Groove::Triplet;
+    return std::nullopt;
+}
+
+inline void to_json(json& j, Groove value) { j = toString(value); }
+
+inline void from_json(const json& j, Groove& value) {
+    if (!j.is_string()) throw ParseError("", "expected a string");
+    const auto parsed = parseGroove(j.get_ref<const std::string&>());
+    if (!parsed) throw ParseError("", "unknown groove '" + j.get<std::string>() + "'");
     value = *parsed;
 }
 
@@ -1492,6 +1679,7 @@ inline void to_json(json& j, const NodeSummary& value) {
     j["title"] = detail::encode(value.title);
     j["createdAtMs"] = detail::encode(value.createdAtMs);
     j["rating"] = detail::encode(value.rating);
+    j["entryId"] = detail::encode(value.entryId);
 }
 
 inline void from_json(const json& j, NodeSummary& value) {
@@ -1505,6 +1693,7 @@ inline void from_json(const json& j, NodeSummary& value) {
     detail::read(j, "createdAtMs", value.createdAtMs);
     detail::checkRange("createdAtMs", value.createdAtMs, 0, std::nullopt);
     detail::read(j, "rating", value.rating);
+    detail::read(j, "entryId", value.entryId);
 }
 
 inline void to_json(json& j, const LineageNode& value) {
@@ -1516,6 +1705,7 @@ inline void to_json(json& j, const LineageNode& value) {
     j["partIds"] = detail::encode(value.partIds);
     j["createdAtMs"] = detail::encode(value.createdAtMs);
     j["rating"] = detail::encode(value.rating);
+    j["entryId"] = detail::encode(value.entryId);
     j["seed"] = detail::encode(value.seed);
     j["score"] = detail::encode(value.score);
 }
@@ -1530,6 +1720,7 @@ inline void from_json(const json& j, LineageNode& value) {
     detail::read(j, "createdAtMs", value.createdAtMs);
     detail::checkRange("createdAtMs", value.createdAtMs, 0, std::nullopt);
     detail::read(j, "rating", value.rating);
+    detail::read(j, "entryId", value.entryId);
     detail::read(j, "seed", value.seed);
     detail::checkRange("seed", value.seed, 0, 4294967295);
     detail::read(j, "score", value.score);
@@ -1728,6 +1919,204 @@ inline void from_json(const json& j, Generation& value) {
     detail::read(j, "partsDone", value.partsDone);
 }
 
+inline void to_json(json& j, const ClipCredit& value) {
+    j = json::object();
+    j["packId"] = detail::encode(value.packId);
+    j["packTitle"] = detail::encode(value.packTitle);
+    j["producer"] = detail::encode(value.producer);
+    j["text"] = detail::encode(value.text);
+    j["licenseId"] = detail::encode(value.licenseId);
+    j["allowsExport"] = detail::encode(value.allowsExport);
+    j["allowsStyleExamples"] = detail::encode(value.allowsStyleExamples);
+}
+
+inline void from_json(const json& j, ClipCredit& value) {
+    detail::expectObject(j);
+    detail::read(j, "packId", value.packId);
+    detail::read(j, "packTitle", value.packTitle);
+    detail::read(j, "producer", value.producer);
+    detail::read(j, "text", value.text);
+    detail::read(j, "licenseId", value.licenseId);
+    detail::read(j, "allowsExport", value.allowsExport);
+    detail::read(j, "allowsStyleExamples", value.allowsStyleExamples);
+}
+
+inline void to_json(json& j, const CatalogEntry& value) {
+    j = json::object();
+    j["id"] = detail::encode(value.id);
+    j["origin"] = detail::encode(value.origin);
+    j["title"] = detail::encode(value.title);
+    j["roles"] = detail::encode(value.roles);
+    j["genres"] = detail::encode(value.genres);
+    j["tags"] = detail::encode(value.tags);
+    j["feel"] = detail::encode(value.feel);
+    j["tonic"] = detail::encode(value.tonic);
+    j["mode"] = detail::encode(value.mode);
+    j["keyNote"] = detail::encode(value.keyNote);
+    j["tempo"] = detail::encode(value.tempo);
+    j["tempoMin"] = detail::encode(value.tempoMin);
+    j["tempoMax"] = detail::encode(value.tempoMax);
+    j["meterNumerator"] = detail::encode(value.meterNumerator);
+    j["meterDenominator"] = detail::encode(value.meterDenominator);
+    j["bars"] = detail::encode(value.bars);
+    j["energy"] = detail::encode(value.energy);
+    j["density"] = detail::encode(value.density);
+    j["complexity"] = detail::encode(value.complexity);
+    j["groove"] = detail::encode(value.groove);
+    j["credit"] = detail::encode(value.credit);
+    j["nodeId"] = detail::encode(value.nodeId);
+    j["prompt"] = detail::encode(value.prompt);
+    j["kind"] = detail::encode(value.kind);
+    j["createdAtMs"] = detail::encode(value.createdAtMs);
+}
+
+inline void from_json(const json& j, CatalogEntry& value) {
+    detail::expectObject(j);
+    detail::read(j, "id", value.id);
+    detail::read(j, "origin", value.origin);
+    detail::read(j, "title", value.title);
+    detail::read(j, "roles", value.roles);
+    detail::read(j, "genres", value.genres);
+    detail::read(j, "tags", value.tags);
+    detail::read(j, "feel", value.feel);
+    detail::read(j, "tonic", value.tonic);
+    detail::read(j, "mode", value.mode);
+    detail::read(j, "keyNote", value.keyNote);
+    detail::read(j, "tempo", value.tempo);
+    detail::read(j, "tempoMin", value.tempoMin);
+    detail::read(j, "tempoMax", value.tempoMax);
+    detail::read(j, "meterNumerator", value.meterNumerator);
+    detail::checkRange("meterNumerator", value.meterNumerator, 1, 32);
+    detail::read(j, "meterDenominator", value.meterDenominator);
+    detail::checkRange("meterDenominator", value.meterDenominator, 1, 32);
+    detail::read(j, "bars", value.bars);
+    detail::checkRange("bars", value.bars, 1, 64);
+    detail::read(j, "energy", value.energy);
+    detail::checkRange("energy", value.energy, 0, 1);
+    detail::read(j, "density", value.density);
+    detail::checkRange("density", value.density, 0, 1);
+    detail::read(j, "complexity", value.complexity);
+    detail::checkRange("complexity", value.complexity, 0, 1);
+    detail::read(j, "groove", value.groove);
+    detail::read(j, "credit", value.credit);
+    detail::read(j, "nodeId", value.nodeId);
+    detail::read(j, "prompt", value.prompt);
+    detail::read(j, "kind", value.kind);
+    detail::read(j, "createdAtMs", value.createdAtMs);
+    detail::checkRange("createdAtMs", value.createdAtMs, 0, std::nullopt);
+}
+
+inline void to_json(json& j, const ClipFidelity& value) {
+    j = json::object();
+    j["rhythm"] = detail::encode(value.rhythm);
+    j["pitch"] = detail::encode(value.pitch);
+    j["notes"] = detail::encode(value.notes);
+    j["literalNotes"] = detail::encode(value.literalNotes);
+}
+
+inline void from_json(const json& j, ClipFidelity& value) {
+    detail::expectObject(j);
+    detail::read(j, "rhythm", value.rhythm);
+    detail::checkRange("rhythm", value.rhythm, 0, 1);
+    detail::read(j, "pitch", value.pitch);
+    detail::checkRange("pitch", value.pitch, 0, 1);
+    detail::read(j, "notes", value.notes);
+    detail::checkRange("notes", value.notes, 0, 1);
+    detail::read(j, "literalNotes", value.literalNotes);
+    detail::checkRange("literalNotes", value.literalNotes, 0, std::nullopt);
+}
+
+inline void to_json(json& j, const LibraryClip& value) {
+    j = json::object();
+    j["entry"] = detail::encode(value.entry);
+    j["file"] = detail::encode(value.file);
+    j["sha256"] = detail::encode(value.sha256);
+    j["harmony"] = detail::encode(value.harmony);
+    j["fidelity"] = detail::encode(value.fidelity);
+    j["score"] = detail::encode(value.score);
+}
+
+inline void from_json(const json& j, LibraryClip& value) {
+    detail::expectObject(j);
+    detail::read(j, "entry", value.entry);
+    detail::read(j, "file", value.file);
+    detail::read(j, "sha256", value.sha256);
+    detail::read(j, "harmony", value.harmony);
+    detail::read(j, "fidelity", value.fidelity);
+    detail::read(j, "score", value.score);
+}
+
+inline void to_json(json& j, const LibraryPack& value) {
+    j = json::object();
+    j["id"] = detail::encode(value.id);
+    j["title"] = detail::encode(value.title);
+    j["producer"] = detail::encode(value.producer);
+    j["credit"] = detail::encode(value.credit);
+    j["licenseId"] = detail::encode(value.licenseId);
+    j["notes"] = detail::encode(value.notes);
+}
+
+inline void from_json(const json& j, LibraryPack& value) {
+    detail::expectObject(j);
+    detail::read(j, "id", value.id);
+    detail::read(j, "title", value.title);
+    detail::read(j, "producer", value.producer);
+    detail::read(j, "credit", value.credit);
+    detail::read(j, "licenseId", value.licenseId);
+    detail::read(j, "notes", value.notes);
+}
+
+inline void to_json(json& j, const LibraryCatalog& value) {
+    j = json::object();
+    j["schema"] = "flowstate.libraryCatalog.v1";
+    j["packs"] = detail::encode(value.packs);
+    j["clips"] = detail::encode(value.clips);
+}
+
+inline void from_json(const json& j, LibraryCatalog& value) {
+    detail::expectObject(j);
+    detail::expectLiteral(j, "schema", "flowstate.libraryCatalog.v1");
+    detail::read(j, "packs", value.packs);
+    detail::read(j, "clips", value.clips);
+}
+
+inline void to_json(json& j, const CatalogQuery& value) {
+    j = json::object();
+    j["text"] = detail::encode(value.text);
+    j["origins"] = detail::encode(value.origins);
+    j["roles"] = detail::encode(value.roles);
+    j["genres"] = detail::encode(value.genres);
+    j["fitContext"] = detail::encode(value.fitContext);
+    j["limit"] = detail::encode(value.limit);
+    j["offset"] = detail::encode(value.offset);
+}
+
+inline void from_json(const json& j, CatalogQuery& value) {
+    detail::expectObject(j);
+    detail::read(j, "text", value.text);
+    detail::read(j, "origins", value.origins);
+    detail::read(j, "roles", value.roles);
+    detail::read(j, "genres", value.genres);
+    detail::read(j, "fitContext", value.fitContext);
+    detail::read(j, "limit", value.limit);
+    detail::checkRange("limit", value.limit, 1, 100);
+    detail::read(j, "offset", value.offset);
+    detail::checkRange("offset", value.offset, 0, std::nullopt);
+}
+
+inline void to_json(json& j, const CatalogPage& value) {
+    j = json::object();
+    j["total"] = detail::encode(value.total);
+    j["entries"] = detail::encode(value.entries);
+}
+
+inline void from_json(const json& j, CatalogPage& value) {
+    detail::expectObject(j);
+    detail::read(j, "total", value.total);
+    detail::checkRange("total", value.total, 0, std::nullopt);
+    detail::read(j, "entries", value.entries);
+}
+
 inline void to_json(json& j, const Session& value) {
     j = json::object();
     j["protocol"] = "flowstate.bridge.v0";
@@ -1746,6 +2135,7 @@ inline void to_json(json& j, const Session& value) {
     j["midiOut"] = detail::encode(value.midiOut);
     j["settings"] = detail::encode(value.settings);
     j["generations"] = detail::encode(value.generations);
+    j["preview"] = detail::encode(value.preview);
 }
 
 inline void from_json(const json& j, Session& value) {
@@ -1767,6 +2157,7 @@ inline void from_json(const json& j, Session& value) {
     detail::read(j, "midiOut", value.midiOut);
     detail::read(j, "settings", value.settings);
     detail::read(j, "generations", value.generations);
+    detail::read(j, "preview", value.preview);
 }
 
 inline void to_json(json& j, const SavedSession& value) {
@@ -2115,6 +2506,54 @@ inline void from_json(const json& j, ExportMidi& value) {
     detail::read(j, "splitDrums", value.splitDrums);
 }
 
+inline void to_json(json& j, const SearchCatalog& value) {
+    j = json::object();
+    j["type"] = "searchCatalog";
+    j["query"] = detail::encode(value.query);
+}
+
+inline void from_json(const json& j, SearchCatalog& value) {
+    detail::expectObject(j);
+    detail::expectLiteral(j, "type", "searchCatalog");
+    detail::read(j, "query", value.query);
+}
+
+inline void to_json(json& j, const PreviewEntry& value) {
+    j = json::object();
+    j["type"] = "previewEntry";
+    j["entryId"] = detail::encode(value.entryId);
+}
+
+inline void from_json(const json& j, PreviewEntry& value) {
+    detail::expectObject(j);
+    detail::expectLiteral(j, "type", "previewEntry");
+    detail::read(j, "entryId", value.entryId);
+}
+
+inline void to_json(json& j, const UseEntry& value) {
+    j = json::object();
+    j["type"] = "useEntry";
+    j["entryId"] = detail::encode(value.entryId);
+}
+
+inline void from_json(const json& j, UseEntry& value) {
+    detail::expectObject(j);
+    detail::expectLiteral(j, "type", "useEntry");
+    detail::read(j, "entryId", value.entryId);
+}
+
+inline void to_json(json& j, const DragEntry& value) {
+    j = json::object();
+    j["type"] = "dragEntry";
+    j["entryId"] = detail::encode(value.entryId);
+}
+
+inline void from_json(const json& j, DragEntry& value) {
+    detail::expectObject(j);
+    detail::expectLiteral(j, "type", "dragEntry");
+    detail::read(j, "entryId", value.entryId);
+}
+
 inline void to_json(json& j, const ReleaseFocus& value) {
     j = json::object();
     j["type"] = "releaseFocus";
@@ -2281,6 +2720,30 @@ void from_json(const json& j, U& value) {
         value = std::move(member);
         return;
     }
+    if (tag == "searchCatalog") {
+        SearchCatalog member;
+        from_json(j, member);
+        value = std::move(member);
+        return;
+    }
+    if (tag == "previewEntry") {
+        PreviewEntry member;
+        from_json(j, member);
+        value = std::move(member);
+        return;
+    }
+    if (tag == "useEntry") {
+        UseEntry member;
+        from_json(j, member);
+        value = std::move(member);
+        return;
+    }
+    if (tag == "dragEntry") {
+        DragEntry member;
+        from_json(j, member);
+        value = std::move(member);
+        return;
+    }
     throw ParseError("type", "unknown value '" + tag + "'");
 }
 
@@ -2290,6 +2753,7 @@ inline void to_json(json& j, const Reply& value) {
     j["error"] = detail::encode(value.error);
     j["requestId"] = detail::encode(value.requestId);
     j["session"] = detail::encode(value.session);
+    j["catalog"] = detail::encode(value.catalog);
 }
 
 inline void from_json(const json& j, Reply& value) {
@@ -2298,6 +2762,7 @@ inline void from_json(const json& j, Reply& value) {
     detail::read(j, "error", value.error);
     detail::read(j, "requestId", value.requestId);
     detail::read(j, "session", value.session);
+    detail::read(j, "catalog", value.catalog);
 }
 
 inline void to_json(json& j, const SessionChanged& value) {

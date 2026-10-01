@@ -95,6 +95,7 @@ private:
     std::optional<fb::ErrorInfo> exportMidi(const fb::Clip&, const MidiMeta&,
                                             const std::optional<std::vector<std::string>>&, bool) override;
     void releaseFocus(fb::FocusReason) override;
+    std::optional<std::vector<std::uint8_t>> libraryResource(const std::string& name) override;
 
     void timerCallback() override;
     void handleAsyncUpdate() override;

@@ -6,7 +6,8 @@
     "schema",
     "cloud",
     "evals",
-    "ui"
+    "ui",
+    "library"
   ],
   "scripts": {
     "build:core": "cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/core",
@@ -14,12 +15,13 @@
     "build:bridge": "cmake -S schema/cpp -B build/bridge -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/bridge",
     "test:bridge": "ctest --test-dir build/bridge --output-on-failure",
     "schema": "npm run -w schema generate",
-    "typecheck": "tsc -p schema && tsc -p cloud && tsc -p evals && tsc -p ui",
+    "typecheck": "tsc -p schema && tsc -p cloud && tsc -p evals && tsc -p ui && tsc -p library",
     "test": "npm run test:core && npm run test:bridge && npm run --workspaces --if-present test",
     "build:ui": "npm run -w ui build",
     "ci:status": "bash scripts/ci-status.sh",
     "fetch:build": "bash scripts/fetch-build.sh",
-    "pack:mac": "bash scripts/pack-macos-testers.sh"
+    "pack:mac": "bash scripts/pack-macos-testers.sh",
+    "library": "npm run -w library build"
   },
   "devDependencies": {
     "typescript": "^5.9.0",
