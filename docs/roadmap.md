@@ -167,7 +167,7 @@ Acceptance:
 - The host smoke test covers part filtering.
 - The spike's sync checks pass in CI.
 
-### P1-8 Design system from v1 — `doing` (browser and tests done; the plugin WebView check is left)
+### P1-8 Design system from v1 — `doing` (browser, tests and Windows done; the macOS check is left)
 Done so far (2026-09-29):
 - `ui/` is TypeScript with Preact and Vite. `npm run build:ui` writes a flat `ui/dist`, which the plugin bundles; CI builds it before the plugin.
 - Tokens, 15 components and v1's icons (plus 10 new ones), specified in `docs/design/README.md`.
@@ -175,7 +175,8 @@ Done so far (2026-09-29):
 - Side-by-side screenshots against v1: `docs/design/side-by-side-{chat,settings}.png`.
 - Playwright (19 tests, Chromium locally; CI adds WebKit): axe WCAG 2.1 AA, an accessible name on every control, a Tab walk that reaches every control, component behaviour, and the plugin page against a mocked bridge.
 
-Left: check 12 in `testing-plugin.md`, the gallery in a DAW on macOS and Windows. The WebView builds are green in CI (run 36702654122). Get the builds with `npm run fetch:build -- windows` and `npm run pack:mac`.
+Windows (2026-10-01): the gallery renders and is interactive in Ableton Live 12.4.6 on Windows 11, build `1b76d05-5` (`docs/host-checks.md`).
+Left: check 12 on macOS (Logic or Ableton), from the Mac tester's `npm run pack:mac` zip.
 Port v1's visual identity to CSS tokens and components: colours, type, spacing, radii, logo and SVG icons from `docs/design/` and v1 `assets/`, and the dark compact shell. Components: buttons, knobs, toggles, inputs, lanes, cards, sheets and toasts.
 Acceptance:
 - A component gallery page renders in a browser and in the plugin.

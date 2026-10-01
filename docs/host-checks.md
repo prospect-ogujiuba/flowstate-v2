@@ -15,7 +15,7 @@ Results of the manual DAW checks in `testing-plugin.md` (section 6), per host an
 | 9 | MIDI FX pass-through | n/a (note 1) | | | |
 | 10 | Multiple instances | pass | | | |
 | 11 | Drag disabled with no idea | pass | | | |
-| 12 | Component gallery (P1-8) | not yet reported | | | |
+| 12 | Component gallery (P1-8) | pass (note 2) | | | |
 
 ## Environment
 
@@ -26,3 +26,4 @@ Results of the manual DAW checks in `testing-plugin.md` (section 6), per host an
 ## Notes
 
 1. Ableton lists **Flowstate MIDI FX** (VST3) as an audio effect ("Insert audio effects after instruments"), then shows "This VST3 plug-in could not be opened" and "Some plug-ins are disabled". The MIDI FX variant has no audio buses, by design for Logic's MIDI FX slot. Ableton has no slot for third-party MIDI effects and doesn't open a VST3 without audio buses. pluginval and the host smoke test load it fine. In Ableton, the instrument variant (**Flowstate**) is the one to use: it sends MIDI to other tracks through **MIDI From** (spike 3, check 4). Open question: whether to stop installing the MIDI FX VST3 on Windows, or keep it for hosts with MIDI effect slots (Bitwig, FL Studio). Decide in P1-7 (MIDI out) or P1-14 (installers).
+2. Gallery (Windows, Ableton): the plugin window showed the gallery, and its controls were interactive. The Tab ring, knob keys, sheet Escape and Space sub-checks weren't reported one by one.
