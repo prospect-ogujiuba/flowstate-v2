@@ -94,6 +94,17 @@ describe("planScore", () => {
     assert.deepEqual(result.score, score);
   });
 
+  it("names the grooves that match the style and meter", async () => {
+    const trap: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 4, meterDenominator: 4 } };
+    const { backend, requests } = setup(JSON.stringify(score));
+    await planScore(trap, backend);
+    assert.match(requests[0]!, /drum grooves for these styles: trap \(see Grooves\)/);
+    const waltz: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 3, meterDenominator: 4 } };
+    const second = setup(JSON.stringify(score));
+    await planScore(waltz, second.backend).catch(() => {});
+    assert.doesNotMatch(second.requests[0]!, /drum grooves/);
+  });
+
   it("stops when the request is aborted", async () => {
     const { backend } = setup(JSON.stringify(score));
     const controller = new AbortController();

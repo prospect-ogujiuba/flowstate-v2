@@ -3,7 +3,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Score, IR_ID, type Part } from "@flowstate/schema";
+import { GROOVES, Score, IR_ID, type Part } from "@flowstate/schema";
 import { checkPart, partLabel, PartStream, type Head, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
 import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
@@ -99,9 +99,23 @@ function userMessage(req: PlanRequest): string {
     `- length: ${c.bars} bars`,
     `- lanes to write: ${c.lanes.join(", ")} (one part per lane, with the lane name as its role)`,
     `- style tags: ${c.style.join(", ") || "none"}`,
+    ...grooveHint(c),
     "",
     `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
   ].join("\n");
+}
+
+/**
+ * Names the grooves that match the request's style tags and meter, so the model reaches for the idiomatic
+ * pattern instead of writing its own (models tended to skip e.g. `trap` on a trap prompt).
+ */
+function grooveHint(c: PlanRequest["controls"]): string[] {
+  const tags = c.style.map((t) => t.toLowerCase());
+  const matches = (Object.entries(GROOVES) as [string, (typeof GROOVES)[keyof typeof GROOVES]][])
+    .filter(([name, g]) => g.meter[0] === c.meterNumerator && g.meter[1] === c.meterDenominator)
+    .filter(([name, g]) => tags.some((t) => name === t.replace(/-/g, "_") || g.description.toLowerCase().startsWith(t.replace(/-/g, " "))))
+    .map(([name]) => name);
+  return c.lanes.includes("drums") && matches.length ? [`- drum grooves for these styles: ${matches.join(", ")} (see Grooves)`] : [];
 }
 
 /**
