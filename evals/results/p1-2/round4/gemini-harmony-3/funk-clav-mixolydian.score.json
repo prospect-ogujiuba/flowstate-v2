@@ -1,0 +1,128 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Funky Clav & Slap Groove",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "E7:4 | E7:4 | A7:2 Bm7:2 | E7:4",
+  "motifs": [
+    {
+      "id": "clav_lead",
+      "notes": "r:.25 1:.25 b3:.25 1:.25 r:.5 4:.25 b5:.25 | 5:.5 b3:.25 1:.25 r:.5 b7-:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "clav",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.x ..x. .x.x x.x. | .x.x ..x. .x.x ..x. | .x.x .x.. .x.x ..x. | .x.x ..x. .x.X ....",
+          "voicing": "drop2",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "slap_bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X..g .8.g .X.g 8.a. | X..g .8.g .X.g 8..a | X..g 8..g X..g 8.a. | X..g .8.g .X.8 ..a.",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead_riff",
+      "role": "melody",
+      "name": "Synthesizer Lead",
+      "low": "E3",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "clav_lead",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "clav_lead",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drum_kit",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... ..x. ..x. .... | x... ..x. .x.. .... | x... ..x. x... .... | x... ..x. .x.. .... "
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... ..g. X... | .... X... .... X... | .... X... .... X..g "
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x... "
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... x... "
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

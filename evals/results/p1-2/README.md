@@ -69,3 +69,18 @@ Block fields that don't apply to a part's role may now be left out instead of wr
 - Gemini Flash minimal meets the full-plan target (7.3 s p50 against 8 s). Fewer bytes also meant fewer repairs on both models (11 → 4, 8 → 5), though the samples are small.
 - The first part moved less (996 B before it): the head is now most of that, and harmony is its largest piece (344 B median for 8 chords on Gemini).
 - Metrics stay in range. Gemini: chords/bar 10.30, melody/bar 3.20, pcEntropy 2.87, onsetEntropy 2.29, voiceMove 8.41, ghostShare 0.16, outOfKey 0.08, step share 0.57, repetition 0.15. Sonnet: chords/bar 11.46, melody/bar 3.54, pcEntropy 2.78, onsetEntropy 2.36, voiceMove 8.96, ghostShare 0.24, outOfKey 0.05, step share 0.60, repetition 0.15.
+
+## Round 4: compact harmony strings, and the lane rule (2026-10-01)
+
+Harmony is now written as a compact string (`"Dm9:4 | G13:4 | Em7:2 A7#9:2"`, see `docs/ir-spec.md`); the chord-object array is still accepted. The planner's request now says "one part per lane, with the lane name as its role": before, on pad-friendly styles the model wrote the chords lane as a `pad` or `arp` part, which counted as a missing lane and cost a repair turn. That was the largest first-attempt error class (10 of 60 plans).
+
+Single runs vary too much to compare these changes (Gemini's repairs ranged 4–12 of 20 between runs), so `round4/` holds three runs of each variant with the lane rule, at reasoning minimal on Gemini 3.6 Flash. `gemini-sparse-*` uses the round 3 IR (chord objects), `gemini-harmony-*` the harmony string. They are plan-only (scores, replies and `run.json`, no MIDI), and all six ran at once, which loads the provider more than a single run.
+
+| Variant (3 runs pooled) | Valid | First part p50 / p95 | First parts under 3 s | Full plan p50 / p95 | Repairs per run |
+| --- | --- | --- | --- | --- | --- |
+| Chord objects (`gemini-sparse-*`) | 60/60 | 3.84 s / 10.0 s | 9 of 60 | 7.55 s / 13.6 s | 5, 7, 7 |
+| Harmony string (`gemini-harmony-*`) | 60/60 | 3.52 s / 10.1 s | 18 of 60 | 7.81 s / 15.2 s | 8, 5, 7 |
+
+- The harmony string cuts the bytes before the first part from about 1000 to about 730 (median) and moves the first part 0.3 s sooner, with twice as many first parts under 3 s. The full plan is the same within noise.
+- Without the lane rule, three runs of the harmony string had more counting errors than the chord objects (step counts 11 against 4, form length 8 against 3), and 32 repairs against 18. With the rule, repairs are level. Whether implied chord positions make bar counting harder stays open; worth watching in P1-3.
+- `round4/sonnet-low-harmony/` (claude-code Sonnet, low, harmony string, before the lane rule; one run): 20/20, first part p50 7.4 s, full 13.8 s, 5 repairs. Sonnet's first text came at 4.3 s against 12.8 s in round 3, so its thinking time varies a lot between runs; read it as one sample.

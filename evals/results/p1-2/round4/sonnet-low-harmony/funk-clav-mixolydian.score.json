@@ -1,0 +1,120 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Clav Stab Funk in E",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "E9:4 | E9:2 A9:2 | E9:4 | B7#9:2 E9:2",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "r:.5 5:.25 6:.25 5:.5 3:.5 r:.5 1:.5 2:.5 r:.5 3:.5 5:.5 | r:1 5:.25 3:.25 2:.5 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "clav",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x..x ..x. .x.. x.x. | x..x ..x. .x.x ..x.",
+          "voicing": "shell",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X..g ..x. g.8. .x.a | X.xg ..5. x..g .7.a",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Muted guitar lead",
+      "low": "E4",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 0,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x ..x. ..x. .x.. | x..x ..x. .x.. x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X..g .g..X..g | ....X..g .g..X.gg"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xgxg xgxg xgxg xgxg"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... .... ..x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

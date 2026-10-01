@@ -1,0 +1,162 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender waltz ballad",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "F:3 | Dm7:3 | Bb:3 | C:3 | F/A:3 | Bbmaj7:3 | Gm7:3 | C7:3",
+  "motifs": [
+    {
+      "id": "a",
+      "notes": "5:1 3:.5 4:.5 5:1 | 6:1.5 5:.5 3:1"
+    },
+    {
+      "id": "b",
+      "notes": "6:1 5:.5 6:.5 8:1 | 7:1.5 6:.5 5:1 | 4:1 5:.5 4:.5 3:1 | 2:2 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Piano",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---x-x-x-x-",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-x-x-x-x-x-",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Soft bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "R-----5-----",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R-----5---a.",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Piano lead",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "a",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "b",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Soft kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..........."
+            },
+            {
+              "voice": "rim",
+              "steps": "....x...x..."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.........g."
+            },
+            {
+              "voice": "rim",
+              "steps": "....x...x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

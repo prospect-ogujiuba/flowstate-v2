@@ -1,0 +1,245 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Ballad Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    { "name": "Verse A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Verse B", "startBar": 5, "bars": 8, "energy": 0.65 }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Bb:3 | F/A:3 | Bb:3 | Gm7:3 | C7sus4:1.5 C7:1.5",
+  "motifs": [
+    {
+      "id": "m_main",
+      "notes": "3:1 2:1 1:1 | 2:1.5 1:.5 7-:1 | 1:1 7-:1 6-:1 | 5-:2 r:1"
+    },
+    {
+      "id": "m_climax",
+      "notes": "3:1 4:1 5:1 | 5:1.5 4:.5 3:1 | 2:1 3:1 4:1 | 2:2 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Arpeggiated Piano Chords",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. x...",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Piano Bass Notes",
+      "low": "F1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... 5---"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Heartfelt Vocal Lead",
+      "low": "C4",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m_main",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m_climax",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Subtle Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .x.."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... ...."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Ballad Waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    { "name": "Verse A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Verse B", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Bb:3 | F/A:3 | Bb:3 | Gm7:3 | C7sus4:1.5 C7:1.5",
+  "motifs": [
+    {
+      "id": "m_main",
+      "notes": "3:1 2:1 1:1 | 2:1.5 1:.5 7-:1 | 1:1 7-:1 6-:1 | 5-:2 r:1"
+    },
+    {
+      "id": "m_climax",
+      "notes": "3:1 4:1 5:1 | 5:1.5 4:.5 3:1 | 2:1 3:1 4:1 | 2:2 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Arpeggiated Piano Chords",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. .x.. | x... .x.. x...",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Piano Bass Notes",
+      "low": "F1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... .... | R--- .... 5---"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Heartfelt Vocal Lead",
+      "low": "C4",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m_main",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m_climax",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Subtle Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .... | x... .... .x.."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... x... | .... x... ...."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x. | x.x. x.x. x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

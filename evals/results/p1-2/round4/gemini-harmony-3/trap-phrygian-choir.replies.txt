@@ -1,0 +1,133 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Ominous Phrygian Trap",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0,
+    "style": ["trap", "cinematic"]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "Cm:4 | Db:4 | Cm:4 | Bbm:2 Db/Ab:2",
+  "motifs": [
+    {
+      "id": "lead_theme",
+      "notes": "1:1! b2:.5 1:.5 b7-:.5 1:.5 b2:1 | 3:.5 b2:.5 1:1 b7-:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Choir",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- ---- ----",
+          "voicing": "close",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Heavy 808",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ---- .R-- .a-- | R--- ---- .... .... | R--- ---- .R-- ..R. | R--- ..R. R--- ..a.",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Menacing Synth Lead",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "lead_theme",
+          "repeatEvery": 0,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "lead_theme",
+          "transforms": ["octave:+1"],
+          "repeatEvery": 0,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .... | x... .... ..x. .... | x... ..x. .... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .x.x"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx | xxxx xxxx xxxxxxxx | xxxx xxxx xxxx xxxx | xxxx xxxx xxxx ...."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... .... | .... ..x. .... ..x. | .... ..x. .... ...."
+            },
+            {
+              "voice": "crash",
+              "steps": "X... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

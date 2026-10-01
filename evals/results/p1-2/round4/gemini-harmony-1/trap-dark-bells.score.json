@@ -1,0 +1,120 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Eerie Dark Trap Beat",
+  "context": {
+    "tempo": 140,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C#",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "trap"
+    ]
+  },
+  "form": [
+    {
+      "name": "Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "C#m:4 | A:4 | F#m:4 | G#7:4",
+  "motifs": [
+    {
+      "id": "bell_theme",
+      "notes": "1+:1.5 7:0.5 8:1 b6:1 | 5:2 r:2 | 1+:1.5 #7:0.5 8:1 4+:1 | 3+:2 r:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Pad",
+      "low": "G#2",
+      "high": "C#4",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- ---- ----",
+          "voicing": "close",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808 Bass",
+      "low": "C#1",
+      "high": "C#2",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ---- --5- ---- | R--- ---- ---- --a- | R--- ---- ..8- ---- | R--- ---- ..a- ....",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Eerie Bells",
+      "low": "C#4",
+      "high": "C#6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "bell_theme",
+          "repeatEvery": 0,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .... | x... .... ..x. .... | x... .... .... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... x... .... | .... .... x... .... | .... .... x... .... | .... .... x... .g.."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxx xxxx xxxx xxxx | xxxx xxxx xxxxxxxx | xxxx xxxx xxxx xxxx | xxxxxxxx xxxx xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x."
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

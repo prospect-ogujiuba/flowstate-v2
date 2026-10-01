@@ -178,37 +178,46 @@
           }
         },
         "harmony": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "bar": {
-                "type": "integer",
-                "minimum": -9007199254740991,
-                "maximum": 9007199254740991,
-                "description": "1-based bar"
-              },
-              "beat": {
-                "type": "number",
-                "description": "1-based beat within the bar"
-              },
-              "beats": {
-                "type": "number",
-                "description": "Duration in beats"
-              },
-              "symbol": {
-                "type": "string",
-                "description": "Chord symbol, e.g. Cm9, G13, F/A, Bb7#11"
-              }
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "Compact form: \"<chord>:<beats>\" tokens from bar 1 beat 1 in sequence, \"r:<beats>\" for no chord, e.g. \"Dm9:4 | G13:4 | Em7:2 A7:2\""
             },
-            "required": [
-              "bar",
-              "beat",
-              "beats",
-              "symbol"
-            ],
-            "additionalProperties": false
-          }
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bar": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991,
+                    "description": "1-based bar"
+                  },
+                  "beat": {
+                    "type": "number",
+                    "description": "1-based beat within the bar"
+                  },
+                  "beats": {
+                    "type": "number",
+                    "description": "Duration in beats"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "description": "Chord symbol, e.g. Cm9, G13, F/A, Bb7#11"
+                  }
+                },
+                "required": [
+                  "bar",
+                  "beat",
+                  "beats",
+                  "symbol"
+                ],
+                "additionalProperties": false
+              },
+              "description": "Chord-object form (older scores)"
+            }
+          ]
         },
         "motifs": {
           "type": "array",

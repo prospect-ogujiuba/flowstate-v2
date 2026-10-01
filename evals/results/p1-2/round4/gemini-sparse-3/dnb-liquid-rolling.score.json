@@ -1,0 +1,219 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lush Liquid Drum & Bass",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "drum-and-bass",
+      "liquid"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.75
+    }
+  ],
+  "harmony": [
+    {
+      "bar": 1,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 2,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 3,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 4,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Eb11"
+    },
+    {
+      "bar": 5,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Fm9"
+    },
+    {
+      "bar": 6,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Abmaj7"
+    },
+    {
+      "bar": 7,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "Dbmaj9"
+    },
+    {
+      "bar": 8,
+      "beat": 1,
+      "beats": 4,
+      "symbol": "C7alt"
+    }
+  ],
+  "motifs": [
+    {
+      "id": "lead_theme",
+      "notes": "r:.5 5:1 8:.5 | 7:1.5 5:.5 | r:.5 4:.5 5:1 | 3:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "chords",
+      "name": "Lush Pad",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "sub_bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F0",
+      "high": "F2",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "rhythm": "R--- ..R- --5. ..a. | R--- ---- --5- ..a. | R--- ..R- --5. ..a. | R--- ---- --R- ..a."
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R--- ..R- --3. ..a."
+        }
+      ]
+    },
+    {
+      "id": "liquid_lead",
+      "role": "melody",
+      "name": "Sine Lead",
+      "low": "F3",
+      "high": "Ab5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lead_theme",
+          "repeatEvery": 16,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lead_theme",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 16,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "rolling_break",
+      "role": "drums",
+      "name": "Two-Step Breakbeat",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... X... .... | .... .... X... ...g"
+            },
+            {
+              "voice": "rim",
+              "steps": ".... .... .... ..g. | .... ..g. .... ...."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": ".x.x.x.x .x.x.x.x | .x.x.x.x .x.x.x.x"
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... X... ...."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": ".x.x.x.x .x.x.x.x"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody 8-bar Neo-Soul Loop",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.22,
+    "style": ["neo-soul", "rnb"]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.6
+    }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 4, "symbol": "Dm9" },
+    { "bar": 2, "beat": 1, "beats": 4, "symbol": "G13" },
+    { "bar": 3, "beat": 1, "beats": 4, "symbol": "Em7" },
+    { "bar": 4, "beat": 1, "beats": 2, "symbol": "Fmaj7" },
+    { "bar": 4, "beat": 3, "beats": 2, "symbol": "A7#9" },
+    { "bar": 5, "beat": 1, "beats": 4, "symbol": "Dm9" },
+    { "bar": 6, "beat": 1, "beats": 4, "symbol": "G13" },
+    { "bar": 7, "beat": 1, "beats": 4, "symbol": "Em7" },
+    { "bar": 8, "beat": 1, "beats": 2, "symbol": "Fmaj7" },
+    { "bar": 8, "beat": 3, "beats": 2, "symbol": "A7#9" }
+  ],
+  "motifs": [
+    {
+      "id": "soul_phrase",
+      "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5 | b7-:.5 1:.5 3:.5 5:1.5 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- .... | x--- ..x- ..x- .x-- | x--- ..x- .x-- .... | x--- .x-- x--- ..x-",
+          "voicing": "rootless",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- ..x- .x-- .... | x--- ..x- ..x- .x-- | x--- ..x- .x-- .... | x--- .x-- x--- ..x-",
+          "voicing": "rootless",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a. | R-.. R-.. 5-.. ..a.",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a. | R-.. R-.. 5-.. ..a.",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soul Lead String",
+      "low": "C4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "soul_phrase",
+          "repeatEvery": 8,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "soul_phrase",
+          "transforms": ["transpose:+2", "displace:+0.5"],
+          "repeatEvery": 8,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Behind-the-beat Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x. ..x..... | x.....x. ..x...x. | x.....x. ..x..... | x...x... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g | ....X... ....X... | ....X... ....X..g | ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.xgx. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx. | x.x.x.x. x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x. ..x..... | x.....x. ..x...x. | x.....x. ..x..... | x...x... ..x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g | ....X... ....X... | ....X... ....X..g | ....X... ....X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.xgx. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx. | x.x.x.x. x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

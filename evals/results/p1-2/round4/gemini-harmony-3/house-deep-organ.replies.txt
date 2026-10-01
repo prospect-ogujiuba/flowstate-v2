@@ -1,0 +1,267 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep House Organ Groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.1,
+    "style": ["house", "deep-house"]
+  },
+  "form": [
+    { "name": "Groove A", "startBar": 1, "bars": 4, "energy": 0.65 },
+    { "name": "Groove B", "startBar": 5, "bars": 8, "energy": 0.75 }
+  ],
+  "harmony": "Am9:4 | Dm9:4 | Fmaj7:4 | Em7:2 E7b9:2 | Am9:4 | Dm9:4 | Fmaj7:4 | Em7:2 E7b9:2",
+  "motifs": [
+    {
+      "id": "organ_hook",
+      "notes": "r:.5 8:0.25! 7:0.25 5:0.5 r:0.5 b3:0.5 4:0.5 | 5:1 r:1 8:0.5 b7:0.5 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. .x.. ..x. ..x.",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. .x.. .x.x ..x.",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bouncy Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.R .x.R .x.5 .x.a | .x.R .x.R .x.8 .x.a | .x.R .x.R .x.3 .x.a | .x.R .x.a .x.5 .x.a"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": ".x.R .x.R .x.5 .x.a | .x.R .x.R .x.8 .x.a | .x.R .x.R .x.3 .x.a | .x.R .x.X .x.5 .x.a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead Motif",
+      "low": "A3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "organ_hook",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "organ_hook",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..." },
+            { "voice": "clap", "steps": "....X.......X... | ....X.......X... | ....X.......X... | ....X.......X..." },
+            { "voice": "open_hat", "steps": "..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x." },
+            { "voice": "shaker", "steps": ".x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..." },
+            { "voice": "clap", "steps": "....X.......X... | ....X.......X... | ....X.......X... | ....X.......X..." },
+            { "voice": "open_hat", "steps": "..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x." },
+            { "voice": "shaker", "steps": ".x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x" },
+            { "voice": "rim", "steps": "....x.......x... | ....x.......x... | ....x.......x... | ....x.......x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep House Organ Groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.1,
+    "style": ["house", "deep-house"]
+  },
+  "form": [
+    { "name": "Groove A", "startBar": 1, "bars": 4, "energy": 0.65 },
+    { "name": "Groove B", "startBar": 5, "bars": 4, "energy": 0.75 }
+  ],
+  "harmony": "Am9:4 | Dm9:4 | Fmaj7:4 | Em7:2 E7b9:2 | Am9:4 | Dm9:4 | Fmaj7:4 | Em7:2 E7b9:2",
+  "motifs": [
+    {
+      "id": "organ_hook",
+      "notes": "r:.5 8:0.25! 7:0.25 5:0.5 r:0.5 b3:0.5 4:0.5 | 5:1 r:1 8:0.5 b7:0.5 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Organ",
+      "low": "C3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. .x.. ..x. ..x.",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. .x.. .x.x ..x.",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bouncy Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.R .x.R .x.5 .x.a | .x.R .x.R .x.8 .x.a | .x.R .x.R .x.3 .x.a | .x.R .x.a .x.5 .x.a"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": ".x.R .x.R .x.5 .x.a | .x.R .x.R .x.8 .x.a | .x.R .x.R .x.3 .x.a | .x.R .x.X .x.5 .x.a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead Motif",
+      "low": "A3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "organ_hook",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "organ_hook",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..." },
+            { "voice": "clap", "steps": "....X.......X... | ....X.......X... | ....X.......X... | ....X.......X..." },
+            { "voice": "open_hat", "steps": "..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x." },
+            { "voice": "shaker", "steps": ".x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x...x...x...x... | x...x...x...x... | x...x...x...x... | x...x...x...x..." },
+            { "voice": "clap", "steps": "....X.......X... | ....X.......X... | ....X.......X... | ....X.......X..." },
+            { "voice": "open_hat", "steps": "..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x. | ..x...x...x...x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x. | x.x.x.x.x.x.x.x." },
+            { "voice": "shaker", "steps": ".x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x | .x.x.x.x.x.x.x.x" },
+            { "voice": "rim", "steps": "....x.......x... | ....x.......x... | ....x.......x... | ....x.......x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

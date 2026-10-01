@@ -1,0 +1,129 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic minimal tech-house",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.2,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Cm7:8 | Abm7:2 Bb7:2 Cm7:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "r:1.5 5:.5 r:1 b3:.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Stab Keys",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "....  ..x. .... ...x | .... ..x. .... .... | .... ..x. .... ...x | .... ..x. .... .x..",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".x.x .x.x .x.x .x.x",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Pluck",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "clap",
+              "steps": "....x.......x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x...x...x...xg"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x...x...x...x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xgxgxgxxgxgxxgxg"
+            },
+            {
+              "voice": "rim",
+              "steps": "......g.....g..."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

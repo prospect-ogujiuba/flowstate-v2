@@ -1,0 +1,131 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark UK Drill Loop",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Em:4 | F:4 | Em:4 | F:2 C:2",
+  "motifs": [
+    {
+      "id": "bell-top",
+      "notes": "1+:1.5 2+:0.5 b3+:1 r:1 | 1+:1.5 b7:0.5 b2+:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "piano",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "E2",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... .... x--- | .... .... x--- .... | x--- .... .... x--- | .... x--- .... ....",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "808",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..x- .... .... | .... ..x- .a.. X--- | R--- .... ..x- .... | .... ..a- X--- ....",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bell",
+      "role": "melody",
+      "name": "Melodic Lead",
+      "low": "E4",
+      "high": "G6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "bell-top",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "bell-top",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "kit",
+      "role": "drums",
+      "name": "Drill Drum Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | .... .... x... .... | x... .... .... ..x. | .... .... x... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... .... ..x. | .... x... .... ..x. | .... .... .... ..x. | .... x... .... ..X."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.xx x.x. xx.x x.x. | x.x. xxx. x.xx x.x. | xx.x x.x. x.xx x.x. | x.x. x.xx xx.x x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... ..x. .... | .... .... .... x... | .... .... ..x. .... | .... .... .... x..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

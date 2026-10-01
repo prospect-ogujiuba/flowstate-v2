@@ -1,0 +1,178 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Crypt Choir 808",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0,
+    "style": [
+      "trap",
+      "cinematic"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 3,
+      "energy": 0.7
+    },
+    {
+      "name": "B",
+      "startBar": 4,
+      "bars": 1,
+      "energy": 0.9
+    }
+  ],
+  "harmony": "Cm:4 | Db:4 | Cm:2 Bbm:2 | Db:2 G7b9:2",
+  "motifs": [
+    {
+      "id": "menace",
+      "notes": "1:.5! r:.5 b2:.5 1:.5 | r:.5 b3:.5 b2:.5 1:.5"
+    },
+    {
+      "id": "answer",
+      "notes": "5:.5! r:.5 b6:.5 5:.5 | b2:1 1:1.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "choir",
+      "role": "chords",
+      "name": "Dark choir",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x------- -------- | x------- -------- ",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "808",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 108,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "rhythm": "X--- --.. ..g. X-.. | X--- --.. ..X- --..",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "X--. ..X- ..g. X-a.",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Dark synth lead",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "menace",
+          "repeatEvery": 4,
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 0,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.......x.x..... | x.....x...x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "........x......."
+            },
+            {
+              "voice": "clap",
+              "steps": "........x......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.xxxx"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "......x.......x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x...x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "........x......."
+            },
+            {
+              "voice": "clap",
+              "steps": "........x......."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.xxxx"
+            },
+            {
+              "voice": "crash",
+              "steps": "x..............."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

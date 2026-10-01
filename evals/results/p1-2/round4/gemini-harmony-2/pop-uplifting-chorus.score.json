@@ -1,0 +1,199 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Uplifting Pop Chorus Hook",
+  "context": {
+    "tempo": 118,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.85
+    },
+    {
+      "name": "Chorus B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.95
+    }
+  ],
+  "harmony": "G:4 | D:4 | Em:4 | C:4 | G:4 | D:4 | Em:4 | C:4",
+  "motifs": [
+    {
+      "id": "hook_a",
+      "notes": "3:.75! 5:.25 8:1! 7:.5 5:.5 | 6:1.5! 5:.5 3:1 1:1"
+    },
+    {
+      "id": "hook_b",
+      "notes": "3:.75! 5:.25 8:1! 7:.5 5:.5 | 6:1! 7:1 8:2!"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Bright Pop Keys",
+      "low": "G2",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--x ..x. x--x ..x. | x--x ..x. x--x ..x. | x--x ..x. x--x ..x. | x--x ..x. x--x .x..",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--x ..x. x--x ..x. | x--x ..x. x--x ..x. | x--x ..x. x--x ..x. | x--x .x.x x.x. x...",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Driving Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.R. R.R. R.R. R.5. | R.R. R.R. R.R. R.a. | R.R. R.R. R.R. R.5. | R.R. R.R. R.R. R.a.",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "RxRx RxRx RxRx R.5. | RxRx RxRx RxRx R.a. | RxRx RxRx RxRx R.5. | RxRx RxRx R.x. a...",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead Hook",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 102,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "hook_a",
+          "repeatEvery": 8,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "hook_b",
+          "repeatEvery": 8,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "hook_a",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 8,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "hook_b",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 8,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Pop Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "x... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "X... .... .... .... | .... .... .... .... | X... .... .... .... | .... .... .... ...."
+            },
+            {
+              "voice": "tambourine",
+              "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+            }
+          ],
+          "fill": "kick_build"
+        }
+      ]
+    }
+  ]
+}

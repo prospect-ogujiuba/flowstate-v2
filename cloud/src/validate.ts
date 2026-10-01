@@ -12,6 +12,26 @@ const STEP_TOKENS: Record<string, RegExp> = {
 };
 
 const NOTE_NAME = /^[A-G](#|b)?-?\d$/;
+// Compact harmony token: <chord symbol>:<beats>, or r:<beats> for no chord.
+const HARMONY_TOKEN = /^([A-G][^\s:]*|r):(\d*\.?\d+|\d+\/\d+)$/;
+
+const beatsOf = (d: string) => (d.includes("/") ? Number(d.split("/")[0]) / Number(d.split("/")[1]) : Number(d));
+
+function checkHarmonyString(harmony: string, clipBeats: number, errors: string[]) {
+  let total = 0;
+  for (const token of harmony.trim().split(/\s+/)) {
+    if (token === "|" || token === "") continue;
+    const m = HARMONY_TOKEN.exec(token);
+    const beats = m ? beatsOf(m[2]!) : NaN;
+    if (!m || !(beats > 0) || !Number.isFinite(beats)) {
+      errors.push(`harmony: bad token '${token}' (expected <chord>:<beats>, e.g. Dm9:4, G7/B:2, r:1)`);
+      continue;
+    }
+    total += beats;
+  }
+  if (total > clipBeats + 1e-6) errors.push(`harmony lasts ${+total.toFixed(3)} beats, but the clip is ${clipBeats} beats`);
+}
+
 // Compact motif token: <pitch>:<beats>[!], pitch r or [b|#]degree with +/- octave marks, beats decimal or fraction.
 const MOTIF_TOKEN = /^(r|[b#]?\d{1,2}(\++|-+)?):(\d*\.?\d+|\d+\/\d+)!?$/;
 
@@ -19,7 +39,7 @@ function checkMotifString(id: string, notes: string, errors: string[]) {
   for (const token of notes.trim().split(/\s+/)) {
     if (token === "|" || token === "") continue;
     const m = MOTIF_TOKEN.exec(token);
-    const beats = m ? (m[3]!.includes("/") ? Number(m[3]!.split("/")[0]) / Number(m[3]!.split("/")[1]) : Number(m[3])) : NaN;
+    const beats = m ? beatsOf(m[3]!) : NaN;
     if (!m || !(beats > 0) || !Number.isFinite(beats))
       errors.push(`motif ${id}: bad token '${token}' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)`);
   }
@@ -51,7 +71,8 @@ export function validateScore(score: Score): string[] {
   if (score.form.length > 0 && expectedStart !== totalBars + 1)
     errors.push(`form covers bars 1..${expectedStart - 1}, but context.bars is ${totalBars}`);
 
-  for (const c of score.harmony) {
+  if (typeof score.harmony === "string") checkHarmonyString(score.harmony, totalBars * beatsPerBar, errors);
+  else for (const c of score.harmony) {
     if (c.bar < 1 || c.bar > totalBars) errors.push(`chord ${c.symbol} at bar ${c.bar} is outside 1..${totalBars}`);
     if (c.beat < 1 || c.beat >= beatsPerBar + 1) errors.push(`chord ${c.symbol} beat ${c.beat} outside the bar`);
     if (c.beats <= 0) errors.push(`chord ${c.symbol} has non-positive duration`);

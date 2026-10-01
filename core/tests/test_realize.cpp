@@ -325,6 +325,50 @@ TEST_CASE("block fields left out realize the same as null") {
     CHECK(a.warnings == b.warnings);
 }
 
+TEST_CASE("harmony as a compact string realizes the same as the chord array") {
+    for (const char* name : kFixtures) {
+        CAPTURE(name);
+        json full = json::parse(readFixture(name));
+        const int beatsPerBar = full["context"]["meterNumerator"].get<int>();
+        // Rebuild the chord list as a string, with rests for the gaps.
+        std::string text;
+        double at = 0.0;
+        for (const auto& c : full["harmony"]) {
+            const double start = (c["bar"].get<int>() - 1) * beatsPerBar + c["beat"].get<double>() - 1.0;
+            if (start > at + 1e-9) text += "r:" + json(start - at).dump() + " ";
+            text += c["symbol"].get<std::string>() + ":" + json(c["beats"].get<double>()).dump() + " | ";
+            at = start + c["beats"].get<double>();
+        }
+        json compact = full;
+        compact["harmony"] = text;
+        Realization a = run(full, 3), b = run(compact, 3);
+        CHECK(writeSmf(a) == writeSmf(b));
+        CHECK(a.warnings == b.warnings);
+    }
+}
+
+TEST_CASE("harmony string: bar positions, rests, fractions and bad tokens") {
+    json s = baseScore();
+    s["context"]["meterNumerator"] = 3;
+    s["context"]["bars"] = 3;
+    s["harmony"] = "Dm7:1/3 Dm7:1/3 Dm7:1/3 G7:2 | r:3 Cmaj7:3 F/A x Am:0";
+    json b = block(1, 3);
+    s["parts"] = json::array({part("keys", "chords", "C3", "C5", 4, json::array({b}))});
+    std::vector<std::string> warnings;
+    Score score = parseScore(s.dump(), warnings);
+    REQUIRE(score.harmony.size() == 5);
+    CHECK(score.harmony[3].bar == 1);
+    CHECK(score.harmony[3].beat == doctest::Approx(2.0));
+    CHECK(score.harmony[3].beats == doctest::Approx(2.0));
+    CHECK(score.harmony[4].symbol == "Cmaj7");
+    CHECK(score.harmony[4].bar == 3);
+    CHECK(score.harmony[4].beat == doctest::Approx(1.0));
+    int bad = 0;
+    for (const auto& w : warnings)
+        if (w.rfind("harmony token", 0) == 0) ++bad;
+    CHECK(bad == 3);  // "F/A" has no duration, "x" none either, "Am:0" is zero length
+}
+
 TEST_CASE("bad motif string tokens are skipped with a warning") {
     json s = baseScore();
     s["context"]["bars"] = 1;

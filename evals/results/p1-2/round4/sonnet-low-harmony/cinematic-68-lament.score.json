@@ -1,0 +1,158 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moorland Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.45
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Am:6 | Am/E:6 | Fmaj7:6 | Am/E:6 | Am:6 | G:6 | Fmaj7:3 E7:3 | Am:6",
+  "motifs": [
+    {
+      "id": "lament",
+      "notes": "5:1.5 6:.5 5:.5 3:1.5 r:.5 | 2:.5 3:.5 1:1.5 r:1.5"
+    },
+    {
+      "id": "answer",
+      "notes": "8:1.5 7:.5 6:.5 5:1.5 3:.5 | 6:.5 5:.5 3:.5 2:.5 1:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm string drone pad",
+      "low": "A2",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cello drone",
+      "low": "A1",
+      "high": "E3",
+      "grid": 2,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-----------",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-----..5---",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "flute",
+      "role": "melody",
+      "name": "Celtic flute",
+      "low": "A4",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "answer",
+          "transforms": [
+            "octave:+0"
+          ],
+          "repeatEvery": 6,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Bodhrán frame drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x..x..x..x.."
+            },
+            {
+              "voice": "rim",
+              "steps": "..g....g...."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x.gx.gx.gx.g"
+            },
+            {
+              "voice": "rim",
+              "steps": "..x....x...."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xgxgxgxgxgxg"
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

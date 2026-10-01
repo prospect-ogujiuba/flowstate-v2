@@ -1,0 +1,163 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Mixolydian Anthem Drive",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.95
+    }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | G5:4 | G5:4 | F5:4 | C5:2 D5:2 | G5:4",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "5:1 5:.5 6:.5 8:1.5 r:.5 | 7:1 5:1 4:1 5:1"
+    },
+    {
+      "id": "lift",
+      "notes": "8:1 8:.5 9:.5 10:1.5 r:.5 | 9:1 8:.5 7:.5 5:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "gtr",
+      "role": "chords",
+      "name": "Distorted guitar power chords",
+      "low": "E2",
+      "high": "D4",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x-x-x-x-x-x-x-x-",
+          "voicing": "power",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X-x-X-x-X-x-X-x-",
+          "voicing": "power",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Picked bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "XxxxXxxx",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Lead guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 8,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lift",
+          "repeatEvery": 8,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..xx...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..g"
+            },
+            {
+              "voice": "crash",
+              "steps": "x...............|................"
+            },
+            {
+              "voice": "open_hat",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble Horn Rising",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "orchestral"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.35
+    },
+    {
+      "name": "Rise",
+      "startBar": 3,
+      "bars": 3,
+      "energy": 0.6
+    },
+    {
+      "name": "Climax",
+      "startBar": 6,
+      "bars": 3,
+      "energy": 0.95
+    }
+  ],
+  "harmony": "Dm:4 | Bb:4 | Gm:4 | A:4 | Dm:4 | Bb:4 | Gm:2 A:2 | Dm:4",
+  "motifs": [
+    {
+      "id": "horn",
+      "notes": "5:1.5 8:.5 7:.5 6:.5 5:1 | 4:1.5 3:.5 2:1 1:1"
+    },
+    {
+      "id": "horn2",
+      "notes": "5:1 8:1.5! 9:.5 8:.5 7:.5 6:.5 | 5:1.5 6:.5 7:1 8:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "strings",
+      "role": "chords",
+      "name": "String ensemble pad",
+      "low": "D3",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---------------",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-------x-------",
+          "voicing": "spread",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cellos and basses",
+      "low": "D1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R---------------",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-------5-------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "French horn",
+      "low": "D3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "horn",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "horn2",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Cinematic percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x............... | ................"
+            },
+            {
+              "voice": "crash",
+              "steps": "x..............."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 5,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "x.......x......."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "........x.....x."
+            },
+            {
+              "voice": "kick",
+              "steps": "x..............."
+            }
+          ],
+          "fill": "tom_run"
+        },
+        {
+          "startBar": 6,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "low_tom",
+              "steps": "X.....x.X.....x."
+            },
+            {
+              "voice": "mid_tom",
+              "steps": "..x.....x.x....."
+            },
+            {
+              "voice": "high_tom",
+              "steps": "......x.......x."
+            },
+            {
+              "voice": "kick",
+              "steps": "X.......X......."
+            },
+            {
+              "voice": "crash",
+              "steps": "X..............."
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

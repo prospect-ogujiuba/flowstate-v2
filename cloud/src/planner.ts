@@ -95,7 +95,7 @@ function userMessage(req: PlanRequest): string {
     `- key: ${c.tonic} ${c.mode}`,
     `- meter: ${c.meterNumerator}/${c.meterDenominator}, tempo ${c.tempo} BPM`,
     `- length: ${c.bars} bars`,
-    `- lanes to write: ${c.lanes.join(", ")}`,
+    `- lanes to write: ${c.lanes.join(", ")} (one part per lane, with the lane name as its role)`,
     `- style tags: ${c.style.join(", ") || "none"}`,
   ].join("\n");
 }

@@ -258,6 +258,44 @@ std::vector<MotifNote> parseMotifString(Reader& r, const std::string& text, cons
     return notes;
 }
 
+// Harmony in the compact string form: "<symbol>:<beats>" tokens from bar 1 beat 1, one after another;
+// "r:<beats>" is a stretch with no chord, and "|" tokens are visual bar marks. Bad tokens are skipped with a warning.
+std::vector<ChordEntry> parseHarmonyString(Reader& r, const std::string& text, int beatsPerBar, const std::string& path) {
+    std::vector<ChordEntry> chords;
+    double at = 0.0;
+    std::size_t index = 0;
+    std::size_t pos = 0;
+    while (pos < text.size()) {
+        std::size_t start = text.find_first_not_of(" \t\n\r", pos);
+        if (start == std::string::npos) break;
+        std::size_t end = text.find_first_of(" \t\n\r", start);
+        if (end == std::string::npos) end = text.size();
+        std::string tok = text.substr(start, end - start);
+        pos = end;
+        if (tok == "|") continue;
+        std::string tp = path + " token " + std::to_string(++index) + " \"" + tok + "\"";
+        auto colon = tok.rfind(':');
+        auto beats = colon == std::string::npos ? std::nullopt : parseBeats(tok.substr(colon + 1));
+        if (!beats || colon == 0) {
+            r.warn(tp, "expected <chord>:<beats> with a positive duration; skipped");
+            continue;
+        }
+        std::string symbol = tok.substr(0, colon);
+        if (symbol != "r") {
+            // Snap tiny float drift (e.g. from thirds) so a chord meant for a bar line lands on it.
+            const double whole = std::floor(at / beatsPerBar + 1e-9);
+            ChordEntry ce;
+            ce.bar = static_cast<int>(whole) + 1;
+            ce.beat = std::max(0.0, at - whole * beatsPerBar) + 1.0;
+            ce.beats = *beats;
+            ce.symbol = symbol;
+            chords.push_back(ce);
+        }
+        at += *beats;
+    }
+    return chords;
+}
+
 Context parseContext(Reader& r, const json& j) {
     const std::string p = "context";
     if (!j.is_object()) throw IrError("context: missing or not an object");
@@ -423,7 +461,9 @@ Score parseScore(const std::string& jsonText, std::vector<std::string>& warnings
             s.form.push_back(sec);
         }
     }
-    if (const json* harmony = r.array(j, "harmony", "score", true)) {
+    if (j.contains("harmony") && j.at("harmony").is_string()) {
+        s.harmony = parseHarmonyString(r, j.at("harmony").get<std::string>(), s.context.meterNumerator, "harmony");
+    } else if (const json* harmony = r.array(j, "harmony", "score", true)) {
         for (std::size_t i = 0; i < harmony->size(); ++i) {
             const json& c = (*harmony)[i];
             std::string cp = "harmony[" + std::to_string(i) + "]";

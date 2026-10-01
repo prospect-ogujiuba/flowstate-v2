@@ -29,7 +29,7 @@ The machine-readable source of truth is `schema/score.ts` (a Zod schema). `schem
 | `title` | string | Short name for the idea ("Dusty neo-soul loop") |
 | `context` | Context | Tempo, meter, key, length, feel |
 | `form` | Section[] | Sections with an energy level for each |
-| `harmony` | Chord[] | The chord timeline shared by every part |
+| `harmony` | string (or Chord[]) | The chord timeline shared by every part |
 | `motifs` | Motif[] | Reusable melodic cells |
 | `parts` | Part[] | The instruments and what they play |
 
@@ -51,10 +51,21 @@ The machine-readable source of truth is `schema/score.ts` (a Zod schema). `schem
 
 ### Chord (`harmony`)
 
-`{ bar, beat, beats, symbol }`
+Write `harmony` as a compact string of chords, played one after another from bar 1, beat 1:
+
+```
+"harmony": "Dm9:4 | G13:4 | Em7:4 | Fmaj7:2 A7#9:2"
+```
+
+- Each token is `<symbol>:<beats>`, with the duration as a decimal or a fraction. `r:<beats>` is a stretch with no chord. Tokens are separated by spaces.
+- Positions are implied: each chord starts where the previous token ended. With 4 beats per bar, `Fmaj7:2 A7#9:2` in the fourth bar puts A7#9 on beat 3.
+- A `|` token is a visual mark (e.g. at a bar line) and has no timing effect.
+- The total must not run past the clip (`bars × meterNumerator` beats).
+
+**Older form**, still accepted: an array of `{ bar, beat, beats, symbol }`, with `bar` and `beat` 1-based. The two forms realize identically.
 
 - `symbol` is a chord symbol: root, then quality, then extensions and alterations, then an optional slash bass. Examples: `C`, `Cm`, `C7`, `Cmaj7`, `Cm7`, `Cm9`, `C9`, `C11`, `C13`, `Cm11`, `Cdim`, `Cdim7`, `Cm7b5`, `Caug`, `Csus2`, `Csus4`, `C7sus4`, `C6`, `Cm6`, `C69`, `Cadd9`, `C7b9`, `C7#9`, `C7#11`, `C7b13`, `C5`, `C/E`, `Fm9/Ab`.
-- A chord lasts `beats` beats. Gaps mean no chord, so chord parts rest. Overlaps are an error; the later chord wins and a warning is logged.
+- A chord lasts `beats` beats. Gaps (rests in the string) mean no chord, so chord parts rest. Overlaps are an error; the later chord wins and a warning is logged.
 
 ### Motif
 
@@ -157,13 +168,7 @@ These are the behaviours that matter when writing an IR. The full list is in `co
   "title": "Late-night dorian loop",
   "context": { "tempo": 88, "meterNumerator": 4, "meterDenominator": 4, "tonic": "D", "mode": "dorian", "bars": 4, "swing": 0.15, "style": ["neo-soul"] },
   "form": [ { "name": "A", "startBar": 1, "bars": 4, "energy": 0.55 } ],
-  "harmony": [
-    { "bar": 1, "beat": 1, "beats": 4, "symbol": "Dm9" },
-    { "bar": 2, "beat": 1, "beats": 4, "symbol": "G13" },
-    { "bar": 3, "beat": 1, "beats": 4, "symbol": "Em7" },
-    { "bar": 4, "beat": 1, "beats": 2, "symbol": "Fmaj7" },
-    { "bar": 4, "beat": 3, "beats": 2, "symbol": "A7#9" }
-  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | Fmaj7:2 A7#9:2",
   "motifs": [ { "id": "m1", "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5" } ],
   "parts": [
     { "id": "keys", "role": "chords", "name": "Rhodes", "low": "A2", "high": "D5", "grid": 4, "velocity": 76,

@@ -1,0 +1,67 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Amaj7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"G#7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 108,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 17,
+        "minPitch": 49,
+        "maxPitch": 66,
+        "rangeLow": 48,
+        "rangeHigh": 67,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 9,
+        "minPitch": 25,
+        "maxPitch": 37,
+        "rangeLow": 24,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "lead",
+        "role": "melody",
+        "notes": 14,
+        "minPitch": 75,
+        "maxPitch": 88,
+        "rangeLow": 72,
+        "rangeHigh": 91,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 68,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 39
+          },
+          {
+            "sublane": "kick",
+            "notes": 14
+          },
+          {
+            "sublane": "snare",
+            "notes": 15
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -38,3 +38,18 @@ describe("validateScore blocks", () => {
     assert.deepEqual(validateScore(Score.parse(sparse)), []);
   });
 });
+
+describe("validateScore harmony", () => {
+  const withHarmony = (harmony: string) => Score.parse({ ...score, harmony });
+  const clip = score.context.bars * score.context.meterNumerator;
+
+  it("accepts a compact harmony string that fits the clip", () => {
+    assert.deepEqual(validateScore(withHarmony(`Ebmaj9:4 | Cm9:2 r:2 | Fm9/Ab:1/3 Fm9:${clip - 8 - 1 / 3}`)), []);
+  });
+
+  it("names bad tokens, and a harmony longer than the clip", () => {
+    const errors = validateScore(withHarmony(`Cm:4 x:1 F7 Bb:0 Eb:${clip}`));
+    assert.deepEqual(errors.filter((e) => e.includes("bad token")).map((e) => e.match(/'([^']*)'/)![1]), ["x:1", "F7", "Bb:0"]);
+    assert.ok(errors.some((e) => e.includes(`lasts ${clip + 4} beats`)));
+  });
+});

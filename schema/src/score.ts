@@ -119,7 +119,10 @@ export const Score = z.object({
   title: z.string(),
   context: Context,
   form: z.array(Section),
-  harmony: z.array(Chord),
+  harmony: z.union([
+    z.string().describe('Compact form: "<chord>:<beats>" tokens from bar 1 beat 1 in sequence, "r:<beats>" for no chord, e.g. "Dm9:4 | G13:4 | Em7:2 A7:2"'),
+    z.array(Chord).describe("Chord-object form (older scores)"),
+  ]),
   motifs: z.array(Motif),
   parts: z.array(Part),
 });

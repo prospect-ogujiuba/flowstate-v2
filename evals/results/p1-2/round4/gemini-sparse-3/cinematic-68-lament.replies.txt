@@ -1,0 +1,168 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Haunting Celtic Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.0,
+    "style": ["cinematic", "folk"]
+  },
+  "form": [
+    { "name": "Statement", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Response", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": [
+    { "bar": 1, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 2, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 3, "beat": 1, "beats": 6, "symbol": "G" },
+    { "bar": 4, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 5, "beat": 1, "beats": 6, "symbol": "Am" },
+    { "bar": 6, "beat": 1, "beats": 6, "symbol": "C" },
+    { "bar": 7, "beat": 1, "beats": 6, "symbol": "G" },
+    { "bar": 8, "beat": 1, "beats": 6, "symbol": "Am" }
+  ],
+  "motifs": [
+    {
+      "id": "lament_motif",
+      "notes": "1:1 2:.5 3:1.5 | 5:1 4:.5 3:1 2:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Cinematic Drone Pad",
+      "low": "A2",
+      "high": "E4",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x----- | x----------- | x-----x----- | x----------- | x-----x----- | x----------- | x-----x----- | x-----------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Low Drone",
+      "low": "A1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----R----- | R----------- | R-----5----- | R----------- | R-----R----- | R----------- | R-----5----- | R-----------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Celtic Flute",
+      "low": "A3",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament_motif",
+          "repeatEvery": 12,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lament_motif",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 12,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Frame Drum & Shaker",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x........... | x.....x..... | x........... | x.....x..... | x........... | x.....x..... | x..........."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "......x..... | ............ | ......x..... | ............ | ......x..... | ............ | ......x..... | ...."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Frame Drum & Shaker",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x........... | x.....x..... | x........... | x.....x..... | x........... | x.....x..... | x..........."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "......x..... | ............ | ......x..... | ............ | ......x..... | ............ | ......x..... | ............"
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x. | x.x.x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
