@@ -55,10 +55,19 @@ function countBy<T>(items: T[], key: (item: T) => string | number): Map<string |
 const mean = (xs: number[]): number | null => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 
 /** Groups a part's notes by onset tick (chords/simultaneities), sorted by time. */
-function onsetGroups(notes: Note[]): { tick: number; pitches: number[] }[] {
-  const m = new Map<number, number[]>();
-  for (const n of notes) { const g = m.get(n.tick) ?? []; g.push(n.pitch); m.set(n.tick, g); }
-  return [...m.entries()].sort((a, b) => a[0] - b[0]).map(([tick, pitches]) => ({ tick, pitches: pitches.sort((a, b) => a - b) }));
+/**
+ * Notes grouped by onset. Notes starting within `tolerance` ticks of a group's first note join it, so a chord
+ * whose notes humanization staggered by a few ticks still counts as one chord.
+ */
+function onsetGroups(notes: Note[], tolerance = 0): { tick: number; pitches: number[] }[] {
+  const groups: { tick: number; pitches: number[] }[] = [];
+  for (const n of [...notes].sort((a, b) => a.tick - b.tick || a.pitch - b.pitch)) {
+    const last = groups[groups.length - 1];
+    if (last && n.tick - last.tick <= tolerance) last.pitches.push(n.pitch);
+    else groups.push({ tick: n.tick, pitches: [n.pitch] });
+  }
+  for (const g of groups) g.pitches.sort((a, b) => a - b);
+  return groups;
 }
 
 /**
@@ -102,11 +111,13 @@ export function partMetrics(part: Part, doc: NotesFile): PartMetrics {
     m.meanInterval = mean(intervals);
   }
   if (!isDrums && CHORDAL.has(part.role)) {
-    const groups = onsetGroups(part.notes);
+    // Chords within a 64th count as one (humanization staggers their notes); movement is measured only
+    // where the chord changes, since a re-struck chord doesn't move.
+    const groups = onsetGroups(part.notes, doc.ppq / 16);
     const moves: number[] = [];
     for (let i = 1; i < groups.length; i++) {
       const prev = groups[i - 1]?.pitches ?? [], cur = groups[i]?.pitches ?? [];
-      if (!prev.length || !cur.length) continue;
+      if (!prev.length || !cur.length || prev.join() === cur.join()) continue;
       moves.push(cur.reduce((sum, p) => sum + Math.min(...prev.map((q) => Math.abs(p - q))), 0));
     }
     m.voiceMovement = mean(moves);

@@ -23,7 +23,8 @@ v2 output comes from `cloud` (`npm run -w cloud plan -- --prompts ../evals/promp
 - **Per part:** notes per bar, distinct pitches, pitch-class entropy (bits), onset entropy (onset position within the bar at 16th resolution, in bits) and a repetition score.
   - The repetition score is the share of non-empty bars whose (onset, pitch) content is identical to another bar's. Onsets are snapped to a 1/12-beat grid, so humanization doesn't hide repeated bars.
 - **Melody and bass:** the share of steps of 2 semitones or less, the share of leaps over 7 semitones, and the mean interval.
-- **Chords:** average voice movement between consecutive onsets. For each note in the new chord, take its smallest semitone distance to any note in the previous chord, then sum.
+- **Chords:** average voice movement at chord changes. Notes starting within a 64th of each other count as one chord (humanization staggers a chord's notes by a few ticks). For each note in the new chord, take its smallest semitone distance to any note in the previous chord, then sum. Re-strikes of the same chord are skipped.
+  - **Update 2026-10-01:** before this, every note onset was its own group, so a humanized chord read as a run of single notes and the gaps inside one chord counted as movement. That gave v2 about 8.9 against v1's 2.4. Measured the new way, Phase 0 v2 moves 5.0 (about 1.3 semitones per voice) against v1's 2.6 (0.65), with richer harmony. Scores in `results/` from before this date use the old definition.
 - **Drums:** velocity range, and ghost share (hits at velocity 55 or below).
 - **Per file:** out-of-key share. This is the share of pitched notes outside the prompt's tonic/mode. The prompt is matched by the filename id.
 

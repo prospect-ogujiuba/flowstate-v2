@@ -146,6 +146,7 @@ Acceptance: the targets are met on at least one production provider, measured by
 Phase 0 showed v2 beats v1 20/20, but it never scored above 3/5.
 Done so far (2026-10-01):
 - Named drum grooves in `core` (`core/src/grooves.cpp`, IR `groove` on drums blocks, docs/ir-spec.md "Grooves"): 23 idiomatic patterns for the Phase 0 styles (four_on_floor, dembow, afrobeats, boom_bap, lofi, trap, drill, neo_soul, gospel_shuffle, jazz_swing and more), each with per-lane feel (a lane can sit late, e.g. lofi's lazy snare). Lanes the model writes replace the groove's lane for that voice. The owner's P1-2 listening put the lowest scores on groove-defined styles (afrobeats, gospel, funk), with notes that the drums were what was missing.
+- Voicing movement: the "8.9 vs v1's 2.4" was mostly a metric bug. Humanization staggers a chord's notes by 2–4 ticks, so the metric read each chord as single notes and counted the gaps inside a chord as movement. Grouping notes within a 64th and measuring only at chord changes: v2 moves 5.0 (about 1 semitone per voice, median; top-voice leaps of 5+ semitones in 3% of changes) against v1's 2.6, with richer harmony. The metric is fixed (`evals/README.md`); the voicer needs no change unless listening says otherwise.
 Work:
 - Prompt tuning per style.
 - IR expressiveness gaps found in the r1 scores (e.g. per-bar chord rhythm variation, melodic development).
