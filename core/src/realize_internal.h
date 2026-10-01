@@ -53,7 +53,7 @@ public:
     // Absolute tick of a block-relative global step (before swing), at the part's grid times `scale`
     // (a pattern read finer than the grid, see StepPattern::scale).
     Tick stepTick(const BlockSpan& b, int globalStep, int scale = 1) const;
-    Tick stepTick(const BlockSpan& b, int globalStep, const StepPattern& pat) const { return stepTick(b, globalStep, pat.scale); }
+    Tick stepTick(const BlockSpan& b, int globalStep, const StepPattern& pat) const;
     // Swung tick of a block-relative global step.
     Tick swungStep(const BlockSpan& b, int globalStep, const StepPattern& pat) const {
         return swing.apply(stepTick(b, globalStep, pat));

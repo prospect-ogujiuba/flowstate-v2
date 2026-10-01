@@ -1,5 +1,6 @@
 #include "flowstate/ir.h"
 
+#include "flowstate/grooves.h"
 #include "flowstate/theory.h"
 
 #include <algorithm>
@@ -379,6 +380,7 @@ Block parseBlock(Reader& r, const json& b, const std::string& p) {
         }
         blk.drums = lanes;
     }
+    blk.groove = r.nullableString(b, "groove", p);
     blk.fill = r.enumeration<Fill>(b, "fill", p, fillFromString);
     if (const json* n = r.array(b, "notes", p, false)) blk.notes = parseLiteralNotes(r, *n, p + ".notes");
     blk.articulation = r.enumeration<Articulation>(b, "articulation", p, articulationFromString);
@@ -546,6 +548,13 @@ void validateScore(const Score& score, std::vector<std::string>& warnings) {
             else if (b.endBar > bars) warnings.push_back(bp + ": extends past the clip; clipped");
             if (b.motif && !motifIds.count(*b.motif))
                 warnings.push_back(bp + ": unknown motif \"" + *b.motif + "\"");
+            if (b.groove) {
+                const Groove* g = findGroove(*b.groove);
+                if (!g) warnings.push_back(bp + ": unknown groove \"" + *b.groove + "\"; ignored");
+                else if (g->numerator != score.context.meterNumerator || g->denominator != score.context.meterDenominator)
+                    warnings.push_back(bp + ": groove \"" + *b.groove + "\" is for " + std::to_string(g->numerator) + "/" +
+                                       std::to_string(g->denominator) + "; ignored");
+            }
             for (const auto& [s, e] : ranges)
                 if (b.startBar <= e && s <= b.endBar) {
                     warnings.push_back(bp + ": overlaps another block; later block wins in the overlap");

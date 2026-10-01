@@ -28,6 +28,7 @@ add_library(flowstate_core STATIC
   src/theory.cpp
   src/chord_parser.cpp
   src/timing.cpp
+  src/grooves.cpp
   src/steps.cpp
   src/groove.cpp
   src/harmony.cpp
@@ -71,11 +72,13 @@ if(FLOWSTATE_CORE_BUILD_TESTS)
     tests/test_steps_timing.cpp
     tests/test_voicing.cpp
     tests/test_realize.cpp
-    tests/test_smf.cpp)
+    tests/test_smf.cpp
+    tests/test_grooves.cpp)
   target_link_libraries(flowstate_core_tests PRIVATE flowstate_core flowstate_doctest nlohmann_json::nlohmann_json)
   target_include_directories(flowstate_core_tests PRIVATE src)
   target_compile_definitions(flowstate_core_tests PRIVATE
-    FLOWSTATE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures")
+    FLOWSTATE_FIXTURES_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures"
+    FLOWSTATE_SCORE_SCHEMA="${CMAKE_CURRENT_SOURCE_DIR}/../schema/score.v0.schema.json")
   flowstate_warnings(flowstate_core_tests)
   add_test(NAME flowstate_core_tests COMMAND flowstate_core_tests)
 endif()

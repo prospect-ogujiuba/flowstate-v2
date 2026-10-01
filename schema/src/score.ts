@@ -30,6 +30,41 @@ export const DrumVoice = z.enum([
 
 export const Fill = z.enum(["none", "snare_roll", "tom_run", "kick_build", "crash_end", "half_time_break"]);
 
+/**
+ * Named drum grooves in core's library (core/src/grooves.cpp): idiomatic patterns a drums block calls by name.
+ * Each is for one meter. A test in core checks this table against core's.
+ */
+export const GROOVES = {
+  four_on_floor: { meter: [4, 4], description: "house: kick on every beat, clap on 2 and 4, off-beat open hats, 16th shaker" },
+  tech_house: { meter: [4, 4], description: "tech house: four-on-the-floor kick, clap on 2 and 4, rolling 16th hats, syncopated rim" },
+  boom_bap: { meter: [4, 4], description: "boom bap: swung kick pattern, laid-back snare on 2 and 4, accented 8th hats" },
+  lofi: { meter: [4, 4], description: "lofi: sparse, lazy boom bap; soft kick, late snare, ghosted hats" },
+  trap: { meter: [4, 4], description: "trap: half-time snare on 3, sparse kicks, 8th hats with 16th rolls" },
+  drill: { meter: [4, 4], description: "UK drill: half-time snare on 3 with a late extra snare, sliding kicks, skippy hats" },
+  dembow: { meter: [4, 4], description: "reggaeton dembow: kick on every beat, snare on the 3-3-2 dembow accents, 8th hats" },
+  afrobeats: { meter: [4, 4], description: "afrobeats: tresillo kick, rim clave, soft clap on 2 and 4, busy 16th shaker, conga-style toms" },
+  funk: { meter: [4, 4], description: "funk: syncopated kick, backbeat snare with ghost notes, 16th hats, open hat on the and of 4" },
+  rock: { meter: [4, 4], description: "rock: kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat" },
+  pop: { meter: [4, 4], description: "pop: kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats" },
+  ballad: { meter: [4, 4], description: "ballad: soft kick on 1 and 3, cross-stick on 2 and 4, gentle 8th hats" },
+  neo_soul: { meter: [4, 4], description: "neo-soul: behind-the-beat pocket, late snare and hats, ghosted 16ths" },
+  dnb: { meter: [4, 4], description: "drum and bass: two-step kick and snare with a ghost, 8th hats, 16th shaker" },
+  half_time: { meter: [4, 4], description: "half-time: kick on 1, snare on 3, 8th hats; slow hip hop and builds" },
+  cinematic_toms: { meter: [4, 4], description: "cinematic: big low-tom ostinato over kick on 1 and 3, crash on the first downbeat" },
+  sparse_pulse: { meter: [4, 4], description: "ambient: a soft pulse; kick on 1, ride quarter notes, light shaker" },
+  jazz_swing: { meter: [4, 4], description: "jazz swing (triplet grid): spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick" },
+  brush_swing: { meter: [4, 4], description: "brushes (triplet grid): swirling brush snare, feathered kick, hi-hat foot on 2 and 4" },
+  jazz_waltz: { meter: [3, 4], description: "jazz waltz (triplet grid): skipping ride, hi-hat foot on 2 and 3, feathered kick" },
+  waltz: { meter: [3, 4], description: "waltz: kick on 1, cross-stick on 2 and 3, 8th hats" },
+  six_eight: { meter: [6, 8], description: "6/8: kick on 1, snare on 4, every eighth on the hats; ballads and folk" },
+  gospel_shuffle: { meter: [6, 8], description: "gospel 6/8: kick on 1 with a push, snare backbeat on 4 with a ghost, accented hats" },
+} as const satisfies Record<string, { meter: readonly [number, number]; description: string }>;
+
+export const GrooveName = z.enum(Object.keys(GROOVES) as [keyof typeof GROOVES, ...(keyof typeof GROOVES)[]]).meta({
+  description: "Named drum groove (docs/ir-spec.md, Grooves)",
+  grooves: GROOVES,
+});
+
 // Note names like "C4", "F#2", "Bb5". C4 = MIDI 60.
 export const NoteName = z.string().describe("Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5");
 
@@ -98,6 +133,7 @@ export const Block = z.object({
   transforms: z.array(z.string()).nullable().optional().describe("e.g. transpose:+2, invert, retrograde, displace:+0.5, augment, diminish, octave:+1"),
   repeatEvery: z.number().nullable().optional().describe("Motif repeat period in beats; 0 = once"),
   drums: z.array(DrumLane).nullable().optional(),
+  groove: GrooveName.nullable().optional().describe("Drums: a named groove; lanes in `drums` replace its lanes for the same voices"),
   fill: Fill.nullable().optional(),
   notes: z.array(LiteralNote).nullable().optional(),
   articulation: Articulation.nullable().optional(),

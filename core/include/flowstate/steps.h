@@ -12,6 +12,9 @@ namespace flowstate {
 struct StepPattern {
     int stepsPerBar = 0;
     int scale = 1;
+    // The grid (steps per beat) the pattern was written at, when it isn't the part's (a groove's lanes).
+    // 0 = the part's grid. Either way the pattern is read at that grid times `scale`.
+    int grid = 0;
     std::vector<std::string> bars;
 
     bool empty() const { return bars.empty(); }

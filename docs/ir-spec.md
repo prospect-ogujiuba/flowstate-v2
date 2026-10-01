@@ -110,6 +110,7 @@ A block covers `startBar..endBar` (inclusive). Only the fields that matter for t
 | `motif` | melody, counter | Id of the motif to play |
 | `transforms` | melody, counter | Applied in order: `transpose:+2` (degrees), `invert`, `retrograde`, `displace:+0.5` (beats), `augment`, `diminish`, `octave:+1` |
 | `repeatEvery` | melody, counter | Motif repeat period in beats; 0 = once at the block start |
+| `groove` | drums | A named groove from the table below: an idiomatic pattern with its own feel. Lanes in `drums` replace the groove's lane for the same voice, so you can keep the groove and rewrite one voice. |
 | `drums` | drums | `[{ voice, steps }]`: one step string per voice |
 | `fill` | drums | `none snare_roll tom_run kick_build crash_end half_time_break`: a fill in the block's last bar |
 | `notes` | any | Literal notes `[{ bar, beat, beats, pitch, velocity }]`. They are added on top of the block content, then quantized and range-checked. `pitch` is a note name. |
@@ -132,6 +133,36 @@ For melody, if `motif` is set, `rhythm` is ignored and the motif's own rhythm is
 ### Drum voices
 
 `kick snare clap rim closed_hat pedal_hat open_hat low_tom mid_tom high_tom crash ride ride_bell shaker tambourine cowbell`. These map to General MIDI on channel 10. They also map to v1's seven sublanes (kick, snare, clap_rim, hats, toms, cymbals, aux_kit) for per-sublane export.
+
+### Grooves
+
+A drums block can call a groove by name instead of (or as well as) writing every lane. Each groove is for one meter; in another meter it is ignored. Prefer the groove that fits the style, then vary it: rewrite a lane in `drums`, add a `fill`, or use another groove in a later block for a new section.
+
+| Groove | Meter | What it plays |
+| --- | --- | --- |
+| `four_on_floor` | 4/4 | House: kick on every beat, clap on 2 and 4, off-beat open hats, 16th shaker |
+| `tech_house` | 4/4 | Tech house: four-on-the-floor kick, clap on 2 and 4, rolling 16th hats, syncopated rim |
+| `boom_bap` | 4/4 | Boom bap: swung kick pattern, laid-back snare on 2 and 4, accented 8th hats |
+| `lofi` | 4/4 | Lofi: sparse, lazy boom bap; soft kick, late snare, ghosted hats |
+| `trap` | 4/4 | Trap: half-time snare on 3, sparse kicks, 8th hats with 16th rolls |
+| `drill` | 4/4 | UK drill: half-time snare on 3 with a late extra snare, sliding kicks, skippy hats |
+| `dembow` | 4/4 | Reggaeton dembow: kick on every beat, snare on the 3-3-2 dembow accents, 8th hats |
+| `afrobeats` | 4/4 | Afrobeats: tresillo kick, rim clave, soft clap on 2 and 4, busy 16th shaker, conga-style toms |
+| `funk` | 4/4 | Funk: syncopated kick, backbeat snare with ghost notes, 16th hats, open hat on the and of 4 |
+| `rock` | 4/4 | Rock: kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat |
+| `pop` | 4/4 | Pop: kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats |
+| `ballad` | 4/4 | Ballad: soft kick on 1 and 3, cross-stick on 2 and 4, gentle 8th hats |
+| `neo_soul` | 4/4 | Neo-soul: behind-the-beat pocket, late snare and hats, ghosted 16ths |
+| `dnb` | 4/4 | Drum and bass: two-step kick and snare with a ghost, 8th hats, 16th shaker |
+| `half_time` | 4/4 | Half-time: kick on 1, snare on 3, 8th hats; slow hip hop and builds |
+| `cinematic_toms` | 4/4 | Cinematic: big low-tom ostinato over kick on 1 and 3, crash on the first downbeat |
+| `sparse_pulse` | 4/4 | Ambient: a soft pulse; kick on 1, ride quarter notes, light shaker |
+| `jazz_swing` | 4/4 | Jazz swing (triplet grid): spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick |
+| `brush_swing` | 4/4 | Brushes (triplet grid): swirling brush snare, feathered kick, hi-hat foot on 2 and 4 |
+| `jazz_waltz` | 3/4 | Jazz waltz (triplet grid): skipping ride, hi-hat foot on 2 and 3, feathered kick |
+| `waltz` | 3/4 | Waltz: kick on 1, cross-stick on 2 and 3, 8th hats |
+| `six_eight` | 6/8 | 6/8: kick on 1, snare on 4, every eighth on the hats; ballads and folk |
+| `gospel_shuffle` | 6/8 | Gospel 6/8: kick on 1 with a push, snare backbeat on 4 with a ghost, accented hats |
 
 ## Realization (what `core` guarantees)
 

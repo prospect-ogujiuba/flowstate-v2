@@ -142,8 +142,10 @@ Levers, in order:
 - A more compact IR encoding if tokens dominate.
 Acceptance: the targets are met on at least one production provider, measured by `evals`, with no validity regression.
 
-### P1-3 Quality round 2 — `todo`
+### P1-3 Quality round 2 — `doing`
 Phase 0 showed v2 beats v1 20/20, but it never scored above 3/5.
+Done so far (2026-10-01):
+- Named drum grooves in `core` (`core/src/grooves.cpp`, IR `groove` on drums blocks, docs/ir-spec.md "Grooves"): 23 idiomatic patterns for the Phase 0 styles (four_on_floor, dembow, afrobeats, boom_bap, lofi, trap, drill, neo_soul, gospel_shuffle, jazz_swing and more), each with per-lane feel (a lane can sit late, e.g. lofi's lazy snare). Lanes the model writes replace the groove's lane for that voice. The owner's P1-2 listening put the lowest scores on groove-defined styles (afrobeats, gospel, funk), with notes that the drums were what was missing.
 Work:
 - Prompt tuning per style.
 - IR expressiveness gaps found in the r1 scores (e.g. per-bar chord rhythm variation, melodic development).

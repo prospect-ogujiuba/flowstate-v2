@@ -92,6 +92,7 @@ struct Block {
     std::optional<std::vector<std::string>> transforms;
     std::optional<double> repeatEvery;
     std::optional<std::vector<DrumLane>> drums;
+    std::optional<std::string> groove;  // drums: a named groove (grooves.h); `drums` lanes replace its voices
     std::optional<Fill> fill;
     std::optional<std::vector<LiteralNote>> notes;
     std::optional<Articulation> articulation;

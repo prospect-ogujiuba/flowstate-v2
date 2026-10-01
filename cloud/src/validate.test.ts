@@ -85,3 +85,21 @@ describe("validateScore step strings", () => {
     assert.deepEqual(validateScore(Score.parse(s)), []);
   });
 });
+
+describe("validateScore grooves", () => {
+  const withDrums = (block: Record<string, unknown>) => {
+    const s = structuredClone(score);
+    const drums = s.parts.find((p) => p.role === "drums")!;
+    drums.blocks = [{ startBar: 1, endBar: s.context.bars, ...block }];
+    return validateScore(Score.parse(s));
+  };
+
+  it("accepts a drums block with only a groove", () => {
+    assert.deepEqual(withDrums({ groove: "boom_bap" }), []);
+  });
+
+  it("rejects a groove for another meter, and a block with neither lanes nor groove", () => {
+    assert.match(withDrums({ groove: "jazz_waltz" }).join(), /is for 3\/4/);
+    assert.match(withDrums({}).join(), /no drum lanes or groove/);
+  });
+});

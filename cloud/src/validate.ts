@@ -1,5 +1,5 @@
 // Semantic checks the JSON schema can't express. Errors go back to the model for one repair pass.
-import type { Score } from "@flowstate/schema";
+import { GROOVES, type Score } from "@flowstate/schema";
 
 const STEP_TOKENS: Record<string, RegExp> = {
   chords: /^[.xX-]$/,
@@ -106,7 +106,12 @@ export function validateScore(score: Score): string[] {
       if (b.motif && !motifIds.has(b.motif)) errors.push(`${label}: unknown motif '${b.motif}'`);
       for (const lane of b.drums ?? []) checkSteps(`${label} ${lane.voice}`, lane.steps, STEP_TOKENS.drums!, stepsPerBar, errors);
       for (const n of b.notes ?? []) if (!NOTE_NAME.test(n.pitch)) errors.push(`${label}: bad literal pitch '${n.pitch}'`);
-      if (part.role === "drums" && !b.drums?.length) errors.push(`${label}: drums block has no drum lanes`);
+      if (part.role === "drums" && !b.drums?.length && !b.groove) errors.push(`${label}: drums block has no drum lanes or groove`);
+      if (b.groove) {
+        const [num, den] = GROOVES[b.groove].meter;
+        if (num !== context.meterNumerator || den !== context.meterDenominator)
+          errors.push(`${label}: groove '${b.groove}' is for ${num}/${den}, but the clip is ${context.meterNumerator}/${context.meterDenominator}`);
+      }
       if ((part.role === "melody" || part.role === "counter") && !b.motif && !b.rhythm && !b.notes?.length)
         errors.push(`${label}: melody block needs a motif, a rhythm or literal notes`);
     }

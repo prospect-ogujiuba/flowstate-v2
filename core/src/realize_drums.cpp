@@ -1,4 +1,5 @@
 // Drums: per-voice step lanes, fills, groove dynamics, GM mapping.
+#include "flowstate/grooves.h"
 #include "flowstate/realize.h"
 #include "realize_internal.h"
 
@@ -15,6 +16,7 @@ struct DrumHit {
     DrumVoice voice = DrumVoice::Kick;
     char kind = 'x';     // x, X, g
     double scale = 1.0;  // fill crescendo
+    Tick late = 0;       // feel: ticks behind the grid, added after swing
 };
 
 bool isHat(DrumVoice v) {
@@ -173,22 +175,47 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
     for (const auto& b : env.blocks()) {
         const Block& blk = env.block(b);
         std::vector<DrumHit> hits;
-        if (blk.drums) {
-            for (const auto& lane : *blk.drums) {
-                auto pat = env.pattern(b, lane.steps, "xXg.-", toString(lane.voice));
-                if (pat.empty()) continue;
-                for (int bar = 0; bar < b.bars(); ++bar) {
-                    for (int s = 0; s < pat.stepsPerBar; ++s) {
-                        char t = pat.at(bar, s);
-                        if (t != 'x' && t != 'X' && t != 'g') continue;
-                        Tick raw = env.stepTick(b, bar * pat.stepsPerBar + s, pat);
-                        if (env.owns(b.index, raw)) hits.push_back({raw, lane.voice, t, 1.0});
-                    }
+        // A groove's lanes first; a lane the block writes itself replaces the groove's lane for that voice.
+        struct Lane {
+            DrumVoice voice;
+            StepPattern pat;
+            double late;
+        };
+        std::vector<Lane> lanes;
+        const Groove* groove = blk.groove ? findGroove(*blk.groove) : nullptr;
+        if (groove && (groove->numerator != env.time.numerator() || groove->denominator != env.time.denominator()))
+            groove = nullptr;  // validateScore warned
+        if (blk.drums)
+            for (const auto& lane : *blk.drums)
+                lanes.push_back({lane.voice, env.pattern(b, lane.steps, "xXg.-", toString(lane.voice)), 0.0});
+        if (groove) {
+            for (const auto& gl : groove->lanes) {
+                const bool replaced = blk.drums && std::any_of(blk.drums->begin(), blk.drums->end(),
+                                                               [&](const DrumLane& l) { return l.voice == gl.voice; });
+                if (replaced) continue;
+                StepPattern pat = parseSteps(gl.steps, env.time.stepsPerBar(groove->grid), "xXg.-",
+                                             env.where(b) + " groove " + groove->name, env.warnings);
+                pat.grid = groove->grid;
+                lanes.push_back({gl.voice, pat, gl.late});
+            }
+        }
+        for (const auto& lane : lanes) {
+            const auto& pat = lane.pat;
+            if (pat.empty()) continue;
+            const double stepLen = static_cast<double>(env.time.ticksPerBeat()) /
+                                   ((pat.grid > 0 ? pat.grid : env.part.grid) * std::max(1, pat.scale));
+            const Tick late = roundHalfUp(lane.late * stepLen);
+            for (int bar = 0; bar < b.bars(); ++bar) {
+                for (int s = 0; s < pat.stepsPerBar; ++s) {
+                    char t = pat.at(bar, s);
+                    if (t != 'x' && t != 'X' && t != 'g') continue;
+                    Tick raw = env.stepTick(b, bar * pat.stepsPerBar + s, pat);
+                    if (env.owns(b.index, raw)) hits.push_back({raw, lane.voice, t, 1.0, late});
                 }
             }
-        } else if (!blk.notes && !(blk.fill && *blk.fill != Fill::None)) {
-            env.warnOnce(env.where(b) + ": drums block has no lanes");
         }
+        if (lanes.empty() && !blk.notes && !(blk.fill && *blk.fill != Fill::None))
+            env.warnOnce(env.where(b) + ": drums block has no lanes");
         if (blk.fill && *blk.fill != Fill::None) {
             Tick lastBar = env.time.barStart(b.endBar);
             if (env.owns(b.index, lastBar)) FillBuilder(env, hits, lastBar).apply(*blk.fill);
@@ -196,7 +223,7 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
         std::stable_sort(hits.begin(), hits.end(), [](const DrumHit& x, const DrumHit& y) { return x.raw < y.raw; });
         for (const auto& h : hits) {
             RawNote n;
-            n.tick = env.swing.apply(h.raw);
+            n.tick = env.swing.apply(h.raw) + h.late;
             n.pitch = drumVoiceNote(h.voice);
             n.fixedPitch = true;
             n.sublane = drumSublaneForNote(n.pitch);
