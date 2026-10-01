@@ -1,0 +1,128 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy Day Lofi Loop",
+  "context": {
+    "swing": 0.35,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main Loop",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    }
+  ],
+  "harmony": "Fm9:4 | Bb13:4 | Ebmaj9:4 | C7b9:4",
+  "motifs": [
+    {
+      "id": "keys_lead",
+      "notes": "9:.75 7:.25 5:1 r:.5 3:1.5 | 5:1 3:.5 2:.5 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Keys",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- .... | x--- ..x- .x-- ..x- | x--- ..x- .x-- .... | x--- ..x- .x-- .x..",
+          "voicing": "rootless",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- .... 5--- ..a. | R--- .... 5--- ..a. | R--- .... 5--- ..a. | R--- .... 5--- ..a.",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sleepy Top Keys",
+      "low": "C4",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "keys_lead",
+          "repeatEvery": 8,
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "keys_lead",
+          "transforms": [
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Boom Bap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... x... | x... .... ..x. .... | x... .... .... x..."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X..g | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.g. | x.x.x.x. x.xgx.x. | x.x.x.x. x.x.x.g. | x.x.x.x. x.xgx.x."
+            },
+            {
+              "voice": "shaker",
+              "steps": ".x.x.x.x .x.x.x.x | .x.x.x.x .x.x.x.x | .x.x.x.x .x.x.x.x | .x.x.x.x .x.x.x.x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

@@ -1,0 +1,301 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving Rock Anthem",
+  "context": {
+    "swing": 0.0,
+    "style": ["rock"]
+  },
+  "form": [
+    { "name": "Verse", "startBar": 1, "bars": 4, "energy": 0.75 },
+    { "name": "Chorus", "startBar": 5, "bars": 8, "energy": 0.95 }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | G5:4 | G5:4 | F5:4 | C5:2 F5:2 | G5:4",
+  "motifs": [
+    {
+      "id": "riff_a",
+      "notes": "1:1! 1:0.5 2:0.5 3:1! 1:1 | 5:1! 4:0.5 3:0.5 1:2"
+    },
+    {
+      "id": "riff_b",
+      "notes": "1+:1! 1+:0.5 7:0.5 6:1! 5:1 | 5:0.5 6:0.5 5:0.5 4:0.5 3:1 1:1!"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhythm Guitar",
+      "low": "G2",
+      "high": "D4",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "power",
+          "rhythm": "x.-x .-x. x.-x .-x. | x.-x .-x. x.-x .-x. | x.-x .-x. x.-x .-x. | x.-x .-x. x--- ...."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "power",
+          "rhythm": "X.-X .-X. X.-X .-X. | X.-X .-X. X.-X .-X. | X.-X .-X. X.-X .-X. | X.-X .-X. X--- ...."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass Guitar",
+      "low": "G1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R R R R R R R R | R R R R R R R R | R R R R R R R R | R R R R R R R R"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "X R X R X R X R | X R X R X R X R | X R X R X R X R"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "X R X R X R X a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "riff_a",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "riff_b",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... .... | x... .... x... ..x. | x... .... x... .... " },
+            { "voice": "snare", "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... " },
+            { "voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. " }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X..." },
+            { "voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            { "voice": "crash", "steps": "x... .... .... .... | .... .... .... .... | .... .... .... ...." },
+            { "voice": "kick", "steps": "x... ..x. x... .... | x... ..x. x... ..x. | x... ..x. x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X..." },
+            { "voice": "ride", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x... ..x. x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X..." },
+            { "voice": "ride", "steps": "x.x. x.x. x.x. x.x." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving Rock Anthem",
+  "context": {
+    "swing": 0.0,
+    "style": ["rock"]
+  },
+  "form": [
+    { "name": "Verse", "startBar": 1, "bars": 4, "energy": 0.75 },
+    { "name": "Chorus", "startBar": 5, "bars": 4, "energy": 0.95 }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | G5:4 | G5:4 | F5:4 | C5:2 F5:2 | G5:4",
+  "motifs": [
+    {
+      "id": "riff_a",
+      "notes": "1:1! 1:0.5 2:0.5 3:1! 1:1 | 5:1! 4:0.5 3:0.5 1:2"
+    },
+    {
+      "id": "riff_b",
+      "notes": "1+:1! 1+:0.5 7:0.5 6:1! 5:1 | 5:0.5 6:0.5 5:0.5 4:0.5 3:1 1:1!"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhythm Guitar",
+      "low": "G2",
+      "high": "D4",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "power",
+          "rhythm": "x.-x .-x. x.-x .-x. | x.-x .-x. x.-x .-x. | x.-x .-x. x.-x .-x. | x.-x .-x. x--- ...."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "power",
+          "rhythm": "X.-X .-X. X.-X .-X. | X.-X .-X. X.-X .-X. | X.-X .-X. X.-X .-X. | X.-X .-X. X--- ...."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass Guitar",
+      "low": "G1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R R R R R R R R | R R R R R R R R | R R R R R R R R | R R R R R R R R"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "X R X R X R X R | X R X R X R X R | X R X R X R X R"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "X R X R X R X a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "riff_a",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "riff_b",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... .... | x... .... x... ..x. | x... .... x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X..." },
+            { "voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x." }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x... .... x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X..." },
+            { "voice": "closed_hat", "steps": "x.x. x.x. x.x. x.x." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            { "voice": "crash", "steps": "x... .... .... .... | .... .... .... .... | .... .... .... ...." },
+            { "voice": "kick", "steps": "x... ..x. x... .... | x... ..x. x... ..x. | x... ..x. x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X..." },
+            { "voice": "ride", "steps": "x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x... ..x. x... ...." },
+            { "voice": "snare", "steps": ".... X... .... X..." },
+            { "voice": "ride", "steps": "x.x. x.x. x.x. x.x." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

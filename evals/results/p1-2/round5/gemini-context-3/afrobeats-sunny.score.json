@@ -1,0 +1,163 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Afrobeats Groove",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.15,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.65
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Dbmaj7:4 | Cm7:4 | Bbm7:4 | Eb7sus4:2 Eb7:2",
+  "motifs": [
+    {
+      "id": "lead_line",
+      "notes": "r:.5 3:.5 5:.5 6:.5 | 5:1 3:.5 1:1.5 | r:.5 2:.5 3:.5 5:.5 | 2:1.5 1-:.5 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pluck Guitar",
+      "low": "Db3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x..x ..x. .x.. x..x | x..x ..x. .x.. ..x.",
+          "voicing": "spread",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Drum Bass",
+      "low": "Ab1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R..X ..8. ..5. R... | R..X ..8. ..5. R..a"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R..X ..8. ..5. R... | R..X ..5. R.X. ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead",
+      "low": "Ab3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "lead_line"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "lead_line",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Percussion Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x ..x. ..x. x... | x..x ..x. ..x. .... "
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .x.. ..x. | .... ..x. .x.. ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.xx x.xx x.xx x.xx | x.xx x.xx x.xx x.xx"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "low_tom",
+              "steps": ".... x... .... ..x. | .... x... .... ..x."
+            }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x ..x. ..x. x... "
+            },
+            {
+              "voice": "rim",
+              "steps": ".... ..x. .x.. ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.xx x.xx x.xx x.xx"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x. ..x. ..x. ..x."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

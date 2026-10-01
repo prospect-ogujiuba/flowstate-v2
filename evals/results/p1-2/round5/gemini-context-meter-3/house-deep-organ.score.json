@@ -1,0 +1,197 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep House Nightfall Groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.12,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    },
+    {
+      "name": "Groove B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Am9:4 | Fmaj7:4 | Dm9:4 | Em7:2 E7b9:2 | Am9:4 | Fmaj7:4 | Dm9:4 | Fmaj7:2 G11:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "r:.5 5:.5 8:.5 b7:.5 | r:.5 5:.5 b3+:.5 8:.5"
+    },
+    {
+      "id": "m2",
+      "notes": "r:.5 5:.5 8:.5 b7:.5 | r:.25 8:.25 b7:.5 5:.5 4:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "organ_chords",
+      "role": "chords",
+      "name": "Warm House Organ",
+      "low": "C3",
+      "high": "A4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. .x.. ..x. .x..",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. .x.. | ..x. ..x. ..x. ..x. | ..x. .x.. ..x. X...",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "synth_bass",
+      "role": "bass",
+      "name": "Bouncy Offbeat Synth Bass",
+      "low": "A1",
+      "high": "A2",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..R. ..R. ..R. ..R. | ..R. ..R. ..R. .8.. | ..R. ..R. ..R. ..R. | ..R. .5.. ..R. .a.."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "..R. ..R. ..R. ..R. | ..R. ..R. ..R. .8.. | ..R. ..R. ..R. ..R. | ..R. .5.. .R.. a..."
+        }
+      ]
+    },
+    {
+      "id": "lead_hook",
+      "role": "melody",
+      "name": "Deep House Vocal Synth",
+      "low": "A3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m1",
+          "transforms": [
+            "transpose:-2"
+          ],
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m2",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m2",
+          "transforms": [
+            "transpose:-2"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "house_drums",
+      "role": "drums",
+      "name": "Classic Deep House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "clap",
+              "steps": ".... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xxxx xxxx xxxx xxxx | xxxx xxxx xxxx xxxx"
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... x... x... x... | x... x... x... x..."
+            },
+            {
+              "voice": "clap",
+              "steps": ".... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "rim",
+              "steps": "..g. .... ..g. .... | ..g. .... ..g. ..g."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "xxxx xxxx xxxx xxxx | xxxx xxxx xxxx xxxx"
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

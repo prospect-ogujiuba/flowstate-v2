@@ -1,0 +1,174 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday-morning gospel ballad",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.2,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Ab:6 | Db/Ab:6 | Ab:3 Ab7/C:3 | Db:3 Ddim7:3 | Ab/Eb:3 C7/E:3 | Fm7:3 Bb9:3 | Bbm7:3 Eb7sus4:1.5 Eb7:1.5 | Ab:3 Eb7/G:3",
+  "motifs": [
+    {
+      "id": "organ_phrase_1",
+      "notes": "3:1 2:1 1:1 r:1 5:1 3:1 | 6:2 5:1 3:3 | 2:1 1:1 2:1 3:3 | 1:6"
+    },
+    {
+      "id": "organ_phrase_2",
+      "notes": "1+:2 7:1 6:1.5 5:1.5 | 6:3 5:3 | 5:1 4:1 3:1 2:1 1:1 2:1 | 1:6"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Gospel Organ Chords",
+      "low": "C3",
+      "high": "Ab5",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x---..x---.. | x---..x---.. | x---..x---.. | x---..x---..",
+          "voicing": "spread",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--x--x--x-- | x--x--x--x-- | x--x--x--x-- | x---..x---..",
+          "voicing": "open",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "Ab0",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-----....5. | R-----....5. | R--..5R--..5 | R--..5R--..a",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--..5R--..5 | R--..5R--..a | R--..5R--..a | R-----......",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soulful Lead Organ",
+      "low": "Eb4",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "organ_phrase_1",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "organ_phrase_2",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "......x....."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.x.x.x.x.x."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": "...x.....x.."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x....."
+            },
+            {
+              "voice": "snare",
+              "steps": "......x....."
+            },
+            {
+              "voice": "ride",
+              "steps": "x.x.x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "x..........."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

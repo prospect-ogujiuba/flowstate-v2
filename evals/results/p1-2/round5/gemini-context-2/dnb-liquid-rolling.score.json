@@ -1,0 +1,179 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lush Liquid Drum & Bass",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "drum-and-bass",
+      "liquid"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Fm9:4 | Dbmaj9:4 | Abmaj7:4 | Eb7sus4:2 C7b9:2 | Fm9:4 | Dbmaj9:4 | Bbm9:4 | C7alt:4",
+  "motifs": [
+    {
+      "id": "main_theme",
+      "notes": "5:1.5 7:0.5 8:1 7:1 | 5:2 3:1.5 2:0.5 | 1:1.5 3:0.5 5:1 7:1 | 8:3 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush Rhodes & Pad",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... ..x- .... | x--- .... .... .... | x--- .... ..x- .... | x--- .... x--- ....",
+          "voicing": "spread"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- .... ..x- .... | x--- .... .... ..x- | x--- .... ..x- .... | x--- .... x--- ....",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Deep Sub Bass",
+      "low": "F0",
+      "high": "F2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ---. ..5. -R-- | R--- ---. .... ..a. | R--- ---. ..5. -R-- | R--- -5-- R--- -a--"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ---. ..5. -R-- | R--- ---. .... ..a. | R--- ---. ..5. -R-- | R--- ---- ---- ----"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Soprano Synth Lead",
+      "low": "C4",
+      "high": "F6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "main_theme",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "main_theme",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rolling Liquid Breakbeat",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .... | x... .... ..x. .... | x... .... .... .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x..x ..x. x..x ..x. | x..x ..x. x..x ..x. | x..x ..x. x..x ..x. | x..x ..x. x..x ..x."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .x.. | x... .... ..x. .... | x... ..x. ..x. ...."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X... | .... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x. | .... ..x. .... ..x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x..x ..x. x..x ..x. | x..x ..x. x..x ..x. | x..x ..x. x..x ..x. | x..x ..x. x..x ..x."
+            },
+            {
+              "voice": "crash",
+              "steps": "x... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

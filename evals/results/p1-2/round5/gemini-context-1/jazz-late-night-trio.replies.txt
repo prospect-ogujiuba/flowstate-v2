@@ -1,0 +1,294 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-Night Trio Vamp",
+  "context": {
+    "swing": 0.33,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "A1", "startBar": 1, "bars": 4, "energy": 0.6 },
+    { "name": "A2", "startBar": 5, "bars": 8, "energy": 0.72 }
+  ],
+  "harmony": "Cm9:4 | F13:4 | Dm7:4 | G7b13:4 | Cm9:4 | F7b9:4 | Dm7b5:2 G7#9:2 | Cm9:2 F13:2",
+  "motifs": [
+    {
+      "id": "main_theme",
+      "notes": "r:.5 3:.5 5:.5 7:.5 | 9:1.5 8:.5 7:1 | r:.5 6:.5 5:.5 4:.5 | 3:2 r:1 2:.5 3:.5"
+    },
+    {
+      "id": "response_theme",
+      "notes": "5:1 b5:1 | 4:.75 3:.25 2:1 | b3:1.5 1:.5 | 7-:2 r:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "rootless",
+          "articulation": "staccato",
+          "rhythm": "..x- ..x. ..x- .... | .x-- .... ..x- .x.. | ..x- ..x. ..x- .... | .x-- .... .x.. x..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "rootless",
+          "articulation": "staccato",
+          "rhythm": "..x- ..x. ..x- .... | .x-- .... ..x- .x.. | .x.. x... .x.. x... | ..x- ..x. .x-- x..."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... 7... a... | R... 3... 5... 3... | R... 7... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... b7.. a... | R... 3... R... 5... | R... 5... R... a..."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Muted Trumpet",
+      "low": "Bb3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "main_theme",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "response_theme",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "fill": "none",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..." },
+            { "voice": "pedal_hat", "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... x..." },
+            { "voice": "ride", "steps": "x... x..x x... x..x | x... x..x x... x..x | x... x..x x... x..x | x... x..x x... x..x" }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x..." },
+            { "voice": "pedal_hat", "steps": ".... x... .... x..." },
+            { "voice": "ride", "steps": "x... x..x x... x..x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-Night Trio Vamp",
+  "context": {
+    "swing": 0.33,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "A1", "startBar": 1, "bars": 4, "energy": 0.6 },
+    { "name": "A2", "startBar": 5, "bars": 4, "energy": 0.72 }
+  ],
+  "harmony": "Cm9:4 | F13:4 | Dm7:4 | G7b13:4 | Cm9:4 | F7b9:4 | Dm7b5:2 G7#9:2 | Cm9:2 F13:2",
+  "motifs": [
+    {
+      "id": "main_theme",
+      "notes": "r:.5 3:.5 5:.5 7:.5 | 9:1.5 8:.5 7:1 | r:.5 6:.5 5:.5 4:.5 | 3:2 r:1 2:.5 3:.5"
+    },
+    {
+      "id": "response_theme",
+      "notes": "5:1 b5:1 | 4:.75 3:.25 2:1 | b3:1.5 1:.5 | 7-:2 r:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "rootless",
+          "articulation": "staccato",
+          "rhythm": "..x- ..x. ..x- .... | .x-- .... ..x- .x.. | ..x- ..x. ..x- .... | .x-- .... .x.. x..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "rootless",
+          "articulation": "staccato",
+          "rhythm": "..x- ..x. ..x- .... | .x-- .... ..x- .x.. | .x.. x... .x.. x... | ..x- ..x. .x-- x..."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... 7... a... | R... 3... 5... 3... | R... 7... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... b7.. a... | R... 3... R... 5... | R... 5... R... a..."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Muted Trumpet",
+      "low": "Bb3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "main_theme",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "response_theme",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "fill": "none",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..." },
+            { "voice": "pedal_hat", "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... x..." },
+            { "voice": "ride", "steps": "x... x..x x... x..x | x... x..x x... x..x | x... x..x x... x..x | x... x..x x... x..x" }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x..." },
+            { "voice": "pedal_hat", "steps": ".... x... .... x..." },
+            { "voice": "ride", "steps": "x... x..x x... x..x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+```json
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... 7... a... | R... 3... 5... 3... | R... 7... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "articulation": "normal",
+          "rhythm": "R... 3... 5... a... | R... 8... 7... a... | R... 3... R... 5... | R... 5... R... a..."
+        }
+      ]
+    }
+  ]
+}
+```

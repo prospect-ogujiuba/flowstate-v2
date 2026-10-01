@@ -1,0 +1,444 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.6-flash",
+    "reasoning": "minimal"
+  },
+  "at": "2026-10-01T15:20:23.563Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 20,
+    "valid": 20,
+    "validityRate": 1,
+    "latencyP50Ms": 8105,
+    "latencyP95Ms": 13036,
+    "firstTokenP50Ms": 889,
+    "firstTextP50Ms": 889,
+    "firstPartP50Ms": 3151,
+    "firstPartP95Ms": 9851,
+    "partsStreamed": 20
+  },
+  "results": [
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 8670,
+      "firstTokenMs": 3351,
+      "firstTextMs": 3351,
+      "firstPartMs": 4996,
+      "usage": {
+        "inputTokens": 4803,
+        "outputTokens": 993,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 8701,
+      "firstTokenMs": 3166,
+      "firstTextMs": 3166,
+      "firstPartMs": 4997,
+      "usage": {
+        "inputTokens": 2781,
+        "outputTokens": 1164,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10556,
+      "firstTokenMs": 3183,
+      "firstTextMs": 3183,
+      "firstPartMs": 5368,
+      "usage": {
+        "inputTokens": 2778,
+        "outputTokens": 1947,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5379,
+      "firstTokenMs": 726,
+      "firstTextMs": 726,
+      "firstPartMs": 2486,
+      "usage": {
+        "inputTokens": 2781,
+        "outputTokens": 1114,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 8106,
+      "firstTokenMs": 777,
+      "firstTextMs": 777,
+      "firstPartMs": 3201,
+      "usage": {
+        "inputTokens": 2768,
+        "outputTokens": 1829,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 16849,
+      "firstTokenMs": 3190,
+      "firstTextMs": 3190,
+      "firstPartMs": 12726,
+      "usage": {
+        "inputTokens": 5230,
+        "outputTokens": 3265,
+        "cacheReadTokens": 6097
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "motif lead_theme: bad token '9-.5' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "motif lead_theme: bad token '9-.5' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "motif lead_theme: bad token '9-.5' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "motif lead_theme: bad token '9-.5' (expected <degree>:<beats>, e.g. 5:.5, b3:1!, 1+:1/3, r:.5)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 8158,
+      "firstTokenMs": 3431,
+      "firstTextMs": 3431,
+      "firstPartMs": 5149,
+      "usage": {
+        "inputTokens": 2776,
+        "outputTokens": 1086,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5262,
+      "firstTokenMs": 719,
+      "firstTextMs": 719,
+      "firstPartMs": 2424,
+      "usage": {
+        "inputTokens": 2780,
+        "outputTokens": 1089,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 7005,
+      "firstTokenMs": 889,
+      "firstTextMs": 889,
+      "firstPartMs": 2724,
+      "usage": {
+        "inputTokens": 2770,
+        "outputTokens": 1388,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 12740,
+      "firstTokenMs": 815,
+      "firstTextMs": 815,
+      "firstPartMs": 9851,
+      "usage": {
+        "inputTokens": 4978,
+        "outputTokens": 2854,
+        "cacheReadTokens": 6095
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 8264,
+      "firstTokenMs": 779,
+      "firstTextMs": 779,
+      "firstPartMs": 2551,
+      "usage": {
+        "inputTokens": 4809,
+        "outputTokens": 1756,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5341,
+      "firstTokenMs": 738,
+      "firstTextMs": 738,
+      "firstPartMs": 2846,
+      "usage": {
+        "inputTokens": 4802,
+        "outputTokens": 1023,
+        "cacheReadTokens": 0
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 8105,
+      "firstTokenMs": 1179,
+      "firstTextMs": 1179,
+      "firstPartMs": 2801,
+      "usage": {
+        "inputTokens": 4818,
+        "outputTokens": 1458,
+        "cacheReadTokens": 6095
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 2 rhythm: invalid step token 'b'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6282,
+      "firstTokenMs": 984,
+      "firstTextMs": 984,
+      "firstPartMs": 3306,
+      "usage": {
+        "inputTokens": 2774,
+        "outputTokens": 1261,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 7893,
+      "firstTokenMs": 836,
+      "firstTextMs": 836,
+      "firstPartMs": 3151,
+      "usage": {
+        "inputTokens": 2776,
+        "outputTokens": 1765,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5561,
+      "firstTokenMs": 969,
+      "firstTextMs": 969,
+      "firstPartMs": 2555,
+      "usage": {
+        "inputTokens": 2773,
+        "outputTokens": 1177,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13036,
+      "firstTokenMs": 889,
+      "firstTextMs": 889,
+      "firstPartMs": 3259,
+      "usage": {
+        "inputTokens": 8082,
+        "outputTokens": 2501,
+        "cacheReadTokens": 10158
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'",
+            "part drums block 1 kick: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5840,
+      "firstTokenMs": 925,
+      "firstTextMs": 925,
+      "firstPartMs": 2795,
+      "usage": {
+        "inputTokens": 2779,
+        "outputTokens": 1235,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 10136,
+      "firstTokenMs": 760,
+      "firstTextMs": 760,
+      "firstPartMs": 7838,
+      "usage": {
+        "inputTokens": 6645,
+        "outputTokens": 2090,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drone_chords",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drone_bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "flute_melody",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "frame_drum",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 7113,
+      "firstTokenMs": 788,
+      "firstTextMs": 788,
+      "firstPartMs": 2376,
+      "usage": {
+        "inputTokens": 6639,
+        "outputTokens": 1379,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 closed_hat: bar 2 of pattern has 17 steps, expected 16"
+          ]
+        }
+      ]
+    }
+  ]
+}

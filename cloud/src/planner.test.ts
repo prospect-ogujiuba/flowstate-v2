@@ -67,13 +67,29 @@ describe("planScore", () => {
     assert.deepEqual(result.score, score);
   });
 
+  it("takes the fixed context from the request, so a wrong key or length needs no repair", async () => {
+    const { tempo, meterNumerator, meterDenominator, tonic, mode, bars, ...free } = score.context;
+    const sparse = { ...score, context: free };
+    const wrong = { ...score, context: { ...score.context, tonic: "C", bars: 99 } };
+    for (const reply of [sparse, wrong]) {
+      const { backend, requests } = setup(JSON.stringify(reply));
+      const seen: string[] = [];
+      const result = await planScore(request, backend, { onPart: (p) => seen.push(p.id) });
+      assert.match(requests[0]!, /write only "swing" and "style"/);
+      assert.match(requests[0]!, new RegExp(`grid 4: ${score.context.meterNumerator * 4}\\)`));
+      assert.equal(result.attempts, 1);
+      assert.deepEqual(result.score, score);
+      assert.deepEqual(seen, score.parts.map((p) => p.id));
+    }
+  });
+
   it("rewrites the whole score when the head is wrong, and plays only the rewrite", async () => {
-    const wrongKey = { ...score, context: { ...score.context, tonic: "C" } };
-    const { backend, requests } = setup(JSON.stringify(wrongKey), JSON.stringify(score));
+    const badForm = { ...score, form: [{ name: "A", startBar: 1, bars: score.context.bars + 4, energy: 0.5 }] };
+    const { backend, requests } = setup(JSON.stringify(badForm), JSON.stringify(score));
     const seen: string[] = [];
     const result = await planScore(request, backend, { onPart: (p) => seen.push(p.id) });
     assert.match(requests[1]!, /complete corrected score/);
-    // A head in the wrong key plays nothing; nothing has played, so the rewrite streams.
+    // A broken head plays nothing; nothing has played, so the rewrite streams.
     assert.deepEqual(seen, score.parts.map((p) => p.id));
     assert.deepEqual(result.score, score);
   });

@@ -1,0 +1,137 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Celtic Lament in 6/8",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.45
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Am:6 | Am:6 | Fmaj7:6 | Gsus4:3 G:3 | Am:6 | Fmaj7:6 | C:3 G/B:3 | Am:6",
+  "motifs": [
+    {
+      "id": "flute_lament",
+      "notes": "1:1 2:.5 3:1.5 | 5:2 3:.5 2:.5 | 1:1.5 7-:1.5 | 1:3 | 3:1 5:.5 6:1.5 | 5:1.5 3:1 2:.5 | 1:1.5 2:1.5 | 1:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pad Drones",
+      "low": "A2",
+      "high": "E4",
+      "grid": 2,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x----------- | x----------- | x----------- | x-----x----- | x----------- | x----------- | x-----x----- | x-----------",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Low Strings",
+      "low": "A1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R----------- | R----------- | R----------- | R-----5----- | R----------- | R----------- | R-----5----- | R-----------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wooden Flute",
+      "low": "G3",
+      "high": "A5",
+      "grid": 2,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "flute_lament",
+          "repeatEvery": 0,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Bodhrán",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x.....x..... | x.....x..... | x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "x..g..x..g.. | x..g..x..g.. | x..g..x..g.. | x..g..x..g.."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x..... | x.....x..... | x.....x..... | x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "x.gg.gx.gg.g | x.gg.gx.gg.g | x.gg.gx.gg.g | x.gg.gx.gg.g"
+            },
+            {
+              "voice": "rim",
+              "steps": ".....x.....x | .....x.....x | .....x.....x | .....x.....x"
+            }
+          ],
+          "fill": "none"
+        }
+      ]
+    }
+  ]
+}

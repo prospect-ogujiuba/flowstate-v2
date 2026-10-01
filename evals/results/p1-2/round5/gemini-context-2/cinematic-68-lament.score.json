@@ -1,0 +1,150 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Haunting Celtic Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    },
+    {
+      "name": "Verse B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Am:6 | Fmaj7#11:6 | C/E:6 | Gsus4:3 G:3 | Am:6 | Fmaj7#11:6 | Dm9:6 | Esus4:3 E7:3",
+  "motifs": [
+    {
+      "id": "lament_theme",
+      "notes": "1:1 2:.5 3:1.5 | 5:1 6:.5 5:1.5 | 3:1 2:.5 1:1 7-:.5 | 1:3"
+    },
+    {
+      "id": "lament_climax",
+      "notes": "5:1 6:.5 8:1.5 | 7:1 5:.5 3:1.5 | 4:1 3:.5 2:1 1:.5 | 7-:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "drone_pad",
+      "role": "chords",
+      "name": "Cinematic String Pad",
+      "low": "A2",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 55,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-----x-----",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "low_bass",
+      "role": "bass",
+      "name": "Bowed Bass Drone",
+      "low": "A0",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "tin_whistle",
+      "role": "melody",
+      "name": "Irish Flute",
+      "low": "A3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament_theme",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lament_climax",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "frame_drum",
+      "role": "drums",
+      "name": "Bodhrán & Frame Drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "....x.....x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.....x....."
+            },
+            {
+              "voice": "low_tom",
+              "steps": "....x.....x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x."
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

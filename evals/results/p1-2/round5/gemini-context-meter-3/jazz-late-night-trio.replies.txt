@@ -1,0 +1,268 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-Night Trio Vamp",
+  "context": {
+    "swing": 0.33,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "Head 1", "startBar": 1, "bars": 4, "energy": 0.6 },
+    { "name": "Head 2", "startBar": 5, "bars": 8, "energy": 0.75 }
+  ],
+  "harmony": "Cm9:4 | F13:4 | Dm7b5:4 | G7b13:4 | Cm9:4 | F13b9:4 | Bbmaj7:2 G7b9:2 | Cm9:2 F7alt:2",
+  "motifs": [
+    { "id": "head_motif", "notes": "9:.75 8:.25 7:1 r:.5 5:1.5 | 6:.75 5:.25 4:1 r:2" },
+    { "id": "head_var", "notes": "9:.75 8:.25 7:1 r:.5 5:1.5 | b3+:.5 2+:.5 1+:.5 7:.5 6:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "rootless",
+          "rhythm": "..x- ..x. ..x- .... | ..x- ..x. .x-- .... | ..x- ..x. ..x- .... | ..x- ..x. .x-- .x.."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "rootless",
+          "rhythm": "..x- ..x. ..x- .... | ..x- ..x. .x-- .... | .x-- ..x. .x-- ..x. | .x-- .x-- .x-- .x.."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... 3... 5... a... | R... 3... 5... a... | R... b3.. 5... a... | R... 3... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R... 3... 5... a... | R... b3.. 5... a... | R... 3... R... 3... | R... a... R... a..."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Hollowbody Guitar",
+      "low": "Bb3",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "head_motif",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "head_var",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..." },
+            { "voice": "ride", "steps": "x..x .x.x x..x .x.x | x..x .x.x x..x .x.x | x..x .x.x x..x .x.x | x..x .x.x x..x .x.x" },
+            { "voice": "pedal_hat", "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... x..." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x..." },
+            { "voice": "ride", "steps": "x..x .x.x x..x .x.x" },
+            { "voice": "pedal_hat", "steps": ".... x... .... x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-Night Trio Vamp",
+  "context": {
+    "swing": 0.33,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "Head 1", "startBar": 1, "bars": 4, "energy": 0.6 },
+    { "name": "Head 2", "startBar": 5, "bars": 4, "energy": 0.75 }
+  ],
+  "harmony": "Cm9:4 | F13:4 | Dm7b5:4 | G7b13:4 | Cm9:4 | F13b9:4 | Bbmaj7:2 G7b9:2 | Cm9:2 F7alt:2",
+  "motifs": [
+    { "id": "head_motif", "notes": "9:.75 8:.25 7:1 r:.5 5:1.5 | 6:.75 5:.25 4:1 r:2" },
+    { "id": "head_var", "notes": "9:.75 8:.25 7:1 r:.5 5:1.5 | b3+:.5 2+:.5 1+:.5 7:.5 6:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "voicing": "rootless",
+          "rhythm": "..x- ..x. ..x- .... | ..x- ..x. .x-- .... | ..x- ..x. ..x- .... | ..x- ..x. .x-- .x.."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "voicing": "rootless",
+          "rhythm": "..x- ..x. ..x- .... | ..x- ..x. .x-- .... | .x-- ..x. .x-- ..x. | .x-- .x-- .x-- .x.."
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... 3... 5... a... | R... 3... 5... a... | R... b3.. 5... a... | R... 3... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R... 3... 5... a... | R... b3.. 5... a... | R... 3... R... 3... | R... a... R... a..."
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Hollowbody Guitar",
+      "low": "Bb3",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "head_motif",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "head_var",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x... | x... x... x... x... | x... x... x... x... | x... x... x... x..." },
+            { "voice": "ride", "steps": "x..x .x.x x..x .x.x | x..x .x.x x..x .x.x | x..x .x.x x..x .x.x | x..x .x.x x..x .x.x" },
+            { "voice": "pedal_hat", "steps": ".... x... .... x... | .... x... .... x... | .... x... .... x... | .... x... .... x..." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "snare", "steps": "x... x... x... x..." },
+            { "voice": "ride", "steps": "x..x .x.x x..x .x.x" },
+            { "voice": "pedal_hat", "steps": ".... x... .... x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 3 =====
+```json
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "C1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... 3... 5... a... | R... 3... 5... a... | R... 3... 5... a... | R... 3... 5... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R... 3... 5... a... | R... 3... 5... a... | R... 3... R... 3... | R... a... R... a..."
+        }
+      ]
+    }
+  ]
+}
+```

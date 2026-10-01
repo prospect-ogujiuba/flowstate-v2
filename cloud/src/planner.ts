@@ -94,10 +94,37 @@ function userMessage(req: PlanRequest): string {
     "Session context (hard constraints):",
     `- key: ${c.tonic} ${c.mode}`,
     `- meter: ${c.meterNumerator}/${c.meterDenominator}, tempo ${c.tempo} BPM`,
+    `- one bar = ${c.meterNumerator} beats, so every step-string bar has ${c.meterNumerator} × grid steps ` +
+      `(grid 2: ${c.meterNumerator * 2}, grid 3: ${c.meterNumerator * 3}, grid 4: ${c.meterNumerator * 4})`,
     `- length: ${c.bars} bars`,
     `- lanes to write: ${c.lanes.join(", ")} (one part per lane, with the lane name as its role)`,
     `- style tags: ${c.style.join(", ") || "none"}`,
+    "",
+    `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
   ].join("\n");
+}
+
+/**
+ * The model leaves out the context fields the session fixes; they come from the request instead. A value
+ * the model wrote anyway is overridden, so a key or length the model got wrong never needs a repair.
+ */
+function completeHead(raw: Record<string, unknown>, req: PlanRequest): Head {
+  const c = req.controls;
+  const written = (raw.context && typeof raw.context === "object" ? raw.context : {}) as Record<string, unknown>;
+  return {
+    ...raw,
+    ir: raw.ir ?? IR_ID,
+    context: {
+      ...written,
+      tempo: c.tempo,
+      meterNumerator: c.meterNumerator,
+      meterDenominator: c.meterDenominator,
+      tonic: c.tonic,
+      mode: c.mode,
+      bars: c.bars,
+      style: written.style ?? c.style,
+    },
+  } as Head;
 }
 
 let envBackend: Backend | undefined;
@@ -143,11 +170,11 @@ function review(draft: Draft, req: PlanRequest): Review {
   return { ok: false, scope: "parts", score, errors, badParts };
 }
 
-function draftFrom(text: string): Draft {
+function draftFrom(text: string, req: PlanRequest): Draft {
   const raw = extractJson(text);
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw new SyntaxError("the reply is not a JSON object");
   const { parts, ...head } = raw as Record<string, unknown>;
-  return { head: head as Head, parts: Array.isArray(parts) ? parts : [] };
+  return { head: completeHead(head, req), parts: Array.isArray(parts) ? parts : [] };
 }
 
 // A parts-only repair: each returned part replaces the draft's part with the same id, else the first broken
@@ -194,7 +221,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     const headCheck = (head: Head) => headMismatches({ ...head, parts: [] }, req);
     const stream = next.scope === "parts" && draft
       ? new PartStream(reportPart, { knownHead: draft.head })
-      : firstPartMs === null ? new PartStream(reportPart, { headCheck }) : null;
+      : firstPartMs === null ? new PartStream(reportPart, { normalizeHead: (raw) => completeHead(raw, req), headCheck }) : null;
     const completion = await backend.complete(SYSTEM_PROMPT, turns, {
       ...(stream ? { onText: (d: string) => stream.push(d) } : {}),
       ...(options.signal ? { signal: options.signal } : {}),
@@ -211,7 +238,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
 
     let result: Review;
     try {
-      draft = next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text);
+      draft = next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req);
       result = review(draft, req);
     } catch (err) {
       // Unreadable reply: ask again for the same thing.

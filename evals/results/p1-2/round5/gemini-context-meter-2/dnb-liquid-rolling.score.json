@@ -1,0 +1,166 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid Drum & Bass Drift",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "drum-and-bass",
+      "liquid"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.85
+    }
+  ],
+  "harmony": "Fm9:4 | Dbmaj9:4 | Bbm9:4 | Eb13:2 C7b13:2 | Fm9:4 | Dbmaj9:4 | Bbm9:4 | Eb13:2 C7b13:2",
+  "motifs": [
+    {
+      "id": "liquid_lead",
+      "notes": "5:1.5 4:.5 3:1 2:1 | 1:1.5 b7-:1.5 5-:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush Pad",
+      "low": "F3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--------------- | x--------------- | x--------------- | x------- x-------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F0",
+      "high": "F2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..R- .-5- ..R- | R--- ..R- .-5- ..a- | R--- ..R- .-5- ..R- | R--- ..5- R--- ..a-"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ..R- .-8- ..R- | R--- ..R- .-5- ..a- | R--- ..R- .-8- ..R- | R--- ..5- R--- ..a-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Liquid Lead",
+      "low": "C4",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "liquid_lead",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "liquid_lead",
+          "transforms": [
+            "octave:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rolling Break",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... ..x. .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X... | .... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "open_hat",
+              "steps": "..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x."
+            },
+            {
+              "voice": "ride",
+              "steps": "x..x ..x. x..x ..x. | x..x ..x. x..x ..x."
+            }
+          ],
+          "fill": "none"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .x.."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... X... .... X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            },
+            {
+              "voice": "crash",
+              "steps": "x... .... .... ...."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

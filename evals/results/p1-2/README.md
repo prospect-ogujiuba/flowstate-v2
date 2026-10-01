@@ -84,3 +84,20 @@ Single runs vary too much to compare these changes (Gemini's repairs ranged 4–
 - The harmony string cuts the bytes before the first part from about 1000 to about 730 (median) and moves the first part 0.3 s sooner, with twice as many first parts under 3 s. The full plan is the same within noise.
 - Without the lane rule, three runs of the harmony string had more counting errors than the chord objects (step counts 11 against 4, form length 8 against 3), and 32 repairs against 18. With the rule, repairs are level. Whether implied chord positions make bar counting harder stays open; worth watching in P1-3.
 - `round4/sonnet-low-harmony/` (claude-code Sonnet, low, harmony string, before the lane rule; one run): 20/20, first part p50 7.4 s, full 13.8 s, 5 repairs. Sonnet's first text came at 4.3 s against 12.8 s in round 3, so its thinking time varies a lot between runs; read it as one sample.
+
+## Round 5: the request fixes the context, and states the bar arithmetic (2026-10-01)
+
+Two planner changes, no IR change:
+- **Context from the request.** The model is told the session fixes the key, meter, tempo and length, and writes only `swing` and `style` in `context`. The planner fills the fixed fields from the request before validating, and overrides any it wrote anyway, so a wrong key or length no longer costs a repair. The assembled score is still complete IR.
+- **Bar arithmetic.** The request now states the step count per bar for the meter ("one bar = 6 beats, so every step-string bar has 6 × grid steps (grid 2: 12, grid 3: 18, grid 4: 24)"). Without it, the 6/8 gospel prompt failed in 2 of 3 runs once the model no longer wrote `meterNumerator` itself.
+
+`round5/` holds three plan-only runs of each, on Gemini 3.6 Flash at minimal (three at a time):
+
+| Variant (3 runs pooled) | Valid | First part p50 / p95 | First parts under 3 s | Full plan p50 / p95 | Repairs per run |
+| --- | --- | --- | --- | --- | --- |
+| Round 4 harmony string (`round4/gemini-harmony-*`) | 60/60 | 3.52 s / 10.1 s | 18 of 60 | 7.81 s / 15.2 s | 8, 5, 7 |
+| Context from the request (`gemini-context-*`) | 58/60 | 3.37 s / 9.9 s | 25 of 58 | 7.76 s / 14.7 s | 8, 8, 8 |
+| + bar arithmetic (`gemini-context-meter-*`) | 60/60 | **3.20 s** / 10.4 s | 28 of 60 | **7.27 s** / 14.8 s | 6, 7, 5 |
+
+- The model wrote only `swing` and `style` in 59 of 60 contexts; context fell from 129 to 40 B (median).
+- The two failures without the arithmetic line were both `gospel-68-sunday` (6/8), with step counts still wrong after two repairs. With the line, every plan is valid.

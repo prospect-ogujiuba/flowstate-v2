@@ -49,11 +49,17 @@ export class PartStream {
 
   /**
    * With a known head (a parts-only repair reply), parts are checked against it instead of the reply's own.
-   * headCheck adds the request's hard constraints: a head that breaks them plays nothing.
+   * normalizeHead completes the head first; headCheck adds the request's hard constraints: a head that breaks
+   * them plays nothing.
    */
   constructor(
     private readonly onPart?: (part: Part) => void,
-    private readonly options: { knownHead?: Head; headCheck?: (head: Head) => string[] } = {},
+    private readonly options: {
+      knownHead?: Head;
+      /** Completes the head the model wrote (e.g. the context fields the session fixes) before it is checked. */
+      normalizeHead?: (head: Record<string, unknown>) => Head;
+      headCheck?: (head: Head) => string[];
+    } = {},
   ) {
     if (options.knownHead) this.head = options.knownHead;
   }
@@ -111,7 +117,8 @@ export class PartStream {
     this.headTried = true;
     const body = this.text.slice(this.start, partsKeyAt).trimEnd().replace(/,$/, "");
     try {
-      const head = JSON.parse(`${body}}`) as Head;
+      const raw = JSON.parse(`${body}}`) as Record<string, unknown>;
+      const head = this.options.normalizeHead ? this.options.normalizeHead(raw) : (raw as Head);
       const bare = Score.safeParse({ ...head, parts: [] });
       this.head = bare.success && (this.options.headCheck?.(bare.data) ?? []).length === 0 ? head : null;
     } catch {

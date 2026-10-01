@@ -1,0 +1,158 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dorian Jazz Waltz",
+  "context": {
+    "swing": 0.33,
+    "style": [
+      "jazz",
+      "waltz"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    },
+    {
+      "name": "Main B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Gm9:3 | C13:3 | Am7b5:3 | D7b9:3 | Gm9:3 | Ebmaj7:3 | Am7b5:3 | D7alt:3",
+  "motifs": [
+    {
+      "id": "sax_theme",
+      "notes": "5:1 9:1 11:1 | 13:.5 11:.5 9:1 5:1 | b7:1.5 5:1.5 | 3:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Jazz Guitar",
+      "low": "G2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".... x... .... | .x.. .... x... | .... x... .... | .x.. .... ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": ".... x... .... | .x.. .... x... | .... x... .... | .x.. x... ....",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Acoustic Bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... .... .... | R... .... 5... | R... .... .... | R... .... a..."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R... .... .... | R... .... 3... | R... .... 5... | R... .... a..."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "G3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "sax_theme",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "sax_theme",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Jazz Drums",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "fill": "none",
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x... x..x x... | x... x..x x..."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": ".... x... .... | .... x... ...."
+            },
+            {
+              "voice": "kick",
+              "steps": "x... .... .... | .... .... ...."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "x... x..x x..."
+            },
+            {
+              "voice": "pedal_hat",
+              "steps": ".... x... ...."
+            },
+            {
+              "voice": "kick",
+              "steps": "x... .... ...."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

@@ -1,0 +1,303 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Pop Ballad Waltz",
+  "context": {
+    "swing": 0.0,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    { "name": "Verse A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Verse B", "startBar": 5, "bars": 8, "energy": 0.65 }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Bbadd9:3 | F/A:3 | Gm7:3 | Ebadd9:3 | Csus4:1.5 C:1.5",
+  "motifs": [
+    {
+      "id": "m_call",
+      "notes": "3:1! 2:.5 1:1.5 | 5:1! 3:.5 2:1.5"
+    },
+    {
+      "id": "m_response",
+      "notes": "6:1! 5:.5 3:1 2:.5 | 1:2.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Arpeggiated Acoustic Piano",
+      "low": "F2",
+      "high": "A4",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x...x... | x...x...x... | x...x...x... | x...x...x...",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x..",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Upright Bass",
+      "low": "C1",
+      "high": "F2",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R..... | R..... | R..... | R....."
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "R...5. | R...5. | R...5."
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R...a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Singable Piano Lead",
+      "low": "F3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m_call",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m_response",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m_call",
+          "transforms": ["octave:+1"],
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m_response",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Subtle Percussion & Ride",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x....." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            { "voice": "kick", "steps": "x....." },
+            { "voice": "ride", "steps": "x.x.x." },
+            { "voice": "rim", "steps": "..x..x" }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x....." },
+            { "voice": "ride", "steps": "x.x.x." },
+            { "voice": "rim", "steps": "..x..x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Piano Pop Ballad Waltz",
+  "context": {
+    "swing": 0.0,
+    "style": ["pop", "ballad"]
+  },
+  "form": [
+    { "name": "Verse A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "Verse B", "startBar": 5, "bars": 4, "energy": 0.65 }
+  ],
+  "harmony": "F:3 | C/E:3 | Dm7:3 | Bbadd9:3 | F/A:3 | Gm7:3 | Ebadd9:3 | Csus4:1.5 C:1.5",
+  "motifs": [
+    {
+      "id": "m_call",
+      "notes": "3:1! 2:.5 1:1.5 | 5:1! 3:.5 2:1.5"
+    },
+    {
+      "id": "m_response",
+      "notes": "6:1! 5:.5 3:1 2:.5 | 1:2.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Arpeggiated Acoustic Piano",
+      "low": "F2",
+      "high": "A4",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x...x...x... | x...x...x... | x...x...x... | x...x...x...",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x..",
+          "voicing": "spread"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Upright Bass",
+      "low": "C1",
+      "high": "F2",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R..... | R..... | R..... | R....."
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "R...5. | R...5. | R...5."
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R...a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Singable Piano Lead",
+      "low": "F3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m_call",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m_response",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m_call",
+          "transforms": ["octave:+1"],
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m_response",
+          "transforms": ["transpose:+2"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Subtle Percussion & Ride",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x....." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            { "voice": "kick", "steps": "x....." },
+            { "voice": "ride", "steps": "x.x.x." },
+            { "voice": "rim", "steps": "..x..x" }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x....." },
+            { "voice": "ride", "steps": "x.x.x." },
+            { "voice": "rim", "steps": "..x..x" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

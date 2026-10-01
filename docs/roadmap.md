@@ -127,9 +127,10 @@ Done so far (2026-10-01):
 - Compact motif strings (IR change, additive: the note-object form is still accepted). `"5:.75! 4:.25 b3:1 r:.5 1+:1/3"`: tokens in sequence, onsets implied. Core parses both forms identically; the spec teaches the string. On Gemini Flash minimal: motifs 384 → 98 B (median) while twice as long, head 1056 → 710 B, first part p50 5.1 → 4.4 s, full plan p50 10.4 s, 20/20 valid. On Sonnet low: motifs 597 → 101 B, first part 20.5 → 16.6 s, full 24.4 → 22.3 s, 20/20. No repair came from a motif token.
 - Block fields that don't apply may be left out instead of written as null (IR change, additive). Scores shrink by a quarter to a third. **Gemini Flash minimal meets the full-plan target: p50 7.3 s**, 20/20 valid, first part p50 3.8 s; repairs 4 of 20. Sonnet low: full 20.1 s, first part 15.9 s.
 - Compact harmony strings (IR change, additive), and the planner's request now says one part per lane with the lane name as its role (the model often wrote the chords lane as a pad, which cost a repair). Over three runs each on Gemini Flash minimal: 60/60 valid, first part p50 3.5 s (from 3.8 s; 18 of 60 under 3 s), full plan p50 7.8 s.
-- What is left: the first part, 3.5 s against 3 s. About 0.9 s is the provider's time to first token; the rest is writing roughly 730 B of head and first part.
+- The planner fills the context fields the session fixes (key, mode, bars, meter, tempo) from the request, so the model writes only swing and style, and a wrong key or length needs no repair. The request also states the step count per bar for the meter; without it the 6/8 gospel prompt failed 2 of 3 runs. Over three runs: **60/60 valid, first part p50 3.2 s (28 of 60 under 3 s), full plan p50 7.3 s** on Gemini Flash minimal.
+- What is left: the first part, 3.2 s against 3 s. About 0.9 s of that is the provider's time to first token.
 
-Next: let the model leave out the context fields the request already fixes (key, mode, bars, meter, tempo), which also removes the key and bars mismatch errors; fewer repairs (a clearer step-count rule in the spec, with P1-3); blind listening on the Gemini Flash minimal plans before choosing it.
+Next: try other fast models for the first part (time to first token and throughput differ by provider); fewer repairs (P1-3); blind listening on the Gemini Flash minimal plans before choosing it.
 
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:

@@ -1,0 +1,527 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.6-flash",
+    "reasoning": "minimal"
+  },
+  "at": "2026-10-01T15:17:59.301Z",
+  "stats": {
+    "prompts": 20,
+    "planned": 20,
+    "valid": 19,
+    "validityRate": 0.95,
+    "latencyP50Ms": 7860,
+    "latencyP95Ms": 15486,
+    "firstTokenP50Ms": 904,
+    "firstTextP50Ms": 904,
+    "firstPartP50Ms": 3438,
+    "firstPartP95Ms": 9886,
+    "partsStreamed": 20
+  },
+  "results": [
+    {
+      "id": "neosoul-rhodes-swing",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 10511,
+      "firstTokenMs": 4805,
+      "firstTextMs": 4805,
+      "firstPartMs": 7185,
+      "usage": {
+        "inputTokens": 2737,
+        "outputTokens": 1517,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "house-deep-organ",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 11051,
+      "firstTokenMs": 4684,
+      "firstTextMs": 4684,
+      "firstPartMs": 7275,
+      "usage": {
+        "inputTokens": 2733,
+        "outputTokens": 1503,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "trap-dark-bells",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 11277,
+      "firstTokenMs": 4682,
+      "firstTextMs": 4682,
+      "firstPartMs": 6175,
+      "usage": {
+        "inputTokens": 6592,
+        "outputTokens": 1380,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 closed_hat: bar 2 of pattern has 20 steps, expected 16",
+            "part drums block 1 closed_hat: bar 4 of pattern has 20 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lofi-rainy-study",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 12484,
+      "firstTokenMs": 4834,
+      "firstTextMs": 4834,
+      "firstPartMs": 6560,
+      "usage": {
+        "inputTokens": 6712,
+        "outputTokens": 1578,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 open_hat: invalid step token '-'",
+            "part drums block 1 open_hat: invalid step token '-'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "afrobeats-sunny",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 4569,
+      "firstTokenMs": 891,
+      "firstTextMs": 891,
+      "firstPartMs": 2198,
+      "usage": {
+        "inputTokens": 2731,
+        "outputTokens": 907,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "drill-uk-phrygian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5742,
+      "firstTokenMs": 1134,
+      "firstTextMs": 1134,
+      "firstPartMs": 3110,
+      "usage": {
+        "inputTokens": 2736,
+        "outputTokens": 1077,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-uplifting-chorus",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 7860,
+      "firstTokenMs": 898,
+      "firstTextMs": 898,
+      "firstPartMs": 3670,
+      "usage": {
+        "inputTokens": 2723,
+        "outputTokens": 1727,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-rising-horns",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6160,
+      "firstTokenMs": 981,
+      "firstTextMs": 981,
+      "firstPartMs": 2868,
+      "usage": {
+        "inputTokens": 2725,
+        "outputTokens": 1223,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "reggaeton-dembow",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5294,
+      "firstTokenMs": 932,
+      "firstTextMs": 932,
+      "firstPartMs": 2374,
+      "usage": {
+        "inputTokens": 2735,
+        "outputTokens": 1083,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "dnb-liquid-rolling",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6598,
+      "firstTokenMs": 904,
+      "firstTextMs": 904,
+      "firstPartMs": 2611,
+      "usage": {
+        "inputTokens": 2733,
+        "outputTokens": 1416,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-late-night-trio",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 14812,
+      "firstTokenMs": 818,
+      "firstTextMs": 818,
+      "firstPartMs": 9886,
+      "usage": {
+        "inputTokens": 8559,
+        "outputTokens": 3124,
+        "cacheReadTokens": 10160
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "keys",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part bass block 2 rhythm: invalid step token 'b'"
+          ]
+        },
+        {
+          "part": "lead",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "funk-clav-mixolydian",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 8062,
+      "firstTokenMs": 993,
+      "firstTextMs": 993,
+      "firstPartMs": 2969,
+      "usage": {
+        "inputTokens": 4786,
+        "outputTokens": 1405,
+        "cacheReadTokens": 6095
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 17 steps, expected 16",
+            "part bass block 1 rhythm: invalid step token 'b'",
+            "part bass block 1 rhythm: bar 3 of pattern has 17 steps, expected 16",
+            "part bass block 1 rhythm: invalid step token 'b'"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rock-anthem-mixolydian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6411,
+      "firstTokenMs": 1124,
+      "firstTextMs": 1124,
+      "firstPartMs": 2833,
+      "usage": {
+        "inputTokens": 2731,
+        "outputTokens": 1434,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "ambient-pentatonic-drift",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 13511,
+      "firstTokenMs": 957,
+      "firstTextMs": 957,
+      "firstPartMs": 8779,
+      "usage": {
+        "inputTokens": 9638,
+        "outputTokens": 2710,
+        "cacheReadTokens": 8125
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part chords block 1 rhythm: bar 1 of pattern has 16 steps, expected 8"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part bass block 1 rhythm: bar 1 of pattern has 16 steps, expected 8"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part drums block 1 kick: bar 1 of pattern has 32 steps, expected 16",
+            "part drums block 1 kick: bar 2 of pattern has 32 steps, expected 16",
+            "part drums block 1 kick: bar 3 of pattern has 32 steps, expected 16",
+            "part drums block 1 kick: bar 4 of pattern has 32 steps, expected 16"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gospel-68-sunday",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 15642,
+      "firstTokenMs": 798,
+      "firstTextMs": 798,
+      "firstPartMs": 5240,
+      "usage": {
+        "inputTokens": 9434,
+        "outputTokens": 3355,
+        "cacheReadTokens": 10164
+      },
+      "remainingErrors": [
+        "part bass block 1 rhythm: bar 2 of pattern has 15 steps, expected 18",
+        "part bass block 1 rhythm: bar 3 of pattern has 15 steps, expected 18",
+        "part bass block 2 rhythm: bar 2 of pattern has 15 steps, expected 18",
+        "part drums block 2 kick: bar 4 of pattern has 19 steps, expected 18",
+        "part drums block 2 snare: bar 4 of pattern has 19 steps, expected 18",
+        "part drums block 2 ride: bar 4 of pattern has 19 steps, expected 18"
+      ],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "part chords block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 2 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 3 of pattern has 12 steps, expected 18",
+            "part chords block 1 rhythm: bar 4 of pattern has 12 steps, expected 18",
+            "part chords block 2 rhythm: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "part bass block 1 rhythm: bar 1 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 2 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 3 of pattern has 12 steps, expected 18",
+            "part bass block 1 rhythm: bar 4 of pattern has 12 steps, expected 18",
+            "part bass block 2 rhythm: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "part drums block 1 kick: bar 1 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 2 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 3 of pattern has 12 steps, expected 18",
+            "part drums block 1 kick: bar 4 of pattern has 12 steps, expected 18",
+            "part drums block 1 snare: bar 1 of pattern has 12 steps, expected 18"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "techhouse-minimal",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 5345,
+      "firstTokenMs": 823,
+      "firstTextMs": 823,
+      "firstPartMs": 2347,
+      "usage": {
+        "inputTokens": 2728,
+        "outputTokens": 1165,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "pop-ballad-waltz",
+      "ok": true,
+      "attempts": 2,
+      "latencyMs": 11671,
+      "firstTokenMs": 868,
+      "firstTextMs": 868,
+      "firstPartMs": 9079,
+      "usage": {
+        "inputTokens": 6778,
+        "outputTokens": 2556,
+        "cacheReadTokens": 4062
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trap-phrygian-choir",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 4055,
+      "firstTokenMs": 744,
+      "firstTextMs": 744,
+      "firstPartMs": 2097,
+      "usage": {
+        "inputTokens": 2729,
+        "outputTokens": 856,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "jazz-waltz-dorian",
+      "ok": true,
+      "attempts": 1,
+      "latencyMs": 6362,
+      "firstTokenMs": 882,
+      "firstTextMs": 882,
+      "firstPartMs": 3438,
+      "usage": {
+        "inputTokens": 2735,
+        "outputTokens": 1325,
+        "cacheReadTokens": 2031
+      },
+      "remainingErrors": [],
+      "unplayable": []
+    },
+    {
+      "id": "cinematic-68-lament",
+      "ok": true,
+      "attempts": 3,
+      "latencyMs": 15486,
+      "firstTokenMs": 726,
+      "firstTextMs": 726,
+      "firstPartMs": 9929,
+      "usage": {
+        "inputTokens": 10387,
+        "outputTokens": 3295,
+        "cacheReadTokens": 8127
+      },
+      "remainingErrors": [],
+      "unplayable": [
+        {
+          "part": "chords",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part chords block 1 rhythm: bar 1 of pattern has 6 steps, expected 12",
+            "part chords block 1 rhythm: bar 2 of pattern has 6 steps, expected 12",
+            "part chords block 1 rhythm: bar 3 of pattern has 6 steps, expected 12",
+            "part chords block 1 rhythm: bar 4 of pattern has 6 steps, expected 12"
+          ]
+        },
+        {
+          "part": "bass",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part bass block 1 rhythm: bar 1 of pattern has 6 steps, expected 12",
+            "part bass block 1 rhythm: bar 2 of pattern has 6 steps, expected 12",
+            "part bass block 1 rhythm: bar 3 of pattern has 6 steps, expected 12",
+            "part bass block 1 rhythm: bar 4 of pattern has 6 steps, expected 12"
+          ]
+        },
+        {
+          "part": "melody",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8"
+          ]
+        },
+        {
+          "part": "drums",
+          "errors": [
+            "form covers bars 1..12, but context.bars is 8",
+            "part drums block 1 kick: bar 1 of pattern has 6 steps, expected 12",
+            "part drums block 1 kick: bar 2 of pattern has 6 steps, expected 12",
+            "part drums block 1 kick: bar 3 of pattern has 6 steps, expected 12",
+            "part drums block 1 kick: bar 4 of pattern has 6 steps, expected 12"
+          ]
+        }
+      ]
+    }
+  ]
+}

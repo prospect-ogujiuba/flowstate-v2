@@ -1,0 +1,122 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "UK Drill Dark Piano Loop",
+  "context": {
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Em:4 | F:4 | Em:4 | Cmaj7:2 B7b9:2",
+  "motifs": [
+    {
+      "id": "drill_piano_lead",
+      "notes": "1+:.5 2+:.5 b3+:.5 2+:.5 | 1+:.5 b7:.5 b6:.5 5:.5 | r:1 b3+:.5 2+:.5 1+:1 | b7:.5 b6:.5 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Dark Grand Piano",
+      "low": "E2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- .... .... .... | x--- .... .... ..x- | x--- .... .... .... | x--- .... x--- ....",
+          "voicing": "close",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "sub_808",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "E1",
+      "high": "E3",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- .... ..8- .... | R--- .... ..a. 8--- | R--- .... ..8- .... | R--- ..8- R--- ....",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "piano_lead",
+      "role": "melody",
+      "name": "Piano Pluck Counter",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "drill_piano_lead",
+          "repeatEvery": 0,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drill_kit",
+      "role": "drums",
+      "name": "UK Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .... ..x. .... | x... .... .... .... | x... .... ..x. .... | x... .... .... ..x."
+            },
+            {
+              "voice": "snare",
+              "steps": ".... .... x... .... | .... .... x... ..g. | .... .... x... .... | .... .... x... ...."
+            },
+            {
+              "voice": "rim",
+              "steps": ".... .... .... ..x. | .... x... .... .... | .... .... .... ..x. | ..x. .... .... ...."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.xx .xx. x.x. | x.xx .x.x x.x. xx.x | x.x. x.xx .xx. x.x. | x.xx x.x. x.xx xx.x"
+            },
+            {
+              "voice": "open_hat",
+              "steps": ".... .... ..x. .... | .... .... .... .x.. | .... .... ..x. .... | .... ..x. .... ...."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
