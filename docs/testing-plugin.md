@@ -124,7 +124,7 @@ npm run fetch:build -- windows              # latest green run on the current br
 npm run fetch:build -- windows --branch main
 npm run fetch:build -- windows --run 36702654122
 ```
-On WSL this writes `flowstate-windows-x64` into your Windows Downloads folder, with `install.ps1` and `gallery.ps1` next to the build (elsewhere, into `dist/builds`). Then, in PowerShell in that folder:
+On WSL this writes `flowstate-windows-x64` into your Windows Downloads folder, with `install.ps1` and `gallery.ps1` next to the build (elsewhere, into `dist/builds`). It prints the install commands with the full path filled in. From WSL they use `powershell.exe`, since plain `powershell` isn't found there. From Windows PowerShell, in that folder:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\install.ps1              # asks for admin; replaces any older copy
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall

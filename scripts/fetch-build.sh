@@ -48,13 +48,22 @@ for name in "${names[@]}"; do
 done
 
 if [[ " ${names[*]} " == *" flowstate-windows-x64 "* ]]; then
-  cat <<'MSG'
-
-Windows: in PowerShell, in that folder:
+  echo
+  if is_wsl; then
+    # Runnable as is from this WSL shell: powershell.exe is Windows PowerShell through WSL interop.
+    win=$(wslpath -w "$out/flowstate-windows-x64")
+    echo "Windows, from this shell (quit the DAW first):"
+    echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\install.ps1'    # install the VST3s (asks for admin)"
+    echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\gallery.ps1'    # component gallery in the Standalone"
+    echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\gallery.ps1' -Daw 'C:\path\to\daw.exe'"
+  else
+    cat <<'MSG'
+Windows: in PowerShell, in that folder (quit the DAW first):
   powershell -ExecutionPolicy Bypass -File .\install.ps1            # install the VST3s (asks for admin)
   powershell -ExecutionPolicy Bypass -File .\gallery.ps1            # component gallery in the Standalone
   powershell -ExecutionPolicy Bypass -File .\gallery.ps1 -Daw "C:\path\to\daw.exe"
 MSG
+  fi
 fi
 if [[ " ${names[*]} " == *" flowstate-macos-universal "* ]]; then
   echo; echo "macOS: for testers, run scripts/pack-macos-testers.sh instead; it adds an installer and a README."
