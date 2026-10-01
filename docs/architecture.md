@@ -25,10 +25,12 @@ DAW ⇄ plugin processor (audio/MIDI thread: host sync, capture ring, audition, 
 
 ## Planner (today)
 
-`cloud/src/planner.ts`: request + controls → Claude → JSON → Zod parse → semantic validation (`validate.ts`) → up to two repair passes.
+`cloud/src/planner.ts`: request + controls → model → JSON → Zod parse → semantic validation (`validate.ts`) → up to two repair passes.
 
-The model call goes through a backend from `cloud/src/backends.ts`, selected with `FLOWSTATE_PLANNER_BACKEND`:
-- `claude-code` (the default for dev and evals): headless Claude Code on the developer's own subscription.
-- `api`: the Anthropic SDK with a key (the BYOK path), using `claude-opus-5` with adaptive thinking, high effort and server-side fallbacks. Constrained decoding is not used: the IR schema exceeds the API's grammar-size limit.
+The model call goes through a backend from `cloud/src/backends.ts`. Callers pick one per request with `backendFor(selection)`, where a selection is a provider, a model and a credential:
+- `pi` (production): any provider in `@earendil-works/pi-ai`, such as Anthropic, OpenAI, Google, OpenRouter or DeepSeek, with high reasoning effort by default. The credential is either **managed**, meaning the service's own key from the provider's usual environment variable (`ANTHROPIC_API_KEY`, `OPENROUTER_API_KEY`, ...), or **byok**, the user's key passed with that request. An empty BYOK key is an error rather than a silent fall back to the managed key. Refusals, safety stops and truncated output are errors.
+- `claude-code` (dev and evals only): headless Claude Code on the developer's own subscription. It takes no user key.
+
+`planScore(request, backend)` takes the backend per call. The CLI and evals build one from the environment (`selectionFromEnv`): `FLOWSTATE_PLANNER_BACKEND` (`claude-code`, the default, or `pi`; the old `api` means `pi` with Anthropic), `FLOWSTATE_PLANNER_PROVIDER`, `FLOWSTATE_PLANNER_MODEL` and `FLOWSTATE_PLANNER_REASONING`. Constrained decoding is not used: the IR schema exceeds the providers' grammar-size limits.
 
 Planned: stream parts as they complete, IR patch mode for edits, plan → realize → measure → revise for full sections, and per-route model and effort tuning against the latency target.

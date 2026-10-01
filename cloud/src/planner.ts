@@ -1,11 +1,11 @@
-// Planner: natural-language request + musical context -> score IR, via Claude.
+// Planner: natural-language request + musical context -> score IR, via a model backend.
 // Validation errors are fed back for repair. This is the seed of the v2 agent service.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Score, IR_ID } from "@flowstate/schema";
 import { validateScore } from "./validate.ts";
-import { backendFromEnv, type Turn } from "./backends.ts";
+import { backendFor, selectionFromEnv, type Backend, type Turn } from "./backends.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const IR_SPEC = readFileSync(path.join(here, "..", "..", "docs", "ir-spec.md"), "utf8");
@@ -52,7 +52,6 @@ export interface PlanResult {
   latencyMs: number;
 }
 
-const backend = backendFromEnv();
 // No constrained decoding: the IR schema compiles to a grammar larger than the API accepts.
 // The model writes JSON text; strict Zod parsing plus semantic validation drive up to two repair passes.
 const MAX_ATTEMPTS = 3;
@@ -80,9 +79,14 @@ function userMessage(req: PlanRequest): string {
   ].join("\n");
 }
 
-export const plannerBackend = { name: backend.name, model: backend.model };
+let envBackend: Backend | undefined;
 
-export async function planScore(req: PlanRequest): Promise<PlanResult> {
+/** The backend from the environment (selectionFromEnv), for callers that don't choose one per request. */
+export function defaultBackend(): Backend {
+  return (envBackend ??= backendFor(selectionFromEnv()));
+}
+
+export async function planScore(req: PlanRequest, backend: Backend = defaultBackend()): Promise<PlanResult> {
   const started = Date.now();
   const usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0 };
   const turns: Turn[] = [{ role: "user", text: userMessage(req) }];

@@ -28,7 +28,7 @@ v1 lives in the sibling repo `../flowstate` (frozen at tag `v1-final`). Use it a
 - The bridge (WebView <-> plugin <-> service messages) is the other contract. Change `schema/src/bridge.ts` and `docs/bridge-spec.md` together, add fixtures in `schema/fixtures/bridge/`, and run `npm run schema`. Never hand-edit `schema/cpp/include/flowstate/bridge.h`; CI fails on drift.
 - Theory lives in `core` only. Never re-implement voicing, scale or timing logic in TS or in the plugin.
 - `core` is deterministic: same IR + seed -> identical bytes. Seeded RNG only; no `std::random` distributions.
-- Model calls live in `cloud/` only, behind the `Backend` interface in `cloud/src/backends.ts`. Current backends: `claude-code` (headless Claude Code on the developer's subscription, for dev and evals only, never an end-user path) and `api` (Anthropic SDK, the BYOK path). From P1-1, managed and BYOK access go through `@earendil-works/pi-ai`; no Pi coding-agent packages. Every backend must surface refusals and truncated output (e.g. `refusal`, `max_tokens`) as errors.
+- Model calls live in `cloud/` only, behind the `Backend` interface in `cloud/src/backends.ts`. Current backends: `claude-code` (headless Claude Code on the developer's subscription, for dev and evals only, never an end-user path) and `pi` (`@earendil-works/pi-ai`: every provider, managed or BYOK key per request). No Pi coding-agent packages; a test in `cloud` checks the lockfile. Every backend must surface refusals and truncated output (e.g. `refusal`, `max_tokens`) as errors.
 - Audio thread: no allocation, locks or I/O. See `docs/threading.md`.
 - No secrets in the repo, DAW state or logs. BYOK keys go in the OS keychain.
 - Tests assert behaviour, not copy or pixel geometry.
@@ -49,7 +49,7 @@ npm test                                     # core + bridge tests + workspace t
 npm run schema                               # regenerate JSON Schemas and the C++ bridge header
 ```
 
-Planner and evals (the `claude-code` backend is the default; set `FLOWSTATE_PLANNER_BACKEND=api` and `ANTHROPIC_API_KEY` for the API):
+Planner and evals (the `claude-code` backend is the default; for a provider, set `FLOWSTATE_PLANNER_BACKEND=pi` and its key, e.g. `OPENROUTER_API_KEY`, then pass `--provider openrouter --model openai/gpt-5.5`):
 
 ```sh
 npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/v2
