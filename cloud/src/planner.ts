@@ -3,9 +3,10 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { Score, IR_ID } from "@flowstate/schema";
+import { Score, IR_ID, type Part } from "@flowstate/schema";
+import { PartStream, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
-import { backendFor, selectionFromEnv, type Backend, type Turn } from "./backends.ts";
+import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const IR_SPEC = readFileSync(path.join(here, "..", "..", "docs", "ir-spec.md"), "utf8");
@@ -49,7 +50,23 @@ export interface PlanResult {
   attempts: number;
   validationErrors: string[];
   usage: { inputTokens: number; outputTokens: number; cacheReadTokens: number };
+  /** The full plan, including any repair passes. */
   latencyMs: number;
+  /** First attempt: first streamed token (thinking or text), and first answer text. */
+  firstTokenMs: number | null;
+  firstTextMs: number | null;
+  /** First attempt: when the first part became playable (head and part both valid), while the score streamed. */
+  firstPartMs: number | null;
+  /** First attempt: streamed parts that were not playable as they landed, and why. */
+  unplayable: Unplayable[];
+  /** The model's raw reply per attempt, for diagnosis. */
+  replies: string[];
+}
+
+export interface PlanOptions {
+  /** Each playable part of the first attempt, as soon as it lands. A repair replaces the whole score. */
+  onPart?: (part: Part, atMs: number) => void;
+  signal?: AbortSignal;
 }
 
 // No constrained decoding: the IR schema compiles to a grammar larger than the API accepts.
@@ -86,17 +103,36 @@ export function defaultBackend(): Backend {
   return (envBackend ??= backendFor(selectionFromEnv()));
 }
 
-export async function planScore(req: PlanRequest, backend: Backend = defaultBackend()): Promise<PlanResult> {
+export async function planScore(req: PlanRequest, backend: Backend = defaultBackend(), options: PlanOptions = {}): Promise<PlanResult> {
   const started = Date.now();
   const usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0 };
   const turns: Turn[] = [{ role: "user", text: userMessage(req) }];
   let lastErrors: string[] = [];
+  let first: Pick<Completion, "firstTokenMs" | "firstTextMs"> = { firstTokenMs: null, firstTextMs: null };
+  let firstPartMs: number | null = null;
+  let unplayable: Unplayable[] = [];
+  const replies: string[] = [];
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const { text, ...tokens } = await backend.complete(SYSTEM_PROMPT, turns);
-    usage.inputTokens += tokens.inputTokens;
-    usage.outputTokens += tokens.outputTokens;
-    usage.cacheReadTokens += tokens.cacheReadTokens;
+    // Only the first attempt streams parts out: a repair replaces the whole score.
+    const parts = attempt === 1
+      ? new PartStream((part) => {
+          const at = Date.now() - started;
+          firstPartMs ??= at;
+          options.onPart?.(part, at);
+        })
+      : null;
+    const completion = await backend.complete(SYSTEM_PROMPT, turns, {
+      ...(parts ? { onText: (d: string) => parts.push(d) } : {}),
+      ...(options.signal ? { signal: options.signal } : {}),
+    });
+    if (parts) unplayable = parts.unplayable;
+    const { text } = completion;
+    replies.push(text);
+    if (attempt === 1) first = { firstTokenMs: completion.firstTokenMs, firstTextMs: completion.firstTextMs };
+    usage.inputTokens += completion.inputTokens;
+    usage.outputTokens += completion.outputTokens;
+    usage.cacheReadTokens += completion.cacheReadTokens;
 
     let score: Score | null = null;
     try {
@@ -109,7 +145,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     if (score) {
       lastErrors = [...validateScore(score), ...constraintMismatches(score, req)];
       if (lastErrors.length === 0 || attempt === MAX_ATTEMPTS)
-        return { score, attempts: attempt, validationErrors: lastErrors, usage, latencyMs: Date.now() - started };
+        return { score, attempts: attempt, validationErrors: lastErrors, usage, latencyMs: Date.now() - started, ...first, firstPartMs, unplayable, replies };
     } else if (attempt === MAX_ATTEMPTS) {
       throw new Error(`planner output invalid after ${attempt} attempts: ${lastErrors.slice(0, 5).join("; ")}`);
     }

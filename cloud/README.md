@@ -37,10 +37,18 @@ Useful flags:
 | --- | --- |
 | `--only id1,id2` | Only these prompt ids (see `evals/prompts/phase0.json`). One prompt is a cheap smoke test. |
 | `--concurrency N` | Prompts in flight at once (default 4). Lower it if a provider rate-limits or runs out of credit. |
+| `--reasoning <level>` | Thinking effort, overriding `FLOWSTATE_PLANNER_REASONING`. Most of the planner's output tokens are thinking, so this is the biggest latency knob. On `claude-code` it maps to `--effort` (`minimal` becomes `low`). |
 | `--plan-only` | Write `*.score.json` only and skip realizing. |
 | `--realize-only` | Realize existing `*.score.json` again (after a `core` change) without model calls. |
 
-Each run writes, per prompt, `<id>.score.json`, `<id>.mid`, `<id>.notes.json` and `<id>.report.json`. It also writes `run.json` (backend, per-prompt latency, attempts and tokens, plus validity rate and latency p50/p95) and prints a one-line summary at the end.
+Each run writes, per prompt, `<id>.score.json`, `<id>.mid`, `<id>.notes.json` and `<id>.report.json`. It also writes `<id>.replies.txt` (the raw model replies, one per attempt) and `run.json`, and prints a one-line summary at the end. `run.json` holds the backend and reasoning level, plus validity rate and p50/p95 stats. Per prompt it records latency, attempts, tokens, time to first token, time to first answer text, and time to the first playable part. Parts stream out of the reply while it is still being written, so the first part can sound before the plan is done. It also records which streamed parts were not playable, and why.
+
+A latency comparison, e.g. a fast model at low effort:
+
+```sh
+npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/out/sonnet-low \
+  --provider claude-code --model sonnet --reasoning low
+```
 
 ## Then measure
 

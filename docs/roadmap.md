@@ -116,7 +116,16 @@ Acceptance:
 - The Phase 0 prompt set plans valid scores on at least 3 providers, with results recorded per provider (validity rate, latency p50/p95, metrics).
 - No Pi coding-agent packages are in the dependency tree.
 
-### P1-2 Latency: from 62 s to the targets — `todo`
+### P1-2 Latency: from 62 s to the targets — `doing`
+Done so far (2026-10-01):
+- Where the time goes: in the P1-1 runs a minified score is about 5.4 KB (roughly 2k tokens), but the planner averaged 11–20k output tokens. Most of the output is thinking at reasoning `high`.
+- Both backends stream (`claude-code` through `stream-json`), take an abort signal and report time to first token and first answer text.
+- Parts stream out of the reply as it is written (`cloud/src/part-stream.ts`): the IR puts `parts` last, so the head is parsed when the `"parts"` key arrives and each part as its closing brace lands. A part is reported (`onPart`, `firstPartMs`) once head and part pass validation; parts that can't play are recorded with the reason. This needs no prompt change. A JSON Lines reply format was tried first and dropped: Sonnet at low effort ignored it about half the time.
+- `--reasoning` on the CLI. `run.json` records the reasoning level, first-token, first-text and first-part p50/p95, and the unplayable parts; `<id>.replies.txt` keeps the raw replies.
+- First look (claude-code Sonnet, effort low, 4 prompts; not a measurement): 4/4 valid, full plan p50 21 s, first playable part p50 15 s (best 7 s, on a prompt whose drums still needed a repair). Opus at high on one prompt took 56 s. The head (form, harmony and the verbose motif notes) is most of the score, about 4 of 5.4 KB, so no part can play until it is written. Low effort makes small mechanical slips (a 14-step drum bar, a bad enum), and each costs a full-score repair turn.
+
+Next: a smaller head (a compact motif encoding, or motifs after the parts that don't use them); per-part repair (re-send only the broken part while the good ones play); a model × reasoning matrix on fast models through pi (needs keys).
+
 Targets (p50 on the Phase 0 set): first sound under 100 ms (the P1-10 sketch), first AI part under 3 s, full 4-part plan under 8 s.
 Levers, in order:
 - Stream parts: the model emits one part per JSON line (harmony first) and the plugin realizes each as it lands.
