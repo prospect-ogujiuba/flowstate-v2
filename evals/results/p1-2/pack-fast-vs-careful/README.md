@@ -24,3 +24,19 @@ Score a returned sheet: `npm run -w evals ab:score -- --key ab/packs/p1-2-fast-v
 - No clear difference: sign test p = 0.48 two-sided. One listener and 19 judgements can't show the two are equal, only that the fast path does not lose by much.
 - Both sides score low in absolute terms (about 2.8 of 5). The lowest prompts are the groove-defined styles (afrobeats 1–2, gospel 1–3, funk 1–2), and the notes say the drums are what is missing there.
 - The owner listened through a quick stock setup, so sound selection may hide differences; see the roadmap note on rendered listening.
+
+## Result, rendered (owner, 2026-10-01)
+
+The same pack again through `npm run -w evals render` and `player.html` (`scoresheet-owner-rendered.csv`):
+
+| | First listen (stock DAW setup) | Rendered |
+| --- | --- | --- |
+| Preferred, fast / careful / tie | 7 / 11 / 1 | 6 / 11 / 3 (p = 0.33) |
+| Musicality, fast / careful | 2.74 / 2.89 | 3.05 / 3.21 |
+| Fits prompt, fast / careful | 2.74 / 3.00 | 3.32 / 3.53 |
+| Scores of 2 or less (of 38) | 15 | 10 |
+
+- Sound selection was hiding quality: both sides scored about 0.3 higher on musicality and 0.55 on fit, most where the instrument carries the style (lofi 3.5 → 5.0, cinematic lament 3.5 → 4.5).
+- The fast-vs-careful gap is unchanged (about 0.15, not significant).
+- 5 of 19 prompts flipped winner between the two listens, so single-prompt preferences are noisy; read totals, and prefer two runs per side for decisions.
+- Still low with good sounds: afrobeats, drill, trap choir, funk, drum and bass, the groove-defined styles P1-3's grooves target.
