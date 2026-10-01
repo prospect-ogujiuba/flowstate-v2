@@ -4,6 +4,12 @@ How to build the Flowstate plugin, run its automated tests, validate it, and che
 
 ## 1. Configure
 
+The plugin bundles the built UI from `ui/dist`, so build it first, and again after UI changes (the next plugin build picks it up):
+```sh
+npm ci && npm run build:ui
+```
+Configuring a WebView build (macOS, Windows) without it fails with `No built UI in .../ui/dist`. The headless Linux build only warns.
+
 Pick the block for your OS. Each creates `build/plugin` and is needed once, or again after pulling CMake changes.
 
 macOS (native architecture; CI builds universal):
@@ -179,6 +185,12 @@ For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Able
 9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: the MIDI FX slot; in Bitwig or FL Studio: before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through. **Ableton: n/a.** Ableton can't open a VST3 MIDI effect (it says "This VST3 plug-in could not be opened"); there, the instrument variant sends MIDI to other tracks through MIDI From.
 10. **Multiple instances:** open two Flowstate windows at once. Both render, and each follows the transport.
 11. **Drag (placeholder):** the Drag button stays disabled, since there's no idea yet. Drag-out is covered again in P1-7 with real ideas.
+
+12. **Component gallery (P1-8):** quit the DAW, then start it from a terminal with `FLOWSTATE_UI_PAGE=gallery.html` in its environment. On macOS, run the app's binary directly, because `open -a` doesn't pass the variable on: `FLOWSTATE_UI_PAGE=gallery.html "/Applications/Ableton Live 12 Suite.app/Contents/MacOS/Live"`. On Windows, run `set FLOWSTATE_UI_PAGE=gallery.html` in a Command Prompt, then start the DAW's `.exe` from that same prompt. With a CI build, `gallery.ps1` in the downloaded folder does this: `powershell -ExecutionPolicy Bypass -File .\gallery.ps1 -Daw "C:\...\daw.exe"`, or with no `-Daw`, the Standalone app. The plugin window shows the gallery instead of the placeholder. Check:
+    - It looks like the browser gallery (`npm run -w ui dev`, then `/gallery.html`) and like `docs/design/side-by-side-*.png`.
+    - Tab reaches every control, with a cyan focus ring. On macOS, WKWebView follows the system setting: with **Keyboard navigation** off (System Settings → Keyboard), Tab reaches only text fields and Option-Tab reaches the rest.
+    - Knobs turn with the arrow keys and by dragging. The settings sheet opens, Escape closes it, and focus returns to the button that opened it.
+    - With a button focused, Space toggles the DAW transport and doesn't press the button.
 
 Report anything that differs, with the host name and version, the OS and the build ID.
 

@@ -1,0 +1,8 @@
+// Generated from plugin/src/BuildId.cpp.in by CMake. Don't edit.
+#include "BuildId.h"
+
+namespace flowstate::plugin {
+
+const char* const kBuildId = "@FLOWSTATE_BUILD_ID@";
+
+}  // namespace flowstate::plugin

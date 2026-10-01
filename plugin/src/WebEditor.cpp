@@ -56,6 +56,14 @@ std::optional<Browser::Resource> getResource(const juce::String& url) {
     return std::nullopt;
 }
 
+// The page the editor opens: index.html, or another bundled page named by FLOWSTATE_UI_PAGE (e.g.
+// gallery.html, the P1-8 component gallery). Anything that isn't a bundled .html file is ignored.
+juce::String startPage() {
+    const auto page = juce::SystemStats::getEnvironmentVariable("FLOWSTATE_UI_PAGE", {});
+    if (page.endsWithIgnoreCase(".html") && !page.containsChar('/') && getResource("/" + page).has_value()) return page;
+    return {};
+}
+
 // Only the bundled page may load; links never navigate the plugin UI away.
 class SinglePageBrowser final : public Browser {
 public:
@@ -71,7 +79,7 @@ class WebEditor final : public juce::AudioProcessorEditor,
 public:
     explicit WebEditor(FlowstateProcessor& p) : juce::AudioProcessorEditor(&p), proc(p), web(makeOptions()) {
         addAndMakeVisible(web);
-        web.goToURL(Browser::getResourceProviderRoot());
+        web.goToURL(Browser::getResourceProviderRoot() + startPage());
         proc.addChangeListener(this);
         proc.setEditorActions(this);
 
@@ -90,7 +98,7 @@ public:
         proc.removeChangeListener(this);
     }
 
-    void paint(juce::Graphics& g) override { g.fillAll(juce::Colour(0xff14161b)); }
+    void paint(juce::Graphics& g) override { g.fillAll(juce::Colour(0xff070708)); }
 
     void resized() override {
         web.setBounds(getLocalBounds());
@@ -108,7 +116,7 @@ private:
                                         .withUserDataFolder(userDataFolder)
                                         .withStatusBarDisabled()
                                         .withBuiltInErrorPageDisabled()
-                                        .withBackgroundColour(juce::Colour(0xff14161b)))
+                                        .withBackgroundColour(juce::Colour(0xff070708)))
             .withNativeIntegrationEnabled()
             .withResourceProvider([](const juce::String& url) { return getResource(url); })
             .withNativeFunction("bridge", [this](const juce::Array<juce::var>& args, Browser::NativeFunctionCompletion done) {
