@@ -12,7 +12,7 @@ Design source: `docs/proposal.md`, the v2 proposal as a living document. The oth
 | --- | --- | --- |
 | `core/` | Music engine: IR parse, realizer, MIDI export, `fs-realize` CLI. No JUCE, no I/O beyond files in the CLI. | C++20 |
 | `schema/` | Contracts: score IR and bridge schema (Zod source of truth), generated JSON Schemas and the C++ bridge header (`schema/cpp`) | TS / generated C++ |
-| `cloud/` | Agent service. Today: the planner (prompt -> IR) and its model backends. | TS |
+| `cloud/` | Agent service. Today: the planner (prompt -> IR) and its model backends. Commands: `cloud/README.md`. | TS |
 | `evals/` | Prompt sets, v1 baseline, metrics, blind A/B packs; committed evidence in `evals/results/` | TS |
 | `plugin/` | JUCE 9 plugin: instrument and MIDI FX variants, processor-owned session, bridge host, host sync, capture. `plugin/spike/` is the frozen Phase 0 spike. See `plugin/README.md`. | C++ |
 | `ui/` | WebView UI bundled into the plugin (`ui/dist`, from `npm run build:ui`). The design system and component gallery (P1-8, spec in `docs/design/`), plus a placeholder page that proves the bridge until the Studio (P1-9) replaces it. | TS (Preact, Vite) |
