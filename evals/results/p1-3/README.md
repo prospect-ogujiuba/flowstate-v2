@@ -11,3 +11,7 @@ Named drum grooves in `core` (docs/ir-spec.md, Grooves), measured on Gemini 3.1 
 Blind pack `p1-3-grooves` (seed 1003; a = grooves, the pack's "v2" side), rendered with `npm run -w evals render`.
 
 Score a returned sheet: `npm run -w evals ab:score -- --key ab/packs/p1-3-grooves.key.json <sheet.csv> --v2-dir results/p1-3/pack-grooves/a-grooves`
+
+### Result (owner, rendered, 2026-10-01)
+
+Grooves 7, no grooves 10, ties 3 (p = 0.63); musicality and fit both 0.10 lower with grooves. But the grooves were mostly not heard: the model usually named a groove and then wrote its own lanes for the voices that define it (reggaeton: `dembow` with its own kick and snare; lofi, neo-soul and drum and bass: their own kick, snare and hats), and a block's lanes replaced the groove's. Owner notes: afrobeats and reggaeton "still not hitting" their drum patterns; trap "doesn't feel like trap" on either side. Next: groove lanes win when a block names a groove, and the core patterns get checked against references.
