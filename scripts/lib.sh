@@ -2,6 +2,10 @@
 
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 
+# gh pages its output (e.g. through less) when it writes to a terminal, which stops the scripts at an
+# "(END)" prompt. They print a few lines; never page.
+export GH_PAGER=cat
+
 die() { echo "error: $*" >&2; exit 1; }
 
 need() { command -v "$1" >/dev/null 2>&1 || die "needs '$1' ($2)"; }
