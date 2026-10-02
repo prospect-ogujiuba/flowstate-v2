@@ -1,0 +1,185 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dusk in D — lazy Rhodes neo-soul",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.22,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "A'",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Cmaj9:4 | Fmaj9:2 E7#9:2 | Dm9:2 Bbmaj7:2 | Gm9:4 | Em11:3 A7#9:1 | Dm9:3 Dm7:1",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "r:.5 5:.75! 4:.25 b3:1 1:1.5 r:.5 2:.5 1:1"
+    },
+    {
+      "id": "m2",
+      "notes": "1:.5 2:.5 b3:1 5:1 4:1.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- .-.. | x--- ..x- .x-- .... | x--- ..x- .x-- .-.. | x--- .x-- .-x- ....",
+          "voicing": "rootless",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- ..x- .x-x .-.. | x--- ..x- .x-- .-.. | x--x .x-- .-x- .-.. | x--x .x-x .-x- .-x.",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm finger bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a. | R--- ..5. R-.g ..a. | R--- ..3. R-.. ..a.",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- ..5. R-.g ..a. | R--- ..R. 7-.. ..a. | R--- ..5. R-.. ..a. | R--- ..g. R--- ....",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m2",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m1",
+          "transforms": [
+            "octave:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m2",
+          "transforms": [
+            "transpose:+3",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Behind-the-beat kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "open_hat",
+              "steps": "..x...x. ..x...x. | ..x...x. ..x...x. | ..x...x. ..x...x. | ..x...x. ..x...x."
+            },
+            {
+              "voice": "rim",
+              "steps": "....g... ....g... | ....g... ....g... | ....g... ....g... | ....g... ....g..."
+            }
+          ],
+          "groove": "neo_soul",
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "open_hat",
+              "steps": "..x..xx. ..x..xx. | ..x..xx. ..x..xx. | ..x..xx. ..x..xx. | ..x..xx. ..x..xx."
+            },
+            {
+              "voice": "ride",
+              "steps": "....x... ....x... | ....x... ....x... | ....x... ....x... | ....x... ....x..."
+            }
+          ],
+          "groove": "neo_soul",
+          "fill": "half_time_break"
+        }
+      ]
+    }
+  ]
+}

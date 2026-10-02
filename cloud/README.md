@@ -38,6 +38,8 @@ Useful flags:
 | `--only id1,id2` | Only these prompt ids (see `evals/prompts/phase0.json`). One prompt is a cheap smoke test. |
 | `--concurrency N` | Prompts in flight at once (default 4). Lower it if a provider rate-limits or runs out of credit. |
 | `--reasoning <level>` | Thinking effort, overriding `FLOWSTATE_PLANNER_REASONING`. Most of the planner's output tokens are thinking, so this is the biggest latency knob. On `claude-code` it maps to `--effort` (`minimal` becomes `low`). |
+| `--examples N` | Put up to N matching library clips in the request as style examples. |
+| `--tools` | Offer the capabilities' tools (`library_examples`, `analyze_clip`; `pi` only). `run.json` records each prompt's tool calls. Off by default: a call costs a model round trip. |
 | `--plan-only` | Write `*.score.json` only and skip realizing. |
 | `--realize-only` | Realize existing `*.score.json` again (after a `core` change) without model calls. |
 

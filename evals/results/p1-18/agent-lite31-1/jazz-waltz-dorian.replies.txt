@@ -1,0 +1,83 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dorian Jazz Waltz",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0,
+    "style": ["jazz", "waltz"]
+  },
+  "form": [
+    { "name": "Head", "startBar": 1, "bars": 8, "energy": 0.6 }
+  ],
+  "harmony": "Gm9:3 | C13:3 | Gm9:3 | C13:3 | Fmaj9:3 | Bbmaj9:3 | Am7b5:3 | D7alt:3",
+  "motifs": [
+    {
+      "id": "sax_line",
+      "notes": "1:1 3:0.5 5:0.5 8:1 | 7:1 5:1 4:1 | 3:1 1:1.5 r:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Jazz Piano",
+      "low": "G2",
+      "high": "C5",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": ".x. .x. .x.", "voicing": "shell" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        { "startBar": 1, "endBar": 8, "rhythm": "R.. 5.. 7.." }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "G3",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        { "startBar": 1, "endBar": 3, "motif": "sax_line", "repeatEvery": 3 },
+        { "startBar": 4, "endBar": 8, "motif": "sax_line", "transforms": ["transpose:2"], "repeatEvery": 3 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Jazz Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "jazz_waltz",
+          "drums": [
+            { "voice": "ride", "steps": "x.x x.x x.x" }
+          ]
+        }
+      ]
+    }
+  ]
+}

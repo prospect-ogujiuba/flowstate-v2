@@ -1,0 +1,125 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving G Mixolydian Anthem",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.9
+    }
+  ],
+  "harmony": "G:2 F:2 | C:4 | G:2 F:2 | C:4 | G:4 | D:4 | C:4 | D:4",
+  "motifs": [
+    {
+      "id": "riff",
+      "notes": "1:1 1:1 5:1 4:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Power Chords",
+      "low": "G2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x- | x-x-x-x-",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Distorted Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "xxxxxxxxxxxxxxxx"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "riff",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "rock"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "fill": "crash_end",
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x...x...x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "....X.......X..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "xxxxxxxxxxxxxxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

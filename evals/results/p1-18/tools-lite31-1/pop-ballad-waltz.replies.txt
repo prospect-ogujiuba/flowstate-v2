@@ -1,0 +1,121 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "F major ballad waltz",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "verse",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.5
+    }
+  ],
+  "harmony": "Fmaj7:3 | C/E:3 | Dm7:3 | Am7:3 | Bbmaj7:3 | F/A:3 | Gm7:1.5 C7:1.5 | Fmaj7:3",
+  "motifs": [
+    {
+      "id": "melody_motif",
+      "notes": "3:.5 5:.5 6:1 | 5:1 r:1 1+:1 | 7:.5 6:.5 5:1 | 3:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--x--x--",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--5--5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Piano Lead",
+      "low": "F4",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "melody_motif"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "melody_motif",
+          "transforms": [
+            "transpose:+1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x........"
+            },
+            {
+              "voice": "rim",
+              "steps": ".x.x.x.x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

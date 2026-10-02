@@ -1,0 +1,137 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Ab Afrobeats Groove",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.6
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.78
+    }
+  ],
+  "harmony": "Abmaj7:2 | Dbadd9:2 | Ebmaj7:1 | Fm7:1 | Bbm7:2 | Eb7sus4:2 | Abmaj7:2 | Dbadd9:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:.5 6:.5 5:.5 3:.5 | 2:.75 1:.75 r:.5 | 8:.5 7:.5 6:.5 5:.5 | 3:1.5 r:.5"
+    },
+    {
+      "id": "m2",
+      "notes": "3:.5 4:.5 5:.5 6:.5 | 7:1 6:1 | 5:.5 4:.5 3:.5 2:.5 | 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "guitar",
+      "role": "chords",
+      "name": "Plucky Guitar",
+      "low": "Eb3",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--x --x- -x-- x-..",
+          "voicing": "close"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x-x- x-x- x-x- x-x-",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Drum Bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- ..5- R-.g ..a."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. 7..a"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Plucky Lead",
+      "low": "Eb4",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m2",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.25"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "x.X.x.X. x.X.x.X."
+            }
+          ],
+          "groove": "afrobeats",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Minimal Tech-House Groove",
+  "context": {
+    "swing": 0.12,
+    "style": ["tech-house", "house"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.7 }
+  ],
+  "harmony": "Cm7:4 | Abmaj7:4 | Fm7:4 | G7:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... .... .... | .... .... x... .... | .... .... .... .... | .... .... .... x...",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C2",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- x--- x--- x---",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck",
+      "low": "C3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "..x. .... x... .... | .... ..x. .... x...",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": ".... x... .... ..x. | x... .... ..x. ....",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "groove": "tech_house"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "groove": "tech_house",
+          "drums": [
+            { "voice": "shaker", "steps": "x.x.x.x.x.x.x.x." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "groove": "tech_house",
+          "drums": [
+            { "voice": "ride", "steps": "x...x...x...x..." }
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "groove": "tech_house",
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "open_hat", "steps": "..x...x...x...x." }
+          ]
+        }
+      ]
+    }
+  ]
+}

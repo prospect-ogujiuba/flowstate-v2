@@ -1,10 +1,11 @@
 // Plans every prompt in a prompts file and realizes each score with core's fs-realize.
 // Usage: tsx src/cli-plan.ts --prompts ../evals/prompts/phase0.json --out ../evals/out/v2 [--only id1,id2] [--concurrency 4]
-//          [--provider openai --model gpt-5.5] [--reasoning low] [--examples N] [--plan-only | --realize-only]
+//          [--provider openai --model gpt-5.5] [--reasoning low] [--examples N] [--tools] [--plan-only | --realize-only]
 // --provider/--model/--reasoning override the environment (see selectionFromEnv in backends.ts). The key comes from the
 // provider's environment variable. run.json records the backend, per-prompt results (with the streaming
 // timings: first token, first answer text, first playable part) and summary stats. <id>.replies.txt holds the raw replies.
 // --examples N shows up to N library clips per prompt as style examples (examples.ts); run.json records which.
+// --tools offers the capabilities' tools (library examples, clip analysis; pi backend only); run.json records the calls.
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -33,6 +34,7 @@ const realizer = path.join(repoRoot, "build", "core", process.platform === "win3
 const planOnly = process.argv.includes("--plan-only");
 const realizeOnly = process.argv.includes("--realize-only");
 const exampleCount = Number(arg("examples", "0"));
+const tools = process.argv.includes("--tools");
 const selection = selectionFromEnv({
   provider: process.argv.includes("--provider") ? arg("provider") : undefined,
   model: process.argv.includes("--model") ? arg("model") : undefined,
@@ -98,7 +100,7 @@ async function worker() {
         continue;
       }
       const examples = exampleCount > 0 ? pickExamples(loadCatalog(), p.controls, exampleCount) : [];
-      const result = await planScore({ ...p, examples }, backend!);
+      const result = await planScore({ ...p, examples, tools }, backend!);
       writeFileSync(`${base}.score.json`, JSON.stringify(result.score, null, 2));
       writeFileSync(`${base}.replies.txt`, result.replies.map((r, i) => `===== attempt ${i + 1} =====\n${r}\n`).join("\n"));
       if (!planOnly) realize(base, p.id);
@@ -106,7 +108,7 @@ async function worker() {
         id: p.id, ok: true, attempts: result.attempts, latencyMs: result.latencyMs,
         firstTokenMs: result.firstTokenMs, firstTextMs: result.firstTextMs, firstPartMs: result.firstPartMs,
         usage: result.usage, remainingErrors: result.validationErrors,
-        unplayable: result.unplayable, examples: examples.map((e) => e.entry.id),
+        unplayable: result.unplayable, examples: examples.map((e) => e.entry.id), toolCalls: result.toolCalls,
       });
       const firstPart = result.firstPartMs === null ? "" : `  firstPart=${(result.firstPartMs / 1000).toFixed(1)}s`;
       console.log(`ok   ${p.id}  ${(result.latencyMs / 1000).toFixed(1)}s${firstPart}  attempts=${result.attempts}  errors=${result.validationErrors.length}`);
@@ -118,7 +120,7 @@ async function worker() {
 }
 
 await Promise.all(Array.from({ length: concurrency }, worker));
-const backendInfo = backend && { name: backend.name, provider: backend.provider, model: backend.model, reasoning: selection.reasoning ?? "high", examples: exampleCount };
+const backendInfo = backend && { name: backend.name, provider: backend.provider, model: backend.model, reasoning: selection.reasoning ?? "high", examples: exampleCount, tools };
 const summaryStats = realizeOnly ? undefined : stats(summary);
 writeFileSync(path.join(outDir, realizeOnly ? "realize.json" : "run.json"),
   JSON.stringify({ backend: backendInfo, at: new Date().toISOString(), stats: summaryStats, results: summary }, null, 2));

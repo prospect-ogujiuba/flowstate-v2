@@ -1,0 +1,194 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble Cinematic Build",
+  "context": {
+    "tempo": 70,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": ["cinematic", "orchestral"]
+  },
+  "form": [
+    { "name": "Build", "startBar": 1, "bars": 8, "energy": 0.8 }
+  ],
+  "harmony": "Dm:4 | Bbmaj7:4 | Gm:4 | Asus4:2 A:2 | Dm:4 | Bbmaj7:4 | Gm:4 | A:4",
+  "motifs": [
+    {
+      "id": "noble_theme",
+      "notes": "1:1 3:1 5:1 6:1 | 8:2 5:1 4:1 | 3:2 2:1 3:1 | 5:4"
+    }
+  ],
+  "parts": [
+    {
+      "id": "strings",
+      "role": "pad",
+      "name": "String Orchestra",
+      "low": "C2",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Contrabass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R---R---R---R---"
+        }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "G2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "noble_theme",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Orchestral Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "cinematic_toms"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "cinematic_toms",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Grand Piano",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---x---x---x-x-",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "role": "pad",
+      "name": "String Orchestra",
+      "low": "C2",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Contrabass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R---R---R---R---"
+        }
+      ]
+    },
+    {
+      "id": "horn",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "G2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "motif": "noble_theme",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Orchestral Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "cinematic_toms"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "cinematic_toms",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

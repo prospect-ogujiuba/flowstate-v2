@@ -99,6 +99,32 @@ describe("backendFor", () => {
     assert.deepEqual(roles.filter((r) => r !== "system"), ["user", "assistant", "user"]);
   });
 
+  it("runs a conversation on the agent loop: each repair is a follow-up in one Pi transcript", async () => {
+    const { faux, models } = fauxSetup();
+    const transcripts: string[][] = [];
+    const record = (text: string) => (ctx: { messages: { role: string }[] }) => (transcripts.push(ctx.messages.map((m) => m.role)), fauxAssistantMessage(text));
+    faux.setResponses([record("bad"), record("better"), record("good")]);
+    const reviewed: string[] = [];
+    let started = 0;
+    await backendFor(managed(), models).converse!({ system: "s", sections: { pack: "<pack>p</pack>" } }, "plan", {
+      onReplyStart: () => void started++,
+      review: (r) => (reviewed.push(r.text), r.text === "good" ? null : `fix ${r.text}`),
+    });
+    assert.deepEqual(reviewed, ["bad", "better", "good"]);
+    assert.equal(started, 3);
+    assert.deepEqual(transcripts.at(-1), ["system", "user", "assistant", "user", "assistant", "user"]);
+  });
+
+  it("rejects with the review's error and stops the loop", async () => {
+    const { faux, models } = fauxSetup();
+    faux.setResponses([fauxAssistantMessage("x"), fauxAssistantMessage("never sent")]);
+    await assert.rejects(
+      backendFor(managed(), models).converse!({ system: "s" }, "plan", { review: () => { throw new Error("invalid after 3 attempts"); } }),
+      /invalid after 3 attempts/,
+    );
+    assert.equal(faux.getPendingResponseCount(), 1);
+  });
+
   it("surfaces refusals and provider errors as errors", async () => {
     const { faux, models } = fauxSetup();
     faux.setResponses([fauxAssistantMessage("", { stopReason: "error", errorMessage: "The model refused to complete the request" })]);
@@ -119,8 +145,9 @@ describe("dependencies", () => {
     const pi = Object.keys(lock.packages)
       .map((p) => p.slice(p.lastIndexOf("node_modules/") + "node_modules/".length))
       .filter((name) => name.startsWith("@earendil-works/"));
-    assert.ok(pi.includes("@earendil-works/pi-ai"));
-    // pi-ai and its telemetry contracts only; the coding agent, agent core and TUI stay out.
-    assert.deepEqual([...new Set(pi)].sort(), ["@earendil-works/pi-ai", "@earendil-works/pi-telemetry"]);
+    // pi-ai, its telemetry contracts and the agent loop only (P1-18). The coding agent, TUI, server, protocol,
+    // client, chord and the sqlite session backends stay out.
+    assert.deepEqual([...new Set(pi)].sort(), ["@earendil-works/pi-agent-core", "@earendil-works/pi-ai", "@earendil-works/pi-telemetry"]);
+    for (const name of pi) assert.doesNotMatch(name, /coding-agent|tui|server|protocol|client|chord|sqlite/);
   });
 });

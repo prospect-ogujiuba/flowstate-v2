@@ -1,0 +1,74 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Ab Afrobeats",
+  "context": { "swing": 0.05, "style": ["afrobeats"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.68 }
+  ],
+  "harmony": "Abmaj7:4 | Fm9:4 | Dbmaj7:4 | Eb13:2 Abmaj9:2",
+  "motifs": [
+    { "id": "m1", "notes": "1:.5 2:.25 3:.25 5:.5 6:.5 5:1" },
+    { "id": "m2", "notes": "3:.5 2:.25 1:.25 6:1 5:.5 3:.5" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Plucky Guitar",
+      "low": "Eb3",
+      "high": "Bb4",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "x..x..x. ..x..x.. x..x..x. ..x..x..", "voicing": "close", "articulation": "staccato" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Drum",
+      "low": "Eb1",
+      "high": "Ab2",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R... g... R... ...a" },
+        { "startBar": 3, "endBar": 4, "rhythm": "R... g... R... ...5" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Whistle Lead",
+      "low": "Ab4",
+      "high": "Eb6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4 },
+        { "startBar": 3, "endBar": 4, "motif": "m2", "transforms": ["transpose:+2"], "repeatEvery": 4 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "afrobeats",
+          "drums": [
+            { "voice": "shaker", "steps": "x.xx x.xx x.xx x.xx" },
+            { "voice": "tambourine", "steps": "..x. ..x. ..x. ..x." }
+          ]
+        }
+      ]
+    }
+  ]
+}

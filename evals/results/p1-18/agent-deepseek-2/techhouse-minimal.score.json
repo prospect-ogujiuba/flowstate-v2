@@ -1,0 +1,104 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Minimal Tech-House Groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.06,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Cm7:4 | Cm7:4 | Abmaj7:4 | Abmaj7:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "1:.5 1:.5 1:.5 1:.5 1:.5 1:.5 1:.5 1:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... .... ....",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- R--- ----",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck Synth",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tech House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "tech_house",
+          "fill": "half_time_break"
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,19 @@
 // Planner: natural-language request + musical context -> score IR, via a model backend.
-// Validation errors are fed back for repair. This is the seed of the v2 agent service.
+// Validation errors are fed back for repair: `review` runs after each reply (on the pi backend, as the agent
+// loop's finishTurn) and answers with a repair request or ends the conversation. Capabilities add prompt
+// sections and, when asked for, tools (capabilities/registry.ts).
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { GROOVES, Score, IR_ID, type LibraryClip, type Part } from "@flowstate/schema";
-import { examplesText } from "./examples.ts";
+import { Score, IR_ID, type LibraryClip, type Part } from "@flowstate/schema";
+import { clipAnalyzer } from "./analyzer.ts";
+import type { CapabilityContext } from "./capabilities/api.ts";
+import { examplesText } from "./capabilities/library-examples.ts";
+import { createLoadout } from "./capabilities/registry.ts";
+import { loadCatalog } from "./examples.ts";
 import { checkPart, partLabel, PartStream, type Head, type Role, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
-import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
+import { backendFor, converse, selectionFromEnv, type Backend, type Completion } from "./backends.ts";
 import { FlowstateError } from "./errors.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -45,8 +51,10 @@ export interface PlanRequest {
     style: string[];
     lanes: string[];
   };
-  /** Library clips to show as style examples (examples.ts); none by default. */
+  /** Library clips to show as style examples (capabilities/library-examples.ts); none by default. */
   examples?: LibraryClip[];
+  /** Offer the capabilities' tools (library examples, clip analysis). Off by default: a call costs a round trip. */
+  tools?: boolean;
 }
 
 export interface PlanResult {
@@ -65,6 +73,8 @@ export interface PlanResult {
   unplayable: Unplayable[];
   /** The model's raw reply per attempt, for diagnosis. */
   replies: string[];
+  /** Tools the model called, in order. */
+  toolCalls: string[];
 }
 
 export interface PlanOptions {
@@ -81,6 +91,8 @@ export interface PlanOptions {
   /** A part has started streaming. It may still turn out unplayable and come back in a repair. */
   onPartStarted?: (partId: string, role: Role) => void;
   signal?: AbortSignal;
+  /** What capabilities read: the library and core's analyzer. Default: the repo's catalog and build. */
+  host?: Pick<CapabilityContext, "catalog" | "analyzeClip">;
 }
 
 // No constrained decoding: the IR schema compiles to a grammar larger than the API accepts.
@@ -110,24 +122,10 @@ function userMessage(req: PlanRequest): string {
     `- length: ${c.bars} bars`,
     `- lanes to write: ${c.lanes.join(", ")} (one part per lane, with the lane name as its role)`,
     `- style tags: ${c.style.join(", ") || "none"}`,
-    ...grooveHint(c),
     "",
     `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
     ...(req.examples?.length ? ["", examplesText(req.examples)] : []),
   ].join("\n");
-}
-
-/**
- * Names the grooves that match the request's style tags and meter, so the model reaches for the idiomatic
- * pattern instead of writing its own (models tended to skip e.g. `trap` on a trap prompt).
- */
-function grooveHint(c: PlanRequest["controls"]): string[] {
-  const tags = c.style.map((t) => t.toLowerCase());
-  const matches = (Object.entries(GROOVES) as [string, (typeof GROOVES)[keyof typeof GROOVES]][])
-    .filter(([name, g]) => g.meter[0] === c.meterNumerator && g.meter[1] === c.meterDenominator)
-    .filter(([name, g]) => tags.some((t) => name === t.replace(/-/g, "_") || g.description.toLowerCase().startsWith(t.replace(/-/g, " "))))
-    .map(([name]) => name);
-  return c.lanes.includes("drums") && matches.length ? [`- drum grooves for these styles: ${matches.join(", ")} (see Grooves)`] : [];
 }
 
 /**
@@ -222,18 +220,34 @@ function mergeParts(draft: Draft, text: string, badParts: string[]): Draft {
   return { head: draft.head, parts };
 }
 
+let repoHost: Pick<CapabilityContext, "catalog" | "analyzeClip"> | undefined;
+
+/** The library catalog and core's analyzer from this checkout; either is null when it isn't there. */
+export function defaultHost(): Pick<CapabilityContext, "catalog" | "analyzeClip"> {
+  if (repoHost) return repoHost;
+  let catalog: CapabilityContext["catalog"] = null;
+  try {
+    catalog = loadCatalog();
+  } catch {
+    // No catalog: the library capabilities answer that it isn't available.
+  }
+  return (repoHost = { catalog, analyzeClip: catalog ? clipAnalyzer(catalog) : null });
+}
+
 export async function planScore(req: PlanRequest, backend: Backend = defaultBackend(), options: PlanOptions = {}): Promise<PlanResult> {
   const started = Date.now();
   const usage = { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0 };
-  const turns: Turn[] = [{ role: "user", text: userMessage(req) }];
   let first: Pick<Completion, "firstTokenMs" | "firstTextMs"> = { firstTokenMs: null, firstTextMs: null };
   let firstPartMs: number | null = null;
   let unplayable: Unplayable[] = [];
   const replies: string[] = [];
+  const toolCalls: string[] = [];
   let draft: Draft | null = null;
   // What the next reply is: the whole score, or only the listed parts (with the draft's head).
   let next: { scope: "score" } | { scope: "parts"; badParts: string[] } = { scope: "score" };
-  let lastErrors: string[] = [];
+  let attempt = 0;
+  let stream: PartStream | null = null;
+  let result: PlanResult | undefined;
 
   const reportPart = (part: Part) => {
     const at = Date.now() - started;
@@ -241,59 +255,78 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     options.onPart?.(part, at);
   };
 
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    // A parts-only repair keeps the head, so its parts stream too. A full rewrite may change the head, so it
-    // streams only while nothing has been reported yet: earlier parts could clash with the new head.
-    const headCheck = (head: Head) => headMismatches({ ...head, parts: [] }, req);
+  // A parts-only repair keeps the head, so its parts stream too. A full rewrite may change the head, so it
+  // streams only while nothing has been reported yet: earlier parts could clash with the new head.
+  const openStream = (): PartStream | null => {
     const { onHead, onPartStarted } = options;
-    const stream = next.scope === "parts" && draft
-      ? new PartStream(reportPart, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) })
-      : firstPartMs === null
-        ? new PartStream(reportPart, {
-          normalizeHead: (raw) => completeHead(raw, req), headCheck,
-          ...(onHead ? { onHead } : {}), ...(onPartStarted ? { onPartStarted } : {}),
-        })
-        : null;
-    const completion = await backend.complete(SYSTEM_PROMPT, turns, {
-      ...(stream ? { onText: (d: string) => stream.push(d) } : {}),
-      ...(options.signal ? { signal: options.signal } : {}),
+    if (next.scope === "parts" && draft)
+      return new PartStream(reportPart, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) });
+    if (firstPartMs !== null) return null;
+    return new PartStream(reportPart, {
+      normalizeHead: (raw) => completeHead(raw, req), headCheck: (head: Head) => headMismatches({ ...head, parts: [] }, req),
+      ...(onHead ? { onHead } : {}), ...(onPartStarted ? { onPartStarted } : {}),
     });
+  };
+
+  // After each reply: the next request (a repair), or null when the plan is done.
+  const reviewReply = (completion: Completion): string | null => {
+    attempt++;
     const { text } = completion;
     replies.push(text);
+    toolCalls.push(...(completion.toolCalls ?? []));
     if (attempt === 1) {
       first = { firstTokenMs: completion.firstTokenMs, firstTextMs: completion.firstTextMs };
-      unplayable = stream!.unplayable;
+      unplayable = stream?.unplayable ?? [];
     }
     usage.inputTokens += completion.inputTokens;
     usage.outputTokens += completion.outputTokens;
     usage.cacheReadTokens += completion.cacheReadTokens;
 
-    let result: Review;
+    let checked: Review;
     try {
       draft = next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req);
-      result = review(draft, req);
+      checked = review(draft, req);
     } catch (err) {
       // Unreadable reply: ask again for the same thing.
-      lastErrors = [`response was not valid JSON: ${String(err)}`];
-      if (attempt === MAX_ATTEMPTS) throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${lastErrors.join("; ")}`);
-      turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, lastErrors) });
-      continue;
+      const errors = [`response was not valid JSON: ${String(err)}`];
+      if (attempt === MAX_ATTEMPTS) throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${errors.join("; ")}`);
+      return repairRequest(next, errors);
     }
 
-    const done = (score: Score, errors: string[]): PlanResult => ({
-      score, attempts: attempt, validationErrors: errors, usage, latencyMs: Date.now() - started,
-      ...first, firstPartMs, unplayable, replies,
-    });
-    if (result.ok) return done(result.score, []);
-    lastErrors = result.errors;
+    const done = (score: Score, errors: string[]) => {
+      result = {
+        score, attempts: attempt, validationErrors: errors, usage, latencyMs: Date.now() - started,
+        ...first, firstPartMs, unplayable, replies, toolCalls,
+      };
+      return null;
+    };
+    if (checked.ok) return done(checked.score, []);
     if (attempt === MAX_ATTEMPTS) {
-      if (result.score) return done(result.score, result.errors);
-      throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${result.errors.slice(0, 5).join("; ")}`);
+      if (checked.score) return done(checked.score, checked.errors);
+      throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${checked.errors.slice(0, 5).join("; ")}`);
     }
-    next = result.scope === "parts" ? { scope: "parts", badParts: result.badParts } : { scope: "score" };
-    turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, result.errors) });
-  }
-  throw new Error("unreachable");
+    next = checked.scope === "parts" ? { scope: "parts", badParts: checked.badParts } : { scope: "score" };
+    return repairRequest(next, checked.errors);
+  };
+
+  const loadout = await createLoadout({
+    prompt: req.prompt, ctx: { request: req.controls, ...(options.host ?? defaultHost()) },
+    // Tools run in the agent loop; a backend without one (claude-code) is offered none.
+    tools: (req.tools ?? false) && backend.converse !== undefined,
+  });
+  await converse(
+    backend,
+    { system: SYSTEM_PROMPT, sections: loadout.sections, tools: loadout.tools, beforeToolCall: loadout.beforeToolCall },
+    userMessage(req),
+    {
+      onReplyStart: () => void (stream = openStream()),
+      onText: (d) => stream?.push(d),
+      review: reviewReply,
+      ...(options.signal ? { signal: options.signal } : {}),
+    },
+  );
+  if (!result) throw new Error("planner conversation ended without a result");
+  return result;
 }
 
 function repairRequest(next: { scope: "score" } | { scope: "parts"; badParts: string[] }, errors: string[]): string {

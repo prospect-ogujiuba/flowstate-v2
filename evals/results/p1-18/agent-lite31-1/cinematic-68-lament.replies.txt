@@ -1,0 +1,156 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Haunting Celtic Lament",
+  "context": {
+    "tempo": 96,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.05,
+    "style": [
+      "cinematic",
+      "folk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    },
+    {
+      "name": "Main",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Am:6 | Fmaj7:6 | C:6 | G:6 | Am:6 | F:6 | C:6 | E:6",
+  "motifs": [
+    {
+      "id": "lament",
+      "notes": "1:1 3:1 5:1 6:1 5:1.5 3:.5 | 1:2 5:1 4:1 3:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "drone",
+      "role": "chords",
+      "name": "String Pad",
+      "low": "A2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 50,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x---------x-",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Cello Drone",
+      "low": "A1",
+      "high": "A2",
+      "grid": 2,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----R-----"
+        }
+      ]
+    },
+    {
+      "id": "flute",
+      "role": "melody",
+      "name": "Celtic Flute",
+      "low": "A4",
+      "high": "A6",
+      "grid": 2,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lament",
+          "transforms": [
+            "octave:+1"
+          ],
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "percussion",
+      "role": "drums",
+      "name": "Frame Drum",
+      "low": "C1",
+      "high": "C2",
+      "grid": 3,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x.x.x.x.x.x."
+            },
+            {
+              "voice": "rim",
+              "steps": ".x..x..x..x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "percussion",
+      "role": "drums",
+      "name": "Frame Drum",
+      "low": "C1",
+      "high": "C2",
+      "grid": 3,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x..x..x..x.."
+            },
+            {
+              "voice": "rim",
+              "steps": "..x...x...x...x..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

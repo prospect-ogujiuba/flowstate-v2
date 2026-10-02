@@ -1,0 +1,105 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tight Funk Groove",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "mixolydian",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "funk"
+    ]
+  },
+  "form": [
+    {
+      "name": "Groove",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "E7:2 A7:2 | E7:2 B7:2 | E7:2 A7:2 | E7:2 B7:2",
+  "motifs": [
+    {
+      "id": "riff",
+      "notes": "1:1! 3:1! 5:.5 6:.5 8:.5 7:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Clavinet",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. .x.. ..x. x...",
+          "voicing": "shell"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.x. .R.g x.R. .a.R"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Guitar",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "riff",
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Funk Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "groove": "funk"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "groove": "funk",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

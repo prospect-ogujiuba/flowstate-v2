@@ -1,0 +1,150 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Minimal tech-house groove",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Cm7:4 | Abmaj7:2 Fm7:2 | Cm7:4 | Abmaj7:2 Fm7:2",
+  "motifs": [
+    {
+      "id": "stab",
+      "notes": "3:.25 r:.25 5:.25 r:.25 b7:.25 r:.25 5:.25 r:.75 | 3:.25 r:.25 5:.25 r:.25 1+:1 b7:.5 5:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes stab",
+      "low": "C4",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "....x.......x...",
+          "voicing": "close"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "........x...x...",
+          "voicing": "close"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "....x.......x...",
+          "voicing": "close"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "....x.......x.x.",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C2",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--x..x. R--x..x. R--x..x. R--x..x.",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck",
+      "low": "G4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "motif": "stab",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "motif": "stab",
+          "transforms": [
+            "transpose:+2",
+            "invert",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tech-house kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x.x.x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.-.x.-.x.-.x.-."
+            }
+          ],
+          "groove": "tech_house",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

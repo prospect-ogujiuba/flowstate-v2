@@ -1,0 +1,101 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Dorian Jazz Waltz",
+  "context": {
+    "swing": 0.33,
+    "style": ["jazz", "waltz"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 8, "energy": 0.6 }
+  ],
+  "harmony": "Gm9:3 | C13:3 | Fmaj7:3 | Bb13:3 | Ebmaj7:3 | A7#9:3 | Dm7:3 | G7#9:3",
+  "motifs": [
+    {
+      "id": "main",
+      "notes": "1:1.5 b3:.5 4:1 | 3:1.5 2:.5 1:1 | b7:1.5 6:.5 5:1 | 4:1.5 3:.5 2:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "G3",
+      "high": "F5",
+      "grid": 3,
+      "velocity": 64,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x.. x.. x.. | x.. x.. x.. | x.. x.. x.. | x.. x.. x.. | x.. x.. x.. | x.. x.. x.. | x.. x.. x.. | x.. x.. x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "G1",
+      "high": "D3",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.. 5.. 3.. | R.. 7.. 3.. | R.. 5.. 3.. | R.. 7.. 3.. | R.. 5.. 3.. | R.. 7.. 3.. | R.. 5.. 3.. | R.. 7.. 3.."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Alto Sax",
+      "low": "G4",
+      "high": "D6",
+      "grid": 3,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "main",
+          "repeatEvery": 0
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "main",
+          "transforms": ["transpose:+2", "displace:+0.5"],
+          "repeatEvery": 0
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Jazz Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "jazz_waltz",
+          "fill": "crash_end",
+          "drums": [
+            {
+              "voice": "ride",
+              "steps": "X.x X.x X.x | X.x X.x X.x | X.x X.x X.x | X.x X.x X.x | X.x X.x X.x | X.x X.x X.x | X.x X.x X.x | X.x X.x X.x"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

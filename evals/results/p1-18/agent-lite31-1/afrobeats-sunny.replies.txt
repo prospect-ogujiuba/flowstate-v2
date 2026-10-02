@@ -1,0 +1,106 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Ab Afrobeats",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "Main",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:2 Fm9:2 | Dbmaj9:2 Eb13:2 | Abmaj9:2 Fm9:2 | Dbmaj9:2 Eb13:2",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "1:0.5 3:0.5 5:0.5 6:0.5 | 8:1 5:0.5 3:0.5 | 1:0.5 3:0.5 6:0.5 5:0.5 | 3:0.5 1:0.5 5-:0.5 1:0.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Pluck Guitar",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x.x.x... x.x.x.x.",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Drum",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.gR...x ..R.x.x."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Bright Synth",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afro Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "afrobeats",
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "xxxx xxxx xxxx xxxx"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

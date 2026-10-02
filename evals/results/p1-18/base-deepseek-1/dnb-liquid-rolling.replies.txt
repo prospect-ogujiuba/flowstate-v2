@@ -1,0 +1,98 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Liquid DnB in F minor",
+  "context": {
+    "swing": 0,
+    "style": ["drum-and-bass", "liquid"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.62 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.82 }
+  ],
+  "harmony": "Fm9:4 | Db69:4 | Eb13:4 | Bbm7:4 | Fm9:4 | Db69:4 | Eb13:4 | C7#9:4",
+  "motifs": [
+    { "id": "m1", "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5" },
+    { "id": "m2", "notes": "1:1 3:.5 5:.5 6:1 5:.5 4:.5 3:2" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush Pad",
+      "low": "F3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--------------- x-------x------- x-------x------- x--------------- x--------------- x-------x------- x---x---x---x--- x---------------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a. R------- ..5. R--- ..a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "F4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m2",
+          "repeatEvery": 4,
+          "transforms": ["transpose:+2", "displace:+0.5"]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "DnB Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "dnb",
+          "fill": "snare_roll",
+          "drums": [
+            { "voice": "ride", "steps": "x-x-x-x- x-x-x-x-" },
+            { "voice": "open_hat", "steps": "..x...x. ..x...x." }
+          ]
+        }
+      ]
+    }
+  ]
+}

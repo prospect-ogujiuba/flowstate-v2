@@ -31,6 +31,15 @@ The model call goes through a backend from `cloud/src/backends.ts`. Callers pick
 - `pi` (production): any provider in `@earendil-works/pi-ai`, such as Anthropic, OpenAI, Google, OpenRouter or DeepSeek, with high reasoning effort by default. The credential is either **managed**, meaning the service's own key from the provider's usual environment variable (`ANTHROPIC_API_KEY`, `OPENROUTER_API_KEY`, ...), or **byok**, the user's key passed with that request. An empty BYOK key is an error rather than a silent fall back to the managed key. Refusals, safety stops and truncated output are errors.
 - `claude-code` (dev and evals only): headless Claude Code on the developer's own subscription. It takes no user key.
 
+A plan is one conversation (`converse` in `backends.ts`). On `pi` it runs on a `pi-agent-core` `Agent` (P1-18): the transcript is Pi messages, and the planner's check runs as the loop's `finishTurn`, which either ends the run or sends a repair request as a follow-up. The score is still the reply's JSON text, not tool-call arguments, so parts stream out as they land. `claude-code` is driven one reply at a time.
+
+Capabilities (`cloud/src/capabilities/`) take the shape of Pi extensions: a factory calls `registerTool` and `on("before_agent_start" | "tool_call")`, and handlers get a context holding the request, the library catalog and core's analyzer. They are imported statically in `registry.ts`. None of them imports Node built-ins, and there is no `exec`. Today there are three:
+- style packs: prompt sections after the IR spec, so the fixed prompt stays a cacheable prefix
+- `library_examples`: a read-only tool over `library/catalog`
+- `analyze_clip`: core's `fs-analyze` on a library clip named by catalog id; the host resolves the file and runs the binary without a shell
+
+Tools are offered only when a request asks (`--tools` on the CLI), because a call costs a model round trip. Every call is checked against `ALLOWED_TOOLS` in `beforeToolCall`, and a request may make at most 4.
+
 `planScore(request, backend)` takes the backend per call. The CLI and evals build one from the environment (`selectionFromEnv`): `FLOWSTATE_PLANNER_BACKEND` (`claude-code`, the default, or `pi`; the old `api` means `pi` with Anthropic), `FLOWSTATE_PLANNER_PROVIDER`, `FLOWSTATE_PLANNER_MODEL` and `FLOWSTATE_PLANNER_REASONING`. Constrained decoding is not used: the IR schema exceeds the providers' grammar-size limits.
 
 Planned: stream parts as they complete, IR patch mode for edits, plan → realize → measure → revise for full sections, and per-route model and effort tuning against the latency target.
