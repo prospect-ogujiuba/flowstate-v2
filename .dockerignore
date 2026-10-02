@@ -1,0 +1,15 @@
+# The agent service image (deploy/Containerfile) needs only core, the schema, cloud, the IR spec and the
+# library catalog. Podman and Docker both read this file.
+*
+!package.json
+!package-lock.json
+!core/
+!schema/
+!cloud/
+!docs/ir-spec.md
+!library/catalog/
+!library/package.json
+!evals/package.json
+!ui/package.json
+**/node_modules
+**/*.test.ts

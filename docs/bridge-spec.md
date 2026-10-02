@@ -173,12 +173,14 @@ Variations: the plugin sends one `PlanRequest` per variation, concurrently.
 
 The client aborts the HTTP request to cancel, and the service stops the provider stream (P1-4).
 
+Access (P1-13): the hosted service needs a tester token in `Authorization: Bearer <token>` on `/v1/plan` and `/v1/edit`. A missing or unknown token answers HTTP 401 with an `unauthorized` error event. Each tester has limits: streams open at once (default 4, so a 4-variation generate fits) and requests started in the last hour (default 120). Over a limit, the answer is HTTP 429 with `Retry-After` and a `rate_limited` error event. `/v1/health` needs no token. A local service started without a tokens file (`npm run serve`) is open, and it only listens on a loopback address.
+
 `provider: null` uses the managed default. A provider choice without a key must be one the service offers with managed access; anything else needs a key. A BYOK key travels in the `x-flowstate-provider-key` header, never in a body, so request bodies and logs stay free of secrets.
 
 ### The plugin's client
 
 `plugin/src/ServiceClient.cpp` sends the requests, and the controller (`plugin/src/session/Controller.cpp`) turns the events into the session:
-- The service URL is `FLOWSTATE_SERVICE_URL`, else `http://127.0.0.1:8787` (`npm run serve`). The hosted service comes with P1-13.
+- The service URL and tester token come from `FLOWSTATE_SERVICE_URL` and `FLOWSTATE_SERVICE_TOKEN`, else from `service.json` (`{"url": ..., "token": ...}`) in the user's Flowstate folder (`%APPDATA%\Flowstate` on Windows, `~/Library/Application Support/Flowstate` on macOS), else `http://127.0.0.1:8787` with no token (`npm run serve`). The tester installers write `service.json`. A DAW started from the Dock or Start menu doesn't see shell variables, so the file is the tester path. The token goes only to an `https` URL or a loopback address, and never into the session, DAW state or logs. P1-12 moves it to the keychain with the BYOK keys.
 - `generate` builds the `PlanRequest` from the effective context, the session's provider and the locked parts (`keep`). It replies with the `requestId` and emits `generationStarted`. One generation runs at a time: another `generate` answers `busy`. `capture` answers `unavailable` until the planner takes a `reference`.
 - Each variation is one stream. Its node (kind `initial`, under the node that was current when the request started) is made when its first part lands. It becomes current only if the user is still on that node, so the first variation to land plays and later ones join the lineage without taking over.
 - Every `partDone` updates the node's score and emits `partReady`. The audition re-renders and switches on the next bar line. `done` replaces the streamed score with the authoritative one.
@@ -212,6 +214,8 @@ Each is additive, so it can arrive as new commands, events or nullable keys.
 | `invalid_score` | Still invalid after repair passes |
 | `provider`, `network` | Upstream failures |
 | `internal` | A bug on our side |
+| `unauthorized` | The hosted service needs a valid tester token (HTTP 401) |
+| `rate_limited` | The tester is over a limit: streams at once or requests an hour (HTTP 429, with `Retry-After`) |
 
 ## Differences from the v2 proposal
 

@@ -4,12 +4,15 @@
 //   POST /v1/plan    PlanRequest -> SSE stream of ServiceEvents: header, partStarted/partDone per part, done or error
 //   POST /v1/edit    EditRequest -> SSE; a skeleton in Phase 1 (validates, then answers `unavailable`)
 // A BYOK key arrives in the x-flowstate-provider-key header. It never goes into a log line or an error message.
+// Hosted (P1-13), plan and edit need a tester token (`Authorization: Bearer`) and keep to per-tester limits (access.ts).
 import { randomUUID } from "node:crypto";
+import { readFileSync } from "node:fs";
 import http from "node:http";
 import {
   BRIDGE_ID, EditRequest, Health, PlanRequest, ServiceEvent,
   type ErrorCode, type ProviderChoice, type Score,
 } from "@flowstate/schema";
+import { Access, DEFAULT_LIMITS, parseTokens, RateLimited } from "./access.ts";
 import { backendFor, selectionFromEnv, type Backend, type ModelSelection } from "./backends.ts";
 import { errorCode, FlowstateError } from "./errors.ts";
 import type { Role } from "./part-stream.ts";
@@ -29,6 +32,8 @@ export interface ServiceConfig {
   /** One line per finished request. Never receives keys, headers or prompt text. */
   log: (line: Record<string, unknown>) => void;
   backendFor: (sel: ModelSelection) => Backend;
+  /** Tester tokens and limits. Without it the service is open, which `serve` allows on loopback only. */
+  access?: Access | null;
 }
 
 export const KEY_HEADER = "x-flowstate-provider-key";
@@ -44,6 +49,8 @@ const flag = (value: string | undefined, fallback: boolean) =>
  * (selectionFromEnv: FLOWSTATE_PLANNER_BACKEND, _PROVIDER, _MODEL, _REASONING); keys from the provider's usual
  * variable. FLOWSTATE_SERVICE_MANAGED_MODELS lists more "provider/model" pairs, comma-separated.
  * FLOWSTATE_FEATURE_BYOK=0 turns BYOK off. FLOWSTATE_BUILD_ID names the version.
+ * FLOWSTATE_SERVICE_TOKENS_FILE turns tester tokens on (`<tester> <sha256 hex>` per line, see access.ts), with
+ * FLOWSTATE_SERVICE_CONCURRENT and FLOWSTATE_SERVICE_PER_HOUR as the per-tester limits.
  */
 export function configFromEnv(): ServiceConfig {
   const managed = selectionFromEnv();
@@ -56,7 +63,24 @@ export function configFromEnv(): ServiceConfig {
     keepaliveMs: 15_000,
     log: (line) => console.log(JSON.stringify(line)),
     backendFor: (sel) => backendFor(sel),
+    access: accessFromEnv(),
   };
+}
+
+function accessFromEnv(): Access | null {
+  const file = process.env.FLOWSTATE_SERVICE_TOKENS_FILE;
+  if (!file) return null;
+  const testers = parseTokens(readFileSync(file, "utf8"));
+  if (testers.size === 0) throw new Error(`${file} lists no tester tokens`);
+  const limit = (name: string, fallback: number) => {
+    const value = Number(process.env[name] ?? fallback);
+    if (!Number.isInteger(value) || value < 1) throw new Error(`${name} must be a positive whole number`);
+    return value;
+  };
+  return new Access(testers, {
+    concurrent: limit("FLOWSTATE_SERVICE_CONCURRENT", DEFAULT_LIMITS.concurrent),
+    perHour: limit("FLOWSTATE_SERVICE_PER_HOUR", DEFAULT_LIMITS.perHour),
+  });
 }
 
 export function createService(config: ServiceConfig): http.Server {
@@ -119,7 +143,7 @@ export function selectionFor(config: ServiceConfig, provider: ProviderChoice | n
 }
 
 // HTTP status for an error before the stream starts. Once it has started, errors arrive as `error` events.
-const STATUS: Partial<Record<ErrorCode, number>> = { bad_request: 400, unavailable: 503, internal: 500 };
+const STATUS: Partial<Record<ErrorCode, number>> = { bad_request: 400, unauthorized: 401, rate_limited: 429, unavailable: 503, internal: 500 };
 
 async function stream(config: ServiceConfig, url: string, req: http.IncomingMessage, res: http.ServerResponse) {
   const started = Date.now();
@@ -136,12 +160,14 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   });
 
   let keepalive: NodeJS.Timeout | undefined;
-  const open = (status: number) => {
+  let release = () => {};
+  const open = (status: number, extra: Record<string, string> = {}) => {
     res.writeHead(status, {
       "content-type": "text/event-stream; charset=utf-8",
       "cache-control": "no-cache",
       "x-accel-buffering": "no",
       "x-flowstate-request-id": requestId,
+      ...extra,
     });
     res.flushHeaders();
     if (status === 200) keepalive = setInterval(() => res.write(": keepalive\n\n"), config.keepaliveMs);
@@ -152,13 +178,14 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   };
   const finish = (status: string, extra: Record<string, unknown> = {}) => {
     clearInterval(keepalive);
+    release();
     if (!res.destroyed) res.end();
     config.log({ ...line, status, ms: Date.now() - started, ...extra });
   };
   const fail = (err: unknown) => {
     const code = abort.signal.aborted ? "cancelled" : errorCode(err);
     const message = code === "internal" ? "internal error" : redact(err instanceof Error ? err.message : String(err));
-    if (!res.headersSent) open(STATUS[code] ?? 502);
+    if (!res.headersSent) open(STATUS[code] ?? 502, err instanceof RateLimited ? { "retry-after": String(err.retryAfterS) } : {});
     send({ type: "error", error: { code, message } });
     finish(code === "cancelled" ? "cancelled" : "error", { code, ...(code === "internal" ? { detail: redact(String(err)).slice(0, 300) } : {}) });
   };
@@ -167,6 +194,11 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   let planned: PlannerRequest;
   let backend: Backend;
   try {
+    if (config.access) {
+      const tester = config.access.authenticate(req.headers.authorization);
+      line.tester = tester;
+      release = config.access.admit(tester);
+    }
     const raw = await readBody(req);
     if (url === "/v1/edit") {
       const edit = EditRequest.safeParse(raw);

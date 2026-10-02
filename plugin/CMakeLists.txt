@@ -68,6 +68,7 @@ add_library(flowstate_session STATIC
     src/session/Library.cpp
     src/session/PluginState.cpp
     src/session/Session.cpp
+    src/session/ServiceSettings.cpp
     src/session/Sse.cpp)
 target_include_directories(flowstate_session PUBLIC src)
 target_link_libraries(flowstate_session PUBLIC flowstate_core flowstate::bridge)
@@ -91,6 +92,12 @@ if(FLOWSTATE_PLUGIN_BUILD_TESTS)
         FLOWSTATE_LIBRARY_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../library/catalog")
     flowstate_plugin_warnings(flowstate_session_tests)
     add_test(NAME session COMMAND flowstate_session_tests)
+
+    add_executable(flowstate_service_settings_tests tests/service_settings_test.cpp)
+    target_link_libraries(flowstate_service_settings_tests PRIVATE flowstate_session)
+    target_include_directories(flowstate_service_settings_tests SYSTEM PRIVATE ${doctest_SOURCE_DIR})
+    flowstate_plugin_warnings(flowstate_service_settings_tests)
+    add_test(NAME service_settings COMMAND flowstate_service_settings_tests)
 
     add_executable(flowstate_scheduler_tests tests/scheduler_test.cpp)
     target_link_libraries(flowstate_scheduler_tests PRIVATE flowstate_session)

@@ -768,7 +768,9 @@
         "invalid_score",
         "provider",
         "network",
-        "internal"
+        "internal",
+        "unauthorized",
+        "rate_limited"
       ]
     },
     "ErrorInfo": {

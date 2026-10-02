@@ -339,7 +339,21 @@ Acceptance:
 - A test proves no key is in saved plugin state.
 - The flag hides the BYOK UI with no code change.
 
-### P1-13 Hosting the agent service — `todo` (planned: Hetzner)
+### P1-13 Hosting the agent service — `doing` (built 2026-10-02; waits on the owner's server and the first deploy)
+Done so far (2026-10-02):
+- **Access** (`cloud/src/access.ts`): per-tester tokens in `Authorization: Bearer`, on `/v1/plan` and `/v1/edit`; `/v1/health` stays open.
+  - The server keeps only SHA-256 hashes, in a tokens file. `npm run -w cloud token -- <tester>` mints one.
+  - Per-tester limits: 4 streams at once and 120 requests an hour, by default.
+  - New bridge error codes `unauthorized` (401) and `rate_limited` (429, with `Retry-After`).
+  - The tester's name goes in the log line; the token never does.
+  - `serve` refuses a non-loopback host without tokens.
+- **Plugin:** the URL and token come from `FLOWSTATE_SERVICE_URL`/`FLOWSTATE_SERVICE_TOKEN`, else the user's `service.json` (`docs/bridge-spec.md`), else the local service.
+  - The token is sent only over https or to loopback.
+  - The installers install a `service.json` (`pack:mac --service --token`, `install.ps1 -Service -Token`).
+- **Image and server:** `deploy/`: the image (with `fs-analyze`), a devarch-shaped Compose file with Caddy for TLS, and `deploy.sh`, which rolls back if the new build isn't healthy. `deploy/README.md` is the runbook.
+- **CI:** `.github/workflows/service.yml` builds and smoke-tests the image on every change. `npm run deploy:service` is the one command: it pushes to GHCR, deploys over SSH and checks that the public health endpoint reports the new build ID.
+
+Left: the owner's server setup and CI secrets (`deploy/README.md`), the first deploy, and a tester build talking to it. The P1-18 session store comes with P1-18 step 4.
 Plan (2026-10-01): a Hetzner server running the service in Podman, set up with the owner's devarch setup. The service is light and I/O-bound: it holds each streamed plan open for 1–2 minutes while the model writes, with no GPU or database. Caddy can terminate TLS. If a proxy with an idle timeout (e.g. Cloudflare's, about 100 s) sits in front, P1-4's stream needs keepalive events.
 Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits). With P1-18: the session store (SQLite or Postgres) per tester, with one writer per session (Pi's format has no locking of its own).
 Acceptance: the tester build talks to the hosted service; a deploy is one command from CI.

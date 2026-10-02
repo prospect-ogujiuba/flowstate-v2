@@ -23,6 +23,7 @@
     "ci:full": "bash scripts/ci-full.sh",
     "fetch:build": "bash scripts/fetch-build.sh",
     "pack:mac": "bash scripts/pack-macos-testers.sh",
+    "deploy:service": "bash scripts/deploy-service.sh",
     "library": "npm run -w library build"
   },
   "devDependencies": {

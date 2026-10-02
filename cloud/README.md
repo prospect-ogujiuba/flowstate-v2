@@ -72,6 +72,8 @@ npm run serve
 | `FLOWSTATE_SERVICE_MANAGED_MODELS` | More `provider/model` pairs offered on the service's keys, comma-separated (e.g. `openrouter/google/gemini-3.1-flash-lite`). A request for any other model needs the user's key. |
 | `FLOWSTATE_FEATURE_BYOK` | `0` turns bring-your-own-key off (the `byok` release flag; default on) |
 | `FLOWSTATE_BUILD_ID` | The version the health endpoint reports (default `dev`) |
+| `FLOWSTATE_SERVICE_TOKENS_FILE` | Tester tokens (see "Hosting"). Without it the service is open, and it refuses any host but loopback. |
+| `FLOWSTATE_SERVICE_CONCURRENT`, `FLOWSTATE_SERVICE_PER_HOUR` | Per-tester limits with tokens on (default 4 streams at once, 120 requests an hour) |
 
 Routes (contract: `docs/bridge-spec.md`, "Plugin ↔ agent service"):
 - `GET /v1/health`
@@ -85,7 +87,16 @@ node -e 'console.log(JSON.stringify(require("./schema/fixtures/bridge/PlanReques
 curl -N -X POST localhost:8787/v1/plan --data @/tmp/req.json
 ```
 
-Each finished request logs one JSON line to stdout: request id, route, provider and model, managed or BYOK, status, error code, timings and token count. It never holds keys, headers or prompt text, and error messages have the user's key replaced by `[key]`.
+Each finished request logs one JSON line to stdout: request id, route, tester (with tokens on), provider and model, managed or BYOK, status, error code, timings and token count. It never holds keys, headers or prompt text, and error messages have the user's key replaced by `[key]`.
+
+## Hosting
+
+The hosted service (P1-13) is the same server in a container behind Caddy. `deploy/README.md` covers the image, the server setup and the CI settings. `npm run deploy:service` deploys main.
+
+A hosted service needs a tester token on `/v1/plan` and `/v1/edit` (`Authorization: Bearer fst_...`). `/v1/health` stays open.
+- `npm run -w cloud token -- <tester>` mints a token. It prints the token once, and the line for the tokens file: `<tester> <sha256 of the token>`.
+- The service stores only the hashes.
+- Without a token the answer is `401` and `unauthorized`. Over a limit it is `429` with `Retry-After` and `rate_limited`.
 
 ## Then measure
 

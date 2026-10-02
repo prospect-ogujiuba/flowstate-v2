@@ -1,0 +1,42 @@
+# The agent service (cloud/) as a container: npm run serve on 0.0.0.0:8787, with core's fs-analyze for the
+# MIDI analysis capability. Build from the repo root:
+#   podman build -f deploy/Containerfile --build-arg FLOWSTATE_BUILD_ID=$(git rev-parse --short HEAD) -t flowstate-service .
+# deploy/README.md covers running it.
+
+FROM node:22.23.3-bookworm-slim AS core
+RUN apt-get update && apt-get install -y --no-install-recommends cmake ninja-build g++ ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /src
+COPY core core
+RUN cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release -DFLOWSTATE_CORE_BUILD_TESTS=OFF \
+    && cmake --build build/core --target fs-analyze
+
+FROM node:22.23.3-bookworm-slim AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY schema/package.json schema/
+COPY cloud/package.json cloud/
+COPY evals/package.json evals/
+COPY ui/package.json ui/
+COPY library/package.json library/
+# The service's workspaces, plus the root's tsx, which runs the TypeScript.
+RUN npm ci --workspace schema --workspace cloud --include-workspace-root --no-audit --no-fund
+
+FROM node:22.23.3-bookworm-slim
+WORKDIR /app
+COPY --from=deps /app/node_modules node_modules
+COPY package.json ./
+COPY schema schema
+COPY cloud cloud
+COPY docs/ir-spec.md docs/ir-spec.md
+COPY library/catalog library/catalog
+COPY --from=core /src/build/core/fs-analyze build/core/fs-analyze
+ARG FLOWSTATE_BUILD_ID=dev
+ENV NODE_ENV=production \
+    FLOWSTATE_BUILD_ID=$FLOWSTATE_BUILD_ID \
+    FLOWSTATE_SERVICE_HOST=0.0.0.0 \
+    FLOWSTATE_SERVICE_PORT=8787 \
+    FLOWSTATE_PLANNER_BACKEND=pi
+USER node
+EXPOSE 8787
+CMD ["node", "--import", "tsx", "cloud/src/serve.ts"]

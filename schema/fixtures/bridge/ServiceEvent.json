@@ -159,6 +159,13 @@
         "code": "refused",
         "message": "The provider declined this request."
       }
+    },
+    {
+      "type": "error",
+      "error": {
+        "code": "rate_limited",
+        "message": "4 generations at once is the limit; wait for one to finish"
+      }
     }
   ],
   "invalid": [
@@ -170,6 +177,17 @@
         "role": "kazoo"
       },
       "path": "role"
+    },
+    {
+      "why": "unknown error code",
+      "value": {
+        "type": "error",
+        "error": {
+          "code": "forbidden",
+          "message": "not a bridge error code"
+        }
+      },
+      "path": "error.code"
     }
   ]
 }

@@ -5,7 +5,8 @@
   "scripts": {
     "plan": "tsx src/cli-plan.ts",
     "serve": "tsx src/serve.ts",
-    "test": "tsx --test src/*.test.ts"
+    "test": "tsx --test src/*.test.ts",
+    "token": "tsx src/cli-token.ts"
   },
   "dependencies": {
     "@earendil-works/pi-agent-core": "^1.0.0",
