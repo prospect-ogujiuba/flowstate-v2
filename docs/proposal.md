@@ -155,6 +155,8 @@ flowchart LR
 | Persistence | Session saved in plugin state (IR plus seeds), optional cloud sync by project ID | Settings XML plus Pi JSONL sessions | Ideas survive editor close and project reload |
 
 > **Update (2026-09-28):** Provider access goes through `@earendil-works/pi-ai`, Pi's standalone multi-provider package, for both managed and BYOK access (P1-1). It is used as a provider layer only: none of Pi's coding agent or runtime.
+
+> **Update (2026-10-02):** The agent framework row changes: the service's loop moves onto `@earendil-works/pi-agent-core` (the agent loop, tools, hooks and events, no runtime), with capabilities written in the shape of Pi's `ExtensionAPI` and threads kept in Pi's session format in the service's own store (roadmap P1-18). The coding agent stays out, for the reasons below: its read, bash, edit and write tools are always built and it has no sandbox.
 >
 > **Update (2026-09-29):** The bridge schema is written in Zod (like the IR), which emits the JSON Schema and, through a generator, the C++ types. See `bridge-spec.md`.
 
@@ -303,6 +305,8 @@ v2 moves all model access into a Flowstate cloud service and ships a few-MB sign
 - The agent loop is a few hundred lines of TypeScript against the provider SDKs, not a framework. Tools are typed schemas. Server-side tools (theory lookups, style references) run in the cloud. Plugin-side tools (read the DAW context, write a clip, audition) stream down to the plugin, which runs them and posts the results back.
 - **Offline and degraded mode:** the music engine runs locally, so editing, re-voicing, transposing, humanizing and re-rolling a compiled plan with a new seed all work without network. Only new planning needs the cloud.
 - **Pi: retire it as the runtime, keep what was learned.** Flowstate never modified Pi. It shipped the whole coding-agent CLI (131 MB of `node_modules`, TUI, esbuild, AWS/Google SDKs), then spent many slices neutralizing it: fake workspace, `HOME` / `PATH` overrides, a replacement `SYSTEM.md`. The MIDI pipeline bypasses Pi's agent loop entirely and only deep-imports its provider adapters. What carries forward is Pi's event taxonomy and its provider abstraction as a design reference.
+
+> **Update (2026-10-02):** "Keep what was learned" now means building on Pi's own agent loop (`pi-agent-core`) and its extension and session shapes, inside the cloud service, without the coding-agent runtime (roadmap P1-18).
 
 > **Update (2026-09-28):** "Provider SDKs" became the `@earendil-works/pi-ai` provider package (see the technology decisions update). Hosting of the service is decided in weeks 7–8 (P1-13); until then everything runs against a local service.
 

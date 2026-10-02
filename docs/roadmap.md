@@ -94,6 +94,10 @@ Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core
 - **Hosting:** decided later. Everything is built against a local agent service until the tester build is ready (weeks 7–8).
 - **Backends:** dev runs on the `claude-code` backend and BYOK.
 
+**Decisions (2026-10-02):**
+- **Pi, natively and narrowly:** the service's agent loop moves onto `pi-agent-core`, capabilities take the shape of Pi extensions, and conversations are stored as Pi sessions in the service's own store (P1-18). The coding agent stays out: research on 2026-10-02 found its shell and file tools are always built, it has no sandbox, and it is 431 MB installed. `pi-agent-core` 1.0 dropped its own session layer, so the store is ours, in Pi's session format.
+- **Layout:** the Studio sits inside v1's shell: v1's header (logo, nav pills, Track pill, connection meter, settings and profile), its textured background, card panels, prompt box and footer. The main area is the single-screen Studio. This replaces "look and feel, not v1's tab layout" (2026-09-29). Reference screenshots of v1: `docs/design/v1/`.
+
 ### Ordering
 
 Two tracks run in parallel for weeks 3–5, then join.
@@ -102,7 +106,7 @@ Two tracks run in parallel for weeks 3–5, then join.
 | --- | --- | --- |
 | 3–4 | P1-1 providers, P1-2 latency, P1-3 quality round 2 | P1-5 bridge schema, P1-6 plugin shell, P1-8 design system |
 | 5–6 | P1-4 agent service, P1-10 instant sketch | P1-7 audition and MIDI out, P1-9 Studio screen, P1-11 session and lineage |
-| 7–8 | P1-13 hosting | P1-12 keys and settings, P1-14 installers, P1-15 CI release checks, P1-16 tester hand-off |
+| 7–8 | P1-18 agent loop on Pi, P1-13 hosting | P1-12 keys and settings, P1-14 installers, P1-15 CI release checks, P1-16 tester hand-off |
 
 P1-17 (the built-in MIDI library) ran alongside both tracks; the Studio (P1-9) shows it.
 
@@ -119,6 +123,8 @@ Acceptance:
 - Provider, model and credential are selected per request (managed or BYOK).
 - The Phase 0 prompt set plans valid scores on at least 3 providers, with results recorded per provider (validity rate, latency p50/p95, metrics).
 - No Pi coding-agent packages are in the dependency tree.
+
+**Update 2026-10-02:** `pi-agent-core` joins `pi-ai` (P1-18). The lockfile test then allows exactly those two plus `pi-telemetry`, and still rejects the coding agent, TUI, server, protocol, client, chord and the sqlite session backends.
 
 ### P1-2 Latency: from 62 s to the targets — `done` (2026-10-02: targets met on DeepSeek Flash, thinking off; per-route models and prompt caching move to P1-4)
 Done so far (2026-10-01):
@@ -246,6 +252,12 @@ Acceptance:
 - Accessibility: every control is labelled and keyboard-reachable.
 
 ### P1-9 Studio screen — `todo`
+Inside v1's shell (decision 2026-10-02; screenshots in `docs/design/v1/`, v1's layout code in `../flowstate/Source/ui/`: `HeaderBar`, `FooterBar`, `MainContentArea`, `MidiSequencerPreview`):
+- v1's header: logo, nav pills (e.g. Home, Studio, Library), the Track pill, connection meter, settings and profile. Textured background, card panels, footer.
+- Pieces of v1 that map onto the Studio: Compose's lanes become the part lanes (all visible at once, not one tab per lane); Context's key, scale, tempo, meter and bars become the context strip; Chat's prompt box becomes the prompt bar; the Chats drawer becomes the thread drawer; the prompt library becomes the suggestion chips; Settings and AI Connection become the settings sheet. Home's action cards can be the empty state.
+- Leave out what v1 retired or never built (Create panels, the old account login).
+
+Studio contents:
 - Context strip (key, mode, tempo, meter, bars; host values locked, with override).
 - Part lanes (mini piano roll, play/solo, lock, vary, re-roll, density, per-part drag handle).
 - Prompt bar with suggestion chips.
@@ -266,6 +278,8 @@ Acceptance: under 100 ms for 8 bars × 4 parts; varied across seeds.
 - Stored in plugin state, bounded in size.
 Acceptance: survives editor close, project save and reopen, and 50 generations in one session.
 
+Note (2026-10-02): the plugin stays the authority for the lineage. The service's Pi sessions (P1-18) are per-idea conversation threads the service reads for context, keyed by the plugin's ids; they never replace this.
+
 ### P1-12 Keys and settings — `todo`
 BYOK keys are stored in the OS keychain (macOS Keychain, Windows Credential Manager) and never in DAW state or logs. Behind the `byok` release flag.
 Acceptance:
@@ -274,8 +288,21 @@ Acceptance:
 
 ### P1-13 Hosting the agent service — `todo` (planned: Hetzner)
 Plan (2026-10-01): a Hetzner server running the service in Podman, set up with the owner's devarch setup. The service is light and I/O-bound: it holds each streamed plan open for 1–2 minutes while the model writes, with no GPU or database. Caddy can terminate TLS. If a proxy with an idle timeout (e.g. Cloudflare's, about 100 s) sits in front, P1-4's stream needs keepalive events.
-Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits).
+Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits). With P1-18: the session store (SQLite or Postgres) per tester, with one writer per session (Pi's format has no locking of its own).
 Acceptance: the tester build talks to the hosted service; a deploy is one command from CI.
+
+### P1-18 Agent loop on Pi — `todo` (decided 2026-10-02)
+Build the service natively on Pi without its coding agent. Research (2026-10-02, source read for pi-ai, pi-agent-core, pi-coding-agent, pi-server, chord, pi-protocol and the sqlite backends): extensions and real sessions exist only in `pi-coding-agent`, which always builds read, bash, edit and write tools and has no sandbox; `pi-agent-core` 1.0 is the loop, tools, hooks and events, and removed 0.99's session layer; pi-server and pi-protocol are experimental local transports that don't fit the plugin's HTTPS and SSE.
+Steps:
+1. Bump `@earendil-works/pi-ai` to `^1.0.0` (`^0.99.2` doesn't admit 1.0; no type changes between them).
+2. Run the `pi` backend's turns through a `pi-agent-core` `Agent`. Validation and repair become a `finishTurn` that continues with the errors as a follow-up; the transcript becomes Pi `AgentMessage`s. The score stays streamed JSON text, not tool-call arguments, so part streaming (P1-2) keeps working. `claude-code` stays behind `Backend`.
+3. `cloud/src/capabilities/`: an extension registry in the shape of Pi's `ExtensionAPI` (`registerTool`, `on(event)`, prompt sections), with static imports only: nothing loaded from disk or npm at runtime. First capabilities: style packs as prompt sections, library examples as a read-only tool over `library/catalog`, and MIDI analysis through `core`'s `fs-analyze`. Every tool call is checked against the allowlist in `beforeToolCall`; no shell, filesystem or MCP tool exists in the process.
+4. Threads per (tester, project, idea), stored as Pi session-format entries in the service's store, the plugin's node ids in `custom` entries. Needs bridge fields (e.g. `ideaId`, `nodeId`): "chat history sent with edits" in `docs/bridge-spec.md`. Lands with edits or with P1-13's store.
+5. Revisit the coding agent only if it gains a public way to leave out its built-in tools, and then only in an isolated process.
+Acceptance:
+- Every P1-4 contract test still passes, and an eval run on the Phase 0 set shows no validity or latency regression against `evals/results/p1-2/round7`.
+- The lockfile test allows only `pi-ai`, `pi-agent-core` and `pi-telemetry` from Pi.
+- A test proves a capability can't reach the shell or filesystem, and a tool outside the allowlist is refused.
 
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.

@@ -74,6 +74,10 @@ The UI is dark only, like v1.
 - **Left out:** `plugin-settings.svg` has fixed greys (`sliders` replaces it); `message-tail.svg` belonged to the chat bubbles; `logo.svg` is a 140 KB PNG in an SVG wrapper, so `logo.png` (24 KB) is used instead.
 - **Drawn for v2** in the same 16 px style: `lock`, `lock-open`, `play`, `stop`, `grip`, `branch`, `restore`, `sparkle`, `plus` and `eye`.
 
+## v1 reference screenshots
+
+`docs/design/v1/` holds v1's screens, captured from the v1 Standalone on 2026-10-02 (build `806d8a4`, Linux): `home`, `chat`, `chat-sessions` (the Chats drawer), `chat-prompt-library`, `context`, `compose`, `create`, `settings` and `ai-connection`. The Studio (P1-9) sits inside this shell; the roadmap's P1-9 says which v1 piece maps onto which Studio part. v1 couldn't generate without its old account login, so there is no screenshot of a filled lane; its preview is `MidiSequencerPreview` in `../flowstate/Source/ui/`.
+
 ## Side by side with v1
 
 `npm run -w ui side-by-side` writes `side-by-side-chat.png` and `side-by-side-settings.png` here. Each pairs v1's design screenshot with the v2 shell, which rebuilds v1's chat screen from the new components at v1's reference size (`gallery.html?only=shell`, 900×650).
