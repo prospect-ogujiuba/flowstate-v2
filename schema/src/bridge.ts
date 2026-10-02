@@ -195,6 +195,15 @@ export const Settings = def("Settings", z.object({
   buildId: z.string(),
 }));
 
+export const Feature = def("Feature", z.enum([
+  "edit", "vary", "addPart", "reroll", "tweak", "editNotes", "capture", "lock", "density", "apiKey",
+]));
+
+export const FeatureGap = def("FeatureGap", z.object({
+  feature: Feature,
+  reason: z.string().describe("Why it can't run in this build, for the UI to show"),
+}));
+
 export const GenerationStage = def("GenerationStage", z.enum(["planning", "streaming"]));
 
 export const Generation = def("Generation", z.object({
@@ -316,6 +325,7 @@ export const Session = def("Session", z.object({
   settings: Settings,
   generations: z.array(Generation).describe("Running requests"),
   preview: z.string().nullable().describe("Catalog entry being previewed in time with the host; null = none"),
+  unavailable: z.array(FeatureGap).describe("What this build answers `unavailable` (or ignores), so the UI can disable it and say why"),
 }));
 
 export const SavedSession = def("SavedSession", z.object({

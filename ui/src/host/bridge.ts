@@ -4,6 +4,7 @@
 
 import type { Command, PluginEvent, Reply } from "@flowstate/schema";
 import { getNativeFunction } from "juce-interop";
+import type { Bridge } from "./types.ts";
 
 declare global {
   interface Window {
@@ -22,3 +23,5 @@ export async function send(command: Command): Promise<Reply> {
 export function onEvent(fn: (event: PluginEvent) => void): void {
   window.__JUCE__?.backend.addEventListener("bridge", (json) => fn(JSON.parse(json) as PluginEvent));
 }
+
+export const pluginBridge: Bridge = { send, onEvent };

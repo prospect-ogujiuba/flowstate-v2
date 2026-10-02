@@ -1646,6 +1646,40 @@
       ],
       "additionalProperties": false
     },
+    "Feature": {
+      "$id": "#/$defs/Feature",
+      "type": "string",
+      "enum": [
+        "edit",
+        "vary",
+        "addPart",
+        "reroll",
+        "tweak",
+        "editNotes",
+        "capture",
+        "lock",
+        "density",
+        "apiKey"
+      ]
+    },
+    "FeatureGap": {
+      "$id": "#/$defs/FeatureGap",
+      "type": "object",
+      "properties": {
+        "feature": {
+          "$ref": "#/$defs/Feature"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why it can't run in this build, for the UI to show"
+        }
+      },
+      "required": [
+        "feature",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
     "GenerationStage": {
       "$id": "#/$defs/GenerationStage",
       "type": "string",
@@ -2282,6 +2316,13 @@
             "string",
             "null"
           ]
+        },
+        "unavailable": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FeatureGap"
+          },
+          "description": "What this build answers `unavailable` (or ignores), so the UI can disable it and say why"
         }
       },
       "required": [
@@ -2301,7 +2342,8 @@
         "midiOut",
         "settings",
         "generations",
-        "preview"
+        "preview",
+        "unavailable"
       ],
       "additionalProperties": false
     },

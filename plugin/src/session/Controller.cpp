@@ -80,6 +80,38 @@ Controller::AuditionSource Controller::audition() {
     return out;
 }
 
+const std::vector<fb::FeatureGap>& Controller::featureGaps() {
+    using F = fb::Feature;
+    static const std::vector<fb::FeatureGap> gaps{
+        {F::Edit, "Changing an idea by prompt isn't built in the agent service yet. Generate a new idea instead."},
+        {F::Vary, "Vary needs the agent service to write part variations, which isn't built yet."},
+        {F::AddPart, "Adding a part needs the agent service to plan single parts, which isn't built yet."},
+        {F::Reroll, "Re-roll needs per-part seeds in core (P1-11)."},
+        {F::Tweak, "Local transforms aren't in core yet."},
+        {F::EditNotes, "Note edits aren't in core yet."},
+        {F::Capture, "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet."},
+        {F::Lock, "Generating around locked parts isn't built in the planner yet, so a locked part makes Generate fail."},
+        {F::Density, "The density knob doesn't change playback until core has the transform."},
+        {F::ApiKey, "Key storage isn't available in this build yet (P1-12)."},
+    };
+    return gaps;
+}
+
+fb::Session Controller::view() const {
+    auto s = session_.view(platform_.host(), platform_.captureBars());
+    s.unavailable = featureGaps();
+    return s;
+}
+
+namespace {
+const std::string& gapReason(fb::Feature feature) {
+    for (const auto& g : Controller::featureGaps())
+        if (g.feature == feature) return g.reason;
+    static const std::string none;
+    return none;
+}
+}  // namespace
+
 fb::Reply Controller::ok(bool changed) {
     fb::Reply r;
     r.ok = true;
@@ -100,9 +132,7 @@ fb::Reply Controller::fail(fb::ErrorCode code, std::string message) {
 fb::Reply Controller::handle(const fb::Command& command) {
     const auto unknownNode = [](const std::string& id) { return fail(fb::ErrorCode::UnknownNode, "No node " + id + "."); };
     const auto unknownPart = [](const std::string& id) { return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea."); };
-    const auto needsService = [](const char* what) {
-        return fail(fb::ErrorCode::Unavailable, std::string(what) + " needs the agent service, which isn't connected yet.");
-    };
+    const auto unavailable = [](fb::Feature feature) { return fail(fb::ErrorCode::Unavailable, gapReason(feature)); };
 
     // Resolves the node a drag or export is about: an explicit id, or the current node.
     const auto clipFor = [this](const std::optional<std::string>& nodeId, fb::Reply& error,
@@ -129,18 +159,12 @@ fb::Reply Controller::handle(const fb::Command& command) {
                 return r;
             },
             [&](const fb::Generate& c) { return generate(c); },
-            [&](const fb::Edit&) { return needsService("Editing by prompt"); },
-            [&](const fb::Vary&) { return needsService("Vary"); },
-            [&](const fb::AddPart&) { return needsService("Adding a part"); },
-            [&](const fb::Reroll&) {
-                return fail(fb::ErrorCode::Unavailable, "Re-roll needs per-part seeds in core (P1-11).");
-            },
-            [&](const fb::Tweak&) {
-                return fail(fb::ErrorCode::Unavailable, "Local transforms aren't in core yet.");
-            },
-            [&](const fb::EditNotes&) {
-                return fail(fb::ErrorCode::Unavailable, "Note edits aren't in core yet.");
-            },
+            [&](const fb::Edit&) { return unavailable(fb::Feature::Edit); },
+            [&](const fb::Vary&) { return unavailable(fb::Feature::Vary); },
+            [&](const fb::AddPart&) { return unavailable(fb::Feature::AddPart); },
+            [&](const fb::Reroll&) { return unavailable(fb::Feature::Reroll); },
+            [&](const fb::Tweak&) { return unavailable(fb::Feature::Tweak); },
+            [&](const fb::EditNotes&) { return unavailable(fb::Feature::EditNotes); },
             [&](const fb::RemovePart& c) {
                 const auto* cur = session_.current();
                 if (cur == nullptr) return unknownPart(c.partId);
@@ -192,7 +216,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
             },
             [&](const fb::SetApiKey&) {
                 // The key is dropped here: nothing stores or logs it until the keychain lands (P1-12).
-                return fail(fb::ErrorCode::Unavailable, "Key storage isn't available in this build yet.");
+                return unavailable(fb::Feature::ApiKey);
             },
             [&](const fb::StartDrag& c) {
                 fb::Reply error;
@@ -319,9 +343,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
 
 fb::Reply Controller::generate(const fb::Generate& c) {
     if (!requests_.empty()) return fail(fb::ErrorCode::Busy, "A generation is already running.");
-    if (c.capture)
-        return fail(fb::ErrorCode::Unavailable,
-                    "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet.");
+    if (c.capture) return fail(fb::ErrorCode::Unavailable, gapReason(fb::Feature::Capture));
 
     const auto host = platform_.host();
     const auto ctx = session_.effectiveContext(host);

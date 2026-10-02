@@ -80,7 +80,11 @@ public:
     // JSON in, JSON out: parse failures become a `bad_request` reply with the ParseError path.
     std::string handleJson(const std::string& commandJson);
 
-    fb::Session view() const { return session_.view(platform_.host(), platform_.captureBars()); }
+    // The session for the UI, with what this build can't do yet (Session.unavailable).
+    fb::Session view() const;
+    // Features this build answers `unavailable` (or accepts without effect), with the reason the
+    // UI shows. The same reasons come back when such a command is sent anyway.
+    static const std::vector<fb::FeatureGap>& featureGaps();
 
     // What this instance plays, and how: a catalog entry while one previews, else the audition
     // node (null = the current node), filtered by the loop range, mute and solo, and the MIDI-out

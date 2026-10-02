@@ -16,7 +16,7 @@ Design source: `docs/proposal.md`, the v2 proposal as a living document. The oth
 | `evals/` | Prompt sets, v1 baseline, metrics, blind A/B packs; committed evidence in `evals/results/` | TS |
 | `library/` | Built-in MIDI library: packs (`packs/<id>`: manifest, credit note, source MIDI), the generated `catalog/` the plugin bundles, and the import and validation tooling. Spec: `docs/library.md`. | TS + MIDI |
 | `plugin/` | JUCE 9 plugin: instrument and MIDI FX variants, processor-owned session, bridge host, host sync, capture. `plugin/spike/` is the frozen Phase 0 spike. See `plugin/README.md`. | C++ |
-| `ui/` | WebView UI bundled into the plugin (`ui/dist`, from `npm run build:ui`). The design system and component gallery (P1-8, spec in `docs/design/`), plus a placeholder page that proves the bridge until the Studio (P1-9) replaces it. | TS (Preact, Vite) |
+| `ui/` | WebView UI bundled into the plugin (`ui/dist`, from `npm run build:ui`). The Studio screen (P1-9, `src/studio/`), the design system and component gallery (P1-8, spec in `docs/design/`), and a mock plugin (`src/host/mock.ts`) so the Studio runs in a browser and in Playwright. | TS (Preact, Vite) |
 | `docs/` | product, architecture, ir-spec, bridge-spec, threading, roadmap, design, spikes | Markdown |
 
 v1 lives in the sibling repo `../flowstate` (frozen at tag `v1-final`). Use it as reference only: its visual identity and `assets/` for the design system (P1-8), and its compilers for the baseline. Don't port its code wholesale, and don't edit it.

@@ -186,7 +186,17 @@
             ]
           }
         ],
-        "preview": null
+        "preview": null,
+        "unavailable": [
+          {
+            "feature": "vary",
+            "reason": "Vary isn't built in the agent service yet."
+          },
+          {
+            "feature": "density",
+            "reason": "The density knob doesn't change playback until core has the transform."
+          }
+        ]
       },
       "catalog": null
     },
@@ -259,7 +269,8 @@
           "buildId": "dev-0001"
         },
         "generations": [],
-        "preview": null
+        "preview": null,
+        "unavailable": []
       },
       "catalog": null
     },
@@ -523,7 +534,8 @@
               ]
             }
           ],
-          "preview": null
+          "preview": null,
+          "unavailable": []
         },
         "catalog": null
       },
@@ -712,7 +724,8 @@
               ]
             }
           ],
-          "preview": null
+          "preview": null,
+          "unavailable": []
         },
         "catalog": null
       },
@@ -895,7 +908,8 @@
               ]
             }
           ],
-          "preview": null
+          "preview": null,
+          "unavailable": []
         },
         "catalog": null
       },
@@ -1068,11 +1082,212 @@
               ]
             }
           ],
-          "preview": null
+          "preview": null,
+          "unavailable": []
         },
         "catalog": null
       },
       "path": "session.thread[0].role"
+    },
+    {
+      "why": "unknown feature in unavailable",
+      "value": {
+        "ok": true,
+        "error": null,
+        "requestId": null,
+        "session": {
+          "protocol": "flowstate.bridge.v0",
+          "instanceId": "inst-3f2a",
+          "override": {
+            "tonic": null,
+            "mode": null,
+            "tempo": null,
+            "meterNumerator": null,
+            "meterDenominator": null,
+            "bars": null,
+            "swing": null
+          },
+          "context": {
+            "tonic": "D",
+            "mode": "dorian",
+            "keyFrom": "override",
+            "tempo": 92,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "timeFrom": "host",
+            "bars": 2
+          },
+          "captureBars": 8,
+          "nodes": [
+            {
+              "id": "n1",
+              "parentId": null,
+              "kind": "initial",
+              "prompt": "lofi dorian keys",
+              "partIds": null,
+              "title": "Late bus",
+              "createdAtMs": 1789999990000,
+              "rating": null,
+              "entryId": null
+            },
+            {
+              "id": "n2",
+              "parentId": "n1",
+              "kind": "vary",
+              "prompt": null,
+              "partIds": [
+                "keys"
+              ],
+              "title": "Late bus",
+              "createdAtMs": 1790000000000,
+              "rating": "up",
+              "entryId": null
+            }
+          ],
+          "currentNodeId": "n2",
+          "canUndo": true,
+          "canRedo": false,
+          "thread": [
+            {
+              "id": "t1",
+              "role": "user",
+              "text": "lofi dorian keys",
+              "nodeId": null,
+              "createdAtMs": 1789999989000
+            },
+            {
+              "id": "t2",
+              "role": "assistant",
+              "text": "Rootless Dm9 to G13, lazy swing.",
+              "nodeId": "n1",
+              "createdAtMs": 1789999990000
+            },
+            {
+              "id": "t3",
+              "role": "user",
+              "text": "how do I sidechain this?",
+              "nodeId": null,
+              "createdAtMs": 1789999995000
+            },
+            {
+              "id": "t4",
+              "role": "assistant",
+              "text": "Put a compressor on the keys and key it from the kick.",
+              "nodeId": null,
+              "createdAtMs": 1789999996000
+            }
+          ],
+          "parts": [
+            {
+              "partId": "keys",
+              "muted": false,
+              "solo": true,
+              "locked": false,
+              "density": 0.75
+            }
+          ],
+          "clip": {
+            "ppq": 960,
+            "bars": 2,
+            "ticksPerBar": 3840,
+            "parts": [
+              {
+                "partId": "keys",
+                "role": "chords",
+                "name": "Keys",
+                "channel": 1,
+                "notes": [
+                  {
+                    "tick": 0,
+                    "dur": 900,
+                    "pitch": 65,
+                    "vel": 84
+                  },
+                  {
+                    "tick": 0,
+                    "dur": 900,
+                    "pitch": 69,
+                    "vel": 80
+                  }
+                ],
+                "voices": null
+              },
+              {
+                "partId": "beat",
+                "role": "drums",
+                "name": "Drums",
+                "channel": 10,
+                "notes": [
+                  {
+                    "tick": 0,
+                    "dur": 120,
+                    "pitch": 36,
+                    "vel": 110
+                  }
+                ],
+                "voices": [
+                  {
+                    "voice": "kick",
+                    "pitch": 36,
+                    "sublane": "kick"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "pitch": 42,
+                    "sublane": "hats"
+                  }
+                ]
+              }
+            ]
+          },
+          "audition": {
+            "nodeId": "n1",
+            "loop": {
+              "startBar": 1,
+              "endBar": 2
+            },
+            "freeRun": true
+          },
+          "midiOut": {
+            "role": null,
+            "channel": null
+          },
+          "settings": {
+            "provider": {
+              "provider": "anthropic",
+              "model": "claude-opus-5"
+            },
+            "byokEnabled": true,
+            "hasKey": true,
+            "previewSynth": false,
+            "usage": {
+              "used": 12,
+              "limit": null,
+              "resetsAtMs": null
+            },
+            "buildId": "dev-0001"
+          },
+          "generations": [
+            {
+              "requestId": "r7",
+              "kind": "edit",
+              "stage": "streaming",
+              "partsDone": [
+                "keys"
+              ]
+            }
+          ],
+          "preview": null,
+          "unavailable": [
+            {
+              "feature": "teleport",
+              "reason": "Not a feature."
+            }
+          ]
+        },
+        "catalog": null
+      },
+      "path": "session.unavailable[0].feature"
     },
     {
       "why": "energy above 1",

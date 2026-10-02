@@ -98,6 +98,7 @@ function Buttons() {
         <Specimen label="small"><Button size="sm" icon="export">Export</Button></Specimen>
         <Specimen label="icon"><Button variant="ghost" icon="sliders" label="Settings" /></Specimen>
         <Specimen label="icon, small"><Button variant="ghost" size="sm" icon="copy" label="Copy" /></Specimen>
+        <Specimen label="unavailable (says why)"><Button variant="ghost" icon="sparkle" label="Vary" unavailable="Vary isn't built in this version yet." /></Specimen>
         <Specimen label="toggle (aria-pressed)">
           <Button variant="ghost" icon="lock" label="Lock" pressed={pressed} onClick={() => setPressed(!pressed)} />
         </Specimen>
@@ -178,6 +179,7 @@ function Chips() {
         <SuggestionChip>Busier drums in bar 4</SuggestionChip>
         <SuggestionChip>Darker chords</SuggestionChip>
         <SuggestionChip>Add a counter-melody</SuggestionChip>
+        <SuggestionChip unavailable="Changing an idea by prompt isn't built yet.">Half-time drums</SuggestionChip>
       </div>
       <div class="g-row">
         <Badge>Track 1</Badge><Badge tone="muted">Sketch</Badge><Badge tone="ok">Valid</Badge><Badge tone="warn">Offline</Badge><Badge tone="danger">Refused</Badge>
@@ -212,13 +214,13 @@ function Meters() {
   );
 }
 
-const laneDefaults: LaneState = { playing: false, solo: false, locked: false, density: 0.5 };
+const laneDefaults: LaneState = { muted: false, solo: false, locked: false, density: 0.5 };
 
 function useLanes() {
   const [lanes, setLanes] = useState<Record<string, LaneState>>({
     chords: { ...laneDefaults },
     bass: { ...laneDefaults, solo: true },
-    melody: { ...laneDefaults, playing: true },
+    melody: { ...laneDefaults, muted: true },
     drums: { ...laneDefaults, locked: true, density: 0.7 },
   });
   const [subs, setSubs] = useState(fx.drumSublanes);
@@ -240,7 +242,8 @@ function Lanes({ playhead }: { playhead: number | null }) {
   return (
     <div class="g-stack">
       <Lane name="Chords" role="Pad voicing, whole notes" colour="chords" notes={fx.chords} playhead={playhead} {...lane("chords")} />
-      <Lane name="Bass" role="Root and fifth, syncopated" colour="bass" notes={fx.bass} playhead={playhead} {...lane("bass")} />
+      <Lane name="Bass" role="Root and fifth, syncopated · re-roll and density not in this build" colour="bass" notes={fx.bass} playhead={playhead} {...lane("bass")}
+        gaps={{ reroll: "Re-roll needs per-part seeds in core (P1-11).", density: "The density knob doesn't change playback until core has the transform." }} />
       <Lane name="Melody" role="Lead, stepwise" colour="melody" notes={fx.melody} playhead={playhead} {...lane("melody")} />
       <Lane name="Drums" role="Boom bap, by sublane" colour="drums" notes={fx.drums} playhead={playhead} sublanes={subs} onSublaneMute={onSublaneMute} {...lane("drums")} />
     </div>

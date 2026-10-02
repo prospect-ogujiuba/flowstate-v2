@@ -19,6 +19,8 @@
   --surface: #1f1f22;                                   /* popup menu */
   --surface-2: #21262c;                                 /* assistant bubble, cards */
   --surface-3: #2a2f36;
+  --panel: rgb(10 12 20 / 0.37);                        /* v1 Home view panel (10,12,20,95) */
+  --card: rgb(32 36 54 / 0.81);                         /* v1 Home quick-start cards (32,36,54,206) */
   --control: #222222;                                   /* nav and secondary buttons */
   --control-hover: #2e2e2e;
   --control-press: #484f66;                             /* v1 pressed header button (72,82,118) */
@@ -78,6 +80,7 @@
   --part-melody: #ffe800;
   --part-drums: #ff7480;
   --part-extra: #56ff64;
+  --roll-bar: rgb(255 232 0 / 0.33);                    /* v1 sequencer bar lines (255,232,0,84) */
 
   /* Type: v1 drew with JUCE's default system sans */
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

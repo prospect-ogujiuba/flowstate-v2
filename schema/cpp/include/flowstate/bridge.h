@@ -218,6 +218,7 @@ enum class TimeSource { Host, Override, Score, Default };
 enum class NodeKind { Sketch, Initial, Regenerate, Vary, Edit, Tweak, Touch, Library };
 enum class Rating { Up, Down };
 enum class ThreadRole { User, Assistant };
+enum class Feature { Edit, Vary, AddPart, Reroll, Tweak, EditNotes, Capture, Lock, Density, ApiKey };
 enum class GenerationStage { Planning, Streaming };
 enum class CatalogOrigin { Library, Ai };
 enum class Groove { Straight, Swing, Triplet };
@@ -385,6 +386,11 @@ struct Settings {
     std::string buildId;
 };
 
+struct FeatureGap {
+    Feature feature = Feature::Edit;
+    std::string reason;
+};
+
 struct Generation {
     std::string requestId;
     NodeKind kind = NodeKind::Sketch;
@@ -492,6 +498,7 @@ struct Session {
     Settings settings;
     std::vector<Generation> generations;
     std::optional<std::string> preview;
+    std::vector<FeatureGap> unavailable;
 };
 
 struct SavedSession {
@@ -775,6 +782,10 @@ const char* toString(ThreadRole value);
 std::optional<ThreadRole> parseThreadRole(std::string_view text);
 void to_json(json& j, ThreadRole value);
 void from_json(const json& j, ThreadRole& value);
+const char* toString(Feature value);
+std::optional<Feature> parseFeature(std::string_view text);
+void to_json(json& j, Feature value);
+void from_json(const json& j, Feature& value);
 const char* toString(GenerationStage value);
 std::optional<GenerationStage> parseGenerationStage(std::string_view text);
 void to_json(json& j, GenerationStage value);
@@ -839,6 +850,8 @@ void to_json(json& j, const Usage& value);
 void from_json(const json& j, Usage& value);
 void to_json(json& j, const Settings& value);
 void from_json(const json& j, Settings& value);
+void to_json(json& j, const FeatureGap& value);
+void from_json(const json& j, FeatureGap& value);
 void to_json(json& j, const Generation& value);
 void from_json(const json& j, Generation& value);
 void to_json(json& j, const ClipCredit& value);
@@ -1358,6 +1371,45 @@ inline void from_json(const json& j, ThreadRole& value) {
     if (!j.is_string()) throw ParseError("", "expected a string");
     const auto parsed = parseThreadRole(j.get_ref<const std::string&>());
     if (!parsed) throw ParseError("", "unknown threadRole '" + j.get<std::string>() + "'");
+    value = *parsed;
+}
+
+inline const char* toString(Feature value) {
+    switch (value) {
+        case Feature::Edit: return "edit";
+        case Feature::Vary: return "vary";
+        case Feature::AddPart: return "addPart";
+        case Feature::Reroll: return "reroll";
+        case Feature::Tweak: return "tweak";
+        case Feature::EditNotes: return "editNotes";
+        case Feature::Capture: return "capture";
+        case Feature::Lock: return "lock";
+        case Feature::Density: return "density";
+        case Feature::ApiKey: return "apiKey";
+    }
+    return "?";
+}
+
+inline std::optional<Feature> parseFeature(std::string_view text) {
+    if (text == "edit") return Feature::Edit;
+    if (text == "vary") return Feature::Vary;
+    if (text == "addPart") return Feature::AddPart;
+    if (text == "reroll") return Feature::Reroll;
+    if (text == "tweak") return Feature::Tweak;
+    if (text == "editNotes") return Feature::EditNotes;
+    if (text == "capture") return Feature::Capture;
+    if (text == "lock") return Feature::Lock;
+    if (text == "density") return Feature::Density;
+    if (text == "apiKey") return Feature::ApiKey;
+    return std::nullopt;
+}
+
+inline void to_json(json& j, Feature value) { j = toString(value); }
+
+inline void from_json(const json& j, Feature& value) {
+    if (!j.is_string()) throw ParseError("", "expected a string");
+    const auto parsed = parseFeature(j.get_ref<const std::string&>());
+    if (!parsed) throw ParseError("", "unknown feature '" + j.get<std::string>() + "'");
     value = *parsed;
 }
 
@@ -1903,6 +1955,18 @@ inline void from_json(const json& j, Settings& value) {
     detail::read(j, "buildId", value.buildId);
 }
 
+inline void to_json(json& j, const FeatureGap& value) {
+    j = json::object();
+    j["feature"] = detail::encode(value.feature);
+    j["reason"] = detail::encode(value.reason);
+}
+
+inline void from_json(const json& j, FeatureGap& value) {
+    detail::expectObject(j);
+    detail::read(j, "feature", value.feature);
+    detail::read(j, "reason", value.reason);
+}
+
 inline void to_json(json& j, const Generation& value) {
     j = json::object();
     j["requestId"] = detail::encode(value.requestId);
@@ -2136,6 +2200,7 @@ inline void to_json(json& j, const Session& value) {
     j["settings"] = detail::encode(value.settings);
     j["generations"] = detail::encode(value.generations);
     j["preview"] = detail::encode(value.preview);
+    j["unavailable"] = detail::encode(value.unavailable);
 }
 
 inline void from_json(const json& j, Session& value) {
@@ -2158,6 +2223,7 @@ inline void from_json(const json& j, Session& value) {
     detail::read(j, "settings", value.settings);
     detail::read(j, "generations", value.generations);
     detail::read(j, "preview", value.preview);
+    detail::read(j, "unavailable", value.unavailable);
 }
 
 inline void to_json(json& j, const SavedSession& value) {

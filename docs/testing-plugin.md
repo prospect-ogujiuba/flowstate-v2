@@ -164,30 +164,27 @@ npm run ci:full                   # run ci and plugin on demand (pushed branch)
 
 What the plugin can do today:
 - It follows the host.
-- It shows the session in a placeholder UI.
-- It passes MIDI through.
-- It saves its state with the project.
+- It shows the Studio (P1-9): v1's header and footer, the context strip, part lanes, the prompt bar and the thread drawer.
+- It generates through the agent service and plays ideas in time (P1-7), through the preview synth and MIDI out.
+- It passes MIDI through, and saves its state with the project.
 
-It can't make ideas or sound yet: generating needs the agent service (P1-4) or the instant sketch (P1-10), and audition is P1-7. Record the results in `docs/host-checks.md`, with the build ID (a CI build is named `<commit>-<run>`, a local build is `dev`).
+Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (vary, edit, re-roll, tweak, note edits, add part, capture, lock and density, the API key) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 
-1. **Loads:** put **Flowstate** on a MIDI track. The window opens at 960×600 with the dark UI: the context strip at the top, the "Ideas" panel on the right and the prompt bar at the bottom.
-2. **Follows the host:**
-   - With the transport stopped, the strip shows the host tempo and meter (e.g. `120 bpm · 4/4`) and `C major · 4 bars`.
-   - Change the host tempo to 97: the strip follows within a second.
-   - Change the meter to 7/8: the strip follows.
-3. **Transport:** press play. The transport pill counts `bar N · beat N.N` in time with the host. Stop: it says `stopped`. Loop a region: bar and beat wrap with the loop.
-4. **Space bar:** click the empty UI area, then press Space. The DAW transport toggles.
+1. **Loads:** put **Flowstate** on a MIDI track. The window opens at 960×600: the header (Studio and Library pills, the logo, the yellow "All parts" pill, the connection bars, settings and account), the "What do you want to make today?" starters, the prompt bar and the footer.
+2. **Follows the host:** with the transport stopped, the Tempo and Meter chips show the host values with a lock icon. Change the host tempo to 97: the chip follows within a second. Change the meter to 7/8: it follows.
+3. **Generate:** click **Surprise me**, or type "moody chords" and press Return. "Planning…" shows with a Cancel button, then lanes appear part by part; the connection bars turn green. Play the host: the ideas play in time, the lanes show a playhead, and the footer counts `Bar N · beat N`. Loop a region: the playhead wraps.
+4. **Space bar:** click a lane button (e.g. **M**), then press Space. The DAW transport toggles and the button doesn't change.
 5. **Typing:** click the prompt, type text with Space and letters. Nothing reaches DAW shortcuts. Press Esc and then Space: the transport toggles again.
-6. **Prompt reply:** send "moody chords". The notice line reads "Generating needs the agent service, which isn't connected yet." (expected in this build).
-7. **Resize:** drag the corner to a new size, close the window and reopen it. It comes back at the same size, and it can't be made smaller than 720×480.
-8. **State:** save the project, close it and reopen it. The plugin loads without errors, and the window size persists.
+6. **Shape and commit:** mute and solo a lane; open the thread (the menu button), restore the first card, then Undo and Redo. Drag a lane's handle (⋮⋮) into the arrangement, then the toolbar's drag handle for all parts. Set **All parts** (the yellow pill) to "Bass only" and check MIDI out on another track.
+7. **Resize:** drag the corner to a new size, close the window and reopen it. It comes back at the same size, and it can't be made smaller than 720×480. At 720×480 everything still fits: the thread opens over the lanes.
+8. **State:** save the project, close it and reopen it. The idea, the thread and the window size come back.
 9. **MIDI FX pass-through:** put **Flowstate MIDI FX** in front of an instrument (in Logic: the MIDI FX slot; in Bitwig or FL Studio: before the instrument, where the host allows it). Play the keyboard: the instrument still sounds, so notes pass through. **Ableton: n/a.** Ableton can't open a VST3 MIDI effect (it says "This VST3 plug-in could not be opened"); there, the instrument variant sends MIDI to other tracks through MIDI From.
 10. **Multiple instances:** open two Flowstate windows at once. Both render, and each follows the transport.
-11. **Drag (placeholder):** the Drag button stays disabled, since there's no idea yet. Drag-out is covered again in P1-7 with real ideas.
+11. **Library:** open **Library**, preview a GodFlow clip while the host plays (it plays in time), then **Use** it: it becomes the current idea, with "MIDI by GodFlow (flowknows) for Flowstate." under the lanes.
 
-12. **Component gallery (P1-8):** quit the DAW, then start it from a terminal with `FLOWSTATE_UI_PAGE=gallery.html` in its environment. On macOS, run the app's binary directly, because `open -a` doesn't pass the variable on: `FLOWSTATE_UI_PAGE=gallery.html "/Applications/Ableton Live 12 Suite.app/Contents/MacOS/Live"`. On Windows, run `set FLOWSTATE_UI_PAGE=gallery.html` in a Command Prompt, then start the DAW's `.exe` from that same prompt. With a CI build, `gallery.ps1` in the downloaded folder does this: `powershell -ExecutionPolicy Bypass -File .\gallery.ps1 -Daw "C:\...\daw.exe"`, or with no `-Daw`, the Standalone app. The plugin window shows the gallery instead of the placeholder. Check:
+12. **Component gallery (P1-8):** quit the DAW, then start it from a terminal with `FLOWSTATE_UI_PAGE=gallery.html` in its environment. On macOS, run the app's binary directly, because `open -a` doesn't pass the variable on: `FLOWSTATE_UI_PAGE=gallery.html "/Applications/Ableton Live 12 Suite.app/Contents/MacOS/Live"`. On Windows, run `set FLOWSTATE_UI_PAGE=gallery.html` in a Command Prompt, then start the DAW's `.exe` from that same prompt. With a CI build, `gallery.ps1` in the downloaded folder does this: `powershell -ExecutionPolicy Bypass -File .\gallery.ps1 -Daw "C:\...\daw.exe"`, or with no `-Daw`, the Standalone app. The plugin window shows the gallery instead of the Studio. Check:
     - It looks like the browser gallery (`npm run -w ui dev`, then `/gallery.html`) and like `docs/design/side-by-side-*.png`.
     - Tab reaches every control, with a cyan focus ring. On macOS, WKWebView follows the system setting: with **Keyboard navigation** off (System Settings → Keyboard), Tab reaches only text fields and Option-Tab reaches the rest.
     - Knobs turn with the arrow keys and by dragging. The settings sheet opens, Escape closes it, and focus returns to the button that opened it.

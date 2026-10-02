@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { useId, useRef } from "preact/hooks";
 
 type Props = {
   label: string;
@@ -13,6 +13,8 @@ type Props = {
   size?: number;
   showLabel?: boolean;
   disabled?: boolean;
+  /** Why this build can't use it (Session.unavailable): looks disabled, stays focusable, says why. */
+  unavailable?: string | null;
 };
 
 const SWEEP = 270; // degrees, from 7:30 to 4:30
@@ -30,7 +32,9 @@ function arc(cx: number, cy: number, r: number, from: number, to: number) {
  * Rotary control, exposed as a slider. Keys: arrows step, PageUp and PageDown step 10x, Home and
  * End jump to the ends. Pointer: drag up or down. Double-click resets.
  */
-export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue, format, onChange, size = 32, showLabel = true, disabled }: Props) {
+export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue, format, onChange, size = 32, showLabel = true, disabled, unavailable }: Props) {
+  const reasonId = useId();
+  const inert = disabled || Boolean(unavailable);
   const drag = useRef<{ y: number; start: number } | null>(null);
   const clamp = (v: number) => Math.min(max, Math.max(min, Math.round(v / step) * step));
   const set = (v: number) => {
@@ -55,12 +59,13 @@ export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue
         aria-valuemax={max}
         aria-valuenow={value}
         aria-valuetext={text}
-        aria-disabled={disabled || undefined}
-        title={`${label}: ${text}`}
+        aria-disabled={inert || undefined}
+        aria-describedby={unavailable ? reasonId : undefined}
+        title={unavailable ? `${label}: ${unavailable}` : `${label}: ${text}`}
         class="fs-knob__dial"
         style={{ width: `${size}px`, height: `${size}px` }}
         onKeyDown={(e) => {
-          if (disabled) return;
+          if (inert) return;
           const big = step * 10;
           const by: Record<string, number> = { ArrowUp: step, ArrowRight: step, ArrowDown: -step, ArrowLeft: -step, PageUp: big, PageDown: -big };
           if (e.key in by) set(value + by[e.key]!);
@@ -70,7 +75,7 @@ export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue
           e.preventDefault();
         }}
         onPointerDown={(e) => {
-          if (disabled) return;
+          if (inert) return;
           (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
           drag.current = { y: e.clientY, start: value };
         }}
@@ -81,7 +86,7 @@ export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue
         }}
         onPointerUp={() => { drag.current = null; }}
         onPointerCancel={() => { drag.current = null; }}
-        onDblClick={() => { if (!disabled && defaultValue !== undefined) set(defaultValue); }}
+        onDblClick={() => { if (!inert && defaultValue !== undefined) set(defaultValue); }}
       >
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
           <path class="fs-knob__track" d={arc(size / 2, size / 2, r, start, start + SWEEP)} />
@@ -98,6 +103,7 @@ export function Knob({ label, value, min = 0, max = 1, step = 0.01, defaultValue
           />
         </svg>
       </div>
+      {unavailable && <span id={reasonId} class="sr-only">{unavailable}</span>}
       {showLabel && (
         <span class="fs-knob__label" aria-hidden="true">
           {label}

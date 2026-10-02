@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <iterator>
+#include <map>
 #include <sstream>
 
 using namespace flowstate::plugin;
@@ -348,6 +349,40 @@ TEST_CASE("controller: hello, local commands and model commands") {
     r = reply(c, {{"type", "releaseFocus"}, {"reason", "space"}});
     CHECK(r["ok"] == true);
     CHECK((platform.lastFocus == fb::FocusReason::Space));
+}
+
+TEST_CASE("controller: what the build can't do is in the session, with the reason it answers") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    const auto partId = s.clip()->parts.front().partId;
+
+    const auto session = reply(c, {{"type", "hello"}, {"protocol", "flowstate.bridge.v0"}})["session"];
+    std::map<std::string, std::string> gaps;
+    for (const auto& g : session["unavailable"]) gaps[g["feature"].get<std::string>()] = g["reason"].get<std::string>();
+
+    // Each command answered `unavailable` names its feature in the session, with the same reason.
+    const std::vector<std::pair<std::string, json>> commands{
+        {"edit", {{"type", "edit"}, {"prompt", "darker"}, {"partIds", nullptr}}},
+        {"vary", {{"type", "vary"}, {"partId", partId}}},
+        {"addPart", {{"type", "addPart"}, {"role", "pad"}, {"prompt", nullptr}}},
+        {"reroll", {{"type", "reroll"}, {"partId", partId}}},
+        {"tweak", {{"type", "tweak"}, {"partId", nullptr}, {"op", "simplify"}, {"amount", nullptr}}},
+        {"editNotes", {{"type", "editNotes"}, {"partId", partId}, {"remove", json::array()}, {"add", json::array()}}},
+        {"capture", {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1}, {"capture", {{"bars", 4}, {"intent", "continue"}}}}},
+        {"apiKey", {{"type", "setApiKey"}, {"provider", "openai"}, {"key", "sk-test"}}},
+    };
+    for (const auto& [feature, command] : commands) {
+        INFO(feature);
+        const auto r = reply(c, command);
+        CHECK(r["error"]["code"] == "unavailable");
+        REQUIRE(gaps.count(feature) == 1);
+        CHECK(r["error"]["message"] == gaps[feature]);
+    }
+    // Accepted, but without effect yet: the UI marks them too.
+    CHECK(gaps.count("lock") == 1);
+    CHECK(gaps.count("density") == 1);
 }
 
 TEST_CASE("an API key sent over the bridge is never persisted or echoed") {

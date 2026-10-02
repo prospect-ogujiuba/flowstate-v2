@@ -251,7 +251,35 @@ Acceptance:
 - Side-by-side screenshots match v1's look.
 - Accessibility: every control is labelled and keyboard-reachable.
 
-### P1-9 Studio screen — `todo`
+### P1-9 Studio screen — `done` (2026-10-02: browser and Playwright; the owner's Ableton check is next)
+Done (`ui/src/studio/`, replacing the placeholder):
+- **v1's shell:** the header from `HeaderBar` (Studio and Library pills, the logo, a yellow pill showing what this instance sends, the connection meter, settings and account), the textured background, card panels, and `FooterBar`'s footer. The footer's meter shows the loop position, because the bridge carries no audio level.
+- **Studio:**
+  - The context strip, with host values locked and an override sheet.
+  - A toolbar: undo and redo (also Ctrl/Cmd+Z), play while the host is stopped, tweak, drag all, split drums, save as MIDI, and the thread toggle.
+  - The part lanes, with mute, solo, lock, vary, re-roll, density, edit notes, remove, a drag handle and drum sublanes. Enter on a drag handle saves a file, since the keyboard can't start an OS drag.
+  - Add part, and the prompt bar. Its chips change with state; variations run 1–4; the mode switches between a new idea and an edit; capture opens its own sheet.
+  - The thread drawer: docked from 960 px wide, an overlay below that. Cards play, restore, branch and drag.
+  - The settings sheet (provider and model, BYOK key behind the flag, preview synth, MIDI out, usage, build ID) and the library browser (P1-17: search, source, part and fit filters, preview, use and drag, with the credit on every clip).
+- **Empty state:** v1's Home cards become the starters: start from a vibe, use what I just played, surprise me, the library, settings.
+- **Bridge (additive, stays v0):** `Session.unavailable` lists what this build can't run, each with its reason. The plugin fills it from the same table it answers `unavailable` from (`Controller::featureGaps`). The Studio dims those controls, keeps them focusable, and shows the reason as their description, tooltip and, when pressed, a toast. Nothing is sent. Today: edit, vary, add part, re-roll, tweak, note edits, capture, lock (the planner rejects `keep`), density (no playback effect yet) and the API key.
+- **Design system:** `Button`, `Knob` and `SuggestionChip` take `unavailable`. The lane has mute and solo, matching `PartState`, instead of play and solo. New tokens: `--panel`, `--card` and `--roll-bar` (v1's yellow bar lines). New icons: `menu`, `undo` and `redo`.
+- **Mock plugin** (`ui/src/host/mock.ts`): the Studio runs in a browser (`npm run -w ui dev`) and in the tests.
+- **Tests:** `ui/tests/studio.spec.ts`, 36 Playwright tests (55 with the gallery's), in Chromium.
+  - Every proposal flow: first run, describe → hear (with cancel and variations), iterate (cards, restore, undo and redo, lock + re-roll), capture → continue, and commit (part, all-parts and split-drum drags, Enter to save, MIDI out).
+  - Talk, tweak and touch.
+  - Every unavailable control: it says why and sends nothing.
+  - The context override, settings and BYOK flag, the library, and failures and notices.
+  - At 720×480, 900×650 and 1440×900: no page scroll, axe WCAG 2.1 AA, a name on every control and a Tab walk. Space goes to the DAW and never presses a control.
+  - One test drives the real interop path, with JUCE's module stubbed.
+- **Plugin test:** every command the build answers `unavailable` is in the session, with the same reason.
+
+Left:
+- The owner's check in Ableton on Windows (`docs/testing-plugin.md`, section 6).
+- The note editor for touch: `editNotes` needs core first, and the Studio shows it as not built.
+- A mini roll on cards for nodes that aren't current, because the session only carries the current node's clip.
+- Rating buttons (`rateNode`), the loop-range picker (`Audition.loop`), and sublane mute, which has no bridge command.
+
 Inside v1's shell (decision 2026-10-02; screenshots in `docs/design/v1/`, v1's layout code in `../flowstate/Source/ui/`: `HeaderBar`, `FooterBar`, `MainContentArea`, `MidiSequencerPreview`):
 - v1's header: logo, nav pills (e.g. Home, Studio, Library), the Track pill, connection meter, settings and profile. Textured background, card panels, footer.
 - Pieces of v1 that map onto the Studio: Compose's lanes become the part lanes (all visible at once, not one tab per lane); Context's key, scale, tempo, meter and bars become the context strip; Chat's prompt box becomes the prompt bar; the Chats drawer becomes the thread drawer; the prompt library becomes the suggestion chips; Settings and AI Connection become the settings sheet. Home's action cards can be the empty state.
@@ -345,7 +373,7 @@ Acceptance:
 - [x] Adding a pack is documented and repeatable: a manifest, `npm run -w library validate`, then `build`. CI fails on a stale catalog.
 
 Left for other issues:
-- The Studio's library browser (P1-9).
+- ~~The Studio's library browser (P1-9).~~ Done 2026-10-02.
 - Preview playback in time with the host (the audition scheduler, P1-7).
 - Whether style examples improve plans: an eval run with and without `--examples`, then blind listening (P1-3).
 - A transpose-to-session-key action for a used clip (core's `tweak transpose`).

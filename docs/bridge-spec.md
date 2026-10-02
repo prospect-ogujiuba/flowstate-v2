@@ -119,6 +119,7 @@ Events:
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `hasKey` says whether a BYOK key is stored, and the key itself never comes back. `usage` comes from the service.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` (generating with a locked part fails while the planner ignores `keep`) and `density` (the knob doesn't change playback). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;

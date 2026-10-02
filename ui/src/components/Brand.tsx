@@ -16,7 +16,7 @@ const labels: Record<Connection, string> = {
 };
 
 /** v1's signal-bars indicator. Connecting steps through the four frames. */
-export function ConnectionStatus({ state }: { state: Connection }) {
+export function ConnectionStatus({ state, label }: { state: Connection; /** Overrides the default description. */ label?: string }) {
   const [frame, setFrame] = useState(1);
   useEffect(() => {
     if (state !== "connecting" || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -25,7 +25,7 @@ export function ConnectionStatus({ state }: { state: Connection }) {
   }, [state]);
   const icon = state === "connecting" ? `ai-connection-connecting-${frame}` : `ai-connection-${state}`;
   return (
-    <span class={`fs-connection fs-connection--${state}`} role="img" aria-label={labels[state]} title={labels[state]}>
+    <span class={`fs-connection fs-connection--${state}`} role="img" aria-label={label ?? labels[state]} title={label ?? labels[state]}>
       <Icon name={icon} size={16} />
     </span>
   );

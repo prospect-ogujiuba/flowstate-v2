@@ -32,6 +32,7 @@ export function TextField(p: Common & {
   onInput: (value: string) => void;
   placeholder?: string;
   type?: "text" | "email" | "password" | "search";
+  inputMode?: "text" | "decimal" | "numeric";
   disabled?: boolean;
   readOnly?: boolean;
 }) {
@@ -42,6 +43,7 @@ export function TextField(p: Common & {
         id={id}
         class="fs-input"
         type={p.type ?? "text"}
+        inputMode={p.inputMode}
         value={p.value}
         placeholder={p.placeholder}
         disabled={p.disabled}

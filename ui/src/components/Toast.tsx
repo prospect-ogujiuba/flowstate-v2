@@ -1,20 +1,15 @@
 import type { ComponentChildren } from "preact";
-import { createContext } from "preact";
-import { useCallback, useContext, useEffect, useRef, useState } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import { Button } from "./Button.tsx";
 import { Icon } from "./Icon.tsx";
+import { ToastContext, type ToastInput, type ToastKind } from "./toast-context.ts";
 
-export type ToastKind = "info" | "success" | "warning" | "error";
-export type ToastInput = { kind?: ToastKind; message: string; action?: { label: string; run: () => void } };
+export { useToast, type ToastInput, type ToastKind } from "./toast-context.ts";
+
 type Toast = ToastInput & { id: number; kind: ToastKind };
 
 const icons: Record<ToastKind, string> = { info: "dot", success: "check", warning: "lightning", error: "x" };
 const DISMISS_MS = 5000;
-
-const Ctx = createContext<(t: ToastInput) => void>(() => {});
-
-/** Shows a toast. Errors stay until dismissed; the rest go after 5 s (paused while hovered or focused). */
-export const useToast = () => useContext(Ctx);
 
 export function ToastProvider({ children }: { children: ComponentChildren }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -25,12 +20,12 @@ export function ToastProvider({ children }: { children: ComponentChildren }) {
   const dismiss = (id: number) => setToasts((ts) => ts.filter((t) => t.id !== id));
 
   return (
-    <Ctx.Provider value={push}>
+    <ToastContext.Provider value={push}>
       {children}
       <div class="fs-toasts" role="region" aria-label="Notifications">
         {toasts.map((t) => <ToastItem key={t.id} toast={t} onDismiss={() => dismiss(t.id)} />)}
       </div>
-    </Ctx.Provider>
+    </ToastContext.Provider>
   );
 }
 

@@ -10,10 +10,12 @@ export type PartColour = "chords" | "bass" | "melody" | "drums" | "extra";
  * Mini piano roll for a lane. Canvas, repainted on the next frame after a change; the playhead is
  * a separate prop so transport updates don't rebuild the notes.
  */
-export function PianoRoll({ label, notes, beats, colour, playhead = null, height = 44 }: {
+export function PianoRoll({ label, notes, beats, beatsPerBar = 4, colour, playhead = null, height = 44 }: {
   label: string;
   notes: RollNote[];
   beats: number;
+  /** Bar lines are drawn in the accent, as v1's sequencer preview did. */
+  beatsPerBar?: number;
   colour: PartColour;
   /** In beats, or null when stopped. */
   playhead?: number | null;
@@ -38,8 +40,8 @@ export function PianoRoll({ label, notes, beats, colour, playhead = null, height
       const bx = w / beats;
       g.fillStyle = cssVar(c, "--line-soft");
       for (let b = 1; b < beats; b++) g.fillRect(Math.round(b * bx), 0, 1, h);
-      g.fillStyle = cssVar(c, "--line");
-      for (let b = 4; b < beats; b += 4) g.fillRect(Math.round(b * bx), 0, 1, h);
+      g.fillStyle = cssVar(c, "--roll-bar");
+      for (let b = beatsPerBar; b < beats - 1e-6; b += beatsPerBar) g.fillRect(Math.round(b * bx), 0, 1, h);
 
       if (notes.length > 0) {
         const lo = Math.min(...notes.map((n) => n.pitch)) - 1;
@@ -52,7 +54,11 @@ export function PianoRoll({ label, notes, beats, colour, playhead = null, height
           g.fillStyle = fill;
           const x = n.start * bx;
           const y = top + (hi - n.pitch) * row;
-          g.fillRect(x + 0.5, y, Math.max(1.5, n.length * bx - 1), Math.max(1.5, row - 1));
+          const nw = Math.max(1.5, n.length * bx - 1);
+          const nh = Math.max(1.5, row - 1);
+          g.beginPath();
+          g.roundRect(x + 0.5, y, nw, nh, Math.min(1.5, nw / 2, nh / 2));
+          g.fill();
         }
         g.globalAlpha = 1;
       }
@@ -72,7 +78,7 @@ export function PianoRoll({ label, notes, beats, colour, playhead = null, height
       cancelAnimationFrame(frame);
       ro.disconnect();
     };
-  }, [notes, beats, colour, playhead]);
+  }, [notes, beats, beatsPerBar, colour, playhead]);
 
   return (
     <div class="fs-roll" style={{ height: `${height}px` }} role="img" aria-label={`${label}: ${notes.length} notes over ${beats} beats`}>
