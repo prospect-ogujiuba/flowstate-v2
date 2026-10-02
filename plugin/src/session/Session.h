@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <map>
 #include <optional>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -69,6 +70,24 @@ public:
     bool redo();
     bool rate(const std::string& id, std::optional<fb::Rating> rating);
 
+    // ---- Bounds (P1-11) ------------------------------------------------------------------------
+    // The lineage and thread stay small enough that plugin state is well under 1 MB. Past a bound,
+    // the oldest nodes go first, except the current node and its last kUndoDepth ancestors, the
+    // redo path, the auditioned node and pinned nodes. A removed node's children move up to its
+    // parent (so undo skips it), and thread items that named it keep their text. The oldest thread
+    // items go past their bound.
+    static constexpr std::size_t kMaxNodes = 200;
+    static constexpr std::size_t kUndoDepth = 50;
+    static constexpr std::size_t kMaxScoreBytes = 640 * 1024;
+    static constexpr std::size_t kMaxThreadItems = 400;
+    // A running request pins the node it started from and the nodes it streams into.
+    void pin(const std::string& id) { pinned_.insert(id); }
+    void unpin(const std::string& id) { pinned_.erase(id); }
+    // Applies the bounds; returns how many nodes it removed. addNode and restore call it.
+    std::size_t prune();
+    // Sum of the stored scores' JSON sizes.
+    std::size_t scoreBytes() const;
+
     // ---- Parts and settings --------------------------------------------------------------------
     // Part state for a part of the current score; false if the part isn't there.
     bool setPartState(const fb::PartState& state);
@@ -81,7 +100,7 @@ public:
     void setPreviewSynth(bool on) { previewSynth_ = on; }
     bool previewSynth() const { return previewSynth_; }
     void setProvider(std::optional<fb::ProviderChoice> p) { provider_ = std::move(p); }
-    void addThreadItem(fb::ThreadItem item) { thread_.push_back(std::move(item)); }
+    void addThreadItem(fb::ThreadItem item);
     // The catalog entry previewing in time with the host (not saved with the project).
     void setPreview(std::optional<std::string> entryId) { preview_ = std::move(entryId); }
     const std::optional<std::string>& preview() const { return preview_; }
@@ -129,6 +148,8 @@ private:
     std::optional<std::string> preview_;
     std::vector<fb::Generation> generations_;
     std::uint64_t nextNodeNumber_ = 1;
+    std::set<std::string> pinned_;
+    std::map<std::string, std::size_t> scoreBytes_;  // per node, so pruning doesn't re-serialize
 
     std::optional<fb::Clip> clip_;
     std::string realizeError_;

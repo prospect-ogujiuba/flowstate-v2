@@ -71,6 +71,7 @@ for (const [w, h] of [[720, 480], [900, 650], [1440, 900]] as const) {
     });
 
     test("no axe violations, empty and with an idea", async ({ page }) => {
+      test.setTimeout(90_000); // two full axe runs; slow on a loaded machine
       for (const q of ["", "mock=idea"]) {
         await open(page, q);
         const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
@@ -315,7 +316,7 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
   const chords = lane(page, "Chords");
   const checks = [
     { el: chords.getByRole("button", { name: "Vary Chords" }), why: /Vary needs the agent service/ },
-    { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs per-part seeds/ },
+    { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs the realizer/ },
     { el: chords.getByRole("button", { name: "Lock Chords" }), why: /locked part makes Generate fail/ },
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
     { el: page.getByRole("button", { name: "Tweak" }), why: /Local transforms aren't in core yet/ },

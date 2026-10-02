@@ -127,7 +127,11 @@ Events:
 - the redo stack and the thread;
 - part states, audition and the MIDI-out choice.
 
-Nothing in it is secret. IR plus seeds stays well under 1 MB.
+Nothing in it is secret. IR plus seeds stays well under 1 MB, because the plugin bounds the lineage (P1-11):
+- At most 200 nodes and 640 KB of scores, and the newest 400 thread items.
+- Past a bound, the oldest nodes go first. These never go: the current node and its last 50 ancestors, the redo path, the auditioned node, and the nodes a running request started from or streams into.
+- A removed node's children move up to its parent, so undo skips it. Thread items that named it keep their text and lose their card.
+- A saved state over the bounds is trimmed when it restores, with a warning. Thread items or an audition naming a missing node are repaired the same way.
 
 ### Secrets
 

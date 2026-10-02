@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iterator>
 #include <map>
+#include <set>
 #include <sstream>
 
 using namespace flowstate::plugin;
@@ -843,4 +844,184 @@ TEST_CASE("audition source: the current node, a chosen node, or a catalog previe
     CHECK_FALSE(source.filter.role.has_value());
     CHECK_FALSE(source.filter.loop.has_value());
     (void)b;
+}
+
+// ---- Lineage at scale and its bounds (P1-11) -------------------------------------------------------
+
+namespace {
+
+// Streams one whole plan through the controller, the way the service sends it.
+std::string streamPlan(Controller& c, FakePlatform& platform, const json& score, const std::string& prompt) {
+    const auto r = reply(c, generateCommand(prompt.c_str()));
+    REQUIRE(r["ok"] == true);
+    const auto stream = platform.plans.back().first;
+    c.serviceEvent(stream, headerOf(score));
+    for (const auto& p : score["parts"]) c.serviceEvent(stream, fb::PartDone{p});
+    c.serviceEvent(stream, fb::ScoreDone{score});
+    c.serviceEnded(stream, std::nullopt);
+    REQUIRE_FALSE(c.generating());
+    return r["requestId"].get<std::string>();
+}
+
+bool treeIsWhole(const Session& s) {
+    for (const auto& n : s.nodes())
+        if (n.parentId && !s.hasNode(*n.parentId)) return false;
+    for (const auto& t : s.thread())
+        if (t.nodeId && !s.hasNode(*t.nodeId)) return false;
+    return true;
+}
+
+}  // namespace
+
+TEST_CASE("lineage: 50 generations in one session; undo, redo and A/B walk them; the project reopens with all of them") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto score = loadScore("example.json");
+
+    std::vector<std::string> ids;
+    for (int i = 0; i < 50; ++i) {
+        streamPlan(c, platform, score, "idea " + std::to_string(i));
+        ids.push_back(s.current()->id);
+    }
+    REQUIRE(s.nodes().size() == 50);
+    CHECK(s.thread().size() == 100);  // a prompt and a result card each
+    CHECK(std::set<std::string>(ids.begin(), ids.end()).size() == 50);
+    for (std::size_t i = 1; i < ids.size(); ++i) CHECK(s.node(ids[i])->parentId == ids[i - 1]);
+    CHECK((s.node(ids[0])->kind == fb::NodeKind::Initial));
+
+    // A/B between two results, then back.
+    CHECK(reply(c, {{"type", "selectNode"}, {"nodeId", ids[10]}})["session"]["currentNodeId"] == ids[10]);
+    CHECK(reply(c, {{"type", "selectNode"}, {"nodeId", ids[49]}})["session"]["currentNodeId"] == ids[49]);
+
+    // Undo walks back through all 50, redo walks forward again.
+    for (int i = 0; i < 49; ++i) REQUIRE(reply(c, {{"type", "undo"}})["ok"] == true);
+    CHECK(s.current()->id == ids[0]);
+    CHECK_FALSE(s.canUndo());
+    for (int i = 0; i < 49; ++i) REQUIRE(reply(c, {{"type", "redo"}})["ok"] == true);
+    CHECK(s.current()->id == ids[49]);
+
+    // Lock a part: the lock is in the saved state too.
+    const auto partId = s.clip()->parts.front().partId;
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", partId}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+
+    // Save the project: well under 1 MB, and it reopens with every idea, the thread and the lock.
+    const auto blob = encodeState({s.save(), 960, 600});
+    CHECK(blob.size() < 1024 * 1024);
+    std::string error;
+    const auto decoded = decodeState(blob, error);
+    REQUIRE_MESSAGE(decoded.has_value(), error);
+    Session reopened("other", "test");
+    std::vector<std::string> warnings;
+    reopened.restore(decoded->session, warnings);
+    CHECK(warnings.empty());
+    json before, after;
+    fb::to_json(before, s.view({}, 0));
+    fb::to_json(after, reopened.view({}, 0));
+    CHECK(before == after);
+    CHECK(reopened.partStates().front().locked);
+
+    // Generating on after reopening makes fresh ids under the restored idea.
+    FakePlatform platform2;
+    platform2.withService = true;
+    Controller c2(reopened, platform2);
+    streamPlan(c2, platform2, score, "one more");
+    CHECK(reopened.nodes().size() == 51);
+    CHECK(std::find(ids.begin(), ids.end(), reopened.current()->id) == ids.end());
+    CHECK(reopened.current()->parentId == ids[49]);
+}
+
+TEST_CASE("lineage: bounded; the oldest go first, never the recent undo path, the audition or a pinned node") {
+    Session s("inst", "test");
+    const auto score = loadScore("example.json");
+    std::vector<std::string> ids;
+    for (int i = 0; i < 260; ++i) {
+        ids.push_back(s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, i + 1, i));
+        if (i == 2) s.setAudition({ids[2], std::nullopt, false});
+        if (i == 3) s.pin(ids[3]);
+    }
+    CHECK(s.nodes().size() <= Session::kMaxNodes);
+    CHECK(s.scoreBytes() <= Session::kMaxScoreBytes);
+    CHECK(s.hasNode(ids[2]));   // auditioned
+    CHECK(s.hasNode(ids[3]));   // pinned
+    CHECK_FALSE(s.hasNode(ids[4]));  // the oldest unprotected go first
+    CHECK(s.current()->id == ids.back());
+    for (std::size_t back = 0; back <= Session::kUndoDepth; ++back) CHECK(s.hasNode(ids[ids.size() - 1 - back]));
+    CHECK(treeIsWhole(s));
+
+    // Undo still walks the whole way down: past the pruned nodes, to the surviving ancestors.
+    std::size_t undos = 0;
+    while (s.undo()) ++undos;
+    CHECK(undos == s.nodes().size() - 1);
+
+    // Saved, it stays well under 1 MB.
+    CHECK(encodeState({s.save(), 960, 600}).size() < 1024 * 1024);
+
+    // The thread keeps its newest items.
+    for (int i = 0; i < 500; ++i) s.addThreadItem({"t" + std::to_string(i), fb::ThreadRole::User, "p", std::nullopt, i});
+    CHECK(s.thread().size() == Session::kMaxThreadItems);
+    CHECK(s.thread().back().id == "t499");
+}
+
+TEST_CASE("lineage: a streaming node and the node it grows from are never pruned") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto score = loadScore("example.json");
+    const auto parent = s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 1);
+
+    REQUIRE(reply(c, generateCommand("slow one"))["ok"] == true);
+    const auto stream = platform.plans.back().first;
+    c.serviceEvent(stream, headerOf(score));
+    c.serviceEvent(stream, fb::PartDone{score["parts"][0]});
+    const auto streaming = s.current()->id;
+    // The user moves on and makes far more ideas than the bound while it streams.
+    for (int i = 0; i < 260; ++i) s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, i + 2, i + 2, std::string("nowhere"));
+    CHECK(s.hasNode(parent));
+    CHECK(s.hasNode(streaming));
+    c.serviceEvent(stream, fb::PartDone{score["parts"][1]});
+    c.serviceEvent(stream, fb::ScoreDone{score});
+    CHECK(s.node(streaming)->score == score);
+    CHECK(s.node(streaming)->parentId == parent);
+    CHECK(treeIsWhole(s));
+}
+
+TEST_CASE("restore: an oversized or dangling saved lineage is trimmed and repaired, with warnings") {
+    Session s("inst", "test");
+    const auto score = loadScore("example.json");
+    auto saved = s.save();
+    for (int i = 1; i <= 250; ++i) {
+        fb::LineageNode n;
+        n.id = "n" + std::to_string(i);
+        n.kind = fb::NodeKind::Initial;
+        n.createdAtMs = i;
+        n.seed = i;
+        n.score = score;
+        saved.nodes.push_back(n);
+    }
+    saved.currentNodeId = "n250";
+    saved.redo = {"n1"};  // odd, but valid: redo is protected
+    saved.thread.push_back({"t-gone", fb::ThreadRole::Assistant, "an idea", std::string("n999"), 1});
+    saved.audition = {std::string("n998"), std::nullopt, false};
+
+    Session restored("x", "test");
+    std::vector<std::string> warnings;
+    restored.restore(saved, warnings);
+    CHECK(restored.nodes().size() <= Session::kMaxNodes);
+    CHECK(restored.hasNode("n1"));
+    CHECK(restored.current()->id == "n250");
+    CHECK_FALSE(restored.thread().back().nodeId.has_value());
+    CHECK(restored.thread().back().text == "an idea");
+    CHECK_FALSE(restored.audition().nodeId.has_value());
+    CHECK(treeIsWhole(restored));
+    const auto has = [&](const char* what) {
+        return std::any_of(warnings.begin(), warnings.end(), [&](const std::string& w) { return w.find(what) != std::string::npos; });
+    };
+    CHECK(has("size bound"));
+    CHECK(has("missing node"));
+    CHECK(has("auditioned node"));
+    // New ids continue after the highest restored one, so a removed id is never reused.
+    CHECK(restored.addNode(score, fb::NodeKind::Edit, std::nullopt, std::nullopt, 1, 1) == "n251");
 }

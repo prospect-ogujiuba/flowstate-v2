@@ -20,7 +20,7 @@ export const PLUGIN_GAPS: Gap[] = [
   { feature: "edit", reason: "Changing an idea by prompt isn't built in the agent service yet. Generate a new idea instead." },
   { feature: "vary", reason: "Vary needs the agent service to write part variations, which isn't built yet." },
   { feature: "addPart", reason: "Adding a part needs the agent service to plan single parts, which isn't built yet." },
-  { feature: "reroll", reason: "Re-roll needs per-part seeds in core (P1-11)." },
+  { feature: "reroll", reason: "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet." },
   { feature: "tweak", reason: "Local transforms aren't in core yet." },
   { feature: "editNotes", reason: "Note edits aren't in core yet." },
   { feature: "capture", reason: "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet." },

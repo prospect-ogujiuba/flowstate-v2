@@ -86,7 +86,7 @@ const std::vector<fb::FeatureGap>& Controller::featureGaps() {
         {F::Edit, "Changing an idea by prompt isn't built in the agent service yet. Generate a new idea instead."},
         {F::Vary, "Vary needs the agent service to write part variations, which isn't built yet."},
         {F::AddPart, "Adding a part needs the agent service to plan single parts, which isn't built yet."},
-        {F::Reroll, "Re-roll needs per-part seeds in core (P1-11)."},
+        {F::Reroll, "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet."},
         {F::Tweak, "Local transforms aren't in core yet."},
         {F::EditNotes, "Note edits aren't in core yet."},
         {F::Capture, "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet."},
@@ -404,6 +404,8 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     }
 
     session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, c.prompt, std::nullopt, now});
+    // Variations attach under this node; it stays while they stream.
+    if (request.parentId) session_.pin(*request.parentId);
     const auto id = request.id;
     requests_.push_back(std::move(request));
     publishGenerations();
@@ -511,6 +513,7 @@ void Controller::partLanded(Request& request, Stream& stream) {
         const bool stayed = (cur == nullptr && !request.parentId) || (cur != nullptr && request.parentId == cur->id);
         stream.nodeId = session_.addNode(std::move(score), request.kind, request.prompt, std::nullopt, stream.seed,
                                          platform_.nowMs(), request.parentId, std::nullopt, stayed);
+        session_.pin(*stream.nodeId);
     }
     publishGenerations();
     changed();
@@ -522,6 +525,7 @@ void Controller::finishStream(Request& request, Stream& stream, std::optional<fb
     stream.error = std::move(error);
     if ((stream.error || stream.textOnly) && stream.nodeId) {
         // A partial idea from a failed plan doesn't stay, unless something was already made from it.
+        session_.unpin(*stream.nodeId);
         if (session_.removeNode(*stream.nodeId)) stream.nodeId.reset();
     }
 }
@@ -533,6 +537,9 @@ void Controller::finishRequestIfDone(const std::string& requestId) {
 
     const Request request = std::move(*it);
     requests_.erase(it);
+    if (request.parentId) session_.unpin(*request.parentId);
+    for (const auto& s : request.streams)
+        if (s.nodeId) session_.unpin(*s.nodeId);
     const auto now = platform_.nowMs();
     std::vector<std::string> nodeIds;
     std::optional<fb::ErrorInfo> firstError;

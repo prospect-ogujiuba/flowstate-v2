@@ -91,18 +91,66 @@ std::string Session::addNode(nlohmann::json score, fb::NodeKind kind, std::optio
                          kind == fb::NodeKind::Touch;
     if (!n.entryId && derived && n.parentId)
         if (const auto* p = node(*n.parentId)) n.entryId = p->entryId;
+    const auto id = n.id;
+    scoreBytes_[id] = n.score.dump().size();
     nodes_.push_back(std::move(n));
-    if (!makeCurrent) return nodes_.back().id;
-    currentId_ = nodes_.back().id;
-    redo_.clear();
-    refreshClip();
-    return *currentId_;
+    if (makeCurrent) {
+        currentId_ = id;
+        redo_.clear();
+        refreshClip();
+    }
+    // The node just made never goes in its own prune.
+    const bool wasPinned = pinned_.count(id) > 0;
+    pin(id);
+    prune();
+    if (!wasPinned) unpin(id);
+    return id;
+}
+
+void Session::addThreadItem(fb::ThreadItem item) {
+    thread_.push_back(std::move(item));
+    if (thread_.size() > kMaxThreadItems) thread_.erase(thread_.begin(), thread_.end() - static_cast<std::ptrdiff_t>(kMaxThreadItems));
+}
+
+std::size_t Session::scoreBytes() const {
+    std::size_t total = 0;
+    for (const auto& [id, bytes] : scoreBytes_) total += bytes;
+    return total;
+}
+
+std::size_t Session::prune() {
+    std::set<std::string> keep = pinned_;
+    std::size_t depth = 0;
+    for (const auto* n = current(); n != nullptr && depth <= kUndoDepth; n = n->parentId ? node(*n->parentId) : nullptr, ++depth)
+        if (!keep.insert(n->id).second) break;  // never loop, even on a malformed tree
+    keep.insert(redo_.begin(), redo_.end());
+    if (audition_.nodeId) keep.insert(*audition_.nodeId);
+
+    std::size_t bytes = scoreBytes();
+    std::size_t removed = 0;
+    while (nodes_.size() > kMaxNodes || bytes > kMaxScoreBytes) {
+        const auto victim = std::find_if(nodes_.begin(), nodes_.end(), [&](const fb::LineageNode& n) { return keep.count(n.id) == 0; });
+        if (victim == nodes_.end()) break;
+        const auto id = victim->id;
+        const auto parent = victim->parentId;
+        nodes_.erase(victim);
+        for (auto& n : nodes_)
+            if (n.parentId == id) n.parentId = parent;
+        for (auto& t : thread_)
+            if (t.nodeId == id) t.nodeId.reset();
+        bytes -= scoreBytes_[id];
+        scoreBytes_.erase(id);
+        ++removed;
+    }
+    if (thread_.size() > kMaxThreadItems) thread_.erase(thread_.begin(), thread_.end() - static_cast<std::ptrdiff_t>(kMaxThreadItems));
+    return removed;
 }
 
 bool Session::updateNodeScore(const std::string& id, nlohmann::json score) {
     for (auto& n : nodes_)
         if (n.id == id) {
             n.score = std::move(score);
+            scoreBytes_[id] = n.score.dump().size();
             if (currentId_ == id) refreshClip();
             return true;
         }
@@ -118,6 +166,7 @@ bool Session::removeNode(const std::string& id) {
     if (it == nodes_.end() || hasChildren(id)) return false;
     const auto parent = it->parentId;
     nodes_.erase(it);
+    scoreBytes_.erase(id);
     redo_.erase(std::remove(redo_.begin(), redo_.end(), id), redo_.end());
     if (audition_.nodeId == id) audition_.nodeId.reset();
     if (currentId_ == id) {
@@ -354,7 +403,25 @@ void Session::restore(const fb::SavedSession& saved, std::vector<std::string>& w
             warnings.push_back("node " + n.id + " has a missing parent; now a root");
             n.parentId.reset();
         }
-    nextNodeNumber_ = nodes_.size() + 1;
+    for (auto& t : thread_)
+        if (t.nodeId && !hasNode(*t.nodeId)) {
+            warnings.push_back("thread item " + t.id + " names a missing node; kept as text");
+            t.nodeId.reset();
+        }
+    if (audition_.nodeId && !hasNode(*audition_.nodeId)) {
+        warnings.push_back("auditioned node " + *audition_.nodeId + " is missing; auditioning the current node");
+        audition_.nodeId.reset();
+    }
+    pinned_.clear();
+    scoreBytes_.clear();
+    for (const auto& n : nodes_) scoreBytes_[n.id] = n.score.dump().size();
+    if (const auto pruned = prune(); pruned > 0)
+        warnings.push_back("the saved lineage was over its size bound; removed the " + std::to_string(pruned) + " oldest nodes");
+    // Ids continue after the highest restored "n<number>", so a removed id is never reused.
+    nextNodeNumber_ = 1;
+    for (const auto& n : nodes_)
+        if (n.id.size() > 1 && n.id[0] == 'n' && n.id.size() < 18 && n.id.find_first_not_of("0123456789", 1) == std::string::npos)
+            nextNodeNumber_ = std::max<std::uint64_t>(nextNodeNumber_, std::stoull(n.id.substr(1)) + 1);
     refreshClip();
     if (!realizeError_.empty()) warnings.push_back("current node could not be realized: " + realizeError_);
 }

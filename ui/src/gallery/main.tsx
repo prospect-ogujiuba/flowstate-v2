@@ -243,7 +243,7 @@ function Lanes({ playhead }: { playhead: number | null }) {
     <div class="g-stack">
       <Lane name="Chords" role="Pad voicing, whole notes" colour="chords" notes={fx.chords} playhead={playhead} {...lane("chords")} />
       <Lane name="Bass" role="Root and fifth, syncopated · re-roll and density not in this build" colour="bass" notes={fx.bass} playhead={playhead} {...lane("bass")}
-        gaps={{ reroll: "Re-roll needs per-part seeds in core (P1-11).", density: "The density knob doesn't change playback until core has the transform." }} />
+        gaps={{ reroll: "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet.", density: "The density knob doesn't change playback until core has the transform." }} />
       <Lane name="Melody" role="Lead, stepwise" colour="melody" notes={fx.melody} playhead={playhead} {...lane("melody")} />
       <Lane name="Drums" role="Boom bap, by sublane" colour="drums" notes={fx.drums} playhead={playhead} sublanes={subs} onSublaneMute={onSublaneMute} {...lane("drums")} />
     </div>

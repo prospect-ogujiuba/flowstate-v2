@@ -300,7 +300,26 @@ Acceptance:
 `core` makes a rule-based sketch from the context strip alone, in under 100 ms, so every Generate makes sound immediately. AI parts replace sketch parts as they stream in (P1-2).
 Acceptance: under 100 ms for 8 bars × 4 parts; varied across seeds.
 
-### P1-11 Session and lineage — `todo`
+### P1-11 Session and lineage — `done` (2026-10-02; Linux)
+Done. Most of the lineage came with P1-6 and P1-7: nodes per result, select (restore and A/B), undo along the parent chain, redo, part states, and save and restore. P1-11 added:
+- **Bounds** (`Session::prune`):
+  - At most 200 nodes, 640 KB of scores and 400 thread items. The oldest nodes go first.
+  - Kept: the current node and its last 50 ancestors, the redo path, the auditioned node, and the nodes a running request started from or streams into (the controller pins them).
+  - Children of a removed node move up to its parent, so undo skips it. Thread items keep their text.
+  - Semantics: `docs/bridge-spec.md`, `SavedSession`.
+- **Restore repairs:** an oversized saved state is trimmed, and dangling thread or audition references are cleared, each with a warning. New ids continue after the highest restored one, so a removed id is never reused.
+- **Tests** (`flowstate_session_tests`):
+  - 50 generations streamed through the controller. Each is a node under the last, and A/B, 49 undos and 49 redos walk them. A lock is kept.
+  - The saved state of those 50 is under 1 MB and reopens with an identical view; generating continues with fresh ids.
+  - 260 nodes stay within the bounds while keeping the protected nodes, and undo still walks to the root.
+  - A streaming node and its parent survive 260 other ideas.
+  - An oversized, dangling saved state is trimmed and repaired.
+  - Editor close and reopen, and the project reopening, stay covered by the processor and host smoke tests (P1-6).
+
+Left, for other issues:
+- **Lock in generation:** locked parts go to the service as `keep`, which the planner doesn't plan around yet, so a generate with a lock fails. The Studio marks lock unavailable with that reason. It's planner work in `cloud/`, the area P1-18 is changing.
+- **Re-roll:** the seed only moves humanize timing, velocity and random arps. A per-part seed would re-roll almost inaudibly, so re-roll needs the realizer to make seeded choices (voicing, rhythm variants), which evals decide (P1-3). `regenerate` nodes come with it.
+
 - Every result is a lineage node: initial, regenerate, vary or edit.
 - Undo and redo, A/B between nodes, lock parts.
 - Stored in plugin state, bounded in size.
