@@ -3,11 +3,8 @@ name: plugin-spike
 # Phase 0 spike builds (docs/spikes/webview-host.md, docs/spikes/midi-out.md).
 # Produces unsigned test builds for the DAW machine; no secrets, no notarization.
 
+# Frozen with Phase 0: on demand only.
 on:
-  push:
-    paths:
-      - "plugin/spike/**"
-      - ".github/workflows/plugin-spike.yml"
   workflow_dispatch:
 
 concurrency:

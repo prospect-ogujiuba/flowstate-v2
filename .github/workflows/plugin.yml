@@ -3,9 +3,15 @@ name: plugin
 # The product plugin (P1-6): builds, tests (session, processor, VST3 host smoke) and pluginval at
 # strictness 8 on macOS and Windows, plus a headless Linux build. Unsigned test builds; signing
 # and installers are P1-14.
+#
+# Pushes and pull requests build Linux headless only: on a private repo macOS minutes bill at 10x
+# and Windows at 2x. The macOS and Windows builds (and their tester artifacts) run on demand
+# (`npm run ci:full`) and on `v*` tags.
 
 on:
   push:
+    branches: ["**"]
+    tags: ["v*"]
     paths:
       - "plugin/**"
       - "!plugin/spike/**"
@@ -29,13 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: macos-14
-            name: macos-universal
-          - os: windows-2022
-            name: windows-x64
-          - os: ubuntu-24.04
-            name: linux-headless
+        include: ${{ fromJSON((github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')) && '[{"os":"macos-14","name":"macos-universal"},{"os":"windows-2022","name":"windows-x64"},{"os":"ubuntu-24.04","name":"linux-headless"}]' || '[{"os":"ubuntu-24.04","name":"linux-headless"}]') }}
     runs-on: ${{ matrix.os }}
     env:
       BUILD_DIR: build/plugin

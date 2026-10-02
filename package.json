@@ -19,6 +19,7 @@
     "test": "npm run test:core && npm run test:bridge && npm run --workspaces --if-present test",
     "build:ui": "npm run -w ui build",
     "ci:status": "bash scripts/ci-status.sh",
+    "ci:full": "bash scripts/ci-full.sh",
     "fetch:build": "bash scripts/fetch-build.sh",
     "pack:mac": "bash scripts/pack-macos-testers.sh",
     "library": "npm run -w library build"

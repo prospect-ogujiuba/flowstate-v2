@@ -80,6 +80,8 @@ Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and a
 ### P0-9 CI on every push — `done`
 Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core` and typechecks TS on each push and PR.
 
+**Update 2026-10-02:** the free Actions minutes ran out (the repo is private: macOS bills at 10x, Windows at 2x), and a Windows-only compile break in P1-17 (`core/src/catalog.cpp`, missing `<iterator>`) went unnoticed behind it. Pushes and PRs now run Linux only, skipping doc-only commits. macOS and Windows run on demand (`npm run ci:full`) and on `v*` tags; run them before every tester build and after platform-specific changes.
+
 ## Phase 1: core loop (weeks 3–8)
 
 **Goal:** a producer installs Flowstate, opens it on a MIDI track, describes an idea, hears it in time with their song within seconds, shapes it, and drags it in.
@@ -118,7 +120,7 @@ Acceptance:
 - The Phase 0 prompt set plans valid scores on at least 3 providers, with results recorded per provider (validity rate, latency p50/p95, metrics).
 - No Pi coding-agent packages are in the dependency tree.
 
-### P1-2 Latency: from 62 s to the targets — `doing`
+### P1-2 Latency: from 62 s to the targets — `done` (2026-10-02: targets met on DeepSeek Flash, thinking off; per-route models and prompt caching move to P1-4)
 Done so far (2026-10-01):
 - Where the time goes: in the P1-1 runs a minified score is about 5.4 KB (roughly 2k tokens), but the planner averaged 11–20k output tokens. Most of the output is thinking at reasoning `high`.
 - Both backends stream (`claude-code` through `stream-json`), take an abort signal and report time to first token and first answer text.
@@ -164,6 +166,7 @@ The `cloud/` HTTP service:
 - `POST /v1/edit` (IR patch; skeleton only in Phase 1).
 - Health endpoint and a request log without secrets.
 - Feature flags (`byok`), and per-request provider choice from P1-1.
+- From P1-2: the default production route is DeepSeek `deepseek-flash` with thinking off; per-route model and effort (edits and single parts vs full plans) and prompt caching of the fixed system prompt.
 Acceptance:
 - Contract tests against the bridge schema.
 - Runs locally with one command.

@@ -114,13 +114,13 @@ Expected: each ends with `AU VALIDATION SUCCEEDED.`
 
 ## 5. Install into a DAW
 
-Install either your own build (below) or a CI build from GitHub Actions. Every push that touches the plugin runs the `plugin` workflow. A green run keeps two artifacts for 30 days, `flowstate-windows-x64` and `flowstate-macos-universal`, each with a `BUILD_ID` file (`<commit>-<run>`). The macOS bundles are only ad-hoc signed until P1-14, so macOS blocks them until the quarantine flag is cleared. The install scripts do that.
+Install either your own build (below) or a CI build from GitHub Actions. Pushes build Linux only, to save billed minutes (on a private repo macOS bills at 10x, Windows at 2x). The macOS and Windows builds run on demand: `npm run ci:full` starts the `ci` and `plugin` workflows on the current branch with all three OSes, and `v*` tags do the same. A green on-demand run keeps two artifacts for 30 days, `flowstate-windows-x64` and `flowstate-macos-universal`, each with a `BUILD_ID` file (`<commit>-<run>`). The macOS bundles are only ad-hoc signed until P1-14, so macOS blocks them until the quarantine flag is cleared. The install scripts do that.
 
 ### A CI build on Windows
 
 From WSL (or any shell with `gh` logged in), in the repo:
 ```sh
-npm run fetch:build -- windows              # latest green run on the current branch
+npm run fetch:build -- windows              # latest green on-demand run on the current branch
 npm run fetch:build -- windows --branch main
 npm run fetch:build -- windows --run 36702654122
 ```
@@ -157,6 +157,7 @@ Then rescan plug-ins in the DAW. The plug-ins appear as **Flowstate** (an instru
 ```sh
 npm run ci:status                 # the last 10 runs on the current branch
 npm run ci:status -- --watch      # follow the newest plugin run; exits non-zero if it fails
+npm run ci:full                   # run ci and plugin on macOS and Windows too (pushed branch)
 ```
 
 ## 6. Manual checks in a DAW
@@ -198,7 +199,7 @@ Report anything that differs, with the host name and version, the OS and the bui
 
 Until the signed installers (P1-14) and the tester package (P1-16) exist, send the zip from `npm run pack:mac`. The repo is private, so testers can't download from Actions themselves.
 
-1. Wait for a green `plugin` run on the commit you want (`npm run ci:status -- --watch`).
+1. Push the commit you want, start the macOS build with `npm run ci:full`, and wait for it to go green (`npm run ci:status -- --watch`).
 2. `npm run pack:mac` (add `-- --branch main` if you're on another branch).
 3. Send `dist/builds/flowstate-macos-<build id>.zip` by any means (AirDrop, Drive, email). Its `README.txt` has the install steps, a short checklist (checks 1–10 above, in plain words) and what to report, with the build ID filled in.
 4. Record what comes back in `docs/host-checks.md`, with the build ID.
