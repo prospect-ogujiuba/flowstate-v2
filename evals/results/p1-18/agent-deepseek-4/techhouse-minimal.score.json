@@ -1,0 +1,117 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Hypnotic Tech-House Groove in Cm",
+  "context": {
+    "tempo": 126,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "tech-house",
+      "house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.65
+    }
+  ],
+  "harmony": "Cm7:4 | Cm7:4 | Abmaj7:2 Bb7:2 | Cm7:4",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "1:.5 1:.25 r:.25 1:.5 b3:.5 1:.25 r:.25 1:.5 1:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes Stab",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- x--- x--- x---",
+          "voicing": "shell"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Pluck",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- R-g- R--- R-g-",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Glass Pluck",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "hook",
+          "repeatEvery": 2
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.25"
+          ],
+          "repeatEvery": 2
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Tech-House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "groove": "tech_house"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "groove": "tech_house",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

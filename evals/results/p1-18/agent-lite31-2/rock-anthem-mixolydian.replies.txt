@@ -1,0 +1,112 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving G Mixolydian Rock Anthem",
+  "context": {
+    "tempo": 128,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "mixolydian",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "rock"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro/Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    },
+    {
+      "name": "Chorus",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.95
+    }
+  ],
+  "harmony": "G5:4 | C/G:4 | G5:4 | F/G:2 C/G:2 | G5:4 | Bb:4 | C:4 | D:4",
+  "motifs": [
+    {
+      "id": "riff",
+      "notes": "1:1 4:1 5:1 1+:1 | 1+:1.5 5:0.5 4:1 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Overdrive Guitar",
+      "low": "G2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-x- x-x- x-x- x-xx",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "P-Bass",
+      "low": "G1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "RRRR RRRR RRRR RRRR"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "riff",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "rock"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "rock",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

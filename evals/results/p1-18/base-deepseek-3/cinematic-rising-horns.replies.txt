@@ -1,0 +1,94 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Noble Ascent",
+  "context": {
+    "swing": 0,
+    "style": ["cinematic", "orchestral"]
+  },
+  "form": [
+    { "name": "Prelude", "startBar": 1, "bars": 2, "energy": 0.45 },
+    { "name": "Build", "startBar": 3, "bars": 2, "energy": 0.7 },
+    { "name": "Climax", "startBar": 5, "bars": 4, "energy": 1.0 }
+  ],
+  "harmony": "Dm:4 | Bb:4 | F:4 | C:4 | Dm:4 | Bb:4 | Gm:2 A:2 | Dm:4",
+  "motifs": [
+    {
+      "id": "horn_theme",
+      "notes": "1:2 4:.5 5:.5 5:1 3:1 | 2:1 3:1 4:1 2:1 | 1:1 6-:.5 1:.5 4:1 2:1 | 3:2 1:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "strings",
+      "role": "chords",
+      "name": "String Pad",
+      "low": "D3",
+      "high": "D6",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x-------", "voicing": "open" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x---x---", "voicing": "open" },
+        { "startBar": 5, "endBar": 8, "rhythm": "x-x-x-x-", "voicing": "spread" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Contrabass",
+      "low": "D2",
+      "high": "D3",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x-------", "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x---x---", "articulation": "legato" },
+        { "startBar": 5, "endBar": 8, "rhythm": "x---x---", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "French Horn",
+      "low": "D3",
+      "high": "D5",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "horn_theme", "repeatEvery": 8 },
+        { "startBar": 3, "endBar": 4, "motif": "horn_theme", "repeatEvery": 8, "transforms": ["transpose:+2"] },
+        { "startBar": 5, "endBar": 8, "motif": "horn_theme", "repeatEvery": 8 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gong Toms",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "cinematic_toms",
+          "fill": "crash_end"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "groove": "cinematic_toms",
+          "fill": "tom_run"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "cinematic_toms",
+          "fill": "half_time_break"
+        }
+      ]
+    }
+  ]
+}

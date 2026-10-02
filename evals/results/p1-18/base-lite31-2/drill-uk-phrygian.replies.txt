@@ -1,0 +1,112 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark E Phrygian Drill",
+  "context": {
+    "tempo": 142,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "phrygian",
+    "bars": 4,
+    "swing": 0.05,
+    "style": [
+      "drill",
+      "uk-drill"
+    ]
+  },
+  "form": [
+    {
+      "name": "Dark Intro/Verse",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Em:4 | F:4 | Em:4 | F:2 E7:2",
+  "motifs": [
+    {
+      "id": "dark_motif",
+      "notes": "1:1 b2:1 1:.5 b2:.5 1:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... .... x... ....",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sliding 808",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.x. ..x. R.x. a.x."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Pluck Synth",
+      "low": "E4",
+      "high": "E6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "dark_motif",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Drill Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "drill",
+          "fill": "snare_roll",
+          "drums": [
+            {
+              "voice": "closed_hat",
+              "steps": "xx.x.x.x xxx.xx.x"
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..X"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

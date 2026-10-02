@@ -1,0 +1,179 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Behind the Beat in D Dorian",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.18,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.42
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.62
+    }
+  ],
+  "harmony": "Dm9:4 | Em11:4 | Dm9:2 Fmaj13:2 | G13:4 | Cmaj9:4 | Bbmaj7:2 A7#9:2 | Dm9:2 G13:2 | Em7b5:2 A7#9:2",
+  "motifs": [
+    {
+      "id": "seed",
+      "notes": "5:.75 4:.25 3:1 r:.5 2:.75 1:.25 r:.5 b3:1"
+    },
+    {
+      "id": "answer",
+      "notes": "3:1.5 2:.5 1:1 r:.5 5:.75 4:.25 3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "x--- x--- .... ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "x--- ..x- x-x- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x--- x--- x-x- x---",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- ..5. R-.. ..a."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. 7..a"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R--- ..5. R-.. ..a."
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R--- R-.g R-.. a..a"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Wurli Lead",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "seed",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 5,
+          "motif": "answer"
+        },
+        {
+          "startBar": 6,
+          "endBar": 6,
+          "motif": "answer",
+          "transforms": [
+            "transpose:+1"
+          ]
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "seed",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Pocket Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "neo_soul",
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "neo_soul",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

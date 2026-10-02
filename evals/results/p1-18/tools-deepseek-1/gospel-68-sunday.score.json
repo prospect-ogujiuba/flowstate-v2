@@ -1,0 +1,184 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunday Morning 6/8",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 6,
+    "meterDenominator": 8,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.12,
+    "style": [
+      "gospel",
+      "soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "A'",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.78
+    }
+  ],
+  "harmony": "Abmaj7:3 | Cm7:3 | Dbmaj7:3 | Eb7sus4:1.5 Eb7:1.5 | Abmaj7:1.5 Cm7:1.5 | Dbmaj7:1.5 Bbm7:1.5 | Cm7:1.5 F7#9:1.5 | Bbm7:1.5 Eb7:1.5",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:1.5 3:.75! 4:.75 3:1.5 r:.5 1:1"
+    },
+    {
+      "id": "m2",
+      "notes": "1:1 3:.5 5:1.5 6:.75 5:.75 3:1 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Piano",
+      "low": "Ab2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "X-.-.. X-.-..",
+          "voicing": "spread",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "X-.-.. X-.-xX",
+          "voicing": "open",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Ab1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "1-.-5-",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "1-.-5-",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "1-.-a-",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Hammond Organ",
+      "low": "Ab3",
+      "high": "Bb5",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 12,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1"
+          ],
+          "repeatEvery": 12,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m2",
+          "repeatEvery": 12,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m2",
+          "transforms": [
+            "transpose:+1",
+            "octave:+1"
+          ],
+          "repeatEvery": 12,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Gentle Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "gospel_shuffle",
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "ride_bell",
+              "steps": "X..... X....."
+            }
+          ],
+          "groove": "gospel_shuffle"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "ride_bell",
+              "steps": "X..... X....."
+            }
+          ],
+          "groove": "gospel_shuffle",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

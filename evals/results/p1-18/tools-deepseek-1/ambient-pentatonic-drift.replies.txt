@@ -1,0 +1,148 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Slow Light on Water",
+  "context": {
+    "swing": 0,
+    "style": ["ambient"]
+  },
+  "form": [
+    { "name": "Emergence", "startBar": 1, "bars": 4, "energy": 0.4 },
+    { "name": "Drift", "startBar": 5, "bars": 4, "energy": 0.62 }
+  ],
+  "harmony": "Cmaj9:4 | Am9:4 | Fmaj9:4 | G6/9:4 | Cmaj9:4 | Am9:4 | Fmaj9:4 | Gsus4:2 G:2",
+  "motifs": [
+    { "id": "float", "notes": "5:1.5 6:.5 8:1 5:1 | 3:1.5 1:1 3:1.5 r:.5" },
+    { "id": "answer", "notes": "1:1 3:1 5:1.5 6:.5 | 8:2 6:1 5:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm pad",
+      "low": "C3",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 48,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x-------",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x---..x-",
+          "voicing": "open",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x---..x-",
+          "voicing": "spread",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x---..x-",
+          "voicing": "spread",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 2,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Glass flute",
+      "low": "C5",
+      "high": "C7",
+      "grid": 3,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "float",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "answer",
+          "repeatEvery": 0,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "float",
+          "transforms": ["transpose:+2", "retrograde", "octave:+1"],
+          "repeatEvery": 0,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Barely there",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 44,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "sparse_pulse",
+          "fill": "none",
+          "drums": [
+            { "voice": "shaker", "steps": "....x.......x..." }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "groove": "sparse_pulse",
+          "fill": "none",
+          "drums": [
+            { "voice": "shaker", "steps": "..x...x...x...x." },
+            { "voice": "tambourine", "steps": "....x.......x..." }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "sparse_pulse",
+          "fill": "crash_end",
+          "drums": [
+            { "voice": "shaker", "steps": "..x...x...x.x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}

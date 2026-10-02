@@ -1,0 +1,122 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy Window Lofi",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.16,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.58
+    }
+  ],
+  "harmony": "Ebmaj7:2 Cm7:2 | Abmaj7:2 Bb7:2 | Gm7:2 Cm7:2 | Fm7:2 Bb7:2",
+  "motifs": [
+    {
+      "id": "sleepy",
+      "notes": "5:.75! 4:.25 3:.5 r:.5 | 2:1 b3:.5 2:.5 1:1 r:.5 | 3:.75 4:.25 5:1 r:.5 | 5:.5 4:.5 3:1 b3:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "Eb3",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x-.x..x-",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x--x.-x-",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright",
+      "low": "Eb1",
+      "high": "Bb2",
+      "grid": 2,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R---.5--"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sleepy Keys",
+      "low": "Eb4",
+      "high": "Bb5",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "sleepy",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "sleepy",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dusty Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 3,
+          "groove": "lofi"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "groove": "lofi",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

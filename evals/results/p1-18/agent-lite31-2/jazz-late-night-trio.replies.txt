@@ -1,0 +1,144 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-night Jazz Trio Vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.35,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "Head", "startBar": 1, "bars": 8, "energy": 0.6 }
+  ],
+  "harmony": "Bbmaj9:2 Cm9:2 | Dm9:2 G7b13:2 | Cm9:2 F13:2 | Bbmaj9:2 F7#11:2 | Bbmaj9:2 G7b9:2 | Cm9:2 F13:2 | Bbm7:2 Eb9:2 | Am7b5:2 D7b9:2",
+  "motifs": [
+    {
+      "id": "theme",
+      "notes": "3:1 5:1 8:1 7:1 | 6:1 5:1 4:1 2:1 | 1:2 3:1 5:1 | 6:4"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano",
+      "low": "C3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x.. | x..x..x..x..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R357 R357 R357 R357 R357 R357 R357 R357"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Saxophone",
+      "low": "G3",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "theme",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "theme",
+          "transforms": ["transpose:2", "octave:1"],
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushed Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "brush_swing"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357 | R357 R357 R357 R357"
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 3 =====
+{
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "B2",
+      "grid": 3,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3. | R.3.5.7.R.3."
+        }
+      ]
+    }
+  ]
+}

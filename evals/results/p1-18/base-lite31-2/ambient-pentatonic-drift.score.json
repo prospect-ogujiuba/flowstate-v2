@@ -1,0 +1,122 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Ambient Pentatonic Drift",
+  "context": {
+    "tempo": 72,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major_pentatonic",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "ambient"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.3
+    },
+    {
+      "name": "Development",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.5
+    }
+  ],
+  "harmony": "Cadd9:4 | G/B:4 | Am7:4 | Fmaj7:4 | C:4 | G:4 | Am:4 | F:4",
+  "motifs": [
+    {
+      "id": "float",
+      "notes": "1:2 2:1 5:1 | 6:2 5:1 1+:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "pad",
+      "role": "pad",
+      "name": "Evolving Pad",
+      "low": "C3",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x-------",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub Synth",
+      "low": "C1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 50,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-------"
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "role": "melody",
+      "name": "Floating Sine",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 8,
+          "motif": "float",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Percussion",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 45,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "groove": "sparse_pulse"
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Ambient Keys",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 55,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...............",
+          "voicing": "rootless"
+        }
+      ]
+    }
+  ]
+}

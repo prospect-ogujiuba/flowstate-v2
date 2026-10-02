@@ -1,0 +1,126 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunrise Chorus",
+  "context": {
+    "tempo": 118,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop"
+    ]
+  },
+  "form": [
+    {
+      "name": "Chorus",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.9
+    }
+  ],
+  "harmony": "G:4 | D:4 | Em7:4 | C:4 | G:4 | D:4 | C:4 | D:4",
+  "motifs": [
+    {
+      "id": "hook",
+      "notes": "3:1 5:1 6:1! 5:.5 3:.5 | 2:1 3:1 5:2 | 6:1 5:1 3:1 2:1 | 1:2 r:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Bright Piano",
+      "low": "G3",
+      "high": "G5",
+      "grid": 2,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x...x... | x...x... | x...x... | x...x... | x...x... | x...x... | x...x... | x...x...",
+          "voicing": "spread",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Pop Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... ...R ...R ...R",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R... ...R ...R ...R",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "G4",
+      "high": "D6",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "hook",
+          "transforms": [],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "hook",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Pop Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "pop",
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "pop",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lament for Airon",
+  "context": {
+    "swing": 0.06,
+    "style": ["cinematic", "folk", "celtic"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.45 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.72 }
+  ],
+  "harmony": "Am:6 | Am:6 | F:6 | G:6 | Am:6 | C:6 | Dm:6 | E:6",
+  "motifs": [
+    {
+      "id": "lament",
+      "notes": "5:1 3:.5 2:.5 1:1.5 r:.5 | 5:1 6:.5 7:.5 1+:1.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Nylon-string harp",
+      "low": "A2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "voicing": "open",
+          "rhythm": "x-x-x-x-x-x- x-x-x-x-x-x-"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Drone cello",
+      "low": "A1",
+      "high": "E3",
+      "grid": 2,
+      "velocity": 54,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R-----------",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Low whistle",
+      "low": "C4",
+      "high": "A5",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lament",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "lament",
+          "transforms": ["transpose:+2", "displace:+0.5"],
+          "repeatEvery": 6,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Frame drum",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x-----" },
+            { "voice": "rim", "steps": "----x-" },
+            { "voice": "shaker", "steps": "--g--g" }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "fill": "half_time_break",
+          "drums": [
+            { "voice": "kick", "steps": "x---x-" },
+            { "voice": "rim", "steps": "----x-" },
+            { "voice": "shaker", "steps": "x-g-x-" },
+            { "voice": "low_tom", "steps": "------" }
+          ]
+        }
+      ]
+    }
+  ]
+}

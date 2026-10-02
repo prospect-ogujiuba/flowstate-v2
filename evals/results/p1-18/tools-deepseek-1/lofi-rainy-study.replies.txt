@@ -1,0 +1,73 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy Day Eb Lofi",
+  "context": { "swing": 0.18, "style": ["lofi", "hip-hop"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.52 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.68 }
+  ],
+  "harmony": "Ebmaj9:4 | Ab13:4 | Bbmaj7#11:2 Cm7:2 | Fm9:4",
+  "motifs": [
+    { "id": "m1", "notes": "5:.5 4:.5 3:1 r:.5 b3:.5 3:1.5" },
+    { "id": "m2", "notes": "3:.75! 5:.25 4:.5 3:.5 1:2" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "Bb2",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x--- ..x- .x-- ....", "voicing": "rootless" },
+        { "startBar": 3, "endBar": 3, "rhythm": "x--- ..x- .x-- .x..", "voicing": "drop2" },
+        { "startBar": 4, "endBar": 4, "rhythm": "x--- ..x- ..x- ..x.", "voicing": "drop2" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright-ish Bass",
+      "low": "Eb1",
+      "high": "Bb2",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--. .... ..5- .... | R-.g .... .... ..a." },
+        { "startBar": 3, "endBar": 4, "rhythm": "R--. .... ..5- .... | R-.g .... ..a. ...." }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Sleepy Keys",
+      "low": "G3",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 0, "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "motif": "m2", "transforms": ["transpose:+2", "displace:+0.5"], "repeatEvery": 0, "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dusty Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "groove": "lofi", "fill": "none" },
+        { "startBar": 3, "endBar": 4, "groove": "lofi", "fill": "snare_roll", "drums": [
+          { "voice": "open_hat", "steps": ".... ..x. .... ..x." },
+          { "voice": "crash", "steps": "x..." }
+        ] }
+      ]
+    }
+  ]
+}

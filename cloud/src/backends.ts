@@ -2,13 +2,16 @@
 // - "pi": any provider pi-ai supports (Anthropic, OpenAI, Google, OpenRouter, ...). The production
 //   path: provider, model and credential are chosen per request, with the service's own key
 //   ("managed", from the provider's usual environment variable) or the user's key ("byok").
+//   Each conversation runs on a pi-agent-core Agent: the transcript is Pi messages, the capabilities'
+//   tools run in its loop, and the planner's review runs as its `finishTurn`.
 // - "claude-code": headless Claude Code (`claude -p`) on the developer's own subscription login.
-//   Development and eval runs only; never an end-user path.
+//   Development and eval runs only; never an end-user path. It takes no tools.
 import { spawn } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { AssistantMessage, Context, Message, Models, ThinkingLevel } from "@earendil-works/pi-ai";
+import { Agent, type AgentTool, type BeforeToolCallContext, type BeforeToolCallResult, type StreamFn } from "@earendil-works/pi-agent-core";
+import { toToolDeclaration, type AssistantMessage, type Message, type Models, type ThinkingLevel } from "@earendil-works/pi-ai";
 import { builtinModels } from "@earendil-works/pi-ai/providers/all";
 import { FlowstateError, providerFailure } from "./errors.ts";
 
@@ -22,6 +25,8 @@ export interface Completion {
   firstTokenMs: number | null;
   /** Time to the first answer text, after any thinking. */
   firstTextMs: number | null;
+  /** Tools the model called on the way to this reply. */
+  toolCalls?: string[];
 }
 export interface CompleteOptions {
   /** Called with each answer-text delta as it streams in. Thinking is not passed on. */
@@ -29,11 +34,59 @@ export interface CompleteOptions {
   /** Aborting stops the provider stream; the call rejects. */
   signal?: AbortSignal;
 }
+
+/** What a conversation starts from: the system prompt, its named sections, and any tools (capabilities). */
+export interface Prompt {
+  system: string;
+  sections?: Record<string, string>;
+  /** Tools the model may call. Only the pi backend offers them. */
+  tools?: AgentTool[];
+  /** Checks every tool call before it runs (the capabilities' allowlist). Without it, every call is refused. */
+  beforeToolCall?: (call: Pick<BeforeToolCallContext, "toolCall" | "args">) => Promise<BeforeToolCallResult | undefined>;
+}
+
+export interface ConverseHooks {
+  /** A new assistant reply starts streaming: after the request, a repair request or a tool result. */
+  onReplyStart?: () => void;
+  /** Each answer-text delta. Thinking is not passed on. */
+  onText?: (delta: string) => void;
+  /**
+   * Each finished reply that calls no tools, with usage and timings since the last request. Returns the next
+   * request (a repair) or null to end. A throw ends the conversation and rejects with that error.
+   */
+  review: (reply: Completion) => string | null;
+  signal?: AbortSignal;
+}
+
 export interface Backend {
   name: string;
   provider: string;
   model: string;
   complete(system: string, turns: Turn[], options?: CompleteOptions): Promise<Completion>;
+  /** A whole conversation, repairs included. Backends without it are driven turn by turn (`converse`). */
+  converse?(prompt: Prompt, first: string, hooks: ConverseHooks): Promise<void>;
+}
+
+/** The system prompt with its sections as one text, as pi-ai renders it, for backends without system messages. */
+export function systemText(prompt: Prompt): string {
+  return [prompt.system, ...Object.values(prompt.sections ?? {})].filter((s) => s.length > 0).join("\n\n");
+}
+
+/** Runs a conversation on any backend: its own `converse`, or one `complete` call per reply. Tools need `converse`. */
+export async function converse(backend: Backend, prompt: Prompt, first: string, hooks: ConverseHooks): Promise<void> {
+  if (backend.converse) return backend.converse(prompt, first, hooks);
+  const system = systemText(prompt);
+  const turns: Turn[] = [{ role: "user", text: first }];
+  for (;;) {
+    hooks.onReplyStart?.();
+    const completion = await backend.complete(system, turns, {
+      ...(hooks.onText ? { onText: hooks.onText } : {}),
+      ...(hooks.signal ? { signal: hooks.signal } : {}),
+    });
+    const next = hooks.review(completion);
+    if (next === null) return;
+    turns.push({ role: "assistant", text: completion.text }, { role: "user", text: next });
+  }
 }
 
 export type Credential = { kind: "managed" } | { kind: "byok"; apiKey: string };
@@ -100,48 +153,135 @@ function piBackend(sel: ModelSelection, models: Models): Backend {
   if (sel.credential.kind === "byok" && !sel.credential.apiKey.trim()) throw new FlowstateError("bad_request", "BYOK request without a key");
   const apiKey = sel.credential.kind === "byok" ? sel.credential.apiKey : undefined;
 
-  return {
+  // pi-ai turns thinking off when no reasoning level is given. A level the model lacks is raised to the next one it has.
+  const level = sel.reasoning ?? "high";
+  const streamFn: StreamFn = (m, context, options) => {
+    const { reasoning, apiKey: _resolved, ...rest } = options ?? {};
+    return models.streamSimple(m, context, {
+      ...rest,
+      ...(reasoning ? { reasoning } : {}),
+      maxTokens: Math.min(MAX_OUTPUT_TOKENS, m.maxTokens),
+      ...(apiKey ? { apiKey } : {}),
+    });
+  };
+
+  const run = async (prompt: Prompt, history: Message[], first: string, hooks: ConverseHooks): Promise<void> => {
+    if (hooks.signal?.aborted) throw new FlowstateError("cancelled", "planner call aborted");
+    const tools = prompt.tools ?? [];
+    const agent = new Agent({
+      // The leading system message carries the prompt, its sections and the tools, so the loop adds none.
+      initialState: {
+        model,
+        thinkingLevel: level === "off" ? "off" : level,
+        tools,
+        messages: [{
+          role: "system", content: prompt.system, timestamp: Date.now(),
+          ...(prompt.sections && Object.keys(prompt.sections).length ? { sections: prompt.sections } : {}),
+          ...(tools.length ? { toolsAdded: tools.map(toToolDeclaration) } : {}),
+        }, ...history],
+      },
+      streamFn,
+      toolExecution: "sequential",
+    });
+
+    let toolCallCount = 0;
+    agent.beforeToolCall = async (call) => {
+      if (!prompt.beforeToolCall) return { block: true, reason: `tool '${call.toolCall.name}' is not allowed` };
+      if (++toolCallCount > MAX_TOOL_CALLS) return { block: true, reason: "no more tool calls in this request: write the score now" };
+      return prompt.beforeToolCall(call);
+    };
+
+    // Usage and timings since the last request (the prompt or a repair), across any tool turns.
+    let segment = newSegment();
+    let failure: unknown;
+    let ended = false;
+    agent.subscribe((event) => {
+      if (event.type === "message_start" && event.message.role === "assistant") hooks.onReplyStart?.();
+      else if (event.type === "message_update") {
+        const e = event.assistantMessageEvent;
+        if (segment.firstTokenMs === null && (e.type === "text_delta" || e.type === "thinking_delta")) segment.firstTokenMs = Date.now() - segment.started;
+        if (e.type === "text_delta") {
+          segment.firstTextMs ??= Date.now() - segment.started;
+          hooks.onText?.(e.delta);
+        }
+      } else if (event.type === "message_end" && event.message.role === "assistant") {
+        const u = event.message.usage;
+        segment.inputTokens += u.input;
+        segment.outputTokens += u.output;
+        segment.cacheReadTokens += u.cacheRead;
+      } else if (event.type === "tool_execution_start") segment.toolCalls.push(event.toolName);
+    });
+
+    // The planner's review runs as the turn's finish: a repair goes in as a follow-up, which the loop sends next.
+    agent.finishTurn = ({ message }) => {
+      if (message.stopReason === "error" || message.stopReason === "aborted") return;
+      if (message.stopReason === "length") {
+        failure = new FlowstateError("truncated", "planner hit the output token limit before finishing the score");
+        return { action: "end" };
+      }
+      if (message.content.some((b) => b.type === "toolCall")) return; // the loop sends the tool results
+      try {
+        const { started: _, ...stats } = segment;
+        const next = hooks.review({ ...stats, text: textOf(message) });
+        if (next === null) {
+          ended = true;
+          return { action: "end" };
+        }
+        segment = newSegment();
+        agent.followUp({ role: "user", content: next, timestamp: Date.now() });
+        return;
+      } catch (err) {
+        failure = err;
+        return { action: "end" };
+      }
+    };
+
+    const onAbort = () => agent.abort();
+    hooks.signal?.addEventListener("abort", onAbort, { once: true });
+    try {
+      await agent.prompt(first);
+    } finally {
+      hooks.signal?.removeEventListener("abort", onAbort);
+    }
+    if (failure !== undefined) throw failure;
+    if (hooks.signal?.aborted) throw new FlowstateError("cancelled", "planner call aborted");
+    const last = agent.state.messages.findLast((m): m is AssistantMessage => m.role === "assistant");
+    // pi-ai maps refusals and safety stops to "error", and the output-token limit to "length".
+    if (last && (last.stopReason === "error" || last.stopReason === "aborted")) {
+      const raw = last.stopReason === "aborted" ? "aborted" : last.rawStopReason ?? last.stopReason;
+      throw providerFailure(raw, `planner call failed (${sel.provider}/${sel.model}, ${raw}): ${last.errorMessage ?? "no details"}`);
+    }
+    if (!ended) throw new FlowstateError("provider", `planner conversation ended without a reply (${sel.provider}/${sel.model})`);
+  };
+
+  const backend: Backend = {
     name: "pi",
     provider: sel.provider,
     model: sel.model,
+    converse: (prompt, first, hooks) => run(prompt, [], first, hooks),
+    // One reply to a replayed conversation, through the same agent loop.
     async complete(system, turns, options = {}) {
-      const context: Context = { systemPrompt: system, messages: turns.map((t) => toMessage(t, model)) };
-      const started = Date.now();
-      let firstTokenMs: number | null = null;
-      let firstTextMs: number | null = null;
-      // pi-ai turns thinking off when no level is given. A level the model lacks is raised to the next one it has.
-      const level = sel.reasoning ?? "high";
-      const stream = models.streamSimple(model, context, {
-        ...(level === "off" ? {} : { reasoning: level }),
-        maxTokens: Math.min(MAX_OUTPUT_TOKENS, model.maxTokens),
-        ...(apiKey ? { apiKey } : {}),
+      let reply: Completion | undefined;
+      const earlier = turns.slice(0, -1).map((t) => toMessage(t, model));
+      await run({ system }, earlier, turns.at(-1)!.text, {
+        ...(options.onText ? { onText: options.onText } : {}),
         ...(options.signal ? { signal: options.signal } : {}),
+        review: (r) => ((reply = r), null),
       });
-      for await (const event of stream) {
-        if (firstTokenMs === null && (event.type === "text_delta" || event.type === "thinking_delta")) firstTokenMs = Date.now() - started;
-        if (event.type === "text_delta") {
-          firstTextMs ??= Date.now() - started;
-          options.onText?.(event.delta);
-        }
-      }
-      const response = await stream.result();
-      // pi-ai maps refusals and safety stops to "error", and the output-token limit to "length".
-      if (response.stopReason === "error" || response.stopReason === "aborted") {
-        const raw = response.stopReason === "aborted" ? "aborted" : response.rawStopReason ?? response.stopReason;
-        throw providerFailure(raw, `planner call failed (${sel.provider}/${sel.model}, ${raw}): ${response.errorMessage ?? "no details"}`);
-      }
-      if (response.stopReason === "length") throw new FlowstateError("truncated", "planner hit the output token limit before finishing the score");
-      return {
-        text: response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join(""),
-        inputTokens: response.usage.input,
-        outputTokens: response.usage.output,
-        cacheReadTokens: response.usage.cacheRead,
-        firstTokenMs,
-        firstTextMs,
-      };
+      return reply!;
     },
   };
+  return backend;
 }
+
+// Tool calls one request may make before further calls are refused.
+const MAX_TOOL_CALLS = 4;
+
+function newSegment() {
+  return { started: Date.now(), inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, firstTokenMs: null as number | null, firstTextMs: null as number | null, toolCalls: [] as string[] };
+}
+
+const textOf = (m: AssistantMessage) => m.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join("");
 
 // Repair turns replay the planner's earlier answer as an assistant message.
 function toMessage(t: Turn, model: { api: AssistantMessage["api"]; provider: string; id: string }): Message {

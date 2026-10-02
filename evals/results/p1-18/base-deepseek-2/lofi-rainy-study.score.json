@@ -1,0 +1,131 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Rainy-Day Lofi Loop",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.18,
+    "style": [
+      "lofi",
+      "hip-hop"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.52
+    }
+  ],
+  "harmony": "Ebmaj7:4 | Abmaj7:4 | Fm7:4 | Bb7:4",
+  "motifs": [
+    {
+      "id": "sleepy",
+      "notes": "5:.75 3:.25 4:.5 r:.5 2:1 r:.5 1:1.5"
+    },
+    {
+      "id": "answer",
+      "notes": "3:.5 2:.5 1:.75 r:.25 6-:.5 5:.5 4:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "Bb2",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- ..x- | x--- ..x- .x-- ..x-",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Eb1",
+      "high": "Bb2",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- ..5. R-.. ..a. | R--- ..5. R-.. ..a.",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Warm Keys",
+      "low": "Eb4",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "sleepy",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.25"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Lofi Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x...x..x. ..x..... "
+            },
+            {
+              "voice": "snare",
+              "steps": "....X... ....X..g"
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x..x..x. x..x..x."
+            }
+          ],
+          "groove": "lofi",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

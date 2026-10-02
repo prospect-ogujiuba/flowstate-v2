@@ -1,0 +1,138 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-Night Bb Trio Vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.32,
+    "style": [
+      "jazz",
+      "swing"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.75
+    }
+  ],
+  "harmony": "Bbmaj9:2 G7b13:2 | Cm9:2 F7#9:2 | Dm11:2 G7b13:2 | Cm9:2 F7#9:2 | Bbmaj9:2 G7b13:2 | Ebmaj9:2 Ebm6:2 | Dm7:2 G7b13:2 | Cm9:2 F13:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:.75 6:.25 5:1 3:1 | 2:1.5 r:.5 1:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "F3",
+      "high": "Bb5",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x-.x -..x",
+          "voicing": "rootless",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x..x x.-x",
+          "voicing": "rootless",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "Bb1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- .5-. 7-R- a-.."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--3 -5-- 2-7- R-a-",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "F3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "brush_swing"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "brush_swing",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

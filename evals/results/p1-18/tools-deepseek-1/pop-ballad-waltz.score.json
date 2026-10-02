@@ -1,0 +1,150 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Tender Waltz in F",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "pop",
+      "ballad"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.45
+    },
+    {
+      "name": "A'",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.68
+    }
+  ],
+  "harmony": "F:3 | Dm7:3 | Gm7:3 | C:3 | F:3 | Bb:3 | C7:3 | F:3",
+  "motifs": [
+    {
+      "id": "waltzA",
+      "notes": "3:.5 5:.5 6:1 5:.5 3:.5 | 4:1.5 r:1.5 | 6:1 5:.5 4:.5 3:1.5 | 2:1.5 1:3"
+    },
+    {
+      "id": "waltzB",
+      "notes": "1:.5 3:.5 4:1 6:1 5:1 | 5:1.5 4:.5 3:1 | 2:1 3:.5 4:.5 6:1.5 | 5:1.5 1:3"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Piano",
+      "low": "F2",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x-. -x. -x-",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "x-. -x- -x-",
+          "voicing": "open"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "x-- ---",
+          "voicing": "open"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-. -5. -R-"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-. -5- -a-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Piano Lead",
+      "low": "C4",
+      "high": "G5",
+      "grid": 3,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "waltzA",
+          "repeatEvery": 12
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "waltzB",
+          "repeatEvery": 12
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brush Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 66,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "waltz"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "x.x. x. x. x. x."
+            }
+          ],
+          "groove": "waltz"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "waltz",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Dorian Waltz — Ride & Sax",
+  "context": {
+    "tempo": 150,
+    "meterNumerator": 3,
+    "meterDenominator": 4,
+    "tonic": "G",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.18,
+    "style": [
+      "jazz",
+      "waltz"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Gm9:3 Fmaj7:3 | Eb13:3 D7#9:3 | Gm9:2 C13:1 | Fmaj7:3 | Gm9:3 Fmaj7:3 | Eb13:2 D7#9:1 | Cm9:2 D7#9:1 | D7#9:2 Gm9:1",
+  "motifs": [
+    {
+      "id": "sax-a",
+      "notes": "r:.5 5:.5! 4:.5 3:1.5 | r:.5 b3:.5 4:1 3:.5 2:.5 | 1:1! 2:.5 3:1.5 | r:1 4:.5 #4:.5 5:1 |"
+    },
+    {
+      "id": "sax-b",
+      "notes": "5:.5! 6:.5 5:.5 4:1 3:.5 | 5:.5 6:.5 7:1 8:1 | r:.5 7:.5 6:.5 5:.5 b3:1 | r:1.5 5:.5 4:.5 3:.5 |"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes Comp",
+      "low": "G3",
+      "high": "D5",
+      "grid": 3,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "x.. ..x ..x",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "x.. .x. .x.",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "x.. .x. ...",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "x.. ..x ..x",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x.. ..x ..x",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 7,
+          "endBar": 7,
+          "rhythm": "x.. ..x .x.",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "x.. x.. r..",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright Bass",
+      "low": "E1",
+      "high": "D3",
+      "grid": 3,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R.. .5. .2.",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "rhythm": "R.. R.. 5..",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "rhythm": "R.. .5. .a.",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "D4",
+      "high": "B5",
+      "grid": 3,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "motif": "sax-a",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 2,
+          "endBar": 3,
+          "motif": "sax-b",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 4,
+          "endBar": 5,
+          "motif": "sax-a",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "articulation": "legato"
+        },
+        {
+          "startBar": 6,
+          "endBar": 7,
+          "motif": "sax-b",
+          "repeatEvery": 6,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "motif": "sax-a",
+          "transforms": [
+            "invert"
+          ],
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "jazz_waltz"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "ride_bell",
+              "steps": "X.. X.. X.."
+            }
+          ],
+          "groove": "jazz_waltz"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "jazz_waltz",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

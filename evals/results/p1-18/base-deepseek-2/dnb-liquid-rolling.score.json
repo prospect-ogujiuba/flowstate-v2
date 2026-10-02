@@ -1,0 +1,168 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "F minor liquid roller",
+  "context": {
+    "tempo": 174,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "F",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0,
+    "style": [
+      "drum-and-bass",
+      "liquid"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.78
+    }
+  ],
+  "harmony": "Fm9:4 | Db6/9:4 | Eb13sus4:4 | Bbm9:4 | Fm9:4 | Abmaj7:4 | Gb6/9:4 | Eb13:2 F7#11:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "3:.5 5:.5 4:1 3:.5 1:.5 2:1 r:.5 3:.5 5:1 4:1.5 r:.5"
+    },
+    {
+      "id": "m2",
+      "notes": "1:.5 3:.5 4:1 5:1 4:.5 3:.5 1:1 r:1 2:.5 3:.5 4:1.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Lush pad",
+      "low": "Ab3",
+      "high": "Eb6",
+      "grid": 4,
+      "velocity": 58,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- x--- ----",
+          "voicing": "open"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- ---- x--- --x-",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Deep sub",
+      "low": "F1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R--- --g- R--- ----",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R--- --g- R--- --a-",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Liquid keys",
+      "low": "C4",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m2",
+          "transforms": [
+            "displace:+0.25"
+          ],
+          "repeatEvery": 4,
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Two-step kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "tambourine",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "groove": "dnb",
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "tambourine",
+              "steps": "..x...x. ..x...x."
+            },
+            {
+              "voice": "ride",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "groove": "dnb"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "tambourine",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "groove": "dnb",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
-import { createModels, fauxAssistantMessage, fauxProvider } from "@earendil-works/pi-ai";
+import { contentText, createModels, fauxAssistantMessage, fauxProvider, getCurrentSystemPrompt } from "@earendil-works/pi-ai";
 import type { Part, Score } from "@flowstate/schema";
 import { backendFor } from "./backends.ts";
 import { planScore, type PlanRequest } from "./planner.ts";
@@ -21,14 +21,16 @@ function setup(...replies: string[]) {
   const faux = fauxProvider({ provider: "faux", models: [{ id: "faux-model" }], tokenSize: { min: 8, max: 64 } });
   const models = createModels();
   models.setProvider(faux.provider);
-  // The last user message of each request, i.e. what the planner asked for.
+  // The last user message of each request, i.e. what the planner asked for, and the system prompt it rendered.
   const requests: string[] = [];
+  const systems: string[] = [];
   faux.setResponses(replies.map((text) => (ctx) => {
     const last = ctx.messages.at(-1);
-    requests.push(typeof last?.content === "string" ? last.content : JSON.stringify(last?.content));
+    requests.push(last?.role === "user" ? contentText(last.content) : "");
+    systems.push(getCurrentSystemPrompt(ctx.messages));
     return fauxAssistantMessage(text);
   }));
-  return { backend: backendFor({ provider: "faux", model: "faux-model", credential: { kind: "managed" } }, models), requests };
+  return { backend: backendFor({ provider: "faux", model: "faux-model", credential: { kind: "managed" } }, models), requests, systems };
 }
 
 describe("planScore", () => {
@@ -94,15 +96,16 @@ describe("planScore", () => {
     assert.deepEqual(result.score, score);
   });
 
-  it("names the grooves that match the style and meter", async () => {
+  it("names the grooves that match the style and meter, in the style pack section after the IR spec", async () => {
     const trap: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 4, meterDenominator: 4 } };
-    const { backend, requests } = setup(JSON.stringify(score));
+    const { backend, systems } = setup(JSON.stringify(score));
     await planScore(trap, backend);
-    assert.match(requests[0]!, /drum grooves for these styles: trap \(see Grooves\)/);
+    assert.match(systems[0]!, /<style_pack>[\s\S]*drum grooves for these styles: trap \(see Grooves\)[\s\S]*<\/style_pack>$/);
+    assert.ok(systems[0]!.indexOf("### Grooves") < systems[0]!.indexOf("<style_pack>"), "the fixed prompt stays a cacheable prefix");
     const waltz: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 3, meterDenominator: 4 } };
     const second = setup(JSON.stringify(score));
     await planScore(waltz, second.backend).catch(() => {});
-    assert.doesNotMatch(second.requests[0]!, /drum grooves/);
+    assert.doesNotMatch(second.systems[0]!, /style_pack|drum grooves for/);
   });
 
   it("stops when the request is aborted", async () => {

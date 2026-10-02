@@ -1,0 +1,71 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "G Mixolydian Rock Anthem",
+  "context": { "swing": 0.0, "style": ["rock"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.7 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.85 }
+  ],
+  "harmony": "G5:4 | F5:4 | C5:4 | G5:4 | D5:4 | C5:4 | G5:2 F5:2 | C5:4",
+  "motifs": [
+    { "id": "m1", "notes": "1:.5 5:.5 6:.5 5:.5 3:.5 2:.5 1:1" },
+    { "id": "m2", "notes": "5:.5 4:.5 5:.5 6:.5 8:1 7:.5 6:.5 5:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhythm Guitar",
+      "low": "C2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 98,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "X--- X--- X--- X--- | X--- X--- X--- X--- | X--- X--- X--- X--- | X--- X--- X--- X---", "voicing": "power" },
+        { "startBar": 5, "endBar": 8, "rhythm": "X--- X--- X--- X--- | X--- X--- X--- X--- | X--- X--- X--- X--- | X--- X--- X--- X---", "voicing": "power" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R-", "articulation": "staccato" },
+        { "startBar": 5, "endBar": 8, "rhythm": "R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R- | R-R- R-R- R-R- R-R-", "articulation": "staccato" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4 },
+        { "startBar": 3, "endBar": 4, "motif": "m2", "repeatEvery": 4 },
+        { "startBar": 5, "endBar": 8, "motif": "m1", "transforms": ["transpose:+2"], "repeatEvery": 4 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 110,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "groove": "rock", "fill": "none" },
+        { "startBar": 5, "endBar": 7, "groove": "rock", "fill": "none" },
+        { "startBar": 8, "endBar": 8, "groove": "rock", "fill": "crash_end" }
+      ]
+    }
+  ]
+}

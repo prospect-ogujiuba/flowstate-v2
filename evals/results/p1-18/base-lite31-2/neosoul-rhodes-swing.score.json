@@ -1,0 +1,121 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody D Dorian Neo-Soul",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.35,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "Intro",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.4
+    },
+    {
+      "name": "Build",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | Am7:2 A7#9:2 | Dm9:4 | G13:4 | Bbmaj9:4 | A7#9:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:.75! 6:.25 1+:1 | r:.5 3+:1 5:1.5 | 4+:1 3+:1 1+:1 r:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": ".x-- ..x. .x-- ..x.",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "E1",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ..g. R--- .a.."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Trumpet",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2"
+          ],
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "neo_soul"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "neo_soul",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

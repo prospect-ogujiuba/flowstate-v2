@@ -1,0 +1,134 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Driving G Mixolydian Rock Anthem",
+  "context": {
+    "swing": 0,
+    "style": ["rock"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.65 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.85 }
+  ],
+  "harmony": "G5:4 | C5:4 | G5:4 | D5:4 | G5:4 | C5:4 | G5:2 D5:2 | G5:4",
+  "motifs": [
+    { "id": "m1", "notes": "1:.75 1:.25 3:.5 5:.5 6:1 5:1" },
+    { "id": "m2", "notes": "8:1 7:.5 5:.5 6:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhythm Guitar",
+      "low": "E2",
+      "high": "G4",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x-x-x-x-x-x-x-x-",
+          "voicing": "power"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x-x-x-x-x-x-x-x-",
+          "voicing": "power"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "x-x-x-x-x-x-x-x-",
+          "voicing": "power"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "x-x-x-x-x-x-x-x-",
+          "voicing": "power"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Rock Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R-R-R-R-R-R-R-R-"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R-R-R-R-R-R-R-R-"
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "rhythm": "R-R-R-R-R-R-R-R-"
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "rhythm": "R-R-R-R-R-R-R-R-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Guitar",
+      "low": "G3",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 4,
+          "transforms": []
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m2",
+          "repeatEvery": 4,
+          "transforms": []
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 108,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "rock",
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "rock",
+          "fill": "crash_end"
+        }
+      ]
+    }
+  ]
+}

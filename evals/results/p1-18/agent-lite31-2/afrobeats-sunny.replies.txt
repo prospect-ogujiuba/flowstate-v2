@@ -1,0 +1,110 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Sunny Afrobeats Loop",
+  "context": {
+    "tempo": 106,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Ab",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.1,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.7
+    }
+  ],
+  "harmony": "Abmaj9:4 | Fm9:4 | Bbm9:4 | Eb13:4",
+  "motifs": [
+    {
+      "id": "lead_motif",
+      "notes": "5:1 3:.5 1:.5 2:1 r:1 | 5:1 6:1 8:1 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Plucky Guitar",
+      "low": "C3",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "..x. .x.x ..x. .x.x",
+          "voicing": "close"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Log Drum",
+      "low": "C1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... .x.. R... .x.."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead",
+      "low": "C4",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "lead_motif",
+          "repeatEvery": 8
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "afrobeats",
+          "drums": [
+            {
+              "voice": "shaker",
+              "steps": "xxxxxxxxxxxxxxxx"
+            },
+            {
+              "voice": "rim",
+              "steps": ".x.. x.x. .x.. x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

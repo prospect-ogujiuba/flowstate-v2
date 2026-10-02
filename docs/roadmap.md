@@ -338,7 +338,35 @@ Plan (2026-10-01): a Hetzner server running the service in Podman, set up with t
 Deploy `cloud/` so testers' plugins can reach it (TLS, a per-tester token, basic rate limits). With P1-18: the session store (SQLite or Postgres) per tester, with one writer per session (Pi's format has no locking of its own).
 Acceptance: the tester build talks to the hosted service; a deploy is one command from CI.
 
-### P1-18 Agent loop on Pi — `todo` (decided 2026-10-02)
+### P1-18 Agent loop on Pi — `doing` (decided 2026-10-02; steps 1–3 done 2026-10-02)
+Done so far (2026-10-02):
+- **Step 1:** `@earendil-works/pi-ai` ^1.0.0 and `@earendil-works/pi-agent-core` ^1.0.0. The lockfile test allows exactly those two plus `pi-telemetry`.
+- **Step 2, agent loop:** the `pi` backend runs each plan on an `Agent` (`converse` in `cloud/src/backends.ts`).
+  - The planner's check runs as `finishTurn`. It ends the run or queues the repair request with `followUp`, so a plan and its repairs are one Pi transcript.
+  - The score is still streamed JSON text, so parts stream as before, repairs included.
+  - The prompt, its sections and the tools sit in the leading system message.
+  - `maxTokens` and the BYOK key go in through `streamFn`, because `Agent` doesn't forward them.
+  - Refusals, truncation, provider errors and cancellation keep their bridge codes. `claude-code` is driven one reply at a time behind the same `Backend`, with no tools.
+- **Step 3, capabilities:** `cloud/src/capabilities/`, a subset of Pi's `ExtensionAPI`: `registerTool(ToolDefinition)` and `on("before_agent_start" | "tool_call")`, with handlers taking `(event, ctx)`. There is no `exec`, and everything is imported statically in `registry.ts`. The first three:
+  - style packs: the groove hint, moved from the request into a `style_pack` section after the IR spec
+  - `library_examples`: a read-only tool over `library/catalog`
+  - `analyze_clip`: core's `fs-analyze` on a library clip named by catalog id. `cloud/src/analyzer.ts` resolves the file and runs the binary without a shell.
+- **Tool guards:** tools are offered only when a request asks (`--tools`), and a request may make at most 4 calls.
+- **Tests:** `capabilities.test.ts` checks:
+  - capability modules import no Node built-ins and have no `process`, `require`, dynamic `import`, `eval` or `fetch`
+  - registering a tool outside `ALLOWED_TOOLS` throws, and `beforeToolCall` refuses calls outside it
+  - a made-up `bash` call from the model is refused, and a path never reaches `fs-analyze`
+  - a real `fs-analyze` run works
+- **P1-4 contract tests:** all pass unchanged.
+- **Eval** (`evals/results/p1-18/`), DeepSeek Flash, thinking off:
+  - The agent loop is 78/80 valid, full plan p50 3.5 s, first part 2.3 s.
+  - Same-day HEAD is 78/80, 3.8 s and 2.3 s. Round 7 was 40/40, 4.2 s and 2.3 s.
+  - The invalid plans on both code paths are step-count bars after three attempts.
+- **Eval**, Flash Lite: 40/40, 3.1 s and 1.9 s.
+- **Eval**, with tools: DeepSeek calls `library_examples` on every plan (+2.4 s); Flash Lite never calls it.
+
+Left: steps 4 and 5. Whether library examples help the music is a blind pack, and the service doesn't offer tools on `/v1/plan` yet.
+
 Build the service natively on Pi without its coding agent. Research (2026-10-02, source read for pi-ai, pi-agent-core, pi-coding-agent, pi-server, chord, pi-protocol and the sqlite backends): extensions and real sessions exist only in `pi-coding-agent`, which always builds read, bash, edit and write tools and has no sandbox; `pi-agent-core` 1.0 is the loop, tools, hooks and events, and removed 0.99's session layer; pi-server and pi-protocol are experimental local transports that don't fit the plugin's HTTPS and SSE.
 Steps:
 1. Bump `@earendil-works/pi-ai` to `^1.0.0` (`^0.99.2` doesn't admit 1.0; no type changes between them).

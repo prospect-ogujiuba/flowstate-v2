@@ -1,0 +1,118 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep house organ groove",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 8,
+    "swing": 0.1,
+    "style": [
+      "house",
+      "deep-house"
+    ]
+  },
+  "form": [
+    {
+      "name": "Build",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.5
+    },
+    {
+      "name": "Main",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.8
+    }
+  ],
+  "harmony": "Am9:2 Dm9:2 | Am9:2 Fmaj9:2 | Am9:2 Dm9:2 | E7#9:4 | Am9:2 Dm9:2 | Am9:2 Fmaj9:2 | Am9:2 Dm9:2 | E7#9:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "1:1 r:.5 3:.5 5:1 8:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Organ Stabs",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".... x... .... x...",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": ".... x.x. .... x.x.",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Deep Sub Bass",
+      "low": "A0",
+      "high": "A2",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": ".x.x .x.x .x.x .x.x"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Synth Lead",
+      "low": "A4",
+      "high": "A6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "m1",
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "House Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 105,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "four_on_floor"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "four_on_floor",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

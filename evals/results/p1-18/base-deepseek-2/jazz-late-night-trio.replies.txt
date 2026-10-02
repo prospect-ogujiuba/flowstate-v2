@@ -1,0 +1,116 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Late-night Bb trio vamp",
+  "context": {
+    "tempo": 132,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Bb",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0.3,
+    "style": ["jazz", "swing"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.5 },
+    { "name": "B", "startBar": 5, "bars": 4, "energy": 0.72 }
+  ],
+  "harmony": "Cm9:4 | F13:4 | Bbmaj9:4 | Ebmaj9:4 | Cm9:4 | F13:4 | Bbmaj9:2 G7#9:2 | Cm9:4",
+  "motifs": [
+    { "id": "m1", "notes": "5:.75! 4:.25 3:1 r:.5 2:1 1:1.5" },
+    { "id": "m2", "notes": "3:1 5:.5 6:.5 5:1 4:.5 b3:.5 2:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "x--- ..x- .x-- ....", "voicing": "rootless" },
+        { "startBar": 5, "endBar": 8, "rhythm": "x--- .x-- ..x- ....", "voicing": "rootless" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "R-.5 5-.5 3-.5 a-.5 R-.5 5-.5 3-.5 g-.5 R-.5 5-.5 3-.5 a-.5 R-.5 5-.5 3-.5 2-.5", "articulation": "legato" },
+        { "startBar": 5, "endBar": 8, "rhythm": "R-.5 5-.5 7-.5 a-.5 R-.5 5-.5 3-.5 g-.5 R-.5 5-.5 7-.5 a-.5 R-.5 5-.5 a-.5 R-.5", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Tenor Sax",
+      "low": "Bb3",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "m1", "repeatEvery": 4, "transforms": ["transpose:+2"] },
+        { "startBar": 3, "endBar": 4, "motif": "m1", "repeatEvery": 4, "transforms": ["transpose:+2", "retrograde"] },
+        { "startBar": 5, "endBar": 6, "motif": "m1", "repeatEvery": 4, "transforms": ["transpose:+4", "octave:+1"] },
+        { "startBar": 7, "endBar": 7, "motif": "m2", "repeatEvery": 4, "transforms": ["transpose:+2"] },
+        { "startBar": 8, "endBar": 8, "motif": "m1", "repeatEvery": 4, "transforms": ["transpose:+2", "displace:+0.5"] }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushes",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "groove": "brush_swing", "fill": "snare_roll" },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "brush_swing",
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x.........x..........." }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Brushes",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "groove": "brush_swing", "fill": "snare_roll" },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "groove": "brush_swing",
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x..............." }
+          ]
+        }
+      ]
+    }
+  ]
+}

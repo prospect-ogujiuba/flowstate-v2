@@ -1,0 +1,106 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Moody D Dorian Neo-Soul",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.25,
+    "style": ["neo-soul", "rnb"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 8, "energy": 0.6 }
+  ],
+  "harmony": "Dm9:4 | G13:4 | Em7:4 | Am7:4 | Dm9:4 | G13:4 | Bbmaj7:2 C:2 | Dm9:4",
+  "motifs": [
+    {
+      "id": "motif_1",
+      "notes": "5:.75! 4:.25 3:1 | r:.5 1:1.5 | 3:1 2:.5 1:.5 | 6-:2"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 75,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- .x-- -x-- -x--",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Warm Finger Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ..g. 5--- --a-"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Muted Trumpet",
+      "low": "A3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "motif_1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "motif": "motif_1",
+          "transforms": ["transpose:+2", "octave:+1"],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Neo-Soul Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 7,
+          "groove": "neo_soul"
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "groove": "neo_soul",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

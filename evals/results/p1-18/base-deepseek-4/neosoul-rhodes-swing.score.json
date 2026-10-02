@@ -1,0 +1,151 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Midnight Dm9 Pocket",
+  "context": {
+    "tempo": 84,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 8,
+    "swing": 0.24,
+    "style": [
+      "neo-soul",
+      "rnb"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 5,
+      "bars": 4,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Dm9:4 | Bbmaj7#11:4 | Ebmaj7:4 | Em7b5:2 A7#9:2 | Dm9:2 Gm9:2 | Fmaj7:2 Bbmaj9:2 | Em7b5:2 A7#9:2 | Dm9:4",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:.75! 4:.25 3:1 r:.5 1:1.5"
+    },
+    {
+      "id": "m2",
+      "notes": "3:1 4:.5 5:1 r:.5 7:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "keys",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--. x-.. .x-- ..x-",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-.. X--. .x-. ..x-",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R-.. 5-.. .-R- ..a."
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R-.. 5-.. .-7- g.a."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Rhodes lead",
+      "low": "D4",
+      "high": "A5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "motif": "m1",
+          "repeatEvery": 8
+        },
+        {
+          "startBar": 5,
+          "endBar": 6,
+          "motif": "m2",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 7,
+          "endBar": 8,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 94,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "neo_soul",
+          "fill": "none"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "open_hat",
+              "steps": "....x... ..x...x."
+            }
+          ],
+          "groove": "neo_soul",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
