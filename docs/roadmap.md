@@ -171,7 +171,7 @@ Done: `cloud/src/service.ts`, run with `npm run serve` (`cloud/README.md`).
 - Live check (2026-10-02, `claude-code` Sonnet low): a fixture request streamed header, four parts and `done`; closing the connection mid-plan logged `cancelled` and stopped the `claude` process.
 
 Left for later issues:
-- **The plugin's client** (next, with P1-7): `generate` sends a `PlanRequest` to the service, and its events become `partReady` and nodes. Until then the plugin's model commands still reply `unavailable`.
+- ~~The plugin's client~~ done 2026-10-02 with P1-7: `generate` sends a `PlanRequest` per variation and turns the stream into nodes, `partReady` and `generationDone` (`docs/bridge-spec.md`, "The plugin's client"). `edit`, `vary` and `addPart` still reply `unavailable`.
 - `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
 - Edits (an IR patch from the model) beyond the skeleton.
 - Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
@@ -210,7 +210,17 @@ Acceptance:
 - Closing and reopening the editor loses nothing.
 - The DAW project reopens with its ideas intact.
 
-### P1-7 Audition and MIDI out — `todo`
+### P1-7 Audition and MIDI out — `done` (2026-10-02: Linux and local MSVC; macOS in CI on the next push)
+Done, with the plugin's service client (P1-4's "Left" list):
+- `generate` streams from the agent service (`plugin/src/ServiceClient.cpp`): one `PlanRequest` per variation on a per-process network pool, SSE events posted to the message thread, cancel by aborting the request. A variation's node is made when its first part lands and grows part by part; `done` replaces it with the authoritative score; a failed or cancelled variation loses its partial node. Semantics: `docs/bridge-spec.md`, "The plugin's client". The service URL is `FLOWSTATE_SERVICE_URL`, default `npm run serve`.
+- The spike's scheduler (`plugin/src/session/Audition.*`), fed by `core` realizations of the current node, the audition node or a previewing catalog entry. A new clip takes over on the next bar line of the one playing, and an unchanged re-render isn't handed over, so it never cuts notes. Clips reach the audio thread through a lock-free hand-off that frees nothing there.
+- The spike's preview synth on the instrument variant; MIDI out on both variants, merged with the MIDI passing through.
+- Per-instance output: `setMidiOut` sends one role's part or all parts, on each part's channel or a forced one; the preview synth hears the same parts with drums kept on 10. Mute, solo and the loop range apply; free-run plays on the plugin's own clock while the host is stopped.
+- Tests: the spike's sync checks ported as `flowstate_scheduler_tests` (527 checks, with bar-quantized switching, the hand-off and the filter); the generate flow in `flowstate_session_tests`; the real client against a fake SSE server in `flowstate_plugin_tests` (stream to playback, MIDI-out filter, cancel, errors, unreachable); the host smoke plays a restored idea and checks "drums only" on a forced channel. All pass on Linux and with MSVC on Windows (WebView build).
+- Live (2026-10-02, `npm run serve` on `claude-code` Sonnet low): first part audible at 6.2 s, full plan at 8.6 s, the idea played in time, and a cancel mid-stream logged `cancelled` on the service. Opt-in test: `FLOWSTATE_LIVE_SERVICE_URL`.
+
+Left: the DAW checks from the spike's list (sync at 60/120/180 BPM against a click, loop and seek, routing in Ableton and Logic) on the product build. The density knob doesn't change playback until `core` has the transform.
+
 - The spike's scheduler, fed by `core` realizations, with bar-quantized switching between variations.
 - A preview synth.
 - **Per-part output choice for each instance** (all parts, or one part per instance: "send: bass only"), so one Flowstate per track works with no channel setup.

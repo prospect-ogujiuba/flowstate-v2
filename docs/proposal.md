@@ -163,6 +163,7 @@ flowchart LR
 1. **Audio thread:** reads the playhead, captures MIDI into a lock-free ring, and plays the scheduled audition from a pre-rendered, double-buffered note list. No allocation, no locks, no I/O.
 2. **Message thread:** owns the `Session`, runs `core` re-renders (under 10 ms) and bridge traffic.
 3. **Network worker:** one per plugin process for HTTPS and SSE. Results are posted to the message thread and never touch components directly.
+   **Update 2026-10-02:** one pool per process rather than one thread, since each blocking stream holds a thread and variations stream in parallel (`docs/threading.md`).
 4. **No child processes.** Nothing is forked inside the host.
 
 The full rules live in `threading.md`.

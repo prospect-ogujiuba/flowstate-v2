@@ -41,9 +41,19 @@ public:
     // Returns its id. The score must be valid IR; realization problems surface in clip().
     // `entryId` names the library clip a node starts from. A vary, edit, tweak or touch node without
     // one inherits its parent's, so the clip's credit stays with what is made from it.
+    // With `makeCurrent` false the node joins the lineage without moving the selection or redo
+    // (a variation that lands while the user looks at another idea).
     std::string addNode(nlohmann::json score, fb::NodeKind kind, std::optional<std::string> prompt,
                         std::optional<std::vector<std::string>> partIds, std::int64_t seed, std::int64_t createdAtMs,
-                        std::optional<std::string> parent = std::nullopt, std::optional<std::string> entryId = std::nullopt);
+                        std::optional<std::string> parent = std::nullopt, std::optional<std::string> entryId = std::nullopt,
+                        bool makeCurrent = true);
+    // Replaces a node's score: a streamed plan grows part by part, and its final score replaces
+    // what streamed. Only for nodes a running request owns. Re-realizes if the node is current.
+    bool updateNodeScore(const std::string& id, nlohmann::json score);
+    // Removes a node without children (a streamed plan that failed). If it was current, its parent
+    // becomes current. False if it is unknown or has children.
+    bool removeNode(const std::string& id);
+    bool hasChildren(const std::string& id) const;
 
     bool hasNode(const std::string& id) const;
     const fb::LineageNode* node(const std::string& id) const;
@@ -75,6 +85,12 @@ public:
     // The catalog entry previewing in time with the host (not saved with the project).
     void setPreview(std::optional<std::string> entryId) { preview_ = std::move(entryId); }
     const std::optional<std::string>& preview() const { return preview_; }
+    // Running model requests, for the UI (not saved with the project).
+    void setGenerations(std::vector<fb::Generation> g) { generations_ = std::move(g); }
+    const std::optional<fb::ProviderChoice>& provider() const { return provider_; }
+    const std::vector<fb::ThreadItem>& thread() const { return thread_; }
+    // Part states as set (parts never touched have none).
+    std::vector<fb::PartState> partStates() const;
 
     const std::string& instanceId() const { return instanceId_; }
 
@@ -111,6 +127,7 @@ private:
     bool previewSynth_ = true;
     std::optional<fb::ProviderChoice> provider_;
     std::optional<std::string> preview_;
+    std::vector<fb::Generation> generations_;
     std::uint64_t nextNodeNumber_ = 1;
 
     std::optional<fb::Clip> clip_;

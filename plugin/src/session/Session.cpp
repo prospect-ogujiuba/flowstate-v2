@@ -74,7 +74,7 @@ std::string Session::newNodeId() {
 std::string Session::addNode(nlohmann::json score, fb::NodeKind kind, std::optional<std::string> prompt,
                              std::optional<std::vector<std::string>> partIds, std::int64_t seed,
                              std::int64_t createdAtMs, std::optional<std::string> parent,
-                             std::optional<std::string> entryId) {
+                             std::optional<std::string> entryId, bool makeCurrent) {
     fb::LineageNode n;
     n.id = newNodeId();
     n.parentId = parent ? parent : currentId_;
@@ -92,10 +92,45 @@ std::string Session::addNode(nlohmann::json score, fb::NodeKind kind, std::optio
     if (!n.entryId && derived && n.parentId)
         if (const auto* p = node(*n.parentId)) n.entryId = p->entryId;
     nodes_.push_back(std::move(n));
+    if (!makeCurrent) return nodes_.back().id;
     currentId_ = nodes_.back().id;
     redo_.clear();
     refreshClip();
     return *currentId_;
+}
+
+bool Session::updateNodeScore(const std::string& id, nlohmann::json score) {
+    for (auto& n : nodes_)
+        if (n.id == id) {
+            n.score = std::move(score);
+            if (currentId_ == id) refreshClip();
+            return true;
+        }
+    return false;
+}
+
+bool Session::hasChildren(const std::string& id) const {
+    return std::any_of(nodes_.begin(), nodes_.end(), [&](const fb::LineageNode& n) { return n.parentId == id; });
+}
+
+bool Session::removeNode(const std::string& id) {
+    const auto it = std::find_if(nodes_.begin(), nodes_.end(), [&](const fb::LineageNode& n) { return n.id == id; });
+    if (it == nodes_.end() || hasChildren(id)) return false;
+    const auto parent = it->parentId;
+    nodes_.erase(it);
+    redo_.erase(std::remove(redo_.begin(), redo_.end(), id), redo_.end());
+    if (audition_.nodeId == id) audition_.nodeId.reset();
+    if (currentId_ == id) {
+        currentId_ = parent;
+        refreshClip();
+    }
+    return true;
+}
+
+std::vector<fb::PartState> Session::partStates() const {
+    std::vector<fb::PartState> out;
+    for (const auto& [id, state] : partStates_) out.push_back(state);
+    return out;
 }
 
 bool Session::hasNode(const std::string& id) const { return node(id) != nullptr; }
@@ -274,6 +309,7 @@ fb::Session Session::view(const HostSnapshot& host, int captureBars) const {
     s.settings.previewSynth = previewSynth_;
     s.settings.buildId = buildId_;
     s.preview = preview_;
+    s.generations = generations_;
     return s;
 }
 

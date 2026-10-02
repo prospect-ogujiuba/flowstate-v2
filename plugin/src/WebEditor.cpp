@@ -1,7 +1,8 @@
 // WebView editor: serves the bundled ui/ through the WebBrowserComponent resource provider and
 // carries the bridge (docs/bridge-spec.md):
 //   JS -> C++  native function `bridge(commandJson)` completes with the Reply JSON;
-//   C++ -> JS  event `bridge` carries a PluginEvent JSON (`session` on change, `transport` at 30 Hz).
+//   C++ -> JS  event `bridge` carries a PluginEvent JSON (`session` on change, `transport` at 30 Hz,
+//              generation progress and notices as they happen).
 // The editor holds no domain state; closing it changes nothing in the processor. Message thread only.
 
 #include "FlowstateUi.h"
@@ -82,6 +83,7 @@ public:
         web.goToURL(Browser::getResourceProviderRoot() + startPage());
         proc.addChangeListener(this);
         proc.setEditorActions(this);
+        proc.setEventListener([this](const std::string& event) { emit(event); });
 
         // Read the saved size first: setResizeLimits resizes (and so calls resized()) straight away.
         const auto size = proc.getEditorSize();
@@ -94,6 +96,7 @@ public:
 
     ~WebEditor() override {
         stopTimer();
+        proc.setEventListener(nullptr);
         proc.setEditorActions(nullptr);
         proc.removeChangeListener(this);
     }

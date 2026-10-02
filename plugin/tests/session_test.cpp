@@ -56,6 +56,17 @@ struct FakePlatform final : Platform {
     }
     void releaseFocus(fb::FocusReason reason) override { lastFocus = reason; }
 
+    // The agent service: off unless a test turns it on; then requests are recorded, not sent.
+    bool withService = false;
+    std::vector<std::pair<std::string, fb::PlanRequest>> plans;
+    std::vector<std::string> cancelled;
+    std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) override {
+        if (!withService) return Platform::startPlan(streamId, request);
+        plans.emplace_back(streamId, request);
+        return std::nullopt;
+    }
+    void cancelStream(const std::string& streamId) override { cancelled.push_back(streamId); }
+
     // The repo's built library (library/catalog), as the plugin bundles it.
     bool withLibrary = true;
     std::string lastCredit;
@@ -508,4 +519,293 @@ TEST_CASE("state version 1 (before library nodes) still restores") {
     const auto decoded = decodeState(blob.dump(), error);
     REQUIRE_MESSAGE(decoded, error);
     CHECK_FALSE(decoded->session.nodes.front().entryId);
+}
+
+// ---- Generate: the agent service's stream becomes nodes (P1-4 client, P1-7) -----------------------
+
+namespace {
+
+json generateCommand(const char* prompt, int count = 1) {
+    return {{"type", "generate"}, {"prompt", prompt}, {"roles", nullptr}, {"count", count}, {"capture", nullptr}};
+}
+
+fb::ServiceEvent headerOf(json score) {
+    score["parts"] = json::array();
+    return fb::ScoreHeader{score};
+}
+
+struct Events {
+    std::vector<json> list;
+    void attach(Controller& c) {
+        c.onEvent = [this](const fb::PluginEvent& e) {
+            json j;
+            fb::to_json(j, e);
+            list.push_back(j);
+        };
+    }
+    std::vector<std::string> types() const {
+        std::vector<std::string> out;
+        for (const auto& e : list) out.push_back(e["type"]);
+        return out;
+    }
+};
+
+}  // namespace
+
+TEST_CASE("generate: a PlanRequest goes out, streamed parts become a node that plays, done finishes it") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    Events events;
+    events.attach(c);
+    int changes = 0;
+    c.onChanged = [&] { ++changes; };
+    const auto score = loadScore("example.json");
+
+    auto r = reply(c, generateCommand("late night keys"));
+    REQUIRE(r["ok"] == true);
+    const auto requestId = r["requestId"].get<std::string>();
+    REQUIRE(platform.plans.size() == 1);
+    const auto& [streamId, plan] = platform.plans[0];
+    CHECK(plan.prompt == "late night keys");
+    // The effective context: C major by default, the host's tempo and meter, 4 bars.
+    CHECK((plan.context.tonic == fb::Tonic::C));
+    CHECK(plan.context.bars == 4);
+    CHECK(plan.context.tempo == 120.0);
+    CHECK_FALSE(plan.keep.has_value());
+    CHECK(r["session"]["generations"].size() == 1);
+    CHECK(r["session"]["generations"][0]["stage"] == "planning");
+    CHECK(r["session"]["thread"][0]["role"] == "user");
+    CHECK(events.types() == std::vector<std::string>{"generationStarted"});
+    CHECK(c.generating());
+
+    // A second generate while one runs is refused.
+    CHECK(reply(c, generateCommand("again"))["error"]["code"] == "busy");
+
+    c.serviceEvent(streamId, headerOf(score));
+    CHECK((c.view().generations[0].stage == fb::GenerationStage::Streaming));
+    CHECK(s.nodes().empty());  // nothing plays until a part lands
+
+    c.serviceEvent(streamId, fb::PartStarted{"keys", fb::Role::Chords});
+    c.serviceEvent(streamId, fb::PartDone{score["parts"][0]});
+    REQUIRE(s.nodes().size() == 1);
+    const auto nodeId = s.nodes()[0].id;
+    CHECK(s.current()->id == nodeId);
+    REQUIRE(s.clip().has_value());
+    CHECK(s.clip()->parts.size() == 1);
+    CHECK(events.list.back()["type"] == "partReady");
+    CHECK(events.list.back()["partId"] == "keys");
+
+    c.serviceEvent(streamId, fb::PartDone{score["parts"][1]});
+    c.serviceEvent(streamId, fb::PartDone{score["parts"][0]});  // a repaired part replaces the first
+    CHECK(s.nodes().size() == 1);
+    CHECK(s.clip()->parts.size() == 2);
+    CHECK(c.view().generations[0].partsDone == std::vector<std::string>{"keys", "bass"});
+
+    c.serviceEvent(streamId, fb::AssistantMessage{"A slow neo-soul loop."});
+    c.serviceEvent(streamId, fb::ScoreDone{score});
+    CHECK(s.node(nodeId)->score == score);  // the authoritative score
+    CHECK(s.clip()->parts.size() == 4);
+    CHECK((s.node(nodeId)->kind == fb::NodeKind::Initial));
+    CHECK(s.node(nodeId)->prompt == "late night keys");
+    CHECK_FALSE(c.generating());
+    CHECK(c.view().generations.empty());
+    REQUIRE(events.list.back()["type"] == "generationDone");
+    CHECK(events.list.back()["requestId"] == requestId);
+    CHECK(events.list.back()["nodeIds"] == json::array({nodeId}));
+    const auto thread = s.thread();
+    REQUIRE(thread.size() == 2);
+    CHECK((thread[1].role == fb::ThreadRole::Assistant));
+    CHECK(thread[1].text == "A slow neo-soul loop.");
+    CHECK(thread[1].nodeId == nodeId);
+
+    // The stream closing afterwards, or a stray event, changes nothing.
+    const auto before = events.list.size();
+    c.serviceEnded(streamId, std::nullopt);
+    c.serviceEvent(streamId, fb::PartDone{score["parts"][2]});
+    CHECK(events.list.size() == before);
+    CHECK(changes > 0);
+
+    // The idea re-realizes identically from the saved session.
+    const auto saved = s.save();
+    Session restored("inst", "test");
+    std::vector<std::string> warnings;
+    restored.restore(saved, warnings);
+    CHECK(restored.clip()->parts[0].notes.size() == s.clip()->parts[0].notes.size());
+}
+
+TEST_CASE("generate: variations stream in parallel; the first to land plays, a failed one leaves nothing") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    Events events;
+    events.attach(c);
+    const auto score = loadScore("example.json");
+    const auto parent = s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+
+    const auto r = reply(c, generateCommand("variations", 3));
+    REQUIRE(platform.plans.size() == 3);
+    const auto one = platform.plans[0].first, two = platform.plans[1].first, three = platform.plans[2].first;
+    CHECK(one != two);
+    CHECK((platform.plans[0].second.context.tonic == fb::Tonic::D));  // from the current idea
+    CHECK(platform.plans[0].second.context.swing == 0.15);
+
+    for (const auto& id : {one, two, three}) c.serviceEvent(id, headerOf(score));
+    c.serviceEvent(two, fb::PartDone{score["parts"][0]});
+    const auto playing = s.current()->id;
+    CHECK(playing != parent);
+    CHECK(s.current()->parentId == parent);
+    c.serviceEvent(one, fb::PartDone{score["parts"][1]});
+    CHECK(s.nodes().size() == 3);
+    CHECK(s.current()->id == playing);  // a later variation doesn't take over
+    CHECK(s.node(s.nodes()[2].id)->parentId == parent);
+    CHECK(s.node(s.nodes()[2].id)->seed != s.node(playing)->seed);
+
+    c.serviceEvent(one, fb::ServiceError{{fb::ErrorCode::Provider, "upstream 502"}});
+    CHECK(s.nodes().size() == 2);  // its partial idea is gone
+    c.serviceEnded(three, fb::ErrorInfo{fb::ErrorCode::Network, "reset"});
+    CHECK(c.generating());
+    c.serviceEvent(two, fb::ScoreDone{score});
+
+    CHECK_FALSE(c.generating());
+    const auto types = events.types();
+    CHECK(types[types.size() - 2] == "generationDone");
+    CHECK(events.list[types.size() - 2]["nodeIds"] == json::array({playing}));
+    CHECK(types.back() == "notice");
+    CHECK(s.current()->id == playing);
+    CHECK(r["requestId"] == events.list[0]["requestId"]);
+}
+
+TEST_CASE("generate: cancel stops every stream and takes back what streamed") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    Events events;
+    events.attach(c);
+    const auto score = loadScore("example.json");
+
+    const auto r = reply(c, generateCommand("x", 2));
+    const auto requestId = r["requestId"].get<std::string>();
+    const auto stream = platform.plans[0].first;
+    c.serviceEvent(stream, headerOf(score));
+    c.serviceEvent(stream, fb::PartDone{score["parts"][0]});
+    CHECK(s.current() != nullptr);
+
+    CHECK(reply(c, {{"type", "cancel"}, {"requestId", "nope"}})["error"]["code"] == "bad_request");
+    const auto cancelled = reply(c, {{"type", "cancel"}, {"requestId", requestId}});
+    CHECK(cancelled["ok"] == true);
+    CHECK(platform.cancelled.size() == 2);
+    CHECK(s.nodes().empty());
+    CHECK(s.current() == nullptr);
+    CHECK_FALSE(s.clip().has_value());
+    CHECK(events.list.back()["type"] == "generationFailed");
+    CHECK(events.list.back()["error"]["code"] == "cancelled");
+    CHECK(cancelled["session"]["generations"].empty());
+
+    // Whatever was still in flight is ignored.
+    c.serviceEvent(stream, fb::PartDone{score["parts"][1]});
+    c.serviceEvent(stream, fb::ScoreDone{score});
+    CHECK(s.nodes().empty());
+
+    // A new generate can start.
+    CHECK(reply(c, generateCommand("y"))["ok"] == true);
+    c.cancelAll();
+    CHECK_FALSE(c.generating());
+}
+
+TEST_CASE("generate: errors, early close, text-only answers, keep and capture") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    Events events;
+    events.attach(c);
+    const auto score = loadScore("example.json");
+
+    // The service refuses before streaming.
+    reply(c, generateCommand("x"));
+    c.serviceEvent(platform.plans.back().first, fb::ServiceError{{fb::ErrorCode::Refused, "The model refused."}});
+    CHECK(events.list.back()["type"] == "generationFailed");
+    CHECK(events.list.back()["error"]["code"] == "refused");
+
+    // The connection drops mid-plan: a network failure, and the partial idea goes.
+    reply(c, generateCommand("x"));
+    auto id = platform.plans.back().first;
+    c.serviceEvent(id, headerOf(score));
+    c.serviceEvent(id, fb::PartDone{score["parts"][0]});
+    c.serviceEnded(id, std::nullopt);
+    CHECK(events.list.back()["error"]["code"] == "network");
+    CHECK(s.nodes().empty());
+
+    // A question answered with text: done without a score, no node, an answer in the thread.
+    reply(c, generateCommand("what swing suits house?"));
+    id = platform.plans.back().first;
+    c.serviceEvent(id, fb::AssistantMessage{"Around 55 to 58 percent."});
+    c.serviceEvent(id, fb::ScoreDone{std::nullopt});
+    CHECK(events.list.back()["type"] == "generationDone");
+    CHECK(events.list.back()["nodeIds"].empty());
+    CHECK(s.thread().back().text == "Around 55 to 58 percent.");
+    CHECK_FALSE(s.thread().back().nodeId.has_value());
+
+    // Locked parts travel as `keep`, with the harmony.
+    s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    reply(c, {{"type", "setPartState"}, {"state", {{"partId", "bass"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}});
+    reply(c, generateCommand("new melody"));
+    const auto& keep = platform.plans.back().second.keep;
+    REQUIRE(keep.has_value());
+    CHECK((*keep)["parts"].size() == 1);
+    CHECK((*keep)["parts"][0]["id"] == "bass");
+    CHECK((*keep)["harmony"] == score["harmony"]);
+    c.cancelAll();
+
+    // "Use what I just played" waits for the planner's reference support.
+    auto r = reply(c, {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1},
+                       {"capture", {{"bars", 4}, {"intent", "continue"}}}});
+    CHECK(r["error"]["code"] == "unavailable");
+
+    // A request that can't be sent: nothing starts.
+    platform.withService = false;
+    const auto plans = platform.plans.size();
+    r = reply(c, generateCommand("x"));
+    CHECK(r["error"]["code"] == "unavailable");
+    CHECK(platform.plans.size() == plans);
+    CHECK_FALSE(c.generating());
+}
+
+TEST_CASE("audition source: the current node, a chosen node, or a catalog preview, with this instance's filter") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    CHECK_FALSE(c.audition().clip.has_value());
+
+    const auto a = s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    const auto b = s.addNode(loadScore("seven_eight.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 2, 11);
+    auto source = c.audition();
+    REQUIRE(source.clip.has_value());
+    CHECK(source.clip->parts.size() == s.clip()->parts.size());
+
+    reply(c, {{"type", "setAudition"}, {"audition", {{"nodeId", a}, {"loop", {{"startBar", 2}, {"endBar", 3}}}, {"freeRun", true}}}});
+    reply(c, {{"type", "setMidiOut"}, {"midiOut", {{"role", "bass"}, {"channel", 3}}}});
+    source = c.audition();
+    CHECK(source.clip->parts.size() == s.node(a)->score["parts"].size());
+    CHECK(source.filter.loop->startBar == 2);
+    CHECK((source.filter.role == fb::Role::Bass));
+    const auto rendered = renderAudition(*source.clip, source.filter);
+    CHECK(rendered.lengthPpq == 8.0);
+    for (const auto& e : rendered.events) CHECK(e.channel == source.clip->parts[1].channel - 1);
+
+    // A catalog preview plays as written.
+    const auto search = reply(c, {{"type", "searchCatalog"},
+                                  {"query", {{"text", ""}, {"origins", {"library"}}, {"roles", nullptr}, {"genres", nullptr},
+                                             {"fitContext", false}, {"limit", 1}, {"offset", 0}}}});
+    const auto entry = search["catalog"]["entries"][0]["id"].get<std::string>();
+    reply(c, {{"type", "previewEntry"}, {"entryId", entry}});
+    source = c.audition();
+    REQUIRE(source.clip.has_value());
+    CHECK_FALSE(source.filter.role.has_value());
+    CHECK_FALSE(source.filter.loop.has_value());
+    (void)b;
 }

@@ -167,6 +167,18 @@ The client aborts the HTTP request to cancel, and the service stops the provider
 
 `provider: null` uses the managed default. A provider choice without a key must be one the service offers with managed access; anything else needs a key. A BYOK key travels in the `x-flowstate-provider-key` header, never in a body, so request bodies and logs stay free of secrets.
 
+### The plugin's client
+
+`plugin/src/ServiceClient.cpp` sends the requests, and the controller (`plugin/src/session/Controller.cpp`) turns the events into the session:
+- The service URL is `FLOWSTATE_SERVICE_URL`, else `http://127.0.0.1:8787` (`npm run serve`). The hosted service comes with P1-13.
+- `generate` builds the `PlanRequest` from the effective context, the session's provider and the locked parts (`keep`). It replies with the `requestId` and emits `generationStarted`. One generation runs at a time: another `generate` answers `busy`. `capture` answers `unavailable` until the planner takes a `reference`.
+- Each variation is one stream. Its node (kind `initial`, under the node that was current when the request started) is made when its first part lands. It becomes current only if the user is still on that node, so the first variation to land plays and later ones join the lineage without taking over.
+- Every `partDone` updates the node's score and emits `partReady`. The audition re-renders and switches on the next bar line. `done` replaces the streamed score with the authoritative one.
+- When every stream has ended, `generationDone` lists the variations' nodes, and each gets an assistant thread item: the `message`, or the title. With no node and no text-only answer, `generationFailed` carries the first error. A variation that fails while others succeed adds a warning `notice`.
+- A variation that fails, is cancelled, or closes its stream before `done` (`network`) loses its partial node, unless something was already made from it.
+- `cancel` aborts every stream of the request at once and answers `generationFailed` with `cancelled`. Events that arrive after that are ignored.
+- Generation events go to the open editor. With the editor closed they are dropped, but `Session.generations` and the lineage carry the same state.
+
 ### Not in v0
 
 These come later:

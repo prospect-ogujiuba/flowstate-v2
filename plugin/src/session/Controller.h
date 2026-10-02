@@ -3,6 +3,7 @@
 // Message thread only.
 #pragma once
 
+#include "session/Audition.h"
 #include "session/Library.h"
 #include "session/Session.h"
 
@@ -41,15 +42,38 @@ public:
         (void)name;
         return std::nullopt;
     }
+    // The agent service (docs/bridge-spec.md, "Plugin ↔ agent service"). startPlan sends one
+    // PlanRequest and streams its events back on the message thread, through
+    // Controller::serviceEvent and then Controller::serviceEnded. `streamId` is the plugin's id for
+    // that one stream. Returns an error if the request can't be sent at all. Without a service,
+    // generating answers `unavailable`.
+    virtual std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) {
+        (void)streamId;
+        (void)request;
+        return fb::ErrorInfo{fb::ErrorCode::Unavailable, "This build has no agent service."};
+    }
+    // Aborts the HTTP request; the service stops the provider stream. Nothing more is reported for it.
+    virtual void cancelStream(const std::string& streamId) { (void)streamId; }
 };
 
 class Controller {
 public:
     Controller(Session& session, Platform& platform) : session_(session), platform_(platform) {}
 
-    // Called after any command that changed the session (the processor snapshots state and
-    // pushes a `session` event to the UI).
+    // Called after any command or service event that changed the session (the processor
+    // snapshots state, re-renders the audition and pushes a `session` event to the UI).
     std::function<void()> onChanged;
+    // Generation progress for the UI: generationStarted, partReady, generationDone, generationFailed.
+    std::function<void(const fb::PluginEvent&)> onEvent;
+
+    // From the agent service, on the message thread (see Platform::startPlan). Events and ends of
+    // streams that were cancelled or already finished are ignored. `error` is null when the stream
+    // closed normally; closing before `done` or `error` is a `network` failure.
+    void serviceEvent(const std::string& streamId, const fb::ServiceEvent& event);
+    void serviceEnded(const std::string& streamId, std::optional<fb::ErrorInfo> error);
+    // Cancels every running request (the processor is going away).
+    void cancelAll();
+    bool generating() const { return !requests_.empty(); }
 
     fb::Reply handle(const fb::Command& command);
 
@@ -58,6 +82,15 @@ public:
 
     fb::Session view() const { return session_.view(platform_.host(), platform_.captureBars()); }
 
+    // What this instance plays, and how: a catalog entry while one previews, else the audition
+    // node (null = the current node), filtered by the loop range, mute and solo, and the MIDI-out
+    // role. A preview plays as written, unfiltered. No clip when there is nothing to play.
+    struct AuditionSource {
+        std::optional<fb::Clip> clip;
+        AuditionFilter filter;
+    };
+    AuditionSource audition();
+
 private:
     fb::Reply ok(bool changed);
     static fb::Reply fail(fb::ErrorCode code, std::string message);
@@ -65,8 +98,42 @@ private:
     const Library* library();
     MidiMeta metaFor(const fb::LineageNode& node);
 
+    // One model request (a `generate`) and its variations, one service stream each.
+    struct Stream {
+        std::string id;  // <requestId>.<variation>
+        std::int64_t seed = 0;
+        std::optional<nlohmann::json> header;
+        nlohmann::json parts = nlohmann::json::array();
+        std::optional<std::string> nodeId;  // made when the first part lands
+        std::string message;
+        bool finished = false;
+        bool textOnly = false;
+        std::optional<fb::ErrorInfo> error;
+    };
+    struct Request {
+        std::string id;
+        fb::NodeKind kind = fb::NodeKind::Initial;
+        std::string prompt;
+        std::optional<std::string> parentId;  // the current node when it started
+        fb::GenerationStage stage = fb::GenerationStage::Planning;
+        std::vector<std::string> partsDone;
+        std::vector<Stream> streams;
+    };
+
+    fb::Reply generate(const fb::Generate& command);
+    fb::Reply cancel(const std::string& requestId);
+    std::pair<Request*, Stream*> findStream(const std::string& streamId);
+    void partLanded(Request& request, Stream& stream);
+    void finishStream(Request& request, Stream& stream, std::optional<fb::ErrorInfo> error);
+    void finishRequestIfDone(const std::string& requestId);
+    void publishGenerations();
+    void changed();
+    void emit(fb::PluginEvent event);
+
     Session& session_;
     Platform& platform_;
+    std::vector<Request> requests_;
+    std::uint64_t nextRequestNumber_ = 1;
     std::optional<Library> library_;
     std::string libraryError_;
 };

@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.22)
 # Flowstate plugin (P1-6): the product shell.
 #
 # Targets
-#   flowstate_session         JUCE-free session, controller, capture and state (links core + bridge)
+#   flowstate_session         JUCE-free session, controller, capture, audition and state (links core + bridge)
 #   flowstate_session_tests   doctest suite for the above
+#   flowstate_scheduler_tests the audition scheduler: the spike's sync checks plus bar-quantized switching
 #   Flowstate                 instrument (IS_SYNTH, MIDI in + out)   VST3 / AU / Standalone
 #   FlowstateMidiFx           MIDI effect (IS_MIDI_EFFECT)            AU (macOS) + VST3
 #   flowstate_plugin_tests    processor-level tests (JUCE console app linking the instrument's shared code)
@@ -61,11 +62,13 @@ add_subdirectory(../schema/cpp "${CMAKE_BINARY_DIR}/bridge")
 set_target_properties(flowstate_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 add_library(flowstate_session STATIC
+    src/session/Audition.cpp
     src/session/Capture.cpp
     src/session/Controller.cpp
     src/session/Library.cpp
     src/session/PluginState.cpp
-    src/session/Session.cpp)
+    src/session/Session.cpp
+    src/session/Sse.cpp)
 target_include_directories(flowstate_session PUBLIC src)
 target_link_libraries(flowstate_session PUBLIC flowstate_core flowstate::bridge)
 set_target_properties(flowstate_session PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -88,6 +91,11 @@ if(FLOWSTATE_PLUGIN_BUILD_TESTS)
         FLOWSTATE_LIBRARY_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../library/catalog")
     flowstate_plugin_warnings(flowstate_session_tests)
     add_test(NAME session COMMAND flowstate_session_tests)
+
+    add_executable(flowstate_scheduler_tests tests/scheduler_test.cpp)
+    target_link_libraries(flowstate_scheduler_tests PRIVATE flowstate_session)
+    flowstate_plugin_warnings(flowstate_scheduler_tests)
+    add_test(NAME scheduler COMMAND flowstate_scheduler_tests)
 endif()
 
 if(NOT FLOWSTATE_PLUGIN_BUILD_PLUGIN)

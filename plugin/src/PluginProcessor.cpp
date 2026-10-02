@@ -3,6 +3,7 @@
 #include "BuildId.h"
 #include "FlowstateLibrary.h"
 #include "MidiFiles.h"
+#include "PreviewSynth.h"
 
 namespace flowstate::plugin {
 
@@ -16,6 +17,29 @@ std::string toJson(const auto& value) {
 
 double ppqPerBar(int numerator, int denominator) { return numerator * 4.0 / std::max(1, denominator); }
 
+// Audition output: MIDI out on the part's channel (or the forced one), and the preview synth on the
+// part's own channel, so drums stay on 10 for it. Both buffers are reserved in prepareToPlay.
+struct AuditionSink final : EventSink {
+    AuditionSink(juce::MidiBuffer& out, juce::MidiBuffer* synth, int forcedChannel)
+        : out_(out), synth_(synth), forced_(forcedChannel) {}
+
+    void emit(const ScheduledEvent& e) noexcept override {
+        const auto own = static_cast<int>(e.channel) + 1;
+        const auto message = [&](int ch) {
+            return e.isNoteOn ? juce::MidiMessage::noteOn(ch, static_cast<int>(e.pitch), static_cast<juce::uint8>(e.velocity))
+                              : juce::MidiMessage::noteOff(ch, static_cast<int>(e.pitch));
+        };
+        out_.addEvent(message(forced_ > 0 ? forced_ : own), e.sampleOffset);
+        if (synth_ != nullptr) synth_->addEvent(message(own), e.sampleOffset);
+    }
+
+    juce::MidiBuffer& out_;
+    juce::MidiBuffer* synth_;
+    int forced_;
+};
+
+constexpr size_t kMidiScratchBytes = 64 * 1024;  // far more than one block of audition can need
+
 }  // namespace
 
 FlowstateProcessor::FlowstateProcessor()
@@ -27,6 +51,14 @@ FlowstateProcessor::FlowstateProcessor()
       session(juce::Uuid().toDashedString().toStdString(), kBuildId),
       controller(session, *this) {
     controller.onChanged = [this] { sessionChanged(); };
+    controller.onEvent = [this](const fb::PluginEvent& event) {
+        if (eventListener) eventListener(toJson(event));
+    };
+    service = std::make_unique<ServiceClient>(
+        session.instanceId(),
+        [this](const std::string& id, const fb::ServiceEvent& e) { controller.serviceEvent(id, e); },
+        [this](const std::string& id, std::optional<fb::ErrorInfo> e) { controller.serviceEnded(id, std::move(e)); });
+    configurePreviewSynth(synth);
     snapshotState();
     startTimerHz(30);
 }
@@ -34,6 +66,11 @@ FlowstateProcessor::FlowstateProcessor()
 FlowstateProcessor::~FlowstateProcessor() {
     stopTimer();
     cancelPendingUpdate();
+    controller.onChanged = nullptr;
+    controller.onEvent = nullptr;
+    controller.cancelAll();
+    service.reset();
+    // The host has stopped calling processBlock by now; `audition` deletes every clip it holds.
 }
 
 // ---- Audio thread ----------------------------------------------------------------------------------
@@ -47,7 +84,14 @@ bool FlowstateProcessor::isBusesLayoutSupported(const BusesLayout& layouts) cons
 #endif
 }
 
-void FlowstateProcessor::prepareToPlay(double, int) {}
+void FlowstateProcessor::prepareToPlay(double sampleRate, int) {
+    synth.setCurrentPlaybackSampleRate(sampleRate);
+    synth.allNotesOff(0, false);
+    outMidi.ensureSize(kMidiScratchBytes);
+    synthMidi.ensureSize(kMidiScratchBytes);
+    scheduler.reset();
+    freeRunPpq = 0.0;
+}
 
 void FlowstateProcessor::processBlock(juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi) {
     juce::ScopedNoDenormals noDenormals;
@@ -93,11 +137,53 @@ void FlowstateProcessor::processBlock(juce::AudioBuffer<float>& audio, juce::Mid
     }
     captureClockPpq += numSamples * ppqPerSample;
 
-    // 3. MIDI passes through untouched (a MIDI FX must never swallow what the user plays).
-    //    Audition and MIDI out arrive with P1-7.
-    audio.clear();
+    // 3. MIDI passes through untouched (a MIDI FX must never swallow what the user plays), and the
+    //    audition joins it: the newest rendered clip is queued (it takes over on the next bar line),
+    //    then this block is scheduled from the host's position, or from the plugin's own clock
+    //    while the host is stopped and free-run is on.
+    outMidi.clear();
+    outMidi.addEvents(midi, 0, numSamples, 0);
+    synthMidi.clear();
+    if (const auto* next = audition.takeIncoming()) scheduler.queueClip(next);
 
-    // 4. Publish for the message thread.
+    BlockPosition pos;
+    pos.sampleRate = sampleRate;
+    pos.numSamples = numSamples;
+    pos.bpm = bpm;
+    const bool hostRolling = hasHost && playing;
+    if (!hostRolling && freeRun.load(std::memory_order_relaxed)) {
+        pos.hasPpq = true;
+        pos.isPlaying = true;
+        pos.ppqStart = freeRunPpq;
+        freeRunPpq += numSamples * ppqPerSample;
+    } else {
+        freeRunPpq = 0.0;  // free-run starts again from bar 1
+        pos.hasPpq = hasHost;
+        pos.isPlaying = playing;
+        pos.ppqStart = ppq;
+        pos.isLooping = looping;
+        pos.loopStartPpq = loopStart;
+        pos.loopEndPpq = loopEnd;
+    }
+    const bool previewOn = isInstrumentVariant && previewEnabled.load(std::memory_order_relaxed);
+    AuditionSink sink(outMidi, previewOn ? &synthMidi : nullptr, forcedChannel.load(std::memory_order_relaxed));
+    scheduler.process(pos, sink);
+    audition.release(scheduler.getClip(), scheduler.getQueued());
+
+    // 4. The preview synth (instrument only).
+    audio.clear();
+    if constexpr (isInstrumentVariant) {
+        if (previewWasOn && !previewOn) synth.allNotesOff(0, false);
+        previewWasOn = previewOn;
+        if (previewOn && audio.getNumChannels() > 0) synth.renderNextBlock(audio, synthMidi, 0, numSamples);
+    }
+
+    // Copy rather than swap: the scratch keeps its reserved size, and the wrapper's buffer is a
+    // long-lived member that stops growing after the first busy blocks.
+    midi.clear();
+    midi.addEvents(outMidi, 0, -1, 0);
+
+    // 5. Publish for the message thread.
     stHasHost.store(hasHost, std::memory_order_relaxed);
     stPlaying.store(playing, std::memory_order_relaxed);
     stRecording.store(recording, std::memory_order_relaxed);
@@ -109,10 +195,17 @@ void FlowstateProcessor::processBlock(juce::AudioBuffer<float>& audio, juce::Mid
     stSigNum.store(sigNum, std::memory_order_relaxed);
     stSigDen.store(sigDen, std::memory_order_relaxed);
     stClock.store(captureClockPpq, std::memory_order_relaxed);
+    stActive.store(scheduler.getNumActiveNotes(), std::memory_order_relaxed);
+    stSwitches.store(scheduler.getNumSwitches(), std::memory_order_relaxed);
 }
 
-void FlowstateProcessor::processBlockBypassed(juce::AudioBuffer<float>& audio, juce::MidiBuffer&) {
-    audio.clear();  // MIDI passes through
+void FlowstateProcessor::processBlockBypassed(juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi) {
+    // MIDI passes through; bypass must not leave audition notes hanging downstream.
+    AuditionSink sink(midi, nullptr, forcedChannel.load(std::memory_order_relaxed));
+    scheduler.allNotesOff(sink, 0);
+    scheduler.reset();
+    synth.allNotesOff(0, false);
+    audio.clear();
 }
 
 HostSnapshot FlowstateProcessor::hostSnapshot() const noexcept {
@@ -200,7 +293,22 @@ void FlowstateProcessor::applyPendingState() {
 
 void FlowstateProcessor::sessionChanged() {
     snapshotState();
+    refreshAudition();
     sendChangeMessage();
+}
+
+// Renders what this instance plays and hands it to the audio thread, unless it is what already
+// plays: an unchanged clip mustn't cut sustained notes at the next bar line.
+void FlowstateProcessor::refreshAudition() {
+    previewEnabled = session.previewSynth();
+    freeRun = session.audition().freeRun;
+    forcedChannel = session.midiOut().channel.value_or(0);
+
+    const auto source = controller.audition();
+    auto rendered = source.clip ? renderAudition(*source.clip, source.filter) : RenderedClip{};
+    if (lastAudition && *lastAudition == rendered) return;
+    lastAudition = rendered;
+    audition.publish(std::make_unique<RenderedClip>(std::move(rendered)));
 }
 
 // ---- Bridge ----------------------------------------------------------------------------------------
@@ -234,6 +342,7 @@ int FlowstateProcessor::captureBars() {
 
 void FlowstateProcessor::timerCallback() {
     pumpCapture();
+    audition.collect();
 
     // The UI's session view depends on capture and on the host's tempo and meter; push a new one
     // only when those change (transport itself goes out at 30 Hz from the editor).
@@ -292,6 +401,12 @@ std::optional<fb::ErrorInfo> FlowstateProcessor::exportMidi(const fb::Clip& clip
                                });
     return std::nullopt;  // the chooser is open; the result isn't reported back
 }
+
+std::optional<fb::ErrorInfo> FlowstateProcessor::startPlan(const std::string& streamId, const fb::PlanRequest& request) {
+    return service->startPlan(streamId, request);
+}
+
+void FlowstateProcessor::cancelStream(const std::string& streamId) { service->cancel(streamId); }
 
 void FlowstateProcessor::releaseFocus(fb::FocusReason) {
     if (editorActions != nullptr) editorActions->releaseFocus();

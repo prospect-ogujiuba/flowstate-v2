@@ -1,6 +1,7 @@
 // Loads the built Flowstate VST3s through JUCE's VST3 host, as a DAW would: MIDI pass-through
-// under a moving transport, silence (audition arrives with P1-7), bypass, and a saved session
-// (two ideas, realized) surviving into a fresh instance.
+// under a moving transport, silence with no idea, bypass, a saved session (two ideas, realized)
+// surviving into a fresh instance, the restored idea playing in time (MIDI out, and the preview
+// synth on the instrument), and part filtering: "send: drums only", forced onto one channel.
 // Usage: flowstate_host_smoke <Flowstate.vst3> [<Flowstate MIDI FX.vst3>]
 
 #include <juce_audio_processors/juce_audio_processors.h>
@@ -8,6 +9,7 @@
 
 #include <cstdio>
 #include <fstream>
+#include <set>
 #include <sstream>
 
 namespace {
@@ -57,7 +59,7 @@ juce::String fixture(const char* name) {
 
 // A saved Flowstate state with two ideas, the second current, built by hand in the documented
 // envelope (plugin/src/session/PluginState.h) so this test doesn't link the plugin's code.
-juce::String savedState() {
+juce::String savedState(const char* midiOut = R"({"role":null,"channel":null})") {
     const auto node = [](const char* id, const char* parent, const juce::String& score, int seed) {
         return juce::String(R"({"id":")") + id + R"(","parentId":)" + (parent ? juce::String("\"") + parent + "\"" : "null") +
                R"(,"kind":"initial","prompt":null,"partIds":null,"createdAtMs":1,"rating":null,"seed":)" + juce::String(seed) +
@@ -68,7 +70,7 @@ juce::String savedState() {
            R"("instanceId":"smoke","override":)" + overrideJson + R"(,"nodes":[)" + node("n1", nullptr, fixture("example.json"), 1) +
            "," + node("n2", "n1", fixture("seven_eight.json"), 2) +
            R"(],"currentNodeId":"n2","redo":[],"thread":[],"parts":[],"audition":{"nodeId":null,"loop":null,"freeRun":false},)" +
-           R"("midiOut":{"role":null,"channel":null},"previewSynth":true},"editor":{"width":960,"height":600}})";
+           R"("midiOut":)" + midiOut + R"(,"previewSynth":true},"editor":{"width":960,"height":600}})";
 }
 
 // A hosted VST3's state is the host's XML ("VST3PluginState" with a base64 "IComponent" child)
@@ -128,7 +130,7 @@ void runVariant(const juce::String& path, bool instrument) {
         head.ppq += bs / samplesPerBeat;
     }
     EXPECT(passed == 80, "played MIDI passes through (%d of 80 events)", passed);
-    EXPECT(peak == 0.0f, "silent until audition lands (peak %.4f)", peak);
+    EXPECT(peak == 0.0f, "silent with no idea (peak %.4f)", peak);
 
     // Bypassed: MIDI still passes, audio stays silent.
     midi.clear();
@@ -153,12 +155,57 @@ void runVariant(const juce::String& path, bool instrument) {
         EXPECT(state == state2, "state round trip is stable");
     }
 
-    // Garbage never replaces a good session.
+    // The restored idea plays in time with the host: every part on its own channel, drums on 10.
+    const auto playFor = [&](int blocks, std::set<int>& channels, float& loudest) {
+        int ons = 0;
+        for (int i = 0; i < blocks; ++i) {
+            audio.clear();
+            midi.clear();
+            plugin->processBlock(audio, midi);
+            for (const auto m : midi)
+                if (m.getMessage().isNoteOn()) {
+                    ++ons;
+                    channels.insert(m.getMessage().getChannel());
+                }
+            loudest = juce::jmax(loudest, audio.getMagnitude(0, bs));
+            head.ppq += bs / samplesPerBeat;
+        }
+        return ons;
+    };
+    head.ppq = 0.0;
+    std::set<int> channels;
+    float loudest = 0.0f;
+    const auto ons = playFor(800, channels, loudest);
+    EXPECT(ons > 0, "the idea plays (%d note-ons)", ons);
+    EXPECT(channels.size() == 4 && channels.count(10) == 1, "all four parts on their channels (%d channels)",
+           (int) channels.size());
+    EXPECT((loudest > 0.0f) == instrument, "preview synth on the instrument only (peak %.4f)", loudest);
+
+    // Stop between the two runs, as a user would.
+    head.playing = false;
+    playFor(2, channels, loudest);
+    head.playing = true;
+
+    // Part filtering: "send: drums only", forced onto channel 7.
+    const auto drumsOnly = wrapForHost(savedState(R"({"role":"drums","channel":7})"));
+    plugin->setStateInformation(drumsOnly.getData(), (int) drumsOnly.getSize());
+    head.ppq = 0.0;
+    std::set<int> filtered;
+    const auto drumOns = playFor(800, filtered, loudest);
+    EXPECT(drumOns > 0 && drumOns < ons, "drums only (%d of %d note-ons)", drumOns, ons);
+    EXPECT(filtered == std::set<int>{7}, "forced onto channel 7 (%d channels)", (int) filtered.size());
+    plugin->setStateInformation(blob.getData(), (int) blob.getSize());
+
+    // Garbage never replaces a good session. (Compared with the state just before: the host's
+    // own bypass flag, in JUCE's part of the blob, follows the last processBlock call.)
+    juce::MemoryBlock good;
+    plugin->getStateInformation(good);
+    EXPECT(pluginStateOf(good)["session"]["midiOut"]["role"].isVoid(), "the two-idea project is back");
     const auto junk = wrapForHost("not a state");
     plugin->setStateInformation(junk.getData(), (int) junk.getSize());
     juce::MemoryBlock state3;
     plugin->getStateInformation(state3);
-    EXPECT(state3 == state, "junk state ignored");
+    EXPECT(state3 == good, "junk state ignored");
 
     plugin->releaseResources();
 }

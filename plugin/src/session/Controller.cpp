@@ -57,6 +57,29 @@ MidiMeta Controller::metaFor(const fb::LineageNode& node) {
     return meta;
 }
 
+Controller::AuditionSource Controller::audition() {
+    AuditionSource out;
+    if (const auto& entry = session_.preview()) {
+        if (entry->rfind("node:", 0) == 0) {
+            out.clip = session_.realizeNode(entry->substr(5));
+        } else if (const auto* lib = library()) {
+            if (const auto* clip = lib->find(*entry)) {
+                try {
+                    out.clip = realizeToClip(clip->score, 1);
+                } catch (const std::exception&) {
+                }
+            }
+        }
+        return out;
+    }
+    const auto& a = session_.audition();
+    out.clip = a.nodeId ? session_.realizeNode(*a.nodeId) : session_.clip();
+    out.filter.loop = a.loop;
+    out.filter.role = session_.midiOut().role;
+    out.filter.parts = session_.partStates();
+    return out;
+}
+
 fb::Reply Controller::ok(bool changed) {
     fb::Reply r;
     r.ok = true;
@@ -105,7 +128,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
                 r.session = view();
                 return r;
             },
-            [&](const fb::Generate&) { return needsService("Generating"); },
+            [&](const fb::Generate& c) { return generate(c); },
             [&](const fb::Edit&) { return needsService("Editing by prompt"); },
             [&](const fb::Vary&) { return needsService("Vary"); },
             [&](const fb::AddPart&) { return needsService("Adding a part"); },
@@ -132,9 +155,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
                                  std::vector<std::string>{c.partId}, cur->seed, platform_.nowMs());
                 return ok(true);
             },
-            [&](const fb::Cancel& c) {
-                return fail(fb::ErrorCode::BadRequest, "No running request " + c.requestId + ".");
-            },
+            [&](const fb::Cancel& c) { return cancel(c.requestId); },
             [&](const fb::SelectNode& c) { return session_.select(c.nodeId) ? ok(true) : unknownNode(c.nodeId); },
             [&](const fb::Undo&) {
                 return session_.undo() ? ok(true) : fail(fb::ErrorCode::BadRequest, "Nothing to undo.");
@@ -285,6 +306,251 @@ fb::Reply Controller::handle(const fb::Command& command) {
             },
         },
         command);
+}
+
+// ---- Generate: the agent service's stream becomes nodes ----------------------------------------
+//
+// One `generate` is one request id, and each variation is one service stream (`<id>.<n>`). A
+// variation's node is made when its first part lands, under the node that was current when the
+// request started. It becomes current only if the user hasn't moved since, so the first variation
+// to land plays and later ones join the thread. Each part after that updates the node's score,
+// which re-renders the audition (it switches on the next bar line). `done` replaces the streamed
+// score with the authoritative one. A variation that fails or is cancelled loses its partial node.
+
+fb::Reply Controller::generate(const fb::Generate& c) {
+    if (!requests_.empty()) return fail(fb::ErrorCode::Busy, "A generation is already running.");
+    if (c.capture)
+        return fail(fb::ErrorCode::Unavailable,
+                    "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet.");
+
+    const auto host = platform_.host();
+    const auto ctx = session_.effectiveContext(host);
+    const auto* cur = session_.current();
+
+    fb::PlanRequest plan;
+    plan.prompt = c.prompt;
+    plan.context.tempo = ctx.tempo;
+    plan.context.meterNumerator = ctx.meterNumerator;
+    plan.context.meterDenominator = ctx.meterDenominator;
+    plan.context.tonic = ctx.tonic;
+    plan.context.mode = ctx.mode;
+    plan.context.bars = ctx.bars;
+    plan.context.swing = 0.0;
+    if (cur != nullptr)
+        if (const auto cx = cur->score.find("context"); cx != cur->score.end() && cx->is_object())
+            if (const auto sw = cx->find("swing"); sw != cx->end() && sw->is_number()) plan.context.swing = sw->get<double>();
+    if (const auto& o = session_.contextOverride(); o.swing) plan.context.swing = *o.swing;
+    plan.roles = c.roles;
+    plan.provider = session_.provider();
+
+    // Locked parts (and the harmony) go to the service as `keep`.
+    if (cur != nullptr && cur->score.contains("parts")) {
+        std::vector<std::string> locked;
+        for (const auto& st : session_.partStates())
+            if (st.locked) locked.push_back(st.partId);
+        nlohmann::json kept = nlohmann::json::array();
+        for (const auto& p : cur->score["parts"])
+            if (std::find(locked.begin(), locked.end(), p.value("id", "")) != locked.end()) kept.push_back(p);
+        if (!kept.empty()) {
+            auto keep = cur->score;
+            keep["parts"] = std::move(kept);
+            plan.keep = std::move(keep);
+        }
+    }
+
+    Request request;
+    request.id = "r" + std::to_string(nextRequestNumber_++);
+    request.kind = fb::NodeKind::Initial;
+    request.prompt = c.prompt;
+    request.parentId = cur != nullptr ? std::optional<std::string>(cur->id) : std::nullopt;
+    const auto now = platform_.nowMs();
+    for (int i = 0; i < c.count; ++i) {
+        Stream stream;
+        stream.id = request.id + "." + std::to_string(i + 1);
+        // A fresh seed per variation; the node keeps it, so the idea re-realizes identically.
+        stream.seed = static_cast<std::int64_t>((static_cast<std::uint64_t>(now) * 2654435761u + static_cast<std::uint64_t>(i) * 40503u) &
+                                                0xffffffffu);
+        request.streams.push_back(std::move(stream));
+    }
+
+    // Start every variation; if one can't start, none runs.
+    for (std::size_t i = 0; i < request.streams.size(); ++i) {
+        if (auto e = platform_.startPlan(request.streams[i].id, plan)) {
+            for (std::size_t j = 0; j < i; ++j) platform_.cancelStream(request.streams[j].id);
+            return fail(e->code, e->message);
+        }
+    }
+
+    session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, c.prompt, std::nullopt, now});
+    const auto id = request.id;
+    requests_.push_back(std::move(request));
+    publishGenerations();
+    emit(fb::GenerationStarted{id, fb::NodeKind::Initial});
+    auto r = ok(true);
+    r.requestId = id;
+    return r;
+}
+
+fb::Reply Controller::cancel(const std::string& requestId) {
+    const auto it = std::find_if(requests_.begin(), requests_.end(), [&](const Request& r) { return r.id == requestId; });
+    if (it == requests_.end()) return fail(fb::ErrorCode::BadRequest, "No running request " + requestId + ".");
+    for (auto& stream : it->streams) {
+        if (stream.finished) continue;
+        platform_.cancelStream(stream.id);
+        finishStream(*it, stream, fb::ErrorInfo{fb::ErrorCode::Cancelled, "Cancelled."});
+    }
+    finishRequestIfDone(requestId);
+    return ok(true);
+}
+
+void Controller::cancelAll() {
+    std::vector<std::string> ids;
+    for (const auto& r : requests_) ids.push_back(r.id);
+    for (const auto& id : ids) cancel(id);
+}
+
+std::pair<Controller::Request*, Controller::Stream*> Controller::findStream(const std::string& streamId) {
+    for (auto& r : requests_)
+        for (auto& s : r.streams)
+            if (s.id == streamId) return {&r, s.finished ? nullptr : &s};
+    return {nullptr, nullptr};
+}
+
+void Controller::serviceEvent(const std::string& streamId, const fb::ServiceEvent& event) {
+    auto [request, stream] = findStream(streamId);
+    if (stream == nullptr) return;
+    std::visit(Overloaded{
+                   [&](const fb::ScoreHeader& e) {
+                       // A later header (a repair rewrote the plan) replaces the earlier one.
+                       stream->header = e.score;
+                       if (request->stage != fb::GenerationStage::Streaming) {
+                           request->stage = fb::GenerationStage::Streaming;
+                           publishGenerations();
+                           changed();
+                       }
+                   },
+                   [&](const fb::PartStarted&) {},
+                   [&](const fb::PartDone& e) {
+                       if (!stream->header || !e.part.is_object()) return;  // the service sends the header first
+                       const auto partId = e.part.value("id", "");
+                       auto& parts = stream->parts;
+                       const auto same = std::find_if(parts.begin(), parts.end(),
+                                                      [&](const nlohmann::json& p) { return p.value("id", "") == partId; });
+                       if (same != parts.end()) *same = e.part;  // a repaired part replaces the first one
+                       else parts.push_back(e.part);
+                       if (std::find(request->partsDone.begin(), request->partsDone.end(), partId) == request->partsDone.end())
+                           request->partsDone.push_back(partId);
+                       partLanded(*request, *stream);
+                       emit(fb::PartReady{request->id, partId});
+                   },
+                   [&](const fb::AssistantMessage& e) {
+                       if (!stream->message.empty()) stream->message += "\n";
+                       stream->message += e.text;
+                   },
+                   [&](const fb::ScoreDone& e) {
+                       const auto requestId = request->id;
+                       if (e.score) {
+                           // The authoritative score, kept over anything streamed.
+                           stream->header = *e.score;
+                           stream->parts = e.score->contains("parts") ? (*e.score)["parts"] : nlohmann::json::array();
+                           partLanded(*request, *stream);
+                       } else {
+                           stream->textOnly = true;
+                       }
+                       finishStream(*request, *stream, std::nullopt);
+                       finishRequestIfDone(requestId);
+                   },
+                   [&](const fb::ServiceError& e) {
+                       const auto requestId = request->id;
+                       finishStream(*request, *stream, e.error);
+                       finishRequestIfDone(requestId);
+                   },
+               },
+               event);
+}
+
+void Controller::serviceEnded(const std::string& streamId, std::optional<fb::ErrorInfo> error) {
+    auto [request, stream] = findStream(streamId);
+    if (stream == nullptr) return;
+    const auto requestId = request->id;
+    finishStream(*request, *stream,
+                 error ? *error : fb::ErrorInfo{fb::ErrorCode::Network, "The agent service closed the stream before the plan was done."});
+    finishRequestIfDone(requestId);
+}
+
+void Controller::partLanded(Request& request, Stream& stream) {
+    auto score = *stream.header;
+    score["parts"] = stream.parts;
+    if (stream.nodeId) {
+        session_.updateNodeScore(*stream.nodeId, std::move(score));
+    } else {
+        // Becomes current only if the user is still where the request started.
+        const auto* cur = session_.current();
+        const bool stayed = (cur == nullptr && !request.parentId) || (cur != nullptr && request.parentId == cur->id);
+        stream.nodeId = session_.addNode(std::move(score), request.kind, request.prompt, std::nullopt, stream.seed,
+                                         platform_.nowMs(), request.parentId, std::nullopt, stayed);
+    }
+    publishGenerations();
+    changed();
+}
+
+void Controller::finishStream(Request& request, Stream& stream, std::optional<fb::ErrorInfo> error) {
+    (void)request;
+    stream.finished = true;
+    stream.error = std::move(error);
+    if ((stream.error || stream.textOnly) && stream.nodeId) {
+        // A partial idea from a failed plan doesn't stay, unless something was already made from it.
+        if (session_.removeNode(*stream.nodeId)) stream.nodeId.reset();
+    }
+}
+
+void Controller::finishRequestIfDone(const std::string& requestId) {
+    const auto it = std::find_if(requests_.begin(), requests_.end(), [&](const Request& r) { return r.id == requestId; });
+    if (it == requests_.end()) return;
+    if (!std::all_of(it->streams.begin(), it->streams.end(), [](const Stream& s) { return s.finished; })) return;
+
+    const Request request = std::move(*it);
+    requests_.erase(it);
+    const auto now = platform_.nowMs();
+    std::vector<std::string> nodeIds;
+    std::optional<fb::ErrorInfo> firstError;
+    bool answered = false;
+    for (const auto& s : request.streams) {
+        if (s.nodeId && !s.error) {
+            nodeIds.push_back(*s.nodeId);
+            const auto* n = session_.node(*s.nodeId);
+            const auto title = n != nullptr ? n->score.value("title", std::string()) : std::string();
+            session_.addThreadItem({"t-" + s.id, fb::ThreadRole::Assistant, s.message.empty() ? title : s.message, s.nodeId, now});
+        } else if (s.textOnly && !s.error) {
+            answered = true;
+            if (!s.message.empty()) session_.addThreadItem({"t-" + s.id, fb::ThreadRole::Assistant, s.message, std::nullopt, now});
+        } else if (s.error && !firstError) {
+            firstError = s.error;
+        }
+    }
+    publishGenerations();
+    changed();
+    if (!nodeIds.empty() || answered) {
+        emit(fb::GenerationDone{request.id, nodeIds});
+        if (firstError && firstError->code != fb::ErrorCode::Cancelled)
+            emit(fb::Notice{fb::NoticeLevel::Warning, "A variation failed: " + firstError->message});
+    } else {
+        emit(fb::GenerationFailed{request.id, firstError.value_or(fb::ErrorInfo{fb::ErrorCode::Internal, "No result."})});
+    }
+}
+
+void Controller::publishGenerations() {
+    std::vector<fb::Generation> gens;
+    for (const auto& r : requests_) gens.push_back({r.id, r.kind, r.stage, r.partsDone});
+    session_.setGenerations(std::move(gens));
+}
+
+void Controller::changed() {
+    if (onChanged) onChanged();
+}
+
+void Controller::emit(fb::PluginEvent event) {
+    if (onEvent) onEvent(event);
 }
 
 std::string Controller::handleJson(const std::string& commandJson) {

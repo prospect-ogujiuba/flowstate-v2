@@ -97,7 +97,7 @@ endif()
 configure_file(src/BuildId.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId.cpp" @ONLY)
 set(_build_id_source "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId.cpp")
 set(_plugin_sources src/MidiFiles.cpp src/MidiFiles.h src/PluginProcessor.cpp src/PluginProcessor.h
-    src/BuildId.h "${_build_id_source}")
+    src/PreviewSynth.h src/ServiceClient.cpp src/ServiceClient.h src/BuildId.h "${_build_id_source}")
 if(FLOWSTATE_PLUGIN_HEADLESS)
     list(APPEND _plugin_sources src/HeadlessEditor.cpp)
 else()
@@ -196,13 +196,14 @@ endif()
 # the instrument's JucePlugin_* macros.
 juce_add_console_app(flowstate_plugin_tests PRODUCT_NAME "Flowstate Plugin Tests")
 target_sources(flowstate_plugin_tests PRIVATE
-    tests/processor_test.cpp src/PluginProcessor.cpp src/MidiFiles.cpp src/HeadlessEditor.cpp
+    tests/processor_test.cpp src/PluginProcessor.cpp src/MidiFiles.cpp src/ServiceClient.cpp src/HeadlessEditor.cpp
     "${_build_id_source}")
 target_include_directories(flowstate_plugin_tests PRIVATE src)
 target_include_directories(flowstate_plugin_tests SYSTEM PRIVATE ${doctest_SOURCE_DIR})
 target_compile_definitions(flowstate_plugin_tests PRIVATE
     JUCE_USE_CURL=0
     JUCE_WEB_BROWSER=0
+    JUCE_MODAL_LOOPS_PERMITTED=1  # the service tests pump the message thread
     JUCE_DISPLAY_SPLASH_SCREEN=0
     JucePlugin_Name="Flowstate"
     JucePlugin_IsSynth=1
