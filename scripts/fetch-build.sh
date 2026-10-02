@@ -4,7 +4,8 @@
 #   scripts/fetch-build.sh [windows|macos|all] [--branch B] [--run ID] [--out DIR]
 #
 # Defaults: all targets, the current branch, and on WSL the Windows Downloads folder
-# (so the Windows build is ready to install), elsewhere dist/builds.
+# (so the Windows build is ready to install), elsewhere dist/builds. With FLOWSTATE_VST3_DIR set
+# (a Windows path), the printed install command installs there.
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 trap 'echo "error: fetch-build stopped at line $LINENO: $BASH_COMMAND (exit $?)" >&2' ERR
@@ -55,7 +56,8 @@ if [[ " ${names[*]} " == *" flowstate-windows-x64 "* ]]; then
     # Runnable as is from this WSL shell: powershell.exe is Windows PowerShell through WSL interop.
     win=$(wslpath -w "$out/flowstate-windows-x64")
     echo "Windows, from this shell (quit the DAW first):"
-    echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\install.ps1'    # install the VST3s (asks for admin)"
+    dest=${FLOWSTATE_VST3_DIR:+ -Dest '$FLOWSTATE_VST3_DIR'}
+    echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\install.ps1'$dest    # install the VST3s (asks for admin)"
     echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\gallery.ps1'    # component gallery in the Standalone"
     echo "  powershell.exe -ExecutionPolicy Bypass -File '$win\gallery.ps1' -Daw 'C:\path\to\daw.exe'"
   else
