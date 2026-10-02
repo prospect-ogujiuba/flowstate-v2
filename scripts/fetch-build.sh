@@ -7,6 +7,7 @@
 # (so the Windows build is ready to install), elsewhere dist/builds.
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
+trap 'echo "error: fetch-build stopped at line $LINENO: $BASH_COMMAND (exit $?)" >&2' ERR
 
 usage() { sed -n '2,7p' "$0" | sed 's/^# \{0,1\}//'; exit "${1:-0}"; }
 
@@ -39,8 +40,9 @@ esac
 
 for name in "${names[@]}"; do
   dir="$out/$name"
-  rm -rf "$dir"   # gh won't overwrite files from an earlier download
-  gh run download "$run" -n "$name" -D "$dir"
+  echo "Downloading $name into $dir ..."
+  rm -rf "$dir" || die "couldn't remove the old $dir (is a file in it open in Windows?)"   # gh won't overwrite an earlier download
+  gh run download "$run" -n "$name" -D "$dir" || die "download of $name from run $run failed (see gh's message above)"
   if [ "$name" = flowstate-windows-x64 ]; then
     cp "$repo_root"/scripts/windows/*.ps1 "$dir/"
   fi
