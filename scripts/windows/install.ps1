@@ -3,12 +3,33 @@
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1              (asks for admin)
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Dest 'C:\Program Files\Common Files\VSTs'
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall   (with the same -Dest)
-param([switch]$Uninstall, [string]$Dest)
+# The hosted agent service: a service.json in this folder is installed for you, or pass it yourself:
+#   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Service https://flowstate.example.com -Token fst_...
+param([switch]$Uninstall, [string]$Dest, [string]$Service, [string]$Token, [switch]$Elevated)
 $ErrorActionPreference = 'Stop'
+
+# Where the plug-in looks for the agent service and the tester token (docs/bridge-spec.md). Written before
+# asking for admin, so it lands in this user's profile, and the token never reaches the elevated window.
+$settings = Join-Path $env:APPDATA 'Flowstate\service.json'
+if (-not $Elevated) {
+    if ($Uninstall) {
+        if (Test-Path $settings) { Remove-Item -Force $settings; Write-Host "  removed $settings" }
+    } elseif ($Service -or $Token) {
+        if ($Service -notmatch '^https://[A-Za-z0-9.-]+(:[0-9]+)?/?$') { throw '-Service must be an https URL' }
+        if ($Token -notmatch '^fst_[A-Za-z0-9_-]+$') { throw '-Token must be the fst_... token you were sent' }
+        New-Item -ItemType Directory -Force (Split-Path $settings) | Out-Null
+        @{ url = $Service.TrimEnd('/'); token = $Token } | ConvertTo-Json -Compress | Set-Content -Encoding ascii $settings
+        Write-Host "  $settings (agent service)"
+    } elseif (Test-Path (Join-Path $PSScriptRoot 'service.json')) {
+        New-Item -ItemType Directory -Force (Split-Path $settings) | Out-Null
+        Copy-Item -Force (Join-Path $PSScriptRoot 'service.json') $settings
+        Write-Host "  $settings (agent service)"
+    }
+}
 
 $principal = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    $argList = @('-NoExit', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"")
+    $argList = @('-NoExit', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"", '-Elevated')
     if ($Uninstall) { $argList += '-Uninstall' }
     if ($Dest) { $argList += @('-Dest', "`"$Dest`"") }
     Start-Process powershell -Verb RunAs -ArgumentList $argList

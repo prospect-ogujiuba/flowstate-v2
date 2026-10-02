@@ -7,6 +7,7 @@
 #pragma once
 
 #include "flowstate/bridge.h"
+#include "session/ServiceSettings.h"
 
 #include <juce_core/juce_core.h>
 
@@ -34,8 +35,13 @@ public:
     // Aborts a stream; nothing more is reported for it. Any thread.
     void cancel(const std::string& streamId);
 
-    // The service's base URL: FLOWSTATE_SERVICE_URL, else the local dev service (`npm run serve`).
-    static juce::String serviceUrl();
+    // The service's URL and tester token: FLOWSTATE_SERVICE_URL / FLOWSTATE_SERVICE_TOKEN, else the
+    // user's service.json (serviceFile()), else the local dev service (`npm run serve`) with no token.
+    static ServiceSettings settings();
+    static juce::String serviceUrl() { return settings().url; }
+    // %APPDATA%\Flowstate\service.json on Windows, ~/Library/Application Support/Flowstate/service.json
+    // on macOS, ~/.config/Flowstate/service.json on Linux.
+    static juce::File serviceFile();
 
     struct Shared;
     struct Pool;

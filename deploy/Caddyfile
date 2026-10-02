@@ -1,0 +1,17 @@
+# TLS in front of the agent service. Caddy gets and renews the certificate for FLOWSTATE_DOMAIN.
+# No access log: request headers carry the tester token and BYOK keys (x-flowstate-provider-key), and the
+# service writes its own one line per request without them.
+{
+	email {$ACME_EMAIL}
+}
+
+{$FLOWSTATE_DOMAIN} {
+	request_body {
+		max_size 5MB
+	}
+	# Plans stream for up to a couple of minutes; flush each event as it is written.
+	reverse_proxy flowstate-service:8787 {
+		flush_interval -1
+	}
+	header -Server
+}

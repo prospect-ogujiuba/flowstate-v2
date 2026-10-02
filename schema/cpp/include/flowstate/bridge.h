@@ -211,7 +211,7 @@ enum class Role { Chords, Pad, Arp, Bass, Melody, Counter, Drums };
 enum class Tonic { C, CSharp, Db, D, DSharp, Eb, E, F, FSharp, Gb, G, GSharp, Ab, A, ASharp, Bb, B };
 enum class Mode { Major, Minor, Dorian, Phrygian, Lydian, Mixolydian, Locrian, HarmonicMinor, MelodicMinor, MajorPentatonic, MinorPentatonic, Blues };
 enum class DrumVoice { Kick, Snare, Clap, Rim, ClosedHat, PedalHat, OpenHat, LowTom, MidTom, HighTom, Crash, Ride, RideBell, Shaker, Tambourine, Cowbell };
-enum class ErrorCode { BadRequest, UnknownNode, UnknownPart, Busy, Cancelled, Unavailable, Refused, Truncated, InvalidScore, Provider, Network, Internal };
+enum class ErrorCode { BadRequest, UnknownNode, UnknownPart, Busy, Cancelled, Unavailable, Refused, Truncated, InvalidScore, Provider, Network, Internal, Unauthorized, RateLimited };
 enum class CaptureIntent { Continue, Harmonize, AddBass, AddDrums, Answer };
 enum class KeySource { Override, Score, Detected, Default };
 enum class TimeSource { Host, Override, Score, Default };
@@ -1181,6 +1181,8 @@ inline const char* toString(ErrorCode value) {
         case ErrorCode::Provider: return "provider";
         case ErrorCode::Network: return "network";
         case ErrorCode::Internal: return "internal";
+        case ErrorCode::Unauthorized: return "unauthorized";
+        case ErrorCode::RateLimited: return "rate_limited";
     }
     return "?";
 }
@@ -1198,6 +1200,8 @@ inline std::optional<ErrorCode> parseErrorCode(std::string_view text) {
     if (text == "provider") return ErrorCode::Provider;
     if (text == "network") return ErrorCode::Network;
     if (text == "internal") return ErrorCode::Internal;
+    if (text == "unauthorized") return ErrorCode::Unauthorized;
+    if (text == "rate_limited") return ErrorCode::RateLimited;
     return std::nullopt;
 }
 

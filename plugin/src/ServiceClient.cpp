@@ -174,20 +174,35 @@ ServiceClient::~ServiceClient() {
     // client, the pool waits for them as it goes.
 }
 
-juce::String ServiceClient::serviceUrl() {
-    const auto fromEnv = juce::SystemStats::getEnvironmentVariable("FLOWSTATE_SERVICE_URL", {}).trim();
-    return (fromEnv.isNotEmpty() ? fromEnv : juce::String("http://127.0.0.1:8787")).trimCharactersAtEnd("/");
+juce::File ServiceClient::serviceFile() {
+    const auto base = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory);
+#if JUCE_MAC
+    return base.getChildFile("Application Support/Flowstate/service.json");
+#else
+    return base.getChildFile("Flowstate/service.json");
+#endif
+}
+
+ServiceSettings ServiceClient::settings() {
+    std::optional<std::string> file;
+    if (const auto f = serviceFile(); f.existsAsFile()) file = f.loadFileAsString().toStdString();
+    return resolveServiceSettings(juce::SystemStats::getEnvironmentVariable("FLOWSTATE_SERVICE_URL", {}).toStdString(),
+                                  juce::SystemStats::getEnvironmentVariable("FLOWSTATE_SERVICE_TOKEN", {}).toStdString(),
+                                  file);
 }
 
 std::optional<fb::ErrorInfo> ServiceClient::startPlan(const std::string& streamId, const fb::PlanRequest& request) {
     nlohmann::json body;
     fb::to_json(body, request);
     const auto text = body.dump();
-    const auto url = juce::URL(serviceUrl() + "/v1/plan").withPOSTData(juce::MemoryBlock(text.data(), text.size()));
+    const auto service = settings();
+    const auto url = juce::URL(juce::String(service.url) + "/v1/plan").withPOSTData(juce::MemoryBlock(text.data(), text.size()));
     // The request id joins the plugin's and the service's logs. A BYOK key would go in
     // x-flowstate-provider-key, read from the keychain here (P1-12), never from the session.
-    const auto headers = juce::String("Content-Type: application/json\r\nAccept: text/event-stream\r\n") +
-                         "x-flowstate-request-id: " + juce::String(instanceId_.substr(0, 8)) + "-" + juce::String(streamId);
+    // The tester token (hosted service, P1-13) is read here per request and never stored or logged.
+    auto headers = juce::String("Content-Type: application/json\r\nAccept: text/event-stream\r\n") +
+                   "x-flowstate-request-id: " + juce::String(instanceId_.substr(0, 8)) + "-" + juce::String(streamId);
+    if (!service.token.empty()) headers << "\r\nAuthorization: Bearer " << juce::String(service.token);
     {
         const std::lock_guard lock(shared_->mutex);
         shared_->cancelled.erase(streamId);

@@ -1,0 +1,129 @@
+name: service
+
+# The hosted agent service (P1-13). Every change to what the image holds builds it and smoke-tests the
+# container: health, a request without a token refused, one with a token let through. `npm run deploy:service`
+# runs this on main with deploy=true: the image goes to GHCR as ghcr.io/<owner>/flowstate-service:<build id>
+# and the server runs it (deploy/README.md lists the secrets and the one-time server setup).
+
+on:
+  push:
+    branches: ["**"]
+    paths: &service
+      - "core/**"
+      - "schema/**"
+      - "cloud/**"
+      - "library/catalog/**"
+      - "deploy/**"
+      - ".dockerignore"
+      - "package-lock.json"
+      - ".github/workflows/service.yml"
+      - "!**/*.md"
+      - "docs/ir-spec.md" # the planner's prompt; after the Markdown exclusion so it counts
+  pull_request:
+    paths: *service
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Push the image and deploy it to the server (main only)
+        type: boolean
+        default: false
+
+concurrency:
+  group: service-${{ github.ref }}-${{ inputs.deploy || false }}
+  cancel-in-progress: ${{ !inputs.deploy }}
+
+jobs:
+  image:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      build_id: ${{ steps.id.outputs.build_id }}
+      image: ${{ steps.id.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: id
+        run: |
+          echo "build_id=$(git rev-parse --short HEAD)-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/flowstate-service" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@v3
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/Containerfile
+          build-args: FLOWSTATE_BUILD_ID=${{ steps.id.outputs.build_id }}
+          tags: flowstate-service:ci
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test the container
+        run: |
+          set -euo pipefail
+          token="fst_ci_$(openssl rand -hex 16)"
+          mkdir -p "$RUNNER_TEMP/secrets"
+          echo "ci $(printf %s "$token" | sha256sum | cut -d' ' -f1)" > "$RUNNER_TEMP/secrets/testers"
+          docker run -d --name svc -p 127.0.0.1:8787:8787 --read-only --tmpfs /tmp --cap-drop ALL \
+            -e FLOWSTATE_PLANNER_PROVIDER=deepseek -e FLOWSTATE_PLANNER_MODEL=deepseek-flash -e FLOWSTATE_PLANNER_REASONING=off \
+            -e FLOWSTATE_SERVICE_TOKENS_FILE=/run/flowstate/testers -v "$RUNNER_TEMP/secrets/testers:/run/flowstate/testers:ro" \
+            flowstate-service:ci
+          for _ in $(seq 1 30); do curl -fsS http://127.0.0.1:8787/v1/health > health.json && break; sleep 1; done
+          cat health.json; echo
+          grep -q '"version":"${{ steps.id.outputs.build_id }}"' health.json
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8787/v1/plan -d '{}')
+          [ "$code" = 401 ] || { echo "no token: expected 401, got $code"; exit 1; }
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H "Authorization: Bearer $token" http://127.0.0.1:8787/v1/plan -d '{}')
+          [ "$code" = 400 ] || { echo "token and a malformed request: expected 400, got $code"; exit 1; }
+          docker logs svc 2>&1 | grep -q "$token" && { echo "the token reached the log"; exit 1; } || true
+      - name: Service logs
+        if: failure()
+        run: docker logs svc || true
+      - name: Push to GHCR
+        if: inputs.deploy && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          for tag in "${{ steps.id.outputs.build_id }}" main; do
+            docker tag flowstate-service:ci "${{ steps.id.outputs.image }}:$tag"
+            docker push "${{ steps.id.outputs.image }}:$tag"
+          done
+
+  deploy:
+    needs: image
+    if: inputs.deploy && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    concurrency:
+      group: service-deploy
+      cancel-in-progress: false
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/flowstate' }}
+      SERVICE_URL: ${{ vars.FLOWSTATE_SERVICE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: SSH key
+        run: |
+          set -euo pipefail
+          for v in DEPLOY_HOST DEPLOY_USER SERVICE_URL; do [ -n "${!v}" ] || { echo "missing $v (deploy/README.md, 'CI settings')"; exit 1; }; done
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Copy the deploy files and deploy
+        run: |
+          set -euo pipefail
+          ssh_opts=(-i ~/.ssh/deploy -o StrictHostKeyChecking=yes -o BatchMode=yes)
+          scp "${ssh_opts[@]}" deploy/compose.yml deploy/Caddyfile deploy/deploy.sh "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
+          ssh "${ssh_opts[@]}" "$DEPLOY_USER@$DEPLOY_HOST" "$DEPLOY_PATH/deploy.sh '${{ needs.image.outputs.build_id }}'"
+      - name: Check the public health endpoint
+        run: |
+          set -euo pipefail
+          for _ in $(seq 1 20); do
+            if curl -fsS "${SERVICE_URL%/}/v1/health" > health.json && grep -q '"version":"${{ needs.image.outputs.build_id }}"' health.json; then
+              cat health.json; echo; exit 0
+            fi
+            sleep 3
+          done
+          echo "the public health endpoint doesn't report ${{ needs.image.outputs.build_id }}"; cat health.json 2>/dev/null || true; exit 1

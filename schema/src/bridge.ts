@@ -32,6 +32,7 @@ const EpochMs = z.number().int().min(0).meta({ cpp: "int64" }).describe("Unix ti
 export const ErrorCode = def("ErrorCode", z.enum([
   "bad_request", "unknown_node", "unknown_part", "busy", "cancelled", "unavailable",
   "refused", "truncated", "invalid_score", "provider", "network", "internal",
+  "unauthorized", "rate_limited",
 ]));
 
 export const ErrorInfo = def("ErrorInfo", z.object({

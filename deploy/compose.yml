@@ -1,0 +1,64 @@
+# The hosted agent service (P1-13): the service and Caddy in front of it for TLS. It follows devarch's
+# service shape (x-devarch, the shared microservices-net network), so it also runs next to a devarch setup.
+# On the server it lives in /opt/flowstate with a .env written by deploy.sh. Secrets stay in
+# FLOWSTATE_SECRETS_DIR (default /etc/flowstate): service.env (provider keys, model) and testers (tokens).
+# deploy/README.md has the setup.
+x-devarch:
+  title: Flowstate agent service
+  description: The plugin's HTTP API (/v1/plan streams over SSE) behind Caddy with TLS
+  tags: [flowstate, node, proxy]
+  urls: ["https://${FLOWSTATE_DOMAIN:-flowstate.localhost}/v1/health"]
+
+services:
+  flowstate-service:
+    image: ${FLOWSTATE_SERVICE_IMAGE:-ghcr.io/prospect-ogujiuba/flowstate-service}:${FLOWSTATE_SERVICE_TAG:?FLOWSTATE_SERVICE_TAG names the image to run}
+    container_name: flowstate-service
+    restart: unless-stopped
+    env_file:
+      - ${FLOWSTATE_SECRETS_DIR:-/etc/flowstate}/service.env
+    environment:
+      FLOWSTATE_SERVICE_TOKENS_FILE: /run/flowstate/testers
+    volumes:
+      - ${FLOWSTATE_SECRETS_DIR:-/etc/flowstate}/testers:/run/flowstate/testers:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/v1/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - microservices-net
+
+  caddy:
+    image: caddy:2.11.6-alpine
+    container_name: flowstate-caddy
+    restart: unless-stopped
+    ports:
+      - "${FLOWSTATE_HTTP_PORT:-80}:80"
+      - "${FLOWSTATE_HTTPS_PORT:-443}:443"
+      - "${FLOWSTATE_HTTPS_PORT:-443}:443/udp"
+    environment:
+      FLOWSTATE_DOMAIN: ${FLOWSTATE_DOMAIN:-flowstate.localhost}
+      ACME_EMAIL: ${ACME_EMAIL:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - flowstate-service
+    networks:
+      - microservices-net
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  microservices-net:
+    external: true
+    name: ${DEVARCH_NETWORK:-microservices-net}
