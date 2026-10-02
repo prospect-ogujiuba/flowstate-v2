@@ -53,6 +53,17 @@ describe("PartStream", () => {
     assert.equal(stream.unplayable[0]!.part, ids[1]);
   });
 
+  it("reports the head, then each part's start before the part itself", () => {
+    const order: string[] = [];
+    const stream = new PartStream((p) => order.push(`done ${p.id}`), {
+      onHead: (head) => order.push(`head ${head.parts.length}`),
+      onPartStarted: (id, role) => order.push(`start ${id} ${role}`),
+    });
+    const text = JSON.stringify(score, null, 2);
+    for (let i = 0; i < text.length; i += 11) stream.push(text.slice(i, i + 11));
+    assert.deepEqual(order, ["head 0", ...score.parts.flatMap((p) => [`start ${p.id} ${p.role}`, `done ${p.id}`])]);
+  });
+
   it("plays nothing when the head is broken", () => {
     const { parts, ...head } = score;
     const text = JSON.stringify({ ...head, context: { ...head.context, bars: "four" }, parts });

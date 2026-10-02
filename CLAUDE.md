@@ -12,7 +12,7 @@ Design source: `docs/proposal.md`, the v2 proposal as a living document. The oth
 | --- | --- | --- |
 | `core/` | Music engine: IR parse, realizer, MIDI export, `fs-realize` CLI. No JUCE, no I/O beyond files in the CLI. | C++20 |
 | `schema/` | Contracts: score IR and bridge schema (Zod source of truth), generated JSON Schemas and the C++ bridge header (`schema/cpp`) | TS / generated C++ |
-| `cloud/` | Agent service. Today: the planner (prompt -> IR) and its model backends. Commands: `cloud/README.md`. | TS |
+| `cloud/` | Agent service: the HTTP API the plugin calls (`/v1/plan` streams parts over SSE), the planner (prompt -> IR) and its model backends. Commands: `cloud/README.md`. | TS |
 | `evals/` | Prompt sets, v1 baseline, metrics, blind A/B packs; committed evidence in `evals/results/` | TS |
 | `library/` | Built-in MIDI library: packs (`packs/<id>`: manifest, credit note, source MIDI), the generated `catalog/` the plugin bundles, and the import and validation tooling. Spec: `docs/library.md`. | TS + MIDI |
 | `plugin/` | JUCE 9 plugin: instrument and MIDI FX variants, processor-owned session, bridge host, host sync, capture. `plugin/spike/` is the frozen Phase 0 spike. See `plugin/README.md`. | C++ |
@@ -53,6 +53,7 @@ npm run schema                               # regenerate JSON Schemas and the C
 npm run build:ui                             # the WebView UI into ui/dist (the plugin build bundles it)
 npm run -w library validate -- packs/<id>    # check a MIDI pack (needs build:core); every entry imports or says why
 npm run -w library build                     # regenerate library/catalog (the plugin bundles it)
+npm run serve                                # the agent service on 127.0.0.1:8787 (model from the planner env, below)
 ```
 
 Planner and evals (the `claude-code` backend is the default; for a provider, set `FLOWSTATE_PLANNER_BACKEND=pi` and its key, e.g. `OPENROUTER_API_KEY`, then pass `--provider openrouter --model openai/gpt-5.5`):

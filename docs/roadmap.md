@@ -160,7 +160,24 @@ Work:
 - Realizer voicing movement (8.9 semitones summed vs v1's 2.4; investigate) and groove templates per style.
 Acceptance: blind A/B round 2 (new v2 vs r1 v2) is preferred at ≥ 70%, and mean musicality is ≥ 3.5.
 
-### P1-4 Agent service — `todo`
+### P1-4 Agent service — `done` (2026-10-02)
+Done: `cloud/src/service.ts`, run with `npm run serve` (`cloud/README.md`).
+- `POST /v1/plan` streams `header`, `partStarted`/`partDone` per part as the model writes, then `done` or `error`. Parts come from the planner's part stream, so repairs stream too. Every event is checked against `ServiceEvent` before it goes out.
+- `POST /v1/edit` validates the `EditRequest`, then answers `unavailable` (skeleton). `GET /v1/health` returns `Health`.
+- Provider per request: the managed default from the environment, other models only from a managed allowlist, any model with the user's key (`x-flowstate-provider-key`). `FLOWSTATE_FEATURE_BYOK=0` turns BYOK off.
+- Errors carry bridge codes: the backends and planner now throw `FlowstateError` (`refused`, `truncated`, `cancelled`, `provider`, `invalid_score`, `bad_request`).
+- One log line per request, with no keys, headers or prompt text; keys are redacted from error messages. SSE keepalive comments every 15 s for proxies (P1-13).
+- Contract tests (`cloud/src/service.test.ts`, 16): stream order, roles, malformed requests, BYOK passing and redaction, the flag, the managed allowlist, refusal, truncation, invalid plans, cancellation and keepalive.
+- Live check (2026-10-02, `claude-code` Sonnet low): a fixture request streamed header, four parts and `done`; closing the connection mid-plan logged `cancelled` and stopped the `claude` process.
+
+Left for later issues:
+- **The plugin's client** (next, with P1-7): `generate` sends a `PlanRequest` to the service, and its events become `partReady` and nodes. Until then the plugin's model commands still reply `unavailable`.
+- `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
+- Edits (an IR patch from the model) beyond the skeleton.
+- Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
+- Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).
+- Auth tokens and rate limits: P1-13.
+
 The `cloud/` HTTP service:
 - `POST /v1/plan` (streamed SSE events: part started, part done, score done, error).
 - `POST /v1/edit` (IR patch; skeleton only in Phase 1).

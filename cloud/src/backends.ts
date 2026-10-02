@@ -10,6 +10,7 @@ import os from "node:os";
 import path from "node:path";
 import type { AssistantMessage, Context, Message, Models, ThinkingLevel } from "@earendil-works/pi-ai";
 import { builtinModels } from "@earendil-works/pi-ai/providers/all";
+import { FlowstateError, providerFailure } from "./errors.ts";
 
 export interface Turn { role: "user" | "assistant"; text: string }
 export interface Completion {
@@ -52,11 +53,11 @@ const MAX_OUTPUT_TOKENS = 32000;
 
 /**
  * The backend for one request.
- * Throws on an unknown provider or model, a BYOK selection without a key, or BYOK on claude-code.
+ * Throws `bad_request` on an unknown provider or model, a BYOK selection without a key, or BYOK on claude-code.
  */
 export function backendFor(sel: ModelSelection, collection: Models = builtinCollection()): Backend {
   if (sel.provider === "claude-code") {
-    if (sel.credential.kind !== "managed") throw new Error("claude-code is a dev backend and takes no key");
+    if (sel.credential.kind !== "managed") throw new FlowstateError("bad_request", "claude-code is a dev backend and takes no key");
     return claudeCodeBackend(sel.model, sel.reasoning ?? "high");
   }
   return piBackend(sel, collection);
@@ -89,14 +90,14 @@ function builtinCollection(): Models {
 }
 
 function piBackend(sel: ModelSelection, models: Models): Backend {
-  if (!models.getProvider(sel.provider)) throw new Error(`unknown provider '${sel.provider}'`);
+  if (!models.getProvider(sel.provider)) throw new FlowstateError("bad_request", `unknown provider '${sel.provider}'`);
   const model = models.getModel(sel.provider, sel.model);
   if (!model) {
     const known = models.getModels(sel.provider).map((m) => m.id);
-    throw new Error(`unknown model '${sel.model}' for ${sel.provider} (known: ${known.slice(0, 20).join(", ")}${known.length > 20 ? ", ..." : ""})`);
+    throw new FlowstateError("bad_request", `unknown model '${sel.model}' for ${sel.provider} (known: ${known.slice(0, 20).join(", ")}${known.length > 20 ? ", ..." : ""})`);
   }
   // An empty BYOK key would silently fall back to the service's own key.
-  if (sel.credential.kind === "byok" && !sel.credential.apiKey.trim()) throw new Error("BYOK request without a key");
+  if (sel.credential.kind === "byok" && !sel.credential.apiKey.trim()) throw new FlowstateError("bad_request", "BYOK request without a key");
   const apiKey = sel.credential.kind === "byok" ? sel.credential.apiKey : undefined;
 
   return {
@@ -125,9 +126,11 @@ function piBackend(sel: ModelSelection, models: Models): Backend {
       }
       const response = await stream.result();
       // pi-ai maps refusals and safety stops to "error", and the output-token limit to "length".
-      if (response.stopReason === "error" || response.stopReason === "aborted")
-        throw new Error(`planner call failed (${sel.provider}/${sel.model}, ${response.rawStopReason ?? response.stopReason}): ${response.errorMessage ?? "no details"}`);
-      if (response.stopReason === "length") throw new Error("planner hit the output token limit before finishing the score");
+      if (response.stopReason === "error" || response.stopReason === "aborted") {
+        const raw = response.stopReason === "aborted" ? "aborted" : response.rawStopReason ?? response.stopReason;
+        throw providerFailure(raw, `planner call failed (${sel.provider}/${sel.model}, ${raw}): ${response.errorMessage ?? "no details"}`);
+      }
+      if (response.stopReason === "length") throw new FlowstateError("truncated", "planner hit the output token limit before finishing the score");
       return {
         text: response.content.flatMap((b) => (b.type === "text" ? [b.text] : [])).join(""),
         inputTokens: response.usage.input,
@@ -175,7 +178,7 @@ function claudeCodeBackend(model: string, reasoning: Reasoning): Backend {
         "--tools", "", "--no-session-persistence", "--system-prompt", system,
       ];
       return new Promise((resolve, reject) => {
-        if (options.signal?.aborted) return reject(new Error("planner call aborted"));
+        if (options.signal?.aborted) return reject(new FlowstateError("cancelled", "planner call aborted"));
         const started = Date.now();
         let firstTokenMs: number | null = null;
         let firstTextMs: number | null = null;
@@ -217,10 +220,10 @@ function claudeCodeBackend(model: string, reasoning: Reasoning): Backend {
         child.on("close", (code) => {
           options.signal?.removeEventListener("abort", onAbort);
           onLine(buffered);
-          if (options.signal?.aborted) return reject(new Error("planner call aborted"));
-          if (!result) return reject(new Error(`claude -p exited ${code}: ${stderr.slice(0, 400)}`));
+          if (options.signal?.aborted) return reject(new FlowstateError("cancelled", "planner call aborted"));
+          if (!result) return reject(new FlowstateError("provider", `claude -p exited ${code}: ${stderr.slice(0, 400)}`));
           if (code !== 0 || result.is_error || typeof result.result !== "string")
-            return reject(new Error(`claude -p failed (${code}): ${(result.result ?? stderr).slice(0, 400)}`));
+            return reject(providerFailure("", `claude -p failed (${code}): ${(result.result ?? stderr).slice(0, 400)}`));
           resolve({
             text: result.result,
             inputTokens: result.usage?.input_tokens ?? 0,

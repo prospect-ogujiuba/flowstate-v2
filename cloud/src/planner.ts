@@ -5,9 +5,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GROOVES, Score, IR_ID, type LibraryClip, type Part } from "@flowstate/schema";
 import { examplesText } from "./examples.ts";
-import { checkPart, partLabel, PartStream, type Head, type Unplayable } from "./part-stream.ts";
+import { checkPart, partLabel, PartStream, type Head, type Role, type Unplayable } from "./part-stream.ts";
 import { validateScore } from "./validate.ts";
 import { backendFor, selectionFromEnv, type Backend, type Completion, type Turn } from "./backends.ts";
+import { FlowstateError } from "./errors.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const IR_SPEC = readFileSync(path.join(here, "..", "..", "docs", "ir-spec.md"), "utf8");
@@ -72,6 +73,13 @@ export interface PlanOptions {
    * with the same part id replaces the earlier part.
    */
   onPart?: (part: Part, atMs: number) => void;
+  /**
+   * The plan's head (a score with no parts) once it passes the checks, before any part. A full rewrite may
+   * report a new head, but only while no part has been reported.
+   */
+  onHead?: (score: Score) => void;
+  /** A part has started streaming. It may still turn out unplayable and come back in a repair. */
+  onPartStarted?: (partId: string, role: Role) => void;
   signal?: AbortSignal;
 }
 
@@ -237,9 +245,15 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     // A parts-only repair keeps the head, so its parts stream too. A full rewrite may change the head, so it
     // streams only while nothing has been reported yet: earlier parts could clash with the new head.
     const headCheck = (head: Head) => headMismatches({ ...head, parts: [] }, req);
+    const { onHead, onPartStarted } = options;
     const stream = next.scope === "parts" && draft
-      ? new PartStream(reportPart, { knownHead: draft.head })
-      : firstPartMs === null ? new PartStream(reportPart, { normalizeHead: (raw) => completeHead(raw, req), headCheck }) : null;
+      ? new PartStream(reportPart, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) })
+      : firstPartMs === null
+        ? new PartStream(reportPart, {
+          normalizeHead: (raw) => completeHead(raw, req), headCheck,
+          ...(onHead ? { onHead } : {}), ...(onPartStarted ? { onPartStarted } : {}),
+        })
+        : null;
     const completion = await backend.complete(SYSTEM_PROMPT, turns, {
       ...(stream ? { onText: (d: string) => stream.push(d) } : {}),
       ...(options.signal ? { signal: options.signal } : {}),
@@ -261,7 +275,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     } catch (err) {
       // Unreadable reply: ask again for the same thing.
       lastErrors = [`response was not valid JSON: ${String(err)}`];
-      if (attempt === MAX_ATTEMPTS) throw new Error(`planner output invalid after ${attempt} attempts: ${lastErrors.join("; ")}`);
+      if (attempt === MAX_ATTEMPTS) throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${lastErrors.join("; ")}`);
       turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, lastErrors) });
       continue;
     }
@@ -274,7 +288,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     lastErrors = result.errors;
     if (attempt === MAX_ATTEMPTS) {
       if (result.score) return done(result.score, result.errors);
-      throw new Error(`planner output invalid after ${attempt} attempts: ${result.errors.slice(0, 5).join("; ")}`);
+      throw new FlowstateError("invalid_score", `planner output invalid after ${attempt} attempts: ${result.errors.slice(0, 5).join("; ")}`);
     }
     next = result.scope === "parts" ? { scope: "parts", badParts: result.badParts } : { scope: "score" };
     turns.push({ role: "assistant", text }, { role: "user", text: repairRequest(next, result.errors) });

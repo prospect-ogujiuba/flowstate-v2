@@ -1,6 +1,6 @@
 # cloud
 
-The agent service. Today this is the planner (prompt -> score IR) and its model backends; the HTTP service arrives in P1-4.
+The agent service: the HTTP API the plugin calls (`src/service.ts`), the planner (prompt -> score IR) and its model backends.
 
 Run everything from the repo root. The planner realizes each score with `core`'s `fs-realize`, so build it once first: `npm run build:core`.
 
@@ -50,6 +50,41 @@ npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/o
   --provider claude-code --model sonnet --reasoning low
 ```
 
+## Run the service
+
+```sh
+npm run serve        # from the repo root: http://127.0.0.1:8787
+```
+
+The managed default model is the planner's backend from the environment (see "Pick a backend"). The production route from P1-2 is DeepSeek Flash with thinking off:
+
+```sh
+export FLOWSTATE_PLANNER_BACKEND=pi FLOWSTATE_PLANNER_PROVIDER=deepseek \
+  FLOWSTATE_PLANNER_MODEL=deepseek-flash FLOWSTATE_PLANNER_REASONING=off DEEPSEEK_API_KEY=...
+npm run serve
+```
+
+| Variable | Effect |
+| --- | --- |
+| `FLOWSTATE_SERVICE_HOST`, `FLOWSTATE_SERVICE_PORT` | Where it listens (default `127.0.0.1:8787`) |
+| `FLOWSTATE_SERVICE_MANAGED_MODELS` | More `provider/model` pairs offered on the service's keys, comma-separated (e.g. `openrouter/google/gemini-3.1-flash-lite`). A request for any other model needs the user's key. |
+| `FLOWSTATE_FEATURE_BYOK` | `0` turns bring-your-own-key off (the `byok` release flag; default on) |
+| `FLOWSTATE_BUILD_ID` | The version the health endpoint reports (default `dev`) |
+
+Routes (contract: `docs/bridge-spec.md`, "Plugin ↔ agent service"):
+- `GET /v1/health`
+- `POST /v1/plan` with a `PlanRequest`: an SSE stream of `header`, `partStarted`/`partDone` per part, then `done` or `error`. Close the connection to cancel; the provider call stops with it.
+- `POST /v1/edit` with an `EditRequest`: validated, then answered `unavailable` (a skeleton in Phase 1).
+
+Try it with the fixture request:
+
+```sh
+node -e 'console.log(JSON.stringify(require("./schema/fixtures/bridge/PlanRequest.json").valid[0]))' > /tmp/req.json
+curl -N -X POST localhost:8787/v1/plan --data @/tmp/req.json
+```
+
+Each finished request logs one JSON line to stdout: request id, route, provider and model, managed or BYOK, status, error code, timings and token count. It never holds keys, headers or prompt text, and error messages have the user's key replaced by `[key]`.
+
 ## Then measure
 
 ```sh
@@ -64,4 +99,4 @@ This writes `metrics.json` next to the run. Blind A/B packs and scoring: `evals/
 npm run -w cloud test
 ```
 
-These use pi-ai's faux provider, so they need no keys or network.
+These use pi-ai's faux provider or stub backends, so they need no keys or network. `src/service.test.ts` is the service's contract test: every event it reads is checked against the bridge schema.

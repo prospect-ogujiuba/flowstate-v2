@@ -498,6 +498,10 @@ export const bridgeRoots = {
 } as const;
 export type BridgeRoot = keyof typeof bridgeRoots;
 
+export type ErrorCode = z.infer<typeof ErrorCode>;
+export type ErrorInfo = z.infer<typeof ErrorInfo>;
+export type ProviderChoice = z.infer<typeof ProviderChoice>;
+
 export type ContextOverride = z.infer<typeof ContextOverride>;
 export type Transport = z.infer<typeof Transport>;
 export type Session = z.infer<typeof Session>;

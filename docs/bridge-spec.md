@@ -147,6 +147,15 @@ Both POSTs answer with an SSE stream. Each `data:` line is one `ServiceEvent`:
 
 `message` (text for the thread) can arrive at any point before `done`.
 
+Details of the stream (P1-4):
+- A `header` can come again before the first `partDone`, when a repair rewrote the whole plan. The later one replaces the earlier.
+- A `partStarted` may have no `partDone` when that part needs a repair. Its repaired `partDone` follows, or `done` ends the request.
+- A `partDone` with an id seen before replaces that part (a repaired part).
+- `done` carries the authoritative score: the plugin keeps it over anything streamed.
+- Lines starting with `:` are keepalive comments, sent every 15 s while the model writes. Clients ignore them.
+- An error found before the stream starts (a malformed request, a model not offered, BYOK turned off) answers with HTTP 400 or 503 and a stream holding the one `error` event. Once the stream has started, the status is 200 and errors arrive as `error` events.
+- The response carries `x-flowstate-request-id`: the request's `x-flowstate-request-id` header if it sent one, else a fresh id. Service logs use it.
+
 Fields on the requests:
 - `PlanRequest.keep` carries the locked parts and harmony to plan around ("keep the chords, new melody").
 - `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip").
@@ -156,7 +165,7 @@ Variations: the plugin sends one `PlanRequest` per variation, concurrently.
 
 The client aborts the HTTP request to cancel, and the service stops the provider stream (P1-4).
 
-`provider: null` uses the managed default. A BYOK key travels in the `x-flowstate-provider-key` header, never in a body, so request bodies and logs stay free of secrets.
+`provider: null` uses the managed default. A provider choice without a key must be one the service offers with managed access; anything else needs a key. A BYOK key travels in the `x-flowstate-provider-key` header, never in a body, so request bodies and logs stay free of secrets.
 
 ### Not in v0
 

@@ -2,10 +2,11 @@
 // The model writes one JSON object with "parts" last (the IR's field order). This scanner follows the text as it
 // arrives: when the "parts" key appears, everything before it is the head; each element of the parts array is
 // handed out as soon as its closing brace lands. Layout doesn't matter: one line, pretty-printed or fenced.
-import { Part, Score } from "@flowstate/schema";
+import { Part, Role as RoleEnum, Score } from "@flowstate/schema";
 import { validateScore } from "./validate.ts";
 
 export type Head = Omit<Score, "parts">;
+export type Role = Part["role"];
 export interface Unplayable { part: string; errors: string[] }
 
 const issues = (r: { error: { issues: { path: PropertyKey[]; message: string }[] } }) =>
@@ -45,6 +46,7 @@ export class PartStream {
   private lastKey: { name: string; at: number } | null = null; // the last depth-1 string, a key candidate
   private inParts = false;
   private partStart = -1;
+  private partAnnounced = false;
   private headTried = false;
 
   /**
@@ -59,6 +61,13 @@ export class PartStream {
       /** Completes the head the model wrote (e.g. the context fields the session fixes) before it is checked. */
       normalizeHead?: (head: Record<string, unknown>) => Head;
       headCheck?: (head: Head) => string[];
+      /** The reply's head once it passed the checks (not called for a known head), as a score with no parts. */
+      onHead?: (score: Score) => void;
+      /**
+       * A part has started: its id and role are written, the rest isn't. It may still turn out unplayable, so a
+       * start isn't always followed by the part.
+       */
+      onPartStarted?: (partId: string, role: Role) => void;
     } = {},
   ) {
     if (options.knownHead) this.head = options.knownHead;
@@ -67,6 +76,19 @@ export class PartStream {
   push(delta: string) {
     this.text += delta;
     for (; this.i < this.text.length; this.i++) this.step(this.text[this.i]!, this.i);
+    if (this.partStart >= 0 && !this.partAnnounced) this.announcePart();
+  }
+
+  // The IR writes a part's id and role first, so both show up long before the part is complete. Keys nested
+  // in blocks can't match: a part's blocks come after its id and role, and the first match wins.
+  private announcePart() {
+    if (!this.options.onPartStarted || !this.head) return;
+    const text = this.text.slice(this.partStart);
+    const id = text.match(/"id"\s*:\s*"((?:[^"\\]|\\.)*)"/)?.[1];
+    const role = RoleEnum.safeParse(text.match(/"role"\s*:\s*"([a-z]+)"/)?.[1]);
+    if (id === undefined || !role.success) return;
+    this.partAnnounced = true;
+    this.options.onPartStarted(id, role.data);
   }
 
   private step(ch: string, at: number) {
@@ -97,11 +119,15 @@ export class PartStream {
         if (ch === "[" && this.depth === 2 && this.lastKey?.name === "parts") {
           this.inParts = true;
           this.readHead(this.lastKey.at);
-        } else if (ch === "{" && this.inParts && this.depth === 3) this.partStart = at;
+        } else if (ch === "{" && this.inParts && this.depth === 3) {
+          this.partStart = at;
+          this.partAnnounced = false;
+        }
         return;
       case "}":
       case "]":
         if (ch === "}" && this.inParts && this.depth === 3 && this.partStart >= 0) {
+          if (!this.partAnnounced) this.announcePart();
           this.readPart(this.text.slice(this.partStart, at + 1));
           this.partStart = -1;
         }
@@ -121,6 +147,7 @@ export class PartStream {
       const head = this.options.normalizeHead ? this.options.normalizeHead(raw) : (raw as Head);
       const bare = Score.safeParse({ ...head, parts: [] });
       this.head = bare.success && (this.options.headCheck?.(bare.data) ?? []).length === 0 ? head : null;
+      if (this.head && bare.success) this.options.onHead?.(bare.data);
     } catch {
       this.head = null;
     }
