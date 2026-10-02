@@ -139,11 +139,30 @@ describe("agent service", () => {
     assert.equal((await fetch(`${url}/v2/plan`)).status, 404);
   });
 
-  it("answers keep and reference with unavailable until the planner supports them", async () => {
+  it("plans around kept parts: they stream first and come back unchanged; the rest is new", async () => {
+    const chords = score.parts.find((p) => p.role === "chords")!;
+    const others = score.parts.filter((p) => p !== chords);
+    const { url } = await start({ backendFor: fauxBackends(JSON.stringify({ parts: others })).backendFor });
+    const res = await post(`${url}/v1/plan`, { ...request, keep: { ...score, parts: [chords] } });
+    assert.equal(res.status, 200);
+    const evs = await events(res);
+    assert.equal(evs[0]!.type, "header");
+    const done = (e: ServiceEvent) => e.type === "partDone";
+    assert.deepEqual(evs.filter(done).map((e) => (e as Extract<ServiceEvent, { type: "partDone" }>).part.id), [chords.id, ...others.map((p) => p.id)]);
+    const final = evs.at(-1) as Extract<ServiceEvent, { type: "done" }>;
+    assert.equal(final.type, "done");
+    assert.deepEqual(final.score!.parts.find((p) => p.role === "chords"), chords);
+    assert.equal(final.score!.parts.length, 4);
+  });
+
+  it("refuses a plan where every requested part is locked, and still answers a reference with unavailable", async () => {
     const { url } = await start({});
-    const res = await post(`${url}/v1/plan`, { ...request, keep: score });
-    assert.equal(res.status, 503);
-    assert.equal(errorOf(await events(res)).code, "unavailable");
+    const allLocked = await post(`${url}/v1/plan`, { ...request, keep: score });
+    assert.equal(allLocked.status, 400);
+    assert.match(errorOf(await events(allLocked)).message, /every requested part is locked/);
+    const ref = await post(`${url}/v1/plan`, { ...request, reference: { score, intent: "continue" } });
+    assert.equal(ref.status, 503);
+    assert.equal(errorOf(await events(ref)).code, "unavailable");
   });
 
   it("passes a BYOK key to the provider and never logs or echoes it", async () => {

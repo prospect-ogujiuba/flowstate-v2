@@ -285,6 +285,23 @@ test("iterate: mute, solo and remove a part", async ({ page }) => {
   await expect(lane(page, "Melody")).toBeVisible();
 });
 
+test("iterate: keep the chords, new everything else: one lock click, then generate", async ({ page }) => {
+  await open(page, "mock=idea");
+  const chords = lane(page, "Chords");
+  const before = await chords.locator(".fs-lane__role").textContent();
+  await chords.getByRole("button", { name: "Lock Chords" }).click();
+  await expect(chords.getByRole("button", { name: "Lock Chords" })).toHaveAttribute("aria-pressed", "true");
+  expect(await lastOf(page, "setPartState")).toMatchObject({ state: { partId: "p-chords", locked: true } });
+  const input = page.getByRole("textbox", { name: "Describe or ask" });
+  await input.fill("new groove, same chords");
+  await input.press("Enter");
+  const card = page.locator("#st-thread").getByRole("article", { name: "New groove, same chords" });
+  await expect(card).toHaveAttribute("aria-current", "true");
+  await expect(lane(page, "Chords").locator(".fs-lane__role")).toHaveText(before!);
+  await expect(lane(page, "Chords").getByRole("button", { name: "Lock Chords" })).toHaveAttribute("aria-pressed", "true");
+  for (const name of ["Drums", "Bass", "Melody"]) await expect(lane(page, name)).toBeVisible();
+});
+
 test("the thread drawer opens and closes", async ({ page }) => {
   await open(page, "mock=idea");
   const thread = page.getByRole("complementary", { name: "Thread" });
@@ -317,7 +334,6 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
   const checks = [
     { el: chords.getByRole("button", { name: "Vary Chords" }), why: /Vary needs the agent service/ },
     { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs the realizer/ },
-    { el: chords.getByRole("button", { name: "Lock Chords" }), why: /locked part makes Generate fail/ },
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
     { el: page.getByRole("button", { name: "Tweak" }), why: /Local transforms aren't in core yet/ },
     { el: page.getByRole("button", { name: "Use what I just played" }), why: /plan around a reference/ },

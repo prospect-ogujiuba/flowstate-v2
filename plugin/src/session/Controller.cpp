@@ -90,7 +90,6 @@ const std::vector<fb::FeatureGap>& Controller::featureGaps() {
         {F::Tweak, "Local transforms aren't in core yet."},
         {F::EditNotes, "Note edits aren't in core yet."},
         {F::Capture, "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet."},
-        {F::Lock, "Generating around locked parts isn't built in the planner yet, so a locked part makes Generate fail."},
         {F::Density, "The density knob doesn't change playback until core has the transform."},
         {F::ApiKey, "Key storage isn't available in this build yet (P1-12)."},
     };

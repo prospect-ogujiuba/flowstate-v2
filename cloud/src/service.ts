@@ -13,7 +13,7 @@ import {
 import { backendFor, selectionFromEnv, type Backend, type ModelSelection } from "./backends.ts";
 import { errorCode, FlowstateError } from "./errors.ts";
 import type { Role } from "./part-stream.ts";
-import { planScore, type PlanRequest as PlannerRequest } from "./planner.ts";
+import { keptDraft, planScore, type PlanRequest as PlannerRequest } from "./planner.ts";
 
 export interface ServiceConfig {
   /** Reported by the health endpoint: the build id, or "dev". */
@@ -164,6 +164,7 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   };
 
   let body: PlanRequest;
+  let planned: PlannerRequest;
   let backend: Backend;
   try {
     const raw = await readBody(req);
@@ -175,7 +176,9 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
     const parsed = PlanRequest.safeParse(raw);
     if (!parsed.success) throw new FlowstateError("bad_request", `invalid PlanRequest: ${zodIssues(parsed.error)}`);
     body = parsed.data;
-    if (body.keep || body.reference) throw new FlowstateError("unavailable", "Planning around kept parts or a reference isn't built yet");
+    if (body.reference) throw new FlowstateError("unavailable", "Planning around a reference isn't built yet");
+    planned = plannerRequest(body);
+    keptDraft(planned);
     const selection = selectionFor(config, body.provider, key);
     Object.assign(line, { provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
     backend = config.backendFor(selection);
@@ -189,7 +192,7 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   let headerSent = false;
   let parts = 0;
   try {
-    const result = await planScore(plannerRequest(body), backend, {
+    const result = await planScore(planned, backend, {
       signal: abort.signal,
       onHead: (score) => {
         if (parts > 0) return;
@@ -231,7 +234,16 @@ export function plannerRequest(req: PlanRequest): PlannerRequest {
       tonic: c.tonic, mode: c.mode, bars: c.bars, tempo: c.tempo,
       meterNumerator: c.meterNumerator, meterDenominator: c.meterDenominator,
       style: c.style,
-      lanes: [...new Set(req.roles ?? DEFAULT_ROLES)],
+      lanes: lanesFor(req),
     },
+    ...(req.keep ? { keep: req.keep } : {}),
   };
+}
+
+// The lanes the model writes: the requested roles, less any role a kept part already plays.
+function lanesFor(req: PlanRequest): string[] {
+  const kept = new Set((req.keep?.parts ?? []).map((p) => p.role));
+  const lanes = [...new Set(req.roles ?? DEFAULT_ROLES)].filter((r) => !kept.has(r));
+  if (req.keep && lanes.length === 0) throw new FlowstateError("bad_request", "every requested part is locked: unlock one to generate");
+  return lanes;
 }

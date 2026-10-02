@@ -108,6 +108,51 @@ describe("planScore", () => {
     assert.doesNotMatch(second.systems[0]!, /style_pack|drum grooves for/);
   });
 
+  it("keeps locked parts verbatim, plays them first, and writes only the other lanes", async () => {
+    const chords = score.parts.find((p) => p.role === "chords")!;
+    const keep = { ...score, parts: [chords] };
+    const others = score.parts.filter((p) => p !== chords);
+    // The model also rewrites the chords; that part is dropped.
+    const rewritten = { ...chords, id: "chords-2", name: "Different chords" };
+    const { backend, requests } = setup(JSON.stringify({ parts: [rewritten, ...others] }));
+    const order: string[] = [];
+    const req = { ...request, keep, controls: { ...request.controls, lanes: ["bass", "melody", "drums"] } };
+    const result = await planScore(req, backend, { onHead: () => order.push("head"), onPart: (p) => order.push(p.id) });
+    assert.deepEqual(result.validationErrors, []);
+    assert.deepEqual(result.score.parts[0], chords);
+    assert.deepEqual(result.score.parts.map((p) => p.role).sort(), ["bass", "chords", "drums", "melody"]);
+    assert.deepEqual(result.score.harmony, score.harmony);
+    assert.deepEqual(order, ["head", chords.id, ...others.map((p) => p.id)]);
+    assert.match(requests[0]!, /The kept score:/);
+    assert.match(requests[0]!, /for these lanes only:\nbass, melody, drums/);
+    assert.match(requests[0]!, /Reply with only the new parts/);
+    assert.equal(result.attempts, 1);
+  });
+
+  it("repairs a new part around kept parts without touching them", async () => {
+    const chords = score.parts.find((p) => p.role === "chords")!;
+    const keep = { ...score, parts: [chords] };
+    const others = score.parts.filter((p) => p !== chords);
+    const broken = structuredClone(others[0]!);
+    broken.blocks[0]!.startBar = 99;
+    const { backend, requests } = setup(JSON.stringify({ parts: [broken, ...others.slice(1)] }), JSON.stringify({ parts: [others[0], { ...chords, name: "x" }] }));
+    const req = { ...request, keep, controls: { ...request.controls, lanes: ["bass", "melody", "drums"] } };
+    const result = await planScore(req, backend);
+    assert.equal(result.attempts, 2);
+    assert.match(requests[1]!, /Return only the corrected or missing parts/);
+    assert.deepEqual(result.score.parts[0], chords);
+    assert.deepEqual(result.validationErrors, []);
+  });
+
+  it("refuses kept parts that don't fit the request", async () => {
+    const { backend } = setup("{}");
+    const chords = score.parts.find((p) => p.role === "chords")!;
+    await assert.rejects(
+      planScore({ ...request, keep: { ...score, parts: [chords] } }, backend),
+      (e: Error & { code?: string }) => e.code === "bad_request" && /lane 'chords' is kept/.test(e.message),
+    );
+  });
+
   it("stops when the request is aborted", async () => {
     const { backend } = setup(JSON.stringify(score));
     const controller = new AbortController();

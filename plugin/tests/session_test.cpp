@@ -381,9 +381,9 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
         REQUIRE(gaps.count(feature) == 1);
         CHECK(r["error"]["message"] == gaps[feature]);
     }
-    // Accepted, but without effect yet: the UI marks them too.
-    CHECK(gaps.count("lock") == 1);
+    // Accepted, but without effect yet: the UI marks it too. Lock works since the planner keeps locked parts.
     CHECK(gaps.count("density") == 1);
+    CHECK(gaps.count("lock") == 0);
 }
 
 TEST_CASE("an API key sent over the bridge is never persisted or echoed") {

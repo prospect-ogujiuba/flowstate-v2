@@ -55,6 +55,12 @@ export interface PlanRequest {
   examples?: LibraryClip[];
   /** Offer the capabilities' tools (library examples, clip analysis). Off by default: a call costs a round trip. */
   tools?: boolean;
+  /**
+   * Locked parts and the head they were written against ("keep the chords, new melody"). The plan keeps this
+   * head (harmony, form, motifs) and these parts verbatim, and the model writes only `controls.lanes`, which
+   * must not repeat a kept role. The session's context still fixes key, meter, tempo and length.
+   */
+  keep?: Score;
 }
 
 export interface PlanResult {
@@ -109,8 +115,9 @@ function extractJson(text: string): unknown {
   return JSON.parse(body.slice(start, end + 1));
 }
 
-function userMessage(req: PlanRequest): string {
+function userMessage(req: PlanRequest, kept: Draft | null): string {
   const c = req.controls;
+  if (kept) return keepMessage(req, kept);
   return [
     `Request: ${req.prompt}`,
     "",
@@ -151,6 +158,60 @@ function completeHead(raw: Record<string, unknown>, req: PlanRequest): Head {
   } as Head;
 }
 
+// With kept parts the model writes only the new lanes, against the kept head, as a parts-only reply.
+function keepMessage(req: PlanRequest, kept: Draft): string {
+  const c = req.controls;
+  return [
+    `Request: ${req.prompt}`,
+    "",
+    "The producer locked part of the current idea. Keep its head (context, form, harmony, motifs) and the locked parts",
+    "exactly as they are: don't rewrite or repeat them. Write new parts that fit them, for these lanes only:",
+    `${c.lanes.join(", ")} (one part per lane, with the lane name as its role, and ids not used below).`,
+    `One bar = ${c.meterNumerator} beats, so every step-string bar has ${c.meterNumerator} × grid steps.`,
+    "",
+    "The kept score:",
+    JSON.stringify({ ...kept.head, parts: kept.parts }),
+    "",
+    'Reply with only the new parts, as a single JSON object {"parts": [...]}.',
+    ...(req.examples?.length ? ["", examplesText(req.examples)] : []),
+  ].join("\n");
+}
+
+/**
+ * The draft a plan with kept parts starts from: the kept head (with the session's context) and parts.
+ * Throws `bad_request` when they don't fit the request; the service checks this before it streams.
+ */
+export function keptDraft(req: PlanRequest): Draft | null {
+  if (!req.keep) return null;
+  const { parts, ...head } = req.keep;
+  const draft: Draft = { head: completeHead(head as Record<string, unknown>, req), parts: [...parts] };
+  const errors: string[] = [];
+  const bare = Score.safeParse({ ...draft.head, parts: [] });
+  if (!bare.success) errors.push(...bare.error.issues.map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`));
+  else errors.push(...validateScore(bare.data), ...headMismatches(bare.data, req));
+  for (const p of parts) {
+    const checked = checkPart(draft.head, p);
+    if ("errors" in checked) errors.push(...checked.errors.map((e) => `kept part ${p.id}: ${e}`));
+  }
+  const keptRoles = new Set(parts.map((p) => p.role));
+  for (const lane of req.controls.lanes) if (keptRoles.has(lane as Role)) errors.push(`lane '${lane}' is kept; it can't be written again`);
+  if (parts.length === 0) errors.push("keep has no parts");
+  if (errors.length > 0) throw new FlowstateError("bad_request", `the kept parts don't fit this request: ${errors.slice(0, 5).join("; ")}`);
+  return draft;
+}
+
+/** Kept parts stay exactly as they were: a reply's part with a kept id or role is dropped. */
+function imposeKeep(draft: Draft, kept: Draft | null): Draft {
+  if (!kept) return draft;
+  const ids = new Set(kept.parts.map((p) => (p as Part).id));
+  const roles = new Set(kept.parts.map((p) => (p as Part).role));
+  const fresh = draft.parts.filter((p) => {
+    const { id, role } = (p ?? {}) as { id?: unknown; role?: unknown };
+    return !ids.has(id as string) && !roles.has(role as Role);
+  });
+  return { head: kept.head, parts: [...kept.parts, ...fresh] };
+}
+
 let envBackend: Backend | undefined;
 
 /** The backend from the environment (selectionFromEnv), for callers that don't choose one per request. */
@@ -159,7 +220,7 @@ export function defaultBackend(): Backend {
 }
 
 /** The model's score so far: a head and raw parts. Part repairs replace or add parts by id. */
-interface Draft { head: Head; parts: unknown[] }
+export interface Draft { head: Head; parts: unknown[] }
 
 type Review =
   | { ok: true; score: Score }
@@ -242,27 +303,38 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
   let unplayable: Unplayable[] = [];
   const replies: string[] = [];
   const toolCalls: string[] = [];
-  let draft: Draft | null = null;
+  // With kept parts, the plan starts from them and every reply is parts-only.
+  const kept = keptDraft(req);
+  let draft: Draft | null = kept;
   // What the next reply is: the whole score, or only the listed parts (with the draft's head).
-  let next: { scope: "score" } | { scope: "parts"; badParts: string[] } = { scope: "score" };
+  let next: { scope: "score" } | { scope: "parts"; badParts: string[] } = kept ? { scope: "parts", badParts: [] } : { scope: "score" };
   let attempt = 0;
   let stream: PartStream | null = null;
   let result: PlanResult | undefined;
 
+  // A streamed part that would replace a kept one is never reported: imposeKeep drops it from the score too.
+  const keptIds = new Set((kept?.parts ?? []).map((p) => (p as Part).id));
+  const keptRoles = new Set((kept?.parts ?? []).map((p) => (p as Part).role));
+  const replacesKept = (id: string, role: Role) => keptIds.has(id) || keptRoles.has(role);
   const reportPart = (part: Part) => {
     const at = Date.now() - started;
     firstPartMs ??= at;
     options.onPart?.(part, at);
   };
+  const reportStreamed = (part: Part) => { if (!replacesKept(part.id, part.role)) reportPart(part); };
+  const startedStreamed = options.onPartStarted
+    ? (id: string, role: Role) => { if (!replacesKept(id, role)) options.onPartStarted!(id, role); }
+    : undefined;
 
   // A parts-only repair keeps the head, so its parts stream too. A full rewrite may change the head, so it
   // streams only while nothing has been reported yet: earlier parts could clash with the new head.
   const openStream = (): PartStream | null => {
-    const { onHead, onPartStarted } = options;
+    const { onHead } = options;
+    const onPartStarted = startedStreamed;
     if (next.scope === "parts" && draft)
-      return new PartStream(reportPart, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) });
+      return new PartStream(reportStreamed, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) });
     if (firstPartMs !== null) return null;
-    return new PartStream(reportPart, {
+    return new PartStream(reportStreamed, {
       normalizeHead: (raw) => completeHead(raw, req), headCheck: (head: Head) => headMismatches({ ...head, parts: [] }, req),
       ...(onHead ? { onHead } : {}), ...(onPartStarted ? { onPartStarted } : {}),
     });
@@ -284,7 +356,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
 
     let checked: Review;
     try {
-      draft = next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req);
+      draft = imposeKeep(next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req), kept);
       checked = review(draft, req);
     } catch (err) {
       // Unreadable reply: ask again for the same thing.
@@ -314,10 +386,18 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     // Tools run in the agent loop; a backend without one (claude-code) is offered none.
     tools: (req.tools ?? false) && backend.converse !== undefined,
   });
+  // The kept head and parts play before the model writes anything.
+  if (kept) {
+    options.onHead?.({ ...kept.head, parts: [] } as Score);
+    for (const p of kept.parts) {
+      options.onPartStarted?.((p as Part).id, (p as Part).role);
+      reportPart(p as Part);
+    }
+  }
   await converse(
     backend,
     { system: SYSTEM_PROMPT, sections: loadout.sections, tools: loadout.tools, beforeToolCall: loadout.beforeToolCall },
-    userMessage(req),
+    userMessage(req, kept),
     {
       onReplyStart: () => void (stream = openStream()),
       onText: (d) => stream?.push(d),

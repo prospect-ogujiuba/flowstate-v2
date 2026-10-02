@@ -24,7 +24,6 @@ export const PLUGIN_GAPS: Gap[] = [
   { feature: "tweak", reason: "Local transforms aren't in core yet." },
   { feature: "editNotes", reason: "Note edits aren't in core yet." },
   { feature: "capture", reason: "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet." },
-  { feature: "lock", reason: "Generating around locked parts isn't built in the planner yet, so a locked part makes Generate fail." },
   { feature: "density", reason: "The density knob doesn't change playback until core has the transform." },
   { feature: "apiKey", reason: "Key storage isn't available in this build yet (P1-12)." },
 ];
@@ -365,22 +364,26 @@ export class MockPlugin implements Bridge {
     const makers = partIds && kind !== "initial"
       ? PART_MAKERS.filter((m) => partIds.includes(m(0, 1).partId))
       : PART_MAKERS;
+    // Locked parts are kept as they are (the service plans around `keep`); only the rest is written.
+    const lockedIds = new Set(this.s.parts.filter((p) => p.locked).map((p) => p.partId));
+    const keptParts = kind === "initial" ? (this.nodes.get(parent ?? "")?.clip.parts ?? []).filter((p) => lockedIds.has(p.partId)) : [];
+    const writing = makers.filter((m) => !lockedIds.has(m(0, 1).partId));
     const ids: (string | null)[] = variations.map(() => null);
-    makers.forEach((make, step) => {
+    writing.forEach((make, step) => {
       this.later(() => {
         if (req.cancelled) return;
         variations.forEach((v, i) => {
           const part = make(v, this.s.context.bars);
           const existing = ids[i] ? this.nodes.get(ids[i]!) : undefined;
           if (!existing) {
-            const base = kind === "initial" ? [] : (this.nodes.get(parent ?? "")?.clip.parts ?? []).filter((p) => p.partId !== part.partId);
+            const base = kind === "initial" ? keptParts : (this.nodes.get(parent ?? "")?.clip.parts ?? []).filter((p) => p.partId !== part.partId);
             ids[i] = this.addNode({ kind, prompt, title, parts: [...base, part], key: ["A", "minor"], partIds, parentId: parent });
             if (i === 0 && this.s.currentNodeId === parent) this.select(ids[i]!);
           } else {
             existing.clip.parts = [...existing.clip.parts.filter((p) => p.partId !== part.partId), part];
           }
         });
-        this.s.generations = [{ requestId, kind, stage: "streaming", partsDone: makers.slice(0, step + 1).map((m) => m(0, 1).partId) }];
+        this.s.generations = [{ requestId, kind, stage: "streaming", partsDone: writing.slice(0, step + 1).map((m) => m(0, 1).partId) }];
         this.refresh();
         this.emit({ type: "session", session: this.session() });
         this.emit({ type: "partReady", requestId, partId: part0(make) });
@@ -393,7 +396,7 @@ export class MockPlugin implements Bridge {
       this.refresh();
       this.emit({ type: "session", session: this.session() });
       this.emit({ type: "generationDone", requestId, nodeIds: ids.filter((x): x is string => x !== null) });
-    }, this.delay * (makers.length + 1));
+    }, this.delay * (writing.length + 1));
     return this.ok(true, requestId);
   }
 

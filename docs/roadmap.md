@@ -315,9 +315,15 @@ Done. Most of the lineage came with P1-6 and P1-7: nodes per result, select (res
   - A streaming node and its parent survive 260 other ideas.
   - An oversized, dangling saved state is trimmed and repaired.
   - Editor close and reopen, and the project reopening, stay covered by the processor and host smoke tests (P1-6).
+- **Lock in generation** ("keep the chords, new melody"): the service plans around `PlanRequest.keep` (`cloud/src/planner.ts`, `keptDraft` and `imposeKeep`).
+  - The kept head and parts stay verbatim, and the model writes only the roles no kept part plays, as a parts-only reply. That reply streams, and repairs work as for any parts-only repair.
+  - Kept parts stream first, so the idea plays at once. A part the model writes for a kept role is dropped and never streamed.
+  - A `keep` that doesn't fit, or every role locked, answers 400 before streaming.
+  - Lock left `Session.unavailable`.
+  - Tests: three in the planner and two in the service; Playwright: lock, then generate keeps the chords.
+  - Not yet: a live run and blind listening of planning around kept parts.
 
 Left, for other issues:
-- **Lock in generation:** locked parts go to the service as `keep`, which the planner doesn't plan around yet, so a generate with a lock fails. The Studio marks lock unavailable with that reason. It's planner work in `cloud/`, the area P1-18 is changing.
 - **Re-roll:** the seed only moves humanize timing, velocity and random arps. A per-part seed would re-roll almost inaudibly, so re-roll needs the realizer to make seeded choices (voicing, rhythm variants), which evals decide (P1-3). `regenerate` nodes come with it.
 
 - Every result is a lineage node: initial, regenerate, vary or edit.

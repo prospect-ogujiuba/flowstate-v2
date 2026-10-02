@@ -168,7 +168,7 @@ What the plugin can do today:
 - It generates through the agent service and plays ideas in time (P1-7), through the preview synth and MIDI out.
 - It passes MIDI through, and saves its state with the project.
 
-Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (vary, edit, re-roll, tweak, note edits, add part, capture, lock and density, the API key) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
+Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (vary, edit, re-roll, tweak, note edits, add part, capture, density, the API key) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 

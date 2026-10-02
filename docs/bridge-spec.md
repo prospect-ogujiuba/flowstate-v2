@@ -119,7 +119,7 @@ Events:
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `hasKey` says whether a BYOK key is stored, and the key itself never comes back. `usage` comes from the service.
-- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` (generating with a locked part fails while the planner ignores `keep`) and `density` (the knob doesn't change playback). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `lock` left the list when the planner learned `keep` (P1-11). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;
@@ -162,7 +162,10 @@ Details of the stream (P1-4):
 - The response carries `x-flowstate-request-id`: the request's `x-flowstate-request-id` header if it sent one, else a fresh id. Service logs use it.
 
 Fields on the requests:
-- `PlanRequest.keep` carries the locked parts and harmony to plan around ("keep the chords, new melody").
+- `PlanRequest.keep` carries the locked parts and harmony to plan around ("keep the chords, new melody"). The service keeps its head (harmony, form, motifs) and its parts verbatim, with the session's context, and the model writes only the requested roles that no kept part plays.
+  - The stream sends the kept head and parts first, so the idea plays at once, then the new parts. `done` holds the kept parts unchanged.
+  - A part the model writes for a kept role or id is dropped, and never streamed.
+  - Kept parts that don't fit the request, or a request where every role is kept, answer `bad_request` (HTTP 400) before the stream starts.
 - `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip").
 - For `edit`, the model returns a patch. The service applies and validates it, and streams the changed parts and the full result, so the plugin never applies patches itself.
 
