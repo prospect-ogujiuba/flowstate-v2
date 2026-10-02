@@ -4,23 +4,25 @@ name: plugin
 # strictness 8 on macOS and Windows, plus a headless Linux build. Unsigned test builds; signing
 # and installers are P1-14.
 #
-# Pushes and pull requests build Linux headless only: on a private repo macOS minutes bill at 10x
-# and Windows at 2x. The macOS and Windows builds (and their tester artifacts) run on demand
-# (`npm run ci:full`) and on `v*` tags.
+# Runs only when the plugin or what it bundles changes; Markdown doesn't trigger it. `npm run ci:full`
+# runs it on demand.
 
 on:
   push:
     branches: ["**"]
     tags: ["v*"]
-    paths:
+    paths: &plugin
       - "plugin/**"
       - "!plugin/spike/**"
       - "core/**"
       - "schema/**"
       - "ui/**"
+      - "library/catalog/**"
       - "package-lock.json"
       - ".github/workflows/plugin.yml"
+      - "!**/*.md"
   pull_request:
+    paths: *plugin
   workflow_dispatch:
 
 concurrency:
@@ -35,7 +37,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJSON((github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/')) && '[{"os":"macos-14","name":"macos-universal"},{"os":"windows-2022","name":"windows-x64"},{"os":"ubuntu-24.04","name":"linux-headless"}]' || '[{"os":"ubuntu-24.04","name":"linux-headless"}]') }}
+        include:
+          - os: macos-14
+            name: macos-universal
+          - os: windows-2022
+            name: windows-x64
+          - os: ubuntu-24.04
+            name: linux-headless
     runs-on: ${{ matrix.os }}
     env:
       BUILD_DIR: build/plugin

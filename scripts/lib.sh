@@ -19,14 +19,13 @@ windows_downloads() {
 }
 
 # resolve_run <branch> <run id or empty>: prints the run id of the given run, or of the latest
-# successful on-demand `plugin` run on the branch (pushes build Linux only, so only on-demand runs
-# carry the macOS and Windows artifacts). Describes the run on stderr.
+# successful `plugin` workflow run on the branch. Describes the run on stderr.
 resolve_run() {
   local branch=$1 run=$2
   if [ -z "$run" ]; then
-    run=$(gh run list --workflow plugin.yml --branch "$branch" --status success --event workflow_dispatch \
-      -L1 --json databaseId -q '.[0].databaseId // empty')
-    [ -n "$run" ] || die "no green on-demand 'plugin' run on branch '$branch' (start one: npm run ci:full, then npm run ci:status -- --watch)"
+    run=$(gh run list --workflow plugin.yml --branch "$branch" --status success -L1 \
+      --json databaseId -q '.[0].databaseId // empty')
+    [ -n "$run" ] || die "no green 'plugin' run on branch '$branch' (start one: npm run ci:full, then npm run ci:status -- --watch)"
   fi
   gh run view "$run" --json displayTitle,headBranch,createdAt,url \
     -q '"Run \(.url)\n  \(.headBranch): \(.displayTitle) (\(.createdAt))"' >&2

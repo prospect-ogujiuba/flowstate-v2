@@ -63,7 +63,7 @@ npm run -w cloud plan -- --prompts ../evals/prompts/phase0.json --out ../evals/o
 npm run -w evals metrics -- out/v2
 ```
 
-The plugin fetches JUCE 9.0.2 and builds on Linux headless (no WebView) for local tests; the WebView builds, pluginval and auval run in CI (`.github/workflows/plugin.yml`) on macOS and Windows, on demand (`npm run ci:full`) and on `v*` tags. Build with MSVC on Windows locally before relying on CI for Windows-only breaks:
+The plugin fetches JUCE 9.0.2 and builds on Linux headless (no WebView) for local tests; the WebView builds, pluginval and auval run in CI (`.github/workflows/plugin.yml`) on macOS and Windows:
 
 ```sh
 cmake -S plugin -B build/plugin -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build/plugin
@@ -74,7 +74,7 @@ CI builds and testers (need `gh`, logged in; details in `docs/testing-plugin.md`
 
 ```sh
 npm run ci:status [-- --watch]               # recent runs on this branch; --watch follows the plugin run
-npm run ci:full                              # macOS + Windows CI on this branch (pushes run Linux only, to save billed minutes)
-npm run fetch:build -- windows               # latest green on-demand Windows build (+ install.ps1, gallery.ps1) into Windows Downloads on WSL
+npm run ci:full                              # run CI on demand (pushes that only touch docs or eval results skip it)
+npm run fetch:build -- windows               # latest green Windows build (+ install.ps1, gallery.ps1) into Windows Downloads on WSL
 npm run pack:mac                             # macOS tester zip in dist/builds: bundles, install.sh, README with the build ID
 ```

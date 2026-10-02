@@ -80,7 +80,7 @@ Brief: `docs/spikes/midi-out.md`. Proves an instrument build with MIDI out and a
 ### P0-9 CI on every push — `done`
 Acceptance: GitHub Actions matrix (Linux, macOS, Windows) builds and tests `core` and typechecks TS on each push and PR.
 
-**Update 2026-10-02:** the free Actions minutes ran out (the repo is private: macOS bills at 10x, Windows at 2x), and a Windows-only compile break in P1-17 (`core/src/catalog.cpp`, missing `<iterator>`) went unnoticed behind it. Pushes and PRs now run Linux only, skipping doc-only commits. macOS and Windows run on demand (`npm run ci:full`) and on `v*` tags; run them before every tester build and after platform-specific changes.
+**Update 2026-10-02:** the free Actions minutes for private repos ran out (macOS bills at 10x, Windows at 2x), and a Windows-only compile break in P1-17 (`core/src/catalog.cpp`, missing `<iterator>`) went unnoticed behind it. The repo is now public, so standard runners are free. CI runs only when code changes: Markdown, docs, eval results and the frozen spike don't trigger it. `npm run ci:full` runs it on demand.
 
 ## Phase 1: core loop (weeks 3–8)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Run the macOS and Windows CI jobs (ci and plugin workflows) on a branch. Pushes run Linux
-# only, to save billed minutes; run this before a tester build or after platform-specific changes.
+# Run the ci and plugin workflows on a branch on demand, e.g. when the last push only touched docs
+# (which skip CI) and you want a fresh build.
 #
 #   scripts/ci-full.sh [--branch B]
 #

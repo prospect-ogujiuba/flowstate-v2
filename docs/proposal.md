@@ -287,7 +287,7 @@ Both builds share one binary core and one UI. Scaler and similar tools establish
 
 - pluginval at strictness 8+ in CI on every push, for both formats.
 
-  **Update 2026-10-02:** pushes run Linux only (pluginval included) to save billed minutes; macOS and Windows run on demand and on tags (roadmap P0-9).
+  **Update 2026-10-02:** on pushes that change code; doc-only pushes skip CI (roadmap P0-9).
 - Manual smoke matrix every release: Logic, Ableton Live, FL Studio, Bitwig, Cubase, Reaper and Studio One. Check load, sync, audition, drag, capture, and state save/restore.
 - WebView-specific checks: keyboard focus (the space bar must still reach the DAW transport), resize, HiDPI, and multiple instances open.
 
@@ -399,7 +399,7 @@ v2 swaps 307 phase slices and about 22 release gates for one repo, one CI workfl
 
 - One workflow on each push or PR: a macOS + Windows matrix that builds, tests `core`, builds the UI, runs pluginval and the evals subset.
 
-  **Update 2026-10-02:** the macOS + Windows matrix runs on demand and on tags; pushes and PRs run Linux (roadmap P0-9).
+  **Update 2026-10-02:** only pushes and PRs that change code; docs, Markdown and eval results skip it (roadmap P0-9).
 - Each tag signs, notarizes and publishes installers to a release bucket, along with `release.json` (version, build ID, SHA-256).
 - Keep from v1: the build ID embedded in the binary and shown in Settings, SHA-256 checks, and secret scanning. Retire: the target-matrix parser, the doc validators, per-row feedback binding, the separate authorization workflow and the eight-evidence-file rule.
 
