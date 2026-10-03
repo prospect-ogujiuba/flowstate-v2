@@ -85,9 +85,6 @@ Controller::AuditionSource Controller::audition() {
 const std::vector<fb::FeatureGap>& Controller::featureGaps() {
     using F = fb::Feature;
     static const std::vector<fb::FeatureGap> gaps{
-        {F::Edit, "Changing an idea by prompt isn't built in the agent service yet. Generate a new idea instead."},
-        {F::Vary, "Vary needs the agent service to write part variations, which isn't built yet."},
-        {F::AddPart, "Adding a part needs the agent service to plan single parts, which isn't built yet."},
         {F::Reroll, "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet."},
         {F::Tweak, "Local transforms aren't in core yet."},
         {F::EditNotes, "Note edits aren't in core yet."},
@@ -160,9 +157,19 @@ fb::Reply Controller::handle(const fb::Command& command) {
                 return r;
             },
             [&](const fb::Generate& c) { return generate(c); },
-            [&](const fb::Edit&) { return unavailable(fb::Feature::Edit); },
-            [&](const fb::Vary&) { return unavailable(fb::Feature::Vary); },
-            [&](const fb::AddPart&) { return unavailable(fb::Feature::AddPart); },
+            [&](const fb::Edit& c) { return startEdit(fb::EditKind::Edit, c.prompt, c.partIds, std::nullopt, c.prompt); },
+            [&](const fb::Vary& c) {
+                std::string name = c.partId;
+                if (const auto* cur = session_.current())
+                    for (const auto& p : cur->score.value("parts", nlohmann::json::array()))
+                        if (p.value("id", "") == c.partId) name = p.value("name", c.partId);
+                return startEdit(fb::EditKind::Vary, "", std::vector<std::string>{c.partId}, std::nullopt, "Vary " + name);
+            },
+            [&](const fb::AddPart& c) {
+                const auto prompt = c.prompt.value_or("");
+                return startEdit(fb::EditKind::AddPart, prompt, std::vector<std::string>{}, c.role,
+                                 prompt.empty() ? std::string("Add a ") + fb::toString(c.role) + " part" : prompt);
+            },
             [&](const fb::Reroll&) { return unavailable(fb::Feature::Reroll); },
             [&](const fb::Tweak&) { return unavailable(fb::Feature::Tweak); },
             [&](const fb::EditNotes&) { return unavailable(fb::Feature::EditNotes); },
@@ -485,6 +492,100 @@ void Controller::dropSketch(Request& request) {
     request.sketchId.reset();
 }
 
+std::vector<fb::HistoryStep> Controller::history() const {
+    std::vector<fb::HistoryStep> steps;
+    for (const auto* n = session_.current(); n != nullptr; n = n->parentId ? session_.node(*n->parentId) : nullptr) {
+        fb::HistoryStep step;
+        step.kind = n->kind;
+        step.prompt = n->prompt.value_or("");
+        // The assistant's note for the node: its thread text, unless that is only the title.
+        const auto title = n->score.value("title", std::string());
+        for (const auto& t : session_.thread())
+            if (t.role == fb::ThreadRole::Assistant && t.nodeId == n->id && t.text != title) step.note = t.text;
+        if (n->partIds) step.changed = *n->partIds;
+        steps.push_back(std::move(step));
+        if (steps.size() > 64) break;  // the service reads the last 8; never walk an unbounded path
+    }
+    std::reverse(steps.begin(), steps.end());
+    return steps;
+}
+
+fb::Reply Controller::startEdit(fb::EditKind kind, const std::string& prompt, std::optional<std::vector<std::string>> partIds,
+                                std::optional<fb::Role> role, const std::string& threadText) {
+    if (!requests_.empty()) return fail(fb::ErrorCode::Busy, "A generation is already running.");
+    const auto* cur = session_.current();
+    if (cur == nullptr) return fail(fb::ErrorCode::BadRequest, "There's no idea to change yet. Generate one first.");
+    const auto parts = cur->score.value("parts", nlohmann::json::array());
+    const auto partName = [&](const std::string& id) {
+        for (const auto& p : parts)
+            if (p.value("id", "") == id) return p.value("name", id);
+        return id;
+    };
+    const auto known = [&](const std::string& id) {
+        return std::any_of(parts.begin(), parts.end(), [&](const nlohmann::json& p) { return p.value("id", "") == id; });
+    };
+    std::vector<std::string> locked;
+    for (const auto& st : session_.partStates())
+        if (st.locked && known(st.partId)) locked.push_back(st.partId);
+    const auto isLocked = [&](const std::string& id) { return std::find(locked.begin(), locked.end(), id) != locked.end(); };
+
+    // The parts the edit may change: never a locked one.
+    if (kind == fb::EditKind::Edit) {
+        std::vector<std::string> open;
+        if (partIds) {
+            for (const auto& id : *partIds) {
+                if (!known(id)) return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea.");
+                if (!isLocked(id)) open.push_back(id);
+            }
+            if (open.empty()) return fail(fb::ErrorCode::BadRequest, "Every part you picked is locked. Unlock one to change it.");
+            partIds = std::move(open);
+        } else if (!locked.empty()) {
+            for (const auto& p : parts)
+                if (!isLocked(p.value("id", ""))) open.push_back(p.value("id", ""));
+            if (open.empty()) return fail(fb::ErrorCode::BadRequest, "Every part is locked. Unlock one to change it.");
+            partIds = std::move(open);
+        }
+    } else if (kind == fb::EditKind::Vary) {
+        const auto& id = partIds->front();
+        if (!known(id)) return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea.");
+        if (isLocked(id)) return fail(fb::ErrorCode::BadRequest, partName(id) + " is locked. Unlock it to vary it.");
+    }
+
+    fb::EditRequest edit;
+    edit.kind = kind;
+    edit.prompt = prompt;
+    edit.score = cur->score;
+    edit.partIds = partIds;
+    edit.role = role;
+    edit.history = history();
+    edit.provider = session_.provider();
+
+    Request request;
+    request.id = "r" + std::to_string(nextRequestNumber_++);
+    request.kind = kind == fb::EditKind::Vary ? fb::NodeKind::Vary : fb::NodeKind::Edit;
+    request.prompt = prompt;
+    request.parentId = cur->id;
+    request.edit = true;
+    request.baseParts = parts;
+    Stream stream;
+    stream.id = request.id + ".1";
+    stream.seed = cur->seed;  // unchanged parts realize exactly as before
+    request.streams.push_back(std::move(stream));
+    if (auto e = platform_.startEdit(request.streams.front().id, edit)) return fail(e->code, e->message);
+
+    const auto now = platform_.nowMs();
+    session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, threadText, std::nullopt, now});
+    session_.pin(cur->id);
+    const auto id = request.id;
+    const auto nodeKind = request.kind;
+    requests_.push_back(std::move(request));
+    publishGenerations();
+    emit(fb::GenerationStarted{id, nodeKind});
+    auto r = ok(true);
+    r.requestId = id;
+    return r;
+}
+
 fb::Reply Controller::cancel(const std::string& requestId) {
     const auto it = std::find_if(requests_.begin(), requests_.end(), [&](const Request& r) { return r.id == requestId; });
     if (it == requests_.end()) return fail(fb::ErrorCode::BadRequest, "No running request " + requestId + ".");
@@ -534,6 +635,8 @@ void Controller::serviceEvent(const std::string& streamId, const fb::ServiceEven
                        else parts.push_back(e.part);
                        if (std::find(request->partsDone.begin(), request->partsDone.end(), partId) == request->partsDone.end())
                            request->partsDone.push_back(partId);
+                       if (std::find(stream->streamedIds.begin(), stream->streamedIds.end(), partId) == stream->streamedIds.end())
+                           stream->streamedIds.push_back(partId);
                        partLanded(*request, *stream);
                        emit(fb::PartReady{request->id, partId});
                    },
@@ -544,7 +647,8 @@ void Controller::serviceEvent(const std::string& streamId, const fb::ServiceEven
                    [&](const fb::ScoreDone& e) {
                        const auto requestId = request->id;
                        if (e.score) {
-                           // The authoritative score, kept over anything streamed.
+                           // The authoritative score, kept over anything streamed: nothing is filled in.
+                           stream->complete = true;
                            stream->header = *e.score;
                            stream->parts = e.score->contains("parts") ? (*e.score)["parts"] : nlohmann::json::array();
                            partLanded(*request, *stream);
@@ -575,7 +679,21 @@ void Controller::serviceEnded(const std::string& streamId, std::optional<fb::Err
 void Controller::partLanded(Request& request, Stream& stream) {
     auto score = *stream.header;
     score["parts"] = stream.parts;
-    fillFromSketch(request, score);
+    if (!stream.complete) {
+        if (request.edit) {
+            // Streamed parts replace the current node's part with the same id, or join it.
+            auto parts = request.baseParts;
+            for (const auto& p : stream.parts) {
+                const auto id = p.value("id", "");
+                const auto same = std::find_if(parts.begin(), parts.end(), [&](const nlohmann::json& b) { return b.value("id", "") == id; });
+                if (same != parts.end()) *same = p;
+                else parts.push_back(p);
+            }
+            score["parts"] = std::move(parts);
+        } else {
+            fillFromSketch(request, score);
+        }
+    }
     if (stream.nodeId) {
         session_.updateNodeScore(*stream.nodeId, std::move(score));
     } else {
@@ -624,6 +742,18 @@ void Controller::finishRequestIfDone(const std::string& requestId) {
     for (const auto& s : request.streams) {
         if (s.nodeId && !s.error) {
             nodeIds.push_back(*s.nodeId);
+            if (request.edit) {
+                // What the edit changed: the parts that streamed in, and the ones done.score left out.
+                std::vector<std::string> changed = s.streamedIds;
+                if (const auto* n = session_.node(*s.nodeId))
+                    for (const auto& b : request.baseParts) {
+                        const auto id = b.value("id", "");
+                        const auto& parts = n->score.value("parts", nlohmann::json::array());
+                        const bool kept = std::any_of(parts.begin(), parts.end(), [&](const nlohmann::json& p) { return p.value("id", "") == id; });
+                        if (!kept && std::find(changed.begin(), changed.end(), id) == changed.end()) changed.push_back(id);
+                    }
+                session_.setChanged(*s.nodeId, std::move(changed));
+            }
             const auto* n = session_.node(*s.nodeId);
             const auto title = n != nullptr ? n->score.value("title", std::string()) : std::string();
             session_.addThreadItem({"t-" + s.id, fb::ThreadRole::Assistant, s.message.empty() ? title : s.message, s.nodeId, now});

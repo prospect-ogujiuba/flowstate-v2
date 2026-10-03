@@ -344,20 +344,36 @@ test.describe("at 720 × 480, the thread is an overlay", () => {
   });
 });
 
+test("talk: change this idea, vary a part and add one; each lands as a card (P1-19)", async ({ page }) => {
+  await open(page, "mock=idea");
+  const thread = page.locator("#st-thread");
+  await page.getByRole("button", { name: "Prompt makes: New idea" }).click();
+  await expect(page.getByRole("button", { name: "Prompt makes: Change this idea" })).toBeVisible();
+  const input = page.getByRole("textbox", { name: "Describe or ask" });
+  await input.fill("busier drums in bar 4");
+  await input.press("Enter");
+  expect(await lastOf(page, "edit")).toEqual({ type: "edit", prompt: "busier drums in bar 4", partIds: null });
+  await expect(thread.getByRole("article", { name: "Busier drums in bar 4" })).toHaveAttribute("aria-current", "true");
+
+  await lane(page, "Bass").getByRole("button", { name: "Vary Bass" }).click();
+  expect(await lastOf(page, "vary")).toEqual({ type: "vary", partId: "p-bass" });
+  await expect(page.getByRole("button", { name: "Send" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Add part" }).click();
+  await page.getByRole("group", { name: "Part to add" }).getByRole("button", { name: "Arp" }).click();
+  expect(await lastOf(page, "addPart")).toEqual({ type: "addPart", role: "arp", prompt: null });
+});
+
 // ---- What this build can't do: looks disabled and says why (Session.unavailable) ----------------
 
 test("unavailable commands look disabled, say why, and send nothing", async ({ page }) => {
   await open(page, "mock=idea");
   const chords = lane(page, "Chords");
   const checks = [
-    { el: chords.getByRole("button", { name: "Vary Chords" }), why: /Vary needs the agent service/ },
     { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs the realizer/ },
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
     { el: page.getByRole("button", { name: "Tweak" }), why: /Local transforms aren't in core yet/ },
     { el: page.getByRole("button", { name: "Use what I just played" }), why: /plan around a reference/ },
-    { el: page.getByRole("button", { name: "Add part" }), why: /plan single parts/ },
-    { el: page.getByRole("button", { name: "Prompt makes: New idea" }), why: /Changing an idea by prompt/ },
-    { el: page.getByRole("button", { name: "darker" }), why: /Changing an idea by prompt/ },
   ];
   const before = (await sent(page)).length;
   for (const { el, why } of checks) {

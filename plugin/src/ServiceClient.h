@@ -32,6 +32,8 @@ public:
 
     // Starts streaming one PlanRequest. Message thread.
     std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request);
+    // Starts streaming one EditRequest (edit, vary or addPart). Message thread.
+    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request);
     // Aborts a stream; nothing more is reported for it. Any thread.
     void cancel(const std::string& streamId);
 
@@ -47,6 +49,9 @@ public:
     struct Pool;
 
 private:
+    // POSTs `text` to the service's `path` and streams the answer's events.
+    std::optional<fb::ErrorInfo> start(const std::string& streamId, const char* path, const std::string& text);
+
     std::string instanceId_;
     std::shared_ptr<Shared> shared_;
     std::unique_ptr<Pool> pool_;

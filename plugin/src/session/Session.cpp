@@ -230,6 +230,15 @@ bool Session::redo() {
     return true;
 }
 
+bool Session::setChanged(const std::string& id, std::vector<std::string> partIds) {
+    for (auto& n : nodes_)
+        if (n.id == id) {
+            n.partIds = std::move(partIds);
+            return true;
+        }
+    return false;
+}
+
 bool Session::rate(const std::string& id, std::optional<fb::Rating> rating) {
     for (auto& n : nodes_)
         if (n.id == id) {

@@ -419,7 +419,7 @@ Acceptance:
 - The lockfile test allows only `pi-ai`, `pi-agent-core` and `pi-telemetry` from Pi.
 - A test proves a capability can't reach the shell or filesystem, and a tool outside the allowlist is refused.
 
-### P1-19 Edits, variations and added parts — `doing` (service done 2026-10-03; the plugin side is next)
+### P1-19 Edits, variations and added parts — `doing` (service and plugin done 2026-10-03; owner listening left)
 The plugin's `edit`, `vary` and `addPart` go to the model as an `EditRequest` (`docs/bridge-spec.md`). The model returns a patch to the current node's score, and the service applies it and enforces the locks.
 Done (2026-10-03):
 - **Bridge:** `EditRequest.kind` (`edit`, `vary`, `addPart`) and `role` (for `addPart`), with fixtures; the edit stream is documented in the spec.
@@ -436,10 +436,19 @@ Done (2026-10-03):
   - Gemini 3.1 Flash Lite: 20/20, p50 2.3 s, 19 with no repair.
   - The repairs are the same IR slips plans make: step counts per bar, and pitch tokens where the IR has none. Two are new to edits, both for P1-3: "darker chords" makes models write flats (`b3`) in bass rhythms in all three runs, and new counter and arp parts put scale degrees in rhythm strings.
 
+- **Plugin** (2026-10-03, `Controller::startEdit`, `ServiceClient::startEdit`): `edit`, `vary` and `addPart` send one `EditRequest` for the current node, and left `Session.unavailable`.
+  - `partIds` leaves out locked parts. Vary of a locked part, an edit of only locked parts, or with no idea yet is refused before anything is sent.
+  - `history` is the lineage path, with each node's `partIds` as `changed`.
+  - Streamed parts replace the current node's part with the same id, or join it. `done` is authoritative, so removals show there.
+  - The node (kind `edit`, or `vary`; `addPart` makes an `edit`) keeps its parent's seed, so unchanged parts sound the same. It records what it changed: streamed ids plus removed ones.
+  - A question makes no node, only the thread item.
+  - Studio and mock: edit mode, the edit chips, vary and add part are live.
+  - Tests: two session tests (request, merge, removal, changed and history; vary, add part, refusals, questions), and Playwright.
+- Fixed with it: a plan's final score no longer gets the instant sketch's parts filled in for a role the plan left out on purpose.
+
 Left:
-- The plugin: send `EditRequest`s for `edit`, `vary` and `addPart` (nodes of kind edit and vary), and drop them from `Session.unavailable`. The P1-11 session owns `Controller.cpp` and does this.
-- The plugin fills `EditRequest.history` from the lineage path (the P1-11 session).
 - Blind listening of the edits: does the result do what was asked, and stay musical?
+- A live run through the plugin against `npm run serve`.
 
 Acceptance:
 - Edit, vary and add-part run from the Studio and make lineage nodes; a locked part never changes.

@@ -67,6 +67,12 @@ struct FakePlatform final : Platform {
         plans.emplace_back(streamId, request);
         return std::nullopt;
     }
+    std::vector<std::pair<std::string, fb::EditRequest>> edits;
+    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) override {
+        if (!withService) return Platform::startEdit(streamId, request);
+        edits.emplace_back(streamId, request);
+        return std::nullopt;
+    }
     void cancelStream(const std::string& streamId) override { cancelled.push_back(streamId); }
 
     // The repo's built library (library/catalog), as the plugin bundles it.
@@ -365,9 +371,6 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
 
     // Each command answered `unavailable` names its feature in the session, with the same reason.
     const std::vector<std::pair<std::string, json>> commands{
-        {"edit", {{"type", "edit"}, {"prompt", "darker"}, {"partIds", nullptr}}},
-        {"vary", {{"type", "vary"}, {"partId", partId}}},
-        {"addPart", {{"type", "addPart"}, {"role", "pad"}, {"prompt", nullptr}}},
         {"reroll", {{"type", "reroll"}, {"partId", partId}}},
         {"tweak", {{"type", "tweak"}, {"partId", nullptr}, {"op", "simplify"}, {"amount", nullptr}}},
         {"editNotes", {{"type", "editNotes"}, {"partId", partId}, {"remove", json::array()}, {"add", json::array()}}},
@@ -384,6 +387,8 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
     // Accepted, but without effect yet: the UI marks it too. Lock works since the planner keeps locked parts.
     CHECK(gaps.count("density") == 1);
     CHECK(gaps.count("lock") == 0);
+    // Edit, vary and add part go to the agent service (P1-19).
+    for (const char* served : {"edit", "vary", "addPart"}) CHECK(gaps.count(served) == 0);
 }
 
 TEST_CASE("an API key sent over the bridge is never persisted or echoed") {
@@ -1087,4 +1092,180 @@ TEST_CASE("generate: the instant sketch keeps locked parts and their harmony, an
     REQUIRE(s.clip().has_value());
     CHECK(s.clip()->parts.size() == 4);
     c.cancelAll();
+}
+
+// ---- Edit, vary and add part: EditRequests to the agent service (P1-19) -------------------------------
+
+namespace {
+
+std::vector<std::string> partIdsOf(const json& score) {
+    std::vector<std::string> ids;
+    for (const auto& p : score["parts"]) ids.push_back(p["id"]);
+    return ids;
+}
+
+}  // namespace
+
+TEST_CASE("edit: an EditRequest from the current idea; streamed parts replace by id; done is authoritative") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    Events events;
+    events.attach(c);
+    const auto score = loadScore("example.json");  // parts keys, bass, lead, drums
+    const auto idea = s.addNode(score, fb::NodeKind::Initial, std::string("slow neo-soul"), std::nullopt, 77, 10);
+    s.addThreadItem({"t1", fb::ThreadRole::Assistant, "A slow neo-soul loop.", idea, 11});
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "bass"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+
+    auto r = reply(c, {{"type", "edit"}, {"prompt", "darker, drop the lead"}, {"partIds", nullptr}});
+    REQUIRE(r["ok"] == true);
+    REQUIRE(platform.edits.size() == 1);
+    const auto& [streamId, req] = platform.edits[0];
+    CHECK((req.kind == fb::EditKind::Edit));
+    CHECK(req.prompt == "darker, drop the lead");
+    CHECK(req.score == score);
+    CHECK(req.partIds == std::vector<std::string>{"keys", "lead", "drums"});  // the locked bass is left out
+    CHECK_FALSE(req.role.has_value());
+    REQUIRE(req.history.size() == 1);
+    CHECK((req.history[0].kind == fb::NodeKind::Initial));
+    CHECK(req.history[0].prompt == "slow neo-soul");
+    CHECK(req.history[0].note == "A slow neo-soul loop.");
+    CHECK(req.history[0].changed.empty());
+    CHECK(r["session"]["generations"][0]["kind"] == "edit");
+    CHECK(events.list.back()["type"] == "generationStarted");
+    CHECK(s.current()->id == idea);  // no sketch for edits
+
+    // The edited head, then only the changed part.
+    auto head = score;
+    head["title"] = "Darker";
+    head["parts"] = json::array();
+    c.serviceEvent(streamId, fb::ScoreHeader{head});
+    auto darkKeys = score["parts"][0];
+    darkKeys["name"] = "Dark keys";
+    c.serviceEvent(streamId, fb::PartDone{darkKeys});
+    REQUIRE(s.nodes().size() == 2);
+    const auto edited = s.current()->id;
+    CHECK(edited != idea);
+    CHECK((s.current()->kind == fb::NodeKind::Edit));
+    CHECK(s.current()->parentId == idea);
+    CHECK(s.current()->seed == 77);  // unchanged parts realize as before
+    CHECK(partIdsOf(s.current()->score) == std::vector<std::string>{"keys", "bass", "lead", "drums"});
+    CHECK(s.current()->score["parts"][0]["name"] == "Dark keys");
+    CHECK(s.current()->score["parts"][1] == score["parts"][1]);
+
+    // done: the whole score; the lead is gone, which shows only here.
+    auto final = score;
+    final["title"] = "Darker";
+    final["parts"] = json::array({darkKeys, score["parts"][1], score["parts"][3]});
+    c.serviceEvent(streamId, fb::AssistantMessage{"Darker keys; dropped the lead."});
+    c.serviceEvent(streamId, fb::ScoreDone{final});
+    CHECK_FALSE(c.generating());
+    CHECK(s.node(edited)->score == final);
+    CHECK(s.node(edited)->partIds == std::vector<std::string>{"keys", "lead"});  // changed: streamed, and removed
+    CHECK(events.list.back()["type"] == "generationDone");
+    CHECK(s.thread().back().text == "Darker keys; dropped the lead.");
+    CHECK(s.thread().back().nodeId == edited);
+
+    // The next edit carries the path, with what each step changed.
+    REQUIRE(reply(c, {{"type", "edit"}, {"prompt", "less than that"}, {"partIds", json::array({"keys"})}})["ok"] == true);
+    const auto& next = platform.edits.back().second;
+    CHECK(next.partIds == std::vector<std::string>{"keys"});
+    REQUIRE(next.history.size() == 2);
+    CHECK((next.history[1].kind == fb::NodeKind::Edit));
+    CHECK(next.history[1].prompt == "darker, drop the lead");
+    CHECK(next.history[1].note == "Darker keys; dropped the lead.");
+    CHECK(next.history[1].changed == std::vector<std::string>{"keys", "lead"});
+    c.cancelAll();
+}
+
+TEST_CASE("edit: vary and add part; refusals before anything is sent; a question makes no node") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto score = loadScore("example.json");
+
+    // No idea yet.
+    CHECK(reply(c, {{"type", "vary"}, {"partId", "lead"}})["error"]["code"] == "bad_request");
+    const auto idea = s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 5, 10);
+
+    // Vary: exactly one part, never a locked or unknown one.
+    CHECK(reply(c, {{"type", "vary"}, {"partId", "ghost"}})["error"]["code"] == "unknown_part");
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "drums"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+    auto r = reply(c, {{"type", "vary"}, {"partId", "drums"}});
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("locked") != std::string::npos);
+    CHECK(platform.edits.empty());
+
+    REQUIRE(reply(c, {{"type", "vary"}, {"partId", "lead"}})["ok"] == true);
+    REQUIRE(platform.edits.size() == 1);
+    auto [id, req] = platform.edits.back();
+    CHECK((req.kind == fb::EditKind::Vary));
+    CHECK(req.prompt.empty());
+    CHECK(req.partIds == std::vector<std::string>{"lead"});
+    CHECK(s.thread().back().text == "Vary Flute");  // the part's name
+    auto head = score;
+    head["parts"] = json::array();
+    c.serviceEvent(id, fb::ScoreHeader{head});
+    auto lead = score["parts"][2];
+    lead["name"] = "Lead (varied)";
+    c.serviceEvent(id, fb::PartDone{lead});
+    auto varied = score;
+    varied["parts"][2] = lead;
+    c.serviceEvent(id, fb::ScoreDone{varied});
+    CHECK((s.current()->kind == fb::NodeKind::Vary));
+    CHECK(s.current()->partIds == std::vector<std::string>{"lead"});
+    CHECK(s.current()->parentId == idea);
+
+    // Add part: a role and no parts; the new part joins the idea.
+    REQUIRE(reply(c, {{"type", "addPart"}, {"role", "pad"}, {"prompt", nullptr}})["ok"] == true);
+    std::tie(id, req) = platform.edits.back();
+    CHECK((req.kind == fb::EditKind::AddPart));
+    CHECK(req.partIds == std::vector<std::string>{});
+    CHECK((req.role == fb::Role::Pad));
+    CHECK(s.thread().back().text == "Add a pad part");
+    c.serviceEvent(id, fb::ScoreHeader{head});
+    json pad{{"id", "pad"}, {"role", "pad"}, {"name", "Pad"}, {"low", "C3"}, {"high", "C5"}, {"grid", 2}, {"velocity", 64},
+             {"blocks", json::array({{{"startBar", 1}, {"endBar", 4}, {"rhythm", "x-------"}, {"voicing", "open"}}})}};
+    c.serviceEvent(id, fb::PartDone{pad});
+    CHECK(partIdsOf(s.current()->score) == std::vector<std::string>{"keys", "bass", "lead", "drums", "pad"});
+    CHECK((s.current()->kind == fb::NodeKind::Edit));
+    c.cancelAll();
+
+    // Every part locked: an edit is refused before it's sent.
+    for (const char* p : {"keys", "bass", "lead", "drums"})
+        reply(c, {{"type", "setPartState"}, {"state", {{"partId", p}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}});
+    const auto sent = platform.edits.size();
+    CHECK(reply(c, {{"type", "edit"}, {"prompt", "darker"}, {"partIds", nullptr}})["error"]["code"] == "bad_request");
+    CHECK(platform.edits.size() == sent);
+
+    // A question: an answer in the thread, and no node.
+    for (const char* p : {"keys", "bass", "lead", "drums"})
+        reply(c, {{"type", "setPartState"}, {"state", {{"partId", p}, {"muted", false}, {"solo", false}, {"locked", false}, {"density", 0.5}}}});
+    const auto before = s.nodes().size();
+    REQUIRE(reply(c, {{"type", "edit"}, {"prompt", "what key is this?"}, {"partIds", nullptr}})["ok"] == true);
+    id = platform.edits.back().first;
+    c.serviceEvent(id, fb::AssistantMessage{"D dorian."});
+    c.serviceEvent(id, fb::ScoreDone{std::nullopt});
+    CHECK(s.nodes().size() == before);
+    CHECK(s.thread().back().text == "D dorian.");
+    CHECK_FALSE(s.thread().back().nodeId.has_value());
+}
+
+TEST_CASE("generate: a plan that leaves a role out keeps it out; the sketch only fills while it streams") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto score = loadScore("example.json");
+    REQUIRE(reply(c, generateCommand("no drums"))["ok"] == true);
+    const auto stream = platform.plans.back().first;
+    c.serviceEvent(stream, headerOf(score));
+    c.serviceEvent(stream, fb::PartDone{score["parts"][0]});
+    CHECK(partIdsOf(s.current()->score) == std::vector<std::string>{"keys", "sketch-bass", "sketch-melody", "sketch-drums"});
+    auto noDrums = score;
+    noDrums["parts"].erase(3);
+    c.serviceEvent(stream, fb::ScoreDone{noDrums});
+    CHECK(partIdsOf(s.current()->score) == std::vector<std::string>{"keys", "bass", "lead"});
 }

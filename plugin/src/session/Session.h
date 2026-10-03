@@ -71,6 +71,8 @@ public:
     bool undo();
     bool redo();
     bool rate(const std::string& id, std::optional<fb::Rating> rating);
+    // Records the parts a node changed, added or removed (NodeSummary.partIds; EditRequest.history).
+    bool setChanged(const std::string& id, std::vector<std::string> partIds);
 
     // ---- Bounds (P1-11) ------------------------------------------------------------------------
     // The lineage and thread stay small enough that plugin state is well under 1 MB. Past a bound,

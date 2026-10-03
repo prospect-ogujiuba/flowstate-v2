@@ -195,9 +195,18 @@ ServiceSettings ServiceClient::settings() {
 std::optional<fb::ErrorInfo> ServiceClient::startPlan(const std::string& streamId, const fb::PlanRequest& request) {
     nlohmann::json body;
     fb::to_json(body, request);
-    const auto text = body.dump();
+    return start(streamId, "/v1/plan", body.dump());
+}
+
+std::optional<fb::ErrorInfo> ServiceClient::startEdit(const std::string& streamId, const fb::EditRequest& request) {
+    nlohmann::json body;
+    fb::to_json(body, request);
+    return start(streamId, "/v1/edit", body.dump());
+}
+
+std::optional<fb::ErrorInfo> ServiceClient::start(const std::string& streamId, const char* path, const std::string& text) {
     const auto service = settings();
-    const auto url = juce::URL(juce::String(service.url) + "/v1/plan").withPOSTData(juce::MemoryBlock(text.data(), text.size()));
+    const auto url = juce::URL(juce::String(service.url) + path).withPOSTData(juce::MemoryBlock(text.data(), text.size()));
     // The request id joins the plugin's and the service's logs. A BYOK key would go in
     // x-flowstate-provider-key, read from the keychain here (P1-12), never from the session.
     // The tester token (hosted service, P1-13) is read here per request and never stored or logged.

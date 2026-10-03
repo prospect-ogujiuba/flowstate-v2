@@ -113,6 +113,7 @@ private:
     void releaseFocus(fb::FocusReason) override;
     std::optional<std::vector<std::uint8_t>> libraryResource(const std::string& name) override;
     std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) override;
+    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) override;
     void cancelStream(const std::string& streamId) override;
 
     void timerCallback() override;

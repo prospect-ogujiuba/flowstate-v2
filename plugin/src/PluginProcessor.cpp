@@ -406,6 +406,10 @@ std::optional<fb::ErrorInfo> FlowstateProcessor::startPlan(const std::string& st
     return service->startPlan(streamId, request);
 }
 
+std::optional<fb::ErrorInfo> FlowstateProcessor::startEdit(const std::string& streamId, const fb::EditRequest& request) {
+    return service->startEdit(streamId, request);
+}
+
 void FlowstateProcessor::cancelStream(const std::string& streamId) { service->cancel(streamId); }
 
 void FlowstateProcessor::releaseFocus(fb::FocusReason) {

@@ -52,6 +52,12 @@ public:
         (void)request;
         return fb::ErrorInfo{fb::ErrorCode::Unavailable, "This build has no agent service."};
     }
+    // The same for an EditRequest (edit, vary, addPart), streamed from /v1/edit.
+    virtual std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) {
+        (void)streamId;
+        (void)request;
+        return fb::ErrorInfo{fb::ErrorCode::Unavailable, "This build has no agent service."};
+    }
     // Aborts the HTTP request; the service stops the provider stream. Nothing more is reported for it.
     virtual void cancelStream(const std::string& streamId) { (void)streamId; }
 };
@@ -112,6 +118,8 @@ private:
         std::string message;
         bool finished = false;
         bool textOnly = false;
+        bool complete = false;                 // `done` arrived: its score is the whole idea
+        std::vector<std::string> streamedIds;  // parts that streamed in (an edit's changed parts)
         std::optional<fb::ErrorInfo> error;
     };
     struct Request {
@@ -122,12 +130,20 @@ private:
         std::optional<std::string> sketchId;  // the instant sketch playing until the first variation lands (P1-10)
         nlohmann::json sketchParts = nlohmann::json::array();  // its parts, filling roles not streamed yet
         bool tookOverSketch = false;  // a variation replaced the playing sketch; a failure goes back to it
+        // An edit, vary or addPart: the current node's parts, which streamed parts replace by id or join.
+        bool edit = false;
+        nlohmann::json baseParts = nlohmann::json::array();
         fb::GenerationStage stage = fb::GenerationStage::Planning;
         std::vector<std::string> partsDone;
         std::vector<Stream> streams;
     };
 
     fb::Reply generate(const fb::Generate& command);
+    // edit, vary and addPart: one EditRequest for the current node (docs/bridge-spec.md, P1-19).
+    fb::Reply startEdit(fb::EditKind kind, const std::string& prompt, std::optional<std::vector<std::string>> partIds,
+                        std::optional<fb::Role> role, const std::string& threadText);
+    // The lineage path from the idea's first node to the current one, for EditRequest.history.
+    std::vector<fb::HistoryStep> history() const;
     // Makes and plays the instant sketch for a generate: rule-based parts for every role no locked part plays,
     // under `parent`. Null when there is nothing to sketch.
     std::optional<std::string> makeSketch(const fb::Generate& command, const fb::EffectiveContext& ctx, const fb::PlanRequest& plan,
