@@ -296,7 +296,27 @@ Acceptance:
 - It works at 720×480 and at larger sizes.
 - The space bar still reaches the DAW.
 
-### P1-10 Instant sketch — `todo`
+### P1-10 Instant sketch — `done` (2026-10-02; Linux)
+Done:
+- **`core`** (`flowstate/sketch.h`, `sketchJson`): ordinary score IR from the context alone.
+  - Harmony: a looping four-chord progression per mode (pentatonic and blues borrow their parent's chords; blues plays I7 IV7 I7 V7), one chord a bar, or two in clips under 4 bars. Seventh chords for jazz, soul, lofi, R&B, gospel and house tags, or by seed. Spelled with flats in flat keys through the analyzer's chord namer.
+  - Parts: chord rhythms (held, on the beat, pushed, off-beat stabs) with style-fit voicings; bass patterns (root and fifth with an approach, on the beat, octave pump, syncopated); a two-bar melody rhythm the realizer turns into a stepwise line; pad, arp and counter when asked.
+  - Drums: the named groove matching a style tag in the meter, else one that fits the meter (by tempo in 4/4), else written lanes. Fills in clips of 4 bars or more, and two sections that lift from 8 bars.
+  - The seed picks among the templates.
+- **Tests** (`test_sketch.cpp`):
+  - Every mode × 7 meters × 5 lengths × 3 seeds (1,260 sketches) realizes with no warnings, every part sounding, and no out-of-key notes outside the blues.
+  - 8 bars × 4 parts, sketch plus realization: median 3 ms (target 100 ms).
+  - 16 seeds give at least 14 distinct realizations (asserted) and at least 4 progressions, and the same seed gives the same score.
+  - Grooves follow style and meter, and the requested roles are written.
+- **Plugin** (`Controller::makeSketch`): `generate` makes and plays a `sketch` node first, holding every requested role no locked part plays (style hints from the idea's tags and the prompt).
+  - Streamed variations fill missing roles from it, the first to land takes its place, and `done` drops its parts.
+  - It stays, hidden, until the request ends. Once a variation succeeds, it goes.
+  - After a failure or cancel it stays, so there is still an idea to play (offline too). Playback goes back to it if a variation had replaced it. It goes after a text-only answer.
+  - Semantics: `docs/bridge-spec.md`, "The plugin's client".
+- **Studio:** says when the idea playing is the sketch, and the thread shows a sketch only while it's current. The mock does the same, and Playwright covers sketch then AI, and a cancel keeping the sketch.
+
+Left: blind listening of sketches. They're placeholders that play for seconds, but they're the first sound a new user hears.
+
 `core` makes a rule-based sketch from the context strip alone, in under 100 ms, so every Generate makes sound immediately. AI parts replace sketch parts as they stream in (P1-2).
 Acceptance: under 100 ms for 8 bars × 4 parts; varied across seeds.
 

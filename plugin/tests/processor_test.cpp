@@ -412,7 +412,10 @@ TEST_CASE("service: cancel aborts the HTTP request mid-stream") {
     CHECK(events.back()["error"]["code"] == "cancelled");
     play(p, head, [&] { return service.clientHungUp(); }, 5000);
     CHECK(service.clientHungUp());
-    CHECK(json::parse(p.sessionEventJson())["session"]["nodes"].empty());
+    // The streamed idea goes; the instant sketch it had replaced stays, so there is still something to play.
+    const auto nodes = json::parse(p.sessionEventJson())["session"]["nodes"];
+    REQUIRE(nodes.size() == 1);
+    CHECK(nodes[0]["kind"] == "sketch");
 }
 
 TEST_CASE("service: an error event, and a service that isn't there") {

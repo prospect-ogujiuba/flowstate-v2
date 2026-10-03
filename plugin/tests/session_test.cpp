@@ -621,27 +621,45 @@ TEST_CASE("generate: a PlanRequest goes out, streamed parts become a node that p
 
     c.serviceEvent(streamId, headerOf(score));
     CHECK((c.view().generations[0].stage == fb::GenerationStage::Streaming));
-    CHECK(s.nodes().empty());  // nothing plays until a part lands
+    // Before any part lands, the instant sketch plays: all four roles, from core's rules (P1-10).
+    REQUIRE(s.nodes().size() == 1);
+    CHECK((s.current()->kind == fb::NodeKind::Sketch));
+    CHECK(s.current()->prompt == "late night keys");
+    REQUIRE(s.clip().has_value());
+    CHECK(s.clip()->parts.size() == 4);
+    const auto sketchId = s.current()->id;
+    const auto partIdsOf = [&] {
+        std::vector<std::string> ids;
+        for (const auto& p : s.clip()->parts) ids.push_back(p.partId);
+        return ids;
+    };
 
     c.serviceEvent(streamId, fb::PartStarted{"keys", fb::Role::Chords});
     c.serviceEvent(streamId, fb::PartDone{score["parts"][0]});
-    REQUIRE(s.nodes().size() == 1);
-    const auto nodeId = s.nodes()[0].id;
+    // The first part takes the sketch's place; the sketch fills the roles that haven't arrived. It stays in the
+    // lineage (hidden in the Studio) until the plan is done, so a failure could go back to it.
+    REQUIRE(s.nodes().size() == 2);
+    const auto nodeId = s.nodes()[1].id;
+    CHECK(nodeId != sketchId);
+    CHECK(s.hasNode(sketchId));
     CHECK(s.current()->id == nodeId);
+    CHECK_FALSE(s.current()->parentId.has_value());
     REQUIRE(s.clip().has_value());
-    CHECK(s.clip()->parts.size() == 1);
+    CHECK(partIdsOf() == std::vector<std::string>{"keys", "sketch-bass", "sketch-melody", "sketch-drums"});
     CHECK(events.list.back()["type"] == "partReady");
     CHECK(events.list.back()["partId"] == "keys");
 
     c.serviceEvent(streamId, fb::PartDone{score["parts"][1]});
     c.serviceEvent(streamId, fb::PartDone{score["parts"][0]});  // a repaired part replaces the first
-    CHECK(s.nodes().size() == 1);
-    CHECK(s.clip()->parts.size() == 2);
+    CHECK(s.nodes().size() == 2);
+    CHECK(partIdsOf() == std::vector<std::string>{"keys", "bass", "sketch-melody", "sketch-drums"});
     CHECK(c.view().generations[0].partsDone == std::vector<std::string>{"keys", "bass"});
 
     c.serviceEvent(streamId, fb::AssistantMessage{"A slow neo-soul loop."});
     c.serviceEvent(streamId, fb::ScoreDone{score});
-    CHECK(s.node(nodeId)->score == score);  // the authoritative score
+    CHECK(s.node(nodeId)->score == score);  // the authoritative score, with no sketch parts
+    CHECK(s.nodes().size() == 1);           // done: the sketch is gone
+    CHECK_FALSE(s.hasNode(sketchId));
     CHECK(s.clip()->parts.size() == 4);
     CHECK((s.node(nodeId)->kind == fb::NodeKind::Initial));
     CHECK(s.node(nodeId)->prompt == "late night keys");
@@ -694,13 +712,14 @@ TEST_CASE("generate: variations stream in parallel; the first to land plays, a f
     CHECK(playing != parent);
     CHECK(s.current()->parentId == parent);
     c.serviceEvent(one, fb::PartDone{score["parts"][1]});
-    CHECK(s.nodes().size() == 3);
+    // The parent, the hidden sketch, and two variations.
+    CHECK(s.nodes().size() == 4);
     CHECK(s.current()->id == playing);  // a later variation doesn't take over
-    CHECK(s.node(s.nodes()[2].id)->parentId == parent);
-    CHECK(s.node(s.nodes()[2].id)->seed != s.node(playing)->seed);
+    CHECK(s.node(s.nodes()[3].id)->parentId == parent);
+    CHECK(s.node(s.nodes()[3].id)->seed != s.node(playing)->seed);
 
     c.serviceEvent(one, fb::ServiceError{{fb::ErrorCode::Provider, "upstream 502"}});
-    CHECK(s.nodes().size() == 2);  // its partial idea is gone
+    CHECK(s.nodes().size() == 3);  // its partial idea is gone
     c.serviceEnded(three, fb::ErrorInfo{fb::ErrorCode::Network, "reset"});
     CHECK(c.generating());
     c.serviceEvent(two, fb::ScoreDone{score});
@@ -711,6 +730,7 @@ TEST_CASE("generate: variations stream in parallel; the first to land plays, a f
     CHECK(events.list[types.size() - 2]["nodeIds"] == json::array({playing}));
     CHECK(types.back() == "notice");
     CHECK(s.current()->id == playing);
+    CHECK(s.nodes().size() == 2);  // a variation succeeded, so the sketch is gone
     CHECK(r["requestId"] == events.list[0]["requestId"]);
 }
 
@@ -734,9 +754,10 @@ TEST_CASE("generate: cancel stops every stream and takes back what streamed") {
     const auto cancelled = reply(c, {{"type", "cancel"}, {"requestId", requestId}});
     CHECK(cancelled["ok"] == true);
     CHECK(platform.cancelled.size() == 2);
-    CHECK(s.nodes().empty());
-    CHECK(s.current() == nullptr);
-    CHECK_FALSE(s.clip().has_value());
+    // What streamed goes, and playback goes back to the instant sketch it had replaced.
+    REQUIRE(s.nodes().size() == 1);
+    CHECK((s.current()->kind == fb::NodeKind::Sketch));
+    CHECK(s.clip().has_value());
     CHECK(events.list.back()["type"] == "generationFailed");
     CHECK(events.list.back()["error"]["code"] == "cancelled");
     CHECK(cancelled["session"]["generations"].empty());
@@ -744,7 +765,15 @@ TEST_CASE("generate: cancel stops every stream and takes back what streamed") {
     // Whatever was still in flight is ignored.
     c.serviceEvent(stream, fb::PartDone{score["parts"][1]});
     c.serviceEvent(stream, fb::ScoreDone{score});
-    CHECK(s.nodes().empty());
+    CHECK(s.nodes().size() == 1);
+
+    // Cancelled before any part landed: that sketch stays too, under the idea that was current.
+    const auto sketch = s.current()->id;
+    const auto early = reply(c, generateCommand("z"))["requestId"].get<std::string>();
+    REQUIRE(reply(c, {{"type", "cancel"}, {"requestId", early}})["ok"] == true);
+    REQUIRE(s.nodes().size() == 2);
+    CHECK((s.current()->kind == fb::NodeKind::Sketch));
+    CHECK(s.current()->parentId == sketch);
 
     // A new generate can start.
     CHECK(reply(c, generateCommand("y"))["ok"] == true);
@@ -774,15 +803,24 @@ TEST_CASE("generate: errors, early close, text-only answers, keep and capture") 
     c.serviceEvent(id, fb::PartDone{score["parts"][0]});
     c.serviceEnded(id, std::nullopt);
     CHECK(events.list.back()["error"]["code"] == "network");
-    CHECK(s.nodes().empty());
+    // No AI idea is left; each failed request's instant sketch stays, and the last one plays.
+    const auto onlySketches = [&] {
+        return std::all_of(s.nodes().begin(), s.nodes().end(), [](const fb::LineageNode& n) { return n.kind == fb::NodeKind::Sketch; });
+    };
+    CHECK(onlySketches());
+    CHECK(s.nodes().size() == 2);
+    CHECK((s.current()->kind == fb::NodeKind::Sketch));
 
-    // A question answered with text: done without a score, no node, an answer in the thread.
+    // A question answered with text: done without a score, no node, an answer in the thread, and its sketch goes.
     reply(c, generateCommand("what swing suits house?"));
     id = platform.plans.back().first;
+    CHECK(s.nodes().size() == 3);
     c.serviceEvent(id, fb::AssistantMessage{"Around 55 to 58 percent."});
     c.serviceEvent(id, fb::ScoreDone{std::nullopt});
     CHECK(events.list.back()["type"] == "generationDone");
     CHECK(events.list.back()["nodeIds"].empty());
+    CHECK(s.nodes().size() == 2);
+    CHECK(onlySketches());
     CHECK(s.thread().back().text == "Around 55 to 58 percent.");
     CHECK_FALSE(s.thread().back().nodeId.has_value());
 
@@ -1024,4 +1062,29 @@ TEST_CASE("restore: an oversized or dangling saved lineage is trimmed and repair
     CHECK(has("auditioned node"));
     // New ids continue after the highest restored one, so a removed id is never reused.
     CHECK(restored.addNode(score, fb::NodeKind::Edit, std::nullopt, std::nullopt, 1, 1) == "n251");
+}
+
+TEST_CASE("generate: the instant sketch keeps locked parts and their harmony, and sketches the rest (P1-10)") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto score = loadScore("example.json");
+    const auto idea = s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "bass"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+
+    REQUIRE(reply(c, generateCommand("dark trap"))["ok"] == true);
+    const auto* sketch = s.current();
+    REQUIRE((sketch->kind == fb::NodeKind::Sketch));
+    CHECK(sketch->parentId == idea);
+    CHECK(sketch->score["harmony"] == score["harmony"]);
+    std::vector<std::string> ids;
+    for (const auto& p : sketch->score["parts"]) ids.push_back(p["id"]);
+    CHECK(ids == std::vector<std::string>{"bass", "sketch-chords", "sketch-melody", "sketch-drums"});
+    CHECK(sketch->score["parts"][0] == score["parts"][1]);  // the locked bass, verbatim
+    // The prompt is a style hint: "trap" picks the trap groove.
+    CHECK(sketch->score["parts"][3]["blocks"][0]["groove"] == "trap");
+    REQUIRE(s.clip().has_value());
+    CHECK(s.clip()->parts.size() == 4);
+    c.cancelAll();
 }

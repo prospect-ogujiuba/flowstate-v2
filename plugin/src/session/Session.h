@@ -54,6 +54,8 @@ public:
     // Removes a node without children (a streamed plan that failed). If it was current, its parent
     // becomes current. False if it is unknown or has children.
     bool removeNode(const std::string& id);
+    // Moves a node under another (null = a root). False if either is unknown or it would make a cycle.
+    bool reparent(const std::string& id, const std::optional<std::string>& parent);
     bool hasChildren(const std::string& id) const;
 
     bool hasNode(const std::string& id) const;

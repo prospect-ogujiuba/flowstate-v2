@@ -10,6 +10,9 @@ files), so it can also build with Emscripten and MSVC. Randomness comes from an 
 seeded per part, never from `<random>` distributions, so the same IR and seed produce byte-identical
 output on every platform.
 
+`sketchJson` (`flowstate/sketch.h`) writes the instant sketch: rule-based IR from the session context
+alone, which the plugin plays the moment Generate is pressed while the model writes (roadmap P1-10).
+
 ## Build and test
 
 From the repo root:

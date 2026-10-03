@@ -197,7 +197,25 @@ test("describe -> hear: Cancel stops a running generation", async ({ page }) => 
   await page.getByRole("button", { name: "Cancel" }).click();
   expect(await lastOf(page, "cancel")).toMatchObject({ type: "cancel", requestId: expect.any(String) });
   await expect(toast(page, "Generation cancelled")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "What do you want to make today?" })).toBeVisible();
+  // The instant sketch stays, so there is still an idea to play; it says what it is.
+  await expect(page.getByRole("status").filter({ hasText: /Sketch: the generation didn't finish/ })).toBeVisible();
+  await expect(page.locator("#st-thread").getByRole("article", { name: "Sketch" })).toHaveAttribute("aria-current", "true");
+});
+
+test("describe -> hear: the instant sketch plays at once, and the AI's parts replace it", async ({ page }) => {
+  await open(page);
+  await page.evaluate(() => ((window as unknown as MockWindow).__flowstateMock.delay = 2000));
+  const input = page.getByRole("textbox", { name: "Describe or ask" });
+  await input.fill("dusty soul");
+  await input.press("Enter");
+  // Before any part has streamed: four sketch lanes, labelled as the sketch.
+  for (const name of ["Chords", "Drums", "Bass", "Melody"]) await expect(lane(page, name)).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: "Sketch: playing now" })).toBeVisible();
+  // When it's done, the AI's idea is current and the sketch is gone from the thread.
+  const card = page.locator("#st-thread").getByRole("article", { name: "Dusty soul" });
+  await expect(card).toHaveAttribute("aria-current", "true", { timeout: 20_000 });
+  await expect(page.getByText(/^Sketch:/)).toHaveCount(0);
+  await expect(page.locator("#st-thread").getByRole("article", { name: "Sketch" })).toHaveCount(0);
 });
 
 test("describe -> hear: variations go out as one request; the playhead follows the host", async ({ page }) => {

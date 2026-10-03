@@ -27,7 +27,8 @@ function timeline(session: Session): Item[] {
       items.push({ type: "text", id: t.id, role: t.role, text: t.text || "(empty prompt: surprise me)", at: t.createdAtMs });
     }
   }
-  for (const n of session.nodes) if (!named.has(n.id) && n.kind !== "sketch") items.push({ type: "card", id: `node-${n.id}`, node: n, at: n.createdAtMs });
+  // A sketch shows only while it's the idea playing (it stays after a generation that didn't finish).
+  for (const n of session.nodes) if (!named.has(n.id) && (n.kind !== "sketch" || n.id === session.currentNodeId)) items.push({ type: "card", id: `node-${n.id}`, node: n, at: n.createdAtMs });
   return items.sort((a, b) => a.at - b.at);
 }
 

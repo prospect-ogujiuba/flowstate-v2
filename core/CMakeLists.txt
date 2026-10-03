@@ -44,7 +44,8 @@ add_library(flowstate_core STATIC
   src/output.cpp
   src/midi_read.cpp
   src/analyze.cpp
-  src/catalog.cpp)
+  src/catalog.cpp
+  src/sketch.cpp)
 target_include_directories(flowstate_core PUBLIC include PRIVATE src)
 target_link_libraries(flowstate_core PRIVATE nlohmann_json::nlohmann_json)
 flowstate_warnings(flowstate_core)
@@ -81,7 +82,8 @@ if(FLOWSTATE_CORE_BUILD_TESTS)
     tests/test_smf.cpp
     tests/test_grooves.cpp
     tests/test_analyze.cpp
-    tests/test_catalog.cpp)
+    tests/test_catalog.cpp
+    tests/test_sketch.cpp)
   target_link_libraries(flowstate_core_tests PRIVATE flowstate_core flowstate_doctest nlohmann_json::nlohmann_json)
   target_include_directories(flowstate_core_tests PRIVATE src)
   target_compile_definitions(flowstate_core_tests PRIVATE

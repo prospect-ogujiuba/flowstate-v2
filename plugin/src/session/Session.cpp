@@ -161,6 +161,15 @@ bool Session::hasChildren(const std::string& id) const {
     return std::any_of(nodes_.begin(), nodes_.end(), [&](const fb::LineageNode& n) { return n.parentId == id; });
 }
 
+bool Session::reparent(const std::string& id, const std::optional<std::string>& parent) {
+    if (!hasNode(id) || (parent && !hasNode(*parent))) return false;
+    for (auto p = parent; p; p = node(*p)->parentId)
+        if (*p == id) return false;
+    for (auto& n : nodes_)
+        if (n.id == id) n.parentId = parent;
+    return true;
+}
+
 bool Session::removeNode(const std::string& id) {
     const auto it = std::find_if(nodes_.begin(), nodes_.end(), [&](const fb::LineageNode& n) { return n.id == id; });
     if (it == nodes_.end() || hasChildren(id)) return false;

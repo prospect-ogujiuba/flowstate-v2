@@ -1,8 +1,10 @@
 #include "session/Controller.h"
 
+#include "flowstate/sketch.h"
 #include "flowstate/theory.h"
 
 #include <algorithm>
+#include <cctype>
 #include <type_traits>
 
 namespace flowstate::plugin {
@@ -405,6 +407,9 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, c.prompt, std::nullopt, now});
     // Variations attach under this node; it stays while they stream.
     if (request.parentId) session_.pin(*request.parentId);
+    // The instant sketch plays at once, while the model writes (P1-10).
+    request.sketchId = makeSketch(c, ctx, plan, request.streams.front().seed, now, request.parentId);
+    if (request.sketchId) request.sketchParts = session_.node(*request.sketchId)->score["parts"];
     const auto id = request.id;
     requests_.push_back(std::move(request));
     publishGenerations();
@@ -412,6 +417,72 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     auto r = ok(true);
     r.requestId = id;
     return r;
+}
+
+std::optional<std::string> Controller::makeSketch(const fb::Generate& c, const fb::EffectiveContext& ctx, const fb::PlanRequest& plan,
+                                                  std::int64_t seed, std::int64_t now, const std::optional<std::string>& parent) {
+    SketchRequest req;
+    req.context.tonic = fb::toString(ctx.tonic);
+    req.context.mode = modeFromString(fb::toString(ctx.mode)).value_or(Mode::Major);
+    req.context.tempo = ctx.tempo;
+    req.context.meterNumerator = ctx.meterNumerator;
+    req.context.meterDenominator = ctx.meterDenominator;
+    req.context.bars = ctx.bars;
+    req.context.swing = plan.context.swing;
+    // Style hints: the current idea's tags, and the prompt itself (the sketch matches tags by substring, so
+    // "dark trap beat" picks the trap groove).
+    if (const auto* cur = session_.current())
+        if (const auto cx = cur->score.find("context"); cx != cur->score.end() && cx->is_object())
+            if (const auto st = cx->find("style"); st != cx->end() && st->is_array())
+                for (const auto& tag : *st)
+                    if (tag.is_string()) req.context.style.push_back(tag.get<std::string>());
+    std::string prompt = c.prompt;
+    std::transform(prompt.begin(), prompt.end(), prompt.begin(), [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
+    if (!prompt.empty()) req.context.style.push_back(prompt);
+
+    // Every requested role a locked part doesn't already play.
+    std::vector<std::string> kept;
+    if (plan.keep)
+        for (const auto& p : (*plan.keep)["parts"]) kept.push_back(p.value("role", ""));
+    const std::vector<fb::Role> wanted = c.roles ? *c.roles : std::vector<fb::Role>{fb::Role::Chords, fb::Role::Bass, fb::Role::Melody, fb::Role::Drums};
+    for (const auto r : wanted) {
+        const std::string name = fb::toString(r);
+        if (std::find(kept.begin(), kept.end(), name) != kept.end()) continue;
+        if (const auto role = roleFromString(name)) req.roles.push_back(*role);
+    }
+    if (req.roles.empty()) return std::nullopt;
+    req.seed = static_cast<std::uint64_t>(seed);
+
+    nlohmann::json score;
+    try {
+        score = nlohmann::json::parse(sketchJson(req));
+    } catch (const std::exception&) {
+        return std::nullopt;  // never in practice: the sketch is tested valid for every context
+    }
+    if (plan.keep) {
+        // Locked parts keep their idea's head (harmony, form, motifs); the sketch parts play against it.
+        auto base = *plan.keep;
+        for (auto& p : score["parts"]) base["parts"].push_back(std::move(p));
+        base["title"] = "Sketch";
+        score = std::move(base);
+    }
+    const auto id = session_.addNode(std::move(score), fb::NodeKind::Sketch, c.prompt, std::nullopt, seed, now, parent);
+    session_.pin(id);
+    return id;
+}
+
+void Controller::fillFromSketch(const Request& request, nlohmann::json& score) {
+    std::vector<std::string> roles;
+    for (const auto& p : score["parts"]) roles.push_back(p.value("role", ""));
+    for (const auto& p : request.sketchParts)
+        if (std::find(roles.begin(), roles.end(), p.value("role", "")) == roles.end()) score["parts"].push_back(p);
+}
+
+void Controller::dropSketch(Request& request) {
+    if (!request.sketchId) return;
+    session_.unpin(*request.sketchId);
+    session_.removeNode(*request.sketchId);  // keeps it if something was made from it
+    request.sketchId.reset();
 }
 
 fb::Reply Controller::cancel(const std::string& requestId) {
@@ -504,15 +575,22 @@ void Controller::serviceEnded(const std::string& streamId, std::optional<fb::Err
 void Controller::partLanded(Request& request, Stream& stream) {
     auto score = *stream.header;
     score["parts"] = stream.parts;
+    fillFromSketch(request, score);
     if (stream.nodeId) {
         session_.updateNodeScore(*stream.nodeId, std::move(score));
     } else {
-        // Becomes current only if the user is still where the request started.
+        // Becomes current only if the user is still where the request started, or on its sketch.
         const auto* cur = session_.current();
-        const bool stayed = (cur == nullptr && !request.parentId) || (cur != nullptr && request.parentId == cur->id);
+        const bool onSketch = cur != nullptr && request.sketchId == cur->id;
+        const bool stayed = onSketch || (cur == nullptr && !request.parentId) || (cur != nullptr && request.parentId == cur->id);
         stream.nodeId = session_.addNode(std::move(score), request.kind, request.prompt, std::nullopt, stream.seed,
                                          platform_.nowMs(), request.parentId, std::nullopt, stayed);
         session_.pin(*stream.nodeId);
+        // With no idea when the request started, a variation is a root (addNode would put it under the sketch).
+        if (!request.parentId) session_.reparent(*stream.nodeId, std::nullopt);
+        // The first variation to land takes the sketch's place.
+        // The sketch stays (hidden) until the request succeeds, so a failure can go back to it.
+        if (onSketch) request.tookOverSketch = true;
     }
     publishGenerations();
     changed();
@@ -534,7 +612,7 @@ void Controller::finishRequestIfDone(const std::string& requestId) {
     if (it == requests_.end()) return;
     if (!std::all_of(it->streams.begin(), it->streams.end(), [](const Stream& s) { return s.finished; })) return;
 
-    const Request request = std::move(*it);
+    Request request = std::move(*it);
     requests_.erase(it);
     if (request.parentId) session_.unpin(*request.parentId);
     for (const auto& s : request.streams)
@@ -554,6 +632,20 @@ void Controller::finishRequestIfDone(const std::string& requestId) {
             if (!s.message.empty()) session_.addThreadItem({"t-" + s.id, fb::ThreadRole::Assistant, s.message, std::nullopt, now});
         } else if (s.error && !firstError) {
             firstError = s.error;
+        }
+    }
+    // The sketch goes once a variation succeeded, or when the answer was text only. After a failure it stays,
+    // so there is still an idea to play; if a variation had taken over from it, playback goes back to it.
+    if (request.sketchId) {
+        if (!nodeIds.empty() || answered) {
+            const auto* cur = session_.current();
+            if (!nodeIds.empty() && cur != nullptr && cur->id == *request.sketchId) session_.select(nodeIds.front());
+            dropSketch(request);
+        } else {
+            session_.unpin(*request.sketchId);
+            const auto* cur = session_.current();
+            const bool backAtStart = cur == nullptr ? !request.parentId : request.parentId == cur->id;
+            if (request.tookOverSketch && backAtStart) session_.select(*request.sketchId);
         }
     }
     publishGenerations();

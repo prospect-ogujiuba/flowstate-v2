@@ -335,29 +335,17 @@ export class MockPlugin implements Bridge {
     return this.ok();
   }
 
-  private requests = new Map<string, { cancelled: boolean }>();
+  private requests = new Map<string, { cancelled: boolean; ids: string[]; sketchId: string | null; tookOver: boolean }>();
 
   /** A model request: streams parts into a node per variation, as the plugin's client does. */
   private model(kind: Node["kind"], prompt: string | null, count: number, partIds: string[] | null): Reply {
     const requestId = `r${this.seq++}`;
-    const req = { cancelled: false };
+    const req = { cancelled: false, ids: [] as string[], sketchId: null as string | null, tookOver: false };
     this.requests.set(requestId, req);
     const parent = this.s.currentNodeId;
-    const locked = this.s.parts.some((p) => p.locked);
     this.s.generations = [{ requestId, kind, stage: "planning", partsDone: [] }];
     if (prompt !== null) this.s.thread.push({ id: `t-${requestId}`, role: "user", text: prompt, nodeId: null, createdAtMs: Date.now() });
     this.later(() => this.emit({ type: "generationStarted", requestId, kind }), 0);
-
-    if (locked && this.gap("lock")) {
-      // The service answers `keep` with unavailable; the request fails without a node.
-      this.later(() => {
-        if (req.cancelled) return;
-        this.s.generations = [];
-        this.publish();
-        this.emit({ type: "generationFailed", requestId, error: { code: "unavailable", message: "Planning around kept parts or a reference isn't built yet" } });
-      }, this.delay);
-      return this.ok(true, requestId);
-    }
 
     const title = prompt ? prompt.replace(/^(.{0,28}).*$/, "$1").replace(/^\w/, (ch) => ch.toUpperCase()) : "Surprise idea";
     const variations = Array.from({ length: count }, (_, i) => this.seq + i);
@@ -368,6 +356,18 @@ export class MockPlugin implements Bridge {
     const lockedIds = new Set(this.s.parts.filter((p) => p.locked).map((p) => p.partId));
     const keptParts = kind === "initial" ? (this.nodes.get(parent ?? "")?.clip.parts ?? []).filter((p) => lockedIds.has(p.partId)) : [];
     const writing = makers.filter((m) => !lockedIds.has(m(0, 1).partId));
+    // The instant sketch (P1-10) plays at once: every role a locked part doesn't play, until the AI parts land.
+    let sketchId: string | null = null;
+    const sketchParts = kind === "initial"
+      ? writing.map((m) => ({ ...m(this.seq + 50, this.s.context.bars), partId: `sketch-${m(0, 1).role}` }))
+      : [];
+    if (kind === "initial") {
+      sketchId = this.addNode({ kind: "sketch", prompt, title: "Sketch", parts: [...keptParts, ...sketchParts], key: ["A", "minor"], parentId: parent });
+      this.select(sketchId);
+      req.sketchId = sketchId;
+    }
+    const withSketch = (parts: ClipPart[]) =>
+      [...parts, ...sketchParts.filter((p) => !parts.some((q) => q.role === p.role))];
     const ids: (string | null)[] = variations.map(() => null);
     writing.forEach((make, step) => {
       this.later(() => {
@@ -377,10 +377,16 @@ export class MockPlugin implements Bridge {
           const existing = ids[i] ? this.nodes.get(ids[i]!) : undefined;
           if (!existing) {
             const base = kind === "initial" ? keptParts : (this.nodes.get(parent ?? "")?.clip.parts ?? []).filter((p) => p.partId !== part.partId);
-            ids[i] = this.addNode({ kind, prompt, title, parts: [...base, part], key: ["A", "minor"], partIds, parentId: parent });
-            if (i === 0 && this.s.currentNodeId === parent) this.select(ids[i]!);
+            ids[i] = this.addNode({ kind, prompt, title, parts: withSketch([...base, part]), key: ["A", "minor"], partIds, parentId: parent });
+            // The first variation takes the sketch's place; the sketch stays (hidden) until done.
+            if (i === 0 && (this.s.currentNodeId === sketchId || this.s.currentNodeId === parent)) {
+              if (this.s.currentNodeId === sketchId) req.tookOver = true;
+              this.select(ids[i]!);
+            }
+            req.ids = ids.filter((x): x is string => x !== null);
           } else {
-            existing.clip.parts = [...existing.clip.parts.filter((p) => p.partId !== part.partId), part];
+            const ai = [...existing.clip.parts.filter((p) => !p.partId.startsWith("sketch-") && p.partId !== part.partId), part];
+            existing.clip.parts = withSketch(ai);
           }
         });
         this.s.generations = [{ requestId, kind, stage: "streaming", partsDone: writing.slice(0, step + 1).map((m) => m(0, 1).partId) }];
@@ -392,7 +398,11 @@ export class MockPlugin implements Bridge {
     this.later(() => {
       if (req.cancelled) return;
       this.s.generations = [];
+      // Done: the authoritative score, with no sketch parts left in it.
+      for (const id of ids) if (id) this.nodes.get(id)!.clip.parts = this.nodes.get(id)!.clip.parts.filter((p) => !p.partId.startsWith("sketch-"));
       for (const id of ids) if (id) this.s.thread.push({ id: `t-${id}`, role: "assistant", text: this.nodes.get(id)!.node.title, nodeId: id, createdAtMs: Date.now() });
+      // A variation succeeded, so the sketch goes.
+      if (sketchId) this.dropNode(sketchId);
       this.refresh();
       this.emit({ type: "session", session: this.session() });
       this.emit({ type: "generationDone", requestId, nodeIds: ids.filter((x): x is string => x !== null) });
@@ -405,8 +415,18 @@ export class MockPlugin implements Bridge {
     if (!req || !this.s.generations.some((g) => g.requestId === requestId)) return this.error("bad_request", `No running request ${requestId}.`);
     req.cancelled = true;
     this.s.generations = [];
+    // What streamed goes; if a variation had replaced the sketch, playback goes back to it.
+    for (const id of req.ids) this.dropNode(id);
+    if (req.sketchId && this.nodes.has(req.sketchId) && (req.tookOver || this.s.currentNodeId === req.sketchId)) this.select(req.sketchId);
     this.later(() => this.emit({ type: "generationFailed", requestId, error: { code: "cancelled", message: "Cancelled." } }), 0);
     return this.ok();
+  }
+
+  private dropNode(id: string) {
+    this.nodes.delete(id);
+    this.history = this.history.filter((h) => h !== id);
+    this.redoStack = this.redoStack.filter((h) => h !== id);
+    if (this.s.currentNodeId === id) this.s.currentNodeId = this.history.at(-1) ?? null;
   }
 
   /** Recomputes the derived parts of the session: context, lineage view, clip and part states. */

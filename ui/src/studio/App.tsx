@@ -125,6 +125,7 @@ export function App({ bridge }: { bridge: Bridge }) {
               <div class="st-stage">
                 {session.clip ? (
                   <>
+                    <SketchNote session={session} />
                     <Lanes studio={studio} clip={session.clip} parts={session.parts} playhead={playhead} splitDrums={splitDrums} compact={compact} />
                     <Credit session={session} credits={credits} />
                   </>
@@ -179,6 +180,19 @@ export function App({ bridge }: { bridge: Bridge }) {
         </>
       )}
     </div>
+  );
+}
+
+/** Says so when the idea playing is the instant sketch (P1-10), not the AI's. */
+function SketchNote({ session }: { session: Session }) {
+  const node = session.nodes.find((n) => n.id === session.currentNodeId);
+  if (node?.kind !== "sketch") return null;
+  return (
+    <p class="st-sketch" role="status">
+      {session.generations.length > 0
+        ? "Sketch: playing now. The AI's parts replace it as they arrive."
+        : "Sketch: the generation didn't finish, so this rule-based sketch stays. Generate again, or keep it."}
+    </p>
   );
 }
 

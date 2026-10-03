@@ -119,12 +119,23 @@ private:
         fb::NodeKind kind = fb::NodeKind::Initial;
         std::string prompt;
         std::optional<std::string> parentId;  // the current node when it started
+        std::optional<std::string> sketchId;  // the instant sketch playing until the first variation lands (P1-10)
+        nlohmann::json sketchParts = nlohmann::json::array();  // its parts, filling roles not streamed yet
+        bool tookOverSketch = false;  // a variation replaced the playing sketch; a failure goes back to it
         fb::GenerationStage stage = fb::GenerationStage::Planning;
         std::vector<std::string> partsDone;
         std::vector<Stream> streams;
     };
 
     fb::Reply generate(const fb::Generate& command);
+    // Makes and plays the instant sketch for a generate: rule-based parts for every role no locked part plays,
+    // under `parent`. Null when there is nothing to sketch.
+    std::optional<std::string> makeSketch(const fb::Generate& command, const fb::EffectiveContext& ctx, const fb::PlanRequest& plan,
+                                          std::int64_t seed, std::int64_t now, const std::optional<std::string>& parent);
+    // The sketch's parts for roles the streamed score doesn't have yet, so the idea stays whole while it streams.
+    static void fillFromSketch(const Request& request, nlohmann::json& score);
+    // Removes the request's sketch node (a variation took its place, or the answer was text only).
+    void dropSketch(Request& request);
     fb::Reply cancel(const std::string& requestId);
     std::pair<Request*, Stream*> findStream(const std::string& streamId);
     void partLanded(Request& request, Stream& stream);
