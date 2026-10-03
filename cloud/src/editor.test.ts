@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { contentText, createModels, fauxAssistantMessage, fauxProvider, getCurrentSystemPrompt } from "@earendil-works/pi-ai";
 import type { Part, Score } from "@flowstate/schema";
 import { backendFor } from "./backends.ts";
-import { applyPatch, editScore, rulesFor, type EditRequest } from "./editor.ts";
+import { applyPatch, editScore, HISTORY_STEPS, historyTurns, rulesFor, type EditRequest } from "./editor.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 // A valid lofi score from the P1-1 run: parts chords, bass, melody (plays motif sleepy_keys) and drums.
@@ -143,5 +143,63 @@ describe("editScore", () => {
     assert.equal(result.attempts, 2);
     assert.deepEqual(result.validationErrors, []);
     assert.deepEqual(result.score!.parts.find((p) => p.id === "melody"), part("melody"));
+  });
+});
+
+describe("history", () => {
+  const steps = [
+    { kind: "initial" as const, prompt: "rainy lofi", note: "Dusty Rhodes over a lazy groove.", changed: [] },
+    { kind: "edit" as const, prompt: "busier bass in the last two bars", note: "Busier bass in bars 3 and 4.", changed: ["bass"] },
+  ];
+
+  it("reaches the model as earlier turns, oldest first, before the request", async () => {
+    const faux = fauxProvider({ provider: "faux", models: [{ id: "faux-model" }] });
+    const models = createModels();
+    models.setProvider(faux.provider);
+    let seen: { role: string; text: string }[] = [];
+    faux.setResponses([(ctx) => {
+      seen = ctx.messages.filter((m) => m.role !== "system").map((m) => ({
+        role: m.role,
+        text: m.role === "assistant" ? m.content.map((b) => (b.type === "text" ? b.text : "")).join("") : contentText(m.content as never),
+      }));
+      return fauxAssistantMessage(JSON.stringify({ parts: [busierBass()] }));
+    }]);
+    const backend = backendFor({ provider: "faux", model: "faux-model", credential: { kind: "managed" } }, models);
+    await editScore(edit({ prompt: "too much, pull it back a bit", history: steps }), backend, { host });
+    assert.deepEqual(seen.map((m) => m.role), ["user", "assistant", "user", "assistant", "user"]);
+    assert.equal(seen[0]!.text, "New idea: rainy lofi");
+    assert.equal(seen[3]!.text, "Busier bass in bars 3 and 4. [changed: bass (bass)]");
+    assert.match(seen[4]!.text, /^Request: too much, pull it back a bit[\s\S]*this idea's history/);
+  });
+
+  it("is replayed on a backend without an agent loop, and capped at the last steps", async () => {
+    let turns: { role: string; text: string }[] = [];
+    const stub = {
+      name: "stub", provider: "faux", model: "faux-model",
+      complete: async (_s: string, t: { role: "user" | "assistant"; text: string }[]) => {
+        turns = t;
+        return { text: JSON.stringify({ parts: [busierBass()] }), inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, firstTokenMs: null, firstTextMs: null };
+      },
+    };
+    const many = Array.from({ length: 12 }, (_, i) => ({ kind: "edit" as const, prompt: `step ${i}`, note: null, changed: [] }));
+    await editScore(edit({ history: many }), stub, { host });
+    assert.equal(turns.length, HISTORY_STEPS * 2 + 1);
+    assert.equal(turns[0]!.text, "Edit: step 4");
+    assert.equal(turns[1]!.text, "(done)");
+  });
+
+  it("words each kind of step", () => {
+    const turns = historyTurns([
+      { kind: "sketch", prompt: "", note: null, changed: [] },
+      { kind: "vary", prompt: "", note: "A looser melody.", changed: ["melody"] },
+      { kind: "tweak", prompt: "", note: null, changed: [] },
+      { kind: "library", prompt: "R&B jazz chords 01", note: null, changed: [] },
+    ]);
+    assert.deepEqual(turns.filter((t) => t.role === "user").map((t) => t.text), [
+      "An instant sketch from the session's context",
+      "A variation of one part",
+      "Changed by hand in the plugin (tweak)",
+      "Started from a library clip: R&B jazz chords 01",
+    ]);
   });
 });

@@ -1,0 +1,607 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "reasoning": "off"
+  },
+  "bases": "evals/results/p1-18/agent-deepseek-2",
+  "at": "2026-10-03T00:55:49.068Z",
+  "stats": {
+    "cases": 12,
+    "completed": 12,
+    "withHistory": {
+      "valid": 12,
+      "targeted": 10,
+      "precise": 7
+    },
+    "withoutHistory": {
+      "valid": 12,
+      "targeted": 11,
+      "precise": 4
+    }
+  },
+  "results": [
+    {
+      "id": "afro-bring-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "melody"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1534,
+        "changed": [],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [
+          "m1"
+        ],
+        "message": "Widened motif m1 back out with a couple more notes and a turn, filling the once-sparse phrases again."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "drums"
+        ],
+        "targeted": false,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2252,
+        "changed": [
+          "chords",
+          "bass",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Restored a touch of movement: busier guitar skank, a walking bass pickup and a small drum lift in bar 4."
+      },
+      "steps": [
+        "Thinned the melody to a sparse four-note motif, echoing across the four bars with a lift in the back half."
+      ]
+    },
+    {
+      "id": "dnb-halfway-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1408,
+        "changed": [],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Split the difference: kept the bVI major lift but dropped the tritone sub and minor-major twist, landing on a softer chromatic palette."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1392,
+        "changed": [],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Brightened the harmony halfway back toward the previous, lighter version, so the mood lifts without losing the liquid feel."
+      },
+      "steps": [
+        "Darker, more chromatic harmony — tritone subs, a bVI9 and a minor-major colour, plus bass and pad adjusted to match."
+      ]
+    },
+    {
+      "id": "drill-less-slides",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 2836,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Eased back the 808: dropped the off-beat ghost slides and kept one pull into each chord, and simplified the turnaround harmony to one chord per bar."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 3616,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Pulled back the drop: melody drops out for the intro's second half, less busy hats, softer open-hat layer, and fewer 808 pushes."
+      },
+      "steps": [
+        "More sliding 808 movement: added chromatic approach notes and extra pulls into the bass, plus a two-chord turnaround to slide into."
+      ]
+    },
+    {
+      "id": "funk-only-bars-3-4",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 2400,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Moved the clav stabs to bars 3 and 4 only, with bars 1-2 resting and brighter voicing on the back half."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 3277,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Moved all parts and harmony into bars 3-4 so the idea only plays there."
+      },
+      "steps": [
+        "Clav chords made stabbier with tighter, more syncopated 16th hits."
+      ]
+    },
+    {
+      "id": "gospel-bigger",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "pad",
+          "bass",
+          "melody",
+          "counter",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 2,
+        "latencyMs": 9139,
+        "changed": [
+          "chords",
+          "pad",
+          "bass",
+          "melody",
+          "counter",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m2"
+        ],
+        "message": "Opened up the harmony with a chromatic lift and a bigger plagal cadence, thickened the pad, walking bass, organ counter-line and busier kit for section B."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 2,
+        "latencyMs": 7440,
+        "changed": [
+          "chords",
+          "bass",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m2"
+        ],
+        "message": "Fixed the harmony to fit the 8-bar clip (48 beats) while keeping the gospel turnaround and fuller B section."
+      },
+      "steps": [
+        "Swapped the last-bar fill to a tom run so the kit answers the melody's turn."
+      ]
+    },
+    {
+      "id": "house-same-to-chords",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1607,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Raised the chords an octave into a bright, close-voiced upper register and opened up the stabs."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1570,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Chords get the same B-section lift: syncopated off-beat stabs and a pushier rhythm in bars 5-8."
+      },
+      "steps": [
+        "Lifted the Rhodes lead an octave and rewrote both motifs with brighter, higher shapes; raised its register."
+      ]
+    },
+    {
+      "id": "jazz-pickups-to-it",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "melody",
+          "drums"
+        ],
+        "targeted": false,
+        "precise": false,
+        "attempts": 2,
+        "latencyMs": 5107,
+        "changed": [
+          "chords",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m1",
+          "m2",
+          "m3"
+        ],
+        "message": "Added eighth-note pickups to the melody and drums and gave the chords an eighth-note push at phrase ends without overlapping blocks."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 2075,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Added an eighth-note pickup on beat 4 of each bass bar and a chromatic pickup in bar 8 to lead back to the top."
+      },
+      "steps": [
+        "Bass now walks steady quarter notes through the changes, with chromatic thirds spelled as scale tones."
+      ]
+    },
+    {
+      "id": "lofi-bass-pull-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [],
+        "targeted": false,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1521,
+        "changed": [],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Pulled the bass back: simpler two-bar rhythm, drop the snare roll, thin the hats, and ease the melody."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2876,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Thinned the arrangement: sparser chords, simpler bass, melody only in the back half, and a lighter lofi pocket without the fill."
+      },
+      "steps": [
+        "Bass gets busier with syncopated passing tones and a chromatic walk in bars 3–4 under the Fm7/Bb7/Cm7 turn."
+      ]
+    },
+    {
+      "id": "neosoul-even-sparser",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2161,
+        "changed": [
+          "chords",
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Stripped the Rhodes back to one hit per bar and opened up the harmony and bass so everything breathes."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 3664,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m2",
+          "m3"
+        ],
+        "message": "Pushed the melody further with two new motifs, richer harmony in the B section, and denser drum and bass variation for the back half."
+      },
+      "steps": [
+        "Thinned the Rhodes rhythm to sparse two-hit bars so the chords breathe."
+      ]
+    },
+    {
+      "id": "pop-undo-octave",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "melody"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1350,
+        "changed": [
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Reverted the octave-up: the hook now plays in its original register for both halves."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "melody",
+          "chords"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1523,
+        "changed": [
+          "melody",
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Brought the lead back down out of the shrill octave, warmed the piano voicing and added a low melody answer in the last two bars."
+      },
+      "steps": [
+        "Split the melody so the hook repeats an octave up over bars 5-8."
+      ]
+    },
+    {
+      "id": "rock-bass-follow",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1509,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Bass now drives with the kick: eighth-note engine with sixteenth pushes into the B section, locking to the snare-heavy groove."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1622,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Bass now walks with passing tones, fifth pickups and a chromatic approach into each new chord."
+      },
+      "steps": [
+        "Drove the drums harder: accented backbeat snares, a 16th kick push in the B section, and crash hits through the build."
+      ]
+    },
+    {
+      "id": "trap-rolls-keep-last",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2921,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Trimmed the arrangement so the hat-roll section (bars 3-4) is the whole idea, now 2 bars."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2946,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Kept only the second half: bars 3-4 melody variation and the busier trap drum block, with matching 2-bar harmony."
+      },
+      "steps": [
+        "Added 32nd-note hat rolls in the last half-beat of bars 2 and 4 (extra 32-step lane)."
+      ]
+    }
+  ]
+}

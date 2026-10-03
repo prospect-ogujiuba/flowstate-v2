@@ -5,11 +5,14 @@
 // Each case names its base score (a Phase 0 prompt id), the kind, the prompt, the roles it may change ("change";
 // null = every part) and the roles it should change ("expect"). run.json records validity, latency, the first
 // streamed part, and "targeted": every expected role was changed (for a question: answered with text only).
+// A follow-up case has "steps" (edit prompts) instead of "prompt": the earlier steps run in order, each with the
+// history so far, then the last step runs twice from the same score, with that history and without it. run.json
+// records both, and "precise": only the expected roles changed.
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Score } from "@flowstate/schema";
+import type { HistoryStep, Score } from "@flowstate/schema";
 import { backendFor, selectionFromEnv, type Reasoning } from "./backends.ts";
 import { editScore, type EditKind } from "./editor.ts";
 import type { Role } from "./part-stream.ts";
@@ -28,8 +31,9 @@ const has = (name: string) => process.argv.includes(`--${name}`);
 interface EditCase {
   id: string;
   base: string;
-  kind: EditKind;
-  prompt: string;
+  kind?: EditKind;
+  prompt?: string;
+  steps?: string[];
   role?: Role;
   change: Role[] | null;
   expect: Role[];
@@ -61,13 +65,64 @@ interface Result { id: string; kind: EditKind; ok: boolean; [k: string]: unknown
 const results: Result[] = [];
 const queue = cases.filter((c) => !only || only.has(c.id));
 
+// The roles an edit touched, and whether they cover (targeted) and stay within (precise) the expected ones.
+// A harmony change touches the chords (the harmony is what they play); a motif change touches the parts that play it.
+function judge(base: Score, r: Awaited<ReturnType<typeof editScore>>, expect: Role[]) {
+  const all = [...base.parts, ...(r.score?.parts ?? [])];
+  const roleOf = (id: string) => all.find((p) => p.id === id)?.role;
+  const motifPlayers = (r.score?.parts ?? []).filter((p) => p.blocks.some((b) => "motif" in b && r.motifsChanged.includes(b.motif as string)));
+  const touched = [...new Set([
+    ...[...r.changed, ...r.removed].map(roleOf),
+    ...motifPlayers.map((p) => p.role),
+    ...(r.harmonyChanged && all.some((p) => p.role === "chords") ? ["chords" as Role] : []),
+  ])];
+  const targeted = expect.length === 0 ? r.score === null : expect.every((role) => touched.includes(role));
+  const precise = targeted && touched.every((role) => role !== undefined && expect.includes(role));
+  return { touched, targeted, precise };
+}
+
+async function followUp(c: EditCase, base: Score) {
+  const steps = c.steps!;
+  const partIds = (s: Score) => (c.change === null ? null : s.parts.filter((p) => c.change!.includes(p.role)).map((p) => p.id));
+  let score = base;
+  const history: HistoryStep[] = [{ kind: "initial", prompt: "", note: null, changed: [] }];
+  for (const prompt of steps.slice(0, -1)) {
+    const r = await editScore({ kind: "edit", prompt, score, partIds: partIds(score), role: null, history }, backend);
+    if (!r.score || r.validationErrors.length) throw new Error(`step "${prompt}" gave no valid score`);
+    history.push({ kind: "edit", prompt, note: r.message, changed: [...r.changed, ...r.removed] });
+    score = r.score;
+  }
+  const last = steps.at(-1)!;
+  const [withHistory, without] = await Promise.all([
+    editScore({ kind: "edit", prompt: last, score, partIds: partIds(score), role: null, history }, backend),
+    editScore({ kind: "edit", prompt: last, score, partIds: partIds(score), role: null, history: [] }, backend),
+  ]);
+  const side = (r: typeof withHistory) => ({
+    valid: r.validationErrors.length === 0, ...judge(score, r, c.expect), attempts: r.attempts, latencyMs: r.latencyMs,
+    changed: r.changed, removed: r.removed, harmonyChanged: r.harmonyChanged, motifsChanged: r.motifsChanged, message: r.message,
+  });
+  return { history: side(withHistory), noHistory: side(without), steps: history.slice(1).map((h) => h.note) };
+}
+
 async function worker() {
   for (let c = queue.shift(); c; c = queue.shift()) {
     const base: Score = JSON.parse(readFileSync(path.join(bases, `${c.base}.score.json`), "utf8"));
+    if (c.steps) {
+      try {
+        const r = await followUp(c, base);
+        results.push({ id: c.id, kind: "edit", ok: true, followUp: true, ...r });
+        const mark = (s: typeof r.history) => `${s.valid ? "" : "INVALID "}${s.touched.join(",") || "-"}${s.precise ? " ✓" : s.targeted ? " ~" : " ✗"}`;
+        console.log(`ok   ${c.id.padEnd(24)} with history: ${mark(r.history).padEnd(24)} without: ${mark(r.noHistory)}`);
+      } catch (err) {
+        results.push({ id: c.id, kind: "edit", ok: false, followUp: true, error: String(err) });
+        console.log(`FAIL ${c.id.padEnd(24)} ${String(err).slice(0, 200)}`);
+      }
+      continue;
+    }
     const partIds = c.change === null ? null : base.parts.filter((p) => c.change!.includes(p.role)).map((p) => p.id);
     const file = path.join(outDir, c.id);
     try {
-      const r = await editScore({ kind: c.kind, prompt: c.prompt, score: base, partIds, role: c.role ?? null }, backend);
+      const r = await editScore({ kind: c.kind!, prompt: c.prompt!, score: base, partIds, role: c.role ?? null }, backend);
       writeFileSync(`${file}.replies.txt`, r.replies.map((t, i) => `===== attempt ${i + 1} =====\n${t}\n`).join("\n"));
       const roleOf = (id: string) => [...base.parts, ...(r.score?.parts ?? [])].find((p) => p.id === id)?.role;
       const touched = [...r.changed, ...r.removed].map(roleOf);
@@ -78,20 +133,28 @@ async function worker() {
           execFileSync(realizer, ["--in", `${file}.score.json`, "--seed", "1", "--out-mid", `${file}.mid`, "--out-notes", `${file}.notes.json`, "--out-report", `${file}.report.json`]);
       }
       results.push({
-        id: c.id, kind: c.kind, ok: true, valid: r.validationErrors.length === 0, targeted, attempts: r.attempts,
+        id: c.id, kind: c.kind!, ok: true, valid: r.validationErrors.length === 0, targeted, attempts: r.attempts,
         latencyMs: r.latencyMs, firstPartMs: r.firstPartMs, changed: r.changed, removed: r.removed, message: r.message,
         remainingErrors: r.validationErrors, usage: r.usage,
       });
       console.log(`ok   ${c.id.padEnd(24)} ${(r.latencyMs / 1000).toFixed(1)}s  attempts=${r.attempts}  changed=${[...r.changed, ...r.removed].join(",") || "-"}  targeted=${targeted}`);
     } catch (err) {
-      results.push({ id: c.id, kind: c.kind, ok: false, error: String(err) });
+      results.push({ id: c.id, kind: c.kind!, ok: false, error: String(err) });
       console.log(`FAIL ${c.id.padEnd(24)} ${String(err).slice(0, 200)}`);
     }
   }
 }
 
 await Promise.all(Array.from({ length: concurrency }, worker));
-const done = results.filter((r) => r.ok);
+const follow = results.filter((r) => r.ok && r.followUp) as unknown as { history: Record<string, unknown>; noHistory: Record<string, unknown> }[];
+const count = (side: "history" | "noHistory", key: string) => follow.filter((r) => r[side].valid && r[side][key]).length;
+const followStats = follow.length === 0 ? undefined : {
+  cases: results.filter((r) => r.followUp).length,
+  completed: follow.length,
+  withHistory: { valid: follow.filter((r) => r.history.valid).length, targeted: count("history", "targeted"), precise: count("history", "precise") },
+  withoutHistory: { valid: follow.filter((r) => r.noHistory.valid).length, targeted: count("noHistory", "targeted"), precise: count("noHistory", "precise") },
+};
+const done = results.filter((r) => r.ok && !r.followUp);
 const latency = done.map((r) => r.latencyMs as number);
 const firstPart = done.flatMap((r) => (typeof r.firstPartMs === "number" ? [r.firstPartMs] : []));
 const stats = {
@@ -106,8 +169,14 @@ const stats = {
 };
 writeFileSync(path.join(outDir, "run.json"), JSON.stringify({
   backend: { name: backend.name, provider: backend.provider, model: backend.model, reasoning: selection.reasoning ?? "high" },
-  bases: path.relative(repoRoot, bases), at: new Date().toISOString(), stats, results: results.sort((a, b) => a.id.localeCompare(b.id)),
+  bases: path.relative(repoRoot, bases), at: new Date().toISOString(), stats: followStats ?? stats, results: results.sort((a, b) => a.id.localeCompare(b.id)),
 }, null, 2));
 const sec = (ms: number | null) => (ms === null ? "-" : `${(ms / 1000).toFixed(1)}s`);
+if (followStats) {
+  const f = followStats;
+  console.log(`${backend.provider}/${backend.model}: ${f.completed}/${f.cases} follow-ups. With history: valid ${f.withHistory.valid}, targeted ${f.withHistory.targeted}, precise ${f.withHistory.precise}. ` +
+    `Without: valid ${f.withoutHistory.valid}, targeted ${f.withoutHistory.targeted}, precise ${f.withoutHistory.precise}.`);
+  process.exit(0);
+}
 console.log(`${backend.provider}/${backend.model}: valid ${stats.valid}/${stats.cases}, targeted ${stats.targeted}, first attempt ${stats.firstAttempt}, ` +
   `p50 ${sec(stats.latencyP50Ms)}, p95 ${sec(stats.latencyP95Ms)}, first part p50 ${sec(stats.firstPartP50Ms)}`);

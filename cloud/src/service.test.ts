@@ -267,7 +267,7 @@ describe("agent service", () => {
 
   it("refuses edits it can't serve before the stream starts", async () => {
     const { url } = await start({});
-    const edit = { protocol: BRIDGE_ID, kind: "edit", prompt: "busier bass", score, partIds: null, role: null, provider: null };
+    const edit = { protocol: BRIDGE_ID, kind: "edit", prompt: "busier bass", score, partIds: null, role: null, history: [], provider: null };
     const bad = await post(`${url}/v1/edit`, { ...edit, score: null });
     assert.equal(bad.status, 400);
     assert.equal(errorOf(await events(bad)).code, "bad_request");
@@ -281,7 +281,7 @@ describe("agent service", () => {
     bass.velocity = 100;
     const patch = JSON.stringify({ message: "Pushed the bass forward.", parts: [bass] }, null, 2);
     const { url } = await start({ backendFor: fauxBackends(patch).backendFor });
-    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "louder bass", score, partIds: [bass.id], role: null, provider: null });
+    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "louder bass", score, partIds: [bass.id], role: null, history: [], provider: null });
     assert.equal(res.status, 200);
     const evs = await events(res);
     assert.deepEqual(evs.map((e) => e.type), ["header", "partStarted", "partDone", "message", "done"]);
@@ -293,7 +293,7 @@ describe("agent service", () => {
 
   it("answers a question about the score with text and no score", async () => {
     const { url } = await start({ backendFor: fauxBackends(JSON.stringify({ message: "It's in Eb major." })).backendFor });
-    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "what key is this?", score, partIds: null, role: null, provider: null });
+    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "what key is this?", score, partIds: null, role: null, history: [], provider: null });
     const evs = await events(res);
     assert.deepEqual(evs, [{ type: "message", text: "It's in Eb major." }, { type: "done", score: null }]);
   });

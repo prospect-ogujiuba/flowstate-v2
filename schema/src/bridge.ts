@@ -472,6 +472,13 @@ export const PlanRequest = def("PlanRequest", z.object({
 
 export const EditKind = def("EditKind", z.enum(["edit", "vary", "addPart"]));
 
+export const HistoryStep = def("HistoryStep", z.object({
+  kind: NodeKind.describe("How this step's node was made"),
+  prompt: z.string().describe("What the user asked for; empty for a step without words (vary, tweak, touch)"),
+  note: z.string().nullable().describe("The assistant's note on the result, if it left one"),
+  changed: z.array(z.string()).describe("Ids of the parts this step changed, added or removed; empty for a new idea or when unknown"),
+}));
+
 export const EditRequest = def("EditRequest", z.object({
   protocol: z.literal(BRIDGE_ID),
   kind: EditKind.describe("edit: change the score as asked; vary: a variation of the one part in partIds; addPart: one new part of `role`"),
@@ -479,6 +486,7 @@ export const EditRequest = def("EditRequest", z.object({
   score: Score.describe("The current node's score"),
   partIds: z.array(z.string()).nullable().describe("Parts the edit may change; locked parts are excluded. null = every part. vary: exactly one. addPart: empty"),
   role: Role.nullable().describe("addPart: the new part's role; null otherwise"),
+  history: z.array(HistoryStep).describe("The lineage path from the idea's first node to the current one, oldest first; the service reads the last 8"),
   provider: ProviderChoice.nullable(),
 }));
 
@@ -526,6 +534,7 @@ export type Reply = z.infer<typeof Reply>;
 export type PluginEvent = z.infer<typeof PluginEvent>;
 export type PlanRequest = z.infer<typeof PlanRequest>;
 export type EditKind = z.infer<typeof EditKind>;
+export type HistoryStep = z.infer<typeof HistoryStep>;
 export type EditRequest = z.infer<typeof EditRequest>;
 export type ServiceEvent = z.infer<typeof ServiceEvent>;
 export type Health = z.infer<typeof Health>;

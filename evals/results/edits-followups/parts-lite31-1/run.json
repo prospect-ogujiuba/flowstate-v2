@@ -1,0 +1,555 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.1-flash-lite",
+    "reasoning": "off"
+  },
+  "bases": "evals/results/p1-18/agent-deepseek-2",
+  "at": "2026-10-03T00:57:42.533Z",
+  "stats": {
+    "cases": 12,
+    "completed": 11,
+    "withHistory": {
+      "valid": 11,
+      "targeted": 11,
+      "precise": 10
+    },
+    "withoutHistory": {
+      "valid": 11,
+      "targeted": 10,
+      "precise": 3
+    }
+  },
+  "results": [
+    {
+      "id": "afro-bring-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "melody"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 951,
+        "changed": [],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [
+          "m1"
+        ],
+        "message": "Reintroduced melodic movement and syncopation to the Kalimba line."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "melody",
+          "chords"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1332,
+        "changed": [
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m1"
+        ],
+        "message": "Enriched the harmony with color tones and expanded the melody for more character."
+      },
+      "steps": [
+        "Stripped back the melody to a spacious, minimalist motif using only the tonic and fifth degrees."
+      ]
+    },
+    {
+      "id": "dnb-halfway-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1538,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Lightened the progression to return to a more balanced, emotive minor feel."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2041,
+        "changed": [
+          "chords",
+          "bass",
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Shifted harmony to be more major-leaning and less dissonant to lighten the mood while maintaining the liquid DnB flow."
+      },
+      "steps": [
+        "Swapping the bright major/dominant extensions for darker, dissonant minor and augmented voicings."
+      ]
+    },
+    {
+      "id": "drill-less-slides",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1165,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Simplified the 808 bass line and removed the rapid chromatic approaches for a cleaner, more focused low-end pulse."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "bass",
+          "drums",
+          "melody",
+          "chords"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1555,
+        "changed": [
+          "bass",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "hook"
+        ],
+        "message": "Simplified the rhythmic density of the bass and melodic motifs to create more breathing room."
+      },
+      "steps": [
+        "Increased 808 movement with more frequent slides and chromatic approaches for a more aggressive drill bounce."
+      ]
+    },
+    {
+      "id": "funk-only-bars-3-4",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2564,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Stripped the arrangement to feature the funk groove and stabs only in bars 3 and 4."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 2287,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Removed parts from bars 1 and 2, focusing the funk energy entirely on the second half of the clip."
+      },
+      "steps": [
+        "Tightened up the clavinet rhythm to emphasize shorter, funkier stabs throughout."
+      ]
+    },
+    {
+      "id": "gospel-bigger",
+      "kind": "edit",
+      "ok": false,
+      "followUp": true,
+      "error": "Error: step \"put a drum fill into the last bar\" gave no valid score"
+    },
+    {
+      "id": "house-same-to-chords",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1415,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [],
+        "message": "Shifted chord voicing to 'open' to brighten the register and adjusted harmony to include higher-extended voicings."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1110,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "I've updated the organ stabs to a syncopated, off-beat rhythmic pattern to better fit the deep house aesthetic."
+      },
+      "steps": [
+        "Corrected motif syntax to use octave-shifting symbols correctly while keeping the brighter melody."
+      ]
+    },
+    {
+      "id": "jazz-pickups-to-it",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1341,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Added eighth-note pickups to the bassline to give it more forward motion."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "melody"
+        ],
+        "targeted": false,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1963,
+        "changed": [
+          "chords",
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [
+          "m1",
+          "m2"
+        ],
+        "message": "Added eighth-note pickups to the melody motifs and adjusted the rhythm patterns to start on the final eighth note of the preceding bar."
+      },
+      "steps": [
+        "Walking the bass in steady quarter notes over a more active jazz progression."
+      ]
+    },
+    {
+      "id": "lofi-bass-pull-back",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1287,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Simplified the bass rhythm in the last two bars to maintain a cleaner, more relaxed lofi pocket."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1892,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "sleepy"
+        ],
+        "message": "Simplified the bassline, smoothed out the drum rhythm, and moved to a more spacious chord progression."
+      },
+      "steps": [
+        "Increased bass motion in the final bars with more syncopation and a scale-based run."
+      ]
+    },
+    {
+      "id": "neosoul-even-sparser",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "chords"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 2207,
+        "changed": [
+          "chords"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Opened the chord rhythm significantly to provide maximum space for the lead."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1923,
+        "changed": [
+          "chords",
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": true,
+        "motifsChanged": [
+          "m1"
+        ],
+        "message": "Increased harmonic complexity and added rhythmic density to the keys and bass to build energy for the B section."
+      },
+      "steps": [
+        "Increased space in the chord progression by thinning out the rhythm to emphasize the syncopated off-beats."
+      ]
+    },
+    {
+      "id": "pop-undo-octave",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "melody"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 925,
+        "changed": [
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Reverted the melody to the original octave range to remove the shrillness."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "melody"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1324,
+        "changed": [
+          "melody"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "I've replaced the bright lead synth with a warmer piano melody and removed the high-register motif."
+      },
+      "steps": [
+        "I've split the melody into two blocks, raising the second iteration an octave and adding a slight variation to the rhythm to keep it engaging."
+      ]
+    },
+    {
+      "id": "rock-bass-follow",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1225,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Locked the bass rhythm to the driving kick pattern for a tighter, more propulsive feel."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "bass"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 1,
+        "latencyMs": 1144,
+        "changed": [
+          "bass"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Updating the bass rhythm to follow the syncopation of the lead guitar and dynamic power chords."
+      },
+      "steps": [
+        "Increased drum velocity and switched to a denser pattern with constant crashes to drive the energy."
+      ]
+    },
+    {
+      "id": "trap-rolls-keep-last",
+      "kind": "edit",
+      "ok": true,
+      "followUp": true,
+      "history": {
+        "valid": true,
+        "touched": [
+          "drums"
+        ],
+        "targeted": true,
+        "precise": true,
+        "attempts": 2,
+        "latencyMs": 3430,
+        "changed": [
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Corrected the hi-hat roll syntax using 'x' tokens at a higher grid density to represent the roll."
+      },
+      "noHistory": {
+        "valid": true,
+        "touched": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "targeted": true,
+        "precise": false,
+        "attempts": 1,
+        "latencyMs": 1710,
+        "changed": [
+          "chords",
+          "bass",
+          "melody",
+          "drums"
+        ],
+        "removed": [],
+        "harmonyChanged": false,
+        "motifsChanged": [],
+        "message": "Simplified to a single melodic idea and reinforced the trap rhythm."
+      },
+      "steps": [
+        "Added 32nd-note triplet hi-hat rolls to the end of bars 2 and 4."
+      ]
+    }
+  ]
+}

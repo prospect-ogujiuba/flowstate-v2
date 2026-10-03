@@ -74,6 +74,22 @@
         "keys"
       ],
       "role": null,
+      "history": [
+        {
+          "kind": "initial",
+          "prompt": "late night lofi keys",
+          "note": "Dusty Rhodes over a lazy boom-bap groove.",
+          "changed": []
+        },
+        {
+          "kind": "edit",
+          "prompt": "busier bass in bar 4",
+          "note": "Added a pickup run into bar 1.",
+          "changed": [
+            "bass"
+          ]
+        }
+      ],
       "provider": null
     },
     {
@@ -150,6 +166,7 @@
         "keys"
       ],
       "role": null,
+      "history": [],
       "provider": null
     },
     {
@@ -224,6 +241,14 @@
       },
       "partIds": [],
       "role": "pad",
+      "history": [
+        {
+          "kind": "initial",
+          "prompt": "late night lofi keys",
+          "note": "Dusty Rhodes over a lazy boom-bap groove.",
+          "changed": []
+        }
+      ],
       "provider": null
     }
   ],
@@ -304,6 +329,7 @@
           "keys"
         ],
         "role": null,
+        "history": [],
         "provider": null
       },
       "path": "kind"
@@ -382,9 +408,100 @@
         },
         "partIds": [],
         "role": "kazoo",
+        "history": [],
         "provider": null
       },
       "path": "role"
+    },
+    {
+      "why": "unknown node kind in history",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "kind": "edit",
+        "prompt": "busier bass",
+        "score": {
+          "ir": "flowstate.score.v0",
+          "title": "Late bus",
+          "context": {
+            "tempo": 92,
+            "meterNumerator": 4,
+            "meterDenominator": 4,
+            "tonic": "D",
+            "mode": "dorian",
+            "bars": 2,
+            "swing": 0.1,
+            "style": [
+              "lofi"
+            ]
+          },
+          "form": [
+            {
+              "name": "A",
+              "startBar": 1,
+              "bars": 2,
+              "energy": 0.5
+            }
+          ],
+          "harmony": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 4,
+              "symbol": "Dm9"
+            },
+            {
+              "bar": 2,
+              "beat": 1,
+              "beats": 4,
+              "symbol": "G13"
+            }
+          ],
+          "motifs": [],
+          "parts": [
+            {
+              "id": "keys",
+              "role": "chords",
+              "name": "Keys",
+              "low": "C3",
+              "high": "C5",
+              "grid": 4,
+              "velocity": 84,
+              "blocks": [
+                {
+                  "startBar": 1,
+                  "endBar": 2,
+                  "rhythm": "x...x...x...x...",
+                  "voicing": "rootless",
+                  "arpPattern": null,
+                  "motif": null,
+                  "transforms": null,
+                  "repeatEvery": null,
+                  "drums": null,
+                  "fill": null,
+                  "notes": null,
+                  "articulation": "legato"
+                }
+              ]
+            }
+          ]
+        },
+        "partIds": [
+          "keys"
+        ],
+        "role": null,
+        "history": [
+          {
+            "kind": "remix",
+            "prompt": "x",
+            "note": null,
+            "changed": [
+              "bass"
+            ]
+          }
+        ],
+        "provider": null
+      },
+      "path": "history[0].kind"
     }
   ]
 }

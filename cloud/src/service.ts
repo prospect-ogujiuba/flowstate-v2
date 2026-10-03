@@ -204,10 +204,10 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
       const parsed = EditRequest.safeParse(raw);
       if (!parsed.success) throw new FlowstateError("bad_request", `invalid EditRequest: ${zodIssues(parsed.error)}`);
       const body = parsed.data;
-      const edit: EditorRequest = { kind: body.kind, prompt: body.prompt, score: body.score, partIds: body.partIds, role: body.role };
+      const edit: EditorRequest = { kind: body.kind, prompt: body.prompt, score: body.score, partIds: body.partIds, role: body.role, history: body.history };
       rulesFor(edit); // a request that can't be served fails before the stream
       const selection = selectionFor(config, body.provider, key);
-      Object.assign(line, { kind: body.kind, provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
+      Object.assign(line, { kind: body.kind, historySteps: body.history.length, provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
       const backend = config.backendFor(selection);
       job = async (hooks) => {
         const r = await editScore(edit, backend, { signal: abort.signal, ...hooks });

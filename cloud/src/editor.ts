@@ -7,7 +7,8 @@
 // session's and never changes. Every reply is a whole patch against the original score; a bad one gets a repair
 // request with the problems, through the same conversation loop as plans (backends.ts `converse`).
 import { IR_ID, Score, type Part } from "@flowstate/schema";
-import { converse, type Backend, type Completion } from "./backends.ts";
+import type { HistoryStep } from "@flowstate/schema";
+import { converse, type Backend, type Completion, type Turn } from "./backends.ts";
 import type { CapabilityContext } from "./capabilities/api.ts";
 import { createLoadout } from "./capabilities/registry.ts";
 import { FlowstateError } from "./errors.ts";
@@ -25,7 +26,36 @@ export interface EditRequest {
   partIds: string[] | null;
   /** addPart: the new part's role. */
   role: Role | null;
+  /** The lineage path to the current node, oldest first (EditRequest.history). */
+  history?: HistoryStep[];
   tools?: boolean;
+}
+
+/** Steps of an idea's history the model sees: enough for "less than that" or "back toward the first one". */
+export const HISTORY_STEPS = 8;
+
+/**
+ * The lineage path as earlier turns of the conversation: what was asked at each step, and the note on what came
+ * of it. The scores aren't repeated; the current one is in the request.
+ */
+export function historyTurns(steps: HistoryStep[], score?: Score): Turn[] {
+  const name = (id: string) => {
+    const part = score?.parts.find((p) => p.id === id);
+    return part ? `${id} (${part.role})` : `${id} (since removed)`;
+  };
+  return steps.slice(-HISTORY_STEPS).flatMap((step): Turn[] => {
+    const words = step.prompt.trim();
+    const asked =
+      step.kind === "initial" || step.kind === "regenerate" ? `New idea: ${words || "(no words: surprise me)"}`
+      : step.kind === "edit" ? `Edit: ${words || "(no words)"}`
+      : step.kind === "vary" ? `A variation of one part${words ? `: ${words}` : ""}`
+      : step.kind === "sketch" ? "An instant sketch from the session's context"
+      : step.kind === "library" ? `Started from a library clip${words ? `: ${words}` : ""}`
+      : `Changed by hand in the plugin (${step.kind})${words ? `: ${words}` : ""}`;
+    const note = step.note?.trim() || "(done)";
+    const changed = step.changed.length ? ` [changed: ${step.changed.map(name).join(", ")}]` : "";
+    return [{ role: "user", text: asked }, { role: "assistant", text: `${note}${changed}` }];
+  });
 }
 
 export interface EditResult {
@@ -35,6 +65,9 @@ export interface EditResult {
   /** Ids of the parts the edit replaced or added, and of those it removed. */
   changed: string[];
   removed: string[];
+  /** Head changes: the harmony, and the ids of motifs replaced or added. */
+  harmonyChanged: boolean;
+  motifsChanged: string[];
   attempts: number;
   validationErrors: string[];
   usage: { inputTokens: number; outputTokens: number; cacheReadTokens: number };
@@ -146,6 +179,8 @@ interface Applied {
   message: string | null;
   changed: string[];
   removed: string[];
+  harmonyChanged: boolean;
+  motifsChanged: string[];
   errors: string[];
 }
 
@@ -157,6 +192,8 @@ export function applyPatch(text: string, req: EditRequest, rules: Rules): Applie
   const message = typeof patch.message === "string" && patch.message.trim() ? patch.message.trim() : null;
   const head = headFrom(patch, req.score);
   const errors = headErrors(head, req.score, rules);
+  const harmonyChanged = !same(head.harmony, req.score.harmony);
+  const motifsChanged = head.motifs.filter((m) => !same(m, req.score.motifs.find((x) => x.id === m.id))).map((m) => m.id);
 
   const parts = [...req.score.parts];
   const changed: string[] = [];
@@ -198,23 +235,24 @@ export function applyPatch(text: string, req: EditRequest, rules: Rules): Applie
 
   const headChanged = !same(head, headFrom({}, req.score));
   if (!headChanged && changed.length === 0 && removed.length === 0 && errors.length === 0) {
-    if (message && req.kind === "edit") return { score: null, message, changed, removed, errors: [] };
-    return { score: null, message, changed, removed, errors: ["the patch changes nothing: return the changed parts"] };
+    if (message && req.kind === "edit") return { score: null, message, changed, removed, harmonyChanged, motifsChanged, errors: [] };
+    return { score: null, message, changed, removed, harmonyChanged, motifsChanged, errors: ["the patch changes nothing: return the changed parts"] };
   }
   if (parts.length === 0) errors.push("the edit would leave no parts");
 
   const score = Score.safeParse({ ...head, parts });
   if (!score.success) {
     errors.push(...score.error.issues.slice(0, 5).map((i) => `${i.path.join(".") || "(root)"}: ${i.message}`));
-    return { score: null, message, changed, removed, errors };
+    return { score: null, message, changed, removed, harmonyChanged, motifsChanged, errors };
   }
   errors.push(...validateScore(score.data));
-  return { score: score.data, message, changed, removed, errors };
+  return { score: score.data, message, changed, removed, harmonyChanged, motifsChanged, errors };
 }
 
 const PATCH_FORMAT = `<edit_mode>
 When the request gives you a current score to change, reply with a patch, not a whole score: one JSON object with only these keys, in this order, each left out when you don't change it:
 {"message": "<one short sentence on what you changed>", "title": "<new title>", "harmony": <the whole new harmony>, "motifs": [<new or changed motifs, complete>], "remove": ["<part id>"], "parts": [<each changed or new part, complete>]}
+- Change as little as the request needs. A follow-up that points back ("that", "it", "the last one", "the same idea", "even more", "go back") is about what the earlier step changed: the same parts and the same kind of change. Leave everything else out of the patch.
 - A changed part keeps its id and is written whole. A new part gets a new id.
 - Don't repeat what stays the same, and never touch parts the request says are locked.
 - The session fixes key, meter, tempo and length: never write "context".
@@ -251,6 +289,9 @@ function userMessage(req: EditRequest, rules: Rules): string {
     `- harmony: ${rules.harmonyFree ? "you may change it" : "fixed, leave it out"}` +
       (rules.lockedMotifs.size ? `; motifs ${[...rules.lockedMotifs].join(", ")} are fixed` : ""),
     "",
+    ...(req.history?.length
+      ? ["The conversation so far is this idea's history, oldest first. The current score is where it led; read the request against it.", ""]
+      : []),
     "The current score:",
     JSON.stringify(req.score),
     "",
@@ -321,6 +362,7 @@ export async function editScore(req: EditRequest, backend: Backend = defaultBack
         throw new FlowstateError("invalid_score", `edit invalid after ${attempt} attempts: ${applied.errors.slice(0, 5).join("; ")}`);
       result = {
         score: applied.score, message: applied.message, changed: applied.changed, removed: applied.removed,
+        harmonyChanged: applied.harmonyChanged, motifsChanged: applied.motifsChanged,
         attempts: attempt, validationErrors: applied.errors, usage, latencyMs: Date.now() - started,
         ...first, firstPartMs, unplayable, replies, toolCalls,
       };
@@ -357,6 +399,7 @@ export async function editScore(req: EditRequest, backend: Backend = defaultBack
       review: reviewReply,
       ...(options.signal ? { signal: options.signal } : {}),
     },
+    historyTurns(req.history ?? [], req.score),
   );
   if (!result) throw new Error("edit conversation ended without a result");
   return result;

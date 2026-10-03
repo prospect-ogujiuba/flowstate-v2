@@ -3549,6 +3549,41 @@
         "addPart"
       ]
     },
+    "HistoryStep": {
+      "$id": "#/$defs/HistoryStep",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "description": "How this step's node was made",
+          "$ref": "#/$defs/NodeKind"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "What the user asked for; empty for a step without words (vary, tweak, touch)"
+        },
+        "note": {
+          "description": "The assistant's note on the result, if it left one",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "changed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the parts this step changed, added or removed; empty for a new idea or when unknown"
+        }
+      },
+      "required": [
+        "kind",
+        "prompt",
+        "note",
+        "changed"
+      ],
+      "additionalProperties": false
+    },
     "EditRequest": {
       "$id": "#/$defs/EditRequest",
       "type": "object",
@@ -3594,6 +3629,13 @@
           ],
           "description": "addPart: the new part's role; null otherwise"
         },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HistoryStep"
+          },
+          "description": "The lineage path from the idea's first node to the current one, oldest first; the service reads the last 8"
+        },
         "provider": {
           "anyOf": [
             {
@@ -3612,6 +3654,7 @@
         "score",
         "partIds",
         "role",
+        "history",
         "provider"
       ],
       "additionalProperties": false

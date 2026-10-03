@@ -700,12 +700,20 @@ struct PlanRequest {
     std::optional<ProviderChoice> provider;
 };
 
+struct HistoryStep {
+    NodeKind kind = NodeKind::Sketch;
+    std::string prompt;
+    std::optional<std::string> note;
+    std::vector<std::string> changed;
+};
+
 struct EditRequest {
     EditKind kind = EditKind::Edit;
     std::string prompt;
     json score;
     std::optional<std::vector<std::string>> partIds;
     std::optional<Role> role;
+    std::vector<HistoryStep> history;
     std::optional<ProviderChoice> provider;
 };
 
@@ -971,6 +979,8 @@ void to_json(json& j, const Reference& value);
 void from_json(const json& j, Reference& value);
 void to_json(json& j, const PlanRequest& value);
 void from_json(const json& j, PlanRequest& value);
+void to_json(json& j, const HistoryStep& value);
+void from_json(const json& j, HistoryStep& value);
 void to_json(json& j, const EditRequest& value);
 void from_json(const json& j, EditRequest& value);
 void to_json(json& j, const ScoreHeader& value);
@@ -3050,6 +3060,22 @@ inline void from_json(const json& j, PlanRequest& value) {
     detail::read(j, "provider", value.provider);
 }
 
+inline void to_json(json& j, const HistoryStep& value) {
+    j = json::object();
+    j["kind"] = detail::encode(value.kind);
+    j["prompt"] = detail::encode(value.prompt);
+    j["note"] = detail::encode(value.note);
+    j["changed"] = detail::encode(value.changed);
+}
+
+inline void from_json(const json& j, HistoryStep& value) {
+    detail::expectObject(j);
+    detail::read(j, "kind", value.kind);
+    detail::read(j, "prompt", value.prompt);
+    detail::read(j, "note", value.note);
+    detail::read(j, "changed", value.changed);
+}
+
 inline void to_json(json& j, const EditRequest& value) {
     j = json::object();
     j["protocol"] = "flowstate.bridge.v0";
@@ -3058,6 +3084,7 @@ inline void to_json(json& j, const EditRequest& value) {
     j["score"] = detail::encode(value.score);
     j["partIds"] = detail::encode(value.partIds);
     j["role"] = detail::encode(value.role);
+    j["history"] = detail::encode(value.history);
     j["provider"] = detail::encode(value.provider);
 }
 
@@ -3069,6 +3096,7 @@ inline void from_json(const json& j, EditRequest& value) {
     detail::read(j, "score", value.score);
     detail::read(j, "partIds", value.partIds);
     detail::read(j, "role", value.role);
+    detail::read(j, "history", value.history);
     detail::read(j, "provider", value.provider);
 }
 

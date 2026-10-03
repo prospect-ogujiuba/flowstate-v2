@@ -180,6 +180,9 @@ Fields on the requests:
   - `message` is a one-line note on what changed, for the thread.
   - `done` holds the whole edited score, including unchanged and kept parts, without removed parts.
 - A question about the score ("what key is this?") is answered with `message` and `done` with `null`, and makes no node.
+- `EditRequest.history` is the lineage path from the idea's first node to the current one, oldest first. Each step has its node `kind`, the user's `prompt`, the assistant's `note`, and the ids of the parts it `changed`: for an edit, the parts streamed in and the ones removed. The service gives the model the last 8 steps as earlier turns of the conversation, so "less than that", "the same to the chords" or "go back" mean what they meant in the thread.
+  - The history comes from the lineage, so it follows undo, branches and a reopened project. The service keeps no conversation state.
+  - Steps without words (vary, tweak, touch) and text-only answers carry an empty prompt or are left out. The current request is not part of `history`.
 
 Variations: the plugin sends one `PlanRequest` per variation, concurrently.
 
@@ -207,7 +210,6 @@ These come later:
 - Plugin-side agent tools (the service asking the plugin to read context or audition).
 - Account sign-in tokens.
 - Cloud sync by project id.
-- Chat history sent with edits.
 - The cross-instance song hub.
 
 Each is additive, so it can arrive as new commands, events or nullable keys.
