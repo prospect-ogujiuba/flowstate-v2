@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "The progression is Cm – Abmaj7 – Fm7 – G7, one chord per bar in C phrygian."}

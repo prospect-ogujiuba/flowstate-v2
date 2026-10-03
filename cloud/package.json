@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "plan": "tsx src/cli-plan.ts",
+    "edit": "tsx src/cli-edit.ts",
     "serve": "tsx src/serve.ts",
     "test": "tsx --test src/*.test.ts",
     "token": "tsx src/cli-token.ts"

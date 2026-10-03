@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Added a light, syncopated counter-melody part on a muted trumpet to provide a quiet, airy response to the sax line.", "parts": [{"id": "counter", "role": "counter", "name": "Muted Trumpet", "low": "G4", "high": "D6", "grid": 4, "velocity": 50, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": ".... .x-- ..x.", "articulation": "staccato"}, {"startBar": 5, "endBar": 8, "rhythm": "..x. .x-x ....", "articulation": "staccato"}]}]}

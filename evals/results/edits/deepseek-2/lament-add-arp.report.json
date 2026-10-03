@@ -1,0 +1,79 @@
+{
+  "warnings": [
+    "part chords block 1..8 rhythm: bar 2 has 2 steps, expected 12; read as 2 steps per bar",
+    "part drums block 1..8 kick: bar 1 has 6 steps, expected 12; read as 6 steps per bar",
+    "part drums block 1..8 snare: bar 1 has 6 steps, expected 12; read as 6 steps per bar",
+    "part drums block 1..8 shaker: bar 1 has 6 steps, expected 12; read as 6 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 144,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 24,
+        "minPitch": 47,
+        "maxPitch": 69,
+        "rangeLow": 45,
+        "rangeHigh": 69,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 12,
+        "minPitch": 33,
+        "maxPitch": 45,
+        "rangeLow": 33,
+        "rangeHigh": 52,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 32,
+        "minPitch": 72,
+        "maxPitch": 88,
+        "rangeLow": 69,
+        "rangeHigh": 88,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 40,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 24
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "snare",
+            "notes": 8
+          }
+        ]
+      },
+      {
+        "id": "harp",
+        "role": "arp",
+        "notes": 36,
+        "minPitch": 57,
+        "maxPitch": 81,
+        "rangeLow": 57,
+        "rangeHigh": 81,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

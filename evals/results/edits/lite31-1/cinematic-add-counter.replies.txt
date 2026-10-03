@@ -1,0 +1,29 @@
+===== attempt 1 =====
+{
+  "message": "Added a string counter-melody part that weaves through the horn lines using sustained pedal tones and syncopated movement.",
+  "parts": [
+    {
+      "id": "counter_strings",
+      "role": "counter",
+      "name": "Violin Counter",
+      "low": "D4",
+      "high": "A6",
+      "grid": 4,
+      "velocity": 65,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "---- x--- ---- --x- ---- ---- x--- ----",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x--- x-x- x--- x-x- x--- x-x- x--x x---",
+          "articulation": "normal"
+        }
+      ]
+    }
+  ]
+}

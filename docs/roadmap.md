@@ -179,7 +179,7 @@ Done: `cloud/src/service.ts`, run with `npm run serve` (`cloud/README.md`).
 Left for later issues:
 - ~~The plugin's client~~ done 2026-10-02 with P1-7: `generate` sends a `PlanRequest` per variation and turns the stream into nodes, `partReady` and `generationDone` (`docs/bridge-spec.md`, "The plugin's client"). `edit`, `vary` and `addPart` still reply `unavailable`.
 - `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
-- Edits (an IR patch from the model) beyond the skeleton.
+- ~~Edits (an IR patch from the model) beyond the skeleton.~~ Moved to P1-19 (2026-10-03).
 - Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
 - Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).
 - Auth tokens and rate limits: P1-13.
@@ -398,6 +398,30 @@ Acceptance:
 - Every P1-4 contract test still passes, and an eval run on the Phase 0 set shows no validity or latency regression against `evals/results/p1-2/round7`.
 - The lockfile test allows only `pi-ai`, `pi-agent-core` and `pi-telemetry` from Pi.
 - A test proves a capability can't reach the shell or filesystem, and a tool outside the allowlist is refused.
+
+### P1-19 Edits, variations and added parts — `doing` (service done 2026-10-03; the plugin side is next)
+The plugin's `edit`, `vary` and `addPart` go to the model as an `EditRequest` (`docs/bridge-spec.md`). The model returns a patch to the current node's score, and the service applies it and enforces the locks.
+Done (2026-10-03):
+- **Bridge:** `EditRequest.kind` (`edit`, `vary`, `addPart`) and `role` (for `addPart`), with fixtures; the edit stream is documented in the spec.
+- **Service** (`cloud/src/editor.ts`, `POST /v1/edit`): it runs on the planner's conversation loop and the P1-18 agent.
+  - The patch carries a message, title, harmony, motifs, removals and parts. Parts come last, so the changed ones stream as they land.
+  - Locks: only `partIds` change. Harmony changes only when no locked part plays from it, and a motif a locked part plays never changes.
+  - A reply that breaks the rules gets a repair request with the problems. A question gets a text answer.
+  - Tests: `editor.test.ts` (9) and three service contract tests, which replace the skeleton test.
+- **Eval:** `evals/prompts/edits-phase1.json`, 20 cases across the Phase 0 styles: 10 edits (some with locked parts), 5 variations, 4 added parts and 1 question. Run with `npm run -w cloud edit` (results in `evals/results/edits/`).
+  - DeepSeek Flash, thinking off, two runs: 39/40 valid, and every valid edit changed the part it should have. Full edit p50 3.3–3.5 s; 30 of 40 needed no repair.
+  - Gemini 3.1 Flash Lite: 20/20, p50 2.3 s, 19 with no repair.
+  - The repairs are the same IR slips plans make: step counts per bar, and pitch tokens where the IR has none. Two are new to edits, both for P1-3: "darker chords" makes models write flats (`b3`) in bass rhythms in all three runs, and new counter and arp parts put scale degrees in rhythm strings.
+
+Left:
+- The plugin: send `EditRequest`s for `edit`, `vary` and `addPart` (nodes of kind edit and vary), and drop them from `Session.unavailable`. The P1-11 session owns `Controller.cpp` and does this.
+- Conversation threads per idea (P1-18 step 4), so a follow-up edit knows what came before.
+- Blind listening of the edits: does the result do what was asked, and stay musical?
+
+Acceptance:
+- Edit, vary and add-part run from the Studio and make lineage nodes; a locked part never changes.
+- The edit set is ≥ 95% valid with every valid edit changing the asked-for part, at p50 under 5 s on the production route.
+- Owner listening: edits do what was asked in at least 4 of 5 cases.
 
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.

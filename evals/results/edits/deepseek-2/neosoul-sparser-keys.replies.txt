@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Thinned the Rhodes to two sparse hits per bar so it breathes.", "parts": [{"id": "chords", "role": "chords", "name": "Rhodes", "low": "D2", "high": "G5", "grid": 4, "velocity": 72, "blocks": [{"startBar": 1, "endBar": 8, "rhythm": "x--- ---- ..x- ----", "voicing": "rootless"}]}]}

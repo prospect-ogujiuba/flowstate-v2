@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Split the melody into two blocks and lifted the second half up an octave", "parts": [{"id": "melody", "role": "melody", "name": "Lead Synth", "low": "G4", "high": "E6", "grid": 4, "velocity": 88, "blocks": [{"startBar": 1, "endBar": 4, "motif": "hook", "repeatEvery": 8}, {"startBar": 5, "endBar": 8, "motif": "hook", "transforms": ["octave:+1"], "repeatEvery": 8}]}]}

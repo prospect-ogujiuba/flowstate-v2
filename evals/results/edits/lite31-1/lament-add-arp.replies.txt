@@ -1,0 +1,31 @@
+===== attempt 1 =====
+{
+  "message": "Added a gentle Celtic-inspired harp arpeggio part to provide rhythmic movement while leaving the main melody space.",
+  "parts": [
+    {
+      "id": "arp_harp",
+      "role": "arp",
+      "name": "Harp Arpeggio",
+      "low": "C4",
+      "high": "C7",
+      "grid": 3,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x-x-x-x-x-x-x-x-x-",
+          "arpPattern": "up",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "x-x-x-x-x-x-x-x-x-",
+          "arpPattern": "updown",
+          "articulation": "normal"
+        }
+      ]
+    }
+  ]
+}

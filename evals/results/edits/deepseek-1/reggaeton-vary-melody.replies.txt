@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message":"Melody varied: bar 2 answers the motif, bars 3-4 develop it with a retrograde-transposed repeat and a denser octave lift.","parts":[{"id":"melody","role":"melody","name":"Romantic Synth Lead","low":"G4","high":"D6","grid":4,"velocity":85,"blocks":[{"startBar":1,"endBar":2,"motif":"m1","repeatEvery":4,"transforms":["displace:+0.25"]},{"startBar":3,"endBar":4,"motif":"m1","transforms":["invert","transpose:+2","displace:+0.5","octave:+1"],"repeatEvery":2,"articulation":"legato"}]}]}

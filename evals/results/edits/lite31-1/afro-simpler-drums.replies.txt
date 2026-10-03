@@ -1,0 +1,35 @@
+===== attempt 1 =====
+{
+  "message": "Simplified drum patterns by removing the syncopated rim accents, leaving a cleaner pocket while maintaining the afrobeats groove.",
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x... .x.. .... x..."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x. x.x. x.x. x.x."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.x.x.x.x.x.x.x."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

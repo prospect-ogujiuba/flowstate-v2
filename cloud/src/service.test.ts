@@ -265,13 +265,36 @@ describe("agent service", () => {
     assert.match(text, /^: keepalive$/m);
   });
 
-  it("validates edits, then answers unavailable (Phase 1 skeleton)", async () => {
+  it("refuses edits it can't serve before the stream starts", async () => {
     const { url } = await start({});
-    const edit = { protocol: BRIDGE_ID, prompt: "busier bass", score, partIds: null, provider: null };
-    const res = await post(`${url}/v1/edit`, edit);
-    assert.equal(res.status, 503);
-    assert.equal(errorOf(await events(res)).code, "unavailable");
+    const edit = { protocol: BRIDGE_ID, kind: "edit", prompt: "busier bass", score, partIds: null, role: null, provider: null };
     const bad = await post(`${url}/v1/edit`, { ...edit, score: null });
+    assert.equal(bad.status, 400);
     assert.equal(errorOf(await events(bad)).code, "bad_request");
+    const twoParts = await post(`${url}/v1/edit`, { ...edit, kind: "vary", partIds: ["bass", "drums"] });
+    assert.equal(twoParts.status, 400);
+    assert.match(errorOf(await events(twoParts)).message, /exactly one part/);
+  });
+
+  it("streams an edit: the edited head, only the changed parts, the note, then the whole score", async () => {
+    const bass = structuredClone(score.parts.find((p) => p.role === "bass")!);
+    bass.velocity = 100;
+    const patch = JSON.stringify({ message: "Pushed the bass forward.", parts: [bass] }, null, 2);
+    const { url } = await start({ backendFor: fauxBackends(patch).backendFor });
+    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "louder bass", score, partIds: [bass.id], role: null, provider: null });
+    assert.equal(res.status, 200);
+    const evs = await events(res);
+    assert.deepEqual(evs.map((e) => e.type), ["header", "partStarted", "partDone", "message", "done"]);
+    assert.deepEqual((evs[2] as Extract<ServiceEvent, { type: "partDone" }>).part, bass);
+    const done = (evs.at(-1) as Extract<ServiceEvent, { type: "done" }>).score!;
+    assert.deepEqual(done.parts.map((p) => p.id), score.parts.map((p) => p.id));
+    assert.deepEqual(done.parts.filter((p) => p.id !== bass.id), score.parts.filter((p) => p.id !== bass.id));
+  });
+
+  it("answers a question about the score with text and no score", async () => {
+    const { url } = await start({ backendFor: fauxBackends(JSON.stringify({ message: "It's in Eb major." })).backendFor });
+    const res = await post(`${url}/v1/edit`, { protocol: BRIDGE_ID, kind: "edit", prompt: "what key is this?", score, partIds: null, role: null, provider: null });
+    const evs = await events(res);
+    assert.deepEqual(evs, [{ type: "message", text: "It's in Eb major." }, { type: "done", score: null }]);
   });
 });

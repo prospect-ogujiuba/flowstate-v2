@@ -1,0 +1,7 @@
+===== attempt 1 =====
+{
+  "message": "Removed the lead melody to simplify the arrangement and let the pads and sub bass drive the liquid DnB vibe.",
+  "remove": [
+    "melody"
+  ]
+}

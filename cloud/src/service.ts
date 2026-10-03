@@ -10,10 +10,11 @@ import { readFileSync } from "node:fs";
 import http from "node:http";
 import {
   BRIDGE_ID, EditRequest, Health, PlanRequest, ServiceEvent,
-  type ErrorCode, type ProviderChoice, type Score,
+  type ErrorCode, type Part, type ProviderChoice, type Score,
 } from "@flowstate/schema";
 import { Access, DEFAULT_LIMITS, parseTokens, RateLimited } from "./access.ts";
 import { backendFor, selectionFromEnv, type Backend, type ModelSelection } from "./backends.ts";
+import { editScore, rulesFor, type EditRequest as EditorRequest } from "./editor.ts";
 import { errorCode, FlowstateError } from "./errors.ts";
 import type { Role } from "./part-stream.ts";
 import { keptDraft, planScore, type PlanRequest as PlannerRequest } from "./planner.ts";
@@ -190,9 +191,8 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
     finish(code === "cancelled" ? "cancelled" : "error", { code, ...(code === "internal" ? { detail: redact(String(err)).slice(0, 300) } : {}) });
   };
 
-  let body: PlanRequest;
-  let planned: PlannerRequest;
-  let backend: Backend;
+  // What the request runs: a plan or an edit, both streaming the same events.
+  let job: (hooks: JobHooks) => Promise<JobResult>;
   try {
     if (config.access) {
       const tester = config.access.authenticate(req.headers.authorization);
@@ -201,19 +201,33 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
     }
     const raw = await readBody(req);
     if (url === "/v1/edit") {
-      const edit = EditRequest.safeParse(raw);
-      if (!edit.success) throw new FlowstateError("bad_request", `invalid EditRequest: ${zodIssues(edit.error)}`);
-      throw new FlowstateError("unavailable", "Edits aren't built yet");
+      const parsed = EditRequest.safeParse(raw);
+      if (!parsed.success) throw new FlowstateError("bad_request", `invalid EditRequest: ${zodIssues(parsed.error)}`);
+      const body = parsed.data;
+      const edit: EditorRequest = { kind: body.kind, prompt: body.prompt, score: body.score, partIds: body.partIds, role: body.role };
+      rulesFor(edit); // a request that can't be served fails before the stream
+      const selection = selectionFor(config, body.provider, key);
+      Object.assign(line, { kind: body.kind, provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
+      const backend = config.backendFor(selection);
+      job = async (hooks) => {
+        const r = await editScore(edit, backend, { signal: abort.signal, ...hooks });
+        return { ...r, changed: r.changed };
+      };
+    } else {
+      const parsed = PlanRequest.safeParse(raw);
+      if (!parsed.success) throw new FlowstateError("bad_request", `invalid PlanRequest: ${zodIssues(parsed.error)}`);
+      const body = parsed.data;
+      if (body.reference) throw new FlowstateError("unavailable", "Planning around a reference isn't built yet");
+      const planned = plannerRequest(body);
+      keptDraft(planned);
+      const selection = selectionFor(config, body.provider, key);
+      Object.assign(line, { provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
+      const backend = config.backendFor(selection);
+      job = async (hooks) => {
+        const r = await planScore(planned, backend, { signal: abort.signal, ...hooks });
+        return { ...r, message: null, changed: null };
+      };
     }
-    const parsed = PlanRequest.safeParse(raw);
-    if (!parsed.success) throw new FlowstateError("bad_request", `invalid PlanRequest: ${zodIssues(parsed.error)}`);
-    body = parsed.data;
-    if (body.reference) throw new FlowstateError("unavailable", "Planning around a reference isn't built yet");
-    planned = plannerRequest(body);
-    keptDraft(planned);
-    const selection = selectionFor(config, body.provider, key);
-    Object.assign(line, { provider: selection.provider, model: selection.model, promptChars: body.prompt.length });
-    backend = config.backendFor(selection);
   } catch (err) {
     return fail(err);
   }
@@ -224,8 +238,7 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   let headerSent = false;
   let parts = 0;
   try {
-    const result = await planScore(planned, backend, {
-      signal: abort.signal,
+    const result = await job({
       onHead: (score) => {
         if (parts > 0) return;
         headerSent = true;
@@ -240,8 +253,10 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
       },
     });
     if (result.validationErrors.length > 0)
-      throw new FlowstateError("invalid_score", `the plan is still invalid after repairs: ${result.validationErrors.slice(0, 3).join("; ")}`);
-    if (!headerSent) sendWhole(send, result.score);
+      throw new FlowstateError("invalid_score", `the ${url === "/v1/edit" ? "edit" : "plan"} is still invalid after repairs: ${result.validationErrors.slice(0, 3).join("; ")}`);
+    if (result.message) send({ type: "message", text: result.message });
+    // An edit streams only the parts it changed; the rest are the request's. A text-only answer has no score.
+    if (result.score && !headerSent) sendWhole(send, result.score, result.changed);
     send({ type: "done", score: result.score });
     finish("done", { attempts: result.attempts, firstPartMs: line.firstPartMs ?? null, tokensOut: result.usage.outputTokens });
   } catch (err) {
@@ -249,9 +264,26 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
   }
 }
 
-function sendWhole(send: (e: ServiceEvent) => void, score: Score) {
+interface JobHooks {
+  onHead: (score: Score) => void;
+  onPartStarted: (partId: string, role: Role) => void;
+  onPart: (part: Part) => void;
+}
+
+interface JobResult {
+  score: Score | null;
+  message: string | null;
+  /** An edit's changed parts; null for a plan (every part is new). */
+  changed: string[] | null;
+  validationErrors: string[];
+  attempts: number;
+  usage: { outputTokens: number };
+}
+
+function sendWhole(send: (e: ServiceEvent) => void, score: Score, only: string[] | null = null) {
   send({ type: "header", score: { ...score, parts: [] } });
   for (const part of score.parts) {
+    if (only && !only.includes(part.id)) continue;
     send({ type: "partStarted", partId: part.id, role: part.role });
     send({ type: "partDone", part });
   }

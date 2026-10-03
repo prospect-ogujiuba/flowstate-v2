@@ -1,0 +1,40 @@
+===== attempt 1 =====
+{
+  "message": "Increased harmonic spacing by thinning out the rhythmic density of the Rhodes chords and simplifying the bass pattern to lock in with the kick.",
+  "harmony": "Dm9:4 | Cmaj9:4 | Bbmaj7:4 | A7#9:4 | Em7b5:4 | Dm9:4 | Cmaj7:4 | A7#9:4",
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "D2",
+      "high": "G5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "x--- ---- ..x- ----",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger Bass",
+      "low": "D1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "rhythm": "R--- ---- 5--- ----"
+        }
+      ]
+    }
+  ]
+}

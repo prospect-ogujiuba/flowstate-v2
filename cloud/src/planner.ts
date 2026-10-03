@@ -20,7 +20,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const IR_SPEC = readFileSync(path.join(here, "..", "..", "docs", "ir-spec.md"), "utf8");
 
 
-const SYSTEM_PROMPT = `You are Flowstate's composer: a session musician and producer who writes parts for other producers inside their DAW.
+export const SYSTEM_PROMPT = `You are Flowstate's composer: a session musician and producer who writes parts for other producers inside their DAW.
 
 You answer every request with one score in the Flowstate score IR. A deterministic engine performs your score: it voices chords, maps motif degrees to pitches, applies swing and humanization, and enforces key, length and range. You make the musical decisions; the engine makes them sound played.
 
@@ -104,9 +104,9 @@ export interface PlanOptions {
 // No constrained decoding: the IR schema compiles to a grammar larger than the API accepts.
 // The model writes JSON text; strict Zod parsing plus semantic validation drive up to two repair passes,
 // of only the broken parts when the head is sound.
-const MAX_ATTEMPTS = 3;
+export const MAX_ATTEMPTS = 3;
 
-function extractJson(text: string): unknown {
+export function extractJson(text: string): unknown {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   const body = (fenced ? fenced[1]! : text).trim();
   const start = body.indexOf("{");

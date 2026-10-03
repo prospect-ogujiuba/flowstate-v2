@@ -1,0 +1,81 @@
+{
+  "warnings": [
+    "part drums block 5..8 open_hat: bar 1 has 3 steps, expected 9; read as 3 steps per bar",
+    "part drums block 5..8 crash: bar 1 has 3 steps, expected 9; read as 3 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 204,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 64,
+        "minPitch": 48,
+        "maxPitch": 62,
+        "rangeLow": 41,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 20,
+        "minPitch": 29,
+        "maxPitch": 39,
+        "rangeLow": 28,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 33,
+        "minPitch": 69,
+        "maxPitch": 81,
+        "rangeLow": 62,
+        "rangeHigh": 81,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 65,
+        "minPitch": 36,
+        "maxPitch": 51,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "cymbals",
+            "notes": 36
+          },
+          {
+            "sublane": "hats",
+            "notes": 15
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "snare",
+            "notes": 6
+          }
+        ]
+      },
+      {
+        "id": "vibes_counter",
+        "role": "counter",
+        "notes": 22,
+        "minPitch": 69,
+        "maxPitch": 79,
+        "rangeLow": 67,
+        "rangeHigh": 86,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Increased bass activity in the final two bars by adding eighth-note syncopation and a root-octave movement.", "parts": [{"id": "bass", "role": "bass", "name": "Upright", "low": "Eb1", "high": "Bb2", "grid": 4, "velocity": 84, "blocks": [{"startBar": 1, "endBar": 2, "rhythm": "R--- ..5. R-.. ..a."}, {"startBar": 3, "endBar": 4, "rhythm": "R-5- R875 R-a- R5R-"}]}]}

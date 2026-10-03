@@ -1,0 +1,82 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Am7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Fmaj7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"G6\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 135,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 31,
+        "minPitch": 48,
+        "maxPitch": 72,
+        "rangeLow": 48,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 6,
+        "minPitch": 24,
+        "maxPitch": 33,
+        "rangeLow": 24,
+        "rangeHigh": 36,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 16,
+        "minPitch": 64,
+        "maxPitch": 74,
+        "rangeLow": 60,
+        "rangeHigh": 81,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 56,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 24
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 23
+          },
+          {
+            "sublane": "kick",
+            "notes": 7
+          },
+          {
+            "sublane": "snare",
+            "notes": 2
+          }
+        ]
+      },
+      {
+        "id": "pad_air",
+        "role": "pad",
+        "notes": 26,
+        "minPitch": 48,
+        "maxPitch": 67,
+        "rangeLow": 48,
+        "rangeHigh": 67,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

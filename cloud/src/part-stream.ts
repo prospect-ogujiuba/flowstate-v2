@@ -68,6 +68,8 @@ export class PartStream {
        * start isn't always followed by the part.
        */
       onPartStarted?: (partId: string, role: Role) => void;
+      /** Request rules for one valid part (e.g. an edit may change only some parts); errors keep it unplayed. */
+      partCheck?: (part: Part) => string[];
     } = {},
   ) {
     if (options.knownHead) this.head = options.knownHead;
@@ -162,6 +164,8 @@ export class PartStream {
     }
     const checked = checkPart(this.head, value);
     if ("errors" in checked) return void this.unplayable.push({ part: partLabel(value), errors: checked.errors });
+    const refused = this.options.partCheck?.(checked.part) ?? [];
+    if (refused.length > 0) return void this.unplayable.push({ part: checked.part.id, errors: refused });
     this.playable.push(checked.part);
     this.onPart?.(checked.part);
   }

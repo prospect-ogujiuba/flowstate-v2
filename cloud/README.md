@@ -78,7 +78,7 @@ npm run serve
 Routes (contract: `docs/bridge-spec.md`, "Plugin ↔ agent service"):
 - `GET /v1/health`
 - `POST /v1/plan` with a `PlanRequest`: an SSE stream of `header`, `partStarted`/`partDone` per part, then `done` or `error`. Close the connection to cancel; the provider call stops with it.
-- `POST /v1/edit` with an `EditRequest`: validated, then answered `unavailable` (a skeleton in Phase 1).
+- `POST /v1/edit` with an `EditRequest` (`edit`, `vary` or `addPart` on the current score). It streams the edited head, the changed parts only, a one-line `message`, then `done` with the whole edited score. Locked parts never change; a question gets a text answer (`done` with `null`).
 
 Try it with the fixture request:
 
@@ -97,6 +97,15 @@ A hosted service needs a tester token on `/v1/plan` and `/v1/edit` (`Authorizati
 - `npm run -w cloud token -- <tester>` mints a token. It prints the token once, and the line for the tokens file: `<tester> <sha256 of the token>`.
 - The service stores only the hashes.
 - Without a token the answer is `401` and `unauthorized`. Over a limit it is `429` with `Retry-After` and `rate_limited`.
+
+## Edit eval
+
+```sh
+npm run -w cloud edit -- --prompts ../evals/prompts/edits-phase1.json --bases ../evals/results/p1-18/agent-deepseek-2 \
+  --out ../evals/out/edits --provider deepseek --model deepseek-flash --reasoning off
+```
+
+Each case edits one of the base scores. `run.json` records validity, whether the edit changed the parts it should (`targeted`), repairs, and latency (`evals/results/edits/README.md`).
 
 ## Then measure
 

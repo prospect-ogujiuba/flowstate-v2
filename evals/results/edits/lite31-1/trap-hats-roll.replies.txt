@@ -1,0 +1,40 @@
+===== attempt 1 =====
+{
+  "message": "Added 32nd-note trap hi-hat rolls at the end of bars 2 and 4.",
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 95,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            { "voice": "kick", "steps": "x....... ........ x....... ........" },
+            { "voice": "clap", "steps": "........ ........ x....... ........" },
+            { "voice": "closed_hat", "steps": "xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxXX" }
+          ],
+          "groove": "trap",
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ........ x....... ....x..." },
+            { "voice": "clap", "steps": "........ ........ x....... ........" },
+            { "voice": "closed_hat", "steps": "xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx | xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxXX" },
+            { "voice": "open_hat", "steps": "....x... ....x... ....x... ....x..." }
+          ],
+          "groove": "trap",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

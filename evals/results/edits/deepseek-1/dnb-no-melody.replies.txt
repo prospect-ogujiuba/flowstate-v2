@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Dropped the melody part so the chords, bass and break can breathe.", "remove": ["melody"]}

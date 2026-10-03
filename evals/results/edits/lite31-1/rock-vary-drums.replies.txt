@@ -1,0 +1,35 @@
+===== attempt 1 =====
+{
+  "message": "Increased drum energy and complexity by adding consistent open hats and varying the fill pattern in the B section.",
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Rock Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 115,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            { "voice": "open_hat", "steps": ".x.x.x.x .x.x.x.x .x.x.x.x .x.x.x.x" }
+          ],
+          "groove": "rock"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "drums": [
+            { "voice": "crash", "steps": "X... .... X... ...." },
+            { "voice": "open_hat", "steps": "xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx" }
+          ],
+          "groove": "rock",
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

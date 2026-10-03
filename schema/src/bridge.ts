@@ -470,11 +470,15 @@ export const PlanRequest = def("PlanRequest", z.object({
   provider: ProviderChoice.nullable(),
 }));
 
+export const EditKind = def("EditKind", z.enum(["edit", "vary", "addPart"]));
+
 export const EditRequest = def("EditRequest", z.object({
   protocol: z.literal(BRIDGE_ID),
-  prompt: z.string(),
-  score: Score,
-  partIds: z.array(z.string()).nullable().describe("Parts the edit may change; locked parts are excluded"),
+  kind: EditKind.describe("edit: change the score as asked; vary: a variation of the one part in partIds; addPart: one new part of `role`"),
+  prompt: z.string().describe("The user's words; may be empty for vary and addPart"),
+  score: Score.describe("The current node's score"),
+  partIds: z.array(z.string()).nullable().describe("Parts the edit may change; locked parts are excluded. null = every part. vary: exactly one. addPart: empty"),
+  role: Role.nullable().describe("addPart: the new part's role; null otherwise"),
   provider: ProviderChoice.nullable(),
 }));
 
@@ -521,6 +525,7 @@ export type Command = z.infer<typeof Command>;
 export type Reply = z.infer<typeof Reply>;
 export type PluginEvent = z.infer<typeof PluginEvent>;
 export type PlanRequest = z.infer<typeof PlanRequest>;
+export type EditKind = z.infer<typeof EditKind>;
 export type EditRequest = z.infer<typeof EditRequest>;
 export type ServiceEvent = z.infer<typeof ServiceEvent>;
 export type Health = z.infer<typeof Health>;

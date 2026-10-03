@@ -1,0 +1,22 @@
+[
+  { "id": "lofi-busier-bass", "base": "lofi-rainy-study", "kind": "edit", "prompt": "make the bass busier in the last two bars", "change": ["bass", "drums"], "expect": ["bass"] },
+  { "id": "trap-hats-roll", "base": "trap-dark-bells", "kind": "edit", "prompt": "add hi-hat rolls at the end of every second bar", "change": ["drums"], "expect": ["drums"] },
+  { "id": "house-darker-chords", "base": "house-deep-organ", "kind": "edit", "prompt": "darker chords, more minor colour", "change": ["chords", "bass", "melody"], "expect": ["chords"] },
+  { "id": "neosoul-sparser-keys", "base": "neosoul-rhodes-swing", "kind": "edit", "prompt": "leave more space in the chords, fewer hits", "change": null, "expect": ["chords"] },
+  { "id": "pop-higher-melody", "base": "pop-uplifting-chorus", "kind": "edit", "prompt": "lift the melody up an octave in the second half", "change": ["melody"], "expect": ["melody"] },
+  { "id": "drill-sliding-bass", "base": "drill-uk-phrygian", "kind": "edit", "prompt": "more sliding 808 movement", "change": ["bass"], "expect": ["bass"] },
+  { "id": "afro-simpler-drums", "base": "afrobeats-sunny", "kind": "edit", "prompt": "simpler drums, keep the groove", "change": null, "expect": ["drums"] },
+  { "id": "jazz-walking-bass", "base": "jazz-late-night-trio", "kind": "edit", "prompt": "walk the bass in steady quarter notes", "change": ["bass", "drums"], "expect": ["bass"] },
+  { "id": "dnb-no-melody", "base": "dnb-liquid-rolling", "kind": "edit", "prompt": "drop the melody, it's too busy", "change": null, "expect": ["melody"] },
+  { "id": "gospel-fill-end", "base": "gospel-68-sunday", "kind": "edit", "prompt": "put a drum fill into the last bar", "change": ["drums"], "expect": ["drums"] },
+  { "id": "funk-vary-bass", "base": "funk-clav-mixolydian", "kind": "vary", "prompt": "", "change": ["bass"], "expect": ["bass"] },
+  { "id": "rock-vary-drums", "base": "rock-anthem-mixolydian", "kind": "vary", "prompt": "", "change": ["drums"], "expect": ["drums"] },
+  { "id": "ballad-vary-melody", "base": "pop-ballad-waltz", "kind": "vary", "prompt": "a bit more hopeful", "change": ["melody"], "expect": ["melody"] },
+  { "id": "techhouse-vary-chords", "base": "techhouse-minimal", "kind": "vary", "prompt": "", "change": ["chords"], "expect": ["chords"] },
+  { "id": "reggaeton-vary-melody", "base": "reggaeton-dembow", "kind": "vary", "prompt": "", "change": ["melody"], "expect": ["melody"] },
+  { "id": "ambient-add-pad", "base": "ambient-pentatonic-drift", "kind": "addPart", "prompt": "a slow evolving pad", "role": "pad", "change": [], "expect": ["pad"] },
+  { "id": "cinematic-add-counter", "base": "cinematic-rising-horns", "kind": "addPart", "prompt": "a counter-melody in the strings", "role": "counter", "change": [], "expect": ["counter"] },
+  { "id": "lament-add-arp", "base": "cinematic-68-lament", "kind": "addPart", "prompt": "", "role": "arp", "change": [], "expect": ["arp"] },
+  { "id": "jazzwaltz-add-counter", "base": "jazz-waltz-dorian", "kind": "addPart", "prompt": "a quiet answer to the melody", "role": "counter", "change": [], "expect": ["counter"] },
+  { "id": "trapchoir-question", "base": "trap-phrygian-choir", "kind": "edit", "prompt": "what's the chord progression here?", "change": null, "expect": [] }
+]

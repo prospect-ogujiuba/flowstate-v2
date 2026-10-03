@@ -1,0 +1,5 @@
+===== attempt 1 =====
+{"message": "Added a harp arpeggio that picks up in bar 5, answering the drone with a rising figure in the B section.", "parts": [{"id": "harp", "role": "arp", "name": "Harp", "low": "A3", "high": "A5", "grid": 3, "velocity": 68, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "x..-..x..-..", "arpPattern": "up", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "x.-x.-x.-x.-", "arpPattern": "updown", "articulation": "legato"}]}]}
+
+===== attempt 2 =====
+{"message": "Fixed the harp rhythms to the 6/8 grid: 18 steps per bar (grid 3).", "parts": [{"id": "harp", "role": "arp", "name": "Harp", "low": "A3", "high": "A5", "grid": 3, "velocity": 68, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "x..-..x..-..x..-..", "arpPattern": "up", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "x.-x.-x.-x.-x.-x.-", "arpPattern": "updown", "articulation": "legato"}]}]}
