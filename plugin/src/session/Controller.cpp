@@ -90,25 +90,78 @@ const std::vector<fb::FeatureGap>& Controller::featureGaps() {
         {F::EditNotes, "Note edits aren't in core yet."},
         {F::Capture, "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet."},
         {F::Density, "The density knob doesn't change playback until core has the transform."},
-        {F::ApiKey, "Key storage isn't available in this build yet (P1-12)."},
     };
     return gaps;
 }
 
-fb::Session Controller::view() const {
-    auto s = session_.view(platform_.host(), platform_.captureBars());
-    s.unavailable = featureGaps();
-    return s;
+namespace {
+const fb::FeatureGap kNoKeychain{fb::Feature::ApiKey, "This build has no OS keychain to keep your key in."};
+}  // namespace
+
+std::vector<fb::FeatureGap> Controller::gaps() const {
+    auto out = featureGaps();
+    if (platform_.keyStore() == nullptr) out.push_back(kNoKeychain);
+    return out;
 }
 
-namespace {
-const std::string& gapReason(fb::Feature feature) {
-    for (const auto& g : Controller::featureGaps())
+const std::string& Controller::gapReason(fb::Feature feature) const {
+    if (feature == fb::Feature::ApiKey && platform_.keyStore() == nullptr) return kNoKeychain.reason;
+    for (const auto& g : featureGaps())
         if (g.feature == feature) return g.reason;
     static const std::string none;
     return none;
 }
-}  // namespace
+
+fb::Session Controller::view() const {
+    auto s = session_.view(platform_.host(), platform_.captureBars());
+    s.unavailable = gaps();
+    s.settings.byokEnabled = byok_;
+    s.settings.hasKey = s.settings.provider && hasKey(s.settings.provider->provider);
+    return s;
+}
+
+// ---- Keys (P1-12) --------------------------------------------------------------------------------
+
+void Controller::serviceFeatures(const fb::ServiceFeatures& features) {
+    if (features.byok == byok_) return;
+    byok_ = features.byok;
+    if (onChanged) onChanged();
+}
+
+bool Controller::hasKey(const std::string& provider) const {
+    auto* store = platform_.keyStore();
+    if (store == nullptr) return false;
+    const auto it = hasKey_.find(provider);
+    if (it != hasKey_.end()) return it->second;
+    return hasKey_[provider] = store->contains(provider);
+}
+
+std::optional<std::string> Controller::providerKey() const {
+    const auto& provider = session_.provider();
+    auto* store = platform_.keyStore();
+    if (!byok_ || !provider || store == nullptr) return std::nullopt;
+    // The keychain is the authority: another instance may have stored or removed the key.
+    auto key = store->read(provider->provider);
+    hasKey_[provider->provider] = key.has_value();
+    return key;
+}
+
+fb::Reply Controller::setApiKey(const fb::SetApiKey& c) {
+    // Errors never quote the key or the command.
+    auto* store = platform_.keyStore();
+    if (store == nullptr) return fail(fb::ErrorCode::Unavailable, gapReason(fb::Feature::ApiKey));
+    if (!validProviderId(c.provider)) return fail(fb::ErrorCode::BadRequest, "Choose a provider for the key.");
+    if (c.key) {
+        if (!byok_) return fail(fb::ErrorCode::Unavailable, "Using your own key is turned off.");
+        if (!validKey(*c.key))
+            return fail(fb::ErrorCode::BadRequest, "That doesn't look like an API key: it should be one word of letters, digits and symbols.");
+        if (auto e = store->write(c.provider, *c.key)) return fail(fb::ErrorCode::Internal, *e);
+    } else if (auto e = store->remove(c.provider)) {
+        return fail(fb::ErrorCode::Internal, *e);
+    }
+    hasKey_[c.provider] = c.key.has_value();
+    return ok(true);
+}
 
 fb::Reply Controller::ok(bool changed) {
     fb::Reply r;
@@ -130,7 +183,7 @@ fb::Reply Controller::fail(fb::ErrorCode code, std::string message) {
 fb::Reply Controller::handle(const fb::Command& command) {
     const auto unknownNode = [](const std::string& id) { return fail(fb::ErrorCode::UnknownNode, "No node " + id + "."); };
     const auto unknownPart = [](const std::string& id) { return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea."); };
-    const auto unavailable = [](fb::Feature feature) { return fail(fb::ErrorCode::Unavailable, gapReason(feature)); };
+    const auto unavailable = [this](fb::Feature feature) { return fail(fb::ErrorCode::Unavailable, gapReason(feature)); };
 
     // Resolves the node a drag or export is about: an explicit id, or the current node.
     const auto clipFor = [this](const std::optional<std::string>& nodeId, fb::Reply& error,
@@ -151,6 +204,9 @@ fb::Reply Controller::handle(const fb::Command& command) {
     return std::visit(
         Overloaded{
             [&](const fb::Hello&) {
+                // The release flags and the keychain may have changed since the last editor.
+                platform_.checkService();
+                hasKey_.clear();
                 fb::Reply r;
                 r.ok = true;
                 r.session = view();
@@ -222,10 +278,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
                 session_.setProvider(c.provider);
                 return ok(true);
             },
-            [&](const fb::SetApiKey&) {
-                // The key is dropped here: nothing stores or logs it until the keychain lands (P1-12).
-                return unavailable(fb::Feature::ApiKey);
-            },
+            [&](const fb::SetApiKey& c) { return setApiKey(c); },
             [&](const fb::StartDrag& c) {
                 fb::Reply error;
                 MidiMeta meta;
@@ -404,8 +457,9 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     }
 
     // Start every variation; if one can't start, none runs.
+    const auto key = providerKey();
     for (std::size_t i = 0; i < request.streams.size(); ++i) {
-        if (auto e = platform_.startPlan(request.streams[i].id, plan)) {
+        if (auto e = platform_.startPlan(request.streams[i].id, plan, key)) {
             for (std::size_t j = 0; j < i; ++j) platform_.cancelStream(request.streams[j].id);
             return fail(e->code, e->message);
         }
@@ -571,7 +625,7 @@ fb::Reply Controller::startEdit(fb::EditKind kind, const std::string& prompt, st
     stream.id = request.id + ".1";
     stream.seed = cur->seed;  // unchanged parts realize exactly as before
     request.streams.push_back(std::move(stream));
-    if (auto e = platform_.startEdit(request.streams.front().id, edit)) return fail(e->code, e->message);
+    if (auto e = platform_.startEdit(request.streams.front().id, edit, providerKey())) return fail(e->code, e->message);
 
     const auto now = platform_.nowMs();
     session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, threadText, std::nullopt, now});

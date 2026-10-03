@@ -20,6 +20,7 @@ struct NetworkPool {
 
 // The service sends a keepalive comment every 15 s, so this much silence means it is gone.
 constexpr int kIdleTimeoutMs = 45000;
+constexpr int kHealthTimeoutMs = 5000;
 
 fb::ErrorInfo error(fb::ErrorCode code, std::string message) { return fb::ErrorInfo{code, std::move(message)}; }
 
@@ -154,6 +155,51 @@ private:
     juce::String headers_;
 };
 
+// GET /v1/health. Registered in `open` like a stream, so the client's destructor aborts it.
+class HealthJob final : public juce::ThreadPoolJob {
+public:
+    HealthJob(std::shared_ptr<ServiceClient::Shared> shared, std::string id, juce::URL url, ServiceClient::HealthFn done)
+        : juce::ThreadPoolJob("Flowstate health"),
+          shared_(std::move(shared)),
+          id_(std::move(id)),
+          url_(std::move(url)),
+          done_(std::move(done)) {}
+
+    JobStatus runJob() override {
+        std::optional<fb::Health> health;
+        juce::WebInputStream stream(url_, false);
+        stream.withConnectionTimeout(kHealthTimeoutMs);
+        {
+            const std::lock_guard lock(shared_->mutex);
+            if (shared_->cancelled.count(id_) > 0) return jobHasFinished;
+            shared_->open[id_] = &stream;
+        }
+        const bool connected = stream.connect(nullptr) && !stream.isError() && stream.getStatusCode() == 200;
+        if (connected && !shouldExit() && !shared_->isCancelled(id_)) {
+            try {
+                fb::Health h;
+                fb::from_json(nlohmann::json::parse(stream.readEntireStreamAsString().toStdString()), h);
+                health = std::move(h);
+            } catch (const std::exception&) {
+                // An older or unknown service: its flags stay off.
+            }
+        }
+        {
+            const std::lock_guard lock(shared_->mutex);
+            shared_->open.erase(id_);
+            shared_->cancelled.erase(id_);
+        }
+        ServiceClient::Shared::post(shared_, [done = std::move(done_), health](ServiceClient::Shared&) { done(health); });
+        return jobHasFinished;
+    }
+
+private:
+    std::shared_ptr<ServiceClient::Shared> shared_;
+    std::string id_;
+    juce::URL url_;
+    ServiceClient::HealthFn done_;
+};
+
 }  // namespace
 
 ServiceClient::ServiceClient(std::string instanceId, EventFn onEvent, EndFn onEnd)
@@ -192,27 +238,39 @@ ServiceSettings ServiceClient::settings() {
                                   file);
 }
 
-std::optional<fb::ErrorInfo> ServiceClient::startPlan(const std::string& streamId, const fb::PlanRequest& request) {
+std::optional<fb::ErrorInfo> ServiceClient::startPlan(const std::string& streamId, const fb::PlanRequest& request,
+                                                     const std::optional<std::string>& providerKey) {
     nlohmann::json body;
     fb::to_json(body, request);
-    return start(streamId, "/v1/plan", body.dump());
+    return start(streamId, "/v1/plan", body.dump(), providerKey);
 }
 
-std::optional<fb::ErrorInfo> ServiceClient::startEdit(const std::string& streamId, const fb::EditRequest& request) {
+std::optional<fb::ErrorInfo> ServiceClient::startEdit(const std::string& streamId, const fb::EditRequest& request,
+                                                     const std::optional<std::string>& providerKey) {
     nlohmann::json body;
     fb::to_json(body, request);
-    return start(streamId, "/v1/edit", body.dump());
+    return start(streamId, "/v1/edit", body.dump(), providerKey);
 }
 
-std::optional<fb::ErrorInfo> ServiceClient::start(const std::string& streamId, const char* path, const std::string& text) {
+void ServiceClient::checkHealth(HealthFn done) {
+    const auto id = "health." + std::to_string(++healthChecks_);
+    pool_->shared->pool.addJob(new HealthJob(shared_, id, juce::URL(juce::String(settings().url) + "/v1/health"), std::move(done)), true);
+}
+
+std::optional<fb::ErrorInfo> ServiceClient::start(const std::string& streamId, const char* path, const std::string& text,
+                                                  const std::optional<std::string>& providerKey) {
     const auto service = settings();
+    // Like the tester token, a key never crosses the network in the clear.
+    if (providerKey && !tokenAllowedFor(service.url))
+        return error(fb::ErrorCode::Unavailable, "Your key is only sent to an https service. Check the service address.");
     const auto url = juce::URL(juce::String(service.url) + path).withPOSTData(juce::MemoryBlock(text.data(), text.size()));
-    // The request id joins the plugin's and the service's logs. A BYOK key would go in
-    // x-flowstate-provider-key, read from the keychain here (P1-12), never from the session.
-    // The tester token (hosted service, P1-13) is read here per request and never stored or logged.
+    // The request id joins the plugin's and the service's logs. The tester token (hosted service,
+    // P1-13) is read here per request, and the BYOK key comes from the keychain for this request
+    // (P1-12); neither is stored or logged.
     auto headers = juce::String("Content-Type: application/json\r\nAccept: text/event-stream\r\n") +
                    "x-flowstate-request-id: " + juce::String(instanceId_.substr(0, 8)) + "-" + juce::String(streamId);
     if (!service.token.empty()) headers << "\r\nAuthorization: Bearer " << juce::String(service.token);
+    if (providerKey) headers << "\r\nx-flowstate-provider-key: " << juce::String(*providerKey);
     {
         const std::lock_guard lock(shared_->mutex);
         shared_->cancelled.erase(streamId);

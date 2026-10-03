@@ -509,10 +509,15 @@ export const ServiceEvent = def("ServiceEvent", z.discriminatedUnion("type", [
   ScoreHeader, PartStarted, PartDone, AssistantMessage, ScoreDone, ServiceError,
 ]));
 
+export const ServiceFeatures = def("ServiceFeatures", z.object({
+  byok: z.boolean().describe("Bring-your-own-key is on: the plugin shows the key field and sends a stored key"),
+}).describe("The service's release flags (docs/roadmap.md), which the plugin mirrors"));
+
 export const Health = def("Health", z.object({
   protocol: z.literal(BRIDGE_ID),
   version: z.string(),
   ok: z.boolean(),
+  features: ServiceFeatures,
 }));
 
 // Top-level message types; fixtures in schema/fixtures/bridge name one of these.

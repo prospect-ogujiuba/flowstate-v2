@@ -744,9 +744,14 @@ struct ServiceError {
 
 using ServiceEvent = std::variant<ScoreHeader, PartStarted, PartDone, AssistantMessage, ScoreDone, ServiceError>;
 
+struct ServiceFeatures {
+    bool byok = false;
+};
+
 struct Health {
     std::string version;
     bool ok = false;
+    ServiceFeatures features;
 };
 
 const char* toString(Role value);
@@ -1001,6 +1006,8 @@ void to_json(json& j, const U& value);
 template <typename U>
     requires std::is_same_v<U, ServiceEvent>
 void from_json(const json& j, U& value);
+void to_json(json& j, const ServiceFeatures& value);
+void from_json(const json& j, ServiceFeatures& value);
 void to_json(json& j, const Health& value);
 void from_json(const json& j, Health& value);
 
@@ -3223,11 +3230,22 @@ void from_json(const json& j, U& value) {
     throw ParseError("type", "unknown value '" + tag + "'");
 }
 
+inline void to_json(json& j, const ServiceFeatures& value) {
+    j = json::object();
+    j["byok"] = detail::encode(value.byok);
+}
+
+inline void from_json(const json& j, ServiceFeatures& value) {
+    detail::expectObject(j);
+    detail::read(j, "byok", value.byok);
+}
+
 inline void to_json(json& j, const Health& value) {
     j = json::object();
     j["protocol"] = "flowstate.bridge.v0";
     j["version"] = detail::encode(value.version);
     j["ok"] = detail::encode(value.ok);
+    j["features"] = detail::encode(value.features);
 }
 
 inline void from_json(const json& j, Health& value) {
@@ -3235,6 +3253,7 @@ inline void from_json(const json& j, Health& value) {
     detail::expectLiteral(j, "protocol", "flowstate.bridge.v0");
     detail::read(j, "version", value.version);
     detail::read(j, "ok", value.ok);
+    detail::read(j, "features", value.features);
 }
 
 }  // namespace flowstate::bridge

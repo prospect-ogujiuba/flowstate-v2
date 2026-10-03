@@ -98,7 +98,7 @@ export function createService(config: ServiceConfig): http.Server {
 async function route(config: ServiceConfig, req: http.IncomingMessage, res: http.ServerResponse) {
   const url = (req.url ?? "/").split("?")[0];
   if (req.method === "GET" && url === "/v1/health") {
-    const health: Health = { protocol: BRIDGE_ID, version: config.version, ok: true };
+    const health: Health = { protocol: BRIDGE_ID, version: config.version, ok: true, features: config.features };
     return json(res, 200, Health.parse(health));
   }
   if (req.method === "POST" && (url === "/v1/plan" || url === "/v1/edit")) return stream(config, url, req, res);

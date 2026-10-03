@@ -371,7 +371,8 @@ fb::Session Session::view(const HostSnapshot& host, int captureBars) const {
     s.audition = audition_;
     s.midiOut = midiOut_;
     s.settings.provider = provider_;
-    s.settings.byokEnabled = false;  // P1-12 wires the release flag
+    // The controller fills in the release flag and the keychain's answer (P1-12).
+    s.settings.byokEnabled = false;
     s.settings.hasKey = false;
     s.settings.previewSynth = previewSynth_;
     s.settings.buildId = buildId_;

@@ -65,6 +65,7 @@ add_library(flowstate_session STATIC
     src/session/Audition.cpp
     src/session/Capture.cpp
     src/session/Controller.cpp
+    src/session/KeyStore.cpp
     src/session/Library.cpp
     src/session/PluginState.cpp
     src/session/Session.cpp

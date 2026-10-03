@@ -3,7 +3,18 @@
     {
       "protocol": "flowstate.bridge.v0",
       "version": "0.1.0",
-      "ok": true
+      "ok": true,
+      "features": {
+        "byok": true
+      }
+    },
+    {
+      "protocol": "flowstate.bridge.v0",
+      "version": "0.1.0",
+      "ok": true,
+      "features": {
+        "byok": false
+      }
     }
   ],
   "invalid": [
@@ -11,9 +22,22 @@
       "why": "missing key",
       "value": {
         "protocol": "flowstate.bridge.v0",
-        "version": "0.1.0"
+        "version": "0.1.0",
+        "features": {
+          "byok": true
+        }
       },
       "path": "ok"
+    },
+    {
+      "why": "missing flag",
+      "value": {
+        "protocol": "flowstate.bridge.v0",
+        "version": "0.1.0",
+        "ok": true,
+        "features": {}
+      },
+      "path": "features.byok"
     }
   ]
 }

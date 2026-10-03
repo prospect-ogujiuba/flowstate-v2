@@ -43,6 +43,8 @@ export function SettingsSheet({ open, section, studio, session, onClose }: {
   const saved = s.provider ? `${s.provider.provider}/${s.provider.model}` : "";
   const dirty = (chosen ? `${chosen.provider}/${chosen.model}` : "") !== saved;
   const keyGap = gap("apiKey");
+  // hasKey is about the session's provider; the picker may show another one.
+  const keyStored = s.hasKey && provider === s.provider?.provider;
   const u = s.usage;
 
   return (
@@ -63,14 +65,14 @@ export function SettingsSheet({ open, section, studio, session, onClose }: {
                 <SecretField
                   label="Your API key"
                   value={key}
-                  placeholder={s.hasKey ? "A key is stored for this provider" : "Stored in your OS keychain, never in the project"}
+                  placeholder={keyStored ? "A key is stored for this provider" : "Stored in your OS keychain, never in the project"}
                   hint={provider ? `For ${PROVIDERS.find((p) => p.value === provider)?.label ?? provider}. Flowstate never shows it again.` : "Choose a provider first; the managed default needs no key."}
                   onInput={setKey}
                 />
                 <div class="st-row">
                   <Button size="sm" disabled={!keyGap && (!provider || !key.trim())} unavailable={keyGap}
                     onClick={() => { void send({ type: "setApiKey", provider, key: key.trim() }); setKey(""); }}>Save key</Button>
-                  {s.hasKey && <Button size="sm" variant="ghost" unavailable={keyGap} onClick={() => void send({ type: "setApiKey", provider, key: null })}>Remove key</Button>}
+                  {keyStored && <Button size="sm" variant="ghost" unavailable={keyGap} onClick={() => void send({ type: "setApiKey", provider, key: null })}>Remove key</Button>}
                 </div>
               </>
             )}

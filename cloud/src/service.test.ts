@@ -84,7 +84,13 @@ describe("agent service", () => {
     const { url } = await start({});
     const res = await fetch(`${url}/v1/health`);
     assert.equal(res.status, 200);
-    assert.deepEqual(Health.parse(await res.json()), { protocol: BRIDGE_ID, version: "test", ok: true });
+    assert.deepEqual(Health.parse(await res.json()), { protocol: BRIDGE_ID, version: "test", ok: true, features: { byok: true } });
+  });
+
+  it("reports the byok release flag in health, so the plugin can mirror it", async () => {
+    const { url } = await start({ features: { byok: false } });
+    const res = await fetch(`${url}/v1/health`);
+    assert.deepEqual(Health.parse(await res.json()).features, { byok: false });
   });
 
   it("streams a plan: header first, each part started then done, then the full score", async () => {

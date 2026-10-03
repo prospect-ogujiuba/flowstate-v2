@@ -4,6 +4,7 @@
 #pragma once
 
 #include "session/Audition.h"
+#include "session/KeyStore.h"
 #include "session/Library.h"
 #include "session/Session.h"
 
@@ -45,21 +46,31 @@ public:
     // The agent service (docs/bridge-spec.md, "Plugin ↔ agent service"). startPlan sends one
     // PlanRequest and streams its events back on the message thread, through
     // Controller::serviceEvent and then Controller::serviceEnded. `streamId` is the plugin's id for
-    // that one stream. Returns an error if the request can't be sent at all. Without a service,
-    // generating answers `unavailable`.
-    virtual std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) {
+    // that one stream. `providerKey` is the user's key for the request's provider (BYOK, P1-12),
+    // sent in x-flowstate-provider-key and kept nowhere else. Returns an error if the request can't
+    // be sent at all. Without a service, generating answers `unavailable`.
+    virtual std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request,
+                                                   const std::optional<std::string>& providerKey) {
         (void)streamId;
         (void)request;
+        (void)providerKey;
         return fb::ErrorInfo{fb::ErrorCode::Unavailable, "This build has no agent service."};
     }
     // The same for an EditRequest (edit, vary, addPart), streamed from /v1/edit.
-    virtual std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) {
+    virtual std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request,
+                                                   const std::optional<std::string>& providerKey) {
         (void)streamId;
         (void)request;
+        (void)providerKey;
         return fb::ErrorInfo{fb::ErrorCode::Unavailable, "This build has no agent service."};
     }
     // Aborts the HTTP request; the service stops the provider stream. Nothing more is reported for it.
     virtual void cancelStream(const std::string& streamId) { (void)streamId; }
+    // Asks the service for its health and release flags (GET /v1/health); the answer comes back
+    // on the message thread through Controller::serviceFeatures. Called when the editor says hello.
+    virtual void checkService() {}
+    // The OS keychain for BYOK keys (P1-12). Null when this build has none (Linux dev builds).
+    virtual KeyStore* keyStore() { return nullptr; }
 };
 
 class Controller {
@@ -77,6 +88,9 @@ public:
     // closed normally; closing before `done` or `error` is a `network` failure.
     void serviceEvent(const std::string& streamId, const fb::ServiceEvent& event);
     void serviceEnded(const std::string& streamId, std::optional<fb::ErrorInfo> error);
+    // The service's release flags, from its health (Platform::checkService). Until it answers, BYOK
+    // is off: the key field stays hidden and no key is sent.
+    void serviceFeatures(const fb::ServiceFeatures& features);
     // Cancels every running request (the processor is going away).
     void cancelAll();
     bool generating() const { return !requests_.empty(); }
@@ -91,6 +105,8 @@ public:
     // Features this build answers `unavailable` (or accepts without effect), with the reason the
     // UI shows. The same reasons come back when such a command is sent anyway.
     static const std::vector<fb::FeatureGap>& featureGaps();
+    // The same, plus `apiKey` when the platform has no keychain.
+    std::vector<fb::FeatureGap> gaps() const;
 
     // What this instance plays, and how: a catalog entry while one previews, else the audition
     // node (null = the current node), filtered by the loop range, mute and solo, and the MIDI-out
@@ -139,6 +155,12 @@ private:
     };
 
     fb::Reply generate(const fb::Generate& command);
+    // Stores or removes a BYOK key in the keychain (P1-12). The key is never kept or echoed.
+    fb::Reply setApiKey(const fb::SetApiKey& command);
+    // The stored key for the session's provider, when BYOK is on; read once per request.
+    std::optional<std::string> providerKey() const;
+    bool hasKey(const std::string& provider) const;
+    const std::string& gapReason(fb::Feature feature) const;
     // edit, vary and addPart: one EditRequest for the current node (docs/bridge-spec.md, P1-19).
     fb::Reply startEdit(fb::EditKind kind, const std::string& prompt, std::optional<std::vector<std::string>> partIds,
                         std::optional<fb::Role> role, const std::string& threadText);
@@ -167,6 +189,8 @@ private:
     std::uint64_t nextRequestNumber_ = 1;
     std::optional<Library> library_;
     std::string libraryError_;
+    bool byok_ = false;  // the service's `byok` flag (serviceFeatures)
+    mutable std::map<std::string, bool> hasKey_;  // keychain presence by provider, so view() doesn't ask each time
 };
 
 }  // namespace flowstate::plugin

@@ -98,6 +98,18 @@ configure_file(src/BuildId.cpp.in "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId
 set(_build_id_source "${CMAKE_CURRENT_BINARY_DIR}/generated/BuildId.cpp")
 set(_plugin_sources src/MidiFiles.cpp src/MidiFiles.h src/PluginProcessor.cpp src/PluginProcessor.h
     src/PreviewSynth.h src/ServiceClient.cpp src/ServiceClient.h src/BuildId.h "${_build_id_source}")
+# The OS keychain for BYOK keys (P1-12); Linux builds have none.
+if(APPLE)
+    set(_keystore_source src/OsKeyStore_mac.cpp)
+    set(_keystore_libs "-framework Security" "-framework CoreFoundation")
+elseif(WIN32)
+    set(_keystore_source src/OsKeyStore_windows.cpp)
+    set(_keystore_libs Advapi32)
+else()
+    set(_keystore_source src/OsKeyStore_none.cpp)
+    set(_keystore_libs "")
+endif()
+list(APPEND _plugin_sources src/OsKeyStore.h ${_keystore_source})
 if(FLOWSTATE_PLUGIN_HEADLESS)
     list(APPEND _plugin_sources src/HeadlessEditor.cpp)
 else()
@@ -132,6 +144,7 @@ function(flowstate_configure_plugin target)
             FlowstateLibrary
             juce::juce_audio_utils
             juce::juce_gui_extra
+            ${_keystore_libs}
         PUBLIC
             juce::juce_recommended_config_flags)
     if(FLOWSTATE_PLUGIN_LTO)
@@ -197,7 +210,7 @@ endif()
 juce_add_console_app(flowstate_plugin_tests PRODUCT_NAME "Flowstate Plugin Tests")
 target_sources(flowstate_plugin_tests PRIVATE
     tests/processor_test.cpp src/PluginProcessor.cpp src/MidiFiles.cpp src/ServiceClient.cpp src/HeadlessEditor.cpp
-    "${_build_id_source}")
+    ${_keystore_source} "${_build_id_source}")
 target_include_directories(flowstate_plugin_tests PRIVATE src)
 target_include_directories(flowstate_plugin_tests SYSTEM PRIVATE ${doctest_SOURCE_DIR})
 target_compile_definitions(flowstate_plugin_tests PRIVATE
@@ -212,6 +225,7 @@ target_compile_definitions(flowstate_plugin_tests PRIVATE
 target_link_libraries(flowstate_plugin_tests PRIVATE
     flowstate_session
     FlowstateLibrary
+    ${_keystore_libs}
     juce::juce_audio_utils
     juce::juce_recommended_config_flags)
 flowstate_plugin_warnings(flowstate_plugin_tests)

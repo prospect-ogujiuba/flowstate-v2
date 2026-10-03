@@ -3,6 +3,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest/doctest.h>
 
+#include "OsKeyStore.h"
 #include "PluginProcessor.h"
 
 #include <juce_events/juce_events.h>
@@ -10,6 +11,7 @@
 #include <atomic>
 #include <cstdlib>
 #include <fstream>
+#include <map>
 #include <mutex>
 #include <set>
 #include <sstream>
@@ -213,31 +215,43 @@ public:
         return request_;
     }
     bool clientHungUp() const { return hungUp_; }
+    // GET /v1/health answers with this `byok` flag, and doesn't count as the one streamed request.
+    std::atomic<bool> byok{true};
+    std::atomic<int> healthChecks{0};
 
 private:
     void serve() {
-        std::unique_ptr<juce::StreamingSocket> client(listener_.waitForNextConnection());
-        if (client == nullptr) return;
+        std::unique_ptr<juce::StreamingSocket> client;
         std::string text;
         char buffer[4096];
+        const auto send = [&](const std::string& data) { return client->write(data.data(), static_cast<int>(data.size())) == static_cast<int>(data.size()); };
         while (true) {
-            const auto headerEnd = text.find("\r\n\r\n");
-            if (headerEnd != std::string::npos) {
-                const auto lengthAt = juce::String(text.substr(0, headerEnd)).toLowerCase().indexOf("content-length:");
-                const auto length = lengthAt < 0 ? 0 : juce::String(text.substr(static_cast<size_t>(lengthAt) + 15)).getIntValue();
-                if (text.size() >= headerEnd + 4 + static_cast<size_t>(length)) break;
+            client.reset(listener_.waitForNextConnection());
+            if (client == nullptr) return;
+            text.clear();
+            while (true) {
+                const auto headerEnd = text.find("\r\n\r\n");
+                if (headerEnd != std::string::npos) {
+                    const auto lengthAt = juce::String(text.substr(0, headerEnd)).toLowerCase().indexOf("content-length:");
+                    const auto length = lengthAt < 0 ? 0 : juce::String(text.substr(static_cast<size_t>(lengthAt) + 15)).getIntValue();
+                    if (text.size() >= headerEnd + 4 + static_cast<size_t>(length)) break;
+                }
+                // A non-blocking read returns at once when nothing has arrived yet, so wait first.
+                if (client->waitUntilReady(true, 5000) != 1) return;
+                const int n = client->read(buffer, sizeof buffer, false);
+                if (n <= 0) return;
+                text.append(buffer, static_cast<size_t>(n));
             }
-            // A non-blocking read returns at once when nothing has arrived yet, so wait first.
-            if (client->waitUntilReady(true, 5000) != 1) return;
-            const int n = client->read(buffer, sizeof buffer, false);
-            if (n <= 0) return;
-            text.append(buffer, static_cast<size_t>(n));
+            if (text.rfind("GET /v1/health", 0) != 0) break;
+            const auto body = json{{"protocol", "flowstate.bridge.v0"}, {"version", "test"}, {"ok", true}, {"features", {{"byok", byok.load()}}}}.dump();
+            send("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: " + std::to_string(body.size()) +
+                 "\r\nConnection: close\r\n\r\n" + body);
+            ++healthChecks;
         }
         {
             const std::lock_guard lock(mutex_);
             request_ = text;
         }
-        const auto send = [&](const std::string& data) { return client->write(data.data(), static_cast<int>(data.size())) == static_cast<int>(data.size()); };
         const auto chunk = [&](const std::string& data) {
             std::ostringstream hex;
             hex << std::hex << data.size();
@@ -447,6 +461,97 @@ TEST_CASE("service: an error event, and a service that isn't there") {
         REQUIRE(events.size() == 2);
         CHECK(events[1]["error"]["code"] == "unavailable");
     }
+}
+
+// The OS keychain, in memory.
+struct MemoryKeyStore final : KeyStore {
+    std::map<std::string, std::string> keys;
+    std::optional<std::string> write(const std::string& provider, const std::string& key) override {
+        keys[provider] = key;
+        return std::nullopt;
+    }
+    std::optional<std::string> remove(const std::string& provider) override {
+        keys.erase(provider);
+        return std::nullopt;
+    }
+    std::optional<std::string> read(const std::string& provider) override {
+        const auto it = keys.find(provider);
+        return it == keys.end() ? std::nullopt : std::optional<std::string>(it->second);
+    }
+    bool contains(const std::string& provider) override { return keys.count(provider) > 0; }
+};
+
+TEST_CASE("keys: byok mirrors the service; the key goes in the request header and never in saved state") {
+    const auto score = loadScore("example.json");
+    FakeService service(streamOf(score));
+    ServiceUrl url(service.url());
+    FlowstateProcessor p;
+    auto store = std::make_unique<MemoryKeyStore>();
+    auto* keys = store.get();
+    p.useKeyStore(std::move(store));
+    FakePlayHead head;
+    std::vector<json> events;
+    p.setEventListener([&](const std::string& e) { events.push_back(json::parse(e)); });
+
+    // Opening the editor asks the service for its flags; the session follows them.
+    CHECK(command(p, {{"type", "hello"}, {"protocol", "flowstate.bridge.v0"}})["session"]["settings"]["byokEnabled"] == false);
+    play(p, head, [&] { return json::parse(p.sessionEventJson())["session"]["settings"]["byokEnabled"] == true; });
+    CHECK(service.healthChecks == 1);
+    REQUIRE(json::parse(p.sessionEventJson())["session"]["settings"]["byokEnabled"] == true);
+
+    const std::string key = "sk-proc-SECRET-456";
+    command(p, {{"type", "setProvider"}, {"provider", {{"provider", "openai"}, {"model", "gpt-5.5"}}}});
+    const auto r = command(p, {{"type", "setApiKey"}, {"provider", "openai"}, {"key", key}});
+    REQUIRE(r["ok"] == true);
+    CHECK(r["session"]["settings"]["hasKey"] == true);
+    CHECK(r.dump().find(key) == std::string::npos);
+    CHECK(keys->keys["openai"] == key);
+
+    command(p, {{"type", "generate"}, {"prompt", "x"}, {"roles", nullptr}, {"count", 1}, {"capture", nullptr}});
+    play(p, head, [&] { return !events.empty() && events.back()["type"] == "generationDone"; });
+    const auto request = service.request();
+    CHECK(request.find("x-flowstate-provider-key: " + key) != std::string::npos);
+    // In the header only: the body is the PlanRequest, which has no key.
+    CHECK(request.substr(request.find("\r\n\r\n")).find(key) == std::string::npos);
+
+    // Saved plugin state (what the DAW writes into the project) never holds the key.
+    juce::MemoryBlock state;
+    p.getStateInformation(state);
+    CHECK(state.toString().toStdString().find(key) == std::string::npos);
+    CHECK(std::string(static_cast<const char*>(state.getData()), state.getSize()).find(key) == std::string::npos);
+    CHECK(p.sessionEventJson().find(key) == std::string::npos);
+}
+
+TEST_CASE("keys: a key never goes to a plain-http service that isn't on this machine") {
+    ServiceUrl url("http://flowstate.invalid:8787");
+    FlowstateProcessor p;
+    auto store = std::make_unique<MemoryKeyStore>();
+    store->keys["openai"] = "sk-x";
+    p.useKeyStore(std::move(store));
+    p.getController().serviceFeatures({true});
+    command(p, {{"type", "setProvider"}, {"provider", {{"provider", "openai"}, {"model", "gpt-5.5"}}}});
+    const auto r = command(p, {{"type", "generate"}, {"prompt", "x"}, {"roles", nullptr}, {"count", 1}, {"capture", nullptr}});
+    CHECK(r["error"]["code"] == "unavailable");
+    CHECK(r["error"]["message"].get<std::string>().find("https") != std::string::npos);
+}
+
+// The real OS keychain (macOS Keychain, Windows Credential Manager), under a test service name so
+// it never touches the user's keys. Linux builds have none.
+TEST_CASE("keys: the OS keychain stores, reads and removes a key") {
+    auto store = makeOsKeyStore("Flowstate Test");
+    if (store == nullptr) return;
+    const std::string provider = "flowstate-test";
+    REQUIRE_FALSE(store->remove(provider).has_value());
+    CHECK_FALSE(store->contains(provider));
+    CHECK_FALSE(store->read(provider).has_value());
+    REQUIRE_FALSE(store->write(provider, "sk-first").has_value());
+    CHECK(store->contains(provider));
+    CHECK(store->read(provider) == std::optional<std::string>("sk-first"));
+    REQUIRE_FALSE(store->write(provider, "sk-second").has_value());  // replaces
+    CHECK(store->read(provider) == std::optional<std::string>("sk-second"));
+    CHECK_FALSE(store->remove(provider).has_value());
+    CHECK_FALSE(store->contains(provider));
+    CHECK_FALSE(store->remove(provider).has_value());  // removing nothing is fine
 }
 
 // Opt-in: against a real service (`npm run serve`), set FLOWSTATE_LIVE_SERVICE_URL. Plans one idea,

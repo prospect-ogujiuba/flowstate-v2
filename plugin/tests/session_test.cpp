@@ -26,6 +26,26 @@ json loadScore(const char* name) {
     return json::parse(text.str());
 }
 
+// The OS keychain, in memory.
+struct FakeKeyStore final : KeyStore {
+    std::map<std::string, std::string> keys;
+    int reads = 0;
+    std::optional<std::string> write(const std::string& provider, const std::string& key) override {
+        keys[provider] = key;
+        return std::nullopt;
+    }
+    std::optional<std::string> remove(const std::string& provider) override {
+        keys.erase(provider);
+        return std::nullopt;
+    }
+    std::optional<std::string> read(const std::string& provider) override {
+        ++reads;
+        const auto it = keys.find(provider);
+        return it == keys.end() ? std::nullopt : std::optional<std::string>(it->second);
+    }
+    bool contains(const std::string& provider) override { return keys.count(provider) > 0; }
+};
+
 struct FakePlatform final : Platform {
     std::int64_t now = 1790000000000;
     HostSnapshot hostState;
@@ -62,18 +82,27 @@ struct FakePlatform final : Platform {
     bool withService = false;
     std::vector<std::pair<std::string, fb::PlanRequest>> plans;
     std::vector<std::string> cancelled;
-    std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) override {
-        if (!withService) return Platform::startPlan(streamId, request);
+    std::vector<std::optional<std::string>> keysSent;  // each request's x-flowstate-provider-key
+    std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request,
+                                           const std::optional<std::string>& providerKey) override {
+        if (!withService) return Platform::startPlan(streamId, request, providerKey);
         plans.emplace_back(streamId, request);
+        keysSent.push_back(providerKey);
         return std::nullopt;
     }
     std::vector<std::pair<std::string, fb::EditRequest>> edits;
-    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) override {
-        if (!withService) return Platform::startEdit(streamId, request);
+    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request,
+                                           const std::optional<std::string>& providerKey) override {
+        if (!withService) return Platform::startEdit(streamId, request, providerKey);
         edits.emplace_back(streamId, request);
+        keysSent.push_back(providerKey);
         return std::nullopt;
     }
     void cancelStream(const std::string& streamId) override { cancelled.push_back(streamId); }
+    int healthChecks = 0;
+    void checkService() override { ++healthChecks; }
+    KeyStore* store = nullptr;  // no keychain unless a test gives one
+    KeyStore* keyStore() override { return store; }
 
     // The repo's built library (library/catalog), as the plugin bundles it.
     bool withLibrary = true;
@@ -394,15 +423,105 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
 TEST_CASE("an API key sent over the bridge is never persisted or echoed") {
     Session s("inst", "test");
     FakePlatform platform;
+    FakeKeyStore store;
+    platform.store = &store;
     Controller c(s, platform);
+    c.serviceFeatures({true});
     const std::string key = "sk-test-SECRET-123";
     const auto out = c.handleJson(json{{"type", "setApiKey"}, {"provider", "anthropic"}, {"key", key}}.dump());
+    CHECK(json::parse(out)["ok"] == true);
+    CHECK(store.keys["anthropic"] == key);
     CHECK(out.find(key) == std::string::npos);
     CHECK(encodeState({s.save(), 960, 600}).find(key) == std::string::npos);
+    CHECK(json::parse(c.handleJson(json{{"type", "hello"}, {"protocol", "flowstate.bridge.v0"}}.dump())).dump().find(key) ==
+          std::string::npos);
 
-    // Also not echoed from a malformed command.
+    // Also not echoed from a malformed command, or from one the keychain doesn't take.
     const auto bad = c.handleJson(json{{"type", "setApiKey"}, {"provider", 5}, {"key", key}}.dump());
     CHECK(bad.find(key) == std::string::npos);
+    const std::string spaced = "sk-test SECRET\r\nX-Evil: 1";
+    const auto refused = json::parse(c.handleJson(json{{"type", "setApiKey"}, {"provider", "anthropic"}, {"key", spaced}}.dump()));
+    CHECK(refused["error"]["code"] == "bad_request");
+    CHECK(refused.dump().find("SECRET") == std::string::npos);
+    CHECK(store.keys["anthropic"] == key);
+}
+
+TEST_CASE("keys: the keychain holds them behind the byok flag; requests carry the provider's key") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    FakeKeyStore store;
+    platform.store = &store;
+    Controller c(s, platform);
+    int changes = 0;
+    c.onChanged = [&] { ++changes; };
+    const auto setKey = [&](const std::string& provider, const json& key) {
+        return reply(c, {{"type", "setApiKey"}, {"provider", provider}, {"key", key}});
+    };
+    const auto generate = [&] {
+        const auto r = reply(c, {{"type", "generate"}, {"prompt", "x"}, {"roles", nullptr}, {"count", 2}, {"capture", nullptr}});
+        REQUIRE(r["ok"] == true);
+        reply(c, {{"type", "cancel"}, {"requestId", r["requestId"]}});
+    };
+
+    // With a keychain, `apiKey` is not a gap. Until the service says byok is on, the key field is
+    // hidden and a key can't be stored.
+    auto session = reply(c, {{"type", "hello"}, {"protocol", "flowstate.bridge.v0"}})["session"];
+    CHECK(platform.healthChecks == 1);
+    for (const auto& g : session["unavailable"]) CHECK(g["feature"] != "apiKey");
+    CHECK(session["settings"]["byokEnabled"] == false);
+    auto r = setKey("openai", "sk-one");
+    CHECK(r["error"]["code"] == "unavailable");
+    CHECK(store.keys.empty());
+
+    c.serviceFeatures({true});
+    CHECK(changes == 1);
+    c.serviceFeatures({true});  // unchanged: no session push
+    CHECK(changes == 1);
+    CHECK(c.view().settings.byokEnabled);
+
+    // The managed default takes no key; hasKey is about the session's provider.
+    CHECK(setKey("openai", "sk-one")["ok"] == true);
+    CHECK_FALSE(c.view().settings.hasKey);
+    generate();
+    REQUIRE(platform.keysSent.size() == 2);
+    CHECK_FALSE(platform.keysSent[0].has_value());
+
+    reply(c, {{"type", "setProvider"}, {"provider", {{"provider", "openai"}, {"model", "gpt-5.5"}}}});
+    CHECK(c.view().settings.hasKey);
+    platform.keysSent.clear();
+    generate();
+    REQUIRE(platform.keysSent.size() == 2);
+    CHECK(platform.keysSent[0] == std::optional<std::string>("sk-one"));
+    CHECK(platform.keysSent[1] == std::optional<std::string>("sk-one"));
+
+    // Edits carry it too.
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);
+    platform.keysSent.clear();
+    const auto edit = reply(c, {{"type", "edit"}, {"prompt", "darker"}, {"partIds", nullptr}});
+    REQUIRE(edit["ok"] == true);
+    CHECK(platform.keysSent.back() == std::optional<std::string>("sk-one"));
+    reply(c, {{"type", "cancel"}, {"requestId", edit["requestId"]}});
+
+    // Another instance may change the keychain; the next request reads it afresh.
+    store.keys["openai"] = "sk-two";
+    platform.keysSent.clear();
+    generate();
+    CHECK(platform.keysSent[0] == std::optional<std::string>("sk-two"));
+
+    // With byok turned off, no key is sent, and the field hides again.
+    c.serviceFeatures({false});
+    CHECK_FALSE(c.view().settings.byokEnabled);
+    platform.keysSent.clear();
+    generate();
+    CHECK_FALSE(platform.keysSent[0].has_value());
+
+    // Removing works with the flag off: a user can always take their key back.
+    CHECK(setKey("openai", nullptr)["ok"] == true);
+    CHECK(store.keys.empty());
+    CHECK_FALSE(c.view().settings.hasKey);
+    CHECK(setKey("", "sk-x")["error"]["code"] == "bad_request");
+    CHECK(setKey("Open AI", nullptr)["error"]["code"] == "bad_request");
 }
 
 TEST_CASE("capture ring: SPSC order, overflow counting") {

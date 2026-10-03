@@ -181,7 +181,7 @@ Left for later issues:
 - `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
 - ~~Edits (an IR patch from the model) beyond the skeleton.~~ Moved to P1-19 (2026-10-03).
 - Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
-- Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).
+- ~~Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).~~ Done 2026-10-03: `Health.features.byok`.
 - Auth tokens and rate limits: P1-13.
 
 The `cloud/` HTTP service:
@@ -353,11 +353,21 @@ Acceptance: survives editor close, project save and reopen, and 50 generations i
 
 Note (2026-10-02): the plugin stays the authority for the lineage. The service's Pi sessions (P1-18) are per-idea conversation threads the service reads for context, keyed by the plugin's ids; they never replace this.
 
-### P1-12 Keys and settings — `todo`
+### P1-12 Keys and settings — `done` (2026-10-03: Linux and local MSVC; macOS in CI on the next push)
 BYOK keys are stored in the OS keychain (macOS Keychain, Windows Credential Manager) and never in DAW state or logs. Behind the `byok` release flag.
 Acceptance:
 - A test proves no key is in saved plugin state.
 - The flag hides the BYOK UI with no code change.
+
+Done (semantics in `docs/bridge-spec.md`, "Keys"):
+- `KeyStore` (`plugin/src/session/KeyStore.h`) with the macOS Keychain and Windows Credential Manager behind it (`plugin/src/OsKeyStore_*.cpp`). `setApiKey` stores or deletes a key per provider; `Session.unavailable` lists `apiKey` only on a build without a keychain (Linux).
+- The service reports its release flags in `Health.features` (additive, the bridge stays v0). The plugin asks on each `hello` and mirrors `byok` into `Settings.byokEnabled`; `FLOWSTATE_FEATURE_BYOK=0` on the service hides the key field and stops keys being stored or sent.
+- With `byok` on, each plan and edit reads the session provider's key from the keychain and sends it in `x-flowstate-provider-key`, only to https or loopback.
+- Tests: the controller with a fake keychain (flag, store, remove, per-request key, validation, nothing echoed); the processor against a fake service (health, the header, no key in `getStateInformation`, no key to plain http); a real-keychain round trip under a test service name on macOS and Windows; the Studio's settings against the mock.
+
+Left:
+- The tester token stays in `service.json` (the installers write it); moving it into the keychain needs installer work (P1-14/P1-16).
+- Owner check in a DAW: save a key, generate on that provider, reopen the project (docs/testing-plugin.md).
 
 ### P1-13 Hosting the agent service — `doing` (built 2026-10-02; waits on the owner's server and the first deploy)
 Done so far (2026-10-02):

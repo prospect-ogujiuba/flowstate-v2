@@ -118,8 +118,9 @@ TEST_CASE("integers: integral floats accepted, fractions and overflow rejected")
 
 TEST_CASE("unknown keys are ignored, as Zod strips them") {
     fb::Health health;
-    from_json(json::parse(R"({"protocol": "flowstate.bridge.v0", "version": "1", "ok": true, "extra": 1})"), health);
+    from_json(json::parse(R"({"protocol": "flowstate.bridge.v0", "version": "1", "ok": true, "features": {"byok": true, "later": 1}, "extra": 1})"), health);
     CHECK(health.ok);
+    CHECK(health.features.byok);
 }
 
 TEST_CASE("scores are carried as raw JSON for core to parse") {

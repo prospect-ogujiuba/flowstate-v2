@@ -3,6 +3,7 @@
 #include "BuildId.h"
 #include "FlowstateLibrary.h"
 #include "MidiFiles.h"
+#include "OsKeyStore.h"
 #include "PreviewSynth.h"
 
 namespace flowstate::plugin {
@@ -58,6 +59,7 @@ FlowstateProcessor::FlowstateProcessor()
         session.instanceId(),
         [this](const std::string& id, const fb::ServiceEvent& e) { controller.serviceEvent(id, e); },
         [this](const std::string& id, std::optional<fb::ErrorInfo> e) { controller.serviceEnded(id, std::move(e)); });
+    keys = makeOsKeyStore();
     configurePreviewSynth(synth);
     snapshotState();
     startTimerHz(30);
@@ -402,15 +404,24 @@ std::optional<fb::ErrorInfo> FlowstateProcessor::exportMidi(const fb::Clip& clip
     return std::nullopt;  // the chooser is open; the result isn't reported back
 }
 
-std::optional<fb::ErrorInfo> FlowstateProcessor::startPlan(const std::string& streamId, const fb::PlanRequest& request) {
-    return service->startPlan(streamId, request);
+std::optional<fb::ErrorInfo> FlowstateProcessor::startPlan(const std::string& streamId, const fb::PlanRequest& request,
+                                                          const std::optional<std::string>& providerKey) {
+    return service->startPlan(streamId, request, providerKey);
 }
 
-std::optional<fb::ErrorInfo> FlowstateProcessor::startEdit(const std::string& streamId, const fb::EditRequest& request) {
-    return service->startEdit(streamId, request);
+std::optional<fb::ErrorInfo> FlowstateProcessor::startEdit(const std::string& streamId, const fb::EditRequest& request,
+                                                          const std::optional<std::string>& providerKey) {
+    return service->startEdit(streamId, request, providerKey);
 }
 
 void FlowstateProcessor::cancelStream(const std::string& streamId) { service->cancel(streamId); }
+
+void FlowstateProcessor::checkService() {
+    // A service that can't be reached or is too old for flags turns them off.
+    service->checkHealth([this](std::optional<fb::Health> health) {
+        controller.serviceFeatures(health ? health->features : fb::ServiceFeatures{});
+    });
+}
 
 void FlowstateProcessor::releaseFocus(fb::FocusReason) {
     if (editorActions != nullptr) editorActions->releaseFocus();

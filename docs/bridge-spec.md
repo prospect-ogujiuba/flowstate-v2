@@ -118,8 +118,8 @@ Events:
 - **Capture:** `captureBars` is how much played MIDI is available to "Use what I just played".
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
-- **Settings:** `hasKey` says whether a BYOK key is stored, and the key itself never comes back. `usage` comes from the service.
-- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `lock` left the list when the planner learned `keep` (P1-11), and `edit`, `vary` and `addPart` when the service learned edits (P1-19). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
+- **Settings:** `byokEnabled` mirrors the service's `byok` flag (`Health.features`). `hasKey` says whether a BYOK key is stored for the session's provider, and the key itself never comes back. `usage` comes from the service.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `lock` left the list when the planner learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;
@@ -137,12 +137,19 @@ Nothing in it is secret. IR plus seeds stays well under 1 MB, because the plugin
 
 `setApiKey.key` is the only secret on the bridge. The plugin must not log that command, echo it back, or keep the key after writing it to the keychain (P1-12). Request logs record the command `type` only.
 
+Keys (P1-12):
+- `setApiKey` writes the key to the OS keychain under the provider id: the macOS Keychain (a generic password, service `Flowstate`, account the provider id) or Windows Credential Manager (a generic credential `Flowstate/<provider>`, kept for this user on this machine). `key: null` deletes it. Linux builds, which are for development, have no keychain and list `apiKey` in `unavailable`.
+- Storing a key needs the `byok` flag; deleting one doesn't, so a user can always take their key back. Without the flag the command answers `unavailable`.
+- The provider id is pi-ai's (lowercase letters, digits, `-`, `_`, `.`). A key must be printable ASCII without spaces, at most 2048 bytes; anything else answers `bad_request`, and no error quotes the key.
+- When `byok` is on and the session's provider has a stored key, each request reads it from the keychain and sends it in `x-flowstate-provider-key`, only to an `https` service or a loopback address (else the request answers `unavailable`). The managed default (`provider: null`) never sends a key. The key is in no session, saved state, reply or log.
+- The keychain is the authority: several instances share it, and each request reads it afresh. On macOS, an item made by one host app may prompt for access the first time another host reads it.
+
 ## Plugin ↔ agent service
 
 HTTPS with JSON bodies:
 - `POST /v1/plan` takes a `PlanRequest`.
 - `POST /v1/edit` takes an `EditRequest`.
-- `GET /v1/health` returns `Health`.
+- `GET /v1/health` returns `Health`: the protocol, the service's version and its release flags (`features.byok`). The plugin asks for it each time the editor says `hello`, and mirrors `byok` into `Settings.byokEnabled`. Until it answers, or when the service can't be reached, BYOK is off.
 
 Both POSTs answer with an SSE stream. Each `data:` line is one `ServiceEvent`:
 
@@ -195,7 +202,7 @@ Access (P1-13): the hosted service needs a tester token in `Authorization: Beare
 ### The plugin's client
 
 `plugin/src/ServiceClient.cpp` sends the requests, and the controller (`plugin/src/session/Controller.cpp`) turns the events into the session:
-- The service URL and tester token come from `FLOWSTATE_SERVICE_URL` and `FLOWSTATE_SERVICE_TOKEN`, else from `service.json` (`{"url": ..., "token": ...}`) in the user's Flowstate folder (`%APPDATA%\Flowstate` on Windows, `~/Library/Application Support/Flowstate` on macOS), else `http://127.0.0.1:8787` with no token (`npm run serve`). The tester installers write `service.json`. A DAW started from the Dock or Start menu doesn't see shell variables, so the file is the tester path. The token goes only to an `https` URL or a loopback address, and never into the session, DAW state or logs. P1-12 moves it to the keychain with the BYOK keys.
+- The service URL and tester token come from `FLOWSTATE_SERVICE_URL` and `FLOWSTATE_SERVICE_TOKEN`, else from `service.json` (`{"url": ..., "token": ...}`) in the user's Flowstate folder (`%APPDATA%\Flowstate` on Windows, `~/Library/Application Support/Flowstate` on macOS), else `http://127.0.0.1:8787` with no token (`npm run serve`). The tester installers write `service.json`. A DAW started from the Dock or Start menu doesn't see shell variables, so the file is the tester path. The token goes only to an `https` URL or a loopback address, and never into the session, DAW state or logs. It stays in `service.json` for now, because the tester installers write it there; moving it into the keychain means the installers writing the keychain.
 - `edit`, `vary` and `addPart` send one `EditRequest` for the current node (P1-19):
   - `partIds` leaves out locked parts: `null` when none is locked, else the unlocked ids. Varying a locked part, editing only locked parts, or having no current node answers `bad_request` before anything is sent.
   - `history` is the lineage path to the current node. Each node's `partIds` is its `changed`, and its assistant thread text, when that isn't just the title, is its `note`.

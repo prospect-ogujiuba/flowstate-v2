@@ -93,9 +93,12 @@ public:
     void setEditorSize(int w, int h) noexcept;
 
     Session& getSession() { return session; }
+    Controller& getController() { return controller; }
     HostSnapshot hostSnapshot() const noexcept;
     // Drains the capture ring now (the timer does it at 30 Hz); for tests.
     void pumpCapture();
+    // Replaces the OS keychain (tests); null means none.
+    void useKeyStore(std::unique_ptr<KeyStore> store) { keys = std::move(store); }
 
     // Audio-thread counters, for tests and diagnostics.
     int auditionActiveNotes() const noexcept { return stActive.load(std::memory_order_relaxed); }
@@ -112,9 +115,13 @@ private:
                                             const std::optional<std::vector<std::string>>&, bool) override;
     void releaseFocus(fb::FocusReason) override;
     std::optional<std::vector<std::uint8_t>> libraryResource(const std::string& name) override;
-    std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request) override;
-    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request) override;
+    std::optional<fb::ErrorInfo> startPlan(const std::string& streamId, const fb::PlanRequest& request,
+                                           const std::optional<std::string>& providerKey) override;
+    std::optional<fb::ErrorInfo> startEdit(const std::string& streamId, const fb::EditRequest& request,
+                                           const std::optional<std::string>& providerKey) override;
     void cancelStream(const std::string& streamId) override;
+    void checkService() override;
+    KeyStore* keyStore() override { return keys.get(); }
 
     void timerCallback() override;
     void handleAsyncUpdate() override;
@@ -133,6 +140,7 @@ private:
     fb::EffectiveContext lastContext{};
     std::function<void(const std::string&)> eventListener;
     std::unique_ptr<ServiceClient> service;
+    std::unique_ptr<KeyStore> keys;  // the OS keychain for BYOK keys (P1-12); null on Linux
     std::optional<RenderedClip> lastAudition;  // what was last handed to the audio thread
 
     // State snapshot (any thread reads, message thread writes)

@@ -3803,6 +3803,21 @@
         }
       ]
     },
+    "ServiceFeatures": {
+      "$id": "#/$defs/ServiceFeatures",
+      "type": "object",
+      "properties": {
+        "byok": {
+          "type": "boolean",
+          "description": "Bring-your-own-key is on: the plugin shows the key field and sends a stored key"
+        }
+      },
+      "required": [
+        "byok"
+      ],
+      "additionalProperties": false,
+      "description": "The service's release flags (docs/roadmap.md), which the plugin mirrors"
+    },
     "Health": {
       "$id": "#/$defs/Health",
       "type": "object",
@@ -3816,12 +3831,16 @@
         },
         "ok": {
           "type": "boolean"
+        },
+        "features": {
+          "$ref": "#/$defs/ServiceFeatures"
         }
       },
       "required": [
         "protocol",
         "version",
-        "ok"
+        "ok",
+        "features"
       ],
       "additionalProperties": false
     }

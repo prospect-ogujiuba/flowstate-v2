@@ -22,7 +22,6 @@ export const PLUGIN_GAPS: Gap[] = [
   { feature: "editNotes", reason: "Note edits aren't in core yet." },
   { feature: "capture", reason: "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet." },
   { feature: "density", reason: "The density knob doesn't change playback until core has the transform." },
-  { feature: "apiKey", reason: "Key storage isn't available in this build yet (P1-12)." },
 ];
 
 export type MockOptions = {
@@ -134,6 +133,8 @@ export class MockPlugin implements Bridge {
   private timers: ReturnType<typeof setTimeout>[] = [];
   private host: Transport;
   private failNext = new Map<string, { code: ErrorCode; message: string }>();
+  /** Providers with a key in the (pretend) OS keychain. */
+  private keys = new Set<string>();
 
   constructor(private opts: MockOptions) {
     this.delay = opts.delay;
@@ -168,6 +169,8 @@ export class MockPlugin implements Bridge {
   fail(type: string, code: ErrorCode, message: string) { this.failNext.set(type, { code, message }); }
   emit(event: PluginEvent) { for (const fn of this.listeners) fn(event); }
   setHost(patch: Partial<Transport>) { this.host = { ...this.host, ...patch }; this.refresh(); this.publish(); }
+  /** Another build's gaps, e.g. one without a keychain (`apiKey`). */
+  setGaps(gaps: Gap[]) { this.s.unavailable = gaps; this.publish(); }
   session(): S { return structuredClone(this.s); }
 
   onEvent(fn: (e: PluginEvent) => void) { this.listeners.push(fn); }
@@ -252,11 +255,16 @@ export class MockPlugin implements Bridge {
       }
       case "setMidiOut": this.s.midiOut = c.midiOut; return this.ok();
       case "setPreviewSynth": this.s.settings.previewSynth = c.enabled; return this.ok();
-      case "setProvider": this.s.settings.provider = c.provider; this.s.settings.hasKey = false; return this.ok();
+      case "setProvider": this.s.settings.provider = c.provider; this.s.settings.hasKey = !!c.provider && this.keys.has(c.provider.provider); return this.ok();
       case "setApiKey": {
         const g = gapReply("apiKey");
         if (g) return g;
-        this.s.settings.hasKey = c.key !== null;
+        if (!/^[a-z0-9._-]{1,64}$/.test(c.provider)) return this.error("bad_request", "Choose a provider for the key.");
+        if (c.key === null) this.keys.delete(c.provider);
+        else if (!this.opts.byok) return this.error("unavailable", "Using your own key is turned off.");
+        else if (!/^[\x21-\x7e]{1,2048}$/.test(c.key)) return this.error("bad_request", "That doesn't look like an API key: it should be one word of letters, digits and symbols.");
+        else this.keys.add(c.provider);
+        this.s.settings.hasKey = !!this.s.settings.provider && this.keys.has(this.s.settings.provider.provider);
         return this.ok();
       }
       case "startDrag": case "exportMidi": {

@@ -13,6 +13,7 @@ type Mock = {
   fail(type: string, code: string, message: string): void;
   emit(event: unknown): void;
   setHost(patch: Record<string, unknown>): void;
+  setGaps(gaps: { feature: string; reason: string }[]): void;
 };
 type MockWindow = { __flowstateMock: Mock };
 
@@ -557,7 +558,7 @@ test("context: Escape closes the sheet without applying, and focus returns to th
 
 // ---- Settings ---------------------------------------------------------------------------------
 
-test("settings: provider and model, BYOK key (not in this build), preview synth, build ID", async ({ page }) => {
+test("settings: provider and model, BYOK key, preview synth, build ID", async ({ page }) => {
   await open(page);
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   const sheet = page.getByRole("dialog", { name: "Settings" });
@@ -568,13 +569,15 @@ test("settings: provider and model, BYOK key (not in this build), preview synth,
   await expect(sheet.getByText("Now: openrouter • openai/gpt-5.5")).toBeVisible();
 
   const save = sheet.getByRole("button", { name: "Save key" });
-  await expect(save).toHaveAttribute("aria-disabled", "true");
-  await expect(save).toHaveAccessibleDescription(/Key storage isn't available/);
-  await sheet.getByLabel("Your API key", { exact: true }).fill("sk-or-secret");
+  await expect(save).toBeDisabled();
+  const key = sheet.getByLabel("Your API key", { exact: true });
+  await key.fill("sk-or-secret");
   await save.focus();
   await page.keyboard.press("Enter");
-  await expect(toast(page, /Key storage isn't available/)).toBeVisible();
-  expect(await sentOf(page, "setApiKey")).toEqual([]);
+  expect(await lastOf(page, "setApiKey")).toEqual({ type: "setApiKey", provider: "openrouter", key: "sk-or-secret" });
+  await expect(key).toHaveValue("");
+  await expect(key).toHaveAttribute("placeholder", /A key is stored/);
+  await expect(sheet.getByRole("button", { name: "Remove key" })).toBeVisible();
 
   await sheet.getByRole("switch", { name: /Preview synth/ }).click();
   expect(await lastOf(page, "setPreviewSynth")).toEqual({ type: "setPreviewSynth", enabled: false });
@@ -587,18 +590,42 @@ test("settings: provider and model, BYOK key (not in this build), preview synth,
   await expect(page.getByRole("button", { name: "Model: Managed default" })).toBeVisible();
 });
 
-test("settings: with key storage built, the key is sent once and never shown again", async ({ page }) => {
-  await open(page, "gaps=none");
+test("settings: the key is sent once and never shown again; it is removed for its own provider", async ({ page }) => {
+  await open(page);
   await page.getByRole("button", { name: "Account and usage" }).click();
   const sheet = page.getByRole("dialog", { name: "Settings" });
   await sheet.getByRole("combobox", { name: "Provider" }).selectOption("openai");
+  await sheet.getByRole("textbox", { name: "Model" }).fill("gpt-5.5");
+  await sheet.getByRole("button", { name: "Use this model" }).click();
   const key = sheet.getByLabel("Your API key", { exact: true });
   await key.fill("sk-test-123");
   await sheet.getByRole("button", { name: "Save key" }).click();
   expect(await lastOf(page, "setApiKey")).toEqual({ type: "setApiKey", provider: "openai", key: "sk-test-123" });
   await expect(key).toHaveValue("");
+
+  // Another provider in the picker isn't the one with the key: nothing to remove there.
+  await sheet.getByRole("combobox", { name: "Provider" }).selectOption("google");
+  await expect(sheet.getByRole("button", { name: "Remove key" })).toHaveCount(0);
+  await sheet.getByRole("combobox", { name: "Provider" }).selectOption("openai");
   await sheet.getByRole("button", { name: "Remove key" }).click();
   expect(await lastOf(page, "setApiKey")).toEqual({ type: "setApiKey", provider: "openai", key: null });
+  await expect(sheet.getByRole("button", { name: "Remove key" })).toHaveCount(0);
+});
+
+test("settings: a build without a keychain says why the key can't be saved", async ({ page }) => {
+  await open(page);
+  await page.evaluate(() => (window as unknown as MockWindow).__flowstateMock.setGaps([{ feature: "apiKey", reason: "This build has no OS keychain to keep your key in." }]));
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  const sheet = page.getByRole("dialog", { name: "Settings" });
+  await sheet.getByRole("combobox", { name: "Provider" }).selectOption("openai");
+  const save = sheet.getByRole("button", { name: "Save key" });
+  await expect(save).toHaveAttribute("aria-disabled", "true");
+  await expect(save).toHaveAccessibleDescription(/no OS keychain/);
+  await sheet.getByLabel("Your API key", { exact: true }).fill("sk-secret");
+  await save.focus();
+  await page.keyboard.press("Enter");
+  await expect(toast(page, /no OS keychain/)).toBeVisible();
+  expect(await sentOf(page, "setApiKey")).toEqual([]);
 });
 
 test("settings: the BYOK release flag hides the key field", async ({ page }) => {

@@ -39,7 +39,7 @@ Not done yet:
 - `edit`, `vary` and `addPart` reply `unavailable`: the service answers edits `unavailable`, and vary and add-part need routes.
 - `generate` with `capture` replies `unavailable` until the planner takes a reference. Locked parts go out as `keep`, which the service answers `unavailable` for now.
 - `reroll`, `tweak` and `editNotes` reply `unavailable` until `core` has per-part seeds and transforms. The density knob doesn't change playback yet.
-- `setApiKey` replies `unavailable` until the keychain (P1-12), so there is no BYOK key header yet.
+- BYOK keys (P1-12) live in the macOS Keychain or Windows Credential Manager (`src/OsKeyStore_*.cpp`). Linux builds have no keychain, so `setApiKey` replies `unavailable` there.
 
 ## Build and test
 
