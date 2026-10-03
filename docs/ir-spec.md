@@ -189,7 +189,7 @@ These are the behaviours that matter when writing an IR. The full list is in `co
 - **Motifs:** in 5- and 6-note scales, degrees wrap by the scale size. In the compact string, a token that can't be read is skipped with a warning; one with a readable duration but an unknown pitch becomes a rest of that length. `augment` and `diminish` take an optional factor (`augment:1.5`). A motif that leaves the range is shifted whole by octaves first, so its contour survives.
 - **Fills** cover the last `max(1, numerator/2)` beats of the block's last bar (`half_time_break` covers the whole bar) and replace the snare, tom and hat hits there.
 - **Drums** ignore `low`/`high`. `-` in a drum lane is a rest.
-- **Literal notes:** `bar` is the absolute clip bar. Timing is exact, not quantized.
+- **Literal notes:** `bar` is the absolute clip bar. Timing and velocity are exact: not quantized, and not humanized (P1-20, 2026-10-03), so a captured performance keeps its feel.
 - **Overlapping blocks:** the later block in IR order owns the shared bars. On overlapping chords, the later onset wins.
 - **Harmony:** empty harmony means an implicit tonic chord, with a warning. `C2` is read as Csus2 and `C4` as Csus4. Dominant and major `11` chords are voiced without the 3rd.
 - **Out of key:** tones from chord symbols, `alter`, literal notes and bass approaches count as intentional and are not reported.

@@ -36,8 +36,6 @@ Audition (P1-7):
 Generating (P1-4's client): `generate` streams from the agent service at `FLOWSTATE_SERVICE_URL` (default `http://127.0.0.1:8787`, `npm run serve`). The semantics are in `docs/bridge-spec.md`, "The plugin's client".
 
 Not done yet:
-- `edit`, `vary` and `addPart` reply `unavailable`: the service answers edits `unavailable`, and vary and add-part need routes.
-- `generate` with `capture` replies `unavailable` until the planner takes a reference. Locked parts go out as `keep`, which the service answers `unavailable` for now.
 - `reroll`, `tweak` and `editNotes` reply `unavailable` until `core` has per-part seeds and transforms. The density knob doesn't change playback yet.
 - BYOK keys (P1-12) live in the macOS Keychain or Windows Credential Manager (`src/OsKeyStore_*.cpp`). Linux builds have no keychain, so `setApiKey` replies `unavailable` there.
 

@@ -61,6 +61,43 @@ export interface PlanRequest {
    * must not repeat a kept role. The session's context still fixes key, meter, tempo and length.
    */
   keep?: Score;
+  /**
+   * What the producer just played ("Use what I just played", P1-20): core's analysis of it, with their notes
+   * as literal notes, and what to do with it. `continue` and `answer` write a new idea from it. `harmonize`,
+   * `add_bass` and `add_drums` keep it exactly as played: with its head when the analysis read a harmony from
+   * it (chords, bass), so the new lanes play against what was played; else with a head the model writes.
+   */
+  reference?: { score: Score; intent: CaptureIntent };
+}
+
+export type CaptureIntent = "continue" | "harmonize" | "add_bass" | "add_drums" | "answer";
+
+/** The lane each intent that keeps the riff writes by default. */
+export const INTENT_LANES: Partial<Record<CaptureIntent, Role>> = { harmonize: "chords", add_bass: "bass", add_drums: "drums" };
+
+/** Harmonize, add bass and add drums keep what was played; continue and answer only learn from it. */
+export function keepsReference(intent: CaptureIntent): boolean {
+  return INTENT_LANES[intent] !== undefined;
+}
+
+function hasHarmony(score: Score): boolean {
+  const h = (score as { harmony?: unknown }).harmony;
+  if (Array.isArray(h)) return h.length > 0;
+  if (typeof h === "string") return h.trim() !== "";
+  return h !== null && h !== undefined;
+}
+
+/** What the plan keeps as a whole (head and parts): locked parts, or a riff with a harmony. */
+function keepOf(req: PlanRequest): Score | undefined {
+  if (req.keep) return req.keep;
+  const ref = req.reference;
+  return ref && keepsReference(ref.intent) && hasHarmony(ref.score) ? ref.score : undefined;
+}
+
+/** Played parts the plan keeps under the model's own head: a riff without a harmony (a melody, drums). */
+function fixedParts(req: PlanRequest): Part[] {
+  const ref = req.reference;
+  return ref && !req.keep && keepsReference(ref.intent) && !hasHarmony(ref.score) ? ref.score.parts : [];
 }
 
 export interface PlanResult {
@@ -118,6 +155,7 @@ export function extractJson(text: string): unknown {
 function userMessage(req: PlanRequest, kept: Draft | null): string {
   const c = req.controls;
   if (kept) return keepMessage(req, kept);
+  const fixed = fixedParts(req);
   return [
     `Request: ${req.prompt}`,
     "",
@@ -131,8 +169,33 @@ function userMessage(req: PlanRequest, kept: Draft | null): string {
     `- style tags: ${c.style.join(", ") || "none"}`,
     "",
     `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
+    ...(req.reference ? ["", ...referenceText(req.reference, fixed)] : []),
     ...(req.examples?.length ? ["", examplesText(req.examples)] : []),
   ].join("\n");
+}
+
+const LANE_WORDS: Record<string, string> = { chords: "chords", bass: "bass line", melody: "melody", drums: "drum part" };
+
+// What the producer played, and what to do with it, for a plan the model writes in full.
+function referenceText(ref: { score: Score; intent: CaptureIntent }, fixed: Part[]): string[] {
+  const roles = ref.score.parts.map((p) => p.role);
+  const what = roles.map((r) => LANE_WORDS[r] ?? r).join(" and ") || "riff";
+  const ask: Record<CaptureIntent, string> = {
+    continue: `Write an idea that continues it: carry its motif, rhythm and feel forward, so the idea sounds like what comes next. Write your own parts; don't copy its notes one for one.`,
+    answer: `Write an idea that answers it, call and response: a melody that replies to its phrase in the same key and feel, with parts that support both.`,
+    harmonize: `Write a harmony that fits its notes, and the lanes above around it.`,
+    add_bass: `Write a harmony that fits its notes, and a bass line (with the lanes above) that locks with it.`,
+    add_drums: `Write drums (with the lanes above) that lock with its rhythm.`,
+  };
+  return [
+    `The producer just played a ${what} (their performance, as literal notes, in the session's key):`,
+    JSON.stringify(ref.score),
+    "",
+    ...(fixed.length > 0
+      ? [`It stays in the score exactly as played (part ${fixed.map((p) => `"${p.id}"`).join(", ")}), so don't write a ${roles.join(" or ")} part yourself.`]
+      : []),
+    ask[ref.intent],
+  ];
 }
 
 /**
@@ -161,11 +224,16 @@ function completeHead(raw: Record<string, unknown>, req: PlanRequest): Head {
 // With kept parts the model writes only the new lanes, against the kept head, as a parts-only reply.
 function keepMessage(req: PlanRequest, kept: Draft): string {
   const c = req.controls;
+  const played = !req.keep && req.reference !== undefined;
   return [
     `Request: ${req.prompt}`,
     "",
-    "The producer locked part of the current idea. Keep its head (context, form, harmony, motifs) and the locked parts",
-    "exactly as they are: don't rewrite or repeat them. Write new parts that fit them, for these lanes only:",
+    ...(played
+      ? ["The producer just played the part below (their performance, as literal notes; the harmony is what core heard in it).",
+         "Keep its head (context, form, harmony, motifs) and the played part exactly as they are: don't rewrite or repeat them.",
+         "Write new parts that lock with it, for these lanes only:"]
+      : ["The producer locked part of the current idea. Keep its head (context, form, harmony, motifs) and the locked parts",
+         "exactly as they are: don't rewrite or repeat them. Write new parts that fit them, for these lanes only:"]),
     `${c.lanes.join(", ")} (one part per lane, with the lane name as its role, and ids not used below).`,
     `One bar = ${c.meterNumerator} beats, so every step-string bar has ${c.meterNumerator} × grid steps.`,
     "",
@@ -182,8 +250,18 @@ function keepMessage(req: PlanRequest, kept: Draft): string {
  * Throws `bad_request` when they don't fit the request; the service checks this before it streams.
  */
 export function keptDraft(req: PlanRequest): Draft | null {
-  if (!req.keep) return null;
-  const { parts, ...head } = req.keep;
+  if (req.keep && req.reference) throw new FlowstateError("bad_request", "a capture plans a new idea; it can't also keep locked parts");
+  if (req.reference) {
+    const ref = req.reference.score;
+    if (ref.parts.length === 0) throw new FlowstateError("bad_request", "the reference has no parts: nothing was played");
+    const fixed = fixedParts(req);
+    const roles = new Set(fixed.map((p) => p.role));
+    for (const lane of req.controls.lanes)
+      if (roles.has(lane as Role)) throw new FlowstateError("bad_request", `what was played is already the '${lane}' lane; it can't be written again`);
+  }
+  const keep = keepOf(req);
+  if (!keep) return null;
+  const { parts, ...head } = keep;
   const draft: Draft = { head: completeHead(head as Record<string, unknown>, req), parts: [...parts] };
   const errors: string[] = [];
   const bare = Score.safeParse({ ...draft.head, parts: [] });
@@ -200,16 +278,20 @@ export function keptDraft(req: PlanRequest): Draft | null {
   return draft;
 }
 
-/** Kept parts stay exactly as they were: a reply's part with a kept id or role is dropped. */
-function imposeKeep(draft: Draft, kept: Draft | null): Draft {
-  if (!kept) return draft;
-  const ids = new Set(kept.parts.map((p) => (p as Part).id));
-  const roles = new Set(kept.parts.map((p) => (p as Part).role));
+/**
+ * Kept parts stay exactly as they were: a reply's part with a kept id or role is dropped. Kept as a whole,
+ * the head is kept too; fixed parts (a played riff without a harmony) join the model's head.
+ */
+function imposeKeep(draft: Draft, kept: Draft | null, fixed: Part[] = []): Draft {
+  const keptParts = kept ? kept.parts : fixed;
+  if (keptParts.length === 0) return draft;
+  const ids = new Set(keptParts.map((p) => (p as Part).id));
+  const roles = new Set(keptParts.map((p) => (p as Part).role));
   const fresh = draft.parts.filter((p) => {
     const { id, role } = (p ?? {}) as { id?: unknown; role?: unknown };
     return !ids.has(id as string) && !roles.has(role as Role);
   });
-  return { head: kept.head, parts: [...kept.parts, ...fresh] };
+  return { head: kept ? kept.head : draft.head, parts: [...keptParts, ...fresh] };
 }
 
 let envBackend: Backend | undefined;
@@ -303,8 +385,10 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
   let unplayable: Unplayable[] = [];
   const replies: string[] = [];
   const toolCalls: string[] = [];
-  // With kept parts, the plan starts from them and every reply is parts-only.
+  // With kept parts, the plan starts from them and every reply is parts-only. Fixed parts (a played riff
+  // without a harmony) join whatever head the model writes.
   const kept = keptDraft(req);
+  const fixed = kept ? [] : fixedParts(req);
   let draft: Draft | null = kept;
   // What the next reply is: the whole score, or only the listed parts (with the draft's head).
   let next: { scope: "score" } | { scope: "parts"; badParts: string[] } = kept ? { scope: "parts", badParts: [] } : { scope: "score" };
@@ -313,8 +397,8 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
   let result: PlanResult | undefined;
 
   // A streamed part that would replace a kept one is never reported: imposeKeep drops it from the score too.
-  const keptIds = new Set((kept?.parts ?? []).map((p) => (p as Part).id));
-  const keptRoles = new Set((kept?.parts ?? []).map((p) => (p as Part).role));
+  const keptIds = new Set([...(kept?.parts ?? []), ...fixed].map((p) => (p as Part).id));
+  const keptRoles = new Set([...(kept?.parts ?? []), ...fixed].map((p) => (p as Part).role));
   const replacesKept = (id: string, role: Role) => keptIds.has(id) || keptRoles.has(role);
   const reportPart = (part: Part) => {
     const at = Date.now() - started;
@@ -334,9 +418,19 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
     if (next.scope === "parts" && draft)
       return new PartStream(reportStreamed, { knownHead: draft.head, ...(onPartStarted ? { onPartStarted } : {}) });
     if (firstPartMs !== null) return null;
+    // The played riff plays as soon as the head it joins is known.
+    const headThenFixed = onHead || fixed.length > 0
+      ? (head: Score) => {
+          onHead?.(head);
+          for (const p of fixed) {
+            options.onPartStarted?.(p.id, p.role);
+            reportPart(p);
+          }
+        }
+      : undefined;
     return new PartStream(reportStreamed, {
       normalizeHead: (raw) => completeHead(raw, req), headCheck: (head: Head) => headMismatches({ ...head, parts: [] }, req),
-      ...(onHead ? { onHead } : {}), ...(onPartStarted ? { onPartStarted } : {}),
+      ...(headThenFixed ? { onHead: headThenFixed } : {}), ...(onPartStarted ? { onPartStarted } : {}),
     });
   };
 
@@ -356,7 +450,7 @@ export async function planScore(req: PlanRequest, backend: Backend = defaultBack
 
     let checked: Review;
     try {
-      draft = imposeKeep(next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req), kept);
+      draft = imposeKeep(next.scope === "parts" && draft ? mergeParts(draft, text, next.badParts) : draftFrom(text, req), kept, fixed);
       checked = review(draft, req);
     } catch (err) {
       // Unreadable reply: ask again for the same thing.

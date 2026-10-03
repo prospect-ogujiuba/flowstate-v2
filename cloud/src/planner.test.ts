@@ -153,6 +153,65 @@ describe("planScore", () => {
     );
   });
 
+  describe("what the producer just played (P1-20)", () => {
+    // A played melody, as core's analyzer writes a capture: literal notes, and no harmony read from it.
+    const notes = ["Eb5", "G5", "Bb5", "G5", "F5", "Eb5", "C5", "Bb4"].map((pitch, i) => ({ bar: 1 + Math.floor(i / 4), beat: 1 + (i % 4), beats: 0.75, pitch, velocity: 80 + i }));
+    const playedMelody: Part = { id: "melody", role: "melody", name: "Played", low: "Bb4", high: "Bb5", grid: 4, velocity: 84, blocks: [{ startBar: 1, endBar: 4, notes }] };
+    const melodyRiff: Score = { ...score, harmony: "", motifs: [], parts: [playedMelody] };
+    // Played chords: core read a harmony from them, so the riff keeps its head.
+    const playedChords: Part = { ...playedMelody, id: "chords", role: "chords", name: "Played", low: "Bb2", high: "F5",
+      blocks: [{ startBar: 1, endBar: 4, notes: [{ bar: 1, beat: 1, beats: 4, pitch: "Eb4", velocity: 90 }, { bar: 1, beat: 1, beats: 4, pitch: "G4", velocity: 90 }] }] };
+    const chordsRiff: Score = { ...score, parts: [playedChords] };
+    const lanes = (...l: string[]) => ({ ...request.controls, lanes: l });
+
+    it("continue: the model writes a whole new idea from the riff, which isn't kept", async () => {
+      const { backend, requests } = setup(JSON.stringify(score));
+      const result = await planScore({ ...request, reference: { score: melodyRiff, intent: "continue" } }, backend);
+      assert.deepEqual(result.validationErrors, []);
+      assert.deepEqual(result.score, score);
+      assert.match(requests[0]!, /The producer just played a melody/);
+      assert.match(requests[0]!, /continues it/);
+      assert.match(requests[0]!, /"pitch":"Eb5"/);
+      assert.doesNotMatch(requests[0]!, /stays in the score exactly as played/);
+    });
+
+    it("add bass to a played melody: the melody stays as played under the model's head, and plays once the head lands", async () => {
+      const bass = score.parts.find((p) => p.role === "bass")!;
+      const ownMelody = score.parts.find((p) => p.role === "melody")!;
+      // The model also writes a melody of its own; it is dropped.
+      const { backend, requests } = setup(JSON.stringify({ ...score, parts: [ownMelody, bass] }));
+      const order: string[] = [];
+      const req = { ...request, controls: lanes("bass"), reference: { score: melodyRiff, intent: "add_bass" as const } };
+      const result = await planScore(req, backend, { onHead: () => order.push("head"), onPart: (p) => order.push(p.id) });
+      assert.deepEqual(result.validationErrors, []);
+      assert.deepEqual(result.score.parts, [playedMelody, bass]);
+      assert.deepEqual(result.score.harmony, score.harmony);
+      assert.deepEqual(order, ["head", "melody", bass.id]);
+      assert.match(requests[0]!, /It stays in the score exactly as played \(part "melody"\)/);
+      assert.match(requests[0]!, /bass line/);
+    });
+
+    it("add drums to played chords: the riff keeps its head, and the model writes only the drums", async () => {
+      const drums = score.parts.find((p) => p.role === "drums")!;
+      const { backend, requests } = setup(JSON.stringify({ parts: [drums] }));
+      const req = { ...request, controls: lanes("drums"), reference: { score: chordsRiff, intent: "add_drums" as const } };
+      const result = await planScore(req, backend);
+      assert.deepEqual(result.validationErrors, []);
+      assert.deepEqual(result.score.parts, [playedChords, drums]);
+      assert.match(requests[0]!, /The producer just played the part below/);
+      assert.match(requests[0]!, /Reply with only the new parts/);
+    });
+
+    it("refuses a riff with locked parts too, or a lane the riff already plays", async () => {
+      const { backend } = setup("{}");
+      const reject = (req: PlanRequest, pattern: RegExp) =>
+        assert.rejects(planScore(req, backend), (e: Error & { code?: string }) => e.code === "bad_request" && pattern.test(e.message));
+      await reject({ ...request, keep: score, reference: { score: melodyRiff, intent: "continue" } }, /can't also keep locked parts/);
+      await reject({ ...request, controls: lanes("melody"), reference: { score: melodyRiff, intent: "harmonize" } }, /already the 'melody' lane/);
+      await reject({ ...request, reference: { score: { ...melodyRiff, parts: [] }, intent: "continue" } }, /nothing was played/);
+    });
+  });
+
   it("stops when the request is aborted", async () => {
     const { backend } = setup(JSON.stringify(score));
     const controller = new AbortController();

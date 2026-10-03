@@ -109,6 +109,7 @@ private:
     std::int64_t nowMs() override;
     HostSnapshot host() override { return hostSnapshot(); }
     int captureBars() override;
+    CaptureWindow captured(int bars) override;
     std::optional<fb::ErrorInfo> startDrag(const fb::Clip&, const MidiMeta&,
                                            const std::optional<std::vector<std::string>>&, bool) override;
     std::optional<fb::ErrorInfo> exportMidi(const fb::Clip&, const MidiMeta&,

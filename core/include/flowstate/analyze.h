@@ -92,6 +92,10 @@ struct AnalyzeOptions {
     // A key the producer knows (the manifest's): it wins over detection and the IR is written in it.
     std::optional<int> keyTonic;  // pitch class
     std::optional<Mode> keyMode;
+    // Write the part as the played notes (literal notes, exact timing and velocity) instead of
+    // patterns, e.g. a captured performance that a plan keeps verbatim (P1-20). The head (key,
+    // harmony, grid) is still the analysis.
+    bool literalPart = false;
 };
 
 struct Analysis {
@@ -119,6 +123,9 @@ struct Analysis {
 };
 
 Analysis analyzeMidi(const std::vector<std::uint8_t>& bytes, const AnalyzeOptions& options = {});
+// The same for notes already read (e.g. MIDI captured in the plugin): `file.notes` at kPpq, sorted
+// by tick then pitch, with `endTick`, and the tempo and meter when known.
+Analysis analyzeMidiData(const MidiFileData& file, const AnalyzeOptions& options = {});
 
 // Content profile and lane scores, exposed for tests.
 MidiProfile profileNotes(const std::vector<MidiNote>& notes);

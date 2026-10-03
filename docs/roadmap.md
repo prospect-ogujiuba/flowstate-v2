@@ -178,7 +178,7 @@ Done: `cloud/src/service.ts`, run with `npm run serve` (`cloud/README.md`).
 
 Left for later issues:
 - ~~The plugin's client~~ done 2026-10-02 with P1-7: `generate` sends a `PlanRequest` per variation and turns the stream into nodes, `partReady` and `generationDone` (`docs/bridge-spec.md`, "The plugin's client"). `edit`, `vary` and `addPart` still reply `unavailable`.
-- `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
+- ~~`keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).~~ `keep` done with P1-11, `reference` with P1-20 (2026-10-03).
 - ~~Edits (an IR patch from the model) beyond the skeleton.~~ Moved to P1-19 (2026-10-03).
 - Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
 - ~~Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).~~ Done 2026-10-03: `Health.features.byok`.
@@ -244,7 +244,7 @@ Done so far (2026-09-29):
 - Playwright (19 tests, Chromium locally; CI adds WebKit): axe WCAG 2.1 AA, an accessible name on every control, a Tab walk that reaches every control, component behaviour, and the plugin page against a mocked bridge.
 
 Windows (2026-10-01): the gallery renders and is interactive in Ableton Live 12.4.6 on Windows 11, build `1b76d05-5` (`docs/host-checks.md`).
-Left: check 12 on macOS (Logic or Ableton). Deferred by the owner (2026-10-01): Mac testers get a build once the core loop makes music, not the shell. It runs with the first P1-16 hand-off.
+Left: the component gallery check (docs/testing-plugin.md section 6, step 14) on macOS (Logic or Ableton). Deferred by the owner (2026-10-01): Mac testers get a build once the core loop makes music, not the shell. It runs with the first P1-16 hand-off.
 Port v1's visual identity to CSS tokens and components: colours, type, spacing, radii, logo and SVG icons from `docs/design/` and v1 `assets/`, and the dark compact shell. Components: buttons, knobs, toggles, inputs, lanes, cards, sheets and toasts.
 Acceptance:
 - A component gallery page renders in a browser and in the plugin.
@@ -353,7 +353,7 @@ Acceptance: survives editor close, project save and reopen, and 50 generations i
 
 Note (2026-10-02): the plugin stays the authority for the lineage. The service's Pi sessions (P1-18) are per-idea conversation threads the service reads for context, keyed by the plugin's ids; they never replace this.
 
-### P1-12 Keys and settings — `done` (2026-10-03: Linux and local MSVC; macOS in CI on the next push)
+### P1-12 Keys and settings — `done` (2026-10-03: CI green on Linux, macOS and Windows, including the OS keychain round trip)
 BYOK keys are stored in the OS keychain (macOS Keychain, Windows Credential Manager) and never in DAW state or logs. Behind the `byok` release flag.
 Acceptance:
 - A test proves no key is in saved plugin state.
@@ -464,6 +464,27 @@ Acceptance:
 - Edit, vary and add-part run from the Studio and make lineage nodes; a locked part never changes.
 - The edit set is ≥ 95% valid with every valid edit changing the asked-for part, at p50 under 5 s on the production route.
 - Owner listening: edits do what was asked in at least 4 of 5 cases.
+
+### P1-20 Use what I just played — `doing` (started 2026-10-03)
+Proposal flow 4: play a riff into the host, then "Use what I just played" and choose continue, harmonize, add bass, add drums or answer. The capture ring (P1-6), the Studio's capture sheet (P1-9) and the bridge fields (`Generate.capture`, `PlanRequest.reference`) exist; this joins them up.
+Plan:
+- `core`: the analyzer takes notes directly (not only SMF bytes), and can write the clip's part as the played notes (literal), so a kept riff plays exactly as performed, feel included. Lane, key, grid and harmony still come from the analysis.
+- Plugin: `generate` with `capture` turns the last N captured bars into notes (lined up with the host's bars when it was playing), analyzes them in `core`, and sends `PlanRequest.reference`. A reliably detected key sets the plan's key unless the user overrode it; harmonize, add bass and add drums plan at the riff's length.
+- Planner: continue and answer write a new idea from the riff. Harmonize, add bass and add drums keep the riff verbatim and write only the new lane: against the riff's own harmony when it has one (chords, bass), else with a harmony the model writes.
+- The instant sketch plays the riff with sketched parts at once.
+
+Done so far (2026-10-03; semantics in `docs/bridge-spec.md`, "The plugin's client" and `PlanRequest.reference`):
+- `core`: `analyzeMidiData` (notes in, no SMF needed) and `AnalyzeOptions.literalPart`. Literal notes are no longer humanized (docs/ir-spec.md), with the random draws kept, so every other note realizes exactly as before.
+- Plugin: `capturedNotes` (host bars or first-note alignment, held notes, orphan note-offs) and `Controller::useCapture`; `capture` left `Session.unavailable`. The sketch plays the kept riff.
+- Service: `reference` on `/v1/plan`. The planner keeps the riff with its head when core read a harmony from it, else under the model's head (streamed right after the header), and writes only the new lanes; continue and answer get the riff as context.
+- Tests: core (literal round trip with humanize on, played chords keep their harmony), plugin session (conversion, each intent, key override, refusals), processor (MIDI into `processBlock` → the request's reference, lined up with the host's bar), planner and service (each path, refusals), Playwright (the sheet, the plugin's reason as a toast).
+
+Left: a capture prompt set in `evals/` (riffs per lane and style) for validity and latency, owner listening, and a live run in a DAW (docs/testing-plugin.md).
+Acceptance:
+- Each intent runs from the Studio against the service, and the kept riff plays exactly as it was played.
+- A capture with nothing played, or an intent that asks for the lane the riff already is, answers with a clear reason before anything is sent.
+- A capture prompt set (one riff per lane and style) is ≥ 95% valid on the production route, at p50 under 5 s.
+- Owner listening: the new parts fit the riff in at least 4 of 5 cases.
 
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.

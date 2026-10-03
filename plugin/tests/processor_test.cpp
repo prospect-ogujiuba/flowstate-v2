@@ -107,12 +107,12 @@ TEST_CASE("capture: incoming notes are recorded and passed through untouched") {
     auto s = json::parse(p.sessionEventJson());
     CHECK(s["session"]["captureBars"] == 1);
 
-    // Two more bars of silence at 96 bpm: the capture window grows with the clock.
+    // Two more bars of silence at 96 bpm: the pause isn't part of what was played (P1-20).
     juce::MidiBuffer empty;
     run(p, empty, static_cast<int>(48000.0 * 60.0 / 96.0 * 4 * 2 / 512) + 1);
     p.pumpCapture();
     s = json::parse(p.sessionEventJson());
-    CHECK(s["session"]["captureBars"] == 3);
+    CHECK(s["session"]["captureBars"] == 1);
     p.setPlayHead(nullptr);
 }
 
@@ -480,6 +480,60 @@ struct MemoryKeyStore final : KeyStore {
     }
     bool contains(const std::string& provider) override { return keys.count(provider) > 0; }
 };
+
+TEST_CASE("capture: what was played goes to the service as the reference, as played (P1-20)") {
+    FakeService service(streamOf(loadScore("example.json")));
+    ServiceUrl url(service.url());
+    FlowstateProcessor p;
+    p.setRateAndBufferSizeDetails(48000.0, 480);
+    p.prepareToPlay(48000.0, 480);
+    FakePlayHead head;
+    head.looping = false;
+    head.bpm = 120.0;
+    head.ppq = 16.0;  // bar 5
+    p.setPlayHead(&head);
+
+    // Two bars of eighth notes up and down an A minor arpeggio, played into the track while the host plays.
+    const int pitches[] = {57, 60, 64, 69, 72, 69, 64, 60, 57, 60, 64, 69, 72, 76, 72, 69};
+    constexpr int kBlocksPerEighth = 25;  // 480 samples at 48 kHz, 120 BPM
+    juce::AudioBuffer<float> audio(2, 480);
+    for (int k = 0; k < 16 * kBlocksPerEighth + 50; ++k) {
+        juce::MidiBuffer midi;
+        const int i = k / kBlocksPerEighth;
+        if (i < 16 && k % kBlocksPerEighth == 0) midi.addEvent(juce::MidiMessage::noteOn(1, pitches[i], (juce::uint8) (80 + i)), 0);
+        if (i < 16 && k % kBlocksPerEighth == 20) midi.addEvent(juce::MidiMessage::noteOff(1, pitches[i]), 0);
+        p.processBlock(audio, midi);
+        head.ppq += 0.02;
+    }
+    p.pumpCapture();
+
+    std::vector<json> events;
+    p.setEventListener([&](const std::string& e) { events.push_back(json::parse(e)); });
+    const auto r = command(p, {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1},
+                               {"capture", {{"bars", 2}, {"intent", "add_drums"}}}});
+    REQUIRE(r["ok"] == true);
+    // Let the stream finish, so the fake service never writes to a closed connection.
+    play(p, head, [&] { return !events.empty() && events.back()["type"] == "generationDone"; });
+    const auto request = service.request();
+    REQUIRE_FALSE(request.empty());
+    const auto body = json::parse(request.substr(request.find("\r\n\r\n") + 4));
+    const auto& ref = body["reference"];
+    CHECK(ref["intent"] == "add_drums");
+    CHECK(body["roles"] == json::array({"drums"}));
+    CHECK(body["context"]["bars"] == 2);
+    CHECK(body["context"]["tonic"] == "A");
+    CHECK(body["context"]["mode"] == "minor");
+    const auto& notes = ref["score"]["parts"][0]["blocks"][0]["notes"];
+    REQUIRE(notes.size() == 16);
+    // Lined up with the host's bar 5: the first note is beat 1 of bar 1, the third the second beat.
+    CHECK(notes[0]["bar"] == 1);
+    CHECK(notes[0]["beat"].get<double>() == doctest::Approx(1.0).epsilon(0.01));
+    CHECK(notes[2]["beat"].get<double>() == doctest::Approx(2.0).epsilon(0.01));
+    CHECK(notes[8]["bar"] == 2);
+    CHECK(notes[0]["pitch"] == "A3");
+    CHECK(notes[15]["velocity"] == 95);
+    p.setPlayHead(nullptr);
+}
 
 TEST_CASE("keys: byok mirrors the service; the key goes in the request header and never in saved state") {
     const auto score = loadScore("example.json");

@@ -93,7 +93,7 @@ The proposal's three interaction modes map to commands like this:
 More on `generate`:
 - `prompt` may be empty ("Surprise me").
 - `count` from 1 to 4 plans variations in parallel, and each variation becomes a node.
-- `capture` is "Use what I just played": the last N captured bars, with an intent of `continue`, `harmonize`, `add_bass`, `add_drums` or `answer`.
+- `capture` is "Use what I just played": the last N captured bars, with an intent of `continue`, `harmonize`, `add_bass`, `add_drums` or `answer` (P1-20, semantics under "The plugin's client").
 - Locked parts go to the service as `keep`.
 
 The catalog (`docs/library.md`):
@@ -119,7 +119,7 @@ Events:
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `byokEnabled` mirrors the service's `byok` flag (`Health.features`). `hasKey` says whether a BYOK key is stored for the session's provider, and the key itself never comes back. `usage` comes from the service.
-- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `lock` left the list when the planner learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `capture` left the list when the planner learned `reference` (P1-20), `lock` when it learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;
@@ -173,7 +173,11 @@ Fields on the requests:
   - The stream sends the kept head and parts first, so the idea plays at once, then the new parts. `done` holds the kept parts unchanged.
   - A part the model writes for a kept role or id is dropped, and never streamed.
   - Kept parts that don't fit the request, or a request where every role is kept, answer `bad_request` (HTTP 400) before the stream starts.
-- `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip").
+- `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip"). The planner (P1-20):
+  - `continue` and `answer`: the model writes a whole new idea from the reference (it continues the riff, or answers its phrase, call and response). The reference isn't part of the result. `roles` works as usual.
+  - `harmonize`, `add_bass` and `add_drums` keep the reference's parts exactly, and the model writes only the new lanes: `roles` when given, else chords, bass or drums. A lane the reference already plays is never written; when that leaves nothing, the answer is `bad_request` (HTTP 400) before the stream starts.
+  - When the reference has a harmony (core reads one from played chords or bass), its head is kept like `keep`'s, and the new parts play against it. Without one (a melody, drums), the model writes the head and the reference's parts join it; they stream right after the header.
+  - `reference` with `keep` is a `bad_request`: a capture plans a new idea.
 - `EditRequest` serves the plugin's `edit`, `vary` and `addPart`. `kind` picks one, `score` is the current node's score, and `partIds` lists the parts the request may change (P1-19):
   - `edit`: `partIds` is the unlocked parts, or `null` for every part. The model may change those parts, add parts, remove them, change motifs, and change the harmony when no locked part plays from it (only drums don't).
   - `vary`: `partIds` holds exactly one part. The model rewrites it, with the same id and role, keeping its idea. `prompt` may be empty.
@@ -209,7 +213,14 @@ Access (P1-13): the hosted service needs a tester token in `Authorization: Beare
   - The result is one node under the current one, of kind `edit`, or `vary` (`addPart` makes an `edit`). It keeps the current node's seed, so the parts it didn't change realize exactly as before.
   - While it streams, streamed parts replace the current node's part with the same id or join it; `done` replaces the score, so a removed part goes there. The node then records what it changed: the streamed ids plus the ones `done` left out.
   - A question answered with text makes no node, only the thread item. One request runs at a time across `generate` and edits.
-- `generate` builds the `PlanRequest` from the effective context, the session's provider and the locked parts (`keep`). It replies with the `requestId` and emits `generationStarted`. One generation runs at a time: another `generate` answers `busy`. `capture` answers `unavailable` until the planner takes a `reference`.
+- `generate` builds the `PlanRequest` from the effective context, the session's provider and the locked parts (`keep`). It replies with the `requestId` and emits `generationStarted`. One generation runs at a time: another `generate` answers `busy`.
+- `generate` with `capture` (P1-20) sends what was just played as `reference`, and no `keep` (a capture plans a new idea):
+  - The last N bars of what was played become notes. They end where the playing ended (the last note-off, or now while a note is held), so the pause before asking doesn't cut off the riff; `captureBars` counts the same way. They line up with the host's bars when the host was playing steadily under all of them; after a loop or jump, or with the host stopped, the first note starts bar 1. A note still held ends now.
+  - `core`'s analyzer reads them (`analyzeMidiData`, with `literalPart`): it names the lane, key, grid and harmony, and writes the part as the played notes, so the riff plays back exactly as played. Literal notes aren't humanized (docs/ir-spec.md).
+  - The plan's key is the user's key override when there is one, else the key core detects when it is sure, else the effective key. Drums keep the effective key.
+  - `harmonize`, `add_bass` and `add_drums` plan at the riff's length, with `roles` set to the lanes to write (the command's roles, else the intent's lane), less the riff's own lane. `continue` and `answer` keep the session's length and roles.
+  - Nothing played in those bars, MIDI the analyzer can't read, or an intent that asks only for the riff's own lane answer `bad_request` with the reason, and nothing is sent.
+  - The thread item is the prompt, or a line naming the intent ("Add bass to what I played"). The instant sketch plays the kept riff with sketched parts for the other lanes.
 - The instant sketch (P1-10) plays at once. `generate` makes a `sketch` node from `core`'s rule-based sketch (`flowstate/sketch.h`) and makes it current. It is a child of the current node and holds every requested role no locked part plays, with the locked parts and their head when there are any. Style hints come from the current idea's tags and the prompt.
 - Each variation is one stream. Its node (kind `initial`, under the node that was current when the request started, not under the sketch) is made when its first part lands. It becomes current only if the user is still on that node or on the sketch, so the first variation to land plays and later ones join the lineage without taking over.
   - While it streams, the sketch's parts fill the roles that haven't arrived yet, so the idea stays whole. `done` replaces them with the authoritative score.

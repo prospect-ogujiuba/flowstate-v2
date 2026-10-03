@@ -265,3 +265,75 @@ TEST_CASE("analyze: leading empty bars are trimmed and a long end-of-track is ig
     CHECK(a.bars == 4);
     CHECK(a.harmony == std::vector<std::string>{"C"});
 }
+
+TEST_CASE("analyzeMidiData: a played part becomes literal notes that play back exactly, humanize or not") {
+    // A riff as played: off the grid by a few ticks, uneven velocities, in A minor at 92 BPM.
+    MidiFileData played;
+    played.tempo = 92.0;
+    played.meterNumerator = 4;
+    played.meterDenominator = 4;
+    const int pitches[] = {69, 72, 76, 74, 72, 71, 69, 64, 69, 72, 76, 77, 76, 74, 72, 69};
+    for (int i = 0; i < 16; ++i) {
+        const Tick tick = static_cast<Tick>(i) * 480 + (i == 0 ? 0 : i % 3 == 0 ? 17 : i % 3 == 1 ? -9 : 4);
+        played.notes.push_back({tick, 400, pitches[i], 70 + (i * 7) % 40, 0, 0});
+    }
+    played.endTick = 16 * 480;
+
+    AnalyzeOptions o;
+    o.title = "What I played";
+    o.literalPart = true;
+    const Analysis a = analyzeMidiData(played, o);
+    REQUIRE(a.ok);
+    CHECK((a.role == Role::Melody));
+    CHECK(a.bars == 2);
+    const auto score = json::parse(a.scoreJson);
+    CHECK(score["context"]["tempo"] == 92.0);
+    REQUIRE(score["parts"].size() == 1);
+    const auto& blocks = score["parts"][0]["blocks"];
+    REQUIRE(blocks.size() == 1);
+    CHECK(blocks[0]["notes"].size() == 16);
+    CHECK_FALSE(blocks[0].contains("motif"));
+    CHECK(score["motifs"].empty());
+
+    for (const bool humanize : {false, true}) {
+        RealizeOptions ro;
+        ro.humanize = humanize;
+        ro.seed = 7;
+        const auto r = realizeJson(a.scoreJson, ro);
+        REQUIRE(r.parts.size() == 1);
+        const auto& notes = r.parts[0].notes;
+        REQUIRE(notes.size() == played.notes.size());
+        for (std::size_t i = 0; i < notes.size(); ++i) {
+            INFO(i);
+            CHECK(notes[i].tick == played.notes[i].tick);
+            CHECK(notes[i].pitch == played.notes[i].pitch);
+            CHECK(notes[i].vel == played.notes[i].vel);
+        }
+    }
+}
+
+TEST_CASE("analyzeMidiData: played chords keep their harmony reading; nothing played says so") {
+    MidiFileData played;
+    played.tempo = 120.0;
+    played.meterNumerator = 4;
+    played.meterDenominator = 4;
+    // Am | F | C | G, one bar each, struck on beat 1 and the "and" of 2.
+    const std::vector<std::vector<int>> chords{{57, 60, 64}, {53, 57, 60}, {48, 52, 55}, {55, 59, 62}};
+    for (int bar = 0; bar < 4; ++bar)
+        for (const Tick at : {Tick{0}, Tick{1440}})
+            for (int p : chords[static_cast<std::size_t>(bar)]) played.notes.push_back({bar * 3840 + at, 900, p, 90, 0, 0});
+    played.endTick = 4 * 3840;
+    AnalyzeOptions o;
+    o.literalPart = true;
+    const Analysis a = analyzeMidiData(played, o);
+    REQUIRE(a.ok);
+    CHECK((a.role == Role::Chords));
+    CHECK(a.harmony == std::vector<std::string>{"Am", "F", "C", "G"});
+    const auto score = json::parse(a.scoreJson);
+    CHECK(score["harmony"].get<std::string>().rfind("Am", 0) == 0);
+    CHECK(score["parts"][0]["blocks"][0]["notes"].size() == played.notes.size());
+
+    const Analysis none = analyzeMidiData(MidiFileData{}, o);
+    CHECK_FALSE(none.ok);
+    CHECK(none.errorCode == "no_notes");
+}

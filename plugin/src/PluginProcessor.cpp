@@ -336,6 +336,15 @@ void FlowstateProcessor::pumpCapture() {
     captureHistory.trim(stClock.load(std::memory_order_relaxed), ppqPerBar(h.meterNumerator, h.meterDenominator));
 }
 
+CaptureWindow FlowstateProcessor::captured(int bars) {
+    pumpCapture();
+    const auto h = hostSnapshot();
+    CaptureWindow window;
+    window.endClockPpq = stClock.load(std::memory_order_relaxed);
+    window.events = captureHistory.lastBars(bars, window.endClockPpq, ppqPerBar(h.meterNumerator, h.meterDenominator));
+    return window;
+}
+
 int FlowstateProcessor::captureBars() {
     const auto h = hostSnapshot();
     return captureHistory.barsAvailable(stClock.load(std::memory_order_relaxed),

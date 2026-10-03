@@ -908,13 +908,26 @@ std::optional<std::pair<std::string, std::string>> laneRuleFailure(const MidiPro
 }  // namespace
 
 Analysis analyzeMidi(const std::vector<std::uint8_t>& bytes, const AnalyzeOptions& options) {
-    Analysis a;
     const auto read = readSmf(bytes);
     if (!read.data) {
+        Analysis a;
         setFailure(a, toString(read.error->code), read.error->message);
         return a;
     }
-    const MidiFileData& file = *read.data;
+    return analyzeMidiData(*read.data, options);
+}
+
+Analysis analyzeMidiData(const MidiFileData& file, const AnalyzeOptions& options) {
+    Analysis a;
+    if (file.notes.empty()) {
+        setFailure(a, toString(MidiReadErrorCode::NoNotes), "there are no notes to analyze");
+        return a;
+    }
+    if (file.notes.size() > static_cast<std::size_t>(kMaxMidiNotes)) {
+        setFailure(a, toString(MidiReadErrorCode::TooManyNotes),
+                   "more than " + std::to_string(kMaxMidiNotes) + " notes; analyze a shorter clip");
+        return a;
+    }
     a.warnings = file.warnings;
     a.tempoFromFile = file.tempo.has_value();
     a.tempo = file.tempo ? std::round(*file.tempo * 100.0) / 100.0 : 120.0;
@@ -1046,6 +1059,14 @@ Analysis analyzeMidi(const std::vector<std::uint8_t>& bytes, const AnalyzeOption
         case Role::Melody: w.melody(score, part, a.profile.minPitch, a.profile.maxPitch); break;
         default: w.drums(score, part); break;
     }
+    if (options.literalPart) {
+        // The played notes, exactly: the analysis above still names the lane, key and harmony.
+        json literals = json::array();
+        for (const auto& n : exact) literals.push_back(w.literalNote(n));
+        part["blocks"] = json::array({json{{"startBar", 1}, {"endBar", bars}, {"notes", literals}}});
+        if (a.role == Role::Melody) score["motifs"] = json::array();
+        w.literal = static_cast<int>(exact.size());
+    }
     score["parts"].push_back(part);
     a.harmony = w.harmonySymbols;
     a.fidelity.literalNotes = w.literal;
@@ -1061,7 +1082,7 @@ Analysis analyzeMidi(const std::vector<std::uint8_t>& bytes, const AnalyzeOption
     auto partNotes = [](const Realization& r) { return r.parts.empty() ? std::vector<NoteEvent>{} : r.parts.front().notes; };
     std::vector<std::string> realizeWarnings;
     try {
-        if (a.role == Role::Chords) {
+        if (a.role == Role::Chords && !options.literalPart) {
             // Exact-pitch agreement picks the family; pitch classes are the reported measure.
             double bestKey = -1.0;
             json best = score;

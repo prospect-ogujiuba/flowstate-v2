@@ -58,6 +58,7 @@ void dedupe(std::vector<RawNote>& notes) {
                 it->vel = std::max(it->vel, n.vel);
                 it->dur = std::max(it->dur, n.dur);
                 it->justified = it->justified || n.justified;
+                it->literal = it->literal || n.literal;
                 merged = true;
                 break;
             }

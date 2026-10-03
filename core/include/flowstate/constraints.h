@@ -18,6 +18,7 @@ struct RawNote {
     bool justified = false;  // chromatic by intent: chord symbol tone, alter, literal, approach
     bool anchor = false;     // downbeat kick/snare: tighter humanize
     bool fixedPitch = false; // literal drum notes etc.: never range-folded
+    bool literal = false;    // a literal note: exact timing and velocity, never humanized
     std::string sublane;
 };
 

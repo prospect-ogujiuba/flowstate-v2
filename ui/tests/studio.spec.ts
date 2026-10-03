@@ -374,7 +374,6 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
     { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs the realizer/ },
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
     { el: page.getByRole("button", { name: "Tweak" }), why: /Local transforms aren't in core yet/ },
-    { el: page.getByRole("button", { name: "Use what I just played" }), why: /plan around a reference/ },
   ];
   const before = (await sent(page)).length;
   for (const { el, why } of checks) {
@@ -446,7 +445,7 @@ test("when the plugin can do it all: talk, tweak and touch send their commands",
 // ---- Flow 4: capture -> continue --------------------------------------------------------------
 
 test("capture: choose bars and what to do, then generate from what was played", async ({ page }) => {
-  await open(page, "gaps=none&capture=8");
+  await open(page, "capture=8");
   await page.getByRole("list", { name: "Starters" }).getByRole("button", { name: /Use what I just played/ }).click();
   const sheet = page.getByRole("dialog", { name: "Use what I just played" });
   await expect(sheet.getByText("8 bars of what you played")).toBeVisible();
@@ -456,8 +455,19 @@ test("capture: choose bars and what to do, then generate from what was played", 
   expect(await lastOf(page, "generate")).toEqual({ type: "generate", prompt: "", roles: null, count: 1, capture: { bars: 8, intent: "harmonize" } });
 });
 
+test("capture: the plugin's reason shows when what was played can't be used that way", async ({ page }) => {
+  await open(page, "capture=4");
+  await page.evaluate(() => (window as unknown as MockWindow).__flowstateMock.fail("generate", "bad_request", "What you played is already a bass line. Choose another way to use it."));
+  await page.getByRole("list", { name: "Starters" }).getByRole("button", { name: /Use what I just played/ }).click();
+  const sheet = page.getByRole("dialog", { name: "Use what I just played" });
+  await sheet.getByRole("radio", { name: "Add bass" }).click();
+  await sheet.getByRole("button", { name: "Generate" }).click();
+  expect(await lastOf(page, "generate")).toMatchObject({ capture: { bars: 4, intent: "add_bass" } });
+  await expect(toast(page, /already a bass line/)).toBeVisible();
+});
+
 test("capture: with nothing played yet, it says so", async ({ page }) => {
-  await open(page, "gaps=none&capture=0");
+  await open(page, "capture=0");
   const starter = page.getByRole("list", { name: "Starters" }).getByRole("button", { name: /Use what I just played/ });
   await expect(starter).toHaveAttribute("aria-disabled", "true");
   await starter.focus();

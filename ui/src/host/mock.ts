@@ -20,7 +20,6 @@ export const PLUGIN_GAPS: Gap[] = [
   { feature: "reroll", reason: "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet." },
   { feature: "tweak", reason: "Local transforms aren't in core yet." },
   { feature: "editNotes", reason: "Note edits aren't in core yet." },
-  { feature: "capture", reason: "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet." },
   { feature: "density", reason: "The density knob doesn't change playback until core has the transform." },
 ];
 

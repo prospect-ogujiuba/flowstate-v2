@@ -161,14 +161,32 @@ describe("agent service", () => {
     assert.equal(final.score!.parts.length, 4);
   });
 
-  it("refuses a plan where every requested part is locked, and still answers a reference with unavailable", async () => {
+  it("refuses a plan where every requested part is locked", async () => {
     const { url } = await start({});
     const allLocked = await post(`${url}/v1/plan`, { ...request, keep: score });
     assert.equal(allLocked.status, 400);
     assert.match(errorOf(await events(allLocked)).message, /every requested part is locked/);
-    const ref = await post(`${url}/v1/plan`, { ...request, reference: { score, intent: "continue" } });
-    assert.equal(ref.status, 503);
-    assert.equal(errorOf(await events(ref)).code, "unavailable");
+  });
+
+  it("plans around what was just played: add drums keeps the riff and writes only the drums (P1-20)", async () => {
+    const chords = score.parts.find((p) => p.role === "chords")!;
+    const drums = score.parts.find((p) => p.role === "drums")!;
+    const riff = { ...score, parts: [chords] };
+    const { url } = await start({ backendFor: fauxBackends(JSON.stringify({ parts: [drums] })).backendFor });
+    // No roles: the intent picks the lane.
+    const res = await post(`${url}/v1/plan`, { ...request, reference: { score: riff, intent: "add_drums" } });
+    assert.equal(res.status, 200);
+    const evs = await events(res);
+    const final = evs.at(-1) as Extract<ServiceEvent, { type: "done" }>;
+    assert.equal(final.type, "done");
+    assert.deepEqual(final.score!.parts, [chords, drums]);
+
+    // A riff that already is every lane asked for, or a capture that also keeps locked parts: refused before the stream.
+    const same = await post(`${url}/v1/plan`, { ...request, roles: ["chords"], reference: { score: riff, intent: "harmonize" } });
+    assert.equal(same.status, 400);
+    assert.match(errorOf(await events(same)).message, /already fills every lane/);
+    const both = await post(`${url}/v1/plan`, { ...request, keep: riff, reference: { score: riff, intent: "continue" } });
+    assert.equal(both.status, 400);
   });
 
   it("passes a BYOK key to the provider and never logs or echoes it", async () => {

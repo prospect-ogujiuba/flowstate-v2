@@ -9,6 +9,8 @@
 // MIDI->IR analyzer line the capture up with the song's bars.
 #pragma once
 
+#include "flowstate/midi_read.h"
+
 #include <array>
 #include <atomic>
 #include <cstddef>
@@ -71,10 +73,14 @@ public:
     // Drops events older than kMaxBars bars before `nowClockPpq`.
     void trim(double nowClockPpq, double ppqPerBar);
 
-    // Whole bars (rounded up) from the oldest captured note-on to now, 0..kMaxBars.
+    // Where what was played ends: the last event, or now while a note is still held. The pause
+    // between playing a riff and asking for it doesn't count as bars of it (P1-20).
+    double playedUntil(double nowClockPpq) const;
+
+    // Whole bars (rounded up) from the oldest captured note-on to the end of what was played, 0..kMaxBars.
     int barsAvailable(double nowClockPpq, double ppqPerBar) const;
 
-    // Events from the last `bars` bars, oldest first.
+    // Events from the last `bars` bars of what was played (ending at playedUntil), oldest first.
     std::vector<CapturedEvent> lastBars(int bars, double nowClockPpq, double ppqPerBar) const;
 
     void clear() { events_.clear(); }
@@ -83,5 +89,18 @@ public:
 private:
     std::deque<CapturedEvent> events_;
 };
+
+// What `generate.capture` reads: the events of the last N bars, and where that window ends.
+struct CaptureWindow {
+    std::vector<CapturedEvent> events;  // oldest first
+    double endClockPpq = 0.0;           // now, on the capture clock
+};
+
+// The window as notes for core's analyzer (P1-20), at flowstate::kPpq, sorted by tick then pitch.
+// Notes line up with the host's bars when the host was playing steadily under all of them (no loop
+// or jump in between); otherwise the first note starts bar 1. A note still held ends at the window's
+// end, and a note-off whose note-on is older than the window is ignored.
+flowstate::MidiFileData capturedNotes(const CaptureWindow& window, double ppqPerBar, double tempo, int meterNumerator,
+                                      int meterDenominator);
 
 }  // namespace flowstate::plugin

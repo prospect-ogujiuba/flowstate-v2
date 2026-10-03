@@ -137,6 +137,7 @@ std::vector<RawNote> realizeLiteralNotes(const PartEnv& env) {
             n.pitch = pitch;
             n.vel = std::clamp(ln.velocity, 1, 127);
             n.justified = true;
+            n.literal = true;
             if (drums) {
                 n.fixedPitch = true;
                 n.sublane = drumSublaneForNote(pitch);
@@ -170,10 +171,13 @@ void humanize(std::vector<RawNote>& notes, const TimeGrid& time, Role role, Rng&
             auto& n = notes[k];
             double shift = drums ? rng.triangular() * maxT * (n.anchor ? 0.25 : 1.0)
                                  : shared * (n.anchor ? 0.25 : 1.0) + rng.triangular() * spreadT;
-            Tick t = std::clamp<Tick>(n.tick + roundHalfUp(shift), 0, last);
-            n.tick = t;
-            double vr = n.vel < 50 ? 3.0 : 6.0;
-            n.vel = clampVelocity(n.vel + std::round(rng.triangular() * vr));
+            const double vr = n.vel < 50 ? 3.0 : 6.0;
+            const double velShift = std::round(rng.triangular() * vr);
+            // Literal notes are played as written (a captured performance keeps its feel). The draws
+            // still happen, so every other note humanizes exactly as before.
+            if (n.literal) continue;
+            n.tick = std::clamp<Tick>(n.tick + roundHalfUp(shift), 0, last);
+            n.vel = clampVelocity(n.vel + velShift);
         }
         i = j;
     }

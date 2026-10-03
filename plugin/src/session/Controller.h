@@ -4,6 +4,7 @@
 #pragma once
 
 #include "session/Audition.h"
+#include "session/Capture.h"
 #include "session/KeyStore.h"
 #include "session/Library.h"
 #include "session/Session.h"
@@ -29,6 +30,11 @@ public:
     virtual std::int64_t nowMs() = 0;
     virtual HostSnapshot host() = 0;
     virtual int captureBars() = 0;
+    // The last `bars` bars of captured MIDI ("Use what I just played", P1-20). Empty by default.
+    virtual CaptureWindow captured(int bars) {
+        (void)bars;
+        return {};
+    }
     // Drag and export get a realized clip. Return an error, or nullopt on success.
     virtual std::optional<fb::ErrorInfo> startDrag(const fb::Clip& clip, const MidiMeta& meta,
                                                    const std::optional<std::vector<std::string>>& partIds,
@@ -155,6 +161,11 @@ private:
     };
 
     fb::Reply generate(const fb::Generate& command);
+    // "Use what I just played" (P1-20): analyzes the captured bars in core and fills `plan.reference`,
+    // the key and, for harmonize, add bass and add drums, the riff's length and the lanes to write.
+    // `riff` is the played score those intents keep (for the sketch). Returns an error reply, or nullopt.
+    std::optional<fb::Reply> useCapture(const fb::Generate& command, const fb::EffectiveContext& ctx, fb::PlanRequest& plan,
+                                        std::optional<nlohmann::json>& riff);
     // Stores or removes a BYOK key in the keychain (P1-12). The key is never kept or echoed.
     fb::Reply setApiKey(const fb::SetApiKey& command);
     // The stored key for the session's provider, when BYOK is on; read once per request.
@@ -168,7 +179,7 @@ private:
     std::vector<fb::HistoryStep> history() const;
     // Makes and plays the instant sketch for a generate: rule-based parts for every role no locked part plays,
     // under `parent`. Null when there is nothing to sketch.
-    std::optional<std::string> makeSketch(const fb::Generate& command, const fb::EffectiveContext& ctx, const fb::PlanRequest& plan,
+    std::optional<std::string> makeSketch(const fb::Generate& command, const fb::PlanRequest& plan, const nlohmann::json* riff,
                                           std::int64_t seed, std::int64_t now, const std::optional<std::string>& parent);
     // The sketch's parts for roles the streamed score doesn't have yet, so the idea stays whole while it streams.
     static void fillFromSketch(const Request& request, nlohmann::json& score);

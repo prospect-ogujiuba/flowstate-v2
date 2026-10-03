@@ -17,7 +17,7 @@ import { backendFor, selectionFromEnv, type Backend, type ModelSelection } from 
 import { editScore, rulesFor, type EditRequest as EditorRequest } from "./editor.ts";
 import { errorCode, FlowstateError } from "./errors.ts";
 import type { Role } from "./part-stream.ts";
-import { keptDraft, planScore, type PlanRequest as PlannerRequest } from "./planner.ts";
+import { INTENT_LANES, keepsReference, keptDraft, planScore, type PlanRequest as PlannerRequest } from "./planner.ts";
 
 export interface ServiceConfig {
   /** Reported by the health endpoint: the build id, or "dev". */
@@ -217,7 +217,6 @@ async function stream(config: ServiceConfig, url: string, req: http.IncomingMess
       const parsed = PlanRequest.safeParse(raw);
       if (!parsed.success) throw new FlowstateError("bad_request", `invalid PlanRequest: ${zodIssues(parsed.error)}`);
       const body = parsed.data;
-      if (body.reference) throw new FlowstateError("unavailable", "Planning around a reference isn't built yet");
       const planned = plannerRequest(body);
       keptDraft(planned);
       const selection = selectionFor(config, body.provider, key);
@@ -301,13 +300,20 @@ export function plannerRequest(req: PlanRequest): PlannerRequest {
       lanes: lanesFor(req),
     },
     ...(req.keep ? { keep: req.keep } : {}),
+    ...(req.reference ? { reference: req.reference } : {}),
   };
 }
 
-// The lanes the model writes: the requested roles, less any role a kept part already plays.
+// The lanes the model writes: the requested roles, less any role a kept part (or a played riff the plan
+// keeps) already plays. A capture that keeps the riff writes its intent's lane by default.
 function lanesFor(req: PlanRequest): string[] {
   const kept = new Set((req.keep?.parts ?? []).map((p) => p.role));
-  const lanes = [...new Set(req.roles ?? DEFAULT_ROLES)].filter((r) => !kept.has(r));
+  const ref = req.reference;
+  const keepsRiff = ref !== null && keepsReference(ref.intent);
+  if (keepsRiff) for (const p of ref.score.parts) kept.add(p.role);
+  const defaults = keepsRiff ? [INTENT_LANES[ref.intent]!] : DEFAULT_ROLES;
+  const lanes = [...new Set(req.roles ?? defaults)].filter((r) => !kept.has(r));
+  if (keepsRiff && lanes.length === 0) throw new FlowstateError("bad_request", "what was played already fills every lane asked for: choose another way to use it");
   if (req.keep && lanes.length === 0) throw new FlowstateError("bad_request", "every requested part is locked: unlock one to generate");
   return lanes;
 }

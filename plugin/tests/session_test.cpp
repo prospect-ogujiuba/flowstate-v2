@@ -59,6 +59,8 @@ struct FakePlatform final : Platform {
     std::int64_t nowMs() override { return now++; }
     HostSnapshot host() override { return hostState; }
     int captureBars() override { return capture; }
+    CaptureWindow window;  // what `generate.capture` reads
+    CaptureWindow captured(int) override { return window; }
     std::optional<fb::ErrorInfo> startDrag(const fb::Clip& clip, const MidiMeta& meta,
                                            const std::optional<std::vector<std::string>>& partIds,
                                            bool splitDrums) override {
@@ -403,7 +405,6 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
         {"reroll", {{"type", "reroll"}, {"partId", partId}}},
         {"tweak", {{"type", "tweak"}, {"partId", nullptr}, {"op", "simplify"}, {"amount", nullptr}}},
         {"editNotes", {{"type", "editNotes"}, {"partId", partId}, {"remove", json::array()}, {"add", json::array()}}},
-        {"capture", {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1}, {"capture", {{"bars", 4}, {"intent", "continue"}}}}},
         {"apiKey", {{"type", "setApiKey"}, {"provider", "openai"}, {"key", "sk-test"}}},
     };
     for (const auto& [feature, command] : commands) {
@@ -416,8 +417,8 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
     // Accepted, but without effect yet: the UI marks it too. Lock works since the planner keeps locked parts.
     CHECK(gaps.count("density") == 1);
     CHECK(gaps.count("lock") == 0);
-    // Edit, vary and add part go to the agent service (P1-19).
-    for (const char* served : {"edit", "vary", "addPart"}) CHECK(gaps.count(served) == 0);
+    // Edit, vary and add part go to the agent service (P1-19), and so does capture (P1-20).
+    for (const char* served : {"edit", "vary", "addPart", "capture"}) CHECK(gaps.count(served) == 0);
 }
 
 TEST_CASE("an API key sent over the bridge is never persisted or echoed") {
@@ -524,6 +525,137 @@ TEST_CASE("keys: the keychain holds them behind the byok flag; requests carry th
     CHECK(setKey("Open AI", nullptr)["error"]["code"] == "bad_request");
 }
 
+namespace {
+
+// A riff as played: (pitch, start beat, length in beats, velocity), on the capture clock from `clock0`,
+// and on the host from `host0` (-1: the host wasn't playing).
+CaptureWindow played(const std::vector<std::tuple<int, double, double, int>>& notes, double clock0, double host0, int channel = 0) {
+    CaptureWindow w;
+    std::vector<CapturedEvent> events;
+    for (const auto& [pitch, at, beats, vel] : notes) {
+        const auto on = clock0 + at, off = clock0 + at + beats;
+        events.push_back({on, host0 < 0 ? -1.0 : host0 + at, static_cast<std::uint8_t>(channel), static_cast<std::uint8_t>(pitch),
+                          static_cast<std::uint8_t>(vel)});
+        events.push_back({off, host0 < 0 ? -1.0 : host0 + at + beats, static_cast<std::uint8_t>(channel), static_cast<std::uint8_t>(pitch), 0});
+    }
+    std::stable_sort(events.begin(), events.end(), [](const CapturedEvent& a, const CapturedEvent& b) { return a.clockPpq < b.clockPpq; });
+    w.events = events;
+    w.endClockPpq = events.empty() ? clock0 : events.back().clockPpq + 1.0;
+    return w;
+}
+
+// Two bars of an A minor line, eighth notes, a little off the grid.
+std::vector<std::tuple<int, double, double, int>> aMinorLine() {
+    const int pitches[] = {69, 72, 76, 74, 72, 71, 69, 64, 69, 72, 76, 77, 76, 74, 72, 69};
+    std::vector<std::tuple<int, double, double, int>> out;
+    for (int i = 0; i < 16; ++i) out.emplace_back(pitches[i], i * 0.5 + (i % 2 ? 0.02 : 0.0), 0.4, 80 + i);
+    return out;
+}
+
+}  // namespace
+
+TEST_CASE("captured notes: host bars when the host played steadily, else the first note starts bar 1") {
+    // Played from host beat 9.5 (bar 3, beat 2.5): it lines up with the host's bar 3.
+    auto w = played({{60, 0.0, 1.0, 90}, {64, 1.0, 1.0, 91}}, 100.0, 9.5);
+    auto d = capturedNotes(w, 4.0, 110.0, 4, 4);
+    REQUIRE(d.notes.size() == 2);
+    CHECK(d.notes[0].tick == 1440);  // 1.5 beats into the bar
+    CHECK(d.notes[1].tick == 2400);
+    CHECK(d.notes[0].dur == 960);
+    CHECK(d.tempo == std::optional<double>(110.0));
+
+    // The host looped between the notes: its positions can't be trusted, so the clock decides.
+    w.events[2].hostPpq = 1.0;
+    d = capturedNotes(w, 4.0, 110.0, 4, 4);
+    CHECK(d.notes[0].tick == 0);
+    CHECK(d.notes[1].tick == 960);
+
+    // Host stopped: the first note starts bar 1. A held note ends at the window's end, and a
+    // note-off from before the window is ignored.
+    w = played({{60, 0.0, 1.0, 90}}, 50.0, -1.0);
+    w.events.insert(w.events.begin(), CapturedEvent{49.0, -1.0, 0, 72, 0});
+    w.events.push_back({50.5, -1.0, 0, 67, 100});
+    w.endClockPpq = 54.0;
+    d = capturedNotes(w, 4.0, 120.0, 4, 4);
+    REQUIRE(d.notes.size() == 2);
+    CHECK(d.notes[0].pitch == 60);
+    CHECK(d.notes[1].pitch == 67);
+    CHECK(d.notes[1].tick == 480);
+    CHECK(d.notes[1].dur == 3360);  // held to the end: 3.5 beats
+}
+
+TEST_CASE("capture: what was played goes as the reference, in its own key; keep intents write only the new lane") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto use = [&](const char* intent, json roles = nullptr, const char* prompt = "") {
+        return reply(c, {{"type", "generate"}, {"prompt", prompt}, {"roles", roles}, {"count", 1},
+                         {"capture", {{"bars", 2}, {"intent", intent}}}});
+    };
+
+    // Continue: a new idea from the riff, at the session's length, in the riff's key (A minor).
+    platform.window = played(aMinorLine(), 10.0, -1.0);
+    auto r = use("continue");
+    REQUIRE(r["ok"] == true);
+    REQUIRE(platform.plans.size() == 1);
+    auto plan = platform.plans.back().second;
+    REQUIRE(plan.reference.has_value());
+    CHECK((plan.reference->intent == fb::CaptureIntent::Continue));
+    CHECK((plan.context.tonic == fb::Tonic::A));
+    CHECK((plan.context.mode == fb::Mode::Minor));
+    CHECK(plan.context.bars == 4);
+    CHECK_FALSE(plan.roles.has_value());
+    CHECK_FALSE(plan.keep.has_value());
+    const auto& ref = plan.reference->score;
+    REQUIRE(ref["parts"].size() == 1);
+    CHECK(ref["parts"][0]["role"] == "melody");
+    CHECK(ref["parts"][0]["blocks"][0]["notes"].size() == 16);
+    json view;
+    fb::to_json(view, c.view());
+    CHECK(view["thread"].back()["text"] == "Continue what I played");
+    c.cancelAll();
+
+    // Add bass: the riff's length, only the bass lane, and the sketch plays the riff at once.
+    r = use("add_bass");
+    REQUIRE(r["ok"] == true);
+    plan = platform.plans.back().second;
+    CHECK(plan.context.bars == 2);
+    REQUIRE(plan.roles.has_value());
+    CHECK(plan.roles->size() == 1);
+    CHECK((plan.roles->front() == fb::Role::Bass));
+    const auto* sketch = s.current();
+    REQUIRE(sketch != nullptr);
+    CHECK((sketch->kind == fb::NodeKind::Sketch));
+    std::set<std::string> roles;
+    for (const auto& p : sketch->score["parts"]) roles.insert(p["role"].get<std::string>());
+    CHECK(roles == std::set<std::string>{"melody", "bass"});
+    bool literal = false;
+    for (const auto& p : sketch->score["parts"])
+        if (p["role"] == "melody") literal = p["blocks"][0].contains("notes");
+    CHECK(literal);
+    c.cancelAll();
+
+    // The user's key wins over what core hears.
+    reply(c, {{"type", "setContextOverride"}, {"override", {{"tonic", "C"}, {"mode", "major"}, {"tempo", nullptr},
+                                                           {"meterNumerator", nullptr}, {"meterDenominator", nullptr},
+                                                           {"bars", nullptr}, {"swing", nullptr}}}});
+    r = use("answer", nullptr, "answer it higher");
+    REQUIRE(r["ok"] == true);
+    plan = platform.plans.back().second;
+    CHECK((plan.context.tonic == fb::Tonic::C));
+    CHECK((plan.context.mode == fb::Mode::Major));
+    CHECK(plan.prompt == "answer it higher");
+    c.cancelAll();
+
+    // Asking for the lane the riff already is: nothing is sent.
+    const auto sent = platform.plans.size();
+    r = use("harmonize", json::array({"melody"}));
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("already a melody") != std::string::npos);
+    CHECK(platform.plans.size() == sent);
+}
+
 TEST_CASE("capture ring: SPSC order, overflow counting") {
     CaptureRing ring;
     for (int i = 0; i < 10; ++i) CHECK(ring.push({static_cast<double>(i), -1.0, 0, static_cast<std::uint8_t>(60 + i), 100}));
@@ -546,11 +678,17 @@ TEST_CASE("capture history: bars available and the 64-bar window") {
     h.add({10.0, -1.0, 0, 60, 100});
     h.add({11.0, -1.0, 0, 60, 0});
     CHECK(h.barsAvailable(10.5, bar) == 1);
+    // The pause after playing isn't part of what was played.
+    CHECK(h.barsAvailable(10.0 + 3 * bar + 0.1, bar) == 1);
+    CHECK(h.playedUntil(10.0 + 3 * bar + 0.1) == 11.0);
+    // A note still held runs to now.
+    h.add({12.0, -1.0, 0, 64, 100});
     CHECK(h.barsAvailable(10.0 + 3 * bar + 0.1, bar) == 4);
+    h.add({13.0, -1.0, 0, 64, 0});
 
     h.trim(10.0 + 64 * bar + 1.0, bar);  // the first note is now older than 64 bars
-    CHECK(h.size() == 1);                // only the note-off at 11.0 survives
-    CHECK(h.barsAvailable(10.0 + 64 * bar + 1.0, bar) == 0);  // no note-on left
+    CHECK(h.size() == 3);                // the note-off at 11.0 and the later note survive
+    CHECK(h.barsAvailable(10.0 + 64 * bar + 1.0, bar) == 1);  // the note at 12.0
 
     h.add({300.0, -1.0, 0, 62, 90});
     h.add({310.0, 17.0, 0, 64, 90});
@@ -959,10 +1097,13 @@ TEST_CASE("generate: errors, early close, text-only answers, keep and capture") 
     CHECK((*keep)["harmony"] == score["harmony"]);
     c.cancelAll();
 
-    // "Use what I just played" waits for the planner's reference support.
+    // "Use what I just played" with nothing played: nothing is sent.
+    const auto sent = platform.plans.size();
     auto r = reply(c, {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1},
                        {"capture", {{"bars", 4}, {"intent", "continue"}}}});
-    CHECK(r["error"]["code"] == "unavailable");
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("Nothing was played") != std::string::npos);
+    CHECK(platform.plans.size() == sent);
 
     // A request that can't be sent: nothing starts.
     platform.withService = false;

@@ -1,5 +1,6 @@
 #include "session/Controller.h"
 
+#include "flowstate/analyze.h"
 #include "flowstate/sketch.h"
 #include "flowstate/theory.h"
 
@@ -88,7 +89,6 @@ const std::vector<fb::FeatureGap>& Controller::featureGaps() {
         {F::Reroll, "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet."},
         {F::Tweak, "Local transforms aren't in core yet."},
         {F::EditNotes, "Note edits aren't in core yet."},
-        {F::Capture, "\"Use what I just played\" needs the planner to plan around a reference, which isn't built yet."},
         {F::Density, "The density knob doesn't change playback until core has the transform."},
     };
     return gaps;
@@ -402,9 +402,86 @@ fb::Reply Controller::handle(const fb::Command& command) {
 // which re-renders the audition (it switches on the next bar line). `done` replaces the streamed
 // score with the authoritative one. A variation that fails or is cancelled loses its partial node.
 
+namespace {
+
+const char* captureLabel(fb::CaptureIntent intent) {
+    switch (intent) {
+        case fb::CaptureIntent::Continue: return "Continue what I played";
+        case fb::CaptureIntent::Harmonize: return "Harmonize what I played";
+        case fb::CaptureIntent::AddBass: return "Add bass to what I played";
+        case fb::CaptureIntent::AddDrums: return "Add drums to what I played";
+        case fb::CaptureIntent::Answer: return "Answer what I played";
+    }
+    return "Use what I played";
+}
+
+// The lane an intent writes when it keeps the riff; none for continue and answer.
+std::optional<fb::Role> captureLane(fb::CaptureIntent intent) {
+    switch (intent) {
+        case fb::CaptureIntent::Harmonize: return fb::Role::Chords;
+        case fb::CaptureIntent::AddBass: return fb::Role::Bass;
+        case fb::CaptureIntent::AddDrums: return fb::Role::Drums;
+        default: return std::nullopt;
+    }
+}
+
+// "What you played is already ___."
+std::string asPlayed(const std::string& role) {
+    if (role == "bass") return "a bass line";
+    if (role == "melody") return "a melody";
+    return role;  // chords, drums
+}
+
+}  // namespace
+
+std::optional<fb::Reply> Controller::useCapture(const fb::Generate& c, const fb::EffectiveContext& ctx, fb::PlanRequest& plan,
+                                                std::optional<nlohmann::json>& riff) {
+    const auto& use = *c.capture;
+    const double ppqPerBar = ctx.meterNumerator * 4.0 / ctx.meterDenominator;
+    const auto data = capturedNotes(platform_.captured(use.bars), ppqPerBar, ctx.tempo, ctx.meterNumerator, ctx.meterDenominator);
+    const auto bars = std::to_string(use.bars) + (use.bars == 1 ? " bar" : " bars");
+    if (data.notes.empty()) return fail(fb::ErrorCode::BadRequest, "Nothing was played in the last " + bars + " on this track.");
+
+    // The played notes, kept exactly; core names the lane, key and chords. The user's key wins;
+    // else a key core is sure of; else the session's.
+    AnalyzeOptions options;
+    options.title = "What I played";
+    options.partName = "Played";
+    options.literalPart = true;
+    const auto& o = session_.contextOverride();
+    const auto forceKey = [&](fb::Tonic tonic, fb::Mode mode) {
+        options.keyTonic = pitchClassFromName(fb::toString(tonic));
+        options.keyMode = modeFromString(fb::toString(mode));
+    };
+    if (o.tonic && o.mode) forceKey(*o.tonic, *o.mode);
+    auto analysis = analyzeMidiData(data, options);
+    if (analysis.ok && !options.keyTonic && !analysis.key.reliable && analysis.role != Role::Drums) {
+        forceKey(ctx.tonic, ctx.mode);
+        analysis = analyzeMidiData(data, options);
+    }
+    if (!analysis.ok) return fail(fb::ErrorCode::BadRequest, "Flowstate couldn't read what you played: " + analysis.error + ".");
+    auto score = nlohmann::json::parse(analysis.scoreJson);
+    const std::string role = toString(analysis.role);
+    if (const auto t = fb::parseTonic(score["context"].value("tonic", ""))) plan.context.tonic = *t;
+    if (const auto m = fb::parseMode(score["context"].value("mode", ""))) plan.context.mode = *m;
+
+    // Harmonize, add bass and add drums keep the riff and write the new lanes at its length.
+    if (const auto lane = captureLane(use.intent)) {
+        std::vector<fb::Role> lanes;
+        for (const auto r : c.roles ? *c.roles : std::vector<fb::Role>{*lane})
+            if (fb::toString(r) != role) lanes.push_back(r);
+        if (lanes.empty())
+            return fail(fb::ErrorCode::BadRequest, "What you played is already " + asPlayed(role) + ". Choose another way to use it.");
+        plan.roles = lanes;
+        plan.context.bars = analysis.bars;
+        riff = score;
+    }
+    plan.reference = fb::Reference{std::move(score), use.intent};
+    return std::nullopt;
+}
+
 fb::Reply Controller::generate(const fb::Generate& c) {
     if (!requests_.empty()) return fail(fb::ErrorCode::Busy, "A generation is already running.");
-    if (c.capture) return fail(fb::ErrorCode::Unavailable, gapReason(fb::Feature::Capture));
 
     const auto host = platform_.host();
     const auto ctx = session_.effectiveContext(host);
@@ -426,8 +503,12 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     plan.roles = c.roles;
     plan.provider = session_.provider();
 
-    // Locked parts (and the harmony) go to the service as `keep`.
-    if (cur != nullptr && cur->score.contains("parts")) {
+    // What was just played goes as the reference; it plans a new idea, so locks don't apply.
+    std::optional<nlohmann::json> riff;
+    if (c.capture) {
+        if (auto error = useCapture(c, ctx, plan, riff)) return *error;
+    } else if (cur != nullptr && cur->score.contains("parts")) {
+        // Locked parts (and the harmony) go to the service as `keep`.
         std::vector<std::string> locked;
         for (const auto& st : session_.partStates())
             if (st.locked) locked.push_back(st.partId);
@@ -465,11 +546,13 @@ fb::Reply Controller::generate(const fb::Generate& c) {
         }
     }
 
-    session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, c.prompt, std::nullopt, now});
+    std::string said = c.prompt;
+    if (c.capture && said.empty()) said = captureLabel(c.capture->intent);
+    session_.addThreadItem({"t-" + request.id, fb::ThreadRole::User, said, std::nullopt, now});
     // Variations attach under this node; it stays while they stream.
     if (request.parentId) session_.pin(*request.parentId);
     // The instant sketch plays at once, while the model writes (P1-10).
-    request.sketchId = makeSketch(c, ctx, plan, request.streams.front().seed, now, request.parentId);
+    request.sketchId = makeSketch(c, plan, riff ? &*riff : nullptr, request.streams.front().seed, now, request.parentId);
     if (request.sketchId) request.sketchParts = session_.node(*request.sketchId)->score["parts"];
     const auto id = request.id;
     requests_.push_back(std::move(request));
@@ -480,15 +563,16 @@ fb::Reply Controller::generate(const fb::Generate& c) {
     return r;
 }
 
-std::optional<std::string> Controller::makeSketch(const fb::Generate& c, const fb::EffectiveContext& ctx, const fb::PlanRequest& plan,
+std::optional<std::string> Controller::makeSketch(const fb::Generate& c, const fb::PlanRequest& plan, const nlohmann::json* riff,
                                                   std::int64_t seed, std::int64_t now, const std::optional<std::string>& parent) {
+    // The plan's context: the session's, or a capture's key and length.
     SketchRequest req;
-    req.context.tonic = fb::toString(ctx.tonic);
-    req.context.mode = modeFromString(fb::toString(ctx.mode)).value_or(Mode::Major);
-    req.context.tempo = ctx.tempo;
-    req.context.meterNumerator = ctx.meterNumerator;
-    req.context.meterDenominator = ctx.meterDenominator;
-    req.context.bars = ctx.bars;
+    req.context.tonic = fb::toString(plan.context.tonic);
+    req.context.mode = modeFromString(fb::toString(plan.context.mode)).value_or(Mode::Major);
+    req.context.tempo = plan.context.tempo;
+    req.context.meterNumerator = plan.context.meterNumerator;
+    req.context.meterDenominator = plan.context.meterDenominator;
+    req.context.bars = plan.context.bars;
     req.context.swing = plan.context.swing;
     // Style hints: the current idea's tags, and the prompt itself (the sketch matches tags by substring, so
     // "dark trap beat" picks the trap groove).
@@ -501,11 +585,13 @@ std::optional<std::string> Controller::makeSketch(const fb::Generate& c, const f
     std::transform(prompt.begin(), prompt.end(), prompt.begin(), [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
     if (!prompt.empty()) req.context.style.push_back(prompt);
 
-    // Every requested role a locked part doesn't already play.
+    // Every requested role a locked part (or the kept riff) doesn't already play.
+    const nlohmann::json* fixed = plan.keep ? &*plan.keep : riff;
     std::vector<std::string> kept;
-    if (plan.keep)
-        for (const auto& p : (*plan.keep)["parts"]) kept.push_back(p.value("role", ""));
-    const std::vector<fb::Role> wanted = c.roles ? *c.roles : std::vector<fb::Role>{fb::Role::Chords, fb::Role::Bass, fb::Role::Melody, fb::Role::Drums};
+    if (fixed != nullptr)
+        for (const auto& p : (*fixed)["parts"]) kept.push_back(p.value("role", ""));
+    const auto& roles = plan.roles ? plan.roles : c.roles;
+    const std::vector<fb::Role> wanted = roles ? *roles : std::vector<fb::Role>{fb::Role::Chords, fb::Role::Bass, fb::Role::Melody, fb::Role::Drums};
     for (const auto r : wanted) {
         const std::string name = fb::toString(r);
         if (std::find(kept.begin(), kept.end(), name) != kept.end()) continue;
@@ -520,12 +606,20 @@ std::optional<std::string> Controller::makeSketch(const fb::Generate& c, const f
     } catch (const std::exception&) {
         return std::nullopt;  // never in practice: the sketch is tested valid for every context
     }
-    if (plan.keep) {
-        // Locked parts keep their idea's head (harmony, form, motifs); the sketch parts play against it.
-        auto base = *plan.keep;
+    const auto harmony = fixed != nullptr ? fixed->find("harmony") : nlohmann::json::const_iterator{};
+    const bool hasHarmony = fixed != nullptr && harmony != fixed->end() && !harmony->is_null() &&
+                            !(harmony->is_string() && harmony->get_ref<const std::string&>().empty()) &&
+                            !(harmony->is_array() && harmony->empty());
+    if (hasHarmony) {
+        // Locked parts keep their idea's head (harmony, form, motifs), and so does a riff whose
+        // analysis found chords; the sketch parts play against it.
+        auto base = *fixed;
         for (auto& p : score["parts"]) base["parts"].push_back(std::move(p));
         base["title"] = "Sketch";
         score = std::move(base);
+    } else if (fixed != nullptr) {
+        // A riff without harmony (a melody, drums) is played notes: it joins the sketch's head as it is.
+        for (const auto& p : (*fixed)["parts"]) score["parts"].push_back(p);
     }
     const auto id = session_.addNode(std::move(score), fb::NodeKind::Sketch, c.prompt, std::nullopt, seed, now, parent);
     session_.pin(id);
