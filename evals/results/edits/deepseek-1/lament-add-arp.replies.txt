@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Added a harp arpeggio that doubles the drone harmony and answers the flute in section B.", "parts": [{"id": "arp", "role": "arp", "name": "Folk harp", "low": "A3", "high": "E5", "grid": 2, "velocity": 60, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "x-x-x-x-x-x-", "arpPattern": "up", "articulation": "normal"}, {"startBar": 5, "endBar": 8, "rhythm": "x-x-x-x-x-x-", "arpPattern": "updown", "articulation": "normal"}]}]}

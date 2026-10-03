@@ -114,9 +114,10 @@ private:
             return std::nullopt;
         };
 
-        // WinINet's InternetReadFile waits for the whole buffer, which would hold events back;
-        // read byte by byte there. The other backends return what has arrived.
-#if JUCE_WINDOWS
+        // WinINet's InternetReadFile, and JUCE's macOS stream (juce_Network_mac.mm, read() loops
+        // until the buffer is full or the request ends), wait for the whole buffer, which would
+        // hold events back; read byte by byte there. Linux's curl backend returns what has arrived.
+#if JUCE_WINDOWS || JUCE_MAC
         constexpr int kChunk = 1;
 #else
         constexpr int kChunk = 8192;

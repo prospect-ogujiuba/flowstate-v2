@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Reworked the Rhodes part with off-beat stabs, a drop2 voicing and a bar-3/4 push for more movement.", "parts": [{"id": "chords", "role": "chords", "name": "Rhodes", "low": "C3", "high": "C5", "grid": 4, "velocity": 80, "blocks": [{"startBar": 1, "endBar": 2, "rhythm": "x..- ..x- .... x-..", "voicing": "drop2", "articulation": "staccato"}, {"startBar": 3, "endBar": 4, "rhythm": "x..- ..x- .x-. ..x.", "voicing": "drop2", "articulation": "staccato"}]}]}

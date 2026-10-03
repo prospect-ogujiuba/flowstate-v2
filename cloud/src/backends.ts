@@ -63,8 +63,11 @@ export interface Backend {
   provider: string;
   model: string;
   complete(system: string, turns: Turn[], options?: CompleteOptions): Promise<Completion>;
-  /** A whole conversation, repairs included. Backends without it are driven turn by turn (`converse`). */
-  converse?(prompt: Prompt, first: string, hooks: ConverseHooks): Promise<void>;
+  /**
+   * A whole conversation, repairs included, after `history` (earlier turns, oldest first, alternating and starting
+   * with the user). Backends without it are driven turn by turn (`converse`).
+   */
+  converse?(prompt: Prompt, first: string, hooks: ConverseHooks, history?: Turn[]): Promise<void>;
 }
 
 /** The system prompt with its sections as one text, as pi-ai renders it, for backends without system messages. */
@@ -72,11 +75,14 @@ export function systemText(prompt: Prompt): string {
   return [prompt.system, ...Object.values(prompt.sections ?? {})].filter((s) => s.length > 0).join("\n\n");
 }
 
-/** Runs a conversation on any backend: its own `converse`, or one `complete` call per reply. Tools need `converse`. */
-export async function converse(backend: Backend, prompt: Prompt, first: string, hooks: ConverseHooks): Promise<void> {
-  if (backend.converse) return backend.converse(prompt, first, hooks);
+/**
+ * Runs a conversation on any backend: its own `converse`, or one `complete` call per reply. Tools need `converse`.
+ * `history` is earlier turns the model sees before `first` (an edit's lineage path).
+ */
+export async function converse(backend: Backend, prompt: Prompt, first: string, hooks: ConverseHooks, history: Turn[] = []): Promise<void> {
+  if (backend.converse) return backend.converse(prompt, first, hooks, history);
   const system = systemText(prompt);
-  const turns: Turn[] = [{ role: "user", text: first }];
+  const turns: Turn[] = [...history, { role: "user", text: first }];
   for (;;) {
     hooks.onReplyStart?.();
     const completion = await backend.complete(system, turns, {
@@ -258,7 +264,7 @@ function piBackend(sel: ModelSelection, models: Models): Backend {
     name: "pi",
     provider: sel.provider,
     model: sel.model,
-    converse: (prompt, first, hooks) => run(prompt, [], first, hooks),
+    converse: (prompt, first, hooks, history = []) => run(prompt, history.map((t) => toMessage(t, model)), first, hooks),
     // One reply to a replayed conversation, through the same agent loop.
     async complete(system, turns, options = {}) {
       let reply: Completion | undefined;

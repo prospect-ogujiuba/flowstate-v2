@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Varied the bass: syncopated pushes, ghosted octaves, a chord-tone run into B7#9 and a scale run into the turnaround.", "parts": [{"id": "bass", "role": "bass", "name": "Slap Bass", "low": "E1", "high": "G2", "grid": 4, "velocity": 92, "blocks": [{"startBar": 1, "endBar": 2, "rhythm": "R.g. .3R. ..g. 5.R."}, {"startBar": 3, "endBar": 4, "rhythm": "R..5 ..g. R.g. .3.."}]}]}

@@ -179,7 +179,7 @@ Done: `cloud/src/service.ts`, run with `npm run serve` (`cloud/README.md`).
 Left for later issues:
 - ~~The plugin's client~~ done 2026-10-02 with P1-7: `generate` sends a `PlanRequest` per variation and turns the stream into nodes, `partReady` and `generationDone` (`docs/bridge-spec.md`, "The plugin's client"). `edit`, `vary` and `addPart` still reply `unavailable`.
 - `keep` and `reference` answer `unavailable` until the planner plans around them (locking in P1-11 needs `keep`).
-- Edits (an IR patch from the model) beyond the skeleton.
+- ~~Edits (an IR patch from the model) beyond the skeleton.~~ Moved to P1-19 (2026-10-03).
 - Per-route model and effort, and prompt caching (from P1-2), once the plugin sends edits and single parts.
 - Feature flags in `Health`, so the plugin can mirror `byok` (P1-12).
 - Auth tokens and rate limits: P1-13.
@@ -412,12 +412,39 @@ Steps:
 1. Bump `@earendil-works/pi-ai` to `^1.0.0` (`^0.99.2` doesn't admit 1.0; no type changes between them).
 2. Run the `pi` backend's turns through a `pi-agent-core` `Agent`. Validation and repair become a `finishTurn` that continues with the errors as a follow-up; the transcript becomes Pi `AgentMessage`s. The score stays streamed JSON text, not tool-call arguments, so part streaming (P1-2) keeps working. `claude-code` stays behind `Backend`.
 3. `cloud/src/capabilities/`: an extension registry in the shape of Pi's `ExtensionAPI` (`registerTool`, `on(event)`, prompt sections), with static imports only: nothing loaded from disk or npm at runtime. First capabilities: style packs as prompt sections, library examples as a read-only tool over `library/catalog`, and MIDI analysis through `core`'s `fs-analyze`. Every tool call is checked against the allowlist in `beforeToolCall`; no shell, filesystem or MCP tool exists in the process.
-4. Threads per (tester, project, idea), stored as Pi session-format entries in the service's store, the plugin's node ids in `custom` entries. Needs bridge fields (e.g. `ideaId`, `nodeId`): "chat history sent with edits" in `docs/bridge-spec.md`. Lands with edits or with P1-13's store.
+4. ~~Threads per (tester, project, idea), stored as Pi session-format entries in the service's store.~~ **Update 2026-10-03:** the history comes from the lineage instead. The plugin sends the path to the current node with each edit (`EditRequest.history`), and the service gives it to the Pi agent as earlier turns, so the service stays stateless (P1-19). Flowstate's flow is short and branchy, and the plugin owns the tree, so a server-side session store would only be a second copy to keep in sync. pi-coding-agent's `SessionManager` was reviewed for this on 2026-10-03: its tools can be switched off (`noTools`, an allowlist), but are still constructed. Revisit it if the agent ever runs on the user's machine (computer use).
 5. Revisit the coding agent only if it gains a public way to leave out its built-in tools, and then only in an isolated process.
 Acceptance:
 - Every P1-4 contract test still passes, and an eval run on the Phase 0 set shows no validity or latency regression against `evals/results/p1-2/round7`.
 - The lockfile test allows only `pi-ai`, `pi-agent-core` and `pi-telemetry` from Pi.
 - A test proves a capability can't reach the shell or filesystem, and a tool outside the allowlist is refused.
+
+### P1-19 Edits, variations and added parts — `doing` (service done 2026-10-03; the plugin side is next)
+The plugin's `edit`, `vary` and `addPart` go to the model as an `EditRequest` (`docs/bridge-spec.md`). The model returns a patch to the current node's score, and the service applies it and enforces the locks.
+Done (2026-10-03):
+- **Bridge:** `EditRequest.kind` (`edit`, `vary`, `addPart`) and `role` (for `addPart`), with fixtures; the edit stream is documented in the spec.
+- **Service** (`cloud/src/editor.ts`, `POST /v1/edit`): it runs on the planner's conversation loop and the P1-18 agent.
+  - The patch carries a message, title, harmony, motifs, removals and parts. Parts come last, so the changed ones stream as they land.
+  - Locks: only `partIds` change. Harmony changes only when no locked part plays from it, and a motif a locked part plays never changes.
+  - A reply that breaks the rules gets a repair request with the problems. A question gets a text answer.
+  - Tests: `editor.test.ts` (9) and three service contract tests, which replace the skeleton test.
+- **History** (2026-10-03): `EditRequest.history` gives each edit the lineage path as earlier turns of the conversation: prompt, note and changed parts per step, the last 8 steps.
+  - On 12 ambiguous two-step follow-ups ("too much, pull it back", "now the same to the chords"), the model changed only the intended part in 36/46 with history and 12/45 without (`evals/results/edits-followups/`).
+  - The steps' changed parts are what fixed misread scope ("keep only the last one").
+- **Eval:** `evals/prompts/edits-phase1.json`, 20 cases across the Phase 0 styles: 10 edits (some with locked parts), 5 variations, 4 added parts and 1 question. Run with `npm run -w cloud edit` (results in `evals/results/edits/`).
+  - DeepSeek Flash, thinking off, two runs: 39/40 valid, and every valid edit changed the part it should have. Full edit p50 3.3–3.5 s; 30 of 40 needed no repair.
+  - Gemini 3.1 Flash Lite: 20/20, p50 2.3 s, 19 with no repair.
+  - The repairs are the same IR slips plans make: step counts per bar, and pitch tokens where the IR has none. Two are new to edits, both for P1-3: "darker chords" makes models write flats (`b3`) in bass rhythms in all three runs, and new counter and arp parts put scale degrees in rhythm strings.
+
+Left:
+- The plugin: send `EditRequest`s for `edit`, `vary` and `addPart` (nodes of kind edit and vary), and drop them from `Session.unavailable`. The P1-11 session owns `Controller.cpp` and does this.
+- The plugin fills `EditRequest.history` from the lineage path (the P1-11 session).
+- Blind listening of the edits: does the result do what was asked, and stay musical?
+
+Acceptance:
+- Edit, vary and add-part run from the Studio and make lineage nodes; a locked part never changes.
+- The edit set is ≥ 95% valid with every valid edit changing the asked-for part, at p50 under 5 s on the production route.
+- Owner listening: edits do what was asked in at least 4 of 5 cases.
 
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.

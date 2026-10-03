@@ -1,0 +1,27 @@
+===== attempt 1 =====
+{
+  "message": "Increased syncopation and density in the bass line to match the heightened energy of the B section.",
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Slap Bass",
+      "low": "E1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R.x. .g.x R... .x.g"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R.xX x.5. 3.x. R.a7"
+        }
+      ]
+    }
+  ]
+}

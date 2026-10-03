@@ -1,0 +1,72 @@
+{
+  "warnings": [
+    "part drums block 1..4: kick lane ignored; the groove \"lofi\" plays it",
+    "part drums block 1..4: snare lane ignored; the groove \"lofi\" plays it",
+    "part drums block 1..4: closed_hat lane ignored; the groove \"lofi\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 155,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 48,
+        "minPitch": 55,
+        "maxPitch": 67,
+        "rangeLow": 39,
+        "rangeHigh": 75,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 22,
+        "minPitch": 27,
+        "maxPitch": 39,
+        "rangeLow": 27,
+        "rangeHigh": 46,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 19,
+        "minPitch": 68,
+        "maxPitch": 82,
+        "rangeLow": 63,
+        "rangeHigh": 82,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 66,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 7
+          },
+          {
+            "sublane": "hats",
+            "notes": 28
+          },
+          {
+            "sublane": "kick",
+            "notes": 12
+          },
+          {
+            "sublane": "snare",
+            "notes": 19
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "warnings": [
+    "part drums block 5..8: kick lane ignored; the groove \"waltz\" plays it",
+    "part drums block 5..8: closed_hat lane ignored; the groove \"waltz\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 187,
+    "clipEndTick": 23040,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 72,
+        "minPitch": 52,
+        "maxPitch": 74,
+        "rangeLow": 48,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 24,
+        "minPitch": 29,
+        "maxPitch": 41,
+        "rangeLow": 29,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 28,
+        "minPitch": 65,
+        "maxPitch": 77,
+        "rangeLow": 60,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 63,
+        "minPitch": 36,
+        "maxPitch": 49,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 15
+          },
+          {
+            "sublane": "cymbals",
+            "notes": 1
+          },
+          {
+            "sublane": "hats",
+            "notes": 20
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "snare",
+            "notes": 19
+          }
+        ]
+      }
+    ]
+  }
+}

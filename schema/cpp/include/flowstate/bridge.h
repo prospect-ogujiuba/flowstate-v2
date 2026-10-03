@@ -225,6 +225,7 @@ enum class Groove { Straight, Swing, Triplet };
 enum class TweakOp { Register, Transpose, Humanize, Simplify, Intensify, Revoice };
 enum class FocusReason { Space, Escape, Blur };
 enum class NoticeLevel { Info, Warning, Error };
+enum class EditKind { Edit, Vary, AddPart };
 
 struct ScoreContext {
     double tempo = 0.0;
@@ -699,10 +700,20 @@ struct PlanRequest {
     std::optional<ProviderChoice> provider;
 };
 
+struct HistoryStep {
+    NodeKind kind = NodeKind::Sketch;
+    std::string prompt;
+    std::optional<std::string> note;
+    std::vector<std::string> changed;
+};
+
 struct EditRequest {
+    EditKind kind = EditKind::Edit;
     std::string prompt;
     json score;
     std::optional<std::vector<std::string>> partIds;
+    std::optional<Role> role;
+    std::vector<HistoryStep> history;
     std::optional<ProviderChoice> provider;
 };
 
@@ -810,6 +821,10 @@ const char* toString(NoticeLevel value);
 std::optional<NoticeLevel> parseNoticeLevel(std::string_view text);
 void to_json(json& j, NoticeLevel value);
 void from_json(const json& j, NoticeLevel& value);
+const char* toString(EditKind value);
+std::optional<EditKind> parseEditKind(std::string_view text);
+void to_json(json& j, EditKind value);
+void from_json(const json& j, EditKind& value);
 void to_json(json& j, const ScoreContext& value);
 void from_json(const json& j, ScoreContext& value);
 void to_json(json& j, const ErrorInfo& value);
@@ -964,6 +979,8 @@ void to_json(json& j, const Reference& value);
 void from_json(const json& j, Reference& value);
 void to_json(json& j, const PlanRequest& value);
 void from_json(const json& j, PlanRequest& value);
+void to_json(json& j, const HistoryStep& value);
+void from_json(const json& j, HistoryStep& value);
 void to_json(json& j, const EditRequest& value);
 void from_json(const json& j, EditRequest& value);
 void to_json(json& j, const ScoreHeader& value);
@@ -1566,6 +1583,31 @@ inline void from_json(const json& j, NoticeLevel& value) {
     if (!j.is_string()) throw ParseError("", "expected a string");
     const auto parsed = parseNoticeLevel(j.get_ref<const std::string&>());
     if (!parsed) throw ParseError("", "unknown noticeLevel '" + j.get<std::string>() + "'");
+    value = *parsed;
+}
+
+inline const char* toString(EditKind value) {
+    switch (value) {
+        case EditKind::Edit: return "edit";
+        case EditKind::Vary: return "vary";
+        case EditKind::AddPart: return "addPart";
+    }
+    return "?";
+}
+
+inline std::optional<EditKind> parseEditKind(std::string_view text) {
+    if (text == "edit") return EditKind::Edit;
+    if (text == "vary") return EditKind::Vary;
+    if (text == "addPart") return EditKind::AddPart;
+    return std::nullopt;
+}
+
+inline void to_json(json& j, EditKind value) { j = toString(value); }
+
+inline void from_json(const json& j, EditKind& value) {
+    if (!j.is_string()) throw ParseError("", "expected a string");
+    const auto parsed = parseEditKind(j.get_ref<const std::string&>());
+    if (!parsed) throw ParseError("", "unknown editKind '" + j.get<std::string>() + "'");
     value = *parsed;
 }
 
@@ -3018,21 +3060,43 @@ inline void from_json(const json& j, PlanRequest& value) {
     detail::read(j, "provider", value.provider);
 }
 
+inline void to_json(json& j, const HistoryStep& value) {
+    j = json::object();
+    j["kind"] = detail::encode(value.kind);
+    j["prompt"] = detail::encode(value.prompt);
+    j["note"] = detail::encode(value.note);
+    j["changed"] = detail::encode(value.changed);
+}
+
+inline void from_json(const json& j, HistoryStep& value) {
+    detail::expectObject(j);
+    detail::read(j, "kind", value.kind);
+    detail::read(j, "prompt", value.prompt);
+    detail::read(j, "note", value.note);
+    detail::read(j, "changed", value.changed);
+}
+
 inline void to_json(json& j, const EditRequest& value) {
     j = json::object();
     j["protocol"] = "flowstate.bridge.v0";
+    j["kind"] = detail::encode(value.kind);
     j["prompt"] = detail::encode(value.prompt);
     j["score"] = detail::encode(value.score);
     j["partIds"] = detail::encode(value.partIds);
+    j["role"] = detail::encode(value.role);
+    j["history"] = detail::encode(value.history);
     j["provider"] = detail::encode(value.provider);
 }
 
 inline void from_json(const json& j, EditRequest& value) {
     detail::expectObject(j);
     detail::expectLiteral(j, "protocol", "flowstate.bridge.v0");
+    detail::read(j, "kind", value.kind);
     detail::read(j, "prompt", value.prompt);
     detail::read(j, "score", value.score);
     detail::read(j, "partIds", value.partIds);
+    detail::read(j, "role", value.role);
+    detail::read(j, "history", value.history);
     detail::read(j, "provider", value.provider);
 }
 

@@ -3540,6 +3540,50 @@
       ],
       "additionalProperties": false
     },
+    "EditKind": {
+      "$id": "#/$defs/EditKind",
+      "type": "string",
+      "enum": [
+        "edit",
+        "vary",
+        "addPart"
+      ]
+    },
+    "HistoryStep": {
+      "$id": "#/$defs/HistoryStep",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "description": "How this step's node was made",
+          "$ref": "#/$defs/NodeKind"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "What the user asked for; empty for a step without words (vary, tweak, touch)"
+        },
+        "note": {
+          "description": "The assistant's note on the result, if it left one",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "changed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Ids of the parts this step changed, added or removed; empty for a new idea or when unknown"
+        }
+      },
+      "required": [
+        "kind",
+        "prompt",
+        "note",
+        "changed"
+      ],
+      "additionalProperties": false
+    },
     "EditRequest": {
       "$id": "#/$defs/EditRequest",
       "type": "object",
@@ -3548,10 +3592,16 @@
           "type": "string",
           "const": "flowstate.bridge.v0"
         },
+        "kind": {
+          "description": "edit: change the score as asked; vary: a variation of the one part in partIds; addPart: one new part of `role`",
+          "$ref": "#/$defs/EditKind"
+        },
         "prompt": {
-          "type": "string"
+          "type": "string",
+          "description": "The user's words; may be empty for vary and addPart"
         },
         "score": {
+          "description": "The current node's score",
           "$ref": "#/$defs/Score"
         },
         "partIds": {
@@ -3566,7 +3616,25 @@
               "type": "null"
             }
           ],
-          "description": "Parts the edit may change; locked parts are excluded"
+          "description": "Parts the edit may change; locked parts are excluded. null = every part. vary: exactly one. addPart: empty"
+        },
+        "role": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Role"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "addPart: the new part's role; null otherwise"
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HistoryStep"
+          },
+          "description": "The lineage path from the idea's first node to the current one, oldest first; the service reads the last 8"
         },
         "provider": {
           "anyOf": [
@@ -3581,9 +3649,12 @@
       },
       "required": [
         "protocol",
+        "kind",
         "prompt",
         "score",
         "partIds",
+        "role",
+        "history",
         "provider"
       ],
       "additionalProperties": false

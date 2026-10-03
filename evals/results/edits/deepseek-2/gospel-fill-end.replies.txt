@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message":"Swapped the last-bar fill to a tom run for a bigger B-section lift.","parts":[{"id":"drums","role":"drums","name":"Drum Kit","low":"C1","high":"C6","grid":3,"velocity":92,"blocks":[{"startBar":1,"endBar":8,"groove":"gospel_shuffle","fill":"tom_run"}]}]}

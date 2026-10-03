@@ -1,0 +1,24 @@
+===== attempt 1 =====
+{
+  "message": "Changed the chord rhythm to a syncopated, off-beat pattern to better complement the tech-house groove.",
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 85,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": ".... x.x. .... x.x.",
+          "voicing": "shell",
+          "articulation": "staccato"
+        }
+      ]
+    }
+  ]
+}

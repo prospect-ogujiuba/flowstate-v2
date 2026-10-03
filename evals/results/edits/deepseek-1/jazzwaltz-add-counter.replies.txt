@@ -1,0 +1,5 @@
+===== attempt 1 =====
+{"message": "Added a vibraphone counter that answers the sax in the pockets it leaves open.", "parts": [{"id": "vibes", "role": "counter", "name": "Vibraphone", "low": "G3", "high": "D5", "grid": 2, "velocity": 58, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "..x -..", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "..5 .4-", "articulation": "legato"}]}]}
+
+===== attempt 2 =====
+{"message": "Added a vibraphone counter that answers the sax in the pockets it leaves open, using only valid tokens.", "parts": [{"id": "vibes", "role": "counter", "name": "Vibraphone", "low": "G3", "high": "D5", "grid": 2, "velocity": 58, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "..x -..", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "..x -x-", "articulation": "legato"}]}]}

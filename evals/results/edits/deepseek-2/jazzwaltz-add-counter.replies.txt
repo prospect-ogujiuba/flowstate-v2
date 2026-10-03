@@ -1,0 +1,5 @@
+===== attempt 1 =====
+{"message": "Added a quiet vibraphone counter that answers the sax a beat late, sitting under it in the second half.", "parts": [{"id": "vibes_counter", "role": "counter", "name": "Vibraphone", "low": "G4", "high": "D6", "grid": 3, "velocity": 58, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "..- -- .x- -- -- x..", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "motif": "m1", "transforms": ["transpose:+3", "displace:+1", "octave:-1"], "repeatEvery": 6, "articulation": "legato"}]}]}
+
+===== attempt 2 =====
+{"message": "Fixed the vibes counter rhythm to a full 9-step bar in the first block.", "parts": [{"id": "vibes_counter", "role": "counter", "name": "Vibraphone", "low": "G4", "high": "D6", "grid": 3, "velocity": 58, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "... --x --. .x- --x ..-", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "motif": "m1", "transforms": ["transpose:+3", "displace:+1", "octave:-1"], "repeatEvery": 6, "articulation": "legato"}]}]}

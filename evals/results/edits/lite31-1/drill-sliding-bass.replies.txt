@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Enhanced 808 movement with rhythmic slides and chromatic glides across the phrase.", "parts": [{"id": "bass", "role": "bass", "name": "Slide 808", "low": "E1", "high": "E3", "grid": 4, "velocity": 105, "blocks": [{"startBar": 1, "endBar": 2, "rhythm": "R--- ..a- R--- ..gX"}, {"startBar": 3, "endBar": 4, "rhythm": "R--- .aR- R--- .aR-"}]}]}

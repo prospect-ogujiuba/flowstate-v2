@@ -1,0 +1,66 @@
+{
+  "warnings": [
+    "part drums block 3..4: open_hat lane ignored; the groove \"funk\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 265,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 104,
+        "minPitch": 55,
+        "maxPitch": 66,
+        "rangeLow": 52,
+        "rangeHigh": 76,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 28,
+        "maxPitch": 39,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 31,
+        "minPitch": 64,
+        "maxPitch": 74,
+        "rangeLow": 64,
+        "rangeHigh": 76,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 104,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 48
+          },
+          {
+            "sublane": "kick",
+            "notes": 16
+          },
+          {
+            "sublane": "snare",
+            "notes": 40
+          }
+        ]
+      }
+    ]
+  }
+}

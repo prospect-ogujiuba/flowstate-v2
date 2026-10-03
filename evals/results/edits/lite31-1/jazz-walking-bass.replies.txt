@@ -1,0 +1,29 @@
+===== attempt 1 =====
+{
+  "message": "Updated the upright bass to a steady quarter-note walking pattern using chord tones and chromatic approaches.",
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright",
+      "low": "Bb1",
+      "high": "F3",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R357",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 5,
+          "endBar": 8,
+          "rhythm": "R35a",
+          "articulation": "staccato"
+        }
+      ]
+    }
+  ]
+}

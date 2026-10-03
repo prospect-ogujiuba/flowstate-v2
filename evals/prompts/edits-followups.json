@@ -1,0 +1,14 @@
+[
+  { "id": "lofi-bass-pull-back", "base": "lofi-rainy-study", "change": null, "steps": ["make the bass busier in the last two bars", "too much, pull it back a bit"], "expect": ["bass"] },
+  { "id": "trap-rolls-keep-last", "base": "trap-dark-bells", "change": null, "steps": ["add hi-hat rolls at the end of every second bar", "keep only the last one"], "expect": ["drums"] },
+  { "id": "house-same-to-chords", "base": "house-deep-organ", "change": null, "steps": ["make the melody brighter and higher", "now do the same to the chords"], "expect": ["chords"] },
+  { "id": "neosoul-even-sparser", "base": "neosoul-rhodes-swing", "change": null, "steps": ["leave more space in the chords", "even more"], "expect": ["chords"] },
+  { "id": "pop-undo-octave", "base": "pop-uplifting-chorus", "change": null, "steps": ["lift the melody up an octave in the second half", "undo that, it's too shrill"], "expect": ["melody"] },
+  { "id": "drill-less-slides", "base": "drill-uk-phrygian", "change": null, "steps": ["more sliding 808 movement", "a bit less of that"], "expect": ["bass"] },
+  { "id": "jazz-pickups-to-it", "base": "jazz-late-night-trio", "change": null, "steps": ["walk the bass in steady quarter notes", "add some eighth-note pickups to it"], "expect": ["bass"] },
+  { "id": "funk-only-bars-3-4", "base": "funk-clav-mixolydian", "change": null, "steps": ["make the clav chords stabbier", "same idea, but only in bars 3 and 4"], "expect": ["chords"] },
+  { "id": "gospel-bigger", "base": "gospel-68-sunday", "change": null, "steps": ["put a drum fill into the last bar", "make it bigger"], "expect": ["drums"] },
+  { "id": "dnb-halfway-back", "base": "dnb-liquid-rolling", "change": null, "steps": ["darker chords", "too dark, go halfway back"], "expect": ["chords"] },
+  { "id": "rock-bass-follow", "base": "rock-anthem-mixolydian", "change": null, "steps": ["louder, more driving drums", "now make the bass follow that"], "expect": ["bass"] },
+  { "id": "afro-bring-back", "base": "afrobeats-sunny", "change": null, "steps": ["strip the melody down to a few notes", "bring back a little of what you took out"], "expect": ["melody"] }
+]

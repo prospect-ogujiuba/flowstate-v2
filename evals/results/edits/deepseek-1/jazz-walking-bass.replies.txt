@@ -1,0 +1,5 @@
+===== attempt 1 =====
+{"message": "Bass now walks in steady quarter notes on chord tones through both sections.", "parts": [{"id": "bass", "role": "bass", "name": "Upright", "low": "Bb1", "high": "F3", "grid": 2, "velocity": 88, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "R-3-5-", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "R-3-5-", "articulation": "legato"}]}]}
+
+===== attempt 2 =====
+{"message": "Bass now walks in steady quarter notes on chord tones through both sections.", "parts": [{"id": "bass", "role": "bass", "name": "Upright", "low": "Bb1", "high": "F3", "grid": 2, "velocity": 88, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "R---3---5---7---", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "R---3---5---7---", "articulation": "legato"}]}]}

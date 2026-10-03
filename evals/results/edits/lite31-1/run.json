@@ -1,0 +1,443 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "openrouter",
+    "model": "google/gemini-3.1-flash-lite",
+    "reasoning": "off"
+  },
+  "bases": "evals/results/p1-18/agent-deepseek-2",
+  "at": "2026-10-03T00:00:14.375Z",
+  "stats": {
+    "cases": 20,
+    "valid": 20,
+    "targeted": 20,
+    "firstAttempt": 19,
+    "latencyP50Ms": 2288,
+    "latencyP95Ms": 7695,
+    "firstPartP50Ms": 2267,
+    "firstPartP95Ms": 7503
+  },
+  "results": [
+    {
+      "id": "afro-simpler-drums",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2402,
+      "firstPartMs": 2386,
+      "changed": [
+        "drums"
+      ],
+      "removed": [],
+      "message": "Simplified drum patterns by removing the syncopated rim accents, leaving a cleaner pocket while maintaining the afrobeats groove.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6904,
+        "outputTokens": 255,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "ambient-add-pad",
+      "kind": "addPart",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1223,
+      "firstPartMs": 1157,
+      "changed": [
+        "shimmer_pad"
+      ],
+      "removed": [],
+      "message": "Added a shimmering, slow-evolving synth pad that sits in the high register to add atmospheric depth.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7032,
+        "outputTokens": 119,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "ballad-vary-melody",
+      "kind": "vary",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2452,
+      "firstPartMs": 2451,
+      "changed": [
+        "melody"
+      ],
+      "removed": [],
+      "message": "Elevated the melody for a more hopeful tone by applying augmentation and an octave shift in the B section.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7042,
+        "outputTokens": 229,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "cinematic-add-counter",
+      "kind": "addPart",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1523,
+      "firstPartMs": 1289,
+      "changed": [
+        "counter_strings"
+      ],
+      "removed": [],
+      "message": "Added a string counter-melody part that weaves through the horn lines using sustained pedal tones and syncopated movement.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7053,
+        "outputTokens": 237,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "dnb-no-melody",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1765,
+      "firstPartMs": null,
+      "changed": [],
+      "removed": [
+        "melody"
+      ],
+      "message": "Removed the lead melody to simplify the arrangement and let the pads and sub bass drive the liquid DnB vibe.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7104,
+        "outputTokens": 45,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "drill-sliding-bass",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2410,
+      "firstPartMs": 2208,
+      "changed": [
+        "bass"
+      ],
+      "removed": [],
+      "message": "Enhanced 808 movement with rhythmic slides and chromatic glides across the phrase.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6951,
+        "outputTokens": 140,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "funk-vary-bass",
+      "kind": "vary",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2598,
+      "firstPartMs": 2596,
+      "changed": [
+        "bass"
+      ],
+      "removed": [],
+      "message": "Increased syncopation and density in the bass line to match the heightened energy of the B section.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6987,
+        "outputTokens": 209,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "gospel-fill-end",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2687,
+      "firstPartMs": 2671,
+      "changed": [
+        "drums"
+      ],
+      "removed": [],
+      "message": "Applied a snare roll fill to the final bar of the drum section.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7059,
+        "outputTokens": 129,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "house-darker-chords",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 2,
+      "latencyMs": 10596,
+      "firstPartMs": 7074,
+      "changed": [
+        "chords",
+        "bass",
+        "melody"
+      ],
+      "removed": [],
+      "message": "Corrected bass rhythm to use valid scale-degree references and maintained the dark minor aesthetic.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 8640,
+        "outputTokens": 1429,
+        "cacheReadTokens": 6107
+      }
+    },
+    {
+      "id": "jazz-walking-bass",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2235,
+      "firstPartMs": 2221,
+      "changed": [
+        "bass"
+      ],
+      "removed": [],
+      "message": "Updated the upright bass to a steady quarter-note walking pattern using chord tones and chromatic approaches.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6988,
+        "outputTokens": 206,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "jazzwaltz-add-counter",
+      "kind": "addPart",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1512,
+      "firstPartMs": 1510,
+      "changed": [
+        "counter"
+      ],
+      "removed": [],
+      "message": "Added a light, syncopated counter-melody part on a muted trumpet to provide a quiet, airy response to the sax line.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6997,
+        "outputTokens": 158,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "lament-add-arp",
+      "kind": "addPart",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1600,
+      "firstPartMs": 1598,
+      "changed": [
+        "arp_harp"
+      ],
+      "removed": [],
+      "message": "Added a gentle Celtic-inspired harp arpeggio part to provide rhythmic movement while leaving the main melody space.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6954,
+        "outputTokens": 257,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "lofi-busier-bass",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 5219,
+      "firstPartMs": 4820,
+      "changed": [
+        "bass"
+      ],
+      "removed": [],
+      "message": "Increased bass activity in the final two bars by adding eighth-note syncopation and a root-octave movement.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6949,
+        "outputTokens": 147,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "neosoul-sparser-keys",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 6861,
+      "firstPartMs": 6829,
+      "changed": [
+        "chords",
+        "bass"
+      ],
+      "removed": [],
+      "message": "Increased harmonic spacing by thinning out the rhythmic density of the Rhodes chords and simplifying the bass pattern to lock in with the kick.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6954,
+        "outputTokens": 338,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "pop-higher-melody",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2288,
+      "firstPartMs": 2267,
+      "changed": [
+        "melody"
+      ],
+      "removed": [],
+      "message": "I split the melody part into two blocks and applied an octave shift to the second half.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6939,
+        "outputTokens": 138,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "reggaeton-vary-melody",
+      "kind": "vary",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2135,
+      "firstPartMs": 1854,
+      "changed": [
+        "melody"
+      ],
+      "removed": [],
+      "message": "Increased melodic density and shifted the phrasing for the B section while keeping the motif's romantic contour.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6852,
+        "outputTokens": 231,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "rock-vary-drums",
+      "kind": "vary",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 2510,
+      "firstPartMs": 2455,
+      "changed": [
+        "drums"
+      ],
+      "removed": [],
+      "message": "Increased drum energy and complexity by adding consistent open hats and varying the fill pattern in the B section.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7218,
+        "outputTokens": 304,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "techhouse-vary-chords",
+      "kind": "vary",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1441,
+      "firstPartMs": 1437,
+      "changed": [
+        "chords"
+      ],
+      "removed": [],
+      "message": "Changed the chord rhythm to a syncopated, off-beat pattern to better complement the tech-house groove.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6839,
+        "outputTokens": 178,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "trap-hats-roll",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 7695,
+      "firstPartMs": 7503,
+      "changed": [
+        "drums"
+      ],
+      "removed": [],
+      "message": "Added 32nd-note trap hi-hat rolls at the end of bars 2 and 4.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 7003,
+        "outputTokens": 412,
+        "cacheReadTokens": 0
+      }
+    },
+    {
+      "id": "trapchoir-question",
+      "kind": "edit",
+      "ok": true,
+      "valid": true,
+      "targeted": true,
+      "attempts": 1,
+      "latencyMs": 1372,
+      "firstPartMs": null,
+      "changed": [],
+      "removed": [],
+      "message": "The current chord progression is Cm, Abmaj7, Fm7, and G7.",
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 6795,
+        "outputTokens": 23,
+        "cacheReadTokens": 0
+      }
+    }
+  ]
+}

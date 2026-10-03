@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "The current chord progression is Cm, Abmaj7, Fm7, and G7."}

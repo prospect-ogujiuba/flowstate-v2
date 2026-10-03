@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"message": "Added a slow evolving pad (grid 2, whole-note swells with a mid-bar motion in the B section) that sits between the bass and melody.", "parts": [{"id": "pad_air", "role": "pad", "name": "Evolving Air Pad", "low": "C3", "high": "G4", "grid": 2, "velocity": 48, "blocks": [{"startBar": 1, "endBar": 4, "rhythm": "x------- --------", "voicing": "open", "articulation": "legato"}, {"startBar": 5, "endBar": 8, "rhythm": "x------- ---x----", "voicing": "open", "articulation": "legato"}]}]}

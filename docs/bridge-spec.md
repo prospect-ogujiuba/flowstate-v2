@@ -167,7 +167,22 @@ Fields on the requests:
   - A part the model writes for a kept role or id is dropped, and never streamed.
   - Kept parts that don't fit the request, or a request where every role is kept, answer `bad_request` (HTTP 400) before the stream starts.
 - `PlanRequest.reference` carries captured MIDI, already converted to IR by `core`'s analyzer, with its intent. A library clip's IR can go here too ("in the style of this clip").
-- For `edit`, the model returns a patch. The service applies and validates it, and streams the changed parts and the full result, so the plugin never applies patches itself.
+- `EditRequest` serves the plugin's `edit`, `vary` and `addPart`. `kind` picks one, `score` is the current node's score, and `partIds` lists the parts the request may change (P1-19):
+  - `edit`: `partIds` is the unlocked parts, or `null` for every part. The model may change those parts, add parts, remove them, change motifs, and change the harmony when no locked part plays from it (only drums don't).
+  - `vary`: `partIds` holds exactly one part. The model rewrites it, with the same id and role, keeping its idea. `prompt` may be empty.
+  - `addPart`: `partIds` is empty and `role` is the new part's role. The model writes one new part with a new id. `prompt` may be empty.
+- The model returns a patch. The service applies it to `score`, enforces the locks and validates the result, so the plugin never applies patches itself:
+  - A locked part, a motif a locked part plays, the harmony under a locked part and the context are never changed. A part outside `partIds` is never streamed.
+  - A request that can't be served (unknown ids in `partIds`, `vary` without exactly one part, `addPart` without a role, every part locked) answers `bad_request` (HTTP 400) before the stream starts.
+- The edit stream:
+  - `header` is the edited head (title, harmony, motifs; the context is the request's).
+  - `partStarted`/`partDone` come only for the parts the edit replaced or added. Parts it didn't stream are the request's, unchanged.
+  - `message` is a one-line note on what changed, for the thread.
+  - `done` holds the whole edited score, including unchanged and kept parts, without removed parts.
+- A question about the score ("what key is this?") is answered with `message` and `done` with `null`, and makes no node.
+- `EditRequest.history` is the lineage path from the idea's first node to the current one, oldest first. Each step has its node `kind`, the user's `prompt`, the assistant's `note`, and the ids of the parts it `changed`: for an edit, the parts streamed in and the ones removed. The service gives the model the last 8 steps as earlier turns of the conversation, so "less than that", "the same to the chords" or "go back" mean what they meant in the thread.
+  - The history comes from the lineage, so it follows undo, branches and a reopened project. The service keeps no conversation state.
+  - Steps without words (vary, tweak, touch) and text-only answers carry an empty prompt or are left out. The current request is not part of `history`.
 
 Variations: the plugin sends one `PlanRequest` per variation, concurrently.
 
@@ -199,7 +214,6 @@ These come later:
 - Plugin-side agent tools (the service asking the plugin to read context or audition).
 - Account sign-in tokens.
 - Cloud sync by project id.
-- Chat history sent with edits.
 - The cross-instance song hub.
 
 Each is additive, so it can arrive as new commands, events or nullable keys.
