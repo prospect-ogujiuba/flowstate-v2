@@ -1,0 +1,88 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 203,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 44,
+        "maxPitch": 54,
+        "rangeLow": 44,
+        "rangeHigh": 54,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums_kick",
+        "role": "drums",
+        "notes": 45,
+        "minPitch": 36,
+        "maxPitch": 38,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "kick",
+            "notes": 44
+          },
+          {
+            "sublane": "snare",
+            "notes": 1
+          }
+        ]
+      },
+      {
+        "id": "drums_snare",
+        "role": "drums",
+        "notes": 32,
+        "minPitch": 38,
+        "maxPitch": 38,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "snare",
+            "notes": 32
+          }
+        ]
+      },
+      {
+        "id": "drums_hats",
+        "role": "drums",
+        "notes": 68,
+        "minPitch": 42,
+        "maxPitch": 42,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 68
+          }
+        ]
+      },
+      {
+        "id": "drums_openhat",
+        "role": "drums",
+        "notes": 32,
+        "minPitch": 46,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 32
+          }
+        ]
+      }
+    ]
+  }
+}

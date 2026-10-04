@@ -1,0 +1,186 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Afrobeats pocket for the played line",
+  "context": {
+    "tempo": 104,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 2,
+    "swing": 0.06,
+    "style": [
+      "afrobeats"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.62
+    }
+  ],
+  "harmony": "Am:8",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Played",
+      "low": "G4",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 83,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.45,
+              "pitch": "A4",
+              "velocity": 92
+            },
+            {
+              "bar": 1,
+              "beat": 1.7677,
+              "beats": 0.225,
+              "pitch": "C5",
+              "velocity": 78
+            },
+            {
+              "bar": 1,
+              "beat": 2.501,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 88
+            },
+            {
+              "bar": 1,
+              "beat": 3.0104,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 84
+            },
+            {
+              "bar": 1,
+              "beat": 3.7573,
+              "beats": 0.675,
+              "pitch": "C5",
+              "velocity": 80
+            },
+            {
+              "bar": 1,
+              "beat": 4.5083,
+              "beats": 0.45,
+              "pitch": "A4",
+              "velocity": 76
+            },
+            {
+              "bar": 2,
+              "beat": 1.0115,
+              "beats": 0.45,
+              "pitch": "G4",
+              "velocity": 90
+            },
+            {
+              "bar": 2,
+              "beat": 1.7531,
+              "beats": 0.225,
+              "pitch": "A4",
+              "velocity": 74
+            },
+            {
+              "bar": 2,
+              "beat": 2.4875,
+              "beats": 0.45,
+              "pitch": "C5",
+              "velocity": 86
+            },
+            {
+              "bar": 2,
+              "beat": 2.9917,
+              "beats": 0.675,
+              "pitch": "D5",
+              "velocity": 88
+            },
+            {
+              "bar": 2,
+              "beat": 3.749,
+              "beats": 1.125,
+              "pitch": "A4",
+              "velocity": 80
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x...x.x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "..x.......x....."
+            },
+            {
+              "voice": "rim",
+              "steps": "....x.x.....x.x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x.g."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.xxx.xxx.xxx.xx"
+            }
+          ]
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x...x.x..."
+            },
+            {
+              "voice": "snare",
+              "steps": "..x.......x....."
+            },
+            {
+              "voice": "rim",
+              "steps": "....x.x.....x.x."
+            },
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x.x.x.x..."
+            },
+            {
+              "voice": "shaker",
+              "steps": "x.xxx.xxx.xxx.xx"
+            }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}

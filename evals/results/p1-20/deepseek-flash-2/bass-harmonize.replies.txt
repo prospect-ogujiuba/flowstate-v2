@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"parts":[{"id":"chords_1","role":"chords","name":"Rhodes","low":"C3","high":"A4","grid":4,"velocity":74,"blocks":[{"startBar":1,"endBar":2,"rhythm":"x--- .x-- x--- ..x-","voicing":"rootless"},{"startBar":3,"endBar":4,"rhythm":"x--- .x-- x--- .x--","voicing":"rootless","articulation":"staccato"}]}]}

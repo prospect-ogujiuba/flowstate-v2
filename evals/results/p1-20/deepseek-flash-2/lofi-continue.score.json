@@ -1,0 +1,164 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Eb Major Continuation — Carried Motif",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.2,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Ebmaj7:4 | Cm7:4 | Abmaj7:4 | Bb7sus4:2 Bb7:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:0.75 6:0.25 5:1 3:0.5 2:1.5 | 3:0.75 b4:0.25 3:1 1:0.5 6-:1.5"
+    },
+    {
+      "id": "m2",
+      "notes": "5:1 6:0.5 1+:1.5 r:0.5 3:0.5 2:0.5 1:1"
+    },
+    {
+      "id": "m3",
+      "notes": "5:0.75 6:0.25 5:0.75 3:0.25 2:1 1:1.5 | 3:0.5 b4:0.25 3:1 1:1 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "C4",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 71,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "motif": "m1"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "motif": "m2",
+          "transforms": [
+            "transpose:-2"
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+1",
+            "displace:+0.25"
+          ]
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "motif": "m3",
+          "transforms": [
+            "transpose:-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "x--- ---- .x-- ..x-",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "rhythm": "x--- x--- x--x ----",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "x--- ---- ..x- .x-x",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Upright",
+      "low": "Eb1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 76,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- ..5. 1--. ..a."
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- ..5. 1--. ...a"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "lofi",
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 3,
+          "groove": "boom_bap"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "groove": "lofi",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

@@ -94,12 +94,13 @@ describe("validateScore grooves", () => {
     return validateScore(Score.parse(s));
   };
 
-  it("accepts a drums block with only a groove", () => {
+  it("accepts a drums block with only a groove, or only literal notes (a played riff)", () => {
     assert.deepEqual(withDrums({ groove: "boom_bap" }), []);
+    assert.deepEqual(withDrums({ notes: [{ bar: 1, beat: 1, beats: 0.25, pitch: "C2", velocity: 110 }] }), []);
   });
 
   it("rejects a groove for another meter, and a block with neither lanes nor groove", () => {
     assert.match(withDrums({ groove: "jazz_waltz" }).join(), /is for 3\/4/);
-    assert.match(withDrums({}).join(), /no drum lanes or groove/);
+    assert.match(withDrums({}).join(), /no drum lanes, groove or literal notes/);
   });
 });

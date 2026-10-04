@@ -1,0 +1,71 @@
+{
+  "warnings": [
+    "part drums block 1..2: kick lane ignored; the groove \"trap\" plays it",
+    "part drums block 3..4 low_tom: bar 4 has 8 steps, expected 16; read as 8 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 161,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 50,
+        "minPitch": 53,
+        "maxPitch": 70,
+        "rangeLow": 48,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 13,
+        "minPitch": 29,
+        "maxPitch": 37,
+        "rangeLow": 29,
+        "rangeHigh": 41,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 30,
+        "minPitch": 72,
+        "maxPitch": 85,
+        "rangeLow": 72,
+        "rangeHigh": 85,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 68,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 5
+          },
+          {
+            "sublane": "hats",
+            "notes": 38
+          },
+          {
+            "sublane": "kick",
+            "notes": 13
+          },
+          {
+            "sublane": "snare",
+            "notes": 12
+          }
+        ]
+      }
+    ]
+  }
+}

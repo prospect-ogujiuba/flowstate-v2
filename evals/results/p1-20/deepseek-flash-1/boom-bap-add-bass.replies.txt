@@ -1,0 +1,32 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Bass for played drums",
+  "context": {
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.6 }
+  ],
+  "harmony": "Cm:4 | Fm:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "C2",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R... .... 5... .... 7... .... 8... .... 5... .... R... .... 5... .... 8... .... 7... .... 5... ...."
+        }
+      ]
+    }
+  ]
+}

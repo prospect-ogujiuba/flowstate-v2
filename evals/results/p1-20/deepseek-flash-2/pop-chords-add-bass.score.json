@@ -1,0 +1,466 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "What I played",
+  "context": {
+    "tempo": 105,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "B",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Em11:3 B11:5 | Gmaj9:3 B11:5",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Played",
+      "low": "B1",
+      "high": "F#5",
+      "grid": 2,
+      "velocity": 89,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "E2",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "B2",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "G3",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "A3",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "B3",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "D4",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "F#4",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 8,
+              "pitch": "F#5",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "B2",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "A3",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "C#4",
+              "velocity": 89
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "E4",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "G2",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "D3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "F#3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "G3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "A3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "B3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "D4",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 3,
+              "pitch": "F#4",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "B1",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "A3",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "C#4",
+              "velocity": 89
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "E4",
+              "velocity": 89
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bass_played",
+      "role": "bass",
+      "name": "Bass",
+      "low": "B0",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.75,
+              "pitch": "E2",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 2,
+              "beats": 0.25,
+              "pitch": "F#2",
+              "velocity": 78
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 0.5,
+              "pitch": "G2",
+              "velocity": 84
+            },
+            {
+              "bar": 1,
+              "beat": 3,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 4.75,
+              "beats": 0.75,
+              "pitch": "D2",
+              "velocity": 82
+            },
+            {
+              "bar": 1,
+              "beat": 5.5,
+              "beats": 0.5,
+              "pitch": "C#2",
+              "velocity": 86
+            },
+            {
+              "bar": 2,
+              "beat": 1,
+              "beats": 0.75,
+              "pitch": "F#2",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 2,
+              "beats": 0.25,
+              "pitch": "A2",
+              "velocity": 78
+            },
+            {
+              "bar": 2,
+              "beat": 2.5,
+              "beats": 0.5,
+              "pitch": "G2",
+              "velocity": 84
+            },
+            {
+              "bar": 2,
+              "beat": 3,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 4,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 4.75,
+              "beats": 0.75,
+              "pitch": "D2",
+              "velocity": 82
+            },
+            {
+              "bar": 2,
+              "beat": 5.5,
+              "beats": 0.5,
+              "pitch": "C#2",
+              "velocity": 86
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 0.75,
+              "pitch": "G2",
+              "velocity": 94
+            },
+            {
+              "bar": 3,
+              "beat": 2,
+              "beats": 0.25,
+              "pitch": "A2",
+              "velocity": 78
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 0.5,
+              "pitch": "B2",
+              "velocity": 86
+            },
+            {
+              "bar": 3,
+              "beat": 3,
+              "beats": 0.75,
+              "pitch": "D3",
+              "velocity": 94
+            },
+            {
+              "bar": 3,
+              "beat": 3.75,
+              "beats": 1,
+              "pitch": "B2",
+              "velocity": 88
+            },
+            {
+              "bar": 3,
+              "beat": 4.75,
+              "beats": 0.75,
+              "pitch": "F#2",
+              "velocity": 92
+            },
+            {
+              "bar": 3,
+              "beat": 5.5,
+              "beats": 0.75,
+              "pitch": "D2",
+              "velocity": 88
+            },
+            {
+              "bar": 3,
+              "beat": 6.25,
+              "beats": 0.75,
+              "pitch": "F#2",
+              "velocity": 84
+            },
+            {
+              "bar": 3,
+              "beat": 7,
+              "beats": 0.5,
+              "pitch": "A2",
+              "velocity": 84
+            },
+            {
+              "bar": 3,
+              "beat": 7.5,
+              "beats": 0.5,
+              "pitch": "C#2",
+              "velocity": 86
+            },
+            {
+              "bar": 4,
+              "beat": 1,
+              "beats": 0.75,
+              "pitch": "F#2",
+              "velocity": 96
+            },
+            {
+              "bar": 4,
+              "beat": 2,
+              "beats": 0.25,
+              "pitch": "A2",
+              "velocity": 78
+            },
+            {
+              "bar": 4,
+              "beat": 2.5,
+              "beats": 0.5,
+              "pitch": "G2",
+              "velocity": 84
+            },
+            {
+              "bar": 4,
+              "beat": 3,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 96
+            },
+            {
+              "bar": 4,
+              "beat": 4,
+              "beats": 0.75,
+              "pitch": "B1",
+              "velocity": 98
+            },
+            {
+              "bar": 4,
+              "beat": 4.75,
+              "beats": 0.5,
+              "pitch": "F#2",
+              "velocity": 86
+            },
+            {
+              "bar": 4,
+              "beat": 5.25,
+              "beats": 0.25,
+              "pitch": "G2",
+              "velocity": 84
+            },
+            {
+              "bar": 4,
+              "beat": 5.5,
+              "beats": 0.5,
+              "pitch": "A2",
+              "velocity": 86
+            },
+            {
+              "bar": 4,
+              "beat": 6,
+              "beats": 1,
+              "pitch": "B2",
+              "velocity": 90
+            },
+            {
+              "bar": 4,
+              "beat": 7,
+              "beats": 1,
+              "pitch": "B1",
+              "velocity": 94
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

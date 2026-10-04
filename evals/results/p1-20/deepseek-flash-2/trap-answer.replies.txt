@@ -1,0 +1,255 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark F minor call and response",
+  "context": {
+    "swing": 0.08,
+    "style": ["dark", "cinematic-trap", "minor"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.62 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.82 }
+  ],
+  "harmony": "Fm9:2 | Db:maj7:2 | Bbm7:2 | C7alt:2",
+  "motifs": [
+    { "id": "answer", "notes": "1:.5 3:.5 4:.5 3:.25 2:.25 1:1 r:.5 | 5:.5 6:.5 5:.5 4:.5 3:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x------- ..x----- x------- ....x---",
+          "voicing": "rootless",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x---x--- ..x---x- x---x--- ..x-x-x.",
+          "voicing": "spread",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Dark Sub Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R------- ..R----- R---..5- R---....",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R---R--- ..R---5- R---R--- ..5-..7-",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "F4",
+      "high": "Db6",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "answer",
+          "transforms": ["invert"],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "transforms": ["transpose:+1"],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dark Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "half_time",
+          "drums": [
+            { "voice": "open_hat", "steps": "....x.......x..." },
+            { "voice": "rim", "steps": "..g..... ..g....." }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "groove": "trap",
+          "drums": [
+            { "voice": "low_tom", "steps": "....x.......x..." },
+            { "voice": "crash", "steps": "x..............." }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}
+```
+
+===== attempt 2 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark F minor call and response",
+  "context": {
+    "swing": 0.08,
+    "style": ["dark", "cinematic-trap", "minor"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.62 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.82 }
+  ],
+  "harmony": "Fm9:2 | Dbmaj7:2 | Bbm7:2 | C7alt:2",
+  "motifs": [
+    { "id": "answer", "notes": "1:.5 3:.5 4:.5 3:.25 2:.25 1:1 r:.5 | 5:.5 6:.5 5:.5 4:.5 3:1 r:1" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dark Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x------- ..x----- x------- ....x---",
+          "voicing": "rootless",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x---x--- ..x---x- x---x--- ..x-x-x.",
+          "voicing": "spread",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Dark Sub Bass",
+      "low": "F1",
+      "high": "C3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R------- ..R----- R---..5- R---....",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R---R--- ..R---5- R---R--- ..5-..7-",
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead Synth",
+      "low": "F4",
+      "high": "Db6",
+      "grid": 2,
+      "velocity": 86,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "answer",
+          "transforms": ["invert"],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "transforms": ["transpose:+1"],
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Dark Trap Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "half_time",
+          "drums": [
+            { "voice": "open_hat", "steps": "....x.......x..." },
+            { "voice": "rim", "steps": "..g..... ..g....." }
+          ],
+          "fill": "snare_roll"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "groove": "trap",
+          "drums": [
+            { "voice": "low_tom", "steps": "....x.......x..." },
+            { "voice": "crash", "steps": "x..............." }
+          ],
+          "fill": "tom_run"
+        }
+      ]
+    }
+  ]
+}
+```

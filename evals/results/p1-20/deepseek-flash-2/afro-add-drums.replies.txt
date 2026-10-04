@@ -1,0 +1,42 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Afrobeats drums for played melody",
+  "context": {
+    "swing": 0.05,
+    "style": ["afrobeats"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.62 }
+  ],
+  "harmony": "Am:8",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "afrobeats",
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x...x..x ..x.x..." },
+            { "voice": "rim", "steps": "..x..x.. ....x.x." },
+            { "voice": "shaker", "steps": "x.xxx.xx x.xxx.xx" },
+            { "voice": "tambourine", "steps": "..x...x. ..x...x." },
+            { "voice": "low_tom", "steps": "........ ........" },
+            { "voice": "mid_tom", "steps": "........ ...x...." },
+            { "voice": "high_tom", "steps": "........ ...x...." }
+          ]
+        }
+      ]
+    }
+  ]
+}

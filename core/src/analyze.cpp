@@ -1011,6 +1011,12 @@ Analysis analyzeMidiData(const MidiFileData& file, const AnalyzeOptions& options
     const bool drums = a.role == Role::Drums;
     if (drums) {
         a.key.reason = "drums have no key";
+        if (options.keyTonic && options.keyMode) {
+            // The session's key, so a played beat plans in the song's key (P1-20).
+            a.key.tonic = mod12(*options.keyTonic);
+            a.key.mode = *options.keyMode;
+            a.key.reason = "drums have no key; the given key is the context's";
+        }
     } else {
         a.key = estimateKey(notes);
         if (options.keyTonic && options.keyMode) {

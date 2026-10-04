@@ -1,0 +1,34 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lofi Jazzy Chords in Eb",
+  "context": {
+    "swing": 0.2,
+    "style": ["lofi", "jazz"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.6 }
+  ],
+  "harmony": "Ebmaj9:4 | Ab13:4 | Fm9:4 | Bb13sus4:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

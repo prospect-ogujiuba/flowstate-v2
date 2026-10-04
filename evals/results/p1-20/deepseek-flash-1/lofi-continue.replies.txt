@@ -1,0 +1,100 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Eb major continuation (4 bars)",
+  "context": { "swing": 0.2, "style": [] },
+  "form": [ { "name": "A", "startBar": 1, "bars": 4, "energy": 0.6 } ],
+  "harmony": "Ebmaj9:4 | Abmaj7:4 | Gm7:4 | Fm7:2 Bb7:2",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "G2",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "x... ..x. .... ..x.", "voicing": "rootless" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Electric Bass",
+      "low": "Bb1",
+      "high": "Eb3",
+      "grid": 2,
+      "velocity": 84,
+      "blocks": [
+        { "startBar": 1, "endBar": 1, "rhythm": "R... ..5. R.g. ..a." },
+        { "startBar": 2, "endBar": 2, "rhythm": "R... ..5. ...g ..a." },
+        { "startBar": 3, "endBar": 3, "rhythm": "R... ..5. R.g. ...." },
+        { "startBar": 4, "endBar": 4, "rhythm": "R... ..5. 3.5. ....." }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Lead",
+      "low": "C4",
+      "high": "Eb5",
+      "grid": 2,
+      "velocity": 74,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            { "bar": 1, "beat": 1, "beats": 0.675, "pitch": "Bb4", "velocity": 78 },
+            { "bar": 1, "beat": 1.7677, "beats": 0.225, "pitch": "C5", "velocity": 64 },
+            { "bar": 1, "beat": 2.001, "beats": 0.9, "pitch": "Bb4", "velocity": 72 },
+            { "bar": 1, "beat": 3.0104, "beats": 0.45, "pitch": "G4", "velocity": 70 },
+            { "bar": 1, "beat": 3.5073, "beats": 1.35, "pitch": "F4", "velocity": 66 },
+
+            { "bar": 2, "beat": 1.0083, "beats": 0.675, "pitch": "G4", "velocity": 76 },
+            { "bar": 2, "beat": 1.7615, "beats": 0.225, "pitch": "Ab4", "velocity": 62 },
+            { "bar": 2, "beat": 2.0031, "beats": 0.9, "pitch": "G4", "velocity": 70 },
+            { "bar": 2, "beat": 2.9875, "beats": 0.45, "pitch": "Eb4", "velocity": 68 },
+            { "bar": 2, "beat": 3.4917, "beats": 1.35, "pitch": "C4", "velocity": 64 },
+
+            { "bar": 3, "beat": 1, "beats": 0.675, "pitch": "Bb4", "velocity": 80 },
+            { "bar": 3, "beat": 1.7469, "beats": 0.225, "pitch": "C5", "velocity": 66 },
+            { "bar": 3, "beat": 1.9844, "beats": 0.9, "pitch": "Eb5", "velocity": 84 },
+            { "bar": 3, "beat": 3, "beats": 0.45, "pitch": "D5", "velocity": 72 },
+            { "bar": 3, "beat": 3.4969, "beats": 1.35, "pitch": "Bb4", "velocity": 68 },
+
+            { "bar": 4, "beat": 1.0083, "beats": 0.9, "pitch": "G4", "velocity": 74 },
+            { "bar": 4, "beat": 2.0177, "beats": 0.45, "pitch": "F4", "velocity": 66 },
+            { "bar": 4, "beat": 2.5083, "beats": 0.45, "pitch": "G4", "velocity": 70 },
+            { "bar": 4, "beat": 3.0125, "beats": 1.8, "pitch": "Eb4", "velocity": 72 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x....... ..x..... ....x... ...x...." },
+            { "voice": "snare", "steps": "....X... ....X... ....X... .g..X..." },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.x.x." },
+            { "voice": "open_hat", "steps": "................ ................ ................ ..........X....." },
+            { "voice": "ride", "steps": "....x... ....x... ....x... ....x..." }
+          ]
+        }
+      ]
+    }
+  ]
+}

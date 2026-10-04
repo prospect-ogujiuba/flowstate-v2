@@ -1,0 +1,357 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "What I played",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "major",
+    "bars": 8,
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 8,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Played",
+      "low": "G#2",
+      "high": "F#3",
+      "grid": 4,
+      "velocity": 89,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.5271,
+              "pitch": "C#3",
+              "velocity": 91
+            },
+            {
+              "bar": 1,
+              "beat": 4.5,
+              "beats": 0.2229,
+              "pitch": "E3",
+              "velocity": 76
+            },
+            {
+              "bar": 1,
+              "beat": 4.75,
+              "beats": 0.2292,
+              "pitch": "F#3",
+              "velocity": 79
+            },
+            {
+              "bar": 2,
+              "beat": 1,
+              "beats": 0.65,
+              "pitch": "A2",
+              "velocity": 97
+            },
+            {
+              "bar": 2,
+              "beat": 4,
+              "beats": 0.5333,
+              "pitch": "B2",
+              "velocity": 96
+            },
+            {
+              "bar": 3,
+              "beat": 1.0625,
+              "beats": 0.4958,
+              "pitch": "C#3",
+              "velocity": 92
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 0.4771,
+              "pitch": "E3",
+              "velocity": 86
+            },
+            {
+              "bar": 3,
+              "beat": 4.5,
+              "beats": 0.3083,
+              "pitch": "F#3",
+              "velocity": 87
+            },
+            {
+              "bar": 4,
+              "beat": 1,
+              "beats": 0.5729,
+              "pitch": "A2",
+              "velocity": 91
+            },
+            {
+              "bar": 4,
+              "beat": 3.5,
+              "beats": 0.1438,
+              "pitch": "E3",
+              "velocity": 97
+            },
+            {
+              "bar": 4,
+              "beat": 3.75,
+              "beats": 0.2354,
+              "pitch": "G#2",
+              "velocity": 76
+            },
+            {
+              "bar": 4,
+              "beat": 4,
+              "beats": 0.975,
+              "pitch": "B2",
+              "velocity": 96
+            },
+            {
+              "bar": 5,
+              "beat": 1,
+              "beats": 0.5271,
+              "pitch": "C#3",
+              "velocity": 88
+            },
+            {
+              "bar": 5,
+              "beat": 4.5,
+              "beats": 0.2271,
+              "pitch": "E3",
+              "velocity": 80
+            },
+            {
+              "bar": 5,
+              "beat": 4.75,
+              "beats": 0.1542,
+              "pitch": "F#3",
+              "velocity": 88
+            },
+            {
+              "bar": 6,
+              "beat": 1,
+              "beats": 0.6396,
+              "pitch": "A2",
+              "velocity": 96
+            },
+            {
+              "bar": 6,
+              "beat": 4,
+              "beats": 0.5542,
+              "pitch": "B2",
+              "velocity": 91
+            },
+            {
+              "bar": 7,
+              "beat": 1,
+              "beats": 0.5563,
+              "pitch": "C#3",
+              "velocity": 95
+            },
+            {
+              "bar": 7,
+              "beat": 4,
+              "beats": 0.4813,
+              "pitch": "E3",
+              "velocity": 88
+            },
+            {
+              "bar": 7,
+              "beat": 4.5,
+              "beats": 0.3125,
+              "pitch": "F#3",
+              "velocity": 86
+            },
+            {
+              "bar": 8,
+              "beat": 1.0625,
+              "beats": 0.5104,
+              "pitch": "A2",
+              "velocity": 95
+            },
+            {
+              "bar": 8,
+              "beat": 3.5,
+              "beats": 0.2229,
+              "pitch": "E3",
+              "velocity": 85
+            },
+            {
+              "bar": 8,
+              "beat": 3.75,
+              "beats": 0.2292,
+              "pitch": "G#2",
+              "velocity": 78
+            },
+            {
+              "bar": 8,
+              "beat": 4,
+              "beats": 0.95,
+              "pitch": "B2",
+              "velocity": 97
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums_kick",
+      "role": "drums",
+      "name": "Kick",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 112,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x. ...x.x.. | x..x..x. ...x.x.. | x..x..x. ...x.x.. | x..x..x. ..x.x..."
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x. ...x.x.. | x..x..x. ...x.x.. | x..x..x. ..x.x..."
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "kick",
+              "steps": "x..x..x. ...x.x.."
+            }
+          ],
+          "fill": "kick_build"
+        }
+      ]
+    },
+    {
+      "id": "drums_snare",
+      "role": "drums",
+      "name": "Snare",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 106,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "snare",
+              "steps": "....x... ....x... | ....x.g. ....x... | ....x... ....x... | ....x.g. ....x..g"
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "snare",
+              "steps": "....x... ....x... | ....x.g. ....x... | ....x... ....x..g"
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "snare",
+              "steps": "....x... ....x..."
+            }
+          ],
+          "fill": "snare_roll"
+        }
+      ]
+    },
+    {
+      "id": "drums_hats",
+      "role": "drums",
+      "name": "Closed Hat",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 84,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx. | x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xx.x"
+            }
+          ]
+        },
+        {
+          "startBar": 5,
+          "endBar": 7,
+          "drums": [
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x. | x.x.x.x. x.x.xgx. | x.x.x.x. x.xx.x.x"
+            }
+          ]
+        },
+        {
+          "startBar": 8,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "closed_hat",
+              "steps": "x.x.x.x. x.x.x.x."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drums_openhat",
+      "role": "drums",
+      "name": "Open Hat",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 8,
+          "drums": [
+            {
+              "voice": "open_hat",
+              "steps": "..x...x. ..x...x. | ..x...x. ..x...x. | ..x...x. ..x...x. | ..x...x. ..x.x..."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

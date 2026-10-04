@@ -1,0 +1,143 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Two-bar changes for a played melody",
+  "context": {
+    "tempo": 110,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major",
+    "bars": 2,
+    "swing": 0.08,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Cmaj7:4 | Fmaj7:2 G7:2",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Played",
+      "low": "G4",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 1.5177,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 84
+            },
+            {
+              "bar": 1,
+              "beat": 2.001,
+              "beats": 0.45,
+              "pitch": "C5",
+              "velocity": 88
+            },
+            {
+              "bar": 1,
+              "beat": 2.5104,
+              "beats": 0.9,
+              "pitch": "G4",
+              "velocity": 80
+            },
+            {
+              "bar": 1,
+              "beat": 3.5073,
+              "beats": 0.45,
+              "pitch": "A4",
+              "velocity": 82
+            },
+            {
+              "bar": 1,
+              "beat": 4.0083,
+              "beats": 0.9,
+              "pitch": "C5",
+              "velocity": 90
+            },
+            {
+              "bar": 2,
+              "beat": 1.0115,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 98
+            },
+            {
+              "bar": 2,
+              "beat": 1.5031,
+              "beats": 0.45,
+              "pitch": "F5",
+              "velocity": 92
+            },
+            {
+              "bar": 2,
+              "beat": 1.9875,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 86
+            },
+            {
+              "bar": 2,
+              "beat": 2.4917,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 84
+            },
+            {
+              "bar": 2,
+              "beat": 2.999,
+              "beats": 1.8,
+              "pitch": "C5",
+              "velocity": 88
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        }
+      ]
+    }
+  ]
+}

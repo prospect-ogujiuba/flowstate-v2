@@ -11,7 +11,8 @@
     "render": "tsx src/render-pack.ts",
     "soundfont": "bash scripts/fetch-soundfont.sh",
     "test": "tsx --test src/*.test.ts",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "capture:build": "tsx src/capture-set.ts"
   },
   "dependencies": {
     "@flowstate/cloud": "*",

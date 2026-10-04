@@ -1,0 +1,76 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Bass to the played kit",
+  "context": {
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.6 }
+  ],
+  "harmony": "Cm7:4 | Fm7:2 G7:2",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Played",
+      "low": "C2",
+      "high": "Gb2",
+      "grid": 4,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            { "bar": 1, "beat": 1, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 1, "beat": 1.0177, "beats": 0.225, "pitch": "C2", "velocity": 110 },
+            { "bar": 1, "beat": 1.5177, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 1, "beat": 2.001, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 1, "beat": 2.0125, "beats": 0.225, "pitch": "D2", "velocity": 112 },
+            { "bar": 1, "beat": 2.5104, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 1, "beat": 2.7583, "beats": 0.225, "pitch": "C2", "velocity": 92 },
+            { "bar": 1, "beat": 3.0073, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 1, "beat": 3.5083, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 1, "beat": 3.5125, "beats": 0.225, "pitch": "C2", "velocity": 100 },
+            { "bar": 1, "beat": 3.9896, "beats": 0.225, "pitch": "D2", "velocity": 114 },
+            { "bar": 1, "beat": 4.0115, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 1, "beat": 4.5031, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 1, "beat": 4.9875, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 2, "beat": 1.0063, "beats": 0.225, "pitch": "C2", "velocity": 110 },
+            { "bar": 2, "beat": 1.4917, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 2, "beat": 1.9833, "beats": 0.225, "pitch": "D2", "velocity": 110 },
+            { "bar": 2, "beat": 1.999, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 2, "beat": 2.4969, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 2, "beat": 2.7646, "beats": 0.225, "pitch": "C2", "velocity": 90 },
+            { "bar": 2, "beat": 2.9844, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 2, "beat": 3.2604, "beats": 0.225, "pitch": "C2", "velocity": 96 },
+            { "bar": 2, "beat": 3.5, "beats": 0.225, "pitch": "Gb2", "velocity": 58 },
+            { "bar": 2, "beat": 3.9875, "beats": 0.225, "pitch": "D2", "velocity": 116 },
+            { "bar": 2, "beat": 3.9969, "beats": 0.225, "pitch": "Gb2", "velocity": 70 },
+            { "bar": 2, "beat": 4.5083, "beats": 0.225, "pitch": "Gb2", "velocity": 58 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "C1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 100,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x..x--x.-..x-x-.",
+          "articulation": "staccato"
+        }
+      ]
+    }
+  ]
+}

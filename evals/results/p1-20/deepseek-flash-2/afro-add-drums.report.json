@@ -1,0 +1,52 @@
+{
+  "warnings": [
+    "part drums block 1..2: kick lane ignored; the groove \"afrobeats\" plays it",
+    "part drums block 1..2: rim lane ignored; the groove \"afrobeats\" plays it",
+    "part drums block 1..2: shaker lane ignored; the groove \"afrobeats\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 71,
+    "clipEndTick": 7680,
+    "parts": [
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 11,
+        "minPitch": 67,
+        "maxPitch": 76,
+        "rangeLow": 67,
+        "rangeHigh": 76,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 60,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 40
+          },
+          {
+            "sublane": "clap_rim",
+            "notes": 3
+          },
+          {
+            "sublane": "kick",
+            "notes": 7
+          },
+          {
+            "sublane": "toms",
+            "notes": 10
+          }
+        ]
+      }
+    ]
+  }
+}

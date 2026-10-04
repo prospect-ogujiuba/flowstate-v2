@@ -1,0 +1,197 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lofi Jazzy Chords in Eb",
+  "context": {
+    "tempo": 78,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "Eb",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.2,
+    "style": [
+      "lofi",
+      "jazz"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Ebmaj9:4 | Ab13:4 | Fm9:4 | Bb13sus4:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Played",
+      "low": "C4",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 71,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.675,
+              "pitch": "Bb4",
+              "velocity": 78
+            },
+            {
+              "bar": 1,
+              "beat": 1.7677,
+              "beats": 0.225,
+              "pitch": "C5",
+              "velocity": 64
+            },
+            {
+              "bar": 1,
+              "beat": 2.001,
+              "beats": 0.9,
+              "pitch": "Bb4",
+              "velocity": 72
+            },
+            {
+              "bar": 1,
+              "beat": 3.0104,
+              "beats": 0.45,
+              "pitch": "G4",
+              "velocity": 70
+            },
+            {
+              "bar": 1,
+              "beat": 3.5073,
+              "beats": 1.35,
+              "pitch": "F4",
+              "velocity": 66
+            },
+            {
+              "bar": 2,
+              "beat": 1.0083,
+              "beats": 0.675,
+              "pitch": "G4",
+              "velocity": 76
+            },
+            {
+              "bar": 2,
+              "beat": 1.7615,
+              "beats": 0.225,
+              "pitch": "Ab4",
+              "velocity": 62
+            },
+            {
+              "bar": 2,
+              "beat": 2.0031,
+              "beats": 0.9,
+              "pitch": "G4",
+              "velocity": 70
+            },
+            {
+              "bar": 2,
+              "beat": 2.9875,
+              "beats": 0.45,
+              "pitch": "Eb4",
+              "velocity": 68
+            },
+            {
+              "bar": 2,
+              "beat": 3.4917,
+              "beats": 1.35,
+              "pitch": "C4",
+              "velocity": 64
+            },
+            {
+              "bar": 2,
+              "beat": 4.999,
+              "beats": 0.675,
+              "pitch": "Bb4",
+              "velocity": 80
+            },
+            {
+              "bar": 3,
+              "beat": 1.7469,
+              "beats": 0.225,
+              "pitch": "C5",
+              "velocity": 66
+            },
+            {
+              "bar": 3,
+              "beat": 1.9844,
+              "beats": 0.9,
+              "pitch": "Eb5",
+              "velocity": 84
+            },
+            {
+              "bar": 3,
+              "beat": 3,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 72
+            },
+            {
+              "bar": 3,
+              "beat": 3.4969,
+              "beats": 1.35,
+              "pitch": "Bb4",
+              "velocity": 68
+            },
+            {
+              "bar": 4,
+              "beat": 1.0083,
+              "beats": 0.9,
+              "pitch": "G4",
+              "velocity": 74
+            },
+            {
+              "bar": 4,
+              "beat": 2.0177,
+              "beats": 0.45,
+              "pitch": "F4",
+              "velocity": 66
+            },
+            {
+              "bar": 4,
+              "beat": 2.5083,
+              "beats": 0.45,
+              "pitch": "G4",
+              "velocity": 70
+            },
+            {
+              "bar": 4,
+              "beat": 3.0125,
+              "beats": 1.8,
+              "pitch": "Eb4",
+              "velocity": 72
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

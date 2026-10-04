@@ -1,0 +1,50 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Afrobeats pocket for the played line",
+  "context": {
+    "swing": 0.06,
+    "style": ["afrobeats"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.62 }
+  ],
+  "harmony": "Am:8",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Afrobeats Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "drums": [
+            { "voice": "kick", "steps": "x..x..x...x.x..." },
+            { "voice": "snare", "steps": "..x.......x....." },
+            { "voice": "rim", "steps": "....x.x.....x.x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x.g." },
+            { "voice": "shaker", "steps": "x.xxx.xxx.xxx.xx" }
+          ]
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "fill": "tom_run",
+          "drums": [
+            { "voice": "kick", "steps": "x..x..x...x.x..." },
+            { "voice": "snare", "steps": "..x.......x....." },
+            { "voice": "rim", "steps": "....x.x.....x.x." },
+            { "voice": "closed_hat", "steps": "x.x.x.x.x.x.x..." },
+            { "voice": "shaker", "steps": "x.xxx.xxx.xxx.xx" }
+          ]
+        }
+      ]
+    }
+  ]
+}

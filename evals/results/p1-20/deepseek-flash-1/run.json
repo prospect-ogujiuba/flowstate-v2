@@ -1,0 +1,554 @@
+{
+  "backend": {
+    "name": "pi",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "reasoning": "off"
+  },
+  "prompts": "evals/prompts/capture-phase1.json",
+  "at": "2026-10-04T16:11:22.925Z",
+  "stats": {
+    "cases": 21,
+    "valid": 21,
+    "correct": 21,
+    "firstAttempt": 18,
+    "latencyP50Ms": 2636,
+    "latencyP95Ms": 6147,
+    "firstPartP50Ms": 1226,
+    "firstPartP95Ms": 2543
+  },
+  "results": [
+    {
+      "id": "afro-add-bass",
+      "intent": "add_bass",
+      "riff": "afro-lead",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "bass"
+      ],
+      "attempts": 1,
+      "latencyMs": 1600,
+      "firstPartMs": 1176,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 191,
+        "outputTokens": 218,
+        "cacheReadTokens": 6400
+      }
+    },
+    {
+      "id": "afro-add-drums",
+      "intent": "add_drums",
+      "riff": "afro-lead",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 2306,
+      "firstPartMs": 1304,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 185,
+        "outputTokens": 462,
+        "cacheReadTokens": 6400
+      }
+    },
+    {
+      "id": "bass-add-drums",
+      "intent": "add_drums",
+      "riff": "bass-02",
+      "riffRole": "bass",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "bass",
+        "drums",
+        "drums",
+        "drums",
+        "drums",
+        "drums"
+      ],
+      "attempts": 3,
+      "latencyMs": 5040,
+      "firstPartMs": 0,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 722,
+        "outputTokens": 857,
+        "cacheReadTokens": 21632
+      }
+    },
+    {
+      "id": "bass-continue",
+      "intent": "continue",
+      "riff": "bass-02",
+      "riffRole": "bass",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 4094,
+      "firstPartMs": 2247,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 202,
+        "outputTokens": 1023,
+        "cacheReadTokens": 6784
+      }
+    },
+    {
+      "id": "bass-harmonize",
+      "intent": "harmonize",
+      "riff": "bass-05",
+      "riffRole": "bass",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "bass",
+        "chords",
+        "chords"
+      ],
+      "attempts": 1,
+      "latencyMs": 1173,
+      "firstPartMs": 0,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 160,
+        "outputTokens": 152,
+        "cacheReadTokens": 6528
+      }
+    },
+    {
+      "id": "boom-bap-add-bass",
+      "intent": "add_bass",
+      "riff": "boom-bap-drums",
+      "riffRole": "drums",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "drums",
+        "bass"
+      ],
+      "attempts": 1,
+      "latencyMs": 1473,
+      "firstPartMs": 1071,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 1251,
+        "outputTokens": 238,
+        "cacheReadTokens": 5760
+      }
+    },
+    {
+      "id": "dembow-harmonize",
+      "intent": "harmonize",
+      "riff": "dembow-drums",
+      "riffRole": "drums",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "drums",
+        "chords"
+      ],
+      "attempts": 1,
+      "latencyMs": 1574,
+      "firstPartMs": 1305,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 1414,
+        "outputTokens": 156,
+        "cacheReadTokens": 5760
+      }
+    },
+    {
+      "id": "house-continue",
+      "intent": "continue",
+      "riff": "house-drums",
+      "riffRole": "drums",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 2636,
+      "firstPartMs": 1701,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 1097,
+        "outputTokens": 624,
+        "cacheReadTokens": 5760
+      }
+    },
+    {
+      "id": "jazz-harmonize",
+      "intent": "harmonize",
+      "riff": "jazz-line",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "chords"
+      ],
+      "attempts": 1,
+      "latencyMs": 3275,
+      "firstPartMs": 1226,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 152,
+        "outputTokens": 953,
+        "cacheReadTokens": 6528
+      }
+    },
+    {
+      "id": "lofi-continue",
+      "intent": "continue",
+      "riff": "lofi-melody",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 4690,
+      "firstPartMs": 1411,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 157,
+        "outputTokens": 1505,
+        "cacheReadTokens": 6656
+      }
+    },
+    {
+      "id": "lofi-harmonize",
+      "intent": "harmonize",
+      "riff": "lofi-melody",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "chords"
+      ],
+      "attempts": 1,
+      "latencyMs": 1588,
+      "firstPartMs": 1227,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 156,
+        "outputTokens": 257,
+        "cacheReadTokens": 6656
+      }
+    },
+    {
+      "id": "pop-chords-add-bass",
+      "intent": "add_bass",
+      "riff": "pop-chords-02",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass"
+      ],
+      "attempts": 1,
+      "latencyMs": 1992,
+      "firstPartMs": 4,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 146,
+        "outputTokens": 87,
+        "cacheReadTokens": 6656
+      }
+    },
+    {
+      "id": "pop-chords-continue",
+      "intent": "continue",
+      "riff": "pop-chords-02",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 3181,
+      "firstPartMs": 1923,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 208,
+        "outputTokens": 800,
+        "cacheReadTokens": 6656
+      }
+    },
+    {
+      "id": "pop-hook-answer",
+      "intent": "answer",
+      "riff": "pop-hook",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 2,
+      "latencyMs": 6834,
+      "firstPartMs": 5452,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 373,
+        "outputTokens": 1986,
+        "cacheReadTokens": 13824
+      }
+    },
+    {
+      "id": "pop-hook-harmonize",
+      "intent": "harmonize",
+      "riff": "pop-hook",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "chords"
+      ],
+      "attempts": 1,
+      "latencyMs": 1603,
+      "firstPartMs": 1195,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 183,
+        "outputTokens": 275,
+        "cacheReadTokens": 6400
+      }
+    },
+    {
+      "id": "rnb-chords-add-bass",
+      "intent": "add_bass",
+      "riff": "rnb-chords-01",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass"
+      ],
+      "attempts": 1,
+      "latencyMs": 1642,
+      "firstPartMs": 19,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 203,
+        "outputTokens": 94,
+        "cacheReadTokens": 6784
+      }
+    },
+    {
+      "id": "rnb-chords-add-drums",
+      "intent": "add_drums",
+      "riff": "rnb-chords-07",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "drums",
+        "drums",
+        "drums",
+        "drums",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 3308,
+      "firstPartMs": 4,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 155,
+        "outputTokens": 590,
+        "cacheReadTokens": 6528
+      }
+    },
+    {
+      "id": "rnb-chords-answer",
+      "intent": "answer",
+      "riff": "rnb-chords-01",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 2736,
+      "firstPartMs": 1897,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 135,
+        "outputTokens": 557,
+        "cacheReadTokens": 6912
+      }
+    },
+    {
+      "id": "trap-add-bass",
+      "intent": "add_bass",
+      "riff": "trap-bells",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "melody",
+        "bass"
+      ],
+      "attempts": 1,
+      "latencyMs": 1413,
+      "firstPartMs": 1096,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 147,
+        "outputTokens": 235,
+        "cacheReadTokens": 6528
+      }
+    },
+    {
+      "id": "trap-answer",
+      "intent": "answer",
+      "riff": "trap-bells",
+      "riffRole": "melody",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "bass",
+        "melody",
+        "drums"
+      ],
+      "attempts": 1,
+      "latencyMs": 4503,
+      "firstPartMs": 2543,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 136,
+        "outputTokens": 1118,
+        "cacheReadTokens": 6528
+      }
+    },
+    {
+      "id": "world-chords-add-drums",
+      "intent": "add_drums",
+      "riff": "world-chords-03",
+      "riffRole": "chords",
+      "keyFrom": "session",
+      "ok": true,
+      "valid": true,
+      "kept": true,
+      "lanes": true,
+      "roles": [
+        "chords",
+        "drums",
+        "drums",
+        "drums",
+        "drums",
+        "drums",
+        "drums"
+      ],
+      "attempts": 2,
+      "latencyMs": 6147,
+      "firstPartMs": 3,
+      "remainingErrors": [],
+      "usage": {
+        "inputTokens": 563,
+        "outputTokens": 1286,
+        "cacheReadTokens": 13952
+      }
+    }
+  ]
+}

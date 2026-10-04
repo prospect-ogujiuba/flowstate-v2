@@ -2,6 +2,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 
+#include "flowstate/analyze.h"
 #include "session/Capture.h"
 #include "session/Controller.h"
 #include "session/PluginState.h"
@@ -648,7 +649,35 @@ TEST_CASE("capture: what was played goes as the reference, in its own key; keep 
     CHECK(plan.prompt == "answer it higher");
     c.cancelAll();
 
+    // A riff too short for core to be sure of its key: the current idea's key wins over a guess...
+    reply(c, {{"type", "setContextOverride"}, {"override", {{"tonic", nullptr}, {"mode", nullptr}, {"tempo", nullptr},
+                                                           {"meterNumerator", nullptr}, {"meterDenominator", nullptr},
+                                                           {"bars", nullptr}, {"swing", nullptr}}}});
+    platform.window = played({{69, 0.0, 1.0, 90}, {72, 1.0, 1.0, 90}, {76, 2.0, 2.0, 90}}, 40.0, -1.0);
+    const auto guess = flowstate::analyzeMidiData(capturedNotes(platform.window, 4.0, 120.0, 4, 4), [] {
+        flowstate::AnalyzeOptions o;
+        o.literalPart = true;
+        return o;
+    }());
+    REQUIRE(guess.ok);
+    REQUIRE_FALSE(guess.key.reliable);
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 1, 10);  // D dorian
+    REQUIRE(use("continue")["ok"] == true);
+    CHECK((platform.plans.back().second.context.tonic == fb::Tonic::D));
+    CHECK((platform.plans.back().second.context.mode == fb::Mode::Dorian));
+    c.cancelAll();
+    // ...but the default key says nothing about what was played, so core's best guess wins over it.
+    Session fresh("inst2", "test");
+    Controller c2(fresh, platform);
+    REQUIRE(reply(c2, {{"type", "generate"}, {"prompt", ""}, {"roles", nullptr}, {"count", 1},
+                       {"capture", {{"bars", 1}, {"intent", "continue"}}}})["ok"] == true);
+    const auto guessed = json::parse(guess.scoreJson)["context"];
+    CHECK(fb::toString(platform.plans.back().second.context.tonic) == guessed["tonic"].get<std::string>());
+    CHECK(fb::toString(platform.plans.back().second.context.mode) == guessed["mode"].get<std::string>());
+    c2.cancelAll();
+
     // Asking for the lane the riff already is: nothing is sent.
+    platform.window = played(aMinorLine(), 10.0, -1.0);
     const auto sent = platform.plans.size();
     r = use("harmonize", json::array({"melody"}));
     CHECK(r["error"]["code"] == "bad_request");

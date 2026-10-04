@@ -1,0 +1,71 @@
+{
+  "warnings": [
+    "voicing: \"rootless\" cannot voice \"C\" in range; used a fallback voicing",
+    "voicing: \"rootless\" cannot voice \"F\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 94,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 24,
+        "minPitch": 55,
+        "maxPitch": 65,
+        "rangeLow": 48,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 8,
+        "minPitch": 29,
+        "maxPitch": 38,
+        "rangeLow": 28,
+        "rangeHigh": 43,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 29,
+        "minPitch": 67,
+        "maxPitch": 77,
+        "rangeLow": 67,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 33,
+        "minPitch": 36,
+        "maxPitch": 50,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 13
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "snare",
+            "notes": 8
+          },
+          {
+            "sublane": "toms",
+            "notes": 4
+          }
+        ]
+      }
+    ]
+  }
+}

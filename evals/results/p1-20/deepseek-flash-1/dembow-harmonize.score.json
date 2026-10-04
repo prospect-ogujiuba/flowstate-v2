@@ -1,0 +1,286 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Reggaeton sketch over played drums",
+  "context": {
+    "tempo": 95,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "minor",
+    "bars": 2,
+    "swing": 0,
+    "style": [
+      "reggaeton"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Dm:4 | Gm:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Played",
+      "low": "C2",
+      "high": "Gb2",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 1,
+              "beat": 1.0177,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 1.5083,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 1,
+              "beat": 1.7375,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 2.0125,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 2.0177,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 1,
+              "beat": 2.4917,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 2.5063,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 1,
+              "beat": 3.001,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 1,
+              "beat": 3.0146,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 3.5104,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 1,
+              "beat": 3.749,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 4.0104,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 1,
+              "beat": 4.0125,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4.4896,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 1,
+              "beat": 4.4969,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 4.9833,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 2,
+              "beat": 1.0073,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 2,
+              "beat": 1.4875,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 2,
+              "beat": 1.7344,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 1.9906,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 2,
+              "beat": 2.0083,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 2,
+              "beat": 2.4813,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 2,
+              "beat": 2.5,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 2.9844,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 2,
+              "beat": 3.0115,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 2,
+              "beat": 3.4896,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            },
+            {
+              "bar": 2,
+              "beat": 3.7469,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 4.0031,
+              "beats": 0.225,
+              "pitch": "C2",
+              "velocity": 108
+            },
+            {
+              "bar": 2,
+              "beat": 4.0188,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 60
+            },
+            {
+              "bar": 2,
+              "beat": 4.5083,
+              "beats": 0.225,
+              "pitch": "D2",
+              "velocity": 96
+            },
+            {
+              "bar": 2,
+              "beat": 4.5135,
+              "beats": 0.225,
+              "pitch": "Gb2",
+              "velocity": 48
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Chords",
+      "low": "D3",
+      "high": "D5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "....x... .x..x..x | ....x... .x..x..x",
+          "voicing": "close"
+        }
+      ]
+    }
+  ]
+}

@@ -106,7 +106,9 @@ export function validateScore(score: Score): string[] {
       if (b.motif && !motifIds.has(b.motif)) errors.push(`${label}: unknown motif '${b.motif}'`);
       for (const lane of b.drums ?? []) checkSteps(`${label} ${lane.voice}`, lane.steps, STEP_TOKENS.drums!, stepsPerBar, errors);
       for (const n of b.notes ?? []) if (!NOTE_NAME.test(n.pitch)) errors.push(`${label}: bad literal pitch '${n.pitch}'`);
-      if (part.role === "drums" && !b.drums?.length && !b.groove) errors.push(`${label}: drums block has no drum lanes or groove`);
+      // Literal notes count: a drum riff the producer played is kept as the notes they played (P1-20).
+      if (part.role === "drums" && !b.drums?.length && !b.groove && !b.notes?.length)
+        errors.push(`${label}: drums block has no drum lanes, groove or literal notes`);
       if (b.groove) {
         const [num, den] = GROOVES[b.groove].meter;
         if (num !== context.meterNumerator || den !== context.meterDenominator)

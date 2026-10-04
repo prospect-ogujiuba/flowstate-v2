@@ -1,0 +1,222 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Answer in C",
+  "context": {
+    "tempo": 110,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.12,
+    "style": [
+      "call and response"
+    ]
+  },
+  "form": [
+    {
+      "name": "Call",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.6
+    },
+    {
+      "name": "Response",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "Cmaj7:4 | Fmaj7:4 | Dm7:2 G7:2 | Cmaj7:2 G7:2",
+  "motifs": [
+    {
+      "id": "answer",
+      "notes": "5:.5 6:.5 5:.5 3:.5 2:1 r:.5 1:1.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "C3",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--- ----. ..x- ....",
+          "voicing": "close",
+          "articulation": "normal"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x--- ..x- ..x- ....",
+          "voicing": "close",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "C1",
+      "high": "G2",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "R--- .-.. R-.. ..a.",
+          "articulation": "staccato"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "R--- .-.. R-.. ..a.",
+          "articulation": "staccato"
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Call",
+      "low": "G4",
+      "high": "F5",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 96
+            },
+            {
+              "bar": 1,
+              "beat": 1.5177,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 84
+            },
+            {
+              "bar": 1,
+              "beat": 2.001,
+              "beats": 0.45,
+              "pitch": "C5",
+              "velocity": 88
+            },
+            {
+              "bar": 1,
+              "beat": 2.5104,
+              "beats": 0.9,
+              "pitch": "G4",
+              "velocity": 80
+            },
+            {
+              "bar": 1,
+              "beat": 3.5073,
+              "beats": 0.45,
+              "pitch": "A4",
+              "velocity": 82
+            },
+            {
+              "bar": 1,
+              "beat": 4.0083,
+              "beats": 0.9,
+              "pitch": "C5",
+              "velocity": 90
+            },
+            {
+              "bar": 2,
+              "beat": 1.0115,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 98
+            },
+            {
+              "bar": 2,
+              "beat": 1.5031,
+              "beats": 0.45,
+              "pitch": "F5",
+              "velocity": 92
+            },
+            {
+              "bar": 2,
+              "beat": 1.9875,
+              "beats": 0.45,
+              "pitch": "E5",
+              "velocity": 86
+            },
+            {
+              "bar": 2,
+              "beat": 2.4917,
+              "beats": 0.45,
+              "pitch": "D5",
+              "velocity": 84
+            },
+            {
+              "bar": 2,
+              "beat": 2.999,
+              "beats": 1.8,
+              "pitch": "C5",
+              "velocity": 88
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "answer",
+      "role": "melody",
+      "name": "Answer",
+      "low": "G4",
+      "high": "F5",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "answer",
+          "repeatEvery": 4,
+          "articulation": "legato"
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "lofi",
+          "fill": "none"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "groove": "lofi",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

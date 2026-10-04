@@ -13,7 +13,8 @@ namespace {
 
 void usage() {
     std::cerr << "usage: fs-analyze --in clip.mid [--lane chords|bass|melody|drums] [--key \"Eb minor\"] [--title T]\n"
-                 "                  [--name N] [--style tag1,tag2] [--out-json analysis.json] [--out-mid normalized.mid]\n"
+                 "                  [--name N] [--style tag1,tag2] [--literal] [--out-json analysis.json] [--out-mid normalized.mid]\n"
+                 "--literal writes the part as the played notes, as the plugin does for \"Use what I just played\".\n"
                  "Exit codes: 0 analyzed, 3 the clip can't be imported (reason in the JSON), 2 bad arguments, 1 I/O.\n";
 }
 
@@ -48,6 +49,7 @@ int main(int argc, char** argv) {
         else if (a == "--name") ok = value(options.partName);
         else if (a == "--style") ok = value(style);
         else if (a == "--key") ok = value(key);
+        else if (a == "--literal") options.literalPart = true;
         else if (a == "-h" || a == "--help") {
             usage();
             return 0;

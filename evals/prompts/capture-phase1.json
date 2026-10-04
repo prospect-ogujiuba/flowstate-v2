@@ -1,0 +1,4412 @@
+[
+  {
+    "id": "rnb-chords-add-bass",
+    "riff": "rnb-chords-01",
+    "source": "library/packs/godflow/midi/chords/rnb-jazz/rnb-jazz-chords-01.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 120,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "bass"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 120,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "C69/D:1.5 Cadd9/E:1.5 Fadd9:5 | Cadd9/G:1.5 G#dim:1.5 A11:5",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "D3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "E3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "F3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "G3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "E5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G#3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G#4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "B4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "D5",
+                      "velocity": 60
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "E5",
+              "id": "chords",
+              "low": "D3",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 60
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_bass"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "pop-chords-add-bass",
+    "riff": "pop-chords-02",
+    "source": "library/packs/godflow/midi/chords/pop/pop-chords-02.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "bouncy",
+      "context": {
+        "tempo": 105,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "B",
+        "mode": "minor",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "bass"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 105,
+            "tonic": "B"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "Em11:3 B11:5 | Gmaj9:3 B11:5",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "E2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "F#5",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B1",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 89
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "F#5",
+              "id": "chords",
+              "low": "B1",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 89
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_bass"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "rnb-chords-add-drums",
+    "riff": "rnb-chords-07",
+    "source": "library/packs/godflow/midi/chords/rnb-jazz/rnb-jazz-chords-07.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "neo soul pocket",
+      "context": {
+        "tempo": 120,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "A",
+        "mode": "minor",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "drums"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 120,
+            "tonic": "A"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "Am7:4 | Em7:2 Fmaj7:2 | Dm7:8",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 2,
+                      "pitch": "E3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 2,
+                      "pitch": "G3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 2,
+                      "pitch": "B3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 2,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 2,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3,
+                      "beats": 2,
+                      "pitch": "F3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3,
+                      "beats": 2,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3,
+                      "beats": 2,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3,
+                      "beats": 2,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "D3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "F4",
+                      "velocity": 60
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "C5",
+              "id": "chords",
+              "low": "D3",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 60
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_drums"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "world-chords-add-drums",
+    "riff": "world-chords-03",
+    "source": "library/packs/godflow/midi/chords/world/world-chords-03.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 120,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "drums"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 120,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "G#m7:4 | A#m7:4 | D#m7:4 | A#m7:4",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "F#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "B3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "D#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "F4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "D#2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "D#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "A#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "F4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 4,
+                      "pitch": "G#4",
+                      "velocity": 89
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "A#4",
+              "id": "chords",
+              "low": "D#2",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 89
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_drums"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "pop-chords-continue",
+    "riff": "pop-chords-02",
+    "source": "library/packs/godflow/midi/chords/pop/pop-chords-02.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 105,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "B",
+        "mode": "minor",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 105,
+            "tonic": "B"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "Em11:3 B11:5 | Gmaj9:3 B11:5",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "E2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 8,
+                      "pitch": "F#5",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "G3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "B3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "D4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 3,
+                      "pitch": "F#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B1",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C#4",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 89
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "F#5",
+              "id": "chords",
+              "low": "B1",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 89
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "continue"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "rnb-chords-answer",
+    "riff": "rnb-chords-01",
+    "source": "library/packs/godflow/midi/chords/rnb-jazz/rnb-jazz-chords-01.mid",
+    "riffRole": "chords",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "a soft melody",
+      "context": {
+        "tempo": 120,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 120,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "C69/D:1.5 Cadd9/E:1.5 Fadd9:5 | Cadd9/G:1.5 G#dim:1.5 A11:5",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "D3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "E3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "F3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "G3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "C5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 1.5,
+                      "pitch": "E5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G#3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "G#4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "B4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2.5,
+                      "beats": 1.5,
+                      "pitch": "D5",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "A3",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "E4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "G4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "B4",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 5,
+                      "pitch": "D5",
+                      "velocity": 60
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "E5",
+              "id": "chords",
+              "low": "D3",
+              "name": "Played",
+              "role": "chords",
+              "velocity": 60
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "answer"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "bass-add-drums",
+    "riff": "bass-02",
+    "source": "library/packs/godflow/midi/bass/bass-02.mid",
+    "riffRole": "bass",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "boom bap",
+      "context": {
+        "tempo": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "E",
+        "mode": "major",
+        "bars": 8,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "drums"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 8,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 90,
+            "tonic": "E"
+          },
+          "form": [
+            {
+              "bars": 8,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 8,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.5271,
+                      "pitch": "C#3",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5,
+                      "beats": 0.2229,
+                      "pitch": "E3",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.75,
+                      "beats": 0.2292,
+                      "pitch": "F#3",
+                      "velocity": 79
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 0.65,
+                      "pitch": "A2",
+                      "velocity": 97
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.5333,
+                      "pitch": "B2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.0625,
+                      "beats": 0.4958,
+                      "pitch": "C#3",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 0.4771,
+                      "pitch": "E3",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4.5,
+                      "beats": 0.3083,
+                      "pitch": "F#3",
+                      "velocity": 87
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 0.5729,
+                      "pitch": "A2",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.5,
+                      "beats": 0.1438,
+                      "pitch": "E3",
+                      "velocity": 97
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.75,
+                      "beats": 0.2354,
+                      "pitch": "G#2",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 4,
+                      "beats": 0.975,
+                      "pitch": "B2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 1,
+                      "beats": 0.5271,
+                      "pitch": "C#3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 4.5,
+                      "beats": 0.2271,
+                      "pitch": "E3",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 4.75,
+                      "beats": 0.1542,
+                      "pitch": "F#3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 6,
+                      "beat": 1,
+                      "beats": 0.6396,
+                      "pitch": "A2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 6,
+                      "beat": 4,
+                      "beats": 0.5542,
+                      "pitch": "B2",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 1,
+                      "beats": 0.5563,
+                      "pitch": "C#3",
+                      "velocity": 95
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 4,
+                      "beats": 0.4813,
+                      "pitch": "E3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 4.5,
+                      "beats": 0.3125,
+                      "pitch": "F#3",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 1.0625,
+                      "beats": 0.5104,
+                      "pitch": "A2",
+                      "velocity": 95
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 3.5,
+                      "beats": 0.2229,
+                      "pitch": "E3",
+                      "velocity": 85
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 3.75,
+                      "beats": 0.2292,
+                      "pitch": "G#2",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 4,
+                      "beats": 0.95,
+                      "pitch": "B2",
+                      "velocity": 97
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "F#3",
+              "id": "bass",
+              "low": "G#2",
+              "name": "Played",
+              "role": "bass",
+              "velocity": 89
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_drums"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "bass-harmonize",
+    "riff": "bass-05",
+    "source": "library/packs/godflow/midi/bass/bass-05.mid",
+    "riffRole": "bass",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "chords"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 90,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "Dm:4 | F:4 | Am:8",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.4104,
+                      "pitch": "D3",
+                      "velocity": 93
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.75,
+                      "beats": 0.1646,
+                      "pitch": "D3",
+                      "velocity": 127
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2,
+                      "beats": 0.4896,
+                      "pitch": "D3",
+                      "velocity": 109
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.75,
+                      "beats": 0.2396,
+                      "pitch": "A2",
+                      "velocity": 109
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2,
+                      "beats": 0.2229,
+                      "pitch": "A2",
+                      "velocity": 120
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3,
+                      "beats": 0.6896,
+                      "pitch": "F2",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.75,
+                      "beats": 0.2333,
+                      "pitch": "F2",
+                      "velocity": 119
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.4375,
+                      "pitch": "F2",
+                      "velocity": 111
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1,
+                      "beats": 0.7292,
+                      "pitch": "A2",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.75,
+                      "beats": 0.2229,
+                      "pitch": "A2",
+                      "velocity": 120
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 2,
+                      "beats": 0.4563,
+                      "pitch": "A2",
+                      "velocity": 106
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 0.7188,
+                      "pitch": "A2",
+                      "velocity": 89
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1.75,
+                      "beats": 0.2167,
+                      "pitch": "A2",
+                      "velocity": 120
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 2,
+                      "beats": 0.4729,
+                      "pitch": "A2",
+                      "velocity": 106
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3,
+                      "beats": 0.7292,
+                      "pitch": "G2",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.75,
+                      "beats": 0.2208,
+                      "pitch": "G2",
+                      "velocity": 119
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 4,
+                      "beats": 0.3896,
+                      "pitch": "G2",
+                      "velocity": 108
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "D3",
+              "id": "bass",
+              "low": "F2",
+              "name": "Played",
+              "role": "bass",
+              "velocity": 107
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "harmonize"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "bass-continue",
+    "riff": "bass-02",
+    "source": "library/packs/godflow/midi/bass/bass-02.mid",
+    "riffRole": "bass",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "E",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 8,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 90,
+            "tonic": "E"
+          },
+          "form": [
+            {
+              "bars": 8,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4 | C#m:4 | A:4",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 8,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.5271,
+                      "pitch": "C#3",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5,
+                      "beats": 0.2229,
+                      "pitch": "E3",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.75,
+                      "beats": 0.2292,
+                      "pitch": "F#3",
+                      "velocity": 79
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1,
+                      "beats": 0.65,
+                      "pitch": "A2",
+                      "velocity": 97
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.5333,
+                      "pitch": "B2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.0625,
+                      "beats": 0.4958,
+                      "pitch": "C#3",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4,
+                      "beats": 0.4771,
+                      "pitch": "E3",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 4.5,
+                      "beats": 0.3083,
+                      "pitch": "F#3",
+                      "velocity": 87
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1,
+                      "beats": 0.5729,
+                      "pitch": "A2",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.5,
+                      "beats": 0.1438,
+                      "pitch": "E3",
+                      "velocity": 97
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.75,
+                      "beats": 0.2354,
+                      "pitch": "G#2",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 4,
+                      "beats": 0.975,
+                      "pitch": "B2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 1,
+                      "beats": 0.5271,
+                      "pitch": "C#3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 4.5,
+                      "beats": 0.2271,
+                      "pitch": "E3",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 5,
+                      "beat": 4.75,
+                      "beats": 0.1542,
+                      "pitch": "F#3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 6,
+                      "beat": 1,
+                      "beats": 0.6396,
+                      "pitch": "A2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 6,
+                      "beat": 4,
+                      "beats": 0.5542,
+                      "pitch": "B2",
+                      "velocity": 91
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 1,
+                      "beats": 0.5563,
+                      "pitch": "C#3",
+                      "velocity": 95
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 4,
+                      "beats": 0.4813,
+                      "pitch": "E3",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 7,
+                      "beat": 4.5,
+                      "beats": 0.3125,
+                      "pitch": "F#3",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 1.0625,
+                      "beats": 0.5104,
+                      "pitch": "A2",
+                      "velocity": 95
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 3.5,
+                      "beats": 0.2229,
+                      "pitch": "E3",
+                      "velocity": 85
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 3.75,
+                      "beats": 0.2292,
+                      "pitch": "G#2",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 8,
+                      "beat": 4,
+                      "beats": 0.95,
+                      "pitch": "B2",
+                      "velocity": 97
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "F#3",
+              "id": "bass",
+              "low": "G#2",
+              "name": "Played",
+              "role": "bass",
+              "velocity": 89
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "continue"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "lofi-harmonize",
+    "riff": "lofi-melody",
+    "source": "evals/capture/riffs/lofi-melody.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "lofi, jazzy chords",
+      "context": {
+        "tempo": 78,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "Eb",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "chords"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0.2,
+            "tempo": 78,
+            "tonic": "Eb"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.675,
+                      "pitch": "Bb4",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.7677,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 64
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.9,
+                      "pitch": "Bb4",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0104,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5073,
+                      "beats": 1.35,
+                      "pitch": "F4",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0083,
+                      "beats": 0.675,
+                      "pitch": "G4",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.7615,
+                      "beats": 0.225,
+                      "pitch": "Ab4",
+                      "velocity": 62
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.0031,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9875,
+                      "beats": 0.45,
+                      "pitch": "Eb4",
+                      "velocity": 68
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.4917,
+                      "beats": 1.35,
+                      "pitch": "C4",
+                      "velocity": 64
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.999,
+                      "beats": 0.675,
+                      "pitch": "Bb4",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.7469,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.9844,
+                      "beats": 0.9,
+                      "pitch": "Eb5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 3,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 3.4969,
+                      "beats": 1.35,
+                      "pitch": "Bb4",
+                      "velocity": 68
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1.0083,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 2.0177,
+                      "beats": 0.45,
+                      "pitch": "F4",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 2.5083,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.0125,
+                      "beats": 1.8,
+                      "pitch": "Eb4",
+                      "velocity": 72
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "Eb5",
+              "id": "melody",
+              "low": "C4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 71
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "harmonize"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "pop-hook-harmonize",
+    "riff": "pop-hook",
+    "source": "evals/capture/riffs/pop-hook.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "chords"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 110,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5177,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.45,
+                      "pitch": "C5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5104,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5073,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0083,
+                      "beats": 0.9,
+                      "pitch": "C5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0115,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 98
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.5031,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9875,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4917,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.999,
+                      "beats": 1.8,
+                      "pitch": "C5",
+                      "velocity": 88
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "F5",
+              "id": "melody",
+              "low": "G4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 88
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "harmonize"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "afro-add-bass",
+    "riff": "afro-lead",
+    "source": "evals/capture/riffs/afro-lead.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 104,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "A",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "bass"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 104,
+            "tonic": "A"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.7677,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.501,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0104,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.7573,
+                      "beats": 0.675,
+                      "pitch": "C5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5083,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0115,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.7531,
+                      "beats": 0.225,
+                      "pitch": "A4",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4875,
+                      "beats": 0.45,
+                      "pitch": "C5",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9917,
+                      "beats": 0.675,
+                      "pitch": "D5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.749,
+                      "beats": 1.125,
+                      "pitch": "A4",
+                      "velocity": 80
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "E5",
+              "id": "melody",
+              "low": "G4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 83
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_bass"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "trap-add-bass",
+    "riff": "trap-bells",
+    "source": "evals/capture/riffs/trap-bells.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "808 slides",
+      "context": {
+        "tempo": 140,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "F",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "bass"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 140,
+            "tonic": "F"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5177,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.45,
+                      "pitch": "C6",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5104,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0073,
+                      "beats": 0.45,
+                      "pitch": "G5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5083,
+                      "beats": 0.45,
+                      "pitch": "Eb5",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0115,
+                      "beats": 0.9,
+                      "pitch": "F5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0031,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.4875,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9917,
+                      "beats": 0.45,
+                      "pitch": "Db6",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.499,
+                      "beats": 0.45,
+                      "pitch": "C6",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9969,
+                      "beats": 0.45,
+                      "pitch": "Bb5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.4844,
+                      "beats": 0.45,
+                      "pitch": "G5",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.9,
+                      "pitch": "Ab5",
+                      "velocity": 84
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "Db6",
+              "id": "melody",
+              "low": "Eb5",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 82
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_bass"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "jazz-harmonize",
+    "riff": "jazz-line",
+    "source": "evals/capture/riffs/jazz-line.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "jazz",
+      "context": {
+        "tempo": 120,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "D",
+        "mode": "dorian",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "chords"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "dorian",
+            "style": [],
+            "swing": 0,
+            "tempo": 120,
+            "tonic": "D"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.5938,
+                      "pitch": "D5",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.6781,
+                      "beats": 0.3063,
+                      "pitch": "E5",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.5938,
+                      "pitch": "F5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.6708,
+                      "beats": 0.3063,
+                      "pitch": "A5",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0073,
+                      "beats": 0.5938,
+                      "pitch": "C6",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.6688,
+                      "beats": 0.3063,
+                      "pitch": "B5",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0115,
+                      "beats": 0.9,
+                      "pitch": "A5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0031,
+                      "beats": 0.5938,
+                      "pitch": "G5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.6479,
+                      "beats": 0.3063,
+                      "pitch": "F5",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9917,
+                      "beats": 0.5938,
+                      "pitch": "E5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.6594,
+                      "beats": 0.3063,
+                      "pitch": "D5",
+                      "velocity": 68
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9969,
+                      "beats": 0.5938,
+                      "pitch": "C5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.6448,
+                      "beats": 0.3063,
+                      "pitch": "E5",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.9,
+                      "pitch": "D5",
+                      "velocity": 84
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 3,
+              "high": "C6",
+              "id": "melody",
+              "low": "C5",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 78
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "harmonize"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "afro-add-drums",
+    "riff": "afro-lead",
+    "source": "evals/capture/riffs/afro-lead.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "afrobeats",
+      "context": {
+        "tempo": 104,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "A",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "drums"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 104,
+            "tonic": "A"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.7677,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.501,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0104,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.7573,
+                      "beats": 0.675,
+                      "pitch": "C5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5083,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0115,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.7531,
+                      "beats": 0.225,
+                      "pitch": "A4",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4875,
+                      "beats": 0.45,
+                      "pitch": "C5",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9917,
+                      "beats": 0.675,
+                      "pitch": "D5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.749,
+                      "beats": 1.125,
+                      "pitch": "A4",
+                      "velocity": 80
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "E5",
+              "id": "melody",
+              "low": "G4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 83
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_drums"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "lofi-continue",
+    "riff": "lofi-melody",
+    "source": "evals/capture/riffs/lofi-melody.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 78,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "Eb",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 4,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0.2,
+            "tempo": 78,
+            "tonic": "Eb"
+          },
+          "form": [
+            {
+              "bars": 4,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 4,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.675,
+                      "pitch": "Bb4",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.7677,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 64
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.9,
+                      "pitch": "Bb4",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0104,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5073,
+                      "beats": 1.35,
+                      "pitch": "F4",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0083,
+                      "beats": 0.675,
+                      "pitch": "G4",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.7615,
+                      "beats": 0.225,
+                      "pitch": "Ab4",
+                      "velocity": 62
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.0031,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9875,
+                      "beats": 0.45,
+                      "pitch": "Eb4",
+                      "velocity": 68
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.4917,
+                      "beats": 1.35,
+                      "pitch": "C4",
+                      "velocity": 64
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.999,
+                      "beats": 0.675,
+                      "pitch": "Bb4",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.7469,
+                      "beats": 0.225,
+                      "pitch": "C5",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 1.9844,
+                      "beats": 0.9,
+                      "pitch": "Eb5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 3,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 72
+                    },
+                    {
+                      "bar": 3,
+                      "beat": 3.4969,
+                      "beats": 1.35,
+                      "pitch": "Bb4",
+                      "velocity": 68
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 1.0083,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 2.0177,
+                      "beats": 0.45,
+                      "pitch": "F4",
+                      "velocity": 66
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 2.5083,
+                      "beats": 0.45,
+                      "pitch": "G4",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 4,
+                      "beat": 3.0125,
+                      "beats": 1.8,
+                      "pitch": "Eb4",
+                      "velocity": 72
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "Eb5",
+              "id": "melody",
+              "low": "C4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 71
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "continue"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "pop-hook-answer",
+    "riff": "pop-hook",
+    "source": "evals/capture/riffs/pop-hook.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "major",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "major",
+            "style": [],
+            "swing": 0,
+            "tempo": 110,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5177,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.45,
+                      "pitch": "C5",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5104,
+                      "beats": 0.9,
+                      "pitch": "G4",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5073,
+                      "beats": 0.45,
+                      "pitch": "A4",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0083,
+                      "beats": 0.9,
+                      "pitch": "C5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0115,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 98
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.5031,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9875,
+                      "beats": 0.45,
+                      "pitch": "E5",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4917,
+                      "beats": 0.45,
+                      "pitch": "D5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.999,
+                      "beats": 1.8,
+                      "pitch": "C5",
+                      "velocity": 88
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "F5",
+              "id": "melody",
+              "low": "G4",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 88
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "answer"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "trap-answer",
+    "riff": "trap-bells",
+    "source": "evals/capture/riffs/trap-bells.mid",
+    "riffRole": "melody",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "dark",
+      "context": {
+        "tempo": 140,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "F",
+        "mode": "minor",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 140,
+            "tonic": "F"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5177,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.45,
+                      "pitch": "C6",
+                      "velocity": 86
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5104,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 76
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0073,
+                      "beats": 0.45,
+                      "pitch": "G5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5083,
+                      "beats": 0.45,
+                      "pitch": "Eb5",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0115,
+                      "beats": 0.9,
+                      "pitch": "F5",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0031,
+                      "beats": 0.45,
+                      "pitch": "F5",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.4875,
+                      "beats": 0.45,
+                      "pitch": "Ab5",
+                      "velocity": 80
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9917,
+                      "beats": 0.45,
+                      "pitch": "Db6",
+                      "velocity": 88
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.499,
+                      "beats": 0.45,
+                      "pitch": "C6",
+                      "velocity": 78
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9969,
+                      "beats": 0.45,
+                      "pitch": "Bb5",
+                      "velocity": 82
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.4844,
+                      "beats": 0.45,
+                      "pitch": "G5",
+                      "velocity": 74
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4,
+                      "beats": 0.9,
+                      "pitch": "Ab5",
+                      "velocity": 84
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "Db6",
+              "id": "melody",
+              "low": "Eb5",
+              "name": "Played",
+              "role": "melody",
+              "velocity": 82
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "answer"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "boom-bap-add-bass",
+    "riff": "boom-bap-drums",
+    "source": "evals/capture/riffs/boom-bap-drums.mid",
+    "riffRole": "drums",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "",
+      "context": {
+        "tempo": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "C",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "bass"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 90,
+            "tonic": "C"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.0177,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 110
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5177,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.001,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.0125,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5104,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.7583,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 92
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0073,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5083,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5125,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 100
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.9896,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 114
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0115,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5031,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.9875,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0063,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 110
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.4917,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9833,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 110
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.999,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4969,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.7646,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 90
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9844,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.2604,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.5,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.9875,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 116
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.9969,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 70
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.5083,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 58
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "Gb2",
+              "id": "drums",
+              "low": "C2",
+              "name": "Played",
+              "role": "drums",
+              "velocity": 80
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "add_bass"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "house-continue",
+    "riff": "house-drums",
+    "source": "evals/capture/riffs/house-drums.mid",
+    "riffRole": "drums",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "deep house",
+      "context": {
+        "tempo": 124,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "A",
+        "mode": "minor",
+        "bars": 4,
+        "swing": 0,
+        "style": []
+      },
+      "roles": null,
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 124,
+            "tonic": "A"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.4844,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.9875,
+                      "beats": 0.225,
+                      "pitch": "D#2",
+                      "velocity": 100
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.0177,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.001,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.4969,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.9917,
+                      "beats": 0.225,
+                      "pitch": "D#2",
+                      "velocity": 100
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0104,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.5083,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0073,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.5177,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.999,
+                      "beats": 0.225,
+                      "pitch": "D#2",
+                      "velocity": 100
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.0083,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.5083,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.0115,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.5125,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.9969,
+                      "beats": 0.225,
+                      "pitch": "D#2",
+                      "velocity": 100
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.0031,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 112
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.5063,
+                      "beats": 0.225,
+                      "pitch": "A#2",
+                      "velocity": 84
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 2,
+              "high": "A#2",
+              "id": "drums",
+              "low": "C2",
+              "name": "Played",
+              "role": "drums",
+              "velocity": 98
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "continue"
+      },
+      "provider": null
+    }
+  },
+  {
+    "id": "dembow-harmonize",
+    "riff": "dembow-drums",
+    "source": "evals/capture/riffs/dembow-drums.mid",
+    "riffRole": "drums",
+    "keyFrom": "session",
+    "request": {
+      "protocol": "flowstate.bridge.v0",
+      "prompt": "reggaeton",
+      "context": {
+        "tempo": 95,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "tonic": "D",
+        "mode": "minor",
+        "bars": 2,
+        "swing": 0,
+        "style": []
+      },
+      "roles": [
+        "chords"
+      ],
+      "keep": null,
+      "reference": {
+        "score": {
+          "context": {
+            "bars": 2,
+            "meterDenominator": 4,
+            "meterNumerator": 4,
+            "mode": "minor",
+            "style": [],
+            "swing": 0,
+            "tempo": 95,
+            "tonic": "D"
+          },
+          "form": [
+            {
+              "bars": 2,
+              "energy": 0.6,
+              "name": "A",
+              "startBar": 1
+            }
+          ],
+          "harmony": "",
+          "ir": "flowstate.score.v0",
+          "motifs": [],
+          "parts": [
+            {
+              "blocks": [
+                {
+                  "endBar": 2,
+                  "notes": [
+                    {
+                      "bar": 1,
+                      "beat": 1,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.0177,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.5083,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 1.7375,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.0125,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.0177,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.4917,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 2.5063,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.001,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.0146,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.5104,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 3.749,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0104,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.0125,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.4896,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.4969,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 1,
+                      "beat": 4.9833,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.0073,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.4875,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.7344,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 1.9906,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.0083,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.4813,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.5,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 2.9844,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.0115,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.4896,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 3.7469,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.0031,
+                      "beats": 0.225,
+                      "pitch": "C2",
+                      "velocity": 108
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.0188,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 60
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.5083,
+                      "beats": 0.225,
+                      "pitch": "D2",
+                      "velocity": 96
+                    },
+                    {
+                      "bar": 2,
+                      "beat": 4.5135,
+                      "beats": 0.225,
+                      "pitch": "Gb2",
+                      "velocity": 48
+                    }
+                  ],
+                  "startBar": 1
+                }
+              ],
+              "grid": 4,
+              "high": "Gb2",
+              "id": "drums",
+              "low": "C2",
+              "name": "Played",
+              "role": "drums",
+              "velocity": 78
+            }
+          ],
+          "title": "What I played"
+        },
+        "intent": "harmonize"
+      },
+      "provider": null
+    }
+  }
+]

@@ -337,3 +337,23 @@ TEST_CASE("analyzeMidiData: played chords keep their harmony reading; nothing pl
     CHECK_FALSE(none.ok);
     CHECK(none.errorCode == "no_notes");
 }
+
+TEST_CASE("analyzeMidiData: a played beat has no key of its own, and takes the one it is given") {
+    MidiFileData beat;
+    beat.tempo = 90.0;
+    beat.meterNumerator = 4;
+    beat.meterDenominator = 4;
+    for (int i = 0; i < 8; ++i) beat.notes.push_back({static_cast<Tick>(i) * 960, 120, i % 2 ? 38 : 36, 100, 9, 0});
+    beat.endTick = 8 * 960;
+    AnalyzeOptions o;
+    o.literalPart = true;
+    o.keyTonic = 2;
+    o.keyMode = Mode::Minor;
+    const Analysis a = analyzeMidiData(beat, o);
+    REQUIRE(a.ok);
+    CHECK((a.role == Role::Drums));
+    CHECK_FALSE(a.key.reliable);
+    const auto cx = json::parse(a.scoreJson)["context"];
+    CHECK(cx["tonic"] == "D");
+    CHECK(cx["mode"] == "minor");
+}

@@ -1,0 +1,30 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 22,
+    "clipEndTick": 7680,
+    "parts": [
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 14,
+        "minPitch": 75,
+        "maxPitch": 85,
+        "rangeLow": 75,
+        "rangeHigh": 85,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 8,
+        "minPitch": 29,
+        "maxPitch": 41,
+        "rangeLow": 29,
+        "rangeHigh": 48,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

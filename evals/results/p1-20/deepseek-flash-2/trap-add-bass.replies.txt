@@ -1,0 +1,16 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "808 slides for played melody",
+  "context": { "swing": 0, "style": ["808", "trap"] },
+  "form": [ { "name": "A", "startBar": 1, "bars": 2, "energy": 0.62 } ],
+  "harmony": "Fm9:2 | Db69:2 | Eb7sus4:1 Eb7:3",
+  "motifs": [],
+  "parts": [
+    { "id": "bass", "role": "bass", "name": "808", "low": "F1", "high": "C3", "grid": 4, "velocity": 104,
+      "blocks": [
+        { "startBar": 1, "endBar": 1, "rhythm": "R--- -5-. g... .3..", "articulation": "legato" },
+        { "startBar": 2, "endBar": 2, "rhythm": "R... 6.-. g.-. .a..", "articulation": "legato" }
+      ] }
+  ]
+}

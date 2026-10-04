@@ -1,0 +1,305 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "C#m/A continuation — E major",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "E",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0.14,
+    "style": [
+      "pop",
+      "neo-soul"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.55
+    },
+    {
+      "name": "B",
+      "startBar": 3,
+      "bars": 2,
+      "energy": 0.72
+    }
+  ],
+  "harmony": "C#m:4 | A:4 | C#m:2 A:2 | A:2 B:2",
+  "motifs": [
+    {
+      "id": "cue",
+      "notes": "3:.5 5:.25 6:.25 5:1 r:.5 3:.5 | 1:1 r:.5 2:.25 #2:.25 3:1.5"
+    },
+    {
+      "id": "answer",
+      "notes": "5:.5 6:.25 8:.25 6:1 5:.5 | #4:1 5:.5 6:1.5 r:.5"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "E3",
+      "high": "B4",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "rhythm": "x--- .x-x .x-- ..x-",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E2",
+      "high": "C#3",
+      "grid": 4,
+      "velocity": 90,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.5,
+              "pitch": "C#3",
+              "velocity": 91
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 0.25,
+              "pitch": "G#2",
+              "velocity": 74
+            },
+            {
+              "bar": 1,
+              "beat": 2.75,
+              "beats": 0.25,
+              "pitch": "A2",
+              "velocity": 76
+            },
+            {
+              "bar": 1,
+              "beat": 3.5,
+              "beats": 0.5,
+              "pitch": "E3",
+              "velocity": 80
+            },
+            {
+              "bar": 1,
+              "beat": 4.5,
+              "beats": 0.25,
+              "pitch": "E3",
+              "velocity": 76
+            },
+            {
+              "bar": 1,
+              "beat": 4.75,
+              "beats": 0.25,
+              "pitch": "F#3",
+              "velocity": 79
+            },
+            {
+              "bar": 2,
+              "beat": 1,
+              "beats": 0.6,
+              "pitch": "A2",
+              "velocity": 97
+            },
+            {
+              "bar": 2,
+              "beat": 2.5,
+              "beats": 0.25,
+              "pitch": "B2",
+              "velocity": 82
+            },
+            {
+              "bar": 2,
+              "beat": 3,
+              "beats": 0.5,
+              "pitch": "C#3",
+              "velocity": 88
+            },
+            {
+              "bar": 2,
+              "beat": 4,
+              "beats": 0.55,
+              "pitch": "B2",
+              "velocity": 94
+            }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 0.5,
+              "pitch": "C#3",
+              "velocity": 92
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 0.25,
+              "pitch": "E3",
+              "velocity": 78
+            },
+            {
+              "bar": 3,
+              "beat": 3,
+              "beats": 0.5,
+              "pitch": "G#2",
+              "velocity": 84
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 0.5,
+              "pitch": "A2",
+              "velocity": 95
+            },
+            {
+              "bar": 3,
+              "beat": 4.5,
+              "beats": 0.25,
+              "pitch": "B2",
+              "velocity": 82
+            },
+            {
+              "bar": 3,
+              "beat": 4.75,
+              "beats": 0.25,
+              "pitch": "C#3",
+              "velocity": 86
+            },
+            {
+              "bar": 4,
+              "beat": 1,
+              "beats": 0.5,
+              "pitch": "A2",
+              "velocity": 94
+            },
+            {
+              "bar": 4,
+              "beat": 2.5,
+              "beats": 0.25,
+              "pitch": "C#3",
+              "velocity": 80
+            },
+            {
+              "bar": 4,
+              "beat": 2.75,
+              "beats": 0.25,
+              "pitch": "B2",
+              "velocity": 82
+            },
+            {
+              "bar": 4,
+              "beat": 3.5,
+              "beats": 0.5,
+              "pitch": "B2",
+              "velocity": 90
+            },
+            {
+              "bar": 4,
+              "beat": 4.5,
+              "beats": 0.25,
+              "pitch": "F#2",
+              "velocity": 84
+            },
+            {
+              "bar": 4,
+              "beat": 4.75,
+              "beats": 0.25,
+              "pitch": "G#2",
+              "velocity": 86
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "G#4",
+      "high": "B5",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "cue",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "cue",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.25"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "drums": [
+            {
+              "voice": "rim",
+              "steps": "..x...x. ..x...x."
+            }
+          ],
+          "groove": "pop"
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "drums": [
+            {
+              "voice": "open_hat",
+              "steps": "..x...x. ..x..x.."
+            }
+          ],
+          "groove": "pop",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}

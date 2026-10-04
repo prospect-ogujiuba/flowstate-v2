@@ -1,0 +1,44 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 36,
+    "clipEndTick": 7680,
+    "parts": [
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 26,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 36,
+        "rangeHigh": 42,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 16
+          },
+          {
+            "sublane": "kick",
+            "notes": 6
+          },
+          {
+            "sublane": "snare",
+            "notes": 4
+          }
+        ]
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 10,
+        "minPitch": 36,
+        "maxPitch": 43,
+        "rangeLow": 24,
+        "rangeHigh": 55,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

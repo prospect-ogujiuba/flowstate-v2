@@ -443,7 +443,8 @@ std::optional<fb::Reply> Controller::useCapture(const fb::Generate& c, const fb:
     if (data.notes.empty()) return fail(fb::ErrorCode::BadRequest, "Nothing was played in the last " + bars + " on this track.");
 
     // The played notes, kept exactly; core names the lane, key and chords. The user's key wins;
-    // else a key core is sure of; else the session's.
+    // else a key core is sure of; else the current idea's key; else core's best guess, since the
+    // default (C major) says nothing about what was played. Drums have no key: they take the session's.
     AnalyzeOptions options;
     options.title = "What I played";
     options.partName = "Played";
@@ -455,7 +456,8 @@ std::optional<fb::Reply> Controller::useCapture(const fb::Generate& c, const fb:
     };
     if (o.tonic && o.mode) forceKey(*o.tonic, *o.mode);
     auto analysis = analyzeMidiData(data, options);
-    if (analysis.ok && !options.keyTonic && !analysis.key.reliable && analysis.role != Role::Drums) {
+    const bool unsure = analysis.role == Role::Drums || (!analysis.key.reliable && ctx.keyFrom != fb::KeySource::Default);
+    if (analysis.ok && !options.keyTonic && unsure) {
         forceKey(ctx.tonic, ctx.mode);
         analysis = analyzeMidiData(data, options);
     }

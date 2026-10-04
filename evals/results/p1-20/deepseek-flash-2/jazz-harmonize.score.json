@@ -1,0 +1,166 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "D Dorian comp for played melody",
+  "context": {
+    "tempo": 120,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "D",
+    "mode": "dorian",
+    "bars": 2,
+    "swing": 0.16,
+    "style": [
+      "jazz"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 2,
+      "energy": 0.58
+    }
+  ],
+  "harmony": "Dm7:2 G7:2 | Cmaj7:2 A7:2",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Played",
+      "low": "C5",
+      "high": "C6",
+      "grid": 3,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.5938,
+              "pitch": "D5",
+              "velocity": 86
+            },
+            {
+              "bar": 1,
+              "beat": 1.6781,
+              "beats": 0.3063,
+              "pitch": "E5",
+              "velocity": 70
+            },
+            {
+              "bar": 1,
+              "beat": 2.001,
+              "beats": 0.5938,
+              "pitch": "F5",
+              "velocity": 84
+            },
+            {
+              "bar": 1,
+              "beat": 2.6708,
+              "beats": 0.3063,
+              "pitch": "A5",
+              "velocity": 72
+            },
+            {
+              "bar": 1,
+              "beat": 3.0073,
+              "beats": 0.5938,
+              "pitch": "C6",
+              "velocity": 88
+            },
+            {
+              "bar": 1,
+              "beat": 3.6688,
+              "beats": 0.3063,
+              "pitch": "B5",
+              "velocity": 70
+            },
+            {
+              "bar": 1,
+              "beat": 4.0115,
+              "beats": 0.9,
+              "pitch": "A5",
+              "velocity": 82
+            },
+            {
+              "bar": 2,
+              "beat": 1.0031,
+              "beats": 0.5938,
+              "pitch": "G5",
+              "velocity": 84
+            },
+            {
+              "bar": 2,
+              "beat": 1.6479,
+              "beats": 0.3063,
+              "pitch": "F5",
+              "velocity": 70
+            },
+            {
+              "bar": 2,
+              "beat": 1.9917,
+              "beats": 0.5938,
+              "pitch": "E5",
+              "velocity": 82
+            },
+            {
+              "bar": 2,
+              "beat": 2.6594,
+              "beats": 0.3063,
+              "pitch": "D5",
+              "velocity": 68
+            },
+            {
+              "bar": 2,
+              "beat": 2.9969,
+              "beats": 0.5938,
+              "pitch": "C5",
+              "velocity": 80
+            },
+            {
+              "bar": 2,
+              "beat": 3.6448,
+              "beats": 0.3063,
+              "pitch": "E5",
+              "velocity": 72
+            },
+            {
+              "bar": 2,
+              "beat": 4,
+              "beats": 0.9,
+              "pitch": "D5",
+              "velocity": 84
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "F2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "x... ..x-",
+          "voicing": "rootless"
+        },
+        {
+          "startBar": 2,
+          "endBar": 2,
+          "rhythm": "x... ..x-",
+          "voicing": "rootless"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"parts":[{"id":"chords_rhodes","role":"chords","name":"Rhodes","low":"F2","high":"C5","grid":4,"velocity":78,"blocks":[{"startBar":1,"endBar":4,"rhythm":"x--- ..x- .x-- ....","voicing":"rootless","articulation":"normal"}]},{"id":"chords_pad","role":"chords","name":"Warm Pad","low":"F2","high":"C5","grid":2,"velocity":62,"blocks":[{"startBar":1,"endBar":4,"rhythm":"x--- ---- ...- ----","voicing":"open","articulation":"legato"}]}]}

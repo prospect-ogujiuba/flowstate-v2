@@ -1,0 +1,108 @@
+{
+  "warnings": [],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 302,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 44,
+        "maxPitch": 54,
+        "rangeLow": 44,
+        "rangeHigh": 54,
+        "outOfKey": 0
+      },
+      {
+        "id": "kick_lane",
+        "role": "drums",
+        "notes": 40,
+        "minPitch": 36,
+        "maxPitch": 36,
+        "rangeLow": 24,
+        "rangeHigh": 36,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "kick",
+            "notes": 40
+          }
+        ]
+      },
+      {
+        "id": "snare_lane",
+        "role": "drums",
+        "notes": 30,
+        "minPitch": 38,
+        "maxPitch": 38,
+        "rangeLow": 26,
+        "rangeHigh": 38,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "snare",
+            "notes": 30
+          }
+        ]
+      },
+      {
+        "id": "hat_lane",
+        "role": "drums",
+        "notes": 68,
+        "minPitch": 42,
+        "maxPitch": 42,
+        "rangeLow": 66,
+        "rangeHigh": 66,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 68
+          }
+        ]
+      },
+      {
+        "id": "open_hat_lane",
+        "role": "drums",
+        "notes": 24,
+        "minPitch": 46,
+        "maxPitch": 46,
+        "rangeLow": 70,
+        "rangeHigh": 70,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 24
+          }
+        ]
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 114,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 63
+          },
+          {
+            "sublane": "kick",
+            "notes": 24
+          },
+          {
+            "sublane": "snare",
+            "notes": 27
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "What I played",
+  "context": {
+    "tempo": 90,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "Dm:4 | F:4 | Am:8",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Played",
+      "low": "F2",
+      "high": "D3",
+      "grid": 4,
+      "velocity": 107,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 0.4104,
+              "pitch": "D3",
+              "velocity": 93
+            },
+            {
+              "bar": 1,
+              "beat": 1.75,
+              "beats": 0.1646,
+              "pitch": "D3",
+              "velocity": 127
+            },
+            {
+              "bar": 1,
+              "beat": 2,
+              "beats": 0.4896,
+              "pitch": "D3",
+              "velocity": 109
+            },
+            {
+              "bar": 2,
+              "beat": 1.75,
+              "beats": 0.2396,
+              "pitch": "A2",
+              "velocity": 109
+            },
+            {
+              "bar": 2,
+              "beat": 2,
+              "beats": 0.2229,
+              "pitch": "A2",
+              "velocity": 120
+            },
+            {
+              "bar": 2,
+              "beat": 3,
+              "beats": 0.6896,
+              "pitch": "F2",
+              "velocity": 88
+            },
+            {
+              "bar": 2,
+              "beat": 3.75,
+              "beats": 0.2333,
+              "pitch": "F2",
+              "velocity": 119
+            },
+            {
+              "bar": 2,
+              "beat": 4,
+              "beats": 0.4375,
+              "pitch": "F2",
+              "velocity": 111
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 0.7292,
+              "pitch": "A2",
+              "velocity": 86
+            },
+            {
+              "bar": 3,
+              "beat": 1.75,
+              "beats": 0.2229,
+              "pitch": "A2",
+              "velocity": 120
+            },
+            {
+              "bar": 3,
+              "beat": 2,
+              "beats": 0.4563,
+              "pitch": "A2",
+              "velocity": 106
+            },
+            {
+              "bar": 4,
+              "beat": 1,
+              "beats": 0.7188,
+              "pitch": "A2",
+              "velocity": 89
+            },
+            {
+              "bar": 4,
+              "beat": 1.75,
+              "beats": 0.2167,
+              "pitch": "A2",
+              "velocity": 120
+            },
+            {
+              "bar": 4,
+              "beat": 2,
+              "beats": 0.4729,
+              "pitch": "A2",
+              "velocity": 106
+            },
+            {
+              "bar": 4,
+              "beat": 3,
+              "beats": 0.7292,
+              "pitch": "G2",
+              "velocity": 90
+            },
+            {
+              "bar": 4,
+              "beat": 3.75,
+              "beats": 0.2208,
+              "pitch": "G2",
+              "velocity": 119
+            },
+            {
+              "bar": 4,
+              "beat": 4,
+              "beats": 0.3896,
+              "pitch": "G2",
+              "velocity": 108
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chords_rhodes",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "F2",
+      "high": "C5",
+      "grid": 4,
+      "velocity": 78,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ..x- .x-- ....",
+          "voicing": "rootless",
+          "articulation": "normal"
+        }
+      ]
+    },
+    {
+      "id": "chords_pad",
+      "role": "chords",
+      "name": "Warm Pad",
+      "low": "F2",
+      "high": "C5",
+      "grid": 2,
+      "velocity": 62,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---- ...- ----",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

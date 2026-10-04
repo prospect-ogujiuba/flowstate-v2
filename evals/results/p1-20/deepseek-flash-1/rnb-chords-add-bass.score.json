@@ -1,0 +1,263 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "What I played",
+  "context": {
+    "tempo": 120,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "C",
+    "mode": "major",
+    "bars": 4,
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.6
+    }
+  ],
+  "harmony": "C69/D:1.5 Cadd9/E:1.5 Fadd9:5 | Cadd9/G:1.5 G#dim:1.5 A11:5",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Played",
+      "low": "D3",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 60,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "notes": [
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "D3",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "A3",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "C4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "E4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "A4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "E3",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "D4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "G4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "C5",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "F3",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "C4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "G4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "A4",
+              "velocity": 60
+            },
+            {
+              "bar": 1,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "C5",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "G3",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "D4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "G4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "C5",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 1,
+              "beats": 1.5,
+              "pitch": "E5",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "G#3",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "D4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "G#4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "B4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 2.5,
+              "beats": 1.5,
+              "pitch": "D5",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "A3",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "E4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "G4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "B4",
+              "velocity": 60
+            },
+            {
+              "bar": 3,
+              "beat": 4,
+              "beats": 5,
+              "pitch": "D5",
+              "velocity": 60
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 92,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... .... R... .... | R... .... R... .... | 1... .... 1... .... | 1... .... 1... ....",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

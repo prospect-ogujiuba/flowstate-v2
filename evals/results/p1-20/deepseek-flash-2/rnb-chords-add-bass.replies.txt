@@ -1,0 +1,34 @@
+===== attempt 1 =====
+{
+  "parts": [
+    {
+      "id": "bass_line",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E1",
+      "high": "G3",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 1,
+          "rhythm": "R--. ..3. .... ....",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 2,
+          "endBar": 3,
+          "rhythm": "R--. ..5. .R-. ....",
+          "articulation": "legato"
+        },
+        {
+          "startBar": 4,
+          "endBar": 4,
+          "rhythm": "R--. .g.. R--. ..a.",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

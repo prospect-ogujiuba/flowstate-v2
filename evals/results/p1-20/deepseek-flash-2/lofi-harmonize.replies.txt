@@ -1,0 +1,33 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lofi jazzy chords over played melody",
+  "context": {
+    "swing": 0.2,
+    "style": ["lofi", "jazzy"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.6 }
+  ],
+  "harmony": "Cm9:4 | Fm9:4 | Bb13sus4:2 Bb7#9:2 | Ebmaj9:4",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "Eb2",
+      "high": "Bb5",
+      "grid": 4,
+      "velocity": 70,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--- ---x ---x --x- | x--- ---x ---x --x- | x--- ---x x--- x--x | x--- ---x ---x -xx-",
+          "voicing": "rootless"
+        }
+      ]
+    }
+  ]
+}
