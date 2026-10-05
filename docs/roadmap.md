@@ -489,7 +489,7 @@ Acceptance:
 - A capture prompt set (one riff per lane and style) is ≥ 95% valid on the production route, at p50 under 5 s.
 - Owner listening: the new parts fit the riff in at least 4 of 5 cases.
 
-### P1-21 Local transforms and the density knob — `doing` (built 2026-10-05 on Linux; CI on macOS and Windows next)
+### P1-21 Local transforms and the density knob — `done` (2026-10-05: CI green on Linux, macOS and Windows; owner listening left)
 The Studio's `tweak` sheet and each lane's density knob (proposal: "Tweak", a local transform on the IR, instant, no model call). Today both are listed in `Session.unavailable`.
 Plan:
 - `core` (`flowstate/transform.h`): IR in, IR out, deterministic. One function per op of the bridge's `TweakOp`, applied to the parts it is given; locked parts are never passed in.
