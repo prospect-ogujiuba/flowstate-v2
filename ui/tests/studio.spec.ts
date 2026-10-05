@@ -371,9 +371,7 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
   await open(page, "mock=idea");
   const chords = lane(page, "Chords");
   const checks = [
-    { el: chords.getByRole("button", { name: "Re-roll Chords" }), why: /Re-roll needs the realizer/ },
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
-    { el: page.getByRole("button", { name: "Tweak" }), why: /Local transforms aren't in core yet/ },
   ];
   const before = (await sent(page)).length;
   for (const { el, why } of checks) {
@@ -384,13 +382,48 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
     await page.keyboard.press("Enter");
     await expect(toast(page, why).first()).toBeVisible();
   }
-  const density = chords.getByRole("slider", { name: "Chords density" });
-  await expect(density).toHaveAttribute("aria-disabled", "true");
-  await expect(density).toHaveAccessibleDescription(/density knob doesn't change playback/);
-  await density.focus();
-  await page.keyboard.press("ArrowUp");
-  await expect(density).toHaveAttribute("aria-valuenow", "0.5");
   expect((await sent(page)).slice(before)).toEqual([]);
+});
+
+test("re-roll is live in this build: a new card per take (P1-22)", async ({ page }) => {
+  await open(page, "mock=idea");
+  const melody = lane(page, "Melody");
+  const reroll = melody.getByRole("button", { name: "Re-roll Melody" });
+  await expect(reroll).not.toHaveAttribute("aria-disabled", "true");
+  await reroll.click();
+  expect(await lastOf(page, "reroll")).toEqual({ type: "reroll", partId: "p-melody" });
+  await expect(page.getByRole("button", { name: "Undo" })).toBeEnabled();
+  // A locked part can't be re-rolled: the button is disabled with the lock.
+  await melody.getByRole("button", { name: "Lock Melody" }).click();
+  await expect(reroll).toBeDisabled();
+});
+
+test("tweak and the density knob are live in this build (P1-21)", async ({ page }) => {
+  await open(page, "mock=idea");
+  const bass = lane(page, "Bass");
+  // The knob is a live re-render: it sends the part state and makes no card.
+  const density = bass.getByRole("slider", { name: "Bass density" });
+  await expect(density).not.toHaveAttribute("aria-disabled", "true");
+  const cards = (await sent(page)).length;
+  await density.focus();
+  await page.keyboard.press("ArrowDown");
+  expect(await lastOf(page, "setPartState")).toMatchObject({ state: { partId: "p-bass", density: 0.49 } });
+  await expect(density).toHaveAttribute("aria-valuenow", "0.49");
+  expect((await sent(page)).slice(cards).map((c) => c.type)).toEqual(["setPartState"]);
+
+  // Each tweak is a new card; a locked part is left out, and named on its own it is refused with the reason.
+  await bass.getByRole("button", { name: "Lock Bass" }).click();
+  await page.getByRole("button", { name: "Tweak" }).click();
+  const sheet = page.getByRole("dialog", { name: "Tweak" });
+  await sheet.getByRole("button", { name: "Semitone up" }).click();
+  expect(await lastOf(page, "tweak")).toEqual({ type: "tweak", partId: null, op: "transpose", amount: 1 });
+  await sheet.getByRole("combobox", { name: "Apply to" }).selectOption("p-bass");
+  await sheet.getByRole("button", { name: "Revoice" }).click();
+  expect(await lastOf(page, "tweak")).toEqual({ type: "tweak", partId: "p-bass", op: "revoice", amount: null });
+  await expect(toast(page, /Bass is locked/).first()).toBeVisible();
+  await sheet.getByRole("button", { name: "Done" }).click();
+  await page.getByRole("button", { name: "Undo" }).click();
+  expect(await lastOf(page, "undo")).toEqual({ type: "undo" });
 });
 
 test("when the plugin can do it all: talk, tweak and touch send their commands", async ({ page }) => {

@@ -68,15 +68,15 @@ The proposal's three interaction modes map to commands like this:
 | `generate` | A new plan from a prompt. Starts with an instant sketch (P1-10). Details below the table. | `requestId` |
 | `edit` | IR patch of the current node ("busier drums in bar 4", "darker chords"). Locked parts are never changed. | `requestId` |
 | `vary` | The model writes a variation of one part that keeps its idea | `requestId` |
-| `reroll` | Same plan, new seed, for one part. Local. | `session` |
-| `tweak` | Local transform: `register` (octaves), `transpose` (semitones), `humanize` (0..1), `simplify`, `intensify`, `revoice`. `partId: null` applies it to every unlocked part. Makes a `tweak` node. | `session` |
+| `reroll` | Same plan, a new take on one part (P1-22). Local. The part gets a fresh `seed` of its own (docs/ir-spec.md) in a `regenerate` node under the current one; the node keeps its parent's seed and its `partIds` is the part, so every other part sounds the same. A locked part is refused. | `session` |
+| `tweak` | Local transform in `core` (P1-21): `register` (octaves), `transpose` (semitones), `humanize` (0..1), `simplify`, `intensify`, `revoice`. `partId: null` applies it to every unlocked part. Makes a `tweak` node. See "Tweaks" below. | `session` |
 | `editNotes` | Piano-roll edit in the clip's tick domain; `core` turns it into literal-note overrides. Makes a `touch` node. | `session` |
 | `addPart`, `removePart` | "Add part" (arp, pad, counter-melody, …) goes to the model; remove is local | `requestId` / `session` |
 | `cancel` | Cancels a running request; the provider stream stops | — |
 | `selectNode` | Restore or A/B a lineage node. The next edit from a non-leaf node starts a branch. | `session` |
 | `undo`, `redo` | Move along the undo stack | `session` |
 | `rateNode` | Thumbs up or down on a result card, or clear it (an eval signal) | `session` |
-| `setPartState` | Mute, solo, lock, and the density knob (0.5 = as written; a live re-render, not a lineage node) | `session` |
+| `setPartState` | Mute, solo, lock, and the density knob (0.5 = as written; a live re-render, not a lineage node). The knob moves the part's written `density` (docs/ir-spec.md) by its distance from 0.5; what plays, drags and exports changes at once, and the knob is saved with the project. | `session` |
 | `setContextOverride` | Key, mode, tempo, meter, bars and swing. `null` fields follow the host, the score or the default. | `session` |
 | `setAudition` | Which node plays (a thread card's play button), the loop range in bars, and free-run while the host is stopped. Switching takes effect on the next bar line. | `session` |
 | `setMidiOut` | This instance sends one role's part, or all parts, optionally forced onto one channel | `session` |
@@ -95,6 +95,16 @@ More on `generate`:
 - `count` from 1 to 4 plans variations in parallel, and each variation becomes a node.
 - `capture` is "Use what I just played": the last N captured bars, with an intent of `continue`, `harmonize`, `add_bass`, `add_drums` or `answer` (P1-20, semantics under "The plugin's client").
 - Locked parts go to the service as `keep`.
+
+Tweaks (P1-21, `core`'s `flowstate/transform.h`): each is a transform of the current node's score IR, with no model call.
+- The result is one node under the current one, of kind `tweak`. It keeps the current node's seed, so the parts it didn't change sound the same, and its `partIds` are the parts that changed. It makes no thread item.
+- `partId: null` means every unlocked part. A locked `partId` is refused with a reason, as is a tweak when every part is locked.
+- `register` moves each part's range and its literal notes by whole octaves (-4 to 4). Drums are skipped.
+- `transpose` moves the whole idea's key by whole semitones (-11 to 11): the tonic (spelled for the new key), every chord symbol and slash bass, and literal notes (the range widens to keep played notes where they were played). Motifs and step tokens are relative to the key and chords, so they follow. The harmony is shared, so it is refused while a pitched part is left out (locked, or not the named part), naming those parts.
+- `humanize` sets each part's `humanize` (docs/ir-spec.md) to `amount`, 0 to 1.
+- `simplify` and `intensify` lower or raise each part's written `density` by 0.25, between 0 and 1.
+- `revoice` moves each chord and pad block to the next voicing family in a cycle (close, drop2, open, spread; rootless, shell, drop3; quartal goes to close; power stays), trying the next one if a family sounds the same in that range. Other parts are skipped.
+- A part the op can't change, or that would sound the same, is skipped. If none changes, the reply is `bad_request` with the reason (for example "Drums have no register to move.") and no node is made.
 
 The catalog (`docs/library.md`):
 - `CatalogEntry` is one shape for both origins. A library clip (`lib:<pack>/<clip>`) carries `credit`, which the UI shows wherever the clip appears. An AI result (`node:<id>`) carries its `prompt`, `kind` and `createdAtMs`. Fields only the analyzer measures (energy, density, complexity, groove) are `null` for AI results.
@@ -119,7 +129,7 @@ Events:
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `byokEnabled` mirrors the service's `byok` flag (`Health.features`). `hasKey` says whether a BYOK key is stored for the session's provider, and the key itself never comes back. `usage` comes from the service.
-- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin accepts but that have no effect yet: `lock` and `density` (the knob doesn't change playback). This build lists `density`; `capture` left the list when the planner learned `reference` (P1-20), `lock` when it learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin can accept without effect: `lock` and `density`. This build lists `editNotes`; `reroll` left the list when core learned seeded takes (P1-22), `tweak` and `density` when it learned the transforms (P1-21), `capture` when the planner learned `reference` (P1-20), `lock` when it learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;

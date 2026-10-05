@@ -1,5 +1,7 @@
 #include "flowstate/voicing.h"
 
+#include "flowstate/groove.h"
+
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -11,6 +13,9 @@ namespace flowstate {
 namespace {
 
 using Shape = std::vector<int>;
+
+// How far a re-rolled part's voicing may stray from the best path, in semitones of movement.
+constexpr double kVariantNoise = 6.0;
 
 bool isAltered(int t) { return t == 13 || t == 15 || t == 18 || t == 20; }
 
@@ -353,7 +358,8 @@ int voiceMovement(const Voicing& a, const Voicing& b) {
 }
 
 std::vector<Voicing> voiceLead(const std::vector<VoicingStep>& steps, int low, int high, const Scale& scale,
-                               std::vector<std::string>* warnings) {
+                               std::vector<std::string>* warnings, std::uint64_t variant) {
+    Rng noise(variant);
     std::vector<std::vector<Voicing>> cands;
     std::vector<std::vector<double>> stat;
     std::set<std::string> fallbackWarned;
@@ -369,6 +375,7 @@ std::vector<Voicing> voiceLead(const std::vector<VoicingStep>& steps, int low, i
             double cost = 0.0;
             if (wantsBass && !addSlashBass(v, step.chord.bass, step.chord.root, step.family, low)) cost += 6.0;
             cost += staticCost(v, low, high);
+            if (variant != 0) cost += noise.uniform() * kVariantNoise;
             sc.push_back(cost);
         }
         cands.push_back(std::move(vs));
@@ -382,6 +389,16 @@ std::vector<Voicing> voiceLead(const std::vector<VoicingStep>& steps, int low, i
     std::vector<std::vector<int>> back(n);
     for (std::size_t j = 0; j < cands[0].size(); ++j) cost[0].push_back(stat[0][j] * 2.0);
     back[0].assign(cands[0].size(), -1);
+    if (variant != 0 && cands[0].size() > 1) {
+        // A re-roll starts from one of the few best first voicings (another inversion or top note);
+        // the rest of the path is voice-led from there.
+        std::vector<std::size_t> order(cands[0].size());
+        for (std::size_t j = 0; j < order.size(); ++j) order[j] = j;
+        std::stable_sort(order.begin(), order.end(), [&](std::size_t a, std::size_t b) { return cost[0][a] < cost[0][b]; });
+        const std::size_t pick = order[static_cast<std::size_t>(noise.below(static_cast<int>(std::min<std::size_t>(4, order.size()))))];
+        for (std::size_t j = 0; j < cost[0].size(); ++j)
+            if (j != pick) cost[0][j] = std::numeric_limits<double>::infinity();
+    }
     for (std::size_t i = 1; i < n; ++i) {
         cost[i].assign(cands[i].size(), std::numeric_limits<double>::infinity());
         back[i].assign(cands[i].size(), 0);

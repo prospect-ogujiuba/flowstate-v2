@@ -96,6 +96,11 @@ Write `harmony` as a compact string of chords, played one after another from bar
 | `grid` | int | Steps per beat for this part's step strings |
 | `velocity` | int | Base velocity 1–127 before energy and accents |
 | `blocks` | Block[] | What the part plays over bar ranges; blocks must not overlap |
+| `density` | number, optional | 0..1; absent or 0.5 = as written. Set by the plugin's simplify and intensify tweaks (P1-21); see "Density" below |
+| `humanize` | number, optional | 0..1: how far timing and velocity drift from the grid. 0 = on the grid, absent = 0.3 (the default feel), 1 = loose. Set by the humanize tweak |
+| `seed` | integer, optional | 0..4294967295. The part's own seed, set by re-roll (P1-22) |
+
+The last three are written by the plugin, not by the model. Leave them out when writing a score; keep them as they are when editing one.
 
 ### Block
 
@@ -189,6 +194,17 @@ These are the behaviours that matter when writing an IR. The full list is in `co
 - **Motifs:** in 5- and 6-note scales, degrees wrap by the scale size. In the compact string, a token that can't be read is skipped with a warning; one with a readable duration but an unknown pitch becomes a rest of that length. `augment` and `diminish` take an optional factor (`augment:1.5`). A motif that leaves the range is shifted whole by octaves first, so its contour survives.
 - **Fills** cover the last `max(1, numerator/2)` beats of the block's last bar (`half_time_break` covers the whole bar) and replace the snare, tom and hat hits there.
 - **Drums** ignore `low`/`high`. `-` in a drum lane is a rest.
+- **Density** (P1-21): a part's `density` (plus the plugin's live density knob, offset around 0.5) thins or fills every step pattern the part plays: rhythms, drum lanes and named grooves (which keep their feel), and motifs.
+  - Below 0.5, onsets go weakest first: ghosts, then by metric weight (sixteenths, eighths, beats, the downbeat), accents last. At 0 only the strongest onset of each pattern bar is left. In pitched parts a removed onset becomes a hold when a note sounds into it, so the note before it lasts longer; otherwise a rest. A motif loses its weakest short notes, merged into the note before them.
+  - Above 0.5, onsets are added, up to as many as the pattern has (at 1): chords, pads, arps and melody lines on the strongest empty steps; bass roots on beats and ghost roots between them; hats, ride, shaker and tambourine fill their strongest empty steps; kick, snare, clap, rim and cowbell get ghost notes between the beats; crash, ride bell and toms are never filled. Nothing finer than a sixteenth is added. A motif splits its longest notes, the second half a scale step toward the next note.
+  - Literal notes and fills never change. Ties are broken by the seed, so the same score and seed realize identically.
+- **Re-roll** (P1-22): a part with its own `seed` realizes from that seed instead of the clip's, and makes seeded choices. The score's choices stay: chords, motifs, rhythm, groove, range. The take changes:
+  - Chords and pads start from one of the few best first voicings (another inversion or top note) and voice-lead from there, with a little seeded freedom on the way. Held chords may be struck again halfway through.
+  - Each bar of a rhythm or drum lane has a chance of one small move: a weak onset pushed a step earlier, a held chord re-struck on a beat, a bass root turned into a fifth or octave, a held bass note split, a chromatic approach on the bar's last eighth, a ghost note added or a weak hat dropped. Crash, ride bell and toms don't move.
+  - A bass may sit its roots a little higher or lower; an arp starts elsewhere in its figure; a rhythm-only line starts the other way and arches higher or lower.
+  - Each motif statement has a chance of one change: a short note moved a scale step, or two touching notes swapping lengths. The first note and accents never change.
+  - Every rule above still holds (range, monophony, key: the moves use chord tones, scale steps and approaches, which are intentional). A part without `seed` realizes exactly as before.
+- **Humanize amount:** `humanize` scales the timing drift (up to 8 ms at 0.3, chords moving together) and the velocity drift (±6, ±3 for soft notes) linearly. Literal notes are never humanized.
 - **Literal notes:** `bar` is the absolute clip bar. Timing and velocity are exact: not quantized, and not humanized (P1-20, 2026-10-03), so a captured performance keeps its feel.
 - **Overlapping blocks:** the later block in IR order owns the shared bars. On overlapping chords, the later onset wins.
 - **Harmony:** empty harmony means an implicit tonic chord, with a warning. `C2` is read as Csus2 and `C4` as Csus4. Dominant and major `11` chords are voiced without the 3rd.

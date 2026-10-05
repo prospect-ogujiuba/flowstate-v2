@@ -93,7 +93,8 @@ public:
     std::size_t scoreBytes() const;
 
     // ---- Parts and settings --------------------------------------------------------------------
-    // Part state for a part of the current score; false if the part isn't there.
+    // Part state for a part of the current score; false if the part isn't there. A density change
+    // re-renders the clip (the knob is live, not a lineage node).
     bool setPartState(const fb::PartState& state);
     void setOverride(const fb::ContextOverride& o) { override_ = o; }
     const fb::ContextOverride& contextOverride() const { return override_; }
@@ -136,6 +137,8 @@ public:
 private:
     void refreshClip();
     std::string newNodeId();
+    // The density knob per part id, for parts not at 0.5 (RealizeOptions::density).
+    std::map<std::string, double> densities() const;
 
     std::string instanceId_;
     std::string buildId_;
@@ -159,8 +162,9 @@ private:
     std::string realizeError_;
 };
 
-// Realizes one score IR with `seed` into the bridge's Clip. Throws flowstate::IrError.
-fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed);
+// Realizes one score IR with `seed` into the bridge's Clip, with the density knob per part id
+// (0.5 = as written). Throws flowstate::IrError.
+fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed, const std::map<std::string, double>& density = {});
 
 // The fixed drum voice -> GM note -> v1 sublane table a drum ClipPart carries.
 std::vector<fb::DrumVoiceNote> drumVoiceMap();

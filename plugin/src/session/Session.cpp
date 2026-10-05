@@ -35,11 +35,12 @@ std::vector<fb::DrumVoiceNote> drumVoiceMap() {
     return voices;
 }
 
-fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed) {
+fb::Clip realizeToClip(const nlohmann::json& score, std::int64_t seed, const std::map<std::string, double>& density) {
     std::vector<std::string> warnings;
     const Score parsed = parseScore(score.dump(), warnings);
     RealizeOptions options;
     options.seed = static_cast<std::uint64_t>(seed);
+    options.density = density;
     const Realization r = realize(parsed, options);
 
     fb::Clip clip;
@@ -253,8 +254,18 @@ bool Session::setPartState(const fb::PartState& state) {
     const bool known = std::any_of(clip_->parts.begin(), clip_->parts.end(),
                                    [&](const fb::ClipPart& p) { return p.partId == state.partId; });
     if (!known) return false;
+    const auto was = partStates_.find(state.partId);
+    const double before = was != partStates_.end() ? was->second.density : 0.5;
     partStates_[state.partId] = state;
+    if (state.density != before) refreshClip();
     return true;
+}
+
+std::map<std::string, double> Session::densities() const {
+    std::map<std::string, double> out;
+    for (const auto& [id, state] : partStates_)
+        if (state.density != 0.5) out[id] = state.density;
+    return out;
 }
 
 std::optional<fb::Clip> Session::realizeNode(const std::string& id, std::string* error) const {
@@ -262,7 +273,7 @@ std::optional<fb::Clip> Session::realizeNode(const std::string& id, std::string*
     const auto* n = node(id);
     if (n == nullptr) return std::nullopt;
     try {
-        return realizeToClip(n->score, n->seed);
+        return realizeToClip(n->score, n->seed, densities());
     } catch (const std::exception& e) {
         if (error != nullptr) *error = e.what();
         return std::nullopt;
@@ -275,7 +286,7 @@ void Session::refreshClip() {
     const auto* c = current();
     if (c == nullptr) return;
     try {
-        clip_ = realizeToClip(c->score, c->seed);
+        clip_ = realizeToClip(c->score, c->seed, densities());
     } catch (const std::exception& e) {
         realizeError_ = e.what();
     }

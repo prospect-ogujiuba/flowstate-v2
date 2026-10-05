@@ -78,6 +78,8 @@ strings, overlaps or unknown transforms) are repaired and listed as warnings.
 | `realize_bass.cpp` | Bass tokens `R 3 5 7 8 a x X g` with low, smooth root anchoring |
 | `realize_melody.cpp` | Motifs (degrees, alter, transforms, repeatEvery) and the rhythm-only sketch line |
 | `realize_drums.cpp` | Drum lanes, GM mapping, sublanes, fills, groove dynamics |
+| `density.cpp` | Part density and the density knob: thins or fills step patterns and motifs by metric weight |
+| `transform.{h,cpp}` | The Studio's tweaks, IR JSON in and out: register, transpose, humanize, simplify, intensify, revoice |
 | `smf.{h,cpp}` | Standard MIDI File writer |
 | `output.{h,cpp}` | Note list and report JSON, golden checksum |
 | `midi_read.{h,cpp}` | Standard MIDI File reader (type 0/1, PPQ), rescaled to 960 PPQ |
@@ -86,8 +88,9 @@ strings, overlaps or unknown transforms) are repaired and listed as warnings.
 
 ## Realization notes
 
-- Pipeline for each part: role realizer, then literal notes, range fold, exact dedupe, humanize
-  (±8 ms timing, ±6 velocity, seeded; downbeat kick and snare get a quarter of the timing jitter),
+- Pipeline for each part: role realizer (patterns thinned or filled by the part's density), then
+  literal notes, range fold, exact dedupe, humanize (±8 ms timing, ±6 velocity at the default
+  amount, scaled by the part's `humanize`, seeded; downbeat kick and snare get a quarter of the timing jitter),
   clip to `[0, bars × ticksPerBar)`, dedupe, monophony (bass, melody, counter), then a 1/64-note
   minimum length.
 - Voicing: each family generates shapes, and every octave placement inside `[low, high]` becomes a

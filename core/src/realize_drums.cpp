@@ -208,6 +208,10 @@ std::vector<RawNote> realizeDrumPart(const PartEnv& env) {
                 lanes.push_back({lane.voice, env.pattern(b, lane.steps, "xXg.-", toString(lane.voice)), 0.0});
             }
         }
+        for (auto& lane : lanes) {
+            env.vary(lane.pat, drumDensityKind(lane.voice), b, toString(lane.voice));
+            env.thin(lane.pat, drumDensityKind(lane.voice), toString(lane.voice));
+        }
         for (const auto& lane : lanes) {
             const auto& pat = lane.pat;
             if (pat.empty()) continue;

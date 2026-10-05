@@ -13,6 +13,7 @@
 #include <map>
 #include <set>
 #include <sstream>
+#include <tuple>
 
 using namespace flowstate::plugin;
 using nlohmann::json;
@@ -403,8 +404,6 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
 
     // Each command answered `unavailable` names its feature in the session, with the same reason.
     const std::vector<std::pair<std::string, json>> commands{
-        {"reroll", {{"type", "reroll"}, {"partId", partId}}},
-        {"tweak", {{"type", "tweak"}, {"partId", nullptr}, {"op", "simplify"}, {"amount", nullptr}}},
         {"editNotes", {{"type", "editNotes"}, {"partId", partId}, {"remove", json::array()}, {"add", json::array()}}},
         {"apiKey", {{"type", "setApiKey"}, {"provider", "openai"}, {"key", "sk-test"}}},
     };
@@ -415,9 +414,8 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
         REQUIRE(gaps.count(feature) == 1);
         CHECK(r["error"]["message"] == gaps[feature]);
     }
-    // Accepted, but without effect yet: the UI marks it too. Lock works since the planner keeps locked parts.
-    CHECK(gaps.count("density") == 1);
-    CHECK(gaps.count("lock") == 0);
+    // Lock works since the planner keeps locked parts; tweak and the density knob since core has the transforms (P1-21).
+    for (const char* local : {"lock", "tweak", "density", "reroll"}) CHECK(gaps.count(local) == 0);
     // Edit, vary and add part go to the agent service (P1-19), and so does capture (P1-20).
     for (const char* served : {"edit", "vary", "addPart", "capture"}) CHECK(gaps.count(served) == 0);
 }
@@ -1557,4 +1555,177 @@ TEST_CASE("generate: a plan that leaves a role out keeps it out; the sketch only
     noDrums["parts"].erase(3);
     c.serviceEvent(stream, fb::ScoreDone{noDrums});
     CHECK(partIdsOf(s.current()->score) == std::vector<std::string>{"keys", "bass", "lead"});
+}
+
+TEST_CASE("tweak: a local transform makes a tweak node with its parent's seed; locked parts stay; refusals say why") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    auto r = reply(c, {{"type", "tweak"}, {"partId", nullptr}, {"op", "simplify"}, {"amount", nullptr}});
+    CHECK(r["error"]["code"] == "bad_request");  // no idea yet
+
+    const auto a = s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 77, 10);
+    const auto before = *s.clip();
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "bass"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+
+    // Every unlocked part: octave up. The bass is locked, so it stays where it is.
+    r = reply(c, {{"type", "tweak"}, {"partId", nullptr}, {"op", "register"}, {"amount", 1}});
+    REQUIRE(r["ok"] == true);
+    const auto* t = s.current();
+    REQUIRE(t != nullptr);
+    CHECK((t->kind == fb::NodeKind::Tweak));
+    CHECK((t->parentId == a));
+    CHECK(t->seed == 77);
+    CHECK((t->partIds == std::vector<std::string>{"keys", "lead"}));
+    CHECK(t->score["parts"][1] == s.node(a)->score["parts"][1]);
+    const auto& after = *s.clip();
+    auto notesOf = [](const fb::Clip& clip, const std::string& id) {
+        std::vector<std::tuple<int, int, int, int>> out;
+        for (const auto& p : clip.parts)
+            if (p.partId == id)
+                for (const auto& n : p.notes) out.emplace_back(n.tick, n.dur, n.pitch, n.vel);
+        REQUIRE_FALSE(out.empty());
+        return out;
+    };
+    CHECK((notesOf(after, "bass") == notesOf(before, "bass")));
+    CHECK((notesOf(after, "drums") == notesOf(before, "drums")));
+    CHECK(std::get<2>(notesOf(after, "keys").front()) == std::get<2>(notesOf(before, "keys").front()) + 12);
+    CHECK(s.thread().empty());  // a tweak is a card in the lineage, not a message
+
+    // Undo goes back to the idea as it was.
+    REQUIRE(reply(c, {{"type", "undo"}})["ok"] == true);
+    CHECK(s.current()->id == a);
+
+    // A locked part named on its own is refused, as is a part that isn't there.
+    r = reply(c, {{"type", "tweak"}, {"partId", "bass"}, {"op", "simplify"}, {"amount", nullptr}});
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("locked") != std::string::npos);
+    r = reply(c, {{"type", "tweak"}, {"partId", "ghost"}, {"op", "simplify"}, {"amount", nullptr}});
+    CHECK(r["error"]["code"] == "unknown_part");
+    // Transpose moves the key, so it can't leave the locked bass behind.
+    r = reply(c, {{"type", "tweak"}, {"partId", nullptr}, {"op", "transpose"}, {"amount", 2}});
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("Finger bass") != std::string::npos);
+    // Nothing to change: drums have no register. No node is made.
+    const auto nodes = s.nodes().size();
+    r = reply(c, {{"type", "tweak"}, {"partId", "drums"}, {"op", "register"}, {"amount", -1}});
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(s.nodes().size() == nodes);
+
+    // With the bass unlocked, transpose takes the whole idea up a tone.
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "bass"}, {"muted", false}, {"solo", false}, {"locked", false}, {"density", 0.5}}}})["ok"] == true);
+    r = reply(c, {{"type", "tweak"}, {"partId", nullptr}, {"op", "transpose"}, {"amount", 2}});
+    REQUIRE(r["ok"] == true);
+    CHECK(s.current()->score["context"]["tonic"] == "E");
+    CHECK(r["session"]["context"]["tonic"] == "E");
+
+    // One part: simplify, intensify, revoice and humanize each make a node that changes only it.
+    for (const auto& [op, amount] : std::vector<std::pair<std::string, json>>{
+             {"simplify", nullptr}, {"intensify", nullptr}, {"revoice", nullptr}, {"humanize", 0.9}}) {
+        INFO(op);
+        const auto parent = s.current()->id;
+        r = reply(c, {{"type", "tweak"}, {"partId", "keys"}, {"op", op}, {"amount", amount}});
+        REQUIRE(r["ok"] == true);
+        CHECK((s.current()->parentId == parent));
+        CHECK((s.current()->partIds == std::vector<std::string>{"keys"}));
+    }
+    // The tweaks survive a save and restore.
+    Session restored("inst", "test");
+    std::vector<std::string> warnings;
+    restored.restore(s.save(), warnings);
+    CHECK(warnings.empty());
+    CHECK(restored.clip()->parts.size() == s.clip()->parts.size());
+    CHECK((notesOf(*restored.clip(), "keys") == notesOf(*s.clip(), "keys")));
+}
+
+TEST_CASE("density knob: a live re-render of the part, saved with the project, never a node") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 5, 10);
+    auto count = [](const fb::Clip& clip, const std::string& id) {
+        for (const auto& p : clip.parts)
+            if (p.partId == id) return p.notes.size();
+        return std::size_t{0};
+    };
+    const auto written = count(*s.clip(), "drums");
+    const auto keys = count(*s.clip(), "keys");
+    const auto nodes = s.nodes().size();
+    int changes = 0;
+    c.onChanged = [&] { ++changes; };
+
+    auto set = [&](double d) {
+        return reply(c, {{"type", "setPartState"}, {"state", {{"partId", "drums"}, {"muted", false}, {"solo", false}, {"locked", false}, {"density", d}}}});
+    };
+    REQUIRE(set(0.0)["ok"] == true);
+    CHECK(count(*s.clip(), "drums") < written);
+    CHECK(count(*s.clip(), "keys") == keys);  // only that part
+    REQUIRE(set(1.0)["ok"] == true);
+    CHECK(count(*s.clip(), "drums") > written);
+    CHECK(s.nodes().size() == nodes);
+    CHECK(changes == 2);
+    // What plays and drags is the knob's version.
+    CHECK(count(*c.audition().clip, "drums") == count(*s.clip(), "drums"));
+    REQUIRE(reply(c, {{"type", "startDrag"}, {"nodeId", nullptr}, {"partIds", nullptr}, {"splitDrums", false}})["ok"] == true);
+    REQUIRE(platform.lastClip);
+    CHECK(count(*platform.lastClip, "drums") == count(*s.clip(), "drums"));
+
+    // Saved with the project: the reopened session plays the same.
+    Session restored("inst", "test");
+    std::vector<std::string> warnings;
+    restored.restore(s.save(), warnings);
+    CHECK(count(*restored.clip(), "drums") == count(*s.clip(), "drums"));
+
+    REQUIRE(set(0.5)["ok"] == true);
+    CHECK(count(*s.clip(), "drums") == written);
+}
+
+TEST_CASE("reroll: the part gets a seed of its own in a regenerate node; nothing else changes") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    Controller c(s, platform);
+    auto r = reply(c, {{"type", "reroll"}, {"partId", "keys"}});
+    CHECK(r["error"]["code"] == "bad_request");  // no idea yet
+
+    const auto a = s.addNode(loadScore("example.json"), fb::NodeKind::Initial, std::nullopt, std::nullopt, 31, 10);
+    auto notesOf = [](const fb::Clip& clip, const std::string& id) {
+        std::vector<std::tuple<int, int, int, int>> out;
+        for (const auto& p : clip.parts)
+            if (p.partId == id)
+                for (const auto& n : p.notes) out.emplace_back(n.tick, n.dur, n.pitch, n.vel);
+        return out;
+    };
+    const auto before = *s.clip();
+    std::set<std::uint64_t> seeds;
+    std::set<std::vector<std::tuple<int, int, int, int>>> takes;
+    for (int i = 0; i < 4; ++i) {
+        r = reply(c, {{"type", "reroll"}, {"partId", "keys"}});
+        REQUIRE(r["ok"] == true);
+        const auto* n = s.current();
+        CHECK((n->kind == fb::NodeKind::Regenerate));
+        CHECK(n->seed == 31);
+        CHECK((n->partIds == std::vector<std::string>{"keys"}));
+        seeds.insert(n->score["parts"][0]["seed"].get<std::uint64_t>());
+        takes.insert(notesOf(*s.clip(), "keys"));
+        for (const char* other : {"bass", "lead", "drums"}) CHECK((notesOf(*s.clip(), other) == notesOf(before, other)));
+        // Only the part's seed differs from the parent's score.
+        auto parentScore = s.node(*n->parentId)->score;
+        parentScore["parts"][0]["seed"] = n->score["parts"][0]["seed"];
+        CHECK(parentScore == n->score);
+    }
+    CHECK(seeds.size() == 4);
+    CHECK(takes.size() >= 3);
+    CHECK(r["session"]["nodes"].back()["kind"] == "regenerate");
+
+    // Undo walks back to the take before, then the idea as written.
+    for (int i = 0; i < 4; ++i) REQUIRE(reply(c, {{"type", "undo"}})["ok"] == true);
+    CHECK(s.current()->id == a);
+    CHECK((notesOf(*s.clip(), "keys") == notesOf(before, "keys")));
+
+    // A locked part can't be re-rolled; a missing one is unknown.
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "keys"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+    r = reply(c, {{"type", "reroll"}, {"partId", "keys"}});
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("locked") != std::string::npos);
+    CHECK(reply(c, {{"type", "reroll"}, {"partId", "ghost"}})["error"]["code"] == "unknown_part");
 }

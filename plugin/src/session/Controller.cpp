@@ -1,8 +1,10 @@
 #include "session/Controller.h"
 
 #include "flowstate/analyze.h"
+#include "flowstate/groove.h"
 #include "flowstate/sketch.h"
 #include "flowstate/theory.h"
+#include "flowstate/transform.h"
 
 #include <algorithm>
 #include <cctype>
@@ -86,10 +88,7 @@ Controller::AuditionSource Controller::audition() {
 const std::vector<fb::FeatureGap>& Controller::featureGaps() {
     using F = fb::Feature;
     static const std::vector<fb::FeatureGap> gaps{
-        {F::Reroll, "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet."},
-        {F::Tweak, "Local transforms aren't in core yet."},
         {F::EditNotes, "Note edits aren't in core yet."},
-        {F::Density, "The density knob doesn't change playback until core has the transform."},
     };
     return gaps;
 }
@@ -180,6 +179,59 @@ fb::Reply Controller::fail(fb::ErrorCode code, std::string message) {
     return r;
 }
 
+fb::Reply Controller::tweak(const fb::Tweak& command) {
+    const auto* cur = session_.current();
+    if (cur == nullptr) return fail(fb::ErrorCode::BadRequest, "There's no idea to tweak yet.");
+    std::set<std::string> locked;
+    for (const auto& st : session_.partStates())
+        if (st.locked) locked.insert(st.partId);
+    std::vector<std::string> targets;
+    for (const auto& p : cur->score.value("parts", nlohmann::json::array())) {
+        const auto id = p.value("id", std::string());
+        if (command.partId && id != *command.partId) continue;
+        if (command.partId && locked.count(id))
+            return fail(fb::ErrorCode::BadRequest, p.value("name", id) + " is locked. Unlock it to tweak it.");
+        if (!locked.count(id)) targets.push_back(id);
+    }
+    if (command.partId && targets.empty())
+        return fail(fb::ErrorCode::UnknownPart, "No part " + *command.partId + " in the current idea.");
+    if (targets.empty()) return fail(fb::ErrorCode::BadRequest, "Every part is locked. Unlock one to tweak it.");
+    const auto op = tweakOpFromString(fb::toString(command.op));
+    if (!op) return fail(fb::ErrorCode::BadRequest, "Unknown tweak.");
+    TweakResult result;
+    try {
+        result = tweakJson(cur->score.dump(), *op, targets, command.amount);
+    } catch (const std::exception& e) {
+        return fail(fb::ErrorCode::BadRequest, std::string("This idea can't be tweaked: ") + e.what());
+    }
+    if (!result.ok()) return fail(fb::ErrorCode::BadRequest, result.error);
+    // Like an edit, the node keeps its parent's seed, so the parts it didn't change sound the same.
+    session_.addNode(nlohmann::json::parse(result.score), fb::NodeKind::Tweak, std::nullopt, result.changed, cur->seed,
+                     platform_.nowMs());
+    return ok(true);
+}
+
+fb::Reply Controller::reroll(const std::string& partId) {
+    const auto* cur = session_.current();
+    if (cur == nullptr) return fail(fb::ErrorCode::BadRequest, "There's no idea to re-roll yet.");
+    auto score = cur->score;
+    nlohmann::json* part = nullptr;
+    for (auto& p : score["parts"])
+        if (p.value("id", std::string()) == partId) part = &p;
+    if (part == nullptr) return fail(fb::ErrorCode::UnknownPart, "No part " + partId + " in the current idea.");
+    for (const auto& st : session_.partStates())
+        if (st.partId == partId && st.locked)
+            return fail(fb::ErrorCode::BadRequest, part->value("name", partId) + " is locked. Unlock it to re-roll it.");
+    const auto now = platform_.nowMs();
+    const auto old = part->contains("seed") && (*part)["seed"].is_number_unsigned() ? (*part)["seed"].get<std::uint64_t>() : 0;
+    std::uint64_t seed = 0;
+    while (seed == 0 || seed == old)
+        seed = mixSeed(static_cast<std::uint64_t>(now), "reroll:" + partId + ":" + std::to_string(nextReroll_++)) & 0xffffffffu;
+    (*part)["seed"] = seed;
+    session_.addNode(std::move(score), fb::NodeKind::Regenerate, std::nullopt, std::vector<std::string>{partId}, cur->seed, now);
+    return ok(true);
+}
+
 fb::Reply Controller::handle(const fb::Command& command) {
     const auto unknownNode = [](const std::string& id) { return fail(fb::ErrorCode::UnknownNode, "No node " + id + "."); };
     const auto unknownPart = [](const std::string& id) { return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea."); };
@@ -226,8 +278,8 @@ fb::Reply Controller::handle(const fb::Command& command) {
                 return startEdit(fb::EditKind::AddPart, prompt, std::vector<std::string>{}, c.role,
                                  prompt.empty() ? std::string("Add a ") + fb::toString(c.role) + " part" : prompt);
             },
-            [&](const fb::Reroll&) { return unavailable(fb::Feature::Reroll); },
-            [&](const fb::Tweak&) { return unavailable(fb::Feature::Tweak); },
+            [&](const fb::Reroll& c) { return reroll(c.partId); },
+            [&](const fb::Tweak& c) { return tweak(c); },
             [&](const fb::EditNotes&) { return unavailable(fb::Feature::EditNotes); },
             [&](const fb::RemovePart& c) {
                 const auto* cur = session_.current();

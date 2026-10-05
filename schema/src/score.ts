@@ -148,6 +148,9 @@ export const Part = z.object({
   grid: z.number().int().describe("Steps per beat for step strings (4 = 16ths in 4/4, 3 = triplets)"),
   velocity: z.number().int(),
   blocks: z.array(Block),
+  density: z.number().min(0).max(1).nullable().optional().describe("Set by simplify/intensify: 0..1, 0.5 or absent = as written"),
+  humanize: z.number().min(0).max(1).nullable().optional().describe("Set by the humanize tweak: 0 = on the grid, absent = the default 0.3, 1 = loose"),
+  seed: z.number().int().min(0).max(4294967295).nullable().optional().describe("Set by re-roll: this part's own seed for seeded realization choices"),
 });
 
 export const Score = z.object({

@@ -51,7 +51,7 @@ TEST_CASE("sketch: valid, warning-free IR for every mode, meter and length") {
                     const auto text = sketchJson(req);
                     INFO(toString(mode) << " " << num << "/" << den << " " << bars << " bars, seed " << seed << ": " << text);
                     Realization r;
-                    REQUIRE_NOTHROW(r = realizeJson(text, {seed, true}));
+                    REQUIRE_NOTHROW(r = realizeJson(text, {seed, true, {}}));
                     CHECK(r.warnings.empty());
                     CHECK(r.bars == bars);
                     CHECK(r.parts.size() == 4);
@@ -68,7 +68,7 @@ TEST_CASE("sketch: under 100 ms for 8 bars x 4 parts, sketch and realization tog
     std::vector<double> ms;
     for (int i = 0; i < 15; ++i) {
         const auto t0 = std::chrono::steady_clock::now();
-        const auto r = realizeJson(sketchJson(req), {static_cast<std::uint64_t>(i + 1), true});
+        const auto r = realizeJson(sketchJson(req), {static_cast<std::uint64_t>(i + 1), true, {}});
         ms.push_back(std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count());
         REQUIRE(r.parts.size() == 4);
     }
@@ -83,7 +83,7 @@ TEST_CASE("sketch: varied across seeds, identical for the same seed") {
     for (std::uint64_t seed = 1; seed <= 16; ++seed) {
         const auto text = sketchJson(request("D", Mode::Minor, 4, 4, 4, seed));
         CHECK(text == sketchJson(request("D", Mode::Minor, 4, 4, 4, seed)));
-        distinct.insert(fingerprint(realizeJson(text, {seed, true})));
+        distinct.insert(fingerprint(realizeJson(text, {seed, true, {}})));
         harmonies.insert(nlohmann::json::parse(text)["harmony"].get<std::string>());
     }
     CHECK(distinct.size() >= 14);
@@ -122,6 +122,6 @@ TEST_CASE("sketch: follows the context: key, groove by style and meter, and the 
     for (const auto& p : s["parts"]) roles.push_back(p["role"]);
     CHECK(roles == std::vector<std::string>{"pad", "arp", "counter"});
     CHECK(s["parts"][0]["id"] == "sketch-pad");
-    const auto r = realizeJson(s.dump(), {1, true});
+    const auto r = realizeJson(s.dump(), {1, true, {}});
     CHECK(r.warnings.empty());
 }

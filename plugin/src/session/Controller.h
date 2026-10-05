@@ -186,6 +186,11 @@ private:
     // Removes the request's sketch node (a variation took its place, or the answer was text only).
     void dropSketch(Request& request);
     fb::Reply cancel(const std::string& requestId);
+    // A local transform in core (P1-21): a `tweak` node under the current one, with its seed.
+    fb::Reply tweak(const fb::Tweak& command);
+    // Re-roll (P1-22): the part gets a fresh seed of its own in a `regenerate` node, so core plays a
+    // different take on it; the node keeps its parent's seed, so every other part sounds the same.
+    fb::Reply reroll(const std::string& partId);
     std::pair<Request*, Stream*> findStream(const std::string& streamId);
     void partLanded(Request& request, Stream& stream);
     void finishStream(Request& request, Stream& stream, std::optional<fb::ErrorInfo> error);
@@ -198,6 +203,7 @@ private:
     Platform& platform_;
     std::vector<Request> requests_;
     std::uint64_t nextRequestNumber_ = 1;
+    std::uint64_t nextReroll_ = 1;
     std::optional<Library> library_;
     std::string libraryError_;
     bool byok_ = false;  // the service's `byok` flag (serviceFeatures)

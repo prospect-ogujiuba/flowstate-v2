@@ -65,6 +65,8 @@ std::vector<RawNote> realizeChordPart(const PartEnv& env) {
         const Articulation art = env.articulation(b, defaultArt);
         if (blk.rhythm) {
             auto pat = env.pattern(b, *blk.rhythm, "xX-.", "rhythm");
+            env.vary(pat, DensityKind::Chords, b, "rhythm");
+            env.thin(pat, DensityKind::Chords, "rhythm");
             for (const auto& ev : stepEvents(pat, b.bars())) {
                 Tick s = env.swungStep(b, ev.step, pat);
                 if (!env.owns(b.index, env.stepTick(b, ev.step, pat))) continue;
@@ -72,11 +74,20 @@ std::vector<RawNote> realizeChordPart(const PartEnv& env) {
                 splitAtChords(env, s, e, ev.token == 'X', b.index, art, b.end, hits);
             }
         } else {
-            // No rhythm: strike each chord and hold it.
+            // No rhythm: strike each chord and hold it. A re-rolled part may strike a long chord
+            // again halfway through (on a beat), like a re-bowed string.
+            Rng variant = env.variantRng("restrike@" + std::to_string(b.index));
+            const Tick beat = env.time.ticksPerBeat();
             for (const auto& span : env.harmony.spans()) {
                 Tick s = std::max(span.start, b.start);
                 Tick e = std::min(span.end, b.end);
                 if (s >= e || !env.owns(b.index, s)) continue;
+                const Tick mid = s + (e - s) / 2 / beat * beat;
+                if (env.variant && e - s >= 2 * beat && variant.uniform() < 0.4 && mid > s) {
+                    splitAtChords(env, s, mid, false, b.index, Articulation::Legato, b.end, hits);
+                    splitAtChords(env, mid, e, false, b.index, Articulation::Legato, b.end, hits);
+                    continue;
+                }
                 splitAtChords(env, s, e, false, b.index, Articulation::Legato, b.end, hits);
             }
         }
@@ -93,7 +104,8 @@ std::vector<RawNote> realizeChordPart(const PartEnv& env) {
         stepOf[key] = steps.size();
         steps.push_back({h.chord->chord, v ? *v : defaultFamily, true});
     }
-    auto voicings = voiceLead(steps, env.low, env.high, env.scale, &env.warnings);
+    auto voicings = voiceLead(steps, env.low, env.high, env.scale, &env.warnings,
+                              env.variant ? env.variantRng("voicing").next() | 1 : 0);
 
     std::vector<RawNote> out;
     for (std::size_t i = 0; i < hits.size(); ++i) {

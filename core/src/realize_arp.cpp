@@ -47,6 +47,12 @@ std::vector<RawNote> realizeArpPart(const PartEnv& env) {
     Rng rng(env.seed);
     int anchor = env.low + (env.high - env.low) / 4;
     long counter = 0;
+    if (env.variant) {
+        // A re-rolled arp starts elsewhere in its figure, from a higher or lower root.
+        Rng v = env.variantRng("arp");
+        counter = v.below(8);
+        anchor = std::clamp(anchor + v.below(13) - 4, env.low, env.high);
+    }
     int lastIndex = -1;
     const int spb = env.time.stepsPerBar(env.part.grid);
 
@@ -61,6 +67,8 @@ std::vector<RawNote> realizeArpPart(const PartEnv& env) {
             pat.stepsPerBar = spb;
             pat.bars = {std::string(static_cast<std::size_t>(spb), 'x')};
         }
+        env.vary(pat, DensityKind::Chords, b, "rhythm");
+        env.thin(pat, DensityKind::Chords, "rhythm");
         auto events = stepEvents(pat, b.bars());
         const ChordSpan* lastChord = nullptr;
         std::vector<int> pool;

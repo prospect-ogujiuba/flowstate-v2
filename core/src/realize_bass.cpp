@@ -15,6 +15,8 @@ public:
         // Roots live in the lower part of the register.
         roomTop_ = env.low + std::max(7, (env.high - env.low) * 6 / 10);
         anchor_ = env.low + std::max(5, (env.high - env.low) * 35 / 100);
+        // A re-rolled bass may sit its roots a little higher or lower.
+        if (env.variant) anchor_ = std::clamp(anchor_ + env.variantRng("anchor").below(11) - 4, env.low, roomTop_);
         prev_ = anchor_;
     }
 
@@ -97,6 +99,8 @@ std::vector<RawNote> realizeBassPart(const PartEnv& env) {
         std::vector<Ev> evs;
         if (blk.rhythm) {
             auto pat = env.pattern(b, *blk.rhythm, "R12345678axXg-.", "rhythm");
+            env.vary(pat, DensityKind::Bass, b, "rhythm");
+            env.thin(pat, DensityKind::Bass, "rhythm");
             for (const auto& ev : stepEvents(pat, b.bars())) {
                 Tick raw = env.stepTick(b, ev.step, pat);
                 if (!env.owns(b.index, raw)) continue;

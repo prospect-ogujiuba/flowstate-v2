@@ -1,4 +1,6 @@
 // Joins filled A/B scoresheets with the hidden key and reports v2's win rate, sign test and score deltas.
+// A re-roll pack (build-ab-pack --kind reroll) reports P1-22's check instead: the re-rolled take is the
+// same idea, and not worse, in at least 4 of 5 ideas.
 // Usage: tsx src/score-ab.ts --key ab/packs/<name>.key.json <sheet.csv> [more sheets...]
 //          [--metrics-v2 out/v2/metrics.json --metrics-v1 out/v1/metrics.json] [--ook-tolerance 0]
 // Each sheet is one listener (listener name = file name without .csv).
@@ -66,6 +68,33 @@ export function readSheet(file: string, v2OptionById: Map<string, 1 | 2>): { jud
   return { judgements, problems };
 }
 
+/** P1-22: per idea, the re-rolled take (option `rerolled`) is the same idea and scores at least as well. */
+export function readRerollSheet(file: string, rerolledOptionById: Map<string, 1 | 2>) {
+  const rows = parseCsv(readFileSync(file, "utf8"));
+  const header = (rows.shift() ?? []).map((h) => h.trim().toLowerCase());
+  const col = (name: string) => header.indexOf(name);
+  const missing = ["prompt_id", "preferred", "musicality_1", "musicality_2", "same_idea"].filter((n) => col(n) < 0);
+  if (missing.length) throw new Error(`${file}: missing columns ${missing.join(", ")}`);
+  const ideas: { promptId: string; same: boolean; notWorse: boolean; preferred: "rerolled" | "written" | "tie" }[] = [];
+  const problems: string[] = [];
+  for (const r of rows) {
+    const id = (r[col("prompt_id")] ?? "").trim();
+    if (!id) continue;
+    const opt = rerolledOptionById.get(id);
+    if (!opt) { problems.push(`${id} not in key`); continue; }
+    const same = (r[col("same_idea")] ?? "").trim().toLowerCase();
+    const m = [score(r[col("musicality_1")]), score(r[col("musicality_2")])];
+    const pref = (r[col("preferred")] ?? "").trim().toLowerCase();
+    if (!["y", "n"].includes(same) || m[0] === null || m[1] === null || !["1", "2", "tie"].includes(pref)) {
+      problems.push(`${id}: incomplete row (skipped)`);
+      continue;
+    }
+    const rolled = m[opt - 1]!, written = m[2 - opt]!;
+    ideas.push({ promptId: id, same: same === "y", notWorse: rolled >= written, preferred: pref === "tie" ? "tie" : Number(pref) === opt ? "rerolled" : "written" });
+  }
+  return { ideas, problems };
+}
+
 export function summarize(js: Judgement[]) {
   const wins = js.filter((j) => j.outcome === "v2").length;
   const losses = js.filter((j) => j.outcome === "v1").length;
@@ -86,8 +115,24 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const args = parseArgs(process.argv.slice(2));
   const keyFile = args.flags.key;
   if (!keyFile || !args._.length) { console.error("usage: tsx src/score-ab.ts --key <pack>.key.json <sheet.csv> [...]"); process.exit(2); }
-  const key = JSON.parse(readFileSync(path.resolve(keyFile), "utf8")) as { pack: string; entries: { promptId: string; v2Option: 1 | 2 }[] };
+  const key = JSON.parse(readFileSync(path.resolve(keyFile), "utf8")) as { pack: string; kind?: string; entries: { promptId: string; v2Option: 1 | 2 }[] };
   const v2OptionById = new Map(key.entries.map((e) => [e.promptId, e.v2Option]));
+  if (key.kind === "reroll") {
+    // Option A of a re-roll pack is the re-rolled take.
+    for (const sheet of args._) {
+      const { ideas, problems } = readRerollSheet(path.resolve(sheet), v2OptionById);
+      const both = ideas.filter((i) => i.same && i.notWorse).length;
+      const share = ideas.length ? both / ideas.length : null;
+      console.log(`# Re-roll results: ${key.pack} (${path.basename(sheet)})\n`);
+      console.log(`- judged: ${ideas.length}`);
+      console.log(`- same idea: ${ideas.filter((i) => i.same).length}`);
+      console.log(`- re-roll not worse (musicality): ${ideas.filter((i) => i.notWorse).length}`);
+      console.log(`- preferred: re-roll ${ideas.filter((i) => i.preferred === "rerolled").length}, as written ${ideas.filter((i) => i.preferred === "written").length}, tie ${ideas.filter((i) => i.preferred === "tie").length}`);
+      console.log(`\nP1-22 (same idea and not worse in >= 80%): ${pct(share)} -> **${share !== null && share >= 0.8 ? "PASS" : "FAIL"}**`);
+      if (problems.length) console.log(`\nSheet problems:\n${problems.map((p) => `- ${p}`).join("\n")}`);
+    }
+    process.exit(0);
+  }
   const all: Judgement[] = [];
   const problems: string[] = [];
   for (const sheet of args._) { const r = readSheet(path.resolve(sheet), v2OptionById); all.push(...r.judgements); problems.push(...r.problems); }

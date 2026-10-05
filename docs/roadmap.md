@@ -489,6 +489,55 @@ Acceptance:
 - A capture prompt set (one riff per lane and style) is ≥ 95% valid on the production route, at p50 under 5 s.
 - Owner listening: the new parts fit the riff in at least 4 of 5 cases.
 
+### P1-21 Local transforms and the density knob — `doing` (built 2026-10-05 on Linux; CI on macOS and Windows next)
+The Studio's `tweak` sheet and each lane's density knob (proposal: "Tweak", a local transform on the IR, instant, no model call). Today both are listed in `Session.unavailable`.
+Plan:
+- `core` (`flowstate/transform.h`): IR in, IR out, deterministic. One function per op of the bridge's `TweakOp`, applied to the parts it is given; locked parts are never passed in.
+  - `register` (`amount` = octaves): moves the part's range, and its literal notes, by octaves. Drums are skipped.
+  - `transpose` (`amount` = semitones): moves the whole idea's key: the tonic, every chord symbol (and slash bass), and literal notes. Motifs and step tokens are relative, so they follow. The harmony is shared, so it is refused for a single part or while a pitched part is locked, with the reason.
+  - `humanize` (`amount` 0..1): sets the part's humanize amount, a new optional IR field `Part.humanize`. Absent means today's amount, so every existing score realizes to the same bytes.
+  - `simplify` and `intensify`: lower or raise the part's written density, a new optional IR field `Part.density` (0..1, absent = 0.5 = as written). The realizer thins or fills each step pattern (rhythms, drum lanes and named grooves, keeping their feel) and motif, by metric weight, ghosts first and downbeats last. Literal notes and fills are never changed.
+  - `revoice`: moves chord and pad blocks to the next voicing family in a cycle that suits the chords. Parts without voicings are skipped.
+  - A tweak that changes nothing (drums only for `register`, nothing to revoice) answers with the reason and makes no node.
+- The density knob (`PartState.density`): the same realizer path, as a live option (`RealizeOptions`), offset around the part's written density. It changes what plays, drags and exports at once, and is not a lineage node.
+- Plugin: `tweak` makes a `tweak` node under the current one, with its parent's seed and the changed parts in `partIds`. `partId: null` means every unlocked part; a locked `partId` is refused. `setPartState` re-renders when the density changes.
+- `tweak` and `density` leave `Controller::featureGaps` and the mock (`ui/src/host/mock.ts`).
+Acceptance:
+- Each op has core tests: what it changes and what it leaves alone, determinism (same IR, op and seed give identical bytes), and that a score without the new fields realizes byte-identically to before.
+- Density: 0.5 is as written; lower values never add notes and higher values never remove them (per part, against 0.5); 0 keeps at least the strongest onset of every bar; literal notes and fills are untouched.
+- Plugin session tests: a tweak makes a `tweak` node with its parent's seed and `partIds`, skips locked parts, refuses what it should with a reason, and undo returns to the parent. The knob changes the clip and the session's saved state, and makes no node.
+- Playwright: the tweak sheet and the knob are live against the mock.
+- `docs/ir-spec.md` (the two Part fields) and `docs/bridge-spec.md` (tweak and density semantics) are updated; `npm run schema` regenerated; CI green on Linux, macOS and Windows.
+
+Done (2026-10-05; semantics in `docs/ir-spec.md`, "Density", and `docs/bridge-spec.md`, "Tweaks"):
+- **IR:** `Part.density` and `Part.humanize`, optional, written by the plugin (with `Part.seed` for P1-22). Every committed score (4,359 renders: the eval results, core fixtures and library catalog at three seeds each) realizes byte-identically to main.
+- **`core`:** `density.cpp` thins and fills step patterns (rhythms, drum lanes, named grooves with their feel) and motifs by metric weight, used by every role realizer; `transform.{h,cpp}` is the six tweaks, IR JSON in and out, keeping every field it doesn't touch (the compact strings, unknown keys). A tweak keeps only the parts that now sound different, and says why when none do.
+- **Plugin:** `Controller::tweak` (a `tweak` node with the parent's seed and the changed parts; locked parts skipped, a named locked part refused); `setPartState` re-renders the clip when the knob moves, so audition, drag and export follow it, and it is saved with the project. `tweak` and `density` left `featureGaps` and the mock.
+- **Tests:** core `test_transform.cpp` (12 cases: each op, determinism, byte identity with the fields at their defaults, density monotonic at 0, 0.25, 0.75 and 1 on every fixture, literal notes kept); plugin session (a tweak node per op, locks, refusals, undo, save and restore; the knob re-renders, plays, drags and is saved, and makes no node); Playwright (the sheet and the knob are live, a locked part's refusal shows).
+
+Left: owner listening to simplify, intensify and revoice in a DAW (the transforms are rule-based; listening decides whether the steps are the right size).
+
+### P1-22 Real re-roll — `doing` (built 2026-10-05; owner listening left)
+Today the seed only moves humanize and random arps, so a re-roll is almost inaudible (P1-11). Re-roll should give a different take on the same idea: the same chords, motifs, rhythm and groove, played differently.
+Plan:
+- IR: a new optional `Part.seed`. When a part has one, the realizer makes seeded choices for that part, from that seed: voicing (inversion and top note among near-optimal voice-leading paths), register placement, and small rhythm variants (anticipations, re-strikes, passing tones in the bass, ghost notes and hat or kick variations in drums, the sketch line's contour). A part without one realizes exactly as today, so saved sessions, sketches and committed eval renders don't change.
+- Plugin: `reroll` gives the part a fresh seed in a `regenerate` node under the current one (the node keeps its parent's seed, `partIds` is the part). A locked part is refused. `reroll` leaves `featureGaps` and the mock.
+- Evals: a blind listening pack (`npm run -w evals ab` and `render`) of the Phase 0 v2 ideas, each realized as written and re-rolled, for the owner to judge.
+Acceptance:
+- Deterministic: the same IR (with its part seeds) and node seed give identical bytes. A part without `seed` realizes byte-identically to before.
+- Every role varies across seeds: on the Phase 0 v2 scores, 8 re-rolls of each part give at least 6 distinct realizations, with the harmony, key and range rules held (no new out-of-key notes outside chord tones, bass approaches and literal notes).
+- Plugin session tests (node, seed, refusals, undo) and Playwright against the mock.
+- Owner listening, not decided in review: the re-rolled take is the same idea, and not worse, in at least 4 of 5 cases.
+
+Done (2026-10-05; semantics in `docs/ir-spec.md`, "Re-roll"):
+- **`core`** (`variant.cpp`, `voiceLead`'s `variant`): a part with its own seed starts its chords from one of the four best first voicings and voice-leads with seeded freedom, may re-strike a long held chord, and gets per-bar moves (pushes, re-strikes, fifths and octaves, split bass holds, chromatic approaches, ghost notes, dropped hats); bass and arp registers shift a little; a rhythm-only line starts the other way; motif statements change one short note or swap two lengths. A part without a seed never takes that path (the 4,359 renders above are unchanged).
+- **Variety** on the 20 Phase 0 v2 scores (80 parts, 8 re-rolls each, no humanize): every part gives at least 6 distinct takes (means: bass 7.9, chords 8.0, drums 7.9, melody 8.0), with no new out-of-key notes.
+- **Plugin:** `Controller::reroll` gives the part a fresh 32-bit seed in a `regenerate` node with the parent's seed; locked parts are refused. `reroll` left `featureGaps` and the mock.
+- **Tests:** core `test_variant.cpp` (determinism, other parts untouched, 6 of 8 distinct per part on the fixtures within range, clip and key, a bad seed ignored with a warning); plugin session (node, seed, only the part's seed changes, undo, refusals); Playwright.
+- **Listening pack:** `npm run -w evals reroll:build` realizes each Phase 0 v2 idea as written and with every part re-rolled once; `npm run -w evals ab -- --kind reroll ...` builds a blind pack whose sheet asks preference, musicality and "same idea?"; `ab:score` reports this issue's check for such a pack. The pack is `evals/ab/packs/reroll-r1` (20 ideas, rendered with `player.html`).
+
+Left: the owner's listening (the acceptance above).
+
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.
 - Windows: an installer for VST3 and Standalone, Authenticode signed.

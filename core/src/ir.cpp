@@ -415,6 +415,14 @@ Part parsePart(Reader& r, const json& j, const std::string& p) {
     }
     part.grid = clampWarn(r, r.integer(j, "grid", 4, p), 1, 16, p + ".grid");
     part.velocity = clampWarn(r, r.integer(j, "velocity", 90, p), 1, 127, p + ".velocity");
+    if (r.has(j, "density")) part.density = clampWarn(r, r.number(j, "density", 0.5, p), 0.0, 1.0, p + ".density");
+    if (r.has(j, "humanize"))
+        part.humanize = clampWarn(r, r.number(j, "humanize", kDefaultHumanize, p), 0.0, 1.0, p + ".humanize");
+    if (r.has(j, "seed")) {
+        const double seed = r.number(j, "seed", 0.0, p);
+        if (seed >= 0.0 && seed <= 4294967295.0 && std::round(seed) == seed) part.seed = static_cast<std::uint64_t>(seed);
+        else r.warn(p + ".seed", "not a whole number in 0..4294967295; ignored");
+    }
     if (const json* blocks = r.array(j, "blocks", p, true)) {
         for (std::size_t i = 0; i < blocks->size(); ++i) {
             const json& b = (*blocks)[i];

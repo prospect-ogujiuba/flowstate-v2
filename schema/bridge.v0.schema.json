@@ -739,6 +739,45 @@
             ],
             "additionalProperties": false
           }
+        },
+        "density": {
+          "description": "Set by simplify/intensify: 0..1, 0.5 or absent = as written",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "humanize": {
+          "description": "Set by the humanize tweak: 0 = on the grid, absent = the default 0.3, 1 = loose",
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seed": {
+          "description": "Set by re-roll: this part's own seed for seeded realization choices",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [

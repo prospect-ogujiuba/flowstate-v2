@@ -4,6 +4,7 @@
 #include "flowstate/ir.h"
 #include "flowstate/theory.h"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,11 @@ struct VoicingStep {
 
 // Chooses one voicing per step minimising movement over the whole sequence
 // (Viterbi), with the first chord pulled toward the centre of the range and
-// penalties for muddy low intervals and top-voice leaps.
+// penalties for muddy low intervals and top-voice leaps. A nonzero `variant`
+// (a re-rolled part's seed, P1-22) adds seeded noise to each candidate's cost,
+// so another near-optimal path wins: other inversions and top notes, still
+// voice-led. 0 = the one best path.
 std::vector<Voicing> voiceLead(const std::vector<VoicingStep>& steps, int low, int high, const Scale& scale,
-                               std::vector<std::string>* warnings = nullptr);
+                               std::vector<std::string>* warnings = nullptr, std::uint64_t variant = 0);
 
 }  // namespace flowstate

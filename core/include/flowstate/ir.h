@@ -1,6 +1,7 @@
 // Score IR v0 types, JSON parsing and validation. Semantics: docs/ir-spec.md.
 #pragma once
 
+#include <cstdint>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -107,7 +108,13 @@ struct Part {
     int grid = 4;
     int velocity = 90;
     std::vector<Block> blocks;
+    // Set by the plugin's tweaks and re-roll (docs/ir-spec.md, "Part"); absent = as written.
+    std::optional<double> density;        // 0..1, 0.5 = as written
+    std::optional<double> humanize;       // 0..1, absent = kDefaultHumanize
+    std::optional<std::uint64_t> seed;    // the part's own seed: seeded realization choices (re-roll)
 };
+
+inline constexpr double kDefaultHumanize = 0.3;
 
 struct Score {
     std::string ir = kIrId;

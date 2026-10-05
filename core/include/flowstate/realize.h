@@ -5,6 +5,7 @@
 #include "flowstate/timing.h"
 
 #include <cstdint>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -52,6 +53,9 @@ struct Realization {
 struct RealizeOptions {
     std::uint64_t seed = 1;
     bool humanize = true;
+    // The live density knob per part id (PartState.density): 0.5 = as written. It moves the part's
+    // written density (Part::density) by its distance from 0.5.
+    std::map<std::string, double> density;
 };
 
 Realization realize(const Score& score, const RealizeOptions& options = {});

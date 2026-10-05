@@ -12,7 +12,8 @@
     "soundfont": "bash scripts/fetch-soundfont.sh",
     "test": "tsx --test src/*.test.ts",
     "typecheck": "tsc -p .",
-    "capture:build": "tsx src/capture-set.ts"
+    "capture:build": "tsx src/capture-set.ts",
+    "reroll:build": "tsx src/reroll-set.ts"
   },
   "dependencies": {
     "@flowstate/cloud": "*",

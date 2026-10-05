@@ -12,7 +12,7 @@ namespace flowstate {
 namespace detail {
 
 PartEnv::PartEnv(const Score& s, const Part& p, const TimeGrid& t, const Harmony& h, const Scale& sc,
-                 std::uint64_t sd, std::vector<std::string>& w)
+                 std::uint64_t sd, std::vector<std::string>& w, double dens, bool var)
     : score(s),
       part(p),
       time(t),
@@ -22,7 +22,9 @@ PartEnv::PartEnv(const Score& s, const Part& p, const TimeGrid& t, const Harmony
       high(std::max(0, noteNameToMidi(p.high))),
       swing(t, p.grid, s.context.swing),
       seed(sd),
-      warnings(w) {
+      warnings(w),
+      density(dens),
+      variant(var) {
     barOwner_.assign(static_cast<std::size_t>(t.bars()) + 2, -1);
     for (std::size_t i = 0; i < p.blocks.size(); ++i) {
         const Block& b = p.blocks[i];
@@ -58,6 +60,17 @@ int PartEnv::velocity(Tick t, bool accent, bool ghost, double metricScale) const
     else if (accent) v += kAccentBoost;
     v += metricWeight(time, t) * metricScale;
     return clampVelocity(v);
+}
+
+void PartEnv::vary(StepPattern& pat, DensityKind kind, const BlockSpan& b, const std::string& label) const {
+    if (!variant) return;
+    Rng rng = variantRng(label + "@" + std::to_string(b.index));
+    varyPattern(pat, b.bars(), kind, time, pat.grid > 0 ? pat.grid : part.grid, rng);
+}
+
+void PartEnv::thin(StepPattern& pat, DensityKind kind, const std::string& label) const {
+    if (density == 0.5) return;
+    applyDensity(pat, density, kind, time, pat.grid > 0 ? pat.grid : part.grid, mixSeed(seed, "density:" + label));
 }
 
 Tick PartEnv::stepTick(const BlockSpan& b, int globalStep, const StepPattern& pat) const {
@@ -154,10 +167,11 @@ namespace {
 
 using detail::PartEnv;
 
-void humanize(std::vector<RawNote>& notes, const TimeGrid& time, Role role, Rng& rng) {
+// `amount` scales the default feel: 1 = kDefaultHumanize, 0 = on the grid.
+void humanize(std::vector<RawNote>& notes, const TimeGrid& time, Role role, Rng& rng, double amount) {
     sortNotes(notes);
-    const double maxT = time.msToTicks(8.0);
-    const double spreadT = time.msToTicks(1.5);
+    const double maxT = time.msToTicks(8.0) * amount;
+    const double spreadT = time.msToTicks(1.5) * amount;
     const Tick last = time.clipEnd() - 1;
     const bool drums = role == Role::Drums;
     const double timingScale = role == Role::Pad ? 0.5 : 1.0;
@@ -171,7 +185,7 @@ void humanize(std::vector<RawNote>& notes, const TimeGrid& time, Role role, Rng&
             auto& n = notes[k];
             double shift = drums ? rng.triangular() * maxT * (n.anchor ? 0.25 : 1.0)
                                  : shared * (n.anchor ? 0.25 : 1.0) + rng.triangular() * spreadT;
-            const double vr = n.vel < 50 ? 3.0 : 6.0;
+            const double vr = (n.vel < 50 ? 3.0 : 6.0) * amount;
             const double velShift = std::round(rng.triangular() * vr);
             // Literal notes are played as written (a captured performance keeps its feel). The draws
             // still happen, so every other note humanizes exactly as before.
@@ -236,7 +250,14 @@ Realization realize(const Score& score, const RealizeOptions& options) {
     for (std::size_t pi = 0; pi < score.parts.size(); ++pi) {
         const Part& part = score.parts[pi];
         const std::string salt = part.id + "#" + std::to_string(pi);
-        PartEnv env(score, part, time, harmony, scale, mixSeed(options.seed, "realize:" + salt), r.warnings);
+        // The part's written density plus the live knob, both 0.5 = as written.
+        double density = part.density.value_or(0.5);
+        if (const auto k = options.density.find(part.id); k != options.density.end()) density += k->second - 0.5;
+        density = std::clamp(density, 0.0, 1.0);
+        // A re-rolled part (P1-22) realizes from its own seed and makes seeded choices.
+        const std::uint64_t seed = part.seed ? *part.seed : options.seed;
+        PartEnv env(score, part, time, harmony, scale, mixSeed(seed, "realize:" + salt), r.warnings, density,
+                    part.seed.has_value());
 
         std::vector<RawNote> notes;
         switch (part.role) {
@@ -263,8 +284,8 @@ Realization realize(const Score& score, const RealizeOptions& options) {
         // humanize so they cannot turn into flams.
         dedupe(notes);
         if (options.humanize) {
-            Rng rng(mixSeed(options.seed, "humanize:" + salt));
-            humanize(notes, time, part.role, rng);
+            Rng rng(mixSeed(seed, "humanize:" + salt));
+            humanize(notes, time, part.role, rng, part.humanize ? *part.humanize / kDefaultHumanize : 1.0);
         }
         clipToClip(notes, time.clipEnd());
         dedupe(notes);

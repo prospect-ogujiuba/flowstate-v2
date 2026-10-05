@@ -118,6 +118,7 @@ void realizeMotifBlock(const PartEnv& env, const BlockSpan& b, const Motif& moti
     const Block& blk = env.block(b);
     auto notes = applyTransforms(motif.notes, blk.transforms ? *blk.transforms : std::vector<std::string>{}, env,
                                  env.where(b));
+    if (env.density != 0.5) notes = applyDensity(std::move(notes), env.density, env.time, mixSeed(env.seed, "density:motif"));
     if (notes.empty()) return;
     const int centre = env.registerCentre();
     auto pitchOf = [&](const MotifNote& m) {
@@ -145,10 +146,13 @@ void realizeMotifBlock(const PartEnv& env, const BlockSpan& b, const Motif& moti
     }
     const Articulation art = env.articulation(b, Articulation::Normal);
     const double gate = art == Articulation::Normal ? 0.92 : gateFor(art);
+    Rng variant = env.variantRng("motif@" + std::to_string(b.index));
     for (int rep = 0;; ++rep) {
         const double offset = rep * period;
         if (offset >= blockBeats || (rep > 0 && period <= 0.0)) break;
-        for (const auto& m : notes) {
+        // A re-rolled part varies each statement a little: one note, never the first or an accent.
+        const auto played = env.variant ? varyMotif(notes, variant) : notes;
+        for (const auto& m : played) {
             if (m.beats <= 0.0) continue;
             Tick raw = b.start + env.time.beatsToTicks(offset + m.beat);
             if (raw < 0 || raw >= b.end) continue;
@@ -178,6 +182,12 @@ void realizeSketchBlock(const PartEnv& env, const BlockSpan& b, const StepPatter
     int p = prevPitch;
     int dir = counter ? -1 : 1;
     int repeats = 0;
+    double lift = 0.0;  // a re-rolled line starts the other way, and arches higher or lower
+    if (env.variant) {
+        Rng v = env.variantRng("line@" + std::to_string(b.index));
+        if (v.uniform() < 0.5) dir = -dir;
+        lift = v.below(7) - 3.0;
+    }
     for (std::size_t i = 0; i < events.size(); ++i) {
         const auto& ev = events[i];
         const Tick raw = env.stepTick(b, ev.step, pat);
@@ -189,7 +199,7 @@ void realizeSketchBlock(const PartEnv& env, const BlockSpan& b, const StepPatter
 
         const double rel = static_cast<double>((raw - b.start) % phraseLen) / static_cast<double>(phraseLen);
         const double arch = std::sin(kPi * rel);
-        const double target = counter ? centre - 4.0 * arch + 1.0 : centre + 5.0 * arch - 1.0;
+        const double target = (counter ? centre - 4.0 * arch + 1.0 : centre + 5.0 * arch - 1.0) + lift;
         const Tick nextRaw = i + 1 < events.size() ? env.stepTick(b, events[i + 1].step, pat) : b.end;
         const bool phraseEnd = i + 1 == events.size() ||
                                (nextRaw - b.start) / phraseLen != (raw - b.start) / phraseLen;
@@ -298,6 +308,8 @@ std::vector<RawNote> realizeMelodyPart(const PartEnv& env) {
         }
         if (blk.rhythm) {
             auto pat = env.pattern(b, *blk.rhythm, "xX-.R3578", "rhythm");
+            env.vary(pat, DensityKind::Line, b, "rhythm");
+            env.thin(pat, DensityKind::Line, "rhythm");
             realizeSketchBlock(env, b, pat, out, prevPitch);
         } else if (!blk.notes) {
             env.warnOnce(env.where(b) + ": no motif or rhythm; using a quarter-note sketch");
@@ -309,6 +321,7 @@ std::vector<RawNote> realizeMelodyPart(const PartEnv& env) {
                 bar.append(static_cast<std::size_t>(env.part.grid - 1), '-');
             }
             pat.bars = {bar};
+            env.thin(pat, DensityKind::Line, "rhythm");
             realizeSketchBlock(env, b, pat, out, prevPitch);
         }
     }

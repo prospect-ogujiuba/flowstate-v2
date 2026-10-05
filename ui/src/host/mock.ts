@@ -17,10 +17,7 @@ type ErrorCode = NonNullable<Reply["error"]>["code"];
 
 /** What this build can't do yet, with the plugin's reasons (plugin/src/session/Controller.cpp). */
 export const PLUGIN_GAPS: Gap[] = [
-  { feature: "reroll", reason: "Re-roll needs the realizer to make seeded choices (voicing, rhythm), which isn't built yet." },
-  { feature: "tweak", reason: "Local transforms aren't in core yet." },
   { feature: "editNotes", reason: "Note edits aren't in core yet." },
-  { feature: "density", reason: "The density knob doesn't change playback until core has the transform." },
 ];
 
 export type MockOptions = {
@@ -205,8 +202,29 @@ export class MockPlugin implements Bridge {
       case "edit": return gapReply("edit") ?? this.model("edit", c.prompt, 1, c.partIds);
       case "vary": return gapReply("vary") ?? this.model("vary", null, 1, [c.partId]);
       case "addPart": return gapReply("addPart") ?? this.model("edit", c.prompt ?? `Add ${c.role}`, 1, null);
-      case "reroll": return gapReply("reroll") ?? this.derive("regenerate", [c.partId]);
-      case "tweak": return gapReply("tweak") ?? this.derive("tweak", c.partId ? [c.partId] : null);
+      case "reroll": {
+        const g = gapReply("reroll");
+        if (g) return g;
+        const part = this.current()?.clip.parts.find((p) => p.partId === c.partId);
+        if (part && this.s.parts.some((p) => p.partId === c.partId && p.locked)) return this.error("bad_request", `${part.name} is locked. Unlock it to re-roll it.`);
+        return this.derive("regenerate", [c.partId]);
+      }
+      case "tweak": {
+        const g = gapReply("tweak");
+        if (g) return g;
+        // As the plugin: locked parts are left alone, and a locked part named on its own is refused.
+        const cur = this.current();
+        if (!cur) return this.error("bad_request", "There's no idea to tweak yet.");
+        const locked = new Set(this.s.parts.filter((p) => p.locked).map((p) => p.partId));
+        if (c.partId !== null) {
+          const part = cur.clip.parts.find((p) => p.partId === c.partId);
+          if (!part) return this.error("unknown_part", `No part ${c.partId} in the current idea.`);
+          if (locked.has(c.partId)) return this.error("bad_request", `${part.name} is locked. Unlock it to tweak it.`);
+        }
+        const targets = cur.clip.parts.map((p) => p.partId).filter((id) => (c.partId === null || id === c.partId) && !locked.has(id));
+        if (!targets.length) return this.error("bad_request", "Every part is locked. Unlock one to tweak it.");
+        return this.derive("tweak", targets);
+      }
       case "editNotes": return gapReply("editNotes") ?? this.derive("touch", [c.partId]);
       case "removePart": {
         const cur = this.current();

@@ -1,7 +1,9 @@
 // Builds a blind A/B listening pack from two realized output dirs.
 // Usage: tsx src/build-ab-pack.ts --a out/v2 --b out/v1 --name phase0-r1 --seed 42 [--prompts prompts/phase0.json]
+//          [--kind reroll]
 //
-// A = v2 candidates, B = v1 baseline. Per prompt, the two MIDI files are copied as option-1/option-2 in a
+// A = v2 candidates, B = v1 baseline. With --kind reroll (P1-22), A = the idea re-rolled and B = as
+// written (reroll-set.ts); the sheet asks whether both are the same idea instead of how they fit the prompt. Per prompt, the two MIDI files are copied as option-1/option-2 in a
 // seeded random order. The key (which option is v2) is written OUTSIDE the pack folder:
 //   ab/packs/<name>/                 <- give this folder to listeners
 //   ab/packs/<name>.key.json         <- keep this hidden until scoring
@@ -22,6 +24,8 @@ const dirB = path.resolve(need("b"));
 const name = need("name");
 if (!/^[A-Za-z0-9._-]+$/.test(name)) throw new Error("--name must be a simple folder name");
 const seedText = need("seed");
+const kind = args.flags.kind ?? "generators";
+if (kind !== "generators" && kind !== "reroll") throw new Error("--kind must be generators or reroll");
 const promptsFile = path.resolve(args.flags.prompts ?? path.join(evalsRoot, "prompts", "phase0.json"));
 const packsRoot = path.resolve(args.flags["packs-dir"] ?? path.join(evalsRoot, "ab", "packs"));
 const packDir = path.join(packsRoot, name);
@@ -47,7 +51,9 @@ mkdirSync(packDir, { recursive: true });
 
 const entries: { promptId: string; folder: string; v2Option: 1 | 2; v2File: string; v1File: string }[] = [];
 const skipped: { promptId: string; reason: string }[] = [];
-const csvRows = ["prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes"];
+const csvRows = [kind === "reroll"
+  ? "prompt_id,preferred,musicality_1,musicality_2,same_idea,notes"
+  : "prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes"];
 
 prompts.forEach((p) => {
   const v2File = path.join(dirA, `${p.id}.notes.json`), v1File = path.join(dirB, `${p.id}.notes.json`);
@@ -69,11 +75,31 @@ prompts.forEach((p) => {
     `Length: ${c.bars} bars`, `Style: ${c.style.join(", ")}`, "",
   ].join("\n"));
   entries.push({ promptId: p.id, folder, v2Option, v2File, v1File });
-  csvRows.push(`${p.id},,,,,,`);
+  csvRows.push(kind === "reroll" ? `${p.id},,,,,` : `${p.id},,,,,,`);
 });
 
 writeFileSync(path.join(packDir, "scoresheet.csv"), csvRows.join("\n") + "\n");
-writeFileSync(path.join(packDir, "README.txt"), `Flowstate blind A/B listening pack: ${name}
+if (kind === "reroll") writeFileSync(path.join(packDir, "README.txt"), `Flowstate re-roll listening pack: ${name}
+
+Each numbered folder holds one idea (prompt.txt) and two MIDI clips, option-1.mid and option-2.mid.
+One is the idea as the model wrote it; the other is the same idea with every part re-rolled once
+(the same chords, motifs, rhythms and groove, played as a different take). The order is random and
+changes from folder to folder.
+
+For each folder:
+  1. Read prompt.txt, and set your DAW to its tempo and meter (or open player.html if the pack was rendered).
+  2. Import BOTH MIDI files into the SAME instrument setup. Only the notes should differ.
+  3. Loop each option several times. Switch back and forth.
+  4. Fill in one row of scoresheet.csv:
+       preferred      1, 2 or tie
+       musicality_1   1-5  (how good option 1 sounds as music)
+       musicality_2   1-5
+       same_idea      y or n  (would you call the two the same idea, played differently?)
+       notes          optional free text (avoid commas, or wrap the text in double quotes)
+
+Do not look for or open the answer key. Judge the music, not the file names or folder order.
+`);
+else writeFileSync(path.join(packDir, "README.txt"), `Flowstate blind A/B listening pack: ${name}
 
 Each numbered folder holds one prompt (prompt.txt) and two MIDI clips, option-1.mid and option-2.mid.
 The two options come from different generators, in a random order that changes from folder to folder.
@@ -99,8 +125,8 @@ Rules:
   - Save your copy as scoresheet-<your-name>.csv and send it back.
 `);
 writeFileSync(keyFile, JSON.stringify({
-  pack: name, seed: seedText, createdAt: new Date().toISOString(), prompts: promptsFile,
-  a: { label: "v2", dir: dirA }, b: { label: "v1", dir: dirB }, entries, skipped,
+  pack: name, kind, seed: seedText, createdAt: new Date().toISOString(), prompts: promptsFile,
+  a: { label: kind === "reroll" ? "rerolled" : "v2", dir: dirA }, b: { label: kind === "reroll" ? "written" : "v1", dir: dirB }, entries, skipped,
 }, null, 2));
 
 console.log(`pack: ${packDir} (${entries.length} prompts)`);
