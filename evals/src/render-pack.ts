@@ -1,5 +1,5 @@
 // Renders a blind A/B pack to audio and adds a listening player, so a pack can be judged without a DAW setup.
-// Usage: tsx src/render-pack.ts ab/packs/<name> [--soundfont soundfonts/GeneralUser-GS.sf2] [--loops 2]
+// Usage: tsx src/render-pack.ts ab/packs/<name> [--soundfont soundfonts/GeneralUser-GS.sf2] [--loops 2] [--player-only]
 //
 // Each NN-<prompt> folder gets option-1.mp3 and option-2.mp3: the blind MIDI files played through the same
 // sound template (render-templates.ts, chosen from prompt.txt's style and wording), two loops plus a tail,
@@ -11,7 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { audioToWav, SoundBankLoader, SpessaSynthProcessor } from "spessasynth_core";
 import { parseArgs } from "./common.ts";
-import { playerHtml, type PlayerEntry } from "./player.ts";
+import { packKind, playerHtml, type PlayerEntry } from "./player.ts";
 import { templateFor, type Role, type Template } from "./render-templates.ts";
 import { readSmf, type ReadSong } from "./smf-read.ts";
 
@@ -100,12 +100,19 @@ function encode(wav: ArrayBuffer, out: string) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const packDir = path.resolve(args._[0] ?? "");
-  if (!args._[0] || !existsSync(packDir)) throw new Error("usage: tsx src/render-pack.ts <pack dir> [--soundfont file] [--loops n]");
-  const sfPath = path.resolve(args.flags.soundfont ?? path.join(evalsRoot, "soundfonts", "GeneralUser-GS.sf2"));
-  if (!existsSync(sfPath)) throw new Error(`no SoundFont at ${sfPath}; run npm run -w evals soundfont`);
+  if (!args._[0] || !existsSync(packDir)) throw new Error("usage: tsx src/render-pack.ts <pack dir> [--soundfont file] [--loops n] [--player-only]");
+  // --player-only rebuilds player.html around the audio already rendered.
+  const playerOnly = args.flags["player-only"] === "true";
+  const sheet = path.join(packDir, "scoresheet.csv");
+  const kind = packKind(existsSync(sheet) ? (readFileSync(sheet, "utf8").split(/\r?\n/)[0] ?? "") : "");
   const loops = Number(args.flags.loops ?? 2);
-  const sf = readFileSync(sfPath);
-  const soundBank = sf.buffer.slice(sf.byteOffset, sf.byteOffset + sf.byteLength) as ArrayBuffer;
+  let soundBank: ArrayBuffer | null = null;
+  if (!playerOnly) {
+    const sfPath = path.resolve(args.flags.soundfont ?? path.join(evalsRoot, "soundfonts", "GeneralUser-GS.sf2"));
+    if (!existsSync(sfPath)) throw new Error(`no SoundFont at ${sfPath}; run npm run -w evals soundfont`);
+    const sf = readFileSync(sfPath);
+    soundBank = sf.buffer.slice(sf.byteOffset, sf.byteOffset + sf.byteLength) as ArrayBuffer;
+  }
 
   const entries: PlayerEntry[] = [];
   const folders = readdirSync(packDir, { withFileTypes: true }).filter((d) => d.isDirectory() && /^\d+-/.test(d.name)).map((d) => d.name).sort();
@@ -113,15 +120,15 @@ async function main() {
     const dir = path.join(packDir, folder);
     const { prompt, fields } = readPromptTxt(readFileSync(path.join(dir, "prompt.txt"), "utf8"));
     const template = templateFor((fields.style ?? "").split(",").map((s) => s.trim()).filter(Boolean), prompt);
-    for (const option of [1, 2]) {
+    for (const option of soundBank ? [1, 2] : []) {
       const song = readSmf(readFileSync(path.join(dir, `option-${option}.mid`)));
-      const audio = renderSong(soundBank, song, template, loops);
+      const audio = renderSong(soundBank!, song, template, loops);
       encode(audioToWav(audio, SAMPLE_RATE), path.join(dir, `option-${option}.mp3`));
     }
     entries.push({ folder, promptId: folder.replace(/^\d+-/, ""), prompt, fields, sound: template.family });
     console.log(`ok   ${folder}  (${template.family})`);
   }
-  writeFileSync(path.join(packDir, "player.html"), playerHtml(path.basename(packDir), entries));
+  writeFileSync(path.join(packDir, "player.html"), playerHtml(path.basename(packDir), entries, kind));
   console.log(`player: ${path.join(packDir, "player.html")}`);
 }
 

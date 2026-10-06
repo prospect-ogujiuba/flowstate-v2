@@ -12,6 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadPrompts, parseArgs } from "./common.ts";
 import { hashSeed, mulberry32 } from "./stats.ts";
+import { SHEET_HEADER } from "./player.ts";
 import { writeSmf } from "./smf.ts";
 import type { NotesFile } from "./common.ts";
 
@@ -51,9 +52,7 @@ mkdirSync(packDir, { recursive: true });
 
 const entries: { promptId: string; folder: string; v2Option: 1 | 2; v2File: string; v1File: string }[] = [];
 const skipped: { promptId: string; reason: string }[] = [];
-const csvRows = [kind === "reroll"
-  ? "prompt_id,preferred,musicality_1,musicality_2,same_idea,notes"
-  : "prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes"];
+const csvRows = [SHEET_HEADER[kind]];
 
 prompts.forEach((p) => {
   const v2File = path.join(dirA, `${p.id}.notes.json`), v1File = path.join(dirB, `${p.id}.notes.json`);
@@ -87,7 +86,8 @@ One is the idea as the model wrote it; the other is the same idea with every par
 changes from folder to folder.
 
 For each folder:
-  1. Read prompt.txt, and set your DAW to its tempo and meter (or open player.html if the pack was rendered).
+  1. Read prompt.txt, and set your DAW to its tempo and meter. If the pack was rendered, player.html does
+     all of this in the browser, "same idea?" included, and saves the filled scoresheet.csv for you.
   2. Import BOTH MIDI files into the SAME instrument setup. Only the notes should differ.
   3. Loop each option several times. Switch back and forth.
   4. Fill in one row of scoresheet.csv:

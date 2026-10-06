@@ -1,6 +1,7 @@
 // A self-contained listening page for a rendered pack: per prompt, two looping options that switch in sync,
 // the score fields from scoresheet.csv, autosave in the browser, and a CSV export in the scoresheet's format.
 // It works opened straight from disk (file://); the data is embedded, the audio sits next to it.
+// A re-roll pack (build-ab-pack --kind reroll) asks "same idea?" instead of how each option fits the prompt.
 
 export interface PlayerEntry {
   folder: string;
@@ -11,10 +12,25 @@ export interface PlayerEntry {
   sound: string;
 }
 
+/** What a pack compares: two generators, or an idea as written against its re-roll (P1-22). */
+export type PackKind = "generators" | "reroll";
+
+/** The scoresheet columns for each kind, as build-ab-pack writes them and score-ab reads them. */
+export const SHEET_HEADER: Record<PackKind, string> = {
+  generators: "prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes",
+  reroll: "prompt_id,preferred,musicality_1,musicality_2,same_idea,notes",
+};
+
+/** The kind of a pack, from its scoresheet's header. */
+export function packKind(sheetHeader: string): PackKind {
+  return sheetHeader.split(",").map((h) => h.trim().toLowerCase()).includes("same_idea") ? "reroll" : "generators";
+}
+
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-export function playerHtml(packName: string, entries: PlayerEntry[]): string {
+export function playerHtml(packName: string, entries: PlayerEntry[], kind: PackKind = "generators"): string {
   const data = JSON.stringify(entries).replace(/</g, "\\u003c");
+  const reroll = kind === "reroll";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -54,7 +70,9 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
 <body>
 <main>
   <h1>Listening: ${esc(packName)}</h1>
-  <p class="sub">Two options per prompt, from different generators, in a random order. Same sounds for both; judge the notes.</p>
+  <p class="sub">${reroll
+    ? "Two options per idea, in a random order: the idea as written, and the same idea with every part re-rolled. Same sounds for both; judge the notes."
+    : "Two options per prompt, from different generators, in a random order. Same sounds for both; judge the notes."}</p>
   <div class="nav">
     <button id="prev" aria-label="Previous prompt">◀ Prev</button>
     <label for="jump" class="done">Prompt</label>
@@ -77,8 +95,12 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <div class="grid">
       <span></span><span class="h">Option 1</span><span class="h">Option 2</span>
       <label for="m1">Musicality (1-5)</label><select id="m1"></select><select id="m2" aria-label="Musicality, option 2"></select>
-      <label for="f1">Fits the prompt (1-5)</label><select id="f1"></select><select id="f2" aria-label="Fits the prompt, option 2"></select>
+      ${reroll ? "" : '<label for="f1">Fits the prompt (1-5)</label><select id="f1"></select><select id="f2" aria-label="Fits the prompt, option 2"></select>'}
     </div>
+    ${reroll ? `<div class="row">
+      <label for="same">Same idea, played differently?</label>
+      <select id="same" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
+    </div>` : ""}
     <div class="row">
       <label for="pref">Preferred</label>
       <select id="pref" style="width:auto"><option value="">-</option><option value="1">Option 1</option><option value="2">Option 2</option><option value="tie">Tie</option></select>
@@ -96,6 +118,9 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
 <audio id="a2" loop preload="auto"></audio>
 <script>
 const ENTRIES = ${data};
+const REROLL = ${reroll};
+const HEADER = ${JSON.stringify(SHEET_HEADER[kind])};
+const FIELDS = REROLL ? ["m1", "m2", "same"] : ["m1", "m2", "f1", "f2"];
 const STORE = "flowstate-listening-${esc(packName)}";
 const $ = (id) => document.getElementById(id);
 let scores = {};
@@ -104,14 +129,15 @@ const save = () => { try { localStorage.setItem(STORE, JSON.stringify(scores)); 
 let index = 0, active = 1;
 const audio = { 1: $("a1"), 2: $("a2") };
 
-for (const id of ["m1", "m2", "f1", "f2"]) {
+for (const id of FIELDS.filter((f) => f !== "same")) {
   $(id).innerHTML = '<option value="">-</option>' + [1, 2, 3, 4, 5].map((n) => '<option>' + n + '</option>').join("");
 }
 ENTRIES.forEach((e, i) => { const o = document.createElement("option"); o.value = i; o.textContent = (i + 1) + ". " + e.promptId; $("jump").appendChild(o); });
 
-function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", notes: "" }); }
+function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", same: "", notes: "" }); }
+function complete(s) { return !!s && !!s.preferred && (!REROLL || !!s.same); }
 function progress() {
-  const done = ENTRIES.filter((e) => scores[e.promptId] && scores[e.promptId].preferred).length;
+  const done = ENTRIES.filter((e) => complete(scores[e.promptId])).length;
   $("progress").textContent = done + " of " + ENTRIES.length + " scored";
 }
 function show(i) {
@@ -123,7 +149,8 @@ function show(i) {
   $("meta").textContent = [f.tempo, f.meter, f.key, f.length, f.style].filter(Boolean).join(" · ") + " · sounds: " + e.sound;
   $("jump").value = String(index);
   const s = entryScore(e);
-  $("m1").value = s.m1; $("m2").value = s.m2; $("f1").value = s.f1; $("f2").value = s.f2; $("pref").value = s.preferred; $("notes").value = s.notes;
+  for (const f of FIELDS) $(f).value = s[f] || "";
+  $("pref").value = s.preferred; $("notes").value = s.notes;
   select(1, false);
   $("play").textContent = "Play";
   progress();
@@ -144,7 +171,8 @@ function toggle() {
 function bind(id, key) {
   $(id).addEventListener("change", () => { entryScore(ENTRIES[index])[key] = $(id).value; save(); progress(); });
 }
-bind("m1", "m1"); bind("m2", "m2"); bind("f1", "f1"); bind("f2", "f2"); bind("pref", "preferred");
+for (const f of FIELDS) bind(f, f);
+bind("pref", "preferred");
 $("notes").addEventListener("input", () => { entryScore(ENTRIES[index]).notes = $("notes").value; save(); });
 $("opt1").onclick = () => select(1); $("opt2").onclick = () => select(2);
 $("play").onclick = toggle;
@@ -162,8 +190,12 @@ document.addEventListener("keydown", (ev) => {
 });
 $("export").onclick = () => {
   const q = (s) => /[",\\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-  const rows = ["prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes"];
-  for (const e of ENTRIES) { const s = entryScore(e); rows.push([e.promptId, s.preferred, s.m1, s.m2, s.f1, s.f2, q(s.notes || "")].join(",")); }
+  const rows = [HEADER];
+  for (const e of ENTRIES) {
+    const s = entryScore(e);
+    const marks = REROLL ? [s.m1, s.m2, s.same] : [s.m1, s.m2, s.f1, s.f2];
+    rows.push([e.promptId, s.preferred, ...marks.map((v) => v || ""), q(s.notes || "")].join(","));
+  }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([rows.join("\\n") + "\\n"], { type: "text/csv" }));
   a.download = "scoresheet.csv";
