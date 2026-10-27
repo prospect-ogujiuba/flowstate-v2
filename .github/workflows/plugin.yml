@@ -1,8 +1,14 @@
 name: plugin
 
-# The product plugin (P1-6): builds, tests (session, processor, VST3 host smoke) and pluginval at
-# strictness 8 on macOS and Windows, plus a headless Linux build. Unsigned test builds; signing
-# and installers are P1-14.
+# The product plugin (P1-6) and the tester builds' release checks (P1-15). Every check gates the
+# artifacts: the build jobs upload only `unverified-*` artifacts, and `release` publishes them as
+# `flowstate-*` once everything below passed.
+#   build          core tests, the plugin build, its tests (session, processor, VST3 host smoke) and
+#                  pluginval at strictness 8 on macOS, Windows and Linux (headless); auval on macOS
+#   ui             the Studio's Playwright suite
+#   package        the tester zips (scripts/package-testers.sh), exactly what testers get
+#   install-smoke  each zip unpacked and installed on a fresh runner, checked, then uninstalled
+# Unsigned test builds; signing and installers are P1-14.
 #
 # Runs only when the plugin or what it bundles changes; Markdown doesn't trigger it. `npm run ci:full`
 # runs it on demand.
@@ -18,6 +24,11 @@ on:
       - "schema/**"
       - "ui/**"
       - "library/catalog/**"
+      - "scripts/package-testers.sh"
+      - "scripts/lib.sh"
+      - "scripts/testers/**"
+      - "scripts/macos/**"
+      - "scripts/windows/**"
       - "package-lock.json"
       - ".github/workflows/plugin.yml"
       - "!**/*.md"
@@ -82,6 +93,17 @@ jobs:
         with:
           key: plugin-${{ matrix.name }}
           max-size: 1G
+
+      - name: Core tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          compiler=()
+          [ "$RUNNER_OS" = "Windows" ] && compiler=(-DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl)
+          cmake -S core -B build/core -G Ninja -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache ${compiler[@]+"${compiler[@]}"}
+          cmake --build build/core
+          ctest --test-dir build/core --output-on-failure
 
       - name: Build id
         shell: bash
@@ -199,10 +221,164 @@ jobs:
           cp "$BUILD_DIR/Flowstate_artefacts/Release/Standalone/Flowstate.exe" "$out/Standalone/"
           echo "$FLOWSTATE_BUILD_ID" > "$out/BUILD_ID"
 
+      # Not for testers yet: `release` publishes it once every check has passed.
       - uses: actions/upload-artifact@v4
         if: runner.os != 'Linux'
         with:
-          name: flowstate-${{ matrix.name }}
+          name: unverified-${{ matrix.name }}
           path: dist/flowstate-${{ matrix.name }}
+          if-no-files-found: error
+          retention-days: 1
+
+  ui:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Playwright browsers
+        run: npx -w ui playwright install --with-deps chromium webkit
+      - name: Studio and design system (Playwright)
+        run: npm run -w ui test
+
+  package:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: unverified-macos-universal
+          path: dl/macos
+      - uses: actions/download-artifact@v4
+        with:
+          name: unverified-windows-x64
+          path: dl/windows
+      - name: Tester zips
+        run: |
+          bash scripts/package-testers.sh macos dl/macos dist/tester-macos
+          bash scripts/package-testers.sh windows dl/windows dist/tester-windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unverified-tester-macos
+          path: dist/tester-macos
+          if-no-files-found: error
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unverified-tester-windows
+          path: dist/tester-windows
+          if-no-files-found: error
+          retention-days: 1
+
+  # A fresh runner, as a tester's machine: unpack the zip, mark it as downloaded, install with the
+  # tester's own steps and a service.json, check where everything landed, then uninstall.
+  install-smoke:
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            platform: macos
+          - os: windows-2022
+            platform: windows
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: unverified-tester-${{ matrix.platform }}
+          path: tester
+
+      - name: Install, check, uninstall (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          set -euo pipefail
+          fail() { echo "::error::$*"; exit 1; }
+          mkdir fresh
+          ditto -x -k tester/flowstate-macos-*.zip fresh
+          pkg=$(echo fresh/flowstate-macos-*)
+          xattr -r -w com.apple.quarantine "0081;$(printf %x "$(date +%s)");Safari;" "$pkg"
+          bash "$pkg/install.sh" --service https://flowstate.example.com --token fst_smoke
+          vst3=~/Library/Audio/Plug-Ins/VST3 au=~/Library/Audio/Plug-Ins/Components
+          bundles=("$vst3/Flowstate.vst3" "$vst3/Flowstate MIDI FX.vst3" "$au/Flowstate.component"
+                   "$au/Flowstate MIDI FX.component" "$HOME/Applications/Flowstate.app")
+          for b in "${bundles[@]}"; do
+            [ -d "$b" ] || fail "not installed: $b"
+            if xattr -r "$b" | grep -q com.apple.quarantine; then fail "still quarantined: $b"; fi
+            codesign --verify --deep --strict "$b" || fail "bad signature: $b"
+          done
+          settings="$HOME/Library/Application Support/Flowstate/service.json"
+          [ "$(stat -f %Lp "$settings")" = 600 ] || fail "service.json isn't private"
+          grep -q '"token": "fst_smoke"' "$settings" || fail "service.json: $(cat "$settings")"
+          sleep 2
+          auval -v aumu Fls2 Flws
+          auval -v aumi Flm2 Flws
+          bash "$pkg/install.sh" --uninstall
+          for b in "${bundles[@]}" "$settings"; do [ ! -e "$b" ] || fail "left after uninstall: $b"; done
+
+      - name: Install, check, uninstall (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Expand-Archive (Get-Item tester\flowstate-windows-*.zip).FullName fresh
+          $pkg = (Get-ChildItem fresh -Directory | Select-Object -First 1).FullName
+          Get-ChildItem -Recurse -File $pkg | ForEach-Object {
+            Set-Content -Path $_.FullName -Stream Zone.Identifier -Value "[ZoneTransfer]`r`nZoneId=3"
+          }
+          Push-Location $pkg   # cmd's own quoting rules: keep paths out of its command line
+          cmd /c "install.cmd -Service https://flowstate.example.com -Token fst_smoke < NUL"
+          if ($LASTEXITCODE) { throw "install.cmd failed ($LASTEXITCODE)" }
+          $vst3 = Join-Path $env:CommonProgramFiles 'VST3'
+          $bundles = @((Join-Path $vst3 'Flowstate.vst3'), (Join-Path $vst3 'Flowstate MIDI FX.vst3'))
+          foreach ($b in $bundles) {
+            if (-not (Test-Path $b)) { throw "not installed: $b" }
+            $marked = Get-ChildItem -Recurse -File $b | Where-Object { Get-Item $_.FullName -Stream Zone.Identifier -ErrorAction SilentlyContinue }
+            if ($marked) { throw "still marked as downloaded: $($marked[0].FullName)" }
+            if (-not (Get-ChildItem -Recurse -File $b -Filter *.vst3)) { throw "no plug-in binary in $b" }
+          }
+          $settings = Join-Path $env:APPDATA 'Flowstate\service.json'
+          $s = Get-Content $settings | ConvertFrom-Json
+          if ($s.url -ne 'https://flowstate.example.com' -or $s.token -ne 'fst_smoke') { throw "service.json: $(Get-Content $settings)" }
+          cmd /c "install.cmd -Uninstall < NUL"
+          if ($LASTEXITCODE) { throw "uninstall failed ($LASTEXITCODE)" }
+          foreach ($b in $bundles + $settings) { if (Test-Path $b) { throw "left after uninstall: $b" } }
+
+  # Publishes the builds only when every check above passed; a failing check leaves no artifact a
+  # tester could get. The scripts (fetch-build.sh, pack-testers.sh) read these names.
+  release:
+    needs: [build, ui, install-smoke]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: unverified-*
+          path: verified
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flowstate-macos-universal
+          path: verified/unverified-macos-universal
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flowstate-windows-x64
+          path: verified/unverified-windows-x64
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flowstate-tester-macos
+          path: verified/unverified-tester-macos
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: flowstate-tester-windows
+          path: verified/unverified-tester-windows
           if-no-files-found: error
           retention-days: 30

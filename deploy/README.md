@@ -21,13 +21,12 @@ The image is tagged with the build ID (`<short sha>-<run number>`), and `/v1/hea
 ## Testers
 
 ```sh
-npm run -w cloud token -- mac-tester        # prints the token once, and the line for the tokens file
+npm run pack:testers -- --service https://<domain> --tester alex   # tester zips with alex's token, and the tokens-file line
+npm run -w cloud token -- alex                                     # or only the token and the line
 ```
 
-1. Add the printed line (`mac-tester <sha256>`) to `/etc/flowstate/testers` on the server. The service reads the file at start, so run `podman restart flowstate-service`. The file holds only hashes.
-2. Give the tester the token privately.
-   - macOS zip: `npm run pack:mac -- --service https://<domain> --token fst_...`. This puts a `service.json` in the zip, and `install.sh` installs it.
-   - Windows: put a `service.json` (`{"url": "https://<domain>", "token": "fst_..."}`) next to `install.ps1`, or run `install.ps1 -Service https://<domain> -Token fst_...`.
+1. Add the printed line (`alex <sha256>`) to `/etc/flowstate/testers` on the server. The service reads the file at start, so run `podman restart flowstate-service`. The file holds only hashes.
+2. Give the tester the token privately. The zips from `pack:testers` hold it in a `service.json`, which the installer installs (`docs/testing-plugin.md`, section 7). By hand: `bash install.sh --service https://<domain> --token fst_...` (macOS) or `install.cmd -Service https://<domain> -Token fst_...` (Windows).
 3. To revoke a tester, delete their line and restart the service.
 
 The plugin reads `service.json` from `%APPDATA%\Flowstate` (Windows) or `~/Library/Application Support/Flowstate` (macOS). `FLOWSTATE_SERVICE_URL` and `FLOWSTATE_SERVICE_TOKEN` override it. It sends the token only to an `https` URL or a loopback address. Without either, it uses the local `npm run serve` with no token, as before.

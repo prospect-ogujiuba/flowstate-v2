@@ -70,5 +70,5 @@ MSG
   fi
 fi
 if [[ " ${names[*]} " == *" flowstate-macos-universal "* ]]; then
-  echo; echo "macOS: for testers, run scripts/pack-macos-testers.sh instead; it adds an installer and a README."
+  echo; echo "For testers, use npm run pack:testers instead: its zips add the installer, README and feedback form."
 fi

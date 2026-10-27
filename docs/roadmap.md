@@ -379,7 +379,7 @@ Done so far (2026-10-02):
   - `serve` refuses a non-loopback host without tokens.
 - **Plugin:** the URL and token come from `FLOWSTATE_SERVICE_URL`/`FLOWSTATE_SERVICE_TOKEN`, else the user's `service.json` (`docs/bridge-spec.md`), else the local service.
   - The token is sent only over https or to loopback.
-  - The installers install a `service.json` (`pack:mac --service --token`, `install.ps1 -Service -Token`).
+  - The installers install a `service.json` (`pack:testers --service --tester`, `install.ps1 -Service -Token`).
 - **Image and server:** `deploy/`: the image (with `fs-analyze`), a devarch-shaped Compose file with Caddy for TLS, and `deploy.sh`, which rolls back if the new build isn't healthy. `deploy/README.md` is the runbook.
 - **CI:** `.github/workflows/service.yml` builds and smoke-tests the image on every change. `npm run deploy:service` is the one command: it pushes to GHCR, deploys over SSH and checks that the public health endpoint reports the new build ID.
 
@@ -546,17 +546,33 @@ Left: the owner's listening (the acceptance above).
 - Built on each tag.
 Acceptance: installs on a clean machine or user account with no Gatekeeper or SmartScreen bypass steps.
 
-### P1-15 CI release checks — `todo`
+### P1-15 CI release checks — `doing` (built 2026-10-27; waits on the first green run)
 Every tester build is verified before a human sees it:
 - core tests and pluginval on both OSes, and auval on macOS.
 - Headless host smoke (load, sync, MIDI out, per-part filter, state round trip).
 - UI Playwright suite, and an installer smoke on a fresh runner.
 Acceptance: a failing check blocks the artifact; a passing build carries a build ID shown in Settings.
 
-### P1-16 Tester hand-off (Mac friend first) — `todo`
-Stand-in until then (2026-09-30): `npm run pack:mac` builds an unsigned tester zip from the latest green CI run, with an install script, a README checklist and the build ID (`docs/testing-plugin.md`, section 7).
+Done (2026-10-27, `.github/workflows/plugin.yml`):
+- The build jobs upload only `unverified-*` artifacts (kept a day). A `release` job publishes `flowstate-macos-universal`, `flowstate-windows-x64` and the tester zips `flowstate-tester-{macos,windows}` only when every job below passed, so `fetch:build` and `pack:testers` never see a build that failed a check.
+- `build` (macOS, Windows, Linux): core tests, then the plugin tests and the host smoke (load, MIDI pass-through under a moving transport, state round trip into a fresh instance, MIDI out, the per-part filter on one channel), pluginval at strictness 8 on both VST3s and both AUs, and auval.
+- `ui`: the Studio and design-system Playwright suite (it also runs in `ci`, which doesn't gate the artifacts).
+- `package` and `install-smoke`: the tester zips are built once (P1-16), then each is unpacked on a fresh runner, marked as downloaded (quarantine on macOS, Zone.Identifier on Windows), and installed with the tester's own steps and a `service.json`. The smoke checks every bundle landed with the mark cleared, the macOS signatures verify, `service.json` is private, and auval finds the installed AUs. Then it uninstalls and checks nothing is left.
+- The build ID (`<commit>-<run>`) is in Settings, the zip names, README.txt and FEEDBACK.txt.
+
+### P1-16 Tester hand-off (Mac friend first) — `doing` (package built 2026-10-27; waits on P1-13's server, then the first testers)
+**Update 2026-10-27:** the first group gets unsigned builds rather than waiting for P1-14. The package below is the hand-off until the signed installers replace its install scripts.
 A tester package per build: signed installer, a one-page checklist (the Phase 0 host checks plus the core loop), and a feedback form that includes the build ID. The first recipient is the Mac tester for Logic.
 Acceptance: the tester completes it without contacting us for setup, and reports come back with build IDs.
+
+Done (2026-10-27; `docs/testing-plugin.md`, section 7):
+- A tester zip per platform, built by CI from the verified build (`scripts/package-testers.sh`) and smoke-installed there (P1-15): the bundles, the installer, `README.txt` and `FEEDBACK.txt`, with the build ID filled in.
+- `README.txt`: what Flowstate is, what it needs, the install (macOS: `bash install.sh` in Terminal; Windows: double-click `install.cmd`, with the SmartScreen and admin prompts explained), and a 9-step checklist of the core loop in plain words (`scripts/testers/checklist.txt`, shared by both).
+- `FEEDBACK.txt`: the feedback form, with the build ID and platform filled in, a line per checklist step, and the questions Gate B needs (did the install need help; did a clip make it into the song).
+- `npm run pack:testers -- --service <url> --tester <name>` downloads the verified zips, mints the tester's token and puts it in a `service.json` in their zip, and prints the line for the server's tokens file.
+- Windows: `install.cmd` (double-click), `install.ps1` clears the download mark from the installed files and keeps its admin window open until the tester has read it.
+
+Left: the hosted service (P1-13), then the first testers' runs.
 
 ### P1-17 Built-in MIDI library — `done` (2026-10-01; verified locally on Linux, CI on macOS and Windows on the next push)
 Flowstate ships with a MIDI library, starting with GodFlow's pack, credited "MIDI by GodFlow (flowknows) for Flowstate." (GodFlow / Flowstate). Library clips and AI results are one catalog the Studio can search, preview, drag and start from. Spec: `docs/library.md`.

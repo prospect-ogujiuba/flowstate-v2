@@ -76,5 +76,5 @@ CI builds and testers (need `gh`, logged in; details in `docs/testing-plugin.md`
 npm run ci:status [-- --watch]               # recent runs on this branch; --watch follows the plugin run
 npm run ci:full                              # run CI on demand (pushes that only touch docs or eval results skip it)
 npm run fetch:build -- windows               # latest green Windows build (+ install.ps1, gallery.ps1) into Windows Downloads on WSL
-npm run pack:mac                             # macOS tester zip in dist/builds: bundles, install.sh, README with the build ID
+npm run pack:testers                         # tester zips (macOS, Windows) in dist/builds; -- --service URL --tester NAME adds a token
 ```

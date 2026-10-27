@@ -1,0 +1,58 @@
+WHAT TO TRY (about 20 minutes)
+------------------------------
+Do these in order, in a project of your own if you like. Write down anything
+that surprises you, even small things: that's exactly what we want to hear.
+FEEDBACK.txt in this folder has a space for each step.
+
+1. Open it. Put Flowstate on a MIDI / instrument track and open its window.
+   You see a dark window: a header, "What do you want to make today?" with
+   some starters, and a prompt box at the bottom.
+
+2. It follows your DAW. The Tempo and Meter chips near the top show your
+   project's tempo and meter. Change the tempo (say to 97): it follows
+   within a second.
+
+3. Make an idea. Type what you want in the prompt box (for example "moody
+   lo-fi chords with a lazy beat") and press Return. Or click Surprise me.
+   A first sketch plays almost at once; the AI's parts replace it lane by
+   lane within a few seconds. Press play in your DAW: the idea plays in time
+   with your song, through Flowstate's built-in sounds.
+
+4. Make it yours:
+   - Each lane has Mute (M), Solo (S), Lock, Vary (sparkle), Re-roll (arrows)
+     and a density knob. Vary asks the AI for a new version of that part;
+     Re-roll plays the same part a different way, instantly; the knob makes
+     it busier or sparser. A locked part never changes.
+   - With an idea open, type a change in the prompt box, like "darker" or
+     "half-time drums", and press Return.
+   - Tweak (in the toolbar) has instant changes: simplify, intensify,
+     revoice, octave and semitone up or down.
+   - Add part (under the lanes) adds a bass, melody, chords and so on.
+   - Undo and Redo work, and the thread (the menu button) lists every
+     version; click one to go back to it.
+
+5. Use what you played. With your DAW playing, play a short riff (2 or 4
+   bars) on your keyboard into Flowstate's track. Then open "Use what I
+   just played" and choose, say, Add drums or Add bass. Your riff stays
+   exactly as you played it, with the new part around it.
+
+6. Library. Open Library (top of the window), preview a clip while the DAW
+   plays, and Use it.
+
+7. Drag it into your song. Drag a lane's handle (the dots on its left) onto
+   a track in your DAW, or the toolbar's handle for all parts at once. You
+   get a normal MIDI clip. Put it on one of your own instruments.
+
+8. Save and reopen. Save your project, close it, open it again. The idea,
+   its versions and the window size come back.
+
+9. The space bar. Click a button in Flowstate, then press Space: your DAW
+   starts or stops as usual, and the button isn't pressed. Typing in the
+   prompt box never triggers DAW shortcuts.
+
+Not in this build yet: editing single notes in a lane (that button is dimmed;
+hovering it says why). Anything else that's dimmed or says "isn't available",
+please note it.
+
+If something goes wrong, Settings (the gear, top right) shows the build
+number; it's also at the top of FEEDBACK.txt.

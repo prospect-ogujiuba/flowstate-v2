@@ -5,6 +5,7 @@
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Uninstall   (with the same -Dest)
 # The hosted agent service: a service.json in this folder is installed for you, or pass it yourself:
 #   powershell -ExecutionPolicy Bypass -File .\install.ps1 -Service https://flowstate.example.com -Token fst_...
+# Testers double-click install.cmd, which runs this.
 param([switch]$Uninstall, [string]$Dest, [string]$Service, [string]$Token, [switch]$Elevated)
 $ErrorActionPreference = 'Stop'
 
@@ -29,10 +30,22 @@ if (-not $Elevated) {
 
 $principal = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
 if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    $argList = @('-NoExit', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"", '-Elevated')
+    $argList = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"", '-Elevated')
     if ($Uninstall) { $argList += '-Uninstall' }
     if ($Dest) { $argList += @('-Dest', "`"$Dest`"") }
     Start-Process powershell -Verb RunAs -ArgumentList $argList
+    exit
+}
+
+# The elevated window closes when the script ends, so keep it open to show what happened.
+trap {
+    Write-Host "Error: $_" -ForegroundColor Red
+    if ($Elevated) { Read-Host 'Flowstate was not installed. Press Enter to close' | Out-Null }
+    exit 1
+}
+function Done([string]$message) {
+    Write-Host $message
+    if ($Elevated) { Read-Host 'Press Enter to close' | Out-Null }
     exit
 }
 
@@ -52,12 +65,14 @@ foreach ($b in $bundles) {
         }
     }
 }
-if ($Uninstall) { Write-Host 'Flowstate is removed. Rescan plug-ins in your DAW.'; exit }
+if ($Uninstall) { Done 'Flowstate is removed. Rescan plug-ins in your DAW.' }
 
 New-Item -ItemType Directory -Force $dest | Out-Null
 foreach ($b in $bundles) {
     Copy-Item -Recurse (Join-Path $PSScriptRoot "VST3\$b") $dest
+    # Files from a downloaded zip carry Windows' download mark; some hosts refuse to load them with it.
+    Get-ChildItem -Recurse -File (Join-Path $dest $b) | Unblock-File
     Write-Host "  $(Join-Path $dest $b)"
 }
 $build = Get-Content (Join-Path $PSScriptRoot 'BUILD_ID') -ErrorAction SilentlyContinue
-Write-Host "Installed Flowstate $build. Rescan plug-ins in your DAW."
+Done "Installed Flowstate $build. Rescan plug-ins in your DAW."

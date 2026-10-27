@@ -114,7 +114,7 @@ Expected: each ends with `AU VALIDATION SUCCEEDED.`
 
 ## 5. Install into a DAW
 
-Install either your own build (below) or a CI build from GitHub Actions. Every push that changes the plugin or what it bundles runs the `plugin` workflow; Markdown-only commits don't. `npm run ci:full` runs it on demand. A green run keeps two artifacts for 30 days, `flowstate-windows-x64` and `flowstate-macos-universal`, each with a `BUILD_ID` file (`<commit>-<run>`). The macOS bundles are only ad-hoc signed until P1-14, so macOS blocks them until the quarantine flag is cleared. The install scripts do that.
+Install either your own build (below) or a CI build from GitHub Actions. Every push that changes the plugin or what it bundles runs the `plugin` workflow; Markdown-only commits don't. `npm run ci:full` runs it on demand. A green run keeps four artifacts for 30 days: the builds `flowstate-windows-x64` and `flowstate-macos-universal`, each with a `BUILD_ID` file (`<commit>-<run>`), and the tester zips `flowstate-tester-macos` and `flowstate-tester-windows` (section 7). The workflow publishes them only after every release check has passed (P1-15): core tests, the plugin tests and host smoke, pluginval, auval, the UI's Playwright suite, and an install of each tester zip on a fresh runner. A failed run leaves only `unverified-*` artifacts, kept for a day for debugging. The macOS bundles are only ad-hoc signed until P1-14, so macOS blocks them until the quarantine flag is cleared. The install scripts do that.
 
 ### A CI build on Windows
 
@@ -134,9 +134,9 @@ Close DAWs that have Flowstate loaded first: Windows won't replace a loaded plug
 ### A CI build on macOS
 
 ```sh
-npm run pack:mac                            # or: -- --branch main, -- --run <id>
+npm run pack:testers -- macos               # or: -- macos --branch main, -- macos --run <id>
 ```
-This writes `dist/builds/flowstate-macos-<build id>.zip`: the bundles, `install.sh` and a `README.txt`. On the Mac, unzip it, then in Terminal run `bash <path to install.sh>` (typing `bash ` and dragging the file in works). It installs, per user:
+This writes `dist/builds/flowstate-macos-<build id>.zip`: the bundles, `install.sh`, `README.txt` and `FEEDBACK.txt`. On the Mac, unzip it, then in Terminal run `bash <path to install.sh>` (typing `bash ` and dragging the file in works). It installs, per user:
 
 | Bundle | Folder |
 | --- | --- |
@@ -168,7 +168,7 @@ What the plugin can do today:
 - It generates through the agent service and plays ideas in time (P1-7), through the preview synth and MIDI out.
 - It passes MIDI through, and saves its state with the project.
 
-Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (re-roll, tweak, note edits, density) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
+Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (note edits) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 
@@ -196,11 +196,25 @@ Report anything that differs, with the host name and version, the OS and the bui
 
 ## 7. Sending a build to testers
 
-Until the signed installers (P1-14) and the tester package (P1-16) exist, send the zip from `npm run pack:mac`. The repo is private, so testers can't download from Actions themselves.
+The tester package (P1-16) is a zip per platform, built by CI from the verified build, so the zip a tester gets is the one the install smoke ran. Until the signed installers (P1-14) exist, its installer is a script. The repo is private, so testers can't download from Actions themselves.
+
+| In the zip | macOS | Windows |
+| --- | --- | --- |
+| Plug-ins | VST3, AU and the Standalone app, as `.zip`s | `VST3\`, `Standalone\Flowstate.exe` |
+| Installer | `install.sh` (`bash install.sh` in Terminal) | `install.cmd` (double-click; runs `install.ps1`, asks for admin) |
+| `README.txt` | what Flowstate is, the install steps (past Gatekeeper or SmartScreen), the checklist, how to report | the same |
+| `FEEDBACK.txt` | the feedback form, with the build ID and platform filled in | the same |
+| `service.json` | only in a zip made for one tester (below) | the same |
 
 1. Wait for a green `plugin` run on the commit you want (`npm run ci:status -- --watch`; `npm run ci:full` starts one if the push didn't).
-2. `npm run pack:mac` (add `-- --branch main` if you're on another branch).
-3. Send `dist/builds/flowstate-macos-<build id>.zip` by any means (AirDrop, Drive, email). Its `README.txt` has the install steps, a short checklist (checks 1–10 above, in plain words) and what to report, with the build ID filled in.
-4. Record what comes back in `docs/host-checks.md`, with the build ID.
+2. Make a zip per tester, with their own token for the hosted service (P1-13):
+   ```sh
+   npm run pack:testers -- --service https://<domain> --tester alex           # both platforms; mints alex's token
+   npm run pack:testers -- windows --service https://<domain> --token fst_...  # one platform, a token you have
+   npm run pack:testers                                                        # no service: only for a tester running npm run serve
+   ```
+   With `--tester`, it prints the line for the server's tokens file: add it and restart the service (`deploy/README.md`, Testers). Each zip is named `flowstate-<platform>-<build id>-<tester>.zip` and holds that tester's token, so send it privately.
+3. Send the zip by any means (Drive, AirDrop, email). Everything the tester needs is in `README.txt`.
+4. Record what comes back (their `FEEDBACK.txt`) in `docs/host-checks.md`, with the build ID.
 
-The tester README lives in `scripts/macos/README.txt`. Update it when section 6 changes. The pack script fills in `{{BUILD_ID}}`.
+The tester files live in `scripts/testers/`: `checklist.txt` (shared by both READMEs, in plain words; keep it in step with section 6), `README-macos.txt`, `README-windows.txt` and `FEEDBACK.txt`. `scripts/package-testers.sh` fills in `{{BUILD_ID}}`, `{{PLATFORM}}` and `{{CHECKLIST}}`. Changing any of them, or the installers, re-runs the `plugin` workflow and its install smoke.

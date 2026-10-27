@@ -1,0 +1,38 @@
+Flowstate feedback
+==================
+Fill this in (any text editor will do) and send it back to whoever sent you
+Flowstate. Screenshots or a short screen recording help a lot. Leave out
+anything you don't want to answer.
+
+Build: {{BUILD_ID}} ({{PLATFORM}})
+
+About your setup
+----------------
+DAW and version:
+Computer and OS version:
+Did the install work without help? (yes / no, what happened):
+
+The steps in README.txt (for each: fine / problem, and what happened)
+--------------------------------------------------------------------
+1. Open it:
+2. Follows your DAW:
+3. Make an idea (how long until you heard something?):
+4. Make it yours (Vary, Re-roll, density, changes, Tweak, Add part, Undo):
+5. Use what you played:
+6. Library:
+7. Drag it into your song:
+8. Save and reopen:
+9. The space bar:
+
+The music
+---------
+Did any idea make it into your song (you kept the clip)?
+Best idea it made (what you typed, and what you liked):
+Worst idea it made (what you typed, and what was wrong):
+
+Overall
+-------
+What was confusing?
+What would you change first?
+Would you use it again? Why or why not?
+Anything else:
