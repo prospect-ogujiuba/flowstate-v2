@@ -176,3 +176,9 @@
   .st-footer__warning { display: none; }
   .st-footer { grid-template-columns: 1fr auto; }
 }
+
+/* Touch: the note editor sheet */
+.st-touch { display: flex; flex-direction: column; gap: var(--space-4); min-height: 0; }
+.st-touch__foot { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3); }
+.st-touch__note { margin-right: auto; font-size: var(--text-xs); color: var(--text-2); }
+.st-touch__note--error { color: var(--danger); }

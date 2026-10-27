@@ -4,9 +4,9 @@
 import { render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import {
-  Badge, Button, Card, ConnectionStatus, ContextChip, Icon, Knob, Lane, LevelMeter, Logo, PromptBox, PromptSetting,
+  Badge, Button, Card, ConnectionStatus, ContextChip, Icon, Knob, Lane, LevelMeter, Logo, NoteEditor, PromptBox, PromptSetting,
   ResultCard, SecretField, Segmented, Select, Sheet, SheetSection, SuggestionChip, TextArea, TextField, Toggle,
-  ToastProvider, UsageMeter, iconNames, useToast, type Connection, type LaneState,
+  ToastProvider, UsageMeter, iconNames, medianVelocity, noteDiff, toDraft, useToast, type Connection, type DraftNote, type EditNote, type LaneState,
 } from "../components/index.ts";
 import { inPlugin } from "../host/env.ts";
 import { installHostKeys } from "../host/keys.ts";
@@ -250,6 +250,39 @@ function Lanes({ playhead }: { playhead: number | null }) {
   );
 }
 
+const PPQ = 960;
+const ticks = (notes: typeof fx.melody): EditNote[] =>
+  notes.map((n) => ({ tick: Math.round(n.start * PPQ), dur: Math.round(n.length * PPQ), pitch: n.pitch, vel: n.velocity }));
+const melodyTicks = ticks(fx.melody);
+const drumTicks = ticks(fx.drums);
+const drumRows = fx.drumSublanes.map((s) => ({ pitch: s.notes[0]!.pitch, name: s.name }));
+
+function EditorSpecimen({ label, notes, colour, rows }: { label: string; notes: EditNote[]; colour: "melody" | "drums"; rows?: typeof drumRows }) {
+  const [draft, setDraft] = useState<DraftNote[]>(() => toDraft(notes));
+  const [seq, setSeq] = useState(0);
+  const diff = noteDiff(notes, draft);
+  return (
+    <figure class="g-editor">
+      <NoteEditor key={seq} label={label} notes={draft} onNotes={setDraft} ppq={PPQ} ticksPerBar={PPQ * 4} bars={4} colour={colour} rows={rows} initialVelocity={medianVelocity(notes)} />
+      <figcaption class="g-row">
+        <span class="g-specimen__label">{label}: {diff.add.length} to add, {diff.remove.length} to remove (Apply would send these)</span>
+        <Button size="sm" onClick={() => { setDraft(toDraft(notes)); setSeq(seq + 1); }}>Reset {label}</Button>
+      </figcaption>
+    </figure>
+  );
+}
+
+function NoteEditors() {
+  return (
+    <Section id="editor" title="Note editor">
+      <div class="g-stack">
+        <EditorSpecimen label="Melody" notes={melodyTicks} colour="melody" />
+        <EditorSpecimen label="Drums" notes={drumTicks} colour="drums" rows={drumRows} />
+      </div>
+    </Section>
+  );
+}
+
 function Cards() {
   const [current, setCurrent] = useState("n2");
   const [playing, setPlaying] = useState<string | null>(null);
@@ -406,7 +439,7 @@ function Gallery() {
         </div>
       </header>
       <nav class="g-toc" aria-label="Sections">
-        {["tokens", "icons", "buttons", "toggles", "knobs", "inputs", "chips", "meters", "lanes", "cards", "overlays", "shell"].map((s) => (
+        {["tokens", "icons", "buttons", "toggles", "knobs", "inputs", "chips", "meters", "lanes", "editor", "cards", "overlays", "shell"].map((s) => (
           <a key={s} href={`#${s}`}>{s}</a>
         ))}
       </nav>
@@ -419,6 +452,7 @@ function Gallery() {
       <Chips />
       <Meters />
       <Section id="lanes" title="Lanes"><Lanes playhead={beat} /></Section>
+      <NoteEditors />
       <Cards />
       <Overlays onOpenSheet={() => setSheet(true)} />
       <Shell onOpenSheet={() => setSheet(true)} />

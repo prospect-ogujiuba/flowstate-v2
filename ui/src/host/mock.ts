@@ -15,10 +15,8 @@ type Entry = NonNullable<Reply["catalog"]>["entries"][number];
 type Transport = Extract<PluginEvent, { type: "transport" }>["transport"];
 type ErrorCode = NonNullable<Reply["error"]>["code"];
 
-/** What this build can't do yet, with the plugin's reasons (plugin/src/session/Controller.cpp). */
-export const PLUGIN_GAPS: Gap[] = [
-  { feature: "editNotes", reason: "Note edits aren't in core yet." },
-];
+/** What this build can't do yet, with the plugin's reasons (plugin/src/session/Controller.cpp). Nothing, now that touch is in. */
+export const PLUGIN_GAPS: Gap[] = [];
 
 export type MockOptions = {
   /** Start with one finished idea in the session. */
@@ -225,7 +223,7 @@ export class MockPlugin implements Bridge {
         if (!targets.length) return this.error("bad_request", "Every part is locked. Unlock one to tweak it.");
         return this.derive("tweak", targets);
       }
-      case "editNotes": return gapReply("editNotes") ?? this.derive("touch", [c.partId]);
+      case "editNotes": return gapReply("editNotes") ?? this.touch(c.partId, c.remove, c.add);
       case "removePart": {
         const cur = this.current();
         if (!cur || !cur.clip.parts.some((p) => p.partId === c.partId)) return this.error("unknown_part", `No part ${c.partId} in the current idea.`);
@@ -353,6 +351,27 @@ export class MockPlugin implements Bridge {
     const v = this.seq;
     const parts = cur.clip.parts.map((p) => (partIds === null || partIds.includes(p.partId) ? PART_MAKERS[["chords", "drums", "bass", "melody"].indexOf(p.role)]?.(v, cur.clip.bars) ?? p : p));
     const id = this.addNode({ kind, prompt: null, title: cur.node.title, parts, key: cur.key, partIds });
+    this.select(id);
+    return this.ok();
+  }
+
+  /** Touch: the part's notes with `remove` taken out (each exactly as in the clip) and `add` put in. */
+  private touch(partId: string, remove: ClipPart["notes"], add: ClipPart["notes"]): Reply {
+    const cur = this.current();
+    if (!cur) return this.error("bad_request", "There is no idea yet.");
+    const part = cur.clip.parts.find((p) => p.partId === partId);
+    if (!part) return this.error("unknown_part", `No part ${partId} in the current idea.`);
+    if (this.s.parts.some((p) => p.partId === partId && p.locked)) return this.error("bad_request", `${part.name} is locked. Unlock it to edit its notes.`);
+    const notes = [...part.notes];
+    for (const r of remove) {
+      const i = notes.findIndex((n) => n.tick === r.tick && n.dur === r.dur && n.pitch === r.pitch && n.vel === r.vel);
+      if (i < 0) return this.error("bad_request", `A note you removed isn't in ${part.name} any more. Open the editor again.`);
+      notes.splice(i, 1);
+    }
+    notes.push(...add);
+    notes.sort((a, b) => a.tick - b.tick || a.pitch - b.pitch);
+    const parts = cur.clip.parts.map((p) => (p.partId === partId ? { ...p, notes } : p));
+    const id = this.addNode({ kind: "touch", prompt: null, title: cur.node.title, parts, key: cur.key, partIds: [partId], parentId: cur.node.id });
     this.select(id);
     return this.ok();
   }
