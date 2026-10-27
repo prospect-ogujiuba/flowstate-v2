@@ -369,6 +369,8 @@ test("talk: change this idea, vary a part and add one; each lands as a card (P1-
 
 test("unavailable commands look disabled, say why, and send nothing", async ({ page }) => {
   await open(page, "mock=idea");
+  // A build whose core can't apply note edits yet lists editNotes as a gap.
+  await page.evaluate(() => (window as unknown as MockWindow).__flowstateMock.setGaps([{ feature: "editNotes", reason: "Note edits aren't in core yet." }]));
   const chords = lane(page, "Chords");
   const checks = [
     { el: chords.getByRole("button", { name: "Edit Chords notes" }), why: /Note edits aren't in core yet/ },
@@ -383,6 +385,7 @@ test("unavailable commands look disabled, say why, and send nothing", async ({ p
     await expect(toast(page, why).first()).toBeVisible();
   }
   expect((await sent(page)).slice(before)).toEqual([]);
+  await expect(page.getByRole("dialog")).toBeHidden();
 });
 
 test("re-roll is live in this build: a new card per take (P1-22)", async ({ page }) => {
@@ -471,8 +474,167 @@ test("when the plugin can do it all: talk, tweak and touch send their commands",
   await page.getByRole("group", { name: "Part to add" }).getByRole("button", { name: "Pad" }).click();
   expect(await lastOf(page, "addPart")).toEqual({ type: "addPart", role: "pad", prompt: null });
 
-  // Touch: the note editor isn't built in the Studio yet, so it says so.
-  await expect(chords.getByRole("button", { name: "Edit Chords notes" })).toHaveAccessibleDescription(/note editor isn't built yet/);
+  // Touch: the note editor opens.
+  await chords.getByRole("button", { name: "Edit Chords notes" }).click();
+  await expect(page.getByRole("dialog", { name: "Edit Chords notes" })).toBeVisible();
+});
+
+// ---- Touch: the note editor (editNotes) -----------------------------------------------------------
+
+const MELODY_FIRST = { tick: 480, dur: 480, pitch: 76, vel: 100 }; // the mock's first melody note
+const MELODY_SECOND = { tick: 960, dur: 480, pitch: 74, vel: 100 };
+type Edit = { partId: string; remove: unknown[]; add: unknown[] };
+
+async function openEditor(page: Page, part: string) {
+  await lane(page, part).getByRole("button", { name: `Edit ${part} notes` }).click();
+  const sheet = page.getByRole("dialog", { name: `Edit ${part} notes` });
+  await expect(sheet).toBeVisible();
+  const grid = sheet.getByRole("application", { name: `${part} notes` });
+  await grid.focus();
+  return { sheet, grid };
+}
+const rollOf = (page: Page, part: string, count: number) => lane(page, part).getByRole("img", { name: new RegExp(`^${part} notes: ${count} notes`) });
+
+test("touch: add by keyboard and mouse, move and delete, then Apply sends the net difference as one touch", async ({ page }) => {
+  await open(page, "mock=idea");
+  await expect(rollOf(page, "Melody", 16)).toBeVisible();
+  const { sheet, grid } = await openEditor(page, "Melody");
+
+  // The cursor starts on the first note and describes what's under it.
+  await expect(grid).toHaveAccessibleDescription(/^Bar 1, beat 1, sixteenth 3, E5, note/);
+  // Keyboard: two rows up is empty; Enter adds a note there (1/8 by default) and selects it.
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("ArrowUp");
+  await expect(grid).toHaveAccessibleDescription(/F#5, empty/);
+  await page.keyboard.press("Enter");
+  await expect(grid).toHaveAccessibleDescription(/selected note, 1\/8/);
+  // Shift+Right moves it a sixteenth (the cursor follows), Alt+Right lengthens it by one.
+  await page.keyboard.press("Shift+ArrowRight");
+  await page.keyboard.press("Alt+ArrowRight");
+  await expect(grid).toHaveAccessibleDescription(/^Bar 1, beat 1, sixteenth 4, F#5, selected note/);
+  // Escape deselects and keeps the sheet open.
+  await page.keyboard.press("Escape");
+  await expect(sheet).toBeVisible();
+  await expect(grid).toHaveAccessibleDescription(/F#5, note,/);
+  // Two rows down, the first note is still sounding: Delete removes it.
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await expect(grid).toHaveAccessibleDescription(/E5, note/);
+  await page.keyboard.press("Delete");
+  await expect(grid).toHaveAccessibleDescription(/E5, empty/);
+
+  // Mouse: a click on an empty cell (top row, bar 1 beat 1) adds a note; a drag moves another.
+  await grid.click({ position: { x: 4, y: 4 } });
+  await expect(grid).toHaveAccessibleDescription(/^Bar 1, beat 1, \S+, selected note/);
+  const second = sheet.locator("[data-note]").first();
+  const box = (await second.boundingBox())!;
+  await page.mouse.move(box.x + 3, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 3 + box.width, box.y + box.height / 2, { steps: 4 });
+  await page.mouse.up();
+
+  await sheet.getByRole("button", { name: "Apply" }).click();
+  await expect(sheet).toBeHidden();
+  const edits = await sentOf(page, "editNotes");
+  expect(edits).toHaveLength(1);
+  const edit = edits[0] as unknown as Edit;
+  expect(edit.partId).toBe("p-melody");
+  expect(edit.remove).toHaveLength(2);
+  expect(edit.remove).toEqual(expect.arrayContaining([MELODY_FIRST, MELODY_SECOND]));
+  expect(edit.add).toHaveLength(3);
+  expect(edit.add).toEqual(expect.arrayContaining([
+    { tick: 720, dur: 720, pitch: 78, vel: 100 },
+    { ...MELODY_SECOND, tick: MELODY_SECOND.tick + MELODY_SECOND.dur },
+    expect.objectContaining({ tick: 0, dur: 480, vel: 100 }),
+  ]));
+
+  // The lane shows the new notes, and the thread a new touch card that undo walks back.
+  await expect(rollOf(page, "Melody", 17)).toBeVisible();
+  const card = page.locator("#st-thread").getByRole("article").last();
+  await expect(card).toHaveAttribute("aria-current", "true");
+  await expect(card).toContainText(/touch/);
+  await page.getByRole("button", { name: "Undo" }).click();
+  await expect(rollOf(page, "Melody", 16)).toBeVisible();
+});
+
+test("touch: Cancel and Escape discard, an unchanged Apply just closes, and drums edit by voice row", async ({ page }) => {
+  await open(page, "mock=idea");
+  const opener = lane(page, "Chords").getByRole("button", { name: "Edit Chords notes" });
+  let { sheet, grid } = await openEditor(page, "Chords");
+  await page.keyboard.press("Delete");
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+  await sheet.getByRole("button", { name: "Cancel" }).click();
+  await expect(sheet).toBeHidden();
+  await expect(opener).toBeFocused();
+
+  // Reopened, the edit is gone. A note added then deleted is no change, so Apply sends nothing.
+  ({ sheet, grid } = await openEditor(page, "Chords"));
+  await expect(grid).toHaveAccessibleDescription(/, note,/);
+  for (let i = 0; i < 5; i++) await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("ArrowRight");
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+  await page.keyboard.press("Enter");
+  await expect(grid).toHaveAccessibleDescription(/selected note/);
+  await page.keyboard.press("Backspace");
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+  await sheet.getByRole("button", { name: "Apply" }).click();
+  await expect(sheet).toBeHidden();
+
+  // Escape with nothing selected closes and discards.
+  ({ sheet, grid } = await openEditor(page, "Chords"));
+  await page.keyboard.press("Delete");
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+  await page.keyboard.press("Escape");
+  await expect(sheet).toBeHidden();
+  expect(await sentOf(page, "editNotes")).toEqual([]);
+  await expect(rollOf(page, "Chords", 12)).toBeVisible();
+
+  // Drums: one row per voice, named; Shift+Down moves a hit to the next voice.
+  ({ sheet, grid } = await openEditor(page, "Drums"));
+  await expect(grid).toHaveAccessibleDescription(/^Bar 1, beat 1, Kick, note/);
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Shift+ArrowDown");
+  await expect(grid).toHaveAccessibleDescription(/^Bar 1, beat 1, Snare, selected note/);
+  await sheet.getByRole("button", { name: "Apply" }).click();
+  await expect(sheet).toBeHidden();
+  expect(await lastOf(page, "editNotes")).toEqual({
+    type: "editNotes", partId: "p-drums",
+    remove: [{ tick: 0, dur: 240, pitch: 36, vel: 110 }],
+    add: [{ tick: 0, dur: 240, pitch: 38, vel: 110 }],
+  });
+});
+
+test("touch: a locked part's Apply shows the refusal and keeps the edits", async ({ page }) => {
+  await open(page, "mock=idea");
+  await lane(page, "Bass").getByRole("button", { name: "Lock Bass" }).click();
+  const { sheet, grid } = await openEditor(page, "Bass");
+  await page.keyboard.press("Delete");
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+  await sheet.getByRole("button", { name: "Apply" }).click();
+  expect(await lastOf(page, "editNotes")).toMatchObject({ type: "editNotes", partId: "p-bass", add: [] });
+  await expect(toast(page, /Bass is locked/).first()).toBeVisible();
+  await expect(sheet.getByRole("alert")).toContainText(/Bass is locked/);
+  await expect(sheet).toBeVisible();
+  await expect(grid).toHaveAccessibleDescription(/empty/);
+});
+
+test("touch: Space in the editor reaches the DAW and edits nothing", async ({ page }) => {
+  await open(page, "mock=idea");
+  const { sheet, grid } = await openEditor(page, "Melody");
+  const before = (await sent(page)).length;
+  await page.keyboard.press("Space");
+  await expect(grid).not.toBeFocused();
+  expect((await sent(page)).slice(before)).toEqual([{ type: "releaseFocus", reason: "space" }]);
+  await expect(sheet).toBeVisible();
+  await expect(sheet.locator("[data-note]")).toHaveCount(16);
+});
+
+test("touch: the open editor has no axe violations and every control is named", async ({ page }) => {
+  await open(page, "mock=idea");
+  const { sheet } = await openEditor(page, "Drums");
+  const results = await new AxeBuilder({ page }).include("dialog[open]").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
+  for (const el of await sheet.locator(CONTROLS).all()) if (await el.isVisible()) await expect(el).toHaveAccessibleName(/\S/);
 });
 
 // ---- Flow 4: capture -> continue --------------------------------------------------------------

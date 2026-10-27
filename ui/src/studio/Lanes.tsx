@@ -3,6 +3,7 @@
 import type { Session } from "@flowstate/schema";
 import { useState } from "preact/hooks";
 import { Button, Lane } from "../components/index.ts";
+import { NoteSheet, touching, type Touching } from "./NoteSheet.tsx";
 import { beatsPerBar, clipBeats, partColour, ROLE_LABELS, rollNotes, sublanes, type Clip, type Role } from "./clip.ts";
 import type { Studio } from "./useStudio.ts";
 
@@ -23,7 +24,9 @@ export function Lanes({ studio, clip, parts, playhead, splitDrums, compact }: {
   const states = new Map(parts.map((p) => [p.partId, p]));
   const present = new Set(clip.parts.map((p) => p.role));
   const addable = ADDABLE.filter((r) => !present.has(r) || r === "pad" || r === "arp" || r === "counter");
-  const noteEditor = gap("editNotes") ?? "The Studio's note editor isn't built yet.";
+  // Touch: the sheet edits a snapshot of the part taken when it opens; `open` is separate so the
+  // content stays while the dialog closes.
+  const [touch, setTouch] = useState<{ open: boolean; at: Touching | null }>({ open: false, at: null });
 
   return (
     <div class="st-lanes">
@@ -45,13 +48,13 @@ export function Lanes({ studio, clip, parts, playhead, splitDrums, compact }: {
             onState={(next) => void send({ type: "setPartState", state: { partId: p.partId, ...next } })}
             onVary={() => void send({ type: "vary", partId: p.partId })}
             onReroll={() => void send({ type: "reroll", partId: p.partId })}
-            onEditNotes={() => {}}
+            onEditNotes={() => setTouch({ open: true, at: touching(clip, p, (touch.at?.seq ?? 0) + 1) })}
             onRemove={() => void send({ type: "removePart", partId: p.partId })}
             onDragStart={() => void send({ type: "startDrag", ...drag([p.partId]) })}
             onDragKey={() => void send({ type: "exportMidi", ...drag([p.partId]) })}
             gaps={{
               vary: gap("vary"), reroll: gap("reroll"), lock: gap("lock"), density: gap("density"),
-              editNotes: noteEditor,
+              editNotes: gap("editNotes"),
             }}
             sublanes={sublanes(p, clip.ppq)}
             playhead={playhead}
@@ -69,6 +72,7 @@ export function Lanes({ studio, clip, parts, playhead, splitDrums, compact }: {
           </div>
         )}
       </div>
+      <NoteSheet open={touch.open && !gap("editNotes")} studio={studio} touch={touch.at} onClose={() => setTouch({ ...touch, open: false })} />
     </div>
   );
 }

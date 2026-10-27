@@ -6,8 +6,10 @@ import { Button } from "./Button.tsx";
  * Modal sheet (settings, sign-in). A native <dialog>: the page behind is inert, Tab stays inside,
  * Escape and the close button close it, and focus returns to whatever opened it.
  */
-export function Sheet({ open, title, onClose, children, footer }: {
+export function Sheet({ open, title, onClose, children, footer, wide = false }: {
   open: boolean;
+  /** A wider sheet, for editors (the note editor). */
+  wide?: boolean;
   title: string;
   onClose: () => void;
   children: ComponentChildren;
@@ -31,7 +33,7 @@ export function Sheet({ open, title, onClose, children, footer }: {
   return (
     <dialog
       ref={ref}
-      class="fs-sheet"
+      class={wide ? "fs-sheet fs-sheet--wide" : "fs-sheet"}
       aria-labelledby={titleId}
       onCancel={(e) => { e.preventDefault(); onClose(); }}
       onClose={() => { opener.current?.focus(); opener.current = null; }}

@@ -9,6 +9,7 @@ export { TextField, TextArea, Select, SecretField } from "./Field.tsx";
 export { ContextChip, SuggestionChip, Badge } from "./Chip.tsx";
 export { UsageMeter, LevelMeter } from "./Meter.tsx";
 export { PianoRoll, type RollNote, type PartColour } from "./PianoRoll.tsx";
+export { NoteEditor, noteDiff, medianVelocity, pitchName, toDraft, type DraftNote, type EditNote, type NoteRow } from "./NoteEditor.tsx";
 export { Lane, type LaneGaps, type LaneState, type Sublane } from "./Lane.tsx";
 export { Card, ResultCard } from "./Card.tsx";
 export { Sheet, SheetSection } from "./Sheet.tsx";

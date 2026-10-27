@@ -236,6 +236,58 @@
 .fs-sheet__section { display: flex; flex-direction: column; gap: var(--space-3); }
 .fs-sheet__section-title { font-size: var(--text-lg); font-weight: var(--weight-bold); text-transform: uppercase; }
 .fs-sheet__foot { display: flex; justify-content: flex-end; gap: var(--space-3); padding: 0 var(--space-6) var(--space-6); }
+.fs-sheet--wide { width: min(1080px, calc(100vw - 2 * var(--space-6))); }
+.fs-sheet--wide .fs-sheet__head { padding-top: var(--space-5); }
+
+/* Note editor ----------------------------------------------------------------------------------- */
+.fs-ned { --ned-colour: var(--part-extra); display: flex; flex-direction: column; gap: var(--space-3); min-height: 0; }
+.fs-ned--chords { --ned-colour: var(--part-chords); }
+.fs-ned--bass { --ned-colour: var(--part-bass); }
+.fs-ned--melody { --ned-colour: var(--part-melody); }
+.fs-ned--drums { --ned-colour: var(--part-drums); }
+.fs-ned__tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
+.fs-ned__tool-label, .fs-ned__vel { font-size: var(--text-xs); color: var(--text-2); }
+.fs-ned__tool-label { margin-right: calc(-1 * var(--space-3)); }
+.fs-ned__vel { display: inline-flex; align-items: center; gap: var(--space-2); }
+.fs-ned__vel input { width: 110px; accent-color: var(--accent); }
+.fs-ned__vel-value { min-width: 3ch; color: var(--text); }
+.fs-ned__scroll {
+  overflow: auto; min-height: 60px; max-height: max(120px, calc(100vh - 290px));
+  border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface);
+}
+.fs-ned__sheet { display: grid; grid-template-columns: var(--ned-keys) auto; grid-template-rows: var(--ned-ruler) auto; }
+.fs-ned__corner { position: sticky; top: 0; left: 0; z-index: 4; background: var(--surface); }
+.fs-ned__ruler { position: sticky; top: 0; z-index: 3; height: var(--ned-ruler); background: var(--surface); border-bottom: 1px solid var(--line); }
+.fs-ned__barnum { position: absolute; top: 1px; padding-left: var(--space-1); font-size: var(--text-2xs); color: var(--text-2); border-left: 1px solid var(--roll-bar); }
+.fs-ned__keys { position: sticky; left: 0; z-index: 2; display: flex; flex-direction: column; background: var(--surface); border-right: 1px solid var(--line); }
+.fs-ned__key {
+  flex: none; height: var(--ned-row); padding: 0 var(--space-2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  font-size: var(--text-2xs); line-height: var(--ned-row); color: var(--text-2);
+}
+.fs-ned__key.is-sharp { background: var(--glass); }
+.fs-ned__grid { position: relative; overflow: hidden; cursor: crosshair; touch-action: none; user-select: none; }
+.fs-ned__grid:focus-visible { outline-offset: -2px; }
+.fs-ned__row { position: absolute; left: 0; right: 0; height: var(--ned-row); border-bottom: 1px solid var(--line-soft); }
+.fs-ned__row.is-sharp { background: var(--glass); }
+.fs-ned__lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(to right, var(--roll-bar) 1px, transparent 1px), linear-gradient(to right, var(--line) 1px, transparent 1px);
+  background-size: var(--ned-bar) 100%, var(--ned-beat) 100%;
+}
+.fs-ned__note {
+  position: absolute; height: calc(var(--ned-row) - 1px); border-radius: 2px;
+  background: var(--ned-colour); cursor: grab;
+}
+.fs-ned__note.is-selected { outline: 2px solid var(--text); outline-offset: 0; z-index: 1; opacity: 1 !important; }
+.fs-ned__handle { position: absolute; top: 0; right: 0; bottom: 0; width: 5px; cursor: ew-resize; }
+.fs-ned__cursor {
+  position: absolute; height: var(--ned-row); pointer-events: none; z-index: 2;
+  border: 1px solid var(--accent);
+  opacity: 0.35;
+}
+.fs-ned__grid:focus .fs-ned__cursor { opacity: 1; }
+.fs-ned__status { font-size: var(--text-xs); color: var(--text); }
+.fs-ned__help { font-size: var(--text-2xs); color: var(--text-2); }
 
 /* Toasts ---------------------------------------------------------------------------------------- */
 .fs-toasts {
