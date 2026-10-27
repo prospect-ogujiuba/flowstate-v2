@@ -169,20 +169,48 @@ function userMessage(req: PlanRequest, kept: Draft | null): string {
     `- style tags: ${c.style.join(", ") || "none"}`,
     "",
     `The session fixes the key, meter, tempo and length, so in "context" write only "swing" and "style".`,
-    ...(req.reference ? ["", ...referenceText(req.reference, fixed)] : []),
+    ...(req.reference ? ["", ...referenceText(req.reference, fixed, c.lanes)] : []),
     ...(req.examples?.length ? ["", examplesText(req.examples)] : []),
   ].join("\n");
 }
 
 const LANE_WORDS: Record<string, string> = { chords: "chords", bass: "bass line", melody: "melody", drums: "drum part" };
 
+const triplet = (grid: number) => grid % 3 === 0;
+
+/** The grid the riff was played on, as core's analyzer read it (its parts' `grid`). */
+function riffGrid(ref: { score: Score }): number {
+  return ref.score.parts[0]?.grid ?? 4;
+}
+
+/**
+ * The riff's feel, which literal notes don't spell out: a new part on the other grid family (straight 16ths against
+ * triplets) or with another swing fights it however good its notes are (the P1-20 listening).
+ */
+function feelText(ref: { score: Score }, drums: boolean): string[] {
+  const grid = riffGrid(ref);
+  const swing = ref.score.context.swing ?? 0;
+  const lines = [
+    triplet(grid)
+      ? `Its feel: played on triplets (grid ${grid}). Write every new part on grid 3 or 6, so its onsets fall where the riff's do; a straight grid (2, 4, 8) fights it.`
+      : `Its feel: played straight (grid ${grid})${swing > 0 ? `, swung ${swing}` : ""}. Write every new part on grid 2, 4 or 8, not triplets${swing > 0 ? `, and keep context.swing at ${swing}` : ""}.`,
+    "Lock to its rhythm: put the new parts' accents where the riff's notes land, and leave space where it rests.",
+  ];
+  if (drums) lines.push(DRUM_ADVICE);
+  return lines;
+}
+
+const DRUM_ADVICE =
+  "For the drums, start from the named groove for the style when there is one (trap, afrobeats, dembow, house, ...: see Grooves), " +
+  "and add lanes only for voices it lacks. Trap is half-time: the clap or snare lands on beat 3 of each bar, not on 2 and 4.";
+
 // What the producer played, and what to do with it, for a plan the model writes in full.
-function referenceText(ref: { score: Score; intent: CaptureIntent }, fixed: Part[]): string[] {
+function referenceText(ref: { score: Score; intent: CaptureIntent }, fixed: Part[], lanes: string[]): string[] {
   const roles = ref.score.parts.map((p) => p.role);
   const what = roles.map((r) => LANE_WORDS[r] ?? r).join(" and ") || "riff";
   const ask: Record<CaptureIntent, string> = {
-    continue: `Write an idea that continues it: carry its motif, rhythm and feel forward, so the idea sounds like what comes next. Write your own parts; don't copy its notes one for one.`,
-    answer: `Write an idea that answers it, call and response: a melody that replies to its phrase in the same key and feel, with parts that support both.`,
+    continue: `Write an idea that continues it: carry its motif, rhythm and feel forward, so the idea sounds like what comes next. Open with its motif (its rhythm and contour, varied), in its register, then develop it. Write your own parts; don't copy its notes one for one.`,
+    answer: `Write an idea that answers it, call and response: a melody that replies to its phrase in the same key, register and feel (echo its rhythm, then turn it), with parts that support both.`,
     harmonize: `Write a harmony that fits its notes, and the lanes above around it.`,
     add_bass: `Write a harmony that fits its notes, and a bass line (with the lanes above) that locks with it.`,
     add_drums: `Write drums (with the lanes above) that lock with its rhythm.`,
@@ -194,6 +222,7 @@ function referenceText(ref: { score: Score; intent: CaptureIntent }, fixed: Part
     ...(fixed.length > 0
       ? [`It stays in the score exactly as played (part ${fixed.map((p) => `"${p.id}"`).join(", ")}), so don't write a ${roles.join(" or ")} part yourself.`]
       : []),
+    ...feelText(ref, lanes.includes("drums")),
     ask[ref.intent],
   ];
 }
@@ -236,6 +265,7 @@ function keepMessage(req: PlanRequest, kept: Draft): string {
          "exactly as they are: don't rewrite or repeat them. Write new parts that fit them, for these lanes only:"]),
     `${c.lanes.join(", ")} (one part per lane, with the lane name as its role, and ids not used below).`,
     `One bar = ${c.meterNumerator} beats, so every step-string bar has ${c.meterNumerator} × grid steps.`,
+    ...(played && req.reference ? feelText(req.reference, c.lanes.includes("drums")) : []),
     "",
     "The kept score:",
     JSON.stringify({ ...kept.head, parts: kept.parts }),
@@ -327,6 +357,20 @@ function review(draft: Draft, req: PlanRequest): Review {
     if ("errors" in checked) {
       badParts.push(partLabel(value));
       errors.push(...checked.errors.map((e) => (e.startsWith("part ") ? e : `part ${partLabel(value)}: ${e}`)));
+    }
+  }
+  // A kept riff: new parts on its grid family (triplets or straight), or they fight its feel.
+  const ref = req.reference;
+  if (ref && keepsReference(ref.intent)) {
+    const grid = riffGrid(ref);
+    const played = new Set(ref.score.parts.map((p) => p.id));
+    for (const value of draft.parts) {
+      const part = value as { id?: unknown; grid?: unknown; role?: unknown };
+      if (played.has(part?.id as string) || typeof part?.grid !== "number" || triplet(part.grid) === triplet(grid)) continue;
+      const label = partLabel(value);
+      if (!badParts.includes(label)) badParts.push(label);
+      errors.push(`part ${label}: grid ${part.grid} is ${triplet(part.grid) ? "triplets" : "straight"}, but the played riff is ` +
+        `${triplet(grid) ? "on triplets (grid " + grid + "): use grid 3 or 6" : "straight (grid " + grid + "): use grid 2, 4 or 8"}`);
     }
   }
   // Across parts: duplicate ids and missing lanes.

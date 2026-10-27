@@ -1,0 +1,33 @@
+{
+  "warnings": [
+    "part bass_played block 1..4 rhythm: bar 1 has 16 steps, expected 8; read as 16 steps per bar",
+    "part bass_played block 1..4 rhythm: bar 2 has 16 steps, expected 8; read as 16 steps per bar"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 47,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 29,
+        "minPitch": 35,
+        "maxPitch": 78,
+        "rangeLow": 35,
+        "rangeHigh": 78,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass_played",
+        "role": "bass",
+        "notes": 18,
+        "minPitch": 29,
+        "maxPitch": 42,
+        "rangeLow": 28,
+        "rangeHigh": 55,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

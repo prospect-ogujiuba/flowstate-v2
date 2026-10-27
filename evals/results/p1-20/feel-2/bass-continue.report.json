@@ -1,0 +1,74 @@
+{
+  "warnings": [
+    "voicing: \"rootless\" cannot voice \"Aadd9\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 188,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 60,
+        "minPitch": 52,
+        "maxPitch": 63,
+        "rangeLow": 40,
+        "rangeHigh": 68,
+        "outOfKey": 0
+      },
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 16,
+        "minPitch": 30,
+        "maxPitch": 37,
+        "rangeLow": 28,
+        "rangeHigh": 49,
+        "outOfKey": 0
+      },
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 20,
+        "minPitch": 56,
+        "maxPitch": 71,
+        "rangeLow": 56,
+        "rangeHigh": 73,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 92,
+        "minPitch": 36,
+        "maxPitch": 70,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "aux_kit",
+            "notes": 32
+          },
+          {
+            "sublane": "clap_rim",
+            "notes": 6
+          },
+          {
+            "sublane": "hats",
+            "notes": 35
+          },
+          {
+            "sublane": "kick",
+            "notes": 7
+          },
+          {
+            "sublane": "snare",
+            "notes": 12
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "warnings": [
+    "voicing: \"open\" cannot voice \"Cmaj9\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Fmaj7\" in range; used a fallback voicing",
+    "voicing: \"open\" cannot voice \"Am7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 27,
+    "clipEndTick": 7680,
+    "parts": [
+      {
+        "id": "melody",
+        "role": "melody",
+        "notes": 11,
+        "minPitch": 67,
+        "maxPitch": 77,
+        "rangeLow": 67,
+        "rangeHigh": 77,
+        "outOfKey": 0
+      },
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 16,
+        "minPitch": 48,
+        "maxPitch": 65,
+        "rangeLow": 48,
+        "rangeHigh": 67,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

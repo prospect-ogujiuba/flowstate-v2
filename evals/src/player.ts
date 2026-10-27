@@ -11,6 +11,8 @@ export interface PlayerEntry {
   fields: Record<string, string>;
   /** The sound template's family, shown so the listener knows what kit to expect. */
   sound: string;
+  /** A capture A/B pack: the riff both options answer, as riff.mp3 next to them. */
+  riff?: boolean;
 }
 
 /** What a pack compares: two generators, an idea as written against its re-roll (P1-22), or a played riff
@@ -56,7 +58,8 @@ h1 { font-size: 18px; margin: 0 0 4px; }
 button, select, input, textarea { font: inherit; color: var(--text); background: #222730; border: 1px solid var(--line); border-radius: 8px; }
 button { padding: 8px 14px; cursor: pointer; }
 button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.options button[hidden] { display: none; }
 .options button { padding: 18px; font-size: 16px; }
 .options button[aria-pressed="true"] { background: var(--on); border-color: var(--accent); }
 .transport { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; }
@@ -91,6 +94,7 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <p class="prompt" id="prompt"></p>
     <p class="meta" id="meta"></p>
     <div class="options">
+      <button id="opt0" aria-pressed="false" hidden>Riff</button>
       <button id="opt1" aria-pressed="false">${capture ? "Your riff" : "Option 1"}</button>
       <button id="opt2" aria-pressed="false">${capture ? "With Flowstate" : "Option 2"}</button>
     </div>
@@ -126,8 +130,9 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <button id="export">Save scoresheet.csv</button>
     <span class="done">Scores are kept in this browser as you go. Save the CSV when done and put it in the pack folder.</span>
   </div>
-  <p class="keys"><kbd>1</kbd> <kbd>2</kbd> switch ${capture ? "riff / result" : "option"} (keeps the position) · <kbd>Enter</kbd> play/pause · <kbd>R</kbd> restart · <kbd>N</kbd> <kbd>P</kbd> next/previous prompt</p>
+  <p class="keys"><kbd>0</kbd> riff (when there is one) · <kbd>1</kbd> <kbd>2</kbd> switch ${capture ? "riff / result" : "option"} (keeps the position) · <kbd>Enter</kbd> play/pause · <kbd>R</kbd> restart · <kbd>N</kbd> <kbd>P</kbd> next/previous prompt</p>
 </main>
+<audio id="a0" loop preload="auto"></audio>
 <audio id="a1" loop preload="auto"></audio>
 <audio id="a2" loop preload="auto"></audio>
 <script>
@@ -142,7 +147,7 @@ let scores = {};
 try { scores = JSON.parse(localStorage.getItem(STORE) || "{}"); } catch (e) { scores = {}; }
 const save = () => { try { localStorage.setItem(STORE, JSON.stringify(scores)); } catch (e) {} };
 let index = 0, active = 1;
-const audio = { 1: $("a1"), 2: $("a2") };
+const audio = { 0: $("a0"), 1: $("a1"), 2: $("a2") };
 
 for (const id of FIELDS.filter((f) => f !== "same" && f !== "fits")) {
   $(id).innerHTML = '<option value="">-</option>' + [1, 2, 3, 4, 5].map((n) => '<option>' + n + '</option>').join("");
@@ -159,6 +164,9 @@ function show(i) {
   index = (i + ENTRIES.length) % ENTRIES.length;
   const e = ENTRIES[index];
   for (const n of [1, 2]) { audio[n].pause(); audio[n].src = e.folder + "/option-" + n + ".mp3"; }
+  audio[0].pause();
+  $("opt0").hidden = !e.riff;
+  if (e.riff) audio[0].src = e.folder + "/riff.mp3";
   $("prompt").textContent = e.prompt;
   const f = e.fields;
   $("meta").textContent = [f.tempo, f.meter, f.key, f.length, f.style].filter(Boolean).join(" · ") + " · sounds: " + e.sound;
@@ -176,6 +184,7 @@ function select(n, keepPlaying = true) {
   const playing = keepPlaying && !from.paused;
   if (n !== active) { try { to.currentTime = from.currentTime; } catch (e) {} from.pause(); }
   active = n;
+  $("opt0").setAttribute("aria-pressed", String(n === 0));
   $("opt1").setAttribute("aria-pressed", String(n === 1));
   $("opt2").setAttribute("aria-pressed", String(n === 2));
   if (playing) to.play();
@@ -190,15 +199,15 @@ function bind(id, key) {
 for (const f of FIELDS) bind(f, f);
 if (!CAPTURE) bind("pref", "preferred");
 $("notes").addEventListener("input", () => { entryScore(ENTRIES[index]).notes = $("notes").value; save(); });
-$("opt1").onclick = () => select(1); $("opt2").onclick = () => select(2);
+$("opt0").onclick = () => select(0); $("opt1").onclick = () => select(1); $("opt2").onclick = () => select(2);
 $("play").onclick = toggle;
-$("restart").onclick = () => { for (const n of [1, 2]) audio[n].currentTime = 0; };
+$("restart").onclick = () => { for (const n of [0, 1, 2]) audio[n].currentTime = 0; };
 $("prev").onclick = () => show(index - 1); $("next").onclick = () => show(index + 1);
 $("jump").onchange = () => show(Number($("jump").value));
 setInterval(() => { const t = audio[active].currentTime || 0; $("time").textContent = Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0"); }, 200);
 document.addEventListener("keydown", (ev) => {
   if (ev.target.tagName === "TEXTAREA" || ev.target.tagName === "SELECT") return;
-  if (ev.key === "1") select(1); else if (ev.key === "2") select(2);
+  if (ev.key === "0" && ENTRIES[index].riff) select(0); else if (ev.key === "1") select(1); else if (ev.key === "2") select(2);
   else if (ev.key === "Enter" && ev.target === document.body) { ev.preventDefault(); toggle(); }
   else if (ev.key === "r" || ev.key === "R") $("restart").click();
   else if (ev.key === "n" || ev.key === "N") show(index + 1);

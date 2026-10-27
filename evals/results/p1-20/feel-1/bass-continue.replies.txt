@@ -1,0 +1,110 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "C#m drift — after the bass take",
+  "context": { "swing": 0.08, "style": ["trap", "late-night"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.55 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.75 }
+  ],
+  "harmony": "C#m9:4 | Aadd9:4 | C#m9:4 | Aadd9:4",
+  "motifs": [
+    { "id": "b1", "notes": "1:.5! 3:.25 4:.25 r:1 | b7:.75 5:.25 4:1 r:2" },
+    { "id": "b2", "notes": "1:.5! 3:.25 4:.25 r:1 | 5:.5 6:.25 5:.25 3:1 r:2" }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "E3",
+      "high": "E5",
+      "grid": 4,
+      "velocity": 68,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x------- ..x----- x------- ..x-----", "voicing": "rootless" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x---x--- ..x---x- x---x--- ..x---x-", "voicing": "rootless" }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Finger bass",
+      "low": "E1",
+      "high": "C#3",
+      "grid": 4,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R------- ..2----- R------- ..4-3-",
+          "notes": [
+            { "bar": 1, "beat": 1, "beats": 0.5271, "pitch": "C#3", "velocity": 91 },
+            { "bar": 1, "beat": 4.5, "beats": 0.2229, "pitch": "E3", "velocity": 76 },
+            { "bar": 1, "beat": 4.75, "beats": 0.2292, "pitch": "F#3", "velocity": 79 },
+            { "bar": 2, "beat": 1, "beats": 0.65, "pitch": "A2", "velocity": 97 },
+            { "bar": 2, "beat": 4, "beats": 0.5333, "pitch": "B2", "velocity": 96 },
+            { "bar": 3, "beat": 1.0625, "beats": 0.4958, "pitch": "C#3", "velocity": 92 },
+            { "bar": 3, "beat": 4, "beats": 0.4771, "pitch": "E3", "velocity": 86 },
+            { "bar": 3, "beat": 4.5, "beats": 0.3083, "pitch": "F#3", "velocity": 87 },
+            { "bar": 4, "beat": 1, "beats": 0.5729, "pitch": "A2", "velocity": 91 },
+            { "bar": 4, "beat": 3.5, "beats": 0.1438, "pitch": "E3", "velocity": 97 },
+            { "bar": 4, "beat": 3.75, "beats": 0.2354, "pitch": "G#2", "velocity": 76 },
+            { "bar": 4, "beat": 4, "beats": 0.975, "pitch": "B2", "velocity": 96 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Glass lead",
+      "low": "C#4",
+      "high": "C#6",
+      "grid": 4,
+      "velocity": 82,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "motif": "b1", "transforms": ["transpose:+4"], "repeatEvery": 0 },
+        { "startBar": 3, "endBar": 3, "motif": "b2", "transforms": ["transpose:+4", "octave:+1"], "repeatEvery": 0 },
+        { "startBar": 4, "endBar": 4, "motif": "b1", "transforms": ["transpose:+4", "retrograde"], "repeatEvery": 0 }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 4,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "groove": "trap",
+          "fill": "none",
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ..x..... x.....x. ..x..g.." },
+            { "voice": "clap", "steps": "........ ........ ..X..... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.x.x.x. x.x.x.x. x.x.xxx." }
+          ]
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "groove": "trap",
+          "fill": "hat_roll",
+          "drums": [
+            { "voice": "kick", "steps": "x.....x. ..x..x.. x.....x. ..x.....xg" },
+            { "voice": "clap", "steps": "........ ........ ..X..... ........" },
+            { "voice": "closed_hat", "steps": "x.x.x.x. x.xxx.x. x.x.x.x. x.xxxxxx" }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+===== attempt 2 =====
+{"parts":[{"id":"bass","role":"bass","name":"Finger bass","low":"E1","high":"C#3","grid":4,"velocity":88,"blocks":[{"startBar":1,"endBar":4,"rhythm":"R------- ..2----- R------- ..4-3---","notes":[{"bar":1,"beat":1,"beats":0.5271,"pitch":"C#3","velocity":91},{"bar":1,"beat":4.5,"beats":0.2229,"pitch":"E3","velocity":76},{"bar":1,"beat":4.75,"beats":0.2292,"pitch":"F#3","velocity":79},{"bar":2,"beat":1,"beats":0.65,"pitch":"A2","velocity":97},{"bar":2,"beat":4,"beats":0.5333,"pitch":"B2","velocity":96},{"bar":3,"beat":1.0625,"beats":0.4958,"pitch":"C#3","velocity":92},{"bar":3,"beat":4,"beats":0.4771,"pitch":"E3","velocity":86},{"bar":3,"beat":4.5,"beats":0.3083,"pitch":"F#3","velocity":87},{"bar":4,"beat":1,"beats":0.5729,"pitch":"A2","velocity":91},{"bar":4,"beat":3.5,"beats":0.1438,"pitch":"E3","velocity":97},{"bar":4,"beat":3.75,"beats":0.2354,"pitch":"G#2","velocity":76},{"bar":4,"beat":4,"beats":0.975,"pitch":"B2","velocity":96}]}]},{"id":"drums","role":"drums","name":"Kit","low":"C1","high":"C6","grid":4,"velocity":96,"blocks":[{"startBar":1,"endBar":2,"groove":"trap","fill":"none","drums":[{"voice":"kick","steps":"x.....x. ..x..... x.....x. ..x..g.."},{"voice":"clap","steps":"........ ........ ..X..... ........"},{"voice":"closed_hat","steps":"x.x.x.x. x.x.x.x. x.x.x.x. x.x.xxx."}]},{"startBar":3,"endBar":4,"groove":"trap","fill":"snare_roll","drums":[{"voice":"kick","steps":"x.....x. ..x..x.. x.....x. ..x.....xg"},{"voice":"clap","steps":"........ ........ ..X..... ........"},{"voice":"closed_hat","steps":"x.x.x.x. x.xxx.x. x.x.x.x. x.xxxxxx"}]}]}]}

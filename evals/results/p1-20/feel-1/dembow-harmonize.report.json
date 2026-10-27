@@ -1,0 +1,48 @@
+{
+  "warnings": [
+    "voicing: \"drop2\" cannot voice \"Dm9\" in range; used a fallback voicing",
+    "voicing: \"drop2\" cannot voice \"Bbmaj7\" in range; used a fallback voicing",
+    "voicing: \"drop2\" cannot voice \"A7\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 72,
+    "clipEndTick": 7680,
+    "parts": [
+      {
+        "id": "drums",
+        "role": "drums",
+        "notes": 32,
+        "minPitch": 36,
+        "maxPitch": 42,
+        "rangeLow": 36,
+        "rangeHigh": 42,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 16
+          },
+          {
+            "sublane": "kick",
+            "notes": 8
+          },
+          {
+            "sublane": "snare",
+            "notes": 8
+          }
+        ]
+      },
+      {
+        "id": "chords",
+        "role": "chords",
+        "notes": 40,
+        "minPitch": 57,
+        "maxPitch": 69,
+        "rangeLow": 57,
+        "rangeHigh": 69,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

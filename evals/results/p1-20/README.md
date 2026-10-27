@@ -12,6 +12,14 @@ npm run -w cloud capture -- --prompts ../evals/prompts/capture-phase1.json \
 | --- | --- | --- | --- | --- | --- |
 | `deepseek-flash-1` | 21/21 | 21 | 18 | 2.6 / 6.1 s | 1.2 s |
 | `deepseek-flash-2` | 21/21 | 21 | 16 | 3.3 / 7.9 s | 1.4 s |
+| `feel-1` (2026-10-27) | 21/21 | 21 | 17 | 3.3 / 6.4 s | 1.5 s |
+| `feel-2` (2026-10-27) | 21/21 | 21 | 19 | 3.2 / 5.9 s | 1.4 s |
+
+**The feel runs** (2026-10-27, after the owner's listening in `listening/`): the planner now tells the model the riff's feel (its grid family and swing, from core's analysis) and to put accents where the riff's notes land. A new part on the other grid family than a kept riff (straight against triplets) is sent back as a part repair. Drums for a riff start from the style's named groove, and trap's clap or snare lands on beat 3. Continue and answer open with the riff's motif in its register. What changed, against the first two runs:
+- New parts on the wrong grid family for a kept riff: 0 of 20 and 0 of 18 (was 1 of 28 and 1 of 27; the jazz melody's straight-16th chords were one).
+- Drum parts starting from a named groove: 11 of 15 and 10 of 14 (was 5 of 24 and 8 of 24). Capture requests carry no style tags, so the plan request's groove names never reached them.
+
+Whether it sounds better is the owner's to judge: blind A/B pack `capture-ab1` (`feel-1` against `deepseek-flash-1`; `npm run -w evals capture:pack -- --results results/p1-20/feel-1 --against results/p1-20/deepseek-flash-1 --name capture-ab1 --seed 7`, then `render`).
 
 **Correct** means valid, the riff came back exactly as played where the intent keeps it (harmonize, add bass, add drums), and every lane asked for was written. Per intent, both runs: add bass 5/5, add drums 4/4, harmonize 5/5, continue 4/4, answer 3/3.
 

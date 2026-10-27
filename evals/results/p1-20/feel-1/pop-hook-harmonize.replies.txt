@@ -1,0 +1,34 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "C major pad bed for played melody",
+  "context": {
+    "swing": 0,
+    "style": []
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.6 }
+  ],
+  "harmony": "Cmaj9:2 | Fmaj7:2 | Am7:2 | Dm9:2",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Warm Pad",
+      "low": "C3",
+      "high": "G4",
+      "grid": 2,
+      "velocity": 68,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "rhythm": "x--- ---- | x--- ---- | x--- ---- | x--- ----",
+          "voicing": "open",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

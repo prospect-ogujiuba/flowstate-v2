@@ -202,6 +202,31 @@ describe("planScore", () => {
       assert.match(requests[0]!, /Reply with only the new parts/);
     });
 
+    it("tells the model the riff's feel, and repairs a new part on the other grid family", async () => {
+      const bass = score.parts.find((p) => p.role === "bass")!;
+      const tripletMelody: Part = { ...playedMelody, grid: 3 };
+      const swungRiff: Score = { ...melodyRiff, parts: [tripletMelody] };
+      const straight = { ...bass, grid: 4 };
+      const triplets = { ...bass, grid: 3, blocks: bass.blocks.map((b) => ({ ...b, rhythm: "R--.-.R--.-." })) };
+      const { backend, requests } = setup(JSON.stringify({ ...score, parts: [straight] }), JSON.stringify({ parts: [triplets] }));
+      const req = { ...request, controls: lanes("bass"), reference: { score: swungRiff, intent: "add_bass" as const } };
+      const result = await planScore(req, backend);
+      assert.match(requests[0]!, /played on triplets \(grid 3\)/);
+      assert.equal(result.attempts, 2);
+      assert.match(requests[1]!, /grid 4 is straight, but the played riff is on triplets/);
+      assert.equal(result.score.parts.find((p) => p.role === "bass")!.grid, 3);
+      assert.deepEqual(result.validationErrors, []);
+
+      // A straight riff: straight parts pass, and drums get the groove advice.
+      const drums = score.parts.find((p) => p.role === "drums")!;
+      const straightRun = setup(JSON.stringify({ parts: [drums] }));
+      const drumsReq = { ...request, controls: lanes("drums"), reference: { score: chordsRiff, intent: "add_drums" as const } };
+      const r2 = await planScore(drumsReq, straightRun.backend);
+      assert.equal(r2.attempts, 1);
+      assert.match(straightRun.requests[0]!, /played straight \(grid 4\)/);
+      assert.match(straightRun.requests[0]!, /Trap is half-time/);
+    });
+
     it("refuses a riff with locked parts too, or a lane the riff already plays", async () => {
       const { backend } = setup("{}");
       const reject = (req: PlanRequest, pattern: RegExp) =>

@@ -1,0 +1,23 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "Lofi Eb major keys under a played line",
+  "context": { "swing": 0.2, "style": ["lofi", "jazzy"] },
+  "form": [ { "name": "A", "startBar": 1, "bars": 4, "energy": 0.55 } ],
+  "harmony": "Ebmaj9:2 Cm9:2 | Abmaj7:2 Fm9:2 | Ebmaj9:2 Cm9:2 | Abmaj7:2 Bb13sus4:1 Bb7:1",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "Bb2",
+      "high": "Eb4",
+      "grid": 4,
+      "velocity": 62,
+      "blocks": [
+        { "startBar": 1, "endBar": 4, "rhythm": "x--- .... ..x- .... | x--- .... ..x- .... | x--- .... ..x- .... | x--- .... ..x- ....", "voicing": "rootless", "articulation": "legato" }
+      ]
+    }
+  ]
+}

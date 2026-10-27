@@ -1,0 +1,44 @@
+{
+  "warnings": [
+    "voicing: \"rootless\" cannot voice \"Dm\" in range; used a fallback voicing",
+    "voicing: \"rootless\" cannot voice \"F\" in range; used a fallback voicing",
+    "voicing: \"rootless\" cannot voice \"Am\" in range; used a fallback voicing"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 42,
+    "clipEndTick": 15360,
+    "parts": [
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 18,
+        "minPitch": 41,
+        "maxPitch": 50,
+        "rangeLow": 41,
+        "rangeHigh": 50,
+        "outOfKey": 0
+      },
+      {
+        "id": "pad",
+        "role": "chords",
+        "notes": 12,
+        "minPitch": 52,
+        "maxPitch": 69,
+        "rangeLow": 48,
+        "rangeHigh": 72,
+        "outOfKey": 0
+      },
+      {
+        "id": "keys",
+        "role": "chords",
+        "notes": 12,
+        "minPitch": 57,
+        "maxPitch": 65,
+        "rangeLow": 48,
+        "rangeHigh": 76,
+        "outOfKey": 0
+      }
+    ]
+  }
+}

@@ -2,7 +2,10 @@
 // it was played and what Flowstate made from it, for the owner to judge whether the new parts fit the riff.
 // Usage: tsx src/capture-pack.ts --results results/p1-20/deepseek-flash-1 --name capture-r1
 //          [--prompts prompts/capture-phase1.json] [--force]
+//        tsx src/capture-pack.ts --results results/p1-20/feel-1 --against results/p1-20/deepseek-flash-1 --name capture-ab1 --seed 7
 //
+// With --against, a blind A/B pack instead (a generators pack, P0-5's format): per case the two runs' results in a
+// seeded random order, `--results` as A (the candidate) and `--against` as B; the key says which is which.
 // Each NN-<case> folder gets option-1.mid (the riff alone, realized from the request's reference) and
 // option-2.mid (the planned result, with the riff where the intent keeps it), and a prompt.txt naming the riff and
 // the intent. Not blind: the order is always riff, then result. Then `npm run -w evals render -- ab/packs/<name>`
@@ -16,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { parseArgs, type NotesFile } from "./common.ts";
 import { SHEET_HEADER } from "./player.ts";
 import { roleSmf } from "./smf.ts";
+import { hashSeed, mulberry32 } from "./stats.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const evalsRoot = path.join(here, "..");
@@ -68,30 +72,57 @@ function main() {
   if (!/^[A-Za-z0-9._-]+$/.test(name)) throw new Error("--name must be a simple folder name");
   if (!existsSync(realizer)) throw new Error(`realizer not built at ${realizer}; run npm run build:core`);
   const resultsDir = path.resolve(results);
+  const againstDir = args.flags.against ? path.resolve(args.flags.against) : null;
+  const rand = mulberry32(hashSeed(`capture-ab:${args.flags.seed ?? "1"}`));
   const cases = JSON.parse(readFileSync(path.resolve(args.flags.prompts ?? path.join(evalsRoot, "prompts", "capture-phase1.json")), "utf8")) as CaptureCase[];
   const packsRoot = path.resolve(args.flags["packs-dir"] ?? path.join(evalsRoot, "ab", "packs"));
   const packDir = path.join(packsRoot, name);
   if (existsSync(packDir) && readdirSync(packDir).length && args.flags.force !== "true") throw new Error(`${packDir} exists; pass --force to overwrite`);
   mkdirSync(packDir, { recursive: true });
 
-  const entries: { promptId: string; folder: string; intent: string; riffRole: string }[] = [];
+  const entries: { promptId: string; folder: string; intent: string; riffRole: string; v2Option?: 1 | 2 }[] = [];
   const skipped: { promptId: string; reason: string }[] = [];
-  const rows = [SHEET_HEADER.capture];
+  const rows = [againstDir ? SHEET_HEADER.generators : SHEET_HEADER.capture];
+  const notes = (file: string) => roleSmf(JSON.parse(readFileSync(file, "utf8")) as NotesFile);
   for (const c of cases) {
     const resultFile = path.join(resultsDir, `${c.id}.notes.json`);
-    if (!existsSync(resultFile)) { skipped.push({ promptId: c.id, reason: "no result (the plan failed)" }); continue; }
+    const otherFile = againstDir ? path.join(againstDir, `${c.id}.notes.json`) : null;
+    const coin = rand(); // drawn for every case, so the order doesn't shift when one is skipped
+    if (!existsSync(resultFile) || (otherFile && !existsSync(otherFile))) { skipped.push({ promptId: c.id, reason: "no result (the plan failed)" }); continue; }
     const folder = `${String(entries.length + 1).padStart(2, "0")}-${c.id}`;
     const dir = path.join(packDir, folder);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(path.join(dir, "option-1.mid"), roleSmf(realizeRiff(c.request.reference.score)));
-    writeFileSync(path.join(dir, "option-2.mid"), roleSmf(JSON.parse(readFileSync(resultFile, "utf8")) as NotesFile));
     writeFileSync(path.join(dir, "prompt.txt"), capturePromptTxt(c));
-    entries.push({ promptId: c.id, folder, intent: c.request.reference.intent, riffRole: c.riffRole });
-    rows.push(`${c.id},,,`);
+    const entry: (typeof entries)[number] = { promptId: c.id, folder, intent: c.request.reference.intent, riffRole: c.riffRole };
+    if (otherFile) {
+      entry.v2Option = coin < 0.5 ? 1 : 2;
+      writeFileSync(path.join(dir, "option-1.mid"), notes(entry.v2Option === 1 ? resultFile : otherFile));
+      writeFileSync(path.join(dir, "option-2.mid"), notes(entry.v2Option === 1 ? otherFile : resultFile));
+      writeFileSync(path.join(dir, "riff.mid"), roleSmf(realizeRiff(c.request.reference.score)));
+      rows.push(`${c.id},,,,,,`);
+    } else {
+      writeFileSync(path.join(dir, "option-1.mid"), roleSmf(realizeRiff(c.request.reference.score)));
+      writeFileSync(path.join(dir, "option-2.mid"), notes(resultFile));
+      rows.push(`${c.id},,,`);
+    }
+    entries.push(entry);
   }
 
   writeFileSync(path.join(packDir, "scoresheet.csv"), rows.join("\n") + "\n");
-  writeFileSync(path.join(packDir, "README.txt"), `Flowstate capture listening pack: ${name}
+  if (againstDir) writeFileSync(path.join(packDir, "README.txt"), `Flowstate capture A/B pack: ${name}
+
+"Use what I just played", two versions of Flowstate answering the same riff. Each numbered folder holds the riff
+(riff.mid) and two results, option-1.mid and option-2.mid, in a random order that changes from folder to folder.
+prompt.txt says which riff and what was asked.
+
+For each folder (player.html does all of this in the browser, if the pack was rendered):
+  1. Listen to the riff, then loop both options. Switch back and forth.
+  2. Fill in one row of scoresheet.csv: preferred (1, 2 or tie), musicality_1 and musicality_2 (1-5),
+     fits_prompt_1 and fits_prompt_2 (1-5: how well each fits, continues or answers the riff), notes.
+
+Do not look for or open the answer key.
+`);
+  else writeFileSync(path.join(packDir, "README.txt"), `Flowstate capture listening pack: ${name}
 
 "Use what I just played": each numbered folder holds a riff as a producer played it (option-1.mid) and what
 Flowstate made from it (option-2.mid). prompt.txt says which riff and what was asked: harmonize, add bass and
@@ -106,7 +137,7 @@ For each folder (player.html does all of this in the browser, if the pack was re
        notes       optional free text (avoid commas, or wrap the text in double quotes)
 `);
   writeFileSync(path.join(packsRoot, `${name}.key.json`), JSON.stringify({
-    pack: name, kind: "capture", createdAt: new Date().toISOString(), results: resultsDir, entries, skipped,
+    pack: name, kind: againstDir ? "generators" : "capture", a: { label: "candidate", dir: resultsDir }, b: againstDir ? { label: "baseline", dir: againstDir } : undefined, createdAt: new Date().toISOString(), results: resultsDir, entries, skipped,
   }, null, 2));
   console.log(`pack: ${packDir} (${entries.length} cases)`);
   if (skipped.length) console.log(`skipped: ${skipped.map((s) => `${s.promptId} (${s.reason})`).join(", ")}`);

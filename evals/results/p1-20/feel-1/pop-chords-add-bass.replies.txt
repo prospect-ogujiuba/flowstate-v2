@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"parts":[{"id":"bass_played","role":"bass","name":"Round Bass","low":"E1","high":"G3","grid":2,"velocity":96,"blocks":[{"startBar":1,"endBar":4,"rhythm":"R--- ..x. g.x. ..a.|R--- ..x. R... ..a.","articulation":"staccato"}]}]}

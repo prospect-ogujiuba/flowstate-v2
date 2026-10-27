@@ -120,12 +120,14 @@ async function main() {
     const dir = path.join(packDir, folder);
     const { prompt, fields } = readPromptTxt(readFileSync(path.join(dir, "prompt.txt"), "utf8"));
     const template = templateFor((fields.style ?? "").split(",").map((s) => s.trim()).filter(Boolean), prompt);
-    for (const option of soundBank ? [1, 2] : []) {
-      const song = readSmf(readFileSync(path.join(dir, `option-${option}.mid`)));
+    // A capture A/B pack also has the riff both options answer.
+    const riff = existsSync(path.join(dir, "riff.mid"));
+    for (const clip of soundBank ? ["option-1", "option-2", ...(riff ? ["riff"] : [])] : []) {
+      const song = readSmf(readFileSync(path.join(dir, `${clip}.mid`)));
       const audio = renderSong(soundBank!, song, template, loops);
-      encode(audioToWav(audio, SAMPLE_RATE), path.join(dir, `option-${option}.mp3`));
+      encode(audioToWav(audio, SAMPLE_RATE), path.join(dir, `${clip}.mp3`));
     }
-    entries.push({ folder, promptId: folder.replace(/^\d+-/, ""), prompt, fields, sound: template.family });
+    entries.push({ folder, promptId: folder.replace(/^\d+-/, ""), prompt, fields, sound: template.family, ...(riff ? { riff } : {}) });
     console.log(`ok   ${folder}  (${template.family})`);
   }
   writeFileSync(path.join(packDir, "player.html"), playerHtml(path.basename(packDir), entries, kind));

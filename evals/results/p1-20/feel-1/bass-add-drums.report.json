@@ -1,0 +1,74 @@
+{
+  "warnings": [
+    "part drums_kit block 1..4: kick lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 1..4: snare lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 1..4: closed_hat lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 5..7: kick lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 5..7: snare lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 5..7: closed_hat lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 8..8: kick lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 8..8: snare lane ignored; the groove \"boom_bap\" plays it",
+    "part drums_kit block 8..8: closed_hat lane ignored; the groove \"boom_bap\" plays it"
+  ],
+  "outOfKey": [],
+  "stats": {
+    "totalNotes": 164,
+    "clipEndTick": 30720,
+    "parts": [
+      {
+        "id": "bass",
+        "role": "bass",
+        "notes": 26,
+        "minPitch": 44,
+        "maxPitch": 54,
+        "rangeLow": 44,
+        "rangeHigh": 54,
+        "outOfKey": 0
+      },
+      {
+        "id": "drums_kit",
+        "role": "drums",
+        "notes": 114,
+        "minPitch": 36,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "hats",
+            "notes": 63
+          },
+          {
+            "sublane": "kick",
+            "notes": 24
+          },
+          {
+            "sublane": "snare",
+            "notes": 27
+          }
+        ]
+      },
+      {
+        "id": "drums_aux",
+        "role": "drums",
+        "notes": 24,
+        "minPitch": 37,
+        "maxPitch": 46,
+        "rangeLow": 24,
+        "rangeHigh": 84,
+        "outOfKey": 0,
+        "sublanes": [
+          {
+            "sublane": "clap_rim",
+            "notes": 16
+          },
+          {
+            "sublane": "hats",
+            "notes": 8
+          }
+        ]
+      }
+    ]
+  }
+}

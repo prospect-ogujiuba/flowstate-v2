@@ -1,0 +1,72 @@
+===== attempt 1 =====
+```json
+{
+  "ir": "flowstate.score.v0",
+  "title": "Dark F minor — call and response",
+  "context": { "swing": 0, "style": ["trap", "dark"] },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 2, "energy": 0.55 },
+    { "name": "B", "startBar": 3, "bars": 2, "energy": 0.8 }
+  ],
+  "harmony": "Fm:4 | Db:4 | Bbm:4 | C7:4",
+  "motifs": [
+    { "id": "reply", "notes": "r:.5 5:.5 4:.5 3:.5 | 2:1 1:.5 r:.5 | r:.5 6:.5 5:.5 4:.5 | 5:1.5 r:.5" }
+  ],
+  "parts": [
+    {
+      "id": "chords", "role": "chords", "name": "Dark keys", "low": "C3", "high": "F5",
+      "grid": 2, "velocity": 66,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "x--- --x- x--- ----", "voicing": "open" },
+        { "startBar": 3, "endBar": 4, "rhythm": "x--- --x- x--x --x-", "voicing": "close" }
+      ]
+    },
+    {
+      "id": "bass", "role": "bass", "name": "808", "low": "F1", "high": "C3",
+      "grid": 2, "velocity": 104,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "rhythm": "R--- -R-- --g- R---", "articulation": "legato" },
+        { "startBar": 3, "endBar": 4, "rhythm": "R--R -R-- --R- R-Ra", "articulation": "legato" }
+      ]
+    },
+    {
+      "id": "melody", "role": "melody", "name": "Played", "low": "Eb5", "high": "Db6",
+      "grid": 2, "velocity": 82,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "notes": [
+          { "bar": 1, "beat": 1, "beats": 0.45, "pitch": "F5", "velocity": 90 },
+          { "bar": 1, "beat": 1.5177, "beats": 0.45, "pitch": "Ab5", "velocity": 80 },
+          { "bar": 1, "beat": 2.001, "beats": 0.45, "pitch": "C6", "velocity": 86 },
+          { "bar": 1, "beat": 2.5104, "beats": 0.45, "pitch": "Ab5", "velocity": 76 },
+          { "bar": 1, "beat": 3.0073, "beats": 0.45, "pitch": "G5", "velocity": 82 },
+          { "bar": 1, "beat": 3.5083, "beats": 0.45, "pitch": "Eb5", "velocity": 74 },
+          { "bar": 1, "beat": 4.0115, "beats": 0.9, "pitch": "F5", "velocity": 84 },
+          { "bar": 2, "beat": 1.0031, "beats": 0.45, "pitch": "F5", "velocity": 90 },
+          { "bar": 2, "beat": 1.4875, "beats": 0.45, "pitch": "Ab5", "velocity": 80 },
+          { "bar": 2, "beat": 1.9917, "beats": 0.45, "pitch": "Db6", "velocity": 88 },
+          { "bar": 2, "beat": 2.499, "beats": 0.45, "pitch": "C6", "velocity": 78 },
+          { "bar": 2, "beat": 2.9969, "beats": 0.45, "pitch": "Bb5", "velocity": 82 },
+          { "bar": 2, "beat": 3.4844, "beats": 0.45, "pitch": "G5", "velocity": 74 },
+          { "bar": 2, "beat": 4, "beats": 0.9, "pitch": "Ab5", "velocity": 84 }
+        ] },
+        { "startBar": 3, "endBar": 4, "motif": "reply", "repeatEvery": 4 }
+      ]
+    },
+    {
+      "id": "drums", "role": "drums", "name": "Kit", "low": "C1", "high": "C6",
+      "grid": 2, "velocity": 92,
+      "blocks": [
+        { "startBar": 1, "endBar": 2, "groove": "trap",
+          "drums": [
+            { "voice": "ride", "steps": "x-x-x-x-" }
+          ] },
+        { "startBar": 3, "endBar": 4, "groove": "trap", "fill": "snare_roll",
+          "drums": [
+            { "voice": "ride", "steps": "x-x-x-x-" },
+            { "voice": "open_hat", "steps": "--x---x-" }
+          ] }
+      ]
+    }
+  ]
+}
+```

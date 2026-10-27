@@ -1,0 +1,2 @@
+===== attempt 1 =====
+{"parts":[{"id":"drums","role":"drums","name":"Trap Kit","low":"C1","high":"C6","grid":4,"velocity":96,"blocks":[{"startBar":1,"endBar":4,"groove":"trap","fill":"snare_roll"}]}]}

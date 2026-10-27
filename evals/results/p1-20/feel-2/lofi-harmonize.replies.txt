@@ -1,0 +1,35 @@
+===== attempt 1 =====
+{
+  "ir": "flowstate.score.v0",
+  "title": "What I played — lofi keys",
+  "context": {
+    "swing": 0.2,
+    "style": ["lofi", "jazzy"]
+  },
+  "form": [
+    { "name": "A", "startBar": 1, "bars": 4, "energy": 0.55 }
+  ],
+  "harmony": "Ebmaj9:4 | Ab13:4 | Fm9:4 | Bb13sus4:3 Bb7b9:1",
+  "motifs": [],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Dusty Rhodes",
+      "low": "G2",
+      "high": "Eb5",
+      "grid": 4,
+      "velocity": 68,
+      "humanize": 0.35,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x--. ..x. .x-- ..x. | x--. ..x. .x-- ..x. | x--. ..x. .x-- ..x. | x--. ..x. .x-- ...x",
+          "voicing": "rootless",
+          "articulation": "legato"
+        }
+      ]
+    }
+  ]
+}

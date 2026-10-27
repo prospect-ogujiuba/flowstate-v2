@@ -1,0 +1,110 @@
+{
+  "ir": "flowstate.score.v0",
+  "title": "Deep house continuation",
+  "context": {
+    "tempo": 124,
+    "meterNumerator": 4,
+    "meterDenominator": 4,
+    "tonic": "A",
+    "mode": "minor",
+    "bars": 4,
+    "swing": 0.08,
+    "style": [
+      "deep house"
+    ]
+  },
+  "form": [
+    {
+      "name": "A",
+      "startBar": 1,
+      "bars": 4,
+      "energy": 0.62
+    }
+  ],
+  "harmony": "Am9:4 | Fmaj7:2 G6:2 | Am9:4 | Dm9:2 Esus4:2",
+  "motifs": [
+    {
+      "id": "m1",
+      "notes": "5:.5 4:.25 3:.25 1:1 r:.5 2:.5 3:.5 5:1"
+    }
+  ],
+  "parts": [
+    {
+      "id": "chords",
+      "role": "chords",
+      "name": "Rhodes",
+      "low": "A2",
+      "high": "E5",
+      "grid": 2,
+      "velocity": 72,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "x... ..x. .x.. ....",
+          "voicing": "rootless"
+        }
+      ]
+    },
+    {
+      "id": "bass",
+      "role": "bass",
+      "name": "Sub bass",
+      "low": "E1",
+      "high": "C3",
+      "grid": 2,
+      "velocity": 88,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "rhythm": "R... ..R. ..R. ...."
+        }
+      ]
+    },
+    {
+      "id": "melody",
+      "role": "melody",
+      "name": "Flute",
+      "low": "A3",
+      "high": "E6",
+      "grid": 2,
+      "velocity": 80,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 2,
+          "motif": "m1",
+          "repeatEvery": 4
+        },
+        {
+          "startBar": 3,
+          "endBar": 4,
+          "motif": "m1",
+          "transforms": [
+            "transpose:+2",
+            "displace:+0.5"
+          ],
+          "repeatEvery": 4
+        }
+      ]
+    },
+    {
+      "id": "drums",
+      "role": "drums",
+      "name": "Kit",
+      "low": "C1",
+      "high": "C6",
+      "grid": 2,
+      "velocity": 96,
+      "blocks": [
+        {
+          "startBar": 1,
+          "endBar": 4,
+          "groove": "four_on_floor",
+          "fill": "snare_roll"
+        }
+      ]
+    }
+  ]
+}
