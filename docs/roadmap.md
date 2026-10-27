@@ -546,7 +546,7 @@ Left: the owner's listening (the acceptance above).
 - Built on each tag.
 Acceptance: installs on a clean machine or user account with no Gatekeeper or SmartScreen bypass steps.
 
-### P1-15 CI release checks — `doing` (built 2026-10-27; waits on the first green run)
+### P1-15 CI release checks — `done` (2026-10-27: first run green, plugin run 40516337042)
 Every tester build is verified before a human sees it:
 - core tests and pluginval on both OSes, and auval on macOS.
 - Headless host smoke (load, sync, MIDI out, per-part filter, state round trip).

@@ -20,7 +20,7 @@ INSTALL (about a minute)
      "Run anyway". If it asks "Do you want to run this file?", click Run.
    - Then allow the admin prompt: the plug-ins go into the shared VST3 folder,
      C:\Program Files\Common Files\VST3.
-   A window lists what was installed. Press a key to close it.
+   A window lists what was installed. Press Enter to close it.
 4. Open your DAW and rescan plug-ins (in Ableton: Settings > Plug-Ins, turn
    on "Use VST3 Plug-In System Folders", then Rescan).
 
