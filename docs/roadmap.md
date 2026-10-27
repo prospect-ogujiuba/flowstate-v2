@@ -465,7 +465,7 @@ Acceptance:
 - The edit set is ≥ 95% valid with every valid edit changing the asked-for part, at p50 under 5 s on the production route.
 - Owner listening: edits do what was asked in at least 4 of 5 cases.
 
-### P1-20 Use what I just played — `doing` (built 2026-10-03; capture set 42/42 valid 2026-10-04; owner listening and a DAW run left)
+### P1-20 Use what I just played — `doing` (built 2026-10-03; capture set 42/42 valid 2026-10-04; owner listening passed 2026-10-27, 17/21; a DAW run left)
 Proposal flow 4: play a riff into the host, then "Use what I just played" and choose continue, harmonize, add bass, add drums or answer. The capture ring (P1-6), the Studio's capture sheet (P1-9) and the bridge fields (`Generate.capture`, `PlanRequest.reference`) exist; this joins them up.
 Plan:
 - `core`: the analyzer takes notes directly (not only SMF bytes), and can write the clip's part as the played notes (literal), so a kept riff plays exactly as performed, feel included. Lane, key, grid and harmony still come from the analysis.
@@ -482,7 +482,9 @@ Done so far (2026-10-03; semantics in `docs/bridge-spec.md`, "The plugin's clien
 - Capture set (2026-10-04, `evals/results/p1-20/`): 21 cases over 14 riffs (GodFlow's played chords and bass; melodies and beats with human timing), each the plugin's `PlanRequest` through the service's own mapping. DeepSeek Flash, thinking off, two runs: **42/42 valid**, the riff kept exactly as played and every lane written in all 42; full plan p50 2.6–3.3 s, first part p50 1.2–1.4 s; 34 of 42 with no repair. `npm run -w evals capture:build`, then `npm run -w cloud capture`.
 - What the set found, fixed: the validator rejected a kept drum riff (literal notes only), so harmonize and add bass on played drums always failed (36/42 before); core ignored a given key for drums (a beat always planned in C major); and the plugin fell back to the default C major over core's best guess when it wasn't sure of the key.
 
-Left: owner listening (the new parts fit the riff in 4 of 5 cases) and a live run in a DAW (docs/testing-plugin.md step 13).
+- **Owner listening** (2026-10-27, `evals/results/p1-20/listening/`): the new parts fit the riff in **17 of 21 (81%), PASS**; musicality mean 3.0. Misses: both trap riffs, the swung jazz melody's harmonization (off sync), and a bass line's continuation drifting from it; afrobeat drums fit but miss the style's essentials. These go to P1-3.
+
+Left: a live run in a DAW (docs/testing-plugin.md step 13).
 - **Listening pack** (2026-10-27): `npm run -w evals capture:pack -- --results results/p1-20/deepseek-flash-1 --name capture-r1` builds `evals/ab/packs/capture-r1` (not committed): per case the riff alone and the result, not blind. `npm run -w evals render -- ab/packs/capture-r1` adds audio and `player.html`, which asks "fits the riff?" and the result's musicality. Score the saved sheet with `npm run -w evals ab:score -- --key ab/packs/capture-r1.key.json <scoresheet.csv>` (this issue's check: fits in at least 4 of 5).
 Acceptance:
 - Each intent runs from the Studio against the service, and the kept riff plays exactly as it was played.

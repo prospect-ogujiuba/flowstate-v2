@@ -1,0 +1,22 @@
+prompt_id,fits,musicality,notes
+rnb-chords-add-bass,y,4,
+pop-chords-add-bass,y,4,
+rnb-chords-add-drums,y,4,
+world-chords-add-drums,y,4,
+pop-chords-continue,y,3,
+rnb-chords-answer,y,3,
+bass-add-drums,y,4,
+bass-harmonize,y,4,
+bass-continue,n,3,Was quite different from the original riff
+lofi-harmonize,y,3,
+pop-hook-harmonize,y,3,
+afro-add-bass,y,4,
+trap-add-bass,n,1,Sounds off a little
+jazz-harmonize,n,1,Felt off sync with the melody
+afro-add-drums,y,2,Drums rhythms were definitely going for afrobeat but doesn't get the essentials and therefore sounds pretty whack
+lofi-continue,y,3,chill as expected
+pop-hook-answer,y,3,"CHanged the melody quite a bit, but I guess that is okay right"
+trap-answer,n,2,Garbage drums and ruined melody
+boom-bap-add-bass,y,3,Pretty simple nothing crazy I guess
+house-continue,y,2,
+dembow-harmonize,y,3,"drums on point, melody/chords/stabs very simple"
