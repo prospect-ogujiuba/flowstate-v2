@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url";
 import { loadPrompts, parseArgs } from "./common.ts";
 import { hashSeed, mulberry32 } from "./stats.ts";
 import { SHEET_HEADER } from "./player.ts";
-import { writeSmf } from "./smf.ts";
+import { roleSmf } from "./smf.ts";
 import type { NotesFile } from "./common.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -36,16 +36,7 @@ if (existsSync(packDir) && readdirSync(packDir).length && args.flags.force !== "
 const prompts = loadPrompts(promptsFile);
 // Rebuild each clip from its notes with neutral, role-based track names and fixed channels,
 // so no title, track name or channel layout reveals which generator made it.
-const ROLE_ORDER = ["chords", "pad", "arp", "bass", "melody", "counter", "drums"];
-const ROLE_CHANNEL: Record<string, number> = { chords: 0, pad: 4, arp: 5, bass: 1, melody: 2, counter: 3, drums: 9 };
-function blindSmf(notesPath: string): Uint8Array {
-  const doc = JSON.parse(readFileSync(notesPath, "utf8")) as NotesFile;
-  const parts = [...doc.parts].sort((a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role));
-  return writeSmf({
-    ppq: doc.ppq, tempo: doc.tempo, meter: doc.meter, lengthTicks: doc.bars * doc.ticksPerBar,
-    tracks: parts.map((p) => ({ name: p.role[0]!.toUpperCase() + p.role.slice(1), channel: ROLE_CHANNEL[p.role] ?? 6, notes: p.notes })),
-  });
-}
+const blindSmf = (notesPath: string): Uint8Array => roleSmf(JSON.parse(readFileSync(notesPath, "utf8")) as NotesFile);
 
 const rand = mulberry32(hashSeed(`ab:${seedText}`));
 mkdirSync(packDir, { recursive: true });

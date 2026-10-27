@@ -60,7 +60,7 @@ Startup: the UI sends `hello` with its protocol. The reply carries the full `Ses
 The proposal's three interaction modes map to commands like this:
 - **Talk** goes to the model: `generate`, `edit`, `vary`, `addPart`. These reply with a `requestId`, and progress arrives as events.
 - **Tweak** is a local transform in `core`: `reroll`, `tweak`, the density knob in `setPartState`, and swing in `setContextOverride`. These are instant, need no network, and work offline.
-- **Touch** means note edits (`editNotes`). They are stored as literal-note overrides in the IR, so later edits keep them.
+- **Touch** means note edits (`editNotes`). They are stored as overrides in the part's `touch` (docs/ir-spec.md, "Touch"), so later edits keep them.
 
 | Command | Effect | Reply |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ The proposal's three interaction modes map to commands like this:
 | `vary` | The model writes a variation of one part that keeps its idea | `requestId` |
 | `reroll` | Same plan, a new take on one part (P1-22). Local. The part gets a fresh `seed` of its own (docs/ir-spec.md) in a `regenerate` node under the current one; the node keeps its parent's seed and its `partIds` is the part, so every other part sounds the same. A locked part is refused. | `session` |
 | `tweak` | Local transform in `core` (P1-21): `register` (octaves), `transpose` (semitones), `humanize` (0..1), `simplify`, `intensify`, `revoice`. `partId: null` applies it to every unlocked part. Makes a `tweak` node. See "Tweaks" below. | `session` |
-| `editNotes` | Piano-roll edit in the clip's tick domain; `core` turns it into literal-note overrides. Makes a `touch` node. | `session` |
+| `editNotes` | The note editor's edit of one part (P1-23), in the clip's tick domain: `remove` lists notes as they appear in the current clip, `add` the new ones; a move, resize or velocity change is both. Local. `core` writes it into the part's `touch` (docs/ir-spec.md, "Touch") in a `touch` node under the current one, with its parent's seed and the part in `partIds`. Removing a note an earlier edit added takes that addition back. Refused, with the reason: a locked part, a removed note that isn't in the clip (the editor was stale), a note outside the clip, or no change. An `edit` that rewrites the part keeps its `touch`; a `vary` drops it. | `session` |
 | `addPart`, `removePart` | "Add part" (arp, pad, counter-melody, …) goes to the model; remove is local | `requestId` / `session` |
 | `cancel` | Cancels a running request; the provider stream stops | — |
 | `selectNode` | Restore or A/B a lineage node. The next edit from a non-leaf node starts a branch. | `session` |
@@ -129,7 +129,7 @@ Events:
 - **Generations:** `generations` lists every running request, so parallel variations each show progress.
 - **Preview:** `preview` is the catalog entry previewing, if any. It isn't saved with the project.
 - **Settings:** `byokEnabled` mirrors the service's `byok` flag (`Health.features`). `hasKey` says whether a BYOK key is stored for the session's provider, and the key itself never comes back. `usage` comes from the service.
-- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin can accept without effect: `lock` and `density`. This build lists `editNotes`; `reroll` left the list when core learned seeded takes (P1-22), `tweak` and `density` when it learned the transforms (P1-21), `capture` when the planner learned `reference` (P1-20), `lock` when it learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
+- **Gaps:** `unavailable` lists the features this build can't run yet, each with the reason to show. The Studio disables them and gives the reason, so it never offers a control that only answers `unavailable`. Features: `edit`, `vary`, `addPart`, `reroll`, `tweak`, `editNotes`, `capture` (`generate.capture`), `apiKey` (`setApiKey`), and two the plugin can accept without effect: `lock` and `density`. This build lists nothing on macOS and Windows (`apiKey` on Linux); `editNotes` left the list when core learned note edits (P1-23), `reroll` left it when core learned seeded takes (P1-22), `tweak` and `density` when it learned the transforms (P1-21), `capture` when the planner learned `reference` (P1-20), `lock` when it learned `keep` (P1-11), `edit`, `vary` and `addPart` when the service learned edits (P1-19), and `apiKey` when the keychain landed (P1-12; a Linux build still lists it). A command for a listed feature still answers `unavailable`, with the same reason. When a feature lands, its entry goes, and the UI turns it on with no UI change.
 
 `SavedSession` is what `getStateInformation` writes. It holds:
 - the instance id;

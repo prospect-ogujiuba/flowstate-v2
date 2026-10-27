@@ -83,6 +83,20 @@ struct LiteralNote {
     int velocity = 100;
 };
 
+// A removed note (touch): the realized note of this pitch nearest this onset.
+struct NoteRemoval {
+    int bar = 1;
+    double beat = 1.0;
+    std::string pitch;
+};
+
+// Note edits from the Studio's note editor (touch, docs/ir-spec.md "Touch"): applied to the part's
+// realized notes, after everything else.
+struct Touch {
+    std::vector<NoteRemoval> remove;
+    std::vector<LiteralNote> add;
+};
+
 struct Block {
     int startBar = 1;
     int endBar = 1;  // inclusive
@@ -108,10 +122,11 @@ struct Part {
     int grid = 4;
     int velocity = 90;
     std::vector<Block> blocks;
-    // Set by the plugin's tweaks and re-roll (docs/ir-spec.md, "Part"); absent = as written.
+    // Set by the plugin's tweaks, re-roll and note edits (docs/ir-spec.md, "Part"); absent = as written.
     std::optional<double> density;        // 0..1, 0.5 = as written
     std::optional<double> humanize;       // 0..1, absent = kDefaultHumanize
     std::optional<std::uint64_t> seed;    // the part's own seed: seeded realization choices (re-roll)
+    std::optional<Touch> touch;           // note edits (touch)
 };
 
 inline constexpr double kDefaultHumanize = 0.3;

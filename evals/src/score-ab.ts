@@ -1,6 +1,7 @@
 // Joins filled A/B scoresheets with the hidden key and reports v2's win rate, sign test and score deltas.
 // A re-roll pack (build-ab-pack --kind reroll) reports P1-22's check instead: the re-rolled take is the
-// same idea, and not worse, in at least 4 of 5 ideas.
+// same idea, and not worse, in at least 4 of 5 ideas. A capture pack (capture-pack, P1-20) reports whether
+// Flowstate's parts fit the riff in at least 4 of 5 cases.
 // Usage: tsx src/score-ab.ts --key ab/packs/<name>.key.json <sheet.csv> [more sheets...]
 //          [--metrics-v2 out/v2/metrics.json --metrics-v1 out/v1/metrics.json] [--ook-tolerance 0]
 // Each sheet is one listener (listener name = file name without .csv).
@@ -95,6 +96,25 @@ export function readRerollSheet(file: string, rerolledOptionById: Map<string, 1 
   return { ideas, problems };
 }
 
+/** P1-20: per case, whether the result fits the riff, and how good it sounds. */
+export function readCaptureSheet(file: string, cases: Set<string>) {
+  const rows = parseCsv(readFileSync(file, "utf8"));
+  const header = (rows.shift() ?? []).map((h) => h.trim().toLowerCase());
+  const col = (name: string) => header.indexOf(name);
+  const missing = ["prompt_id", "fits", "musicality"].filter((n) => col(n) < 0);
+  if (missing.length) throw new Error(`${file}: missing columns ${missing.join(", ")}`);
+  const judged: { promptId: string; fits: boolean; musicality: number | null }[] = [], problems: string[] = [];
+  for (const r of rows) {
+    const id = (r[col("prompt_id")] ?? "").trim();
+    if (!id) continue;
+    if (!cases.has(id)) { problems.push(`${id} not in key`); continue; }
+    const fits = (r[col("fits")] ?? "").trim().toLowerCase();
+    if (!["y", "n"].includes(fits)) { problems.push(`${id} not judged (fits='${fits}', expected y or n)`); continue; }
+    judged.push({ promptId: id, fits: fits === "y", musicality: score(r[col("musicality")]) });
+  }
+  return { judged, problems };
+}
+
 export function summarize(js: Judgement[]) {
   const wins = js.filter((j) => j.outcome === "v2").length;
   const losses = js.filter((j) => j.outcome === "v1").length;
@@ -117,6 +137,26 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   if (!keyFile || !args._.length) { console.error("usage: tsx src/score-ab.ts --key <pack>.key.json <sheet.csv> [...]"); process.exit(2); }
   const key = JSON.parse(readFileSync(path.resolve(keyFile), "utf8")) as { pack: string; kind?: string; entries: { promptId: string; v2Option: 1 | 2 }[] };
   const v2OptionById = new Map(key.entries.map((e) => [e.promptId, e.v2Option]));
+  if (key.kind === "capture") {
+    const intentOf = new Map((key.entries as unknown as { promptId: string; intent: string }[]).map((e) => [e.promptId, e.intent]));
+    for (const sheet of args._) {
+      const { judged, problems } = readCaptureSheet(path.resolve(sheet), new Set(intentOf.keys()));
+      const fits = judged.filter((j) => j.fits).length;
+      const share = judged.length ? fits / judged.length : null;
+      const marks = judged.map((j) => j.musicality).filter((m): m is number => m !== null);
+      console.log(`# Capture results: ${key.pack} (${path.basename(sheet)})\n`);
+      console.log(`- judged: ${judged.length} of ${intentOf.size}`);
+      console.log(`- fits the riff: ${fits}`);
+      console.log(`- musicality of the result: ${marks.length ? (marks.reduce((a, b) => a + b, 0) / marks.length).toFixed(2) : "–"} (mean of ${marks.length})`);
+      for (const intent of [...new Set(intentOf.values())]) {
+        const of = judged.filter((j) => intentOf.get(j.promptId) === intent);
+        if (of.length) console.log(`  - ${intent}: fits ${of.filter((j) => j.fits).length} of ${of.length}`);
+      }
+      console.log(`\nP1-20 (the new parts fit the riff in >= 80%): ${pct(share)} -> **${share !== null && share >= 0.8 ? "PASS" : "FAIL"}**`);
+      if (problems.length) console.log(`\nSheet problems:\n${problems.map((p) => `- ${p}`).join("\n")}`);
+    }
+    process.exit(0);
+  }
   if (key.kind === "reroll") {
     // Option A of a re-roll pack is the re-rolled take.
     for (const sheet of args._) {

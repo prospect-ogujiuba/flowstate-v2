@@ -404,7 +404,6 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
 
     // Each command answered `unavailable` names its feature in the session, with the same reason.
     const std::vector<std::pair<std::string, json>> commands{
-        {"editNotes", {{"type", "editNotes"}, {"partId", partId}, {"remove", json::array()}, {"add", json::array()}}},
         {"apiKey", {{"type", "setApiKey"}, {"provider", "openai"}, {"key", "sk-test"}}},
     };
     for (const auto& [feature, command] : commands) {
@@ -415,7 +414,7 @@ TEST_CASE("controller: what the build can't do is in the session, with the reaso
         CHECK(r["error"]["message"] == gaps[feature]);
     }
     // Lock works since the planner keeps locked parts; tweak and the density knob since core has the transforms (P1-21).
-    for (const char* local : {"lock", "tweak", "density", "reroll"}) CHECK(gaps.count(local) == 0);
+    for (const char* local : {"lock", "tweak", "density", "reroll", "editNotes"}) CHECK(gaps.count(local) == 0);
     // Edit, vary and add part go to the agent service (P1-19), and so does capture (P1-20).
     for (const char* served : {"edit", "vary", "addPart", "capture"}) CHECK(gaps.count(served) == 0);
 }
@@ -1728,4 +1727,96 @@ TEST_CASE("reroll: the part gets a seed of its own in a regenerate node; nothing
     CHECK(r["error"]["code"] == "bad_request");
     CHECK(r["error"]["message"].get<std::string>().find("locked") != std::string::npos);
     CHECK(reply(c, {{"type", "reroll"}, {"partId", "ghost"}})["error"]["code"] == "unknown_part");
+}
+
+TEST_CASE("touch: note edits make a touch node with the parent's seed; an edit keeps them, a variation drops them") {
+    Session s("inst", "test");
+    FakePlatform platform;
+    platform.withService = true;
+    Controller c(s, platform);
+    const auto editNotes = [](const std::string& partId, json remove, json add) {
+        return json{{"type", "editNotes"}, {"partId", partId}, {"remove", std::move(remove)}, {"add", std::move(add)}};
+    };
+    const auto note = [](const fb::ClipNote& n) { return json{{"tick", n.tick}, {"dur", n.dur}, {"pitch", n.pitch}, {"vel", n.vel}}; };
+    const auto notesOf = [](const fb::Clip& clip, const std::string& id) {
+        std::vector<std::tuple<int, int, int, int>> out;
+        for (const auto& p : clip.parts)
+            if (p.partId == id)
+                for (const auto& n : p.notes) out.emplace_back(n.tick, n.dur, n.pitch, n.vel);
+        return out;
+    };
+    CHECK(reply(c, editNotes("lead", json::array(), json::array()))["error"]["code"] == "bad_request");  // no idea yet
+
+    const auto score = loadScore("example.json");
+    const auto a = s.addNode(score, fb::NodeKind::Initial, std::nullopt, std::nullopt, 31, 10);
+    // The density knob is part of what the editor shows: a removal matches the clip as it plays.
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "lead"}, {"muted", false}, {"solo", false}, {"locked", false}, {"density", 0.8}}}})["ok"] == true);
+    const auto before = *s.clip();
+    const auto lead = std::find_if(before.parts.begin(), before.parts.end(), [](const fb::ClipPart& p) { return p.partId == "lead"; });
+    REQUIRE(lead->notes.size() > 2);
+    const auto gone = lead->notes[1];
+    const json added = {{"tick", 3840 + 480}, {"dur", 240}, {"pitch", 81}, {"vel", 99}};
+
+    auto r = reply(c, editNotes("lead", json::array({note(gone)}), json::array({added})));
+    REQUIRE_MESSAGE(r["ok"] == true, r.dump());
+    const auto* n = s.current();
+    CHECK((n->kind == fb::NodeKind::Touch));
+    CHECK(n->parentId == a);
+    CHECK(n->seed == 31);
+    CHECK((n->partIds == std::vector<std::string>{"lead"}));
+    CHECK(r["session"]["nodes"].back()["kind"] == "touch");
+    const auto after = notesOf(*s.clip(), "lead");
+    CHECK(std::find(after.begin(), after.end(), std::make_tuple(3840 + 480, 240, 81, 99)) != after.end());
+    CHECK(std::find(after.begin(), after.end(), std::make_tuple(gone.tick, gone.dur, gone.pitch, gone.vel)) == after.end());
+    for (const char* other : {"keys", "bass", "drums"}) CHECK((notesOf(*s.clip(), other) == notesOf(before, other)));
+    const auto touched = n->id;
+    const auto touch = n->score["parts"][2]["touch"];
+    REQUIRE(touch.is_object());
+
+    // Refusals: a note that isn't there, an unknown part, a locked part.
+    CHECK(reply(c, editNotes("lead", json::array({note(gone)}), json::array()))["error"]["code"] == "bad_request");
+    CHECK(reply(c, editNotes("ghost", json::array(), json::array({added})))["error"]["code"] == "unknown_part");
+    REQUIRE(reply(c, {{"type", "setPartState"}, {"state", {{"partId", "keys"}, {"muted", false}, {"solo", false}, {"locked", true}, {"density", 0.5}}}})["ok"] == true);
+    r = reply(c, editNotes("keys", json::array(), json::array({added})));
+    CHECK(r["error"]["code"] == "bad_request");
+    CHECK(r["error"]["message"].get<std::string>().find("locked") != std::string::npos);
+    CHECK(s.current()->id == touched);
+
+    // An edit that rewrites the lead keeps the note edits, whatever the model sent back.
+    REQUIRE(reply(c, {{"type", "edit"}, {"prompt", "busier lead"}, {"partIds", json::array({"lead"})}})["ok"] == true);
+    auto streamId = platform.edits.back().first;
+    auto busier = score["parts"][2];
+    busier["name"] = "Busier lead";
+    auto head = score;
+    head["parts"] = json::array();
+    c.serviceEvent(streamId, fb::ScoreHeader{head});
+    c.serviceEvent(streamId, fb::PartDone{busier});
+    auto final = s.node(touched)->score;
+    final["parts"][2] = busier;
+    c.serviceEvent(streamId, fb::ScoreDone{final});
+    CHECK_FALSE(c.generating());
+    CHECK((s.current()->kind == fb::NodeKind::Edit));
+    CHECK(s.current()->score["parts"][2]["name"] == "Busier lead");
+    CHECK(s.current()->score["parts"][2]["touch"] == touch);
+
+    // A variation is new material: its part comes without them.
+    REQUIRE(reply(c, {{"type", "vary"}, {"partId", "lead"}})["ok"] == true);
+    streamId = platform.edits.back().first;
+    auto varied = s.current()->score["parts"][2];  // the model copied the touch along
+    varied["name"] = "Varied lead";
+    c.serviceEvent(streamId, fb::ScoreHeader{head});
+    c.serviceEvent(streamId, fb::PartDone{varied});
+    final = s.current()->score;
+    final["parts"][2] = varied;
+    c.serviceEvent(streamId, fb::ScoreDone{final});
+    CHECK((s.current()->kind == fb::NodeKind::Vary));
+    CHECK(s.current()->score["parts"][2]["name"] == "Varied lead");
+    CHECK_FALSE(s.current()->score["parts"][2].contains("touch"));
+
+    // Undo walks back to the touch node, then the idea as written.
+    for (int i = 0; i < 2; ++i) REQUIRE(reply(c, {{"type", "undo"}})["ok"] == true);
+    CHECK(s.current()->id == touched);
+    REQUIRE(reply(c, {{"type", "undo"}})["ok"] == true);
+    CHECK(s.current()->id == a);
+    c.cancelAll();
 }

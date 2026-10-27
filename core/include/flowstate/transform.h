@@ -6,6 +6,9 @@
 // the realizer: the same IR and seed still realize to the same bytes.
 #pragma once
 
+#include "flowstate/realize.h"
+
+#include <cstdint>
 #include <optional>
 #include <string>
 #include <vector>
@@ -35,5 +38,29 @@ struct TweakResult {
 // says why. Throws IrError when the score isn't valid IR.
 TweakResult tweakJson(const std::string& scoreJson, TweakOp op, const std::vector<std::string>& partIds,
                       std::optional<double> amount);
+
+// A note in the clip's tick domain (kPpq per quarter note), as the Studio's note editor sees it.
+struct ClipNoteEdit {
+    std::int64_t tick = 0;
+    std::int64_t dur = 1;
+    int pitch = 60;
+    int vel = 100;
+};
+
+struct EditNotesResult {
+    std::string score;  // the new IR JSON
+    std::string error;  // why nothing changed (shown to the user); empty on success
+    bool ok() const { return error.empty(); }
+};
+
+// Touch: the note editor's edit of one part, written into the part's `touch` (docs/ir-spec.md,
+// "Touch"). `remove` are notes as they appear in the realized clip, so `options` must be the ones
+// that clip was realized with; each must still be there. Removing a note an earlier edit added takes
+// that addition back instead. `add` are exact notes. A move or resize is a removal plus an addition.
+// Every other part, and every field of this one but `touch`, stays exactly as written.
+// Throws IrError when the score isn't valid IR.
+EditNotesResult editNotesJson(const std::string& scoreJson, const std::string& partId,
+                              const std::vector<ClipNoteEdit>& remove, const std::vector<ClipNoteEdit>& add,
+                              const RealizeOptions& options);
 
 }  // namespace flowstate

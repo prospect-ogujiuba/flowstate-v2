@@ -191,6 +191,8 @@ private:
     // Re-roll (P1-22): the part gets a fresh seed of its own in a `regenerate` node, so core plays a
     // different take on it; the node keeps its parent's seed, so every other part sounds the same.
     fb::Reply reroll(const std::string& partId);
+    // Note edits (touch): core writes them into the part's `touch`, in a `touch` node with the parent's seed.
+    fb::Reply editNotes(const fb::EditNotes& command);
     std::pair<Request*, Stream*> findStream(const std::string& streamId);
     void partLanded(Request& request, Stream& stream);
     void finishStream(Request& request, Stream& stream, std::optional<fb::ErrorInfo> error);

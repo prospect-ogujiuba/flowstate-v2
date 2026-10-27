@@ -351,6 +351,31 @@ std::vector<LiteralNote> parseLiteralNotes(Reader& r, const json& arr, const std
     return out;
 }
 
+Touch parseTouch(Reader& r, const json& t, const std::string& p) {
+    Touch touch;
+    if (const json* rm = r.array(t, "remove", p, false)) {
+        for (std::size_t i = 0; i < rm->size(); ++i) {
+            const json& n = (*rm)[i];
+            std::string np = p + ".remove[" + std::to_string(i) + "]";
+            if (!n.is_object()) {
+                r.warn(np, "not an object; skipped");
+                continue;
+            }
+            NoteRemoval nr;
+            nr.bar = r.integer(n, "bar", 1, np);
+            nr.beat = r.number(n, "beat", 1.0, np);
+            nr.pitch = r.string(n, "pitch", "", np);
+            if (noteNameToMidi(nr.pitch) < 0) {
+                r.warn(np, "missing or invalid pitch; skipped");
+                continue;
+            }
+            touch.remove.push_back(nr);
+        }
+    }
+    if (const json* add = r.array(t, "add", p, false)) touch.add = parseLiteralNotes(r, *add, p + ".add");
+    return touch;
+}
+
 Block parseBlock(Reader& r, const json& b, const std::string& p) {
     Block blk;
     blk.startBar = r.integer(b, "startBar", 1, p);
@@ -422,6 +447,10 @@ Part parsePart(Reader& r, const json& j, const std::string& p) {
         const double seed = r.number(j, "seed", 0.0, p);
         if (seed >= 0.0 && seed <= 4294967295.0 && std::round(seed) == seed) part.seed = static_cast<std::uint64_t>(seed);
         else r.warn(p + ".seed", "not a whole number in 0..4294967295; ignored");
+    }
+    if (r.has(j, "touch")) {
+        if (j.at("touch").is_object()) part.touch = parseTouch(r, j.at("touch"), p + ".touch");
+        else r.warn(p + ".touch", "not an object; ignored");
     }
     if (const json* blocks = r.array(j, "blocks", p, true)) {
         for (std::size_t i = 0; i < blocks->size(); ++i) {

@@ -124,6 +124,8 @@ public:
     const std::string& realizeError() const { return realizeError_; }
     // Any node's realization, e.g. for dragging a thread card that isn't current.
     std::optional<fb::Clip> realizeNode(const std::string& id, std::string* error = nullptr) const;
+    // The density knob per part id, for parts not at 0.5 (RealizeOptions::density).
+    std::map<std::string, double> densities() const;
 
     // ---- Views and persistence -----------------------------------------------------------------
     fb::EffectiveContext effectiveContext(const HostSnapshot& host) const;
@@ -137,8 +139,6 @@ public:
 private:
     void refreshClip();
     std::string newNodeId();
-    // The density knob per part id, for parts not at 0.5 (RealizeOptions::density).
-    std::map<std::string, double> densities() const;
 
     std::string instanceId_;
     std::string buildId_;

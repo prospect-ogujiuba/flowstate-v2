@@ -99,8 +99,9 @@ Write `harmony` as a compact string of chords, played one after another from bar
 | `density` | number, optional | 0..1; absent or 0.5 = as written. Set by the plugin's simplify and intensify tweaks (P1-21); see "Density" below |
 | `humanize` | number, optional | 0..1: how far timing and velocity drift from the grid. 0 = on the grid, absent = 0.3 (the default feel), 1 = loose. Set by the humanize tweak |
 | `seed` | integer, optional | 0..4294967295. The part's own seed, set by re-roll (P1-22) |
+| `touch` | object, optional | Note edits from the Studio's note editor: `{ remove: [{ bar, beat, pitch }], add: [literal notes] }`. See "Touch" below |
 
-The last three are written by the plugin, not by the model. Leave them out when writing a score; keep them as they are when editing one.
+The last four are written by the plugin, not by the model. Leave them out when writing a score; keep them as they are when editing one.
 
 ### Block
 
@@ -205,6 +206,10 @@ These are the behaviours that matter when writing an IR. The full list is in `co
   - Each motif statement has a chance of one change: a short note moved a scale step, or two touching notes swapping lengths. The first note and accents never change.
   - Every rule above still holds (range, monophony, key: the moves use chord tones, scale steps and approaches, which are intentional). A part without `seed` realizes exactly as before.
 - **Humanize amount:** `humanize` scales the timing drift (up to 8 ms at 0.3, chords moving together) and the velocity drift (±6, ±3 for soft notes) linearly. Literal notes are never humanized.
+- **Touch** (P1-23): a part's `touch` is applied to its realized notes after everything else (density, re-roll, humanize, range, monophony), so the rest of the part stays generative and the edits stay put.
+  - Each `remove` takes out the note of that pitch whose onset is nearest `bar`/`beat`, within a 32nd note either way (so humanize drift still matches). If no note is that close, it does nothing.
+  - Each `add` is a literal note (same fields as a block's `notes`), played exactly: not quantized, humanized or range-folded, and never reported as out of key. It replaces a note of the same pitch at the same onset; in a monophonic part (bass, melody, counter) it replaces any note at that onset and cuts a note sounding into it.
+  - The plugin writes it from the note editor (`editNotes`, docs/bridge-spec.md): a move, resize or velocity change is a removal plus an addition, and removing a note an earlier edit added takes that addition back. When nothing is left, `touch` goes, and the part realizes as written again. A part without `touch` realizes exactly as before.
 - **Literal notes:** `bar` is the absolute clip bar. Timing and velocity are exact: not quantized, and not humanized (P1-20, 2026-10-03), so a captured performance keeps its feel.
 - **Overlapping blocks:** the later block in IR order owns the shared bars. On overlapping chords, the later onset wins.
 - **Harmony:** empty harmony means an implicit tonic chord, with a warning. `C2` is read as Csus2 and `C4` as Csus4. Dominant and major `11` chords are voiced without the 3rd.

@@ -778,6 +778,88 @@
               "type": "null"
             }
           ]
+        },
+        "touch": {
+          "description": "Set by the note editor: note edits applied after realization",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "remove": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "bar": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "beat": {
+                        "type": "number"
+                      },
+                      "pitch": {
+                        "type": "string",
+                        "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+                      }
+                    },
+                    "required": [
+                      "bar",
+                      "beat",
+                      "pitch"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "description": "Realized notes taken out: the note of this pitch nearest this onset"
+                },
+                "add": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "bar": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "beat": {
+                        "type": "number"
+                      },
+                      "beats": {
+                        "type": "number"
+                      },
+                      "pitch": {
+                        "type": "string",
+                        "description": "Note name with octave, e.g. C4 (=MIDI 60), F#2, Bb5"
+                      },
+                      "velocity": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "bar",
+                      "beat",
+                      "beats",
+                      "pitch",
+                      "velocity"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "description": "Notes added, played exactly as written"
+                }
+              },
+              "required": [
+                "remove",
+                "add"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [

@@ -76,7 +76,23 @@ test("a generators pack keeps fits-the-prompt and its sheet", () => {
   assert.deepEqual(rows[1], ["a", "tie", "", "", "5", "", ""]);
 });
 
+test("a capture pack asks whether the result fits the riff, with no preference", () => {
+  const page = runPage("capture");
+  assert.match(page.html, /id="fits"/);
+  assert.doesNotMatch(page.html, /id="pref"/);
+  assert.doesNotMatch(page.html, /id="m1"/);
+  page.set("fits", "y");
+  assert.equal(page.progress(), "0 of 2 scored");  // not done until the result's musicality is in
+  page.set("m2", "4");
+  assert.equal(page.progress(), "1 of 2 scored");
+  const rows = page.save();
+  assert.equal(rows[0]!.join(","), SHEET_HEADER.capture);
+  assert.deepEqual(rows[1], ["a", "y", "4", ""]);
+  assert.deepEqual(rows[2], ["b", "", "", ""]);
+});
+
 test("the pack kind comes from the scoresheet header", () => {
+  assert.equal(packKind(SHEET_HEADER.capture), "capture");
   assert.equal(packKind(SHEET_HEADER.reroll), "reroll");
   assert.equal(packKind(SHEET_HEADER.generators), "generators");
   assert.equal(packKind(""), "generators");

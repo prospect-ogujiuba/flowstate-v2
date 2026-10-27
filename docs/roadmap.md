@@ -483,6 +483,7 @@ Done so far (2026-10-03; semantics in `docs/bridge-spec.md`, "The plugin's clien
 - What the set found, fixed: the validator rejected a kept drum riff (literal notes only), so harmonize and add bass on played drums always failed (36/42 before); core ignored a given key for drums (a beat always planned in C major); and the plugin fell back to the default C major over core's best guess when it wasn't sure of the key.
 
 Left: owner listening (the new parts fit the riff in 4 of 5 cases) and a live run in a DAW (docs/testing-plugin.md step 13).
+- **Listening pack** (2026-10-27): `npm run -w evals capture:pack -- --results results/p1-20/deepseek-flash-1 --name capture-r1` builds `evals/ab/packs/capture-r1` (not committed): per case the riff alone and the result, not blind. `npm run -w evals render -- ab/packs/capture-r1` adds audio and `player.html`, which asks "fits the riff?" and the result's musicality. Score the saved sheet with `npm run -w evals ab:score -- --key ab/packs/capture-r1.key.json <scoresheet.csv>` (this issue's check: fits in at least 4 of 5).
 Acceptance:
 - Each intent runs from the Studio against the service, and the kept riff plays exactly as it was played.
 - A capture with nothing played, or an intent that asks for the lane the riff already is, answers with a clear reason before anything is sent.
@@ -539,6 +540,20 @@ Done (2026-10-05; semantics in `docs/ir-spec.md`, "Re-roll"):
   - Score the saved sheet: `npm run -w evals ab:score -- --key ab/packs/reroll-r1.key.json <scoresheet.csv>`.
 
 Left: the owner's listening (the acceptance above).
+
+### P1-23 Note edits (touch) — `doing` (built 2026-10-27)
+The proposal's third interaction mode: drag a note in a piano roll, stored as an override in the IR and kept across later edits. The bridge's `editNotes` and the Studio's dimmed "Edit notes" button existed since P1-5 and P1-9; this fills them in, and it was the last control dimmed in the Studio.
+Done (2026-10-27; semantics in `docs/ir-spec.md`, "Touch", and `docs/bridge-spec.md`, `editNotes`):
+- **IR:** an optional, plugin-written `Part.touch`: `remove` (bar, beat, pitch) and `add` (literal notes). core applies it after everything else, so density, re-roll and humanize still shape the rest of the part and the edits stay put. A removal takes the note of its pitch nearest its onset, within a 32nd; an addition plays exactly and wins its onset (in a monophonic part, any note there). A part without `touch` realizes exactly as before.
+- **`core`** (`editNotesJson` in `transform.{h,cpp}`): the editor's tick-domain edit in, the IR out. Each removal must be in the clip as realized with the node's seed and the density knobs (a stale editor is refused). Removing a note an earlier edit added takes the addition back, and when nothing is left `touch` goes. Tests: `test_touch.cpp` (removal and addition on every fixture and part, other parts unchanged, out of key allowed, drum sublanes, take-back, stacking, determinism, survival across the density knob and a re-roll, monophony, refusals, an empty touch).
+- **Plugin:** `Controller::editNotes` makes a `touch` node with the parent's seed and the part in `partIds`; a locked part is refused. An `edit` that rewrites a part keeps its `touch`, whatever the model sends back; a `vary` drops it. `editNotes` left `featureGaps`. Session test: node, seed, the clip, refusals, edit and vary, undo.
+- **Studio:** the note editor (a piano-roll sheet: mouse and keyboard), live against the mock, with Playwright tests.
+
+Left: owner check in a DAW (`docs/testing-plugin.md` section 6).
+Acceptance:
+- A note added, moved, resized or deleted in the Studio plays and drags exactly as edited, and stays after the density knob, a re-roll and an edit of that part.
+- Every other note and part realizes byte-identically; a score without `touch` realizes as before.
+- The editor works by keyboard alone, and Space still reaches the DAW.
 
 ### P1-14 Installers and signing — `todo` (needs the owner's Apple Developer and Windows signing accounts)
 - macOS: a `.pkg` with VST3, AU and Standalone, Developer ID signed and notarized.

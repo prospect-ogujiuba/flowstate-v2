@@ -88,6 +88,7 @@ if(FLOWSTATE_CORE_BUILD_TESTS)
     tests/test_catalog.cpp
     tests/test_sketch.cpp
     tests/test_transform.cpp
+    tests/test_touch.cpp
     tests/test_variant.cpp)
   target_link_libraries(flowstate_core_tests PRIVATE flowstate_core flowstate_doctest nlohmann_json::nlohmann_json)
   target_include_directories(flowstate_core_tests PRIVATE src)

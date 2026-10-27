@@ -123,6 +123,17 @@ export const LiteralNote = z.object({
   velocity: z.number().int(),
 });
 
+export const NoteRemoval = z.object({
+  bar: z.number().int(),
+  beat: z.number(),
+  pitch: NoteName,
+});
+
+export const Touch = z.object({
+  remove: z.array(NoteRemoval).describe("Realized notes taken out: the note of this pitch nearest this onset"),
+  add: z.array(LiteralNote).describe("Notes added, played exactly as written"),
+});
+
 export const Block = z.object({
   startBar: z.number().int(),
   endBar: z.number().int().describe("Inclusive"),
@@ -151,6 +162,7 @@ export const Part = z.object({
   density: z.number().min(0).max(1).nullable().optional().describe("Set by simplify/intensify: 0..1, 0.5 or absent = as written"),
   humanize: z.number().min(0).max(1).nullable().optional().describe("Set by the humanize tweak: 0 = on the grid, absent = the default 0.3, 1 = loose"),
   seed: z.number().int().min(0).max(4294967295).nullable().optional().describe("Set by re-roll: this part's own seed for seeded realization choices"),
+  touch: Touch.nullable().optional().describe("Set by the note editor: note edits applied after realization"),
 });
 
 export const Score = z.object({

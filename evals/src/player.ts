@@ -2,6 +2,7 @@
 // the score fields from scoresheet.csv, autosave in the browser, and a CSV export in the scoresheet's format.
 // It works opened straight from disk (file://); the data is embedded, the audio sits next to it.
 // A re-roll pack (build-ab-pack --kind reroll) asks "same idea?" instead of how each option fits the prompt.
+// A capture pack (capture-pack, P1-20) plays the riff and Flowstate's answer to it, and asks whether it fits.
 
 export interface PlayerEntry {
   folder: string;
@@ -12,18 +13,21 @@ export interface PlayerEntry {
   sound: string;
 }
 
-/** What a pack compares: two generators, or an idea as written against its re-roll (P1-22). */
-export type PackKind = "generators" | "reroll";
+/** What a pack compares: two generators, an idea as written against its re-roll (P1-22), or a played riff
+ * against what Flowstate made from it (P1-20). */
+export type PackKind = "generators" | "reroll" | "capture";
 
 /** The scoresheet columns for each kind, as build-ab-pack writes them and score-ab reads them. */
 export const SHEET_HEADER: Record<PackKind, string> = {
   generators: "prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes",
   reroll: "prompt_id,preferred,musicality_1,musicality_2,same_idea,notes",
+  capture: "prompt_id,fits,musicality,notes",
 };
 
 /** The kind of a pack, from its scoresheet's header. */
 export function packKind(sheetHeader: string): PackKind {
-  return sheetHeader.split(",").map((h) => h.trim().toLowerCase()).includes("same_idea") ? "reroll" : "generators";
+  const columns = sheetHeader.split(",").map((h) => h.trim().toLowerCase());
+  return columns.includes("same_idea") ? "reroll" : columns.includes("fits") ? "capture" : "generators";
 }
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -31,6 +35,7 @@ const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
 export function playerHtml(packName: string, entries: PlayerEntry[], kind: PackKind = "generators"): string {
   const data = JSON.stringify(entries).replace(/</g, "\\u003c");
   const reroll = kind === "reroll";
+  const capture = kind === "capture";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -70,7 +75,9 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
 <body>
 <main>
   <h1>Listening: ${esc(packName)}</h1>
-  <p class="sub">${reroll
+  <p class="sub">${capture
+    ? "Per riff: the riff as it was played, then what Flowstate made from it (with the riff, where it keeps it). Does Flowstate's part fit?"
+    : reroll
     ? "Two options per idea, in a random order: the idea as written, and the same idea with every part re-rolled. Same sounds for both; judge the notes."
     : "Two options per prompt, from different generators, in a random order. Same sounds for both; judge the notes."}</p>
   <div class="nav">
@@ -84,27 +91,34 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <p class="prompt" id="prompt"></p>
     <p class="meta" id="meta"></p>
     <div class="options">
-      <button id="opt1" aria-pressed="false">Option 1</button>
-      <button id="opt2" aria-pressed="false">Option 2</button>
+      <button id="opt1" aria-pressed="false">${capture ? "Your riff" : "Option 1"}</button>
+      <button id="opt2" aria-pressed="false">${capture ? "With Flowstate" : "Option 2"}</button>
     </div>
     <div class="transport">
       <button id="play" aria-label="Play or pause">Play</button>
       <button id="restart" aria-label="Back to the start">⟲ Start</button>
       <span class="time" id="time">0:00</span>
     </div>
-    <div class="grid">
+    ${capture ? `<div class="row">
+      <label for="fits">Does Flowstate's part fit your riff?</label>
+      <select id="fits" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
+    </div>
+    <div class="row">
+      <label for="m2">Musicality of the result (1-5)</label>
+      <select id="m2" style="width:auto"></select>
+    </div>` : `<div class="grid">
       <span></span><span class="h">Option 1</span><span class="h">Option 2</span>
       <label for="m1">Musicality (1-5)</label><select id="m1"></select><select id="m2" aria-label="Musicality, option 2"></select>
       ${reroll ? "" : '<label for="f1">Fits the prompt (1-5)</label><select id="f1"></select><select id="f2" aria-label="Fits the prompt, option 2"></select>'}
-    </div>
+    </div>`}
     ${reroll ? `<div class="row">
       <label for="same">Same idea, played differently?</label>
       <select id="same" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
     </div>` : ""}
-    <div class="row">
+    ${capture ? "" : `<div class="row">
       <label for="pref">Preferred</label>
       <select id="pref" style="width:auto"><option value="">-</option><option value="1">Option 1</option><option value="2">Option 2</option><option value="tie">Tie</option></select>
-    </div>
+    </div>`}
     <label for="notes" class="done" style="display:block;margin-top:12px">Notes (optional)</label>
     <textarea id="notes"></textarea>
   </section>
@@ -112,15 +126,16 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <button id="export">Save scoresheet.csv</button>
     <span class="done">Scores are kept in this browser as you go. Save the CSV when done and put it in the pack folder.</span>
   </div>
-  <p class="keys"><kbd>1</kbd> <kbd>2</kbd> switch option (keeps the position) · <kbd>Enter</kbd> play/pause · <kbd>R</kbd> restart · <kbd>N</kbd> <kbd>P</kbd> next/previous prompt</p>
+  <p class="keys"><kbd>1</kbd> <kbd>2</kbd> switch ${capture ? "riff / result" : "option"} (keeps the position) · <kbd>Enter</kbd> play/pause · <kbd>R</kbd> restart · <kbd>N</kbd> <kbd>P</kbd> next/previous prompt</p>
 </main>
 <audio id="a1" loop preload="auto"></audio>
 <audio id="a2" loop preload="auto"></audio>
 <script>
 const ENTRIES = ${data};
 const REROLL = ${reroll};
+const CAPTURE = ${capture};
 const HEADER = ${JSON.stringify(SHEET_HEADER[kind])};
-const FIELDS = REROLL ? ["m1", "m2", "same"] : ["m1", "m2", "f1", "f2"];
+const FIELDS = CAPTURE ? ["fits", "m2"] : REROLL ? ["m1", "m2", "same"] : ["m1", "m2", "f1", "f2"];
 const STORE = "flowstate-listening-${esc(packName)}";
 const $ = (id) => document.getElementById(id);
 let scores = {};
@@ -129,13 +144,13 @@ const save = () => { try { localStorage.setItem(STORE, JSON.stringify(scores)); 
 let index = 0, active = 1;
 const audio = { 1: $("a1"), 2: $("a2") };
 
-for (const id of FIELDS.filter((f) => f !== "same")) {
+for (const id of FIELDS.filter((f) => f !== "same" && f !== "fits")) {
   $(id).innerHTML = '<option value="">-</option>' + [1, 2, 3, 4, 5].map((n) => '<option>' + n + '</option>').join("");
 }
 ENTRIES.forEach((e, i) => { const o = document.createElement("option"); o.value = i; o.textContent = (i + 1) + ". " + e.promptId; $("jump").appendChild(o); });
 
-function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", same: "", notes: "" }); }
-function complete(s) { return !!s && !!s.preferred && (!REROLL || !!s.same); }
+function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", same: "", fits: "", notes: "" }); }
+function complete(s) { return !!s && (CAPTURE ? !!s.fits && !!s.m2 : !!s.preferred && (!REROLL || !!s.same)); }
 function progress() {
   const done = ENTRIES.filter((e) => complete(scores[e.promptId])).length;
   $("progress").textContent = done + " of " + ENTRIES.length + " scored";
@@ -150,7 +165,8 @@ function show(i) {
   $("jump").value = String(index);
   const s = entryScore(e);
   for (const f of FIELDS) $(f).value = s[f] || "";
-  $("pref").value = s.preferred; $("notes").value = s.notes;
+  if (!CAPTURE) $("pref").value = s.preferred;
+  $("notes").value = s.notes;
   select(1, false);
   $("play").textContent = "Play";
   progress();
@@ -172,7 +188,7 @@ function bind(id, key) {
   $(id).addEventListener("change", () => { entryScore(ENTRIES[index])[key] = $(id).value; save(); progress(); });
 }
 for (const f of FIELDS) bind(f, f);
-bind("pref", "preferred");
+if (!CAPTURE) bind("pref", "preferred");
 $("notes").addEventListener("input", () => { entryScore(ENTRIES[index]).notes = $("notes").value; save(); });
 $("opt1").onclick = () => select(1); $("opt2").onclick = () => select(2);
 $("play").onclick = toggle;
@@ -193,8 +209,8 @@ $("export").onclick = () => {
   const rows = [HEADER];
   for (const e of ENTRIES) {
     const s = entryScore(e);
-    const marks = REROLL ? [s.m1, s.m2, s.same] : [s.m1, s.m2, s.f1, s.f2];
-    rows.push([e.promptId, s.preferred, ...marks.map((v) => v || ""), q(s.notes || "")].join(","));
+    const marks = CAPTURE ? [s.fits, s.m2] : [s.preferred, ...(REROLL ? [s.m1, s.m2, s.same] : [s.m1, s.m2, s.f1, s.f2])];
+    rows.push([e.promptId, ...marks.map((v) => v || ""), q(s.notes || "")].join(","));
   }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([rows.join("\\n") + "\\n"], { type: "text/csv" }));

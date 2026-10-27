@@ -369,4 +369,91 @@ TweakResult tweakJson(const std::string& scoreJson, TweakOp op, const std::vecto
     return result;
 }
 
+EditNotesResult editNotesJson(const std::string& scoreJson, const std::string& partId,
+                              const std::vector<ClipNoteEdit>& remove, const std::vector<ClipNoteEdit>& add,
+                              const RealizeOptions& options) {
+    EditNotesResult result;
+    const auto fail = [&](std::string why) {
+        result.error = std::move(why);
+        result.score = scoreJson;
+        return result;
+    };
+    std::vector<std::string> warnings;
+    const Score typed = parseScore(scoreJson, warnings);
+    json score = json::parse(scoreJson);
+    std::size_t index = typed.parts.size();
+    for (std::size_t i = 0; i < typed.parts.size(); ++i)
+        if (typed.parts[i].id == partId) index = i;
+    if (index == typed.parts.size()) return fail("No part " + partId + " in this idea.");
+    if (remove.empty() && add.empty()) return fail("No note changes.");
+
+    const TimeGrid time(typed.context);
+    const bool flats = flatKey(pitchClassFromName(typed.context.tonic), typed.context.mode);
+    const auto where = [&](std::int64_t tick) {
+        const int bar = static_cast<int>(tick / time.ticksPerBar()) + 1;
+        const double beat = static_cast<double>(tick - time.barStart(bar)) / static_cast<double>(time.ticksPerBeat()) + 1.0;
+        return std::pair<int, double>{bar, std::round(beat * 1e6) / 1e6};
+    };
+    for (const auto& n : add)
+        if (n.tick < 0 || n.tick >= time.clipEnd() || n.dur < 1 || n.pitch < 0 || n.pitch > 127 || n.vel < 1 || n.vel > 127)
+            return fail("A new note is outside the clip or out of range.");
+
+    json& part = score["parts"][index];
+    json touch = part.contains("touch") && part["touch"].is_object() ? part["touch"] : json::object();
+    json removals = touch.contains("remove") && touch["remove"].is_array() ? touch["remove"] : json::array();
+    json additions = touch.contains("add") && touch["add"].is_array() ? touch["add"] : json::array();
+
+    // The notes the user saw: each removal must be one of them.
+    const Realization seen = realize(typed, options);
+    const auto& notes = seen.parts[index].notes;
+    for (const auto& rm : remove) {
+        const bool there = std::any_of(notes.begin(), notes.end(),
+                                       [&](const NoteEvent& n) { return n.tick == rm.tick && n.pitch == rm.pitch; });
+        if (!there) return fail("A note you removed isn't in " + partName(part) + " any more. Open the editor again.");
+        // A note an earlier edit added: take that addition back.
+        const auto earlier = std::find_if(additions.begin(), additions.end(), [&](const json& a) {
+            return a.is_object() && noteNameToMidi(a.value("pitch", "")) == rm.pitch &&
+                   time.at(a.value("bar", 1), a.value("beat", 1.0)) == rm.tick;
+        });
+        if (earlier != additions.end()) {
+            additions.erase(earlier);
+            continue;
+        }
+        const auto [bar, beat] = where(rm.tick);
+        removals.push_back({{"bar", bar}, {"beat", beat}, {"pitch", midiToNoteName(rm.pitch, flats)}});
+    }
+    for (const auto& n : add) {
+        const auto [bar, beat] = where(n.tick);
+        const double beats = std::round(static_cast<double>(n.dur) / static_cast<double>(time.ticksPerBeat()) * 1e6) / 1e6;
+        additions.push_back({{"bar", bar}, {"beat", beat}, {"beats", beats}, {"pitch", midiToNoteName(n.pitch, flats)},
+                             {"velocity", n.vel}});
+    }
+    const auto write = [&] {
+        if (removals.empty() && additions.empty()) {
+            part.erase("touch");  // every edit taken back: the part is as written again
+        } else {
+            touch["remove"] = removals;
+            touch["add"] = additions;
+            part["touch"] = touch;
+        }
+    };
+    write();
+    // Taking an addition back can uncover a note it had replaced; that one goes too.
+    std::vector<std::string> ignored;
+    const Realization now = realize(parseScore(score.dump(), ignored), options);
+    bool uncovered = false;
+    for (const auto& rm : remove) {
+        const bool wanted = std::any_of(add.begin(), add.end(), [&](const ClipNoteEdit& a) { return a.tick == rm.tick && a.pitch == rm.pitch; });
+        const auto& after = now.parts[index].notes;
+        if (!wanted && std::any_of(after.begin(), after.end(), [&](const NoteEvent& n) { return n.tick == rm.tick && n.pitch == rm.pitch; })) {
+            const auto [bar, beat] = where(rm.tick);
+            removals.push_back({{"bar", bar}, {"beat", beat}, {"pitch", midiToNoteName(rm.pitch, flats)}});
+            uncovered = true;
+        }
+    }
+    if (uncovered) write();
+    result.score = score.dump();
+    return result;
+}
+
 }  // namespace flowstate

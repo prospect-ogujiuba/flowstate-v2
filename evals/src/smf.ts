@@ -85,3 +85,17 @@ export function notesFileToSmf(doc: NotesFile): Uint8Array {
     tracks: doc.parts.map((p) => ({ name: p.name || p.id, channel: Math.max(0, p.channel - 1), notes: p.notes })),
   });
 }
+
+// Neutral, role-based track names and fixed channels, so no title, track name or channel layout
+// reveals which generator made a clip (the listening packs).
+const ROLE_ORDER = ["chords", "pad", "arp", "bass", "melody", "counter", "drums"];
+const ROLE_CHANNEL: Record<string, number> = { chords: 0, pad: 4, arp: 5, bass: 1, melody: 2, counter: 3, drums: 9 };
+
+/** A notes.json document as an SMF with one track per part, named by its role. */
+export function roleSmf(doc: NotesFile): Uint8Array {
+  const parts = [...doc.parts].sort((a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role));
+  return writeSmf({
+    ppq: doc.ppq, tempo: doc.tempo, meter: doc.meter, lengthTicks: doc.bars * doc.ticksPerBar,
+    tracks: parts.map((p) => ({ name: p.role[0]!.toUpperCase() + p.role.slice(1), channel: ROLE_CHANNEL[p.role] ?? 6, notes: p.notes })),
+  });
+}

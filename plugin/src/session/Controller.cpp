@@ -35,6 +35,18 @@ MidiMeta metaOf(const fb::LineageNode& node) {
     return meta;
 }
 
+// Note edits (touch) belong to the plugin, not the model: a part an edit rewrites keeps the touch it
+// had, and a variation, which is new material, drops it. Parts the request didn't change are the base
+// parts themselves.
+void keepTouch(fb::NodeKind kind, const std::vector<nlohmann::json>& baseParts, nlohmann::json& parts) {
+    for (auto& p : parts) {
+        const auto id = p.value("id", "");
+        const auto base = std::find_if(baseParts.begin(), baseParts.end(), [&](const nlohmann::json& b) { return b.value("id", "") == id; });
+        if (kind == fb::NodeKind::Edit && base != baseParts.end() && base->contains("touch")) p["touch"] = (*base)["touch"];
+        else if (base == baseParts.end() || *base != p) p.erase("touch");
+    }
+}
+
 }  // namespace
 
 const Library* Controller::library() {
@@ -86,10 +98,7 @@ Controller::AuditionSource Controller::audition() {
 }
 
 const std::vector<fb::FeatureGap>& Controller::featureGaps() {
-    using F = fb::Feature;
-    static const std::vector<fb::FeatureGap> gaps{
-        {F::EditNotes, "Note edits aren't in core yet."},
-    };
+    static const std::vector<fb::FeatureGap> gaps{};
     return gaps;
 }
 
@@ -211,6 +220,36 @@ fb::Reply Controller::tweak(const fb::Tweak& command) {
     return ok(true);
 }
 
+fb::Reply Controller::editNotes(const fb::EditNotes& command) {
+    const auto* cur = session_.current();
+    if (cur == nullptr) return fail(fb::ErrorCode::BadRequest, "There's no idea to edit yet.");
+    const auto parts = cur->score.value("parts", nlohmann::json::array());
+    const auto part = std::find_if(parts.begin(), parts.end(), [&](const nlohmann::json& p) { return p.value("id", std::string()) == command.partId; });
+    if (part == parts.end()) return fail(fb::ErrorCode::UnknownPart, "No part " + command.partId + " in the current idea.");
+    for (const auto& st : session_.partStates())
+        if (st.partId == command.partId && st.locked)
+            return fail(fb::ErrorCode::BadRequest, part->value("name", command.partId) + " is locked. Unlock it to edit its notes.");
+    const auto notes = [](const std::vector<fb::ClipNote>& in) {
+        std::vector<ClipNoteEdit> out;
+        for (const auto& n : in) out.push_back({n.tick, n.dur, n.pitch, n.vel});
+        return out;
+    };
+    // The clip the editor showed: the node's seed and the density knobs.
+    RealizeOptions options;
+    options.seed = static_cast<std::uint64_t>(cur->seed);
+    options.density = session_.densities();
+    EditNotesResult result;
+    try {
+        result = editNotesJson(cur->score.dump(), command.partId, notes(command.remove), notes(command.add), options);
+    } catch (const std::exception& e) {
+        return fail(fb::ErrorCode::InvalidScore, std::string("This idea can't be edited: ") + e.what());
+    }
+    if (!result.ok()) return fail(fb::ErrorCode::BadRequest, result.error);
+    session_.addNode(nlohmann::json::parse(result.score), fb::NodeKind::Touch, std::nullopt,
+                     std::vector<std::string>{command.partId}, cur->seed, platform_.nowMs());
+    return ok(true);
+}
+
 fb::Reply Controller::reroll(const std::string& partId) {
     const auto* cur = session_.current();
     if (cur == nullptr) return fail(fb::ErrorCode::BadRequest, "There's no idea to re-roll yet.");
@@ -235,7 +274,6 @@ fb::Reply Controller::reroll(const std::string& partId) {
 fb::Reply Controller::handle(const fb::Command& command) {
     const auto unknownNode = [](const std::string& id) { return fail(fb::ErrorCode::UnknownNode, "No node " + id + "."); };
     const auto unknownPart = [](const std::string& id) { return fail(fb::ErrorCode::UnknownPart, "No part " + id + " in the current idea."); };
-    const auto unavailable = [this](fb::Feature feature) { return fail(fb::ErrorCode::Unavailable, gapReason(feature)); };
 
     // Resolves the node a drag or export is about: an explicit id, or the current node.
     const auto clipFor = [this](const std::optional<std::string>& nodeId, fb::Reply& error,
@@ -280,7 +318,7 @@ fb::Reply Controller::handle(const fb::Command& command) {
             },
             [&](const fb::Reroll& c) { return reroll(c.partId); },
             [&](const fb::Tweak& c) { return tweak(c); },
-            [&](const fb::EditNotes&) { return unavailable(fb::Feature::EditNotes); },
+            [&](const fb::EditNotes& c) { return editNotes(c); },
             [&](const fb::RemovePart& c) {
                 const auto* cur = session_.current();
                 if (cur == nullptr) return unknownPart(c.partId);
@@ -896,6 +934,7 @@ void Controller::partLanded(Request& request, Stream& stream) {
             fillFromSketch(request, score);
         }
     }
+    if (request.edit) keepTouch(request.kind, request.baseParts, score["parts"]);
     if (stream.nodeId) {
         session_.updateNodeScore(*stream.nodeId, std::move(score));
     } else {

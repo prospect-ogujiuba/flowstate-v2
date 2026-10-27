@@ -197,6 +197,61 @@ void humanize(std::vector<RawNote>& notes, const TimeGrid& time, Role role, Rng&
     }
 }
 
+// Note edits (touch, docs/ir-spec.md "Touch"), after everything else. A removal takes out the note
+// of its pitch nearest its onset, within a 32nd, so humanize drift still matches. Added notes are
+// exact, like literal notes, and win: a note already at that onset (any note, in a monophonic part)
+// goes, and in a monophonic part a note sounding into one is cut at its onset.
+void applyTouch(std::vector<RawNote>& notes, const Touch& touch, const Part& part, const TimeGrid& time, bool mono,
+                std::vector<std::string>& warnings) {
+    const Tick window = std::max<Tick>(1, time.ticksPerBeat() / 8);
+    for (const auto& rm : touch.remove) {
+        const int pitch = noteNameToMidi(rm.pitch);
+        const Tick at = time.at(rm.bar, rm.beat);
+        auto best = notes.end();
+        Tick bestDistance = window + 1;
+        for (auto it = notes.begin(); it != notes.end(); ++it) {
+            const Tick d = it->tick > at ? it->tick - at : at - it->tick;
+            if (it->pitch == pitch && d < bestDistance) {
+                bestDistance = d;
+                best = it;
+            }
+        }
+        if (best != notes.end()) notes.erase(best);
+    }
+    const bool drums = part.role == Role::Drums;
+    const Tick end = time.clipEnd();
+    std::vector<RawNote> added;
+    for (const auto& ln : touch.add) {
+        RawNote n;
+        n.pitch = noteNameToMidi(ln.pitch);
+        n.tick = time.at(ln.bar, ln.beat);
+        if (n.pitch < 0 || n.tick < 0 || n.tick >= end) {
+            warnings.push_back("part " + part.id + ": edited note " + ln.pitch + " in bar " + std::to_string(ln.bar) +
+                               " is invalid or outside the clip; skipped");
+            continue;
+        }
+        n.dur = std::clamp<Tick>(time.beatsToTicks(ln.beats), 1, end - n.tick);
+        n.vel = std::clamp(ln.velocity, 1, 127);
+        n.justified = true;
+        n.literal = true;
+        if (drums) {
+            n.fixedPitch = true;
+            n.sublane = drumSublaneForNote(n.pitch);
+        }
+        added.push_back(n);
+    }
+    for (const auto& a : added) {
+        notes.erase(std::remove_if(notes.begin(), notes.end(),
+                                   [&](const RawNote& n) { return n.tick == a.tick && (mono || n.pitch == a.pitch); }),
+                    notes.end());
+        if (mono)
+            for (auto& n : notes)
+                if (n.tick < a.tick && n.tick + n.dur > a.tick) n.dur = a.tick - n.tick;
+    }
+    notes.insert(notes.end(), added.begin(), added.end());
+    sortNotes(notes);
+}
+
 }  // namespace
 
 int drumVoiceNote(DrumVoice voice) {
@@ -292,6 +347,7 @@ Realization realize(const Score& score, const RealizeOptions& options) {
         if (mono) enforceMonophony(notes, part.role == Role::Bass);
         enforceMinLength(notes, time.clipEnd(), mono);
         sortNotes(notes);
+        if (part.touch) applyTouch(notes, *part.touch, part, time, mono, r.warnings);
 
         if (!drums)
             for (const RawNote* n : findOutOfKey(notes, scale)) r.outOfKey.push_back({part.id, n->tick, n->pitch});
