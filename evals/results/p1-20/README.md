@@ -19,7 +19,9 @@ npm run -w cloud capture -- --prompts ../evals/prompts/capture-phase1.json \
 - New parts on the wrong grid family for a kept riff: 0 of 20 and 0 of 18 (was 1 of 28 and 1 of 27; the jazz melody's straight-16th chords were one).
 - Drum parts starting from a named groove: 11 of 15 and 10 of 14 (was 5 of 24 and 8 of 24). Capture requests carry no style tags, so the plan request's groove names never reached them.
 
-Whether it sounds better is the owner's to judge: blind A/B pack `capture-ab1` (`feel-1` against `deepseek-flash-1`; `npm run -w evals capture:pack -- --results results/p1-20/feel-1 --against results/p1-20/deepseek-flash-1 --name capture-ab1 --seed 7`, then `render`).
+**Owner listening, blind** (2026-10-27, `listening/capture-ab1-owner.csv`, 10 of 21 judged: the six weak cases and four others): the feel run preferred **7 to 3** (70%; sign test p = 0.34 at n = 10), musicality +0.40, fit +0.60. It fixed five of the six weak cases: `bass-continue` (fit 2 to 4), `trap-add-bass` (2 to 4), `jazz-harmonize` (2 to 4), `trap-answer` and `house-continue`. It lost `afro-add-drums` (fit 4 to 2): the new plan used core's `afrobeats` groove, and the old hand-written lanes sounded better, so that groove is next (P1-3). Small losses on `rnb-chords-add-bass` and `rnb-chords-add-drums`. Merged on this result.
+
+The pack: blind A/B `capture-ab1` (`feel-1` against `deepseek-flash-1`; `npm run -w evals capture:pack -- --results results/p1-20/feel-1 --against results/p1-20/deepseek-flash-1 --name capture-ab1 --seed 7`, then `render`).
 
 **Correct** means valid, the riff came back exactly as played where the intent keeps it (harmonize, add bass, add drums), and every lane asked for was written. Per intent, both runs: add bass 5/5, add drums 4/4, harmonize 5/5, continue 4/4, answer 3/3.
 
