@@ -168,7 +168,7 @@ What the plugin can do today:
 - It generates through the agent service and plays ideas in time (P1-7), through the preview synth and MIDI out.
 - It passes MIDI through, and saves its state with the project.
 
-Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). Controls this build can't run yet (note edits) look dimmed: hovering shows why, and pressing one shows the reason as a toast. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
+Start the agent service first: `npm run serve` (on WSL it listens on `127.0.0.1:8787`, which Windows reaches). A control a build can't run looks dimmed: hovering shows why, and pressing one shows the reason as a toast. Since P1-23 there are none, except Settings' key field on Linux. Record the results in `docs/host-checks.md`, with the build ID (Settings shows it; a CI build is named `<commit>-<run>`, a local build is `dev`).
 
 For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Ableton, on macOS):
 
@@ -191,6 +191,8 @@ For each host (Ableton Live and FL Studio or Bitwig on Windows; Logic, plus Able
     - Tab reaches every control, with a cyan focus ring. On macOS, WKWebView follows the system setting: with **Keyboard navigation** off (System Settings → Keyboard), Tab reaches only text fields and Option-Tab reaches the rest.
     - Knobs turn with the arrow keys and by dragging. The settings sheet opens, Escape closes it, and focus returns to the button that opened it.
     - With a button focused, Space toggles the DAW transport and doesn't press the button.
+
+15. **Note edits (P1-23):** on a lane, press **Edit <part> notes**. Add a note (click an empty cell, or arrows then Enter), drag one to a new place, lengthen one by its right edge, delete one, then **Apply**. The lane and the playback change exactly so, and the thread shows a touch card. Turn that lane's density knob, then **Re-roll** it: your added and moved notes stay where you put them, and a deleted one stays gone. Do it all again by keyboard alone (Shift+arrows move, Alt+Left/Right resize, Delete removes), and press Space with the editor open: the DAW transport toggles. Lock the lane and try to edit: Apply says why. Drag the lane into the arrangement: the clip has your edits.
 
 Report anything that differs, with the host name and version, the OS and the build ID.
 

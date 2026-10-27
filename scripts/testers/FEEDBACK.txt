@@ -17,7 +17,7 @@ The steps in README.txt (for each: fine / problem, and what happened)
 1. Open it:
 2. Follows your DAW:
 3. Make an idea (how long until you heard something?):
-4. Make it yours (Vary, Re-roll, density, changes, Tweak, Add part, Undo):
+4. Make it yours (Vary, Re-roll, density, changes, Tweak, Add part, Edit notes, Undo):
 5. Use what you played:
 6. Library:
 7. Drag it into your song:

@@ -28,6 +28,10 @@ FEEDBACK.txt in this folder has a space for each step.
    - Tweak (in the toolbar) has instant changes: simplify, intensify,
      revoice, octave and semitone up or down.
    - Add part (under the lanes) adds a bass, melody, chords and so on.
+   - Edit notes (a lane button; hover them to see their names) opens a piano roll
+     of that part: click to add a note, drag to move or resize it, Delete
+     to remove it, then Apply. Your notes stay as you set them when you
+     turn the knob, re-roll or ask for changes.
    - Undo and Redo work, and the thread (the menu button) lists every
      version; click one to go back to it.
 
@@ -50,9 +54,7 @@ FEEDBACK.txt in this folder has a space for each step.
    starts or stops as usual, and the button isn't pressed. Typing in the
    prompt box never triggers DAW shortcuts.
 
-Not in this build yet: editing single notes in a lane (that button is dimmed;
-hovering it says why). Anything else that's dimmed or says "isn't available",
-please note it.
+Anything that's dimmed or says "isn't available", please note it.
 
 If something goes wrong, Settings (the gear, top right) shows the build
 number; it's also at the top of FEEDBACK.txt.
