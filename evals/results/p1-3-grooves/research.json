@@ -1,0 +1,1813 @@
+{
+  "grooves": [
+    {
+      "name": "afrobeats",
+      "description": "afrobeats: Naija afropop pocket; kick on 1, the and of 2 and 3 (a push on the and of 4 in bar 2), rim on the 3-2 clave skips, clap on 4, galloping hats, swung 16th shaker, conga answers",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....x.X.......|X.....x.X.....x."
+        },
+        {
+          "voice": "rim",
+          "steps": "...X..x...x.X..."
+        },
+        {
+          "voice": "clap",
+          "steps": "............x..."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "X.xgX.xgX.xgX.xg"
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxXxgxXxgxXxgxXx",
+          "late": 0.05
+        },
+        {
+          "voice": "conga_high",
+          "steps": "..x.....x.x...x.",
+          "late": 0.05
+        },
+        {
+          "voice": "conga_low",
+          "steps": ".......x.......x",
+          "late": 0.05
+        }
+      ],
+      "tempo": [
+        100,
+        115
+      ],
+      "swing": 0.15,
+      "confidence": "medium",
+      "notes": "What the old groove missed: (1) the rim follows the 3-2 clave minus its downbeat (steps 4,7,11,13), not just 4 and 11; (2) the hats gallop (8th plus two 16ths, the 'x.xx' cell, cited by one tutorial); (3) a continuous swung 16th shaker accented on the and; (4) hand percussion answering in the gaps; (5) swing. Kick 1, and-of-2, 3 plus and-of-4 in alternating bars is audeobox's placement; beatstorapon's 'core' is 1, and-of-2, 4 with rim on 4 and 11 (the old groove). All sources are beat-level prose, none shows a grid image. Check by ear against Wizkid/Davido/P2J references.",
+      "sources": [
+        "https://www.audeobox.com/learn/fl-studio/how-to-make-afrobeats-in-fl-studio/",
+        "https://beatstorapon.com/blog/afrobeats-production-guide-rhythm-chords-mixing/",
+        "https://hexloops.com/how-to-make-an-afrobeats-drum-pattern-kicks-percussion",
+        "https://violetrecording.com/how-to-make-afrobeats/",
+        "https://create.routenote.com/blog/how-to-make-an-afrobeats-track/"
+      ]
+    },
+    {
+      "name": "afrobeats_bounce",
+      "description": "afrobeats: bouncy percussion-led afropop; 3-3-2 kick, rim answering on the e and a, clap on 2 and 4, agogo bell line, rolling 16th shaker, interlocking congas and bongos",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x.X.......|X..x..x.X.....x."
+        },
+        {
+          "voice": "rim",
+          "steps": "...x..x....x..x."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "shaker",
+          "steps": "XgxgXgxgXgxgXgxg",
+          "late": 0.05
+        },
+        {
+          "voice": "agogo_high",
+          "steps": "x.x..x.x.x.x..x."
+        },
+        {
+          "voice": "agogo_low",
+          "steps": "....x.......x..."
+        },
+        {
+          "voice": "conga_high",
+          "steps": "..x...x...x.x.x."
+        },
+        {
+          "voice": "conga_low",
+          "steps": "......x.......xx"
+        },
+        {
+          "voice": "bongo_high",
+          "steps": ".g.x.g.x.g.x.g.x",
+          "late": 0.05
+        }
+      ],
+      "tempo": [
+        105,
+        118
+      ],
+      "swing": 0.18,
+      "confidence": "low",
+      "notes": "Combines the 3+3+2 kick (hexloops: kicks on steps 1, 4, 7 then 9, 12, 15) with a 2-and-4 clap and a dense hand-percussion layer. The agogo figure is a generic West African bell-derived line; percussion placement is my programming, not transcribed. Thin it if it clutters.",
+      "sources": [
+        "https://beatstorapon.com/blog/afrobeats-production-guide-rhythm-chords-mixing/",
+        "https://hexloops.com/how-to-make-an-afrobeats-drum-pattern-kicks-percussion",
+        "https://www.audeobox.com/learn/fl-studio/how-to-make-afrobeats-in-fl-studio/",
+        "https://violetrecording.com/how-to-make-afrobeats/"
+      ]
+    },
+    {
+      "name": "afrobeats_afrofusion",
+      "description": "afrobeats: slow afro-fusion / afro-R&B; soft kick on 1, the a of 2 and 3, late rim on the clave skips, snap-clap on 4, laid-back hats with ghosts, light shaker and conga",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......xx.......|X......x..x....."
+        },
+        {
+          "voice": "rim",
+          "steps": "...x..x...x.....",
+          "late": 0.15
+        },
+        {
+          "voice": "clap",
+          "steps": "............X...",
+          "late": 0.12
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.gxx.g.x.gxx.g.",
+          "late": 0.1
+        },
+        {
+          "voice": "shaker",
+          "steps": "g.x.g.x.g.x.g.x.",
+          "late": 0.08
+        },
+        {
+          "voice": "conga_low",
+          "steps": "..............x.",
+          "late": 0.1
+        },
+        {
+          "voice": "conga_high",
+          "steps": ".........x.x....",
+          "late": 0.1
+        }
+      ],
+      "tempo": [
+        85,
+        100
+      ],
+      "swing": 0.22,
+      "confidence": "medium",
+      "notes": "beatstorapon gives ~85 BPM for sultry R&B-leaning afro tracks. Fewer hits, more lateness and swing than the main groove; the clave-skip rim keeps it afro. Pattern is my synthesis (Tems / Burna slow-jam pocket).",
+      "sources": [
+        "https://beatstorapon.com/blog/afrobeats-production-guide-rhythm-chords-mixing/",
+        "https://violetrecording.com/how-to-make-afrobeats/",
+        "https://hexloops.com/how-to-make-an-afrobeats-drum-pattern-kicks-percussion"
+      ]
+    },
+    {
+      "name": "afroswing",
+      "description": "afroswing: UK afroswing (J Hus, Kojo Funds); dancehall-style 3-3-2 kick, clap on 2 and 4, rim skip on the a of 2 and the and of 4, swung galloping hats and shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x...x.....|X..x..x...x..x.."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "rim",
+          "steps": ".......x......x."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.xxx.xgx.xxx.xg"
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxgxgxgxgxgxgxgx",
+          "late": 0.05
+        },
+        {
+          "voice": "conga_high",
+          "steps": "..x.......x...x."
+        }
+      ],
+      "tempo": [
+        95,
+        110
+      ],
+      "swing": 0.25,
+      "confidence": "medium",
+      "notes": "beatstorapon's 'Dancehall/Afro-Swing' row has kick 1 and the a of 2 with snare on 2 and 4; most afroswing beats use the fuller 3-3-2 kick (1, 4, 7) borrowed from dancehall, which is what this uses. More swing than Naija afrobeats.",
+      "sources": [
+        "https://beatstorapon.com/blog/afrobeats-production-guide-rhythm-chords-mixing/",
+        "https://www.musicradar.com/how-to/how-to-program-dancehall-drum-patterns"
+      ]
+    },
+    {
+      "name": "amapiano",
+      "description": "amapiano: classic piano; soft four-on-the-floor kick, quiet clap on 2 and 4, off-beat open hat, swung 16th shaker, syncopated rim and conga clave around the log drum",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "clap",
+          "steps": "....x.......x..."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "xgXgxgXgxgXgxgXg",
+          "late": 0.05
+        },
+        {
+          "voice": "rim",
+          "steps": "...x..x....x..x.|...x..x...x..x.x"
+        },
+        {
+          "voice": "conga_high",
+          "steps": "....x..x..x.x..."
+        },
+        {
+          "voice": "conga_low",
+          "steps": "..............x."
+        }
+      ],
+      "tempo": [
+        110,
+        115
+      ],
+      "swing": 0.2,
+      "confidence": "medium",
+      "notes": "Roland: 909 kick on every quarter, constant 16th shaker, open hat on the off-beats, a conga clave, 112 BPM. RouteNote: 54-58% swing (about 0.12-0.24 here), claps on 2 and 4. The log drum is a bass part, not in this groove; the rim leaves the and of 1 and 3 for it. Rim and conga placement is mine.",
+      "sources": [
+        "https://articles.roland.com/?p=67237",
+        "https://create.routenote.com/blog/beatmakers-guide-how-to-make-an-amapiano-beat/",
+        "https://beatstorapon.com/blog/how-to-make-amapiano-beat/"
+      ]
+    },
+    {
+      "name": "amapiano_private_school",
+      "description": "amapiano: private school; soft kick on 1 and 3, late rim and shaker, off-beat open hat, brushed snare ghosts, lots of space for keys and log drum",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.......X.......|X.......X.....g."
+        },
+        {
+          "voice": "rim",
+          "steps": "...x......x.....|...x......x..x..",
+          "late": 0.15
+        },
+        {
+          "voice": "snare",
+          "steps": ".g.....g.g.....g",
+          "late": 0.2
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "xgxgxgxgxgxgxgxg",
+          "late": 0.1
+        },
+        {
+          "voice": "conga_low",
+          "steps": "......x.......x.",
+          "late": 0.1
+        }
+      ],
+      "tempo": [
+        108,
+        113
+      ],
+      "swing": 0.25,
+      "confidence": "low",
+      "notes": "Sources call private school softer, jazz-leaning, with restrained log drums and gaps for vocals, but give no grid. Kick on 1 and 3 is my reading of 'restrained'; many private-school records (Kelvin Momo) keep a soft four-on-the-floor, so this is the sparse end.",
+      "sources": [
+        "https://www.amapiano.co/za/amapiano-vs-bacardi-full-comparison/",
+        "https://beatstorapon.com/blog/how-to-make-amapiano-beat/",
+        "https://en.wikipedia.org/wiki/Amapiano"
+      ]
+    },
+    {
+      "name": "amapiano_bacardi",
+      "description": "amapiano: bacardi / sgija; busy syncopated kick, clipped snare on 2 and 4, rattling accented 16th shaker, syncopated low and mid toms, off-beat open hat, clap pickups",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x.X...X...|X..x..x.X..x..x."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "shaker",
+          "steps": "XxxxXxxxXxxxXxxx"
+        },
+        {
+          "voice": "low_tom",
+          "steps": "..x.....x.x.....|..x.....x.x...x."
+        },
+        {
+          "voice": "mid_tom",
+          "steps": ".x...x.......x.."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "clap",
+          "steps": ".......x.......x"
+        }
+      ],
+      "tempo": [
+        112,
+        118
+      ],
+      "swing": 0.15,
+      "confidence": "low",
+      "notes": "amapiano.co: Pretoria bacardi has syncopated kicks and toms, rattling shakers, clipped snares; sources disagree on tempo (108-113 vs 116-122) and on whether bacardi is a separate genre. Grid is my programming of the description.",
+      "sources": [
+        "https://www.amapiano.co/za/amapiano-vs-bacardi-full-comparison/",
+        "https://beatstorapon.com/blog/how-to-make-amapiano-beat/"
+      ]
+    },
+    {
+      "name": "afro_house",
+      "description": "afro house: four-on-the-floor kick, clap on 2 and 4, off-beat open hat, 16th shaker, rim on the 3-2 clave, conga and bongo interplay",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxxxgxxxgxxxgxxx"
+        },
+        {
+          "voice": "rim",
+          "steps": "x..x..x...x.x..."
+        },
+        {
+          "voice": "conga_high",
+          "steps": "..x..x....x..xx."
+        },
+        {
+          "voice": "conga_low",
+          "steps": "......x.......x."
+        },
+        {
+          "voice": "bongo_high",
+          "steps": ".x.......x.x...."
+        }
+      ],
+      "tempo": [
+        118,
+        124
+      ],
+      "swing": 0.12,
+      "confidence": "medium",
+      "notes": "Standard afro house layout: a house kit plus African/Latin hand percussion carrying the syncopation.",
+      "sources": [
+        "https://www.native-instruments.com/blogs/blog/afro-house-production-101",
+        "https://articles.roland.com/?p=67237"
+      ]
+    },
+    {
+      "name": "afro_house_tribal",
+      "description": "afro house: tribal / percussive; four-on-the-floor kick, no clap, toms carrying the 3-3-2, 16th shaker, clave alternating 3-2 and 2-3, woodblock and off-beat cowbell",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "low_tom",
+          "steps": "x..x..x.........|x..x..x.....x..."
+        },
+        {
+          "voice": "mid_tom",
+          "steps": "........x..x..x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "xgxgxgxgxgxgxgxg"
+        },
+        {
+          "voice": "clave",
+          "steps": "x..x..x...x.x...|..x.x...x..x..x."
+        },
+        {
+          "voice": "woodblock",
+          "steps": ".......x.......x"
+        },
+        {
+          "voice": "cowbell",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "conga_high",
+          "steps": ".x...x.x.x...x.."
+        }
+      ],
+      "tempo": [
+        118,
+        124
+      ],
+      "swing": 0.1,
+      "confidence": "low",
+      "notes": "Tom-led afro house (the percussive Keinemusik / Black Coffee side). My programming; no grid source.",
+      "sources": [
+        "https://www.native-instruments.com/blogs/blog/afro-house-production-101"
+      ]
+    },
+    {
+      "name": "gqom",
+      "description": "gqom: Durban broken beat; no four-on-the-floor, kick on 1 and the 3-3-2 skips with gaps, heavy toms answering, snare on 3, sparse off-beat shaker, rim stabs",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x...x.....|X..x......x..x.."
+        },
+        {
+          "voice": "low_tom",
+          "steps": "...........x..x.|......x....x...."
+        },
+        {
+          "voice": "mid_tom",
+          "steps": ".x..............|.x...........x.x"
+        },
+        {
+          "voice": "snare",
+          "steps": "........X......."
+        },
+        {
+          "voice": "shaker",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "rim",
+          "steps": ".....x.........x"
+        }
+      ],
+      "tempo": [
+        120,
+        128
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Sources agree on the identifiers (a broken kick cycle with displaced or missing impacts, negative space, 120-130 BPM) but none shows a grid. Programmed by me; check against DJ Lag / Distruction Boyz.",
+      "sources": [
+        "https://orphiq.com/resources/what-is-gqom",
+        "https://jackrighteous.com/blogs/guides-using-suno-ai-music-creation/gqom-ai-music-genre-control-guide",
+        "https://daily.bandcamp.com/lists/uk-south-africa-dance-music-list"
+      ]
+    },
+    {
+      "name": "dancehall",
+      "description": "dancehall: modern bounce; kick on 1 and the a of 1 in each half bar, snare on the and of 2 and the and of 4 (together the 3-3-2), rim on 2 and 4, 8th hats, 16th shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x....X..x....|X..x....X..x..x."
+        },
+        {
+          "voice": "snare",
+          "steps": "......X.......X."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxgxgxgxgxgxgxgx"
+        },
+        {
+          "voice": "rim",
+          "steps": "....x.......x..."
+        }
+      ],
+      "tempo": [
+        90,
+        105
+      ],
+      "swing": 0.08,
+      "confidence": "medium",
+      "notes": "MusicRadar: dancehall is built on the 3-3-2 (two dotted 8ths and an 8th), split freely between kick and snare. This split (kick 1 and 4, snare 7) is a common modern one; the rim on 2 and 4 keeps a backbeat reference.",
+      "sources": [
+        "https://www.musicradar.com/how-to/how-to-program-dancehall-drum-patterns",
+        "https://hexloops.com/how-to-make-an-afrobeats-drum-pattern-kicks-percussion"
+      ]
+    },
+    {
+      "name": "dancehall_steppers",
+      "description": "dancehall: digital steppers; four-on-the-floor kick under a snare punching the full 3-3-2 twice a bar, closed hats around an off-beat open hat",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "snare",
+          "steps": "X..x..x.X..x..x."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xx.xxx.xxx.xxx.x"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        }
+      ],
+      "tempo": [
+        95,
+        110
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "MusicRadar's example: the whole 3-3-2 punched out by the snare over a four-to-the-floor kick at 95 BPM.",
+      "sources": [
+        "https://www.musicradar.com/how-to/how-to-program-dancehall-drum-patterns"
+      ]
+    },
+    {
+      "name": "reggae_one_drop",
+      "description": "reggae one drop (triplet grid): kick and cross-stick together on beat 3 only, nothing on 1, shuffled triplet hats, hat foot on 2 and 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 3,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "......X....."
+        },
+        {
+          "voice": "rim",
+          "steps": "......X....."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.xx.xx.xx.x",
+          "late": 0.05
+        },
+        {
+          "voice": "pedal_hat",
+          "steps": "...x.....x.."
+        }
+      ],
+      "tempo": [
+        65,
+        85
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Carlton Barrett's one drop: beat 1 empty, kick and rim on 3. Shuffled on a triplet grid; some players use straight 8ths with swing instead.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/One_drop_rhythm"
+      ]
+    },
+    {
+      "name": "dembow",
+      "description": "reggaeton: dembow; kick on every beat, snare on the 3-3-2 dembow accents (soft on the a of 1, strong on the and of 2), light 8th hats",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "snare",
+          "steps": "...x..X....x..X."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "g.g.g.g.g.g.g.g."
+        }
+      ],
+      "tempo": [
+        88,
+        100
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Unchanged from the current library; it is the standard Dem Bow / Pounder cell.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Dembow",
+        "https://hexloops.com/how-to-make-an-afrobeats-drum-pattern-kicks-percussion"
+      ]
+    },
+    {
+      "name": "reggaeton_perreo",
+      "description": "reggaeton: modern perreo; four-on-the-floor kick, dembow snare with clap on the strong hits, a pickup in bar 2, accented 16th hats, open hat and timbale fill at the end of bar 2",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "snare",
+          "steps": "...x..X....x..X.|...x..X....x.xX."
+        },
+        {
+          "voice": "clap",
+          "steps": "......X.......X."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.Xxx.Xxx.Xxx.Xx"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "................|..............x."
+        },
+        {
+          "voice": "timbale_high",
+          "steps": "................|............x.xx"
+        }
+      ],
+      "tempo": [
+        88,
+        98
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "Modern perreo (Tainy / Bad Bunny era) keeps the dembow cell and adds clap layering, busier hats and bar-end pickups.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Dembow",
+        "https://beatstorapon.com/blog/afrobeats-production-guide-rhythm-chords-mixing/"
+      ]
+    },
+    {
+      "name": "moombahton",
+      "description": "moombahton: Dutch-house reggaeton; four-on-the-floor kick, clap on the dembow accents, rolling 16th hats, off-beat open hat, tom pickup in bar 2",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "clap",
+          "steps": "...x..X....x..X."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xgxgxgxgxgxgxgxg"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "mid_tom",
+          "steps": "................|.............xx."
+        }
+      ],
+      "tempo": [
+        105,
+        112
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "Moombahton: a Dutch house beat slowed to ~108 with the dembow on the clap.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Moombahton"
+      ]
+    },
+    {
+      "name": "baile_funk",
+      "description": "baile funk: tamborzão (funk carioca); heavy kick cell on 1, the a of 1, the and of 2, 3 and the e of 4, conga/atabaque answers, clap on 2 and 4, dry rim",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x...x..x..|X..x..x...x..xx."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "conga_low",
+          "steps": ".x.....x.x....x."
+        },
+        {
+          "voice": "conga_high",
+          "steps": "..x..x.......x.."
+        },
+        {
+          "voice": "rim",
+          "steps": "...x.......x...."
+        }
+      ],
+      "tempo": [
+        125,
+        135
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Sources agree on ~130 BPM, heavy kicks, sharp snares and atabaque-style percussion in one interlocking syncopated cell, never four-on-the-floor. None gave the step grid; the kick cell (1, 4, 7, 11, 14) is my recollection of the tamborzão and needs checking by ear. The description says 'and of 3' loosely: step 11 is the and of 3.",
+      "sources": [
+        "https://jackrighteous.com/blogs/build-your-sound-with-ai-music-instrumentals/baile-funk-funk-carioca-genre-control-lab-ai-music",
+        "https://beatstorapon.com/music/latin/funk-carioca-brazilian-funk",
+        "https://www.loopcloud.com/cloud/blog/5293-Como-Fazer-Funk-Baiano"
+      ]
+    },
+    {
+      "name": "baile_funk_mandelao",
+      "description": "baile funk: mandelão / funk automotivo (São Paulo); fast, kick on the 3-3-2 every half bar, clap on 2 and 4, off-beat rim, cowbell stabs",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X..x..x.X..x..x."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "rim",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "cowbell",
+          "steps": ".x.....x.x.....x"
+        }
+      ],
+      "tempo": [
+        130,
+        150
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Sources only say mandelão / automotivo runs faster (~150) and harder. Programmed by me.",
+      "sources": [
+        "https://jackrighteous.com/blogs/build-your-sound-with-ai-music-instrumentals/baile-funk-funk-carioca-genre-control-lab-ai-music"
+      ]
+    },
+    {
+      "name": "trap",
+      "description": "trap (half-time at 130-170 BPM): sparse kicks, clap on 3, 8th hats with a 16th roll before the bar line",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.............x.|..x............."
+        },
+        {
+          "voice": "clap",
+          "steps": "........X......."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.xxxx"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "................|..............x."
+        }
+      ],
+      "tempo": [
+        130,
+        170
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Kick, clap and open hat unchanged. The current grooves.cpp hat lane has 32 characters per bar in a grid-4 groove (8 per beat, for the 32nd roll), which breaks the beats x grid rule; here it is the grid-4 equivalent with a 16th roll. If 32nds matter, the groove needs grid 8 (all lanes doubled) or keep the old lane if the realizer tolerates it.",
+      "sources": [
+        "https://sozai.app/transcript/trap-drum-patterns-tutorial-fl-studio/index.md"
+      ]
+    },
+    {
+      "name": "trap_triplet",
+      "description": "trap: triplet-hat flow (16th-triplet grid); kick on 1 and pushes, clap on 3, hats in 8th triplets with a 16th-triplet roll at the end of bar 2, open hat answer",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 6,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.................x.....|..x...........x........."
+        },
+        {
+          "voice": "clap",
+          "steps": "............X..........."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.x.xgxgxg"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "........................|..................x....."
+        }
+      ],
+      "tempo": [
+        130,
+        160
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "Migos-style triplet bounce: 6 steps per beat so hats sit on 8th-note triplets (every 2 steps) and roll on 16th triplets. Real beats switch between straight and triplet hats inside a bar, which one grid can't hold; this is the all-triplet version.",
+      "sources": [
+        "https://sozai.app/transcript/trap-drum-patterns-tutorial-fl-studio/index.md"
+      ]
+    },
+    {
+      "name": "trap_rage",
+      "description": "trap: rage (half-time); hard kick on 1 and stuttered pushes, clap on 3, snare pickup at the end of bar 2, plain 8th hats, open hat on the and of 4, crash every 2 bars",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....x...x.....|X.x.......x..x.."
+        },
+        {
+          "voice": "clap",
+          "steps": "........X......."
+        },
+        {
+          "voice": "snare",
+          "steps": "................|...............x"
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..............x."
+        },
+        {
+          "voice": "crash",
+          "steps": "x...............|................"
+        }
+      ],
+      "tempo": [
+        145,
+        170
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Rage (Carti WLR, Ken Carson, Homixide) is driven by distorted 808s and synth leads; drums stay simple and hit hard. Programmed by me.",
+      "sources": [
+        "https://samplefocus.com/blog/homixide-gang-drums-ken-carson-phonk-beats"
+      ]
+    },
+    {
+      "name": "trap_plugg",
+      "description": "trap: plugg / pluggnb (half-time); bouncy kick on 1, the a of 2 and the and of 3, clap on 3, 8th hats with occasional 16th doubles, rim on the a of 4, soft open hat",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......x..x.....|X.........x..x.."
+        },
+        {
+          "voice": "clap",
+          "steps": "........X......."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.xxx.|x.x.x.x.x.xxx.x."
+        },
+        {
+          "voice": "rim",
+          "steps": ".............x.."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "......x........."
+        }
+      ],
+      "tempo": [
+        140,
+        160
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Plugg (MexikoDro, Stoopid Lou) and pluggnb: softer, bouncier drums than trap, fewer rolls. No grid source found.",
+      "sources": [
+        "(not web-sourced: programmed from the description and general producer practice)"
+      ]
+    },
+    {
+      "name": "trap_soul",
+      "description": "trap soul (half-time): Bryson Tiller-style; sparse kick, late clap on 3, 8th hats with 16th flourishes, ghosted rim, soft shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.........x.....|X.......x.....x."
+        },
+        {
+          "voice": "clap",
+          "steps": "........X.......",
+          "late": 0.12
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.xxx.x.|x.x.x.x.x.x.xgxg",
+          "late": 0.06
+        },
+        {
+          "voice": "rim",
+          "steps": "...g.......g....",
+          "late": 0.15
+        },
+        {
+          "voice": "shaker",
+          "steps": "..g...g...g...g."
+        }
+      ],
+      "tempo": [
+        120,
+        150
+      ],
+      "swing": 0.1,
+      "confidence": "medium",
+      "notes": "Trap's half-time layout with fewer kicks, a laid-back backbeat and lighter hats. Also counted at 60-75 BPM with the clap on 2 and 4; equivalent.",
+      "sources": [
+        "(not web-sourced: programmed from the description and general producer practice)"
+      ]
+    },
+    {
+      "name": "drill",
+      "description": "drill: UK drill; half-time snare on 3 then on 4 in bar 2, sliding kicks off the downbeat, tresillo hats",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.............x.|X..x..x.......x."
+        },
+        {
+          "voice": "snare",
+          "steps": "........X.......|............X..g"
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "X..x..X.X..x..Xg|X..x..X.X..x..X."
+        }
+      ],
+      "tempo": [
+        138,
+        146
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Unchanged from the current library.",
+      "sources": [
+        "https://www.attackmagazine.com/technique/beat-dissected/uk-drill/"
+      ]
+    },
+    {
+      "name": "drill_ny",
+      "description": "drill: NY / Brooklyn drill (Pop Smoke, 808Melo); half-time snare on 3 with a ghost before it and a pickup in bar 2, bouncy syncopated hats, kick on 1 and the a of 2, perc rim stabs",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......x........|X......x..x....."
+        },
+        {
+          "voice": "snare",
+          "steps": "........X.......|......g.X.....x."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x..x..x.x.x.x..x|x..x..x.x..xxx.x"
+        },
+        {
+          "voice": "rim",
+          "steps": "...........x....|...x............"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..............x."
+        }
+      ],
+      "tempo": [
+        140,
+        145
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "NY drill keeps UK drill's half-time snare but uses fewer kicks (the sliding 808 carries the low end) and bouncier hats, often with triplet hat runs this grid can't hold. Programmed by me; no NY-specific grid source found.",
+      "sources": [
+        "https://www.attackmagazine.com/technique/beat-dissected/uk-drill/"
+      ]
+    },
+    {
+      "name": "phonk_drift",
+      "description": "phonk: drift phonk; hard kick on 1 and the a of 2, clap on 2 and 4, driving cowbell on the 3-3-2, 16th hats, open hat on the and of 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......x..x.....|X......x..x..x.."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "cowbell",
+          "steps": "x..x..x.x..x..x."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xxxxxxxxxxxxxx.x"
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..............x."
+        }
+      ],
+      "tempo": [
+        120,
+        140
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "The cowbell is the signature (in real tracks it is pitched, melodic and distorted; here only its rhythm). Sources differ on tempo (130-150 vs 140-160) and kick (four-on-the-floor or lightly syncopated); Kordhell-style drift tracks sit near 120-140 with a full-time backbeat, which is what this uses.",
+      "sources": [
+        "https://melodics.com/blog/producers-guide-to-phonk-music",
+        "https://violetrecording.com/how-to-make-phonk-beats/",
+        "https://suno.com/music-library/genres/drift-phonk"
+      ]
+    },
+    {
+      "name": "phonk_memphis",
+      "description": "phonk: Memphis / classic phonk (half-time); 808 kick on 1 and pushes, clap and snare on 3, 16th 808 hats, cowbell off-beats",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....x...x.....|X.....x.x...x..."
+        },
+        {
+          "voice": "clap",
+          "steps": "........X......."
+        },
+        {
+          "voice": "snare",
+          "steps": "........x......."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xgxgxgxgxgxgxgxg"
+        },
+        {
+          "voice": "cowbell",
+          "steps": "..x...x...x.x..x"
+        }
+      ],
+      "tempo": [
+        130,
+        150
+      ],
+      "swing": 0.0,
+      "confidence": "low",
+      "notes": "Memphis rap tapes are counted at 65-75 BPM with the snare on 2 and 4; written half-time here to match the trap family. Programmed by me.",
+      "sources": [
+        "https://melodics.com/blog/producers-guide-to-phonk-music",
+        "https://violetrecording.com/how-to-make-phonk-beats/"
+      ]
+    },
+    {
+      "name": "jersey_club",
+      "description": "jersey club: the five-kick bounce on 1, 2, 3, the a of 3 and the and of 4; clap on 2 and 4, 8th hats, rim on the and",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X..X..X."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x."
+        },
+        {
+          "voice": "rim",
+          "steps": "..x...x...x....x"
+        }
+      ],
+      "tempo": [
+        130,
+        145
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "NI: two quarter-note kicks, two dotted 8ths, an 8th = steps 1, 5, 9, 12, 15. One guide gives 1, 5, 9, 11, 13. Tempo claims range 130-160; ~140 is typical.",
+      "sources": [
+        "https://beatstorapon.com/blog/how-to-make-a-jersey-club-beat/",
+        "https://www.native-instruments.com/blogs/blog/jersey-club",
+        "https://orphiq.com/resources/what-is-jersey-club"
+      ]
+    },
+    {
+      "name": "jersey_club_bounce",
+      "description": "jersey club: kick-roll variant; five-kick pattern in bar 1, bar 2 rolls 1-3-5-9-11-13-15, clap on 2 and 4 with a pickup on the a of 4, 16th hats",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X..X..X.|X.x.X...X.x.x.x."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X...|....X.......X..x"
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xgxgxgxgxgxgxgxg"
+        }
+      ],
+      "tempo": [
+        135,
+        150
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "Bar 2 is beatstorapon's alternate kick (1, 5, 9, 11, 13 plus 3 and 15).",
+      "sources": [
+        "https://beatstorapon.com/blog/how-to-make-a-jersey-club-beat/",
+        "https://orphiq.com/resources/what-is-jersey-club"
+      ]
+    },
+    {
+      "name": "uk_garage",
+      "description": "uk garage: 2-step; kick on 1 and the and of 3 (skipping beat 3), snare on 2 and 4, shuffled off-beat hats with ghosts, syncopated rim, swung shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.........x.....|X.........x..x.."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "..x...x...x...x.|..x...x...x.g.x."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "................|..............x."
+        },
+        {
+          "voice": "rim",
+          "steps": ".......x.x....x.|...x...x.x......"
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxgxgxgxgxgxgxgx"
+        }
+      ],
+      "tempo": [
+        130,
+        138
+      ],
+      "swing": 0.45,
+      "confidence": "high",
+      "notes": "NI: snares on 2 and 4, kicks on 1 and halfway through beat 3 (step 11). Producer School: ~68% MPC swing, the most important element (mapped to 0.45 on this 0..0.5-heavy scale).",
+      "sources": [
+        "https://www.native-instruments.com/blogs/blog/uk-garage-music",
+        "https://theproducerschool.com/blogs/featured-blogs/how-to-program-uk-garage-drums-complete-guide-for-producers",
+        "https://www.musicradar.com/how-to/uk-garage-tutorial",
+        "https://www.attackmagazine.com/technique/beat-dissected/uk-garage/"
+      ]
+    },
+    {
+      "name": "uk_garage_shuffle",
+      "description": "uk garage: 4x4 garage shuffle; kick on 1 with soft off-beat kicks, snare on 2 and 4 with a ghost at the bar end, low clap under, swung ghosted hats and shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....g...x..g..|X.....g....g..x."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X..g"
+        },
+        {
+          "voice": "clap",
+          "steps": "....g.......g..."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "gxgxgxXxgxgxXxgx"
+        },
+        {
+          "voice": "shaker",
+          "steps": "gxgxgxgxgxgxgxgx"
+        }
+      ],
+      "tempo": [
+        120,
+        128
+      ],
+      "swing": 0.45,
+      "confidence": "medium",
+      "notes": "Attack 'garage shuffle': kick on beat 1 plus three off-beat hits (some soft), snares on 2 and 4 plus a ghost at the bar end, a low clap under, many ghost hats, 60-65% swing, 120-125 BPM. The exact steps are in images; positions are my reading of the text.",
+      "sources": [
+        "https://www.attackmagazine.com/technique/beat-dissected/garage-shuffle/"
+      ]
+    },
+    {
+      "name": "uk_funky",
+      "description": "uk funky: tribal syncopated kick, clap on 2 and 4, rim on the 3-3-2 skips, congas, off-beat open hat, swung 16th shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......x..x.....|X......x..x...x."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "rim",
+          "steps": "...x..x....x..x."
+        },
+        {
+          "voice": "conga_high",
+          "steps": ".x..x...x..x...."
+        },
+        {
+          "voice": "conga_low",
+          "steps": "......x.......x."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "xgxgxgxgxgxgxgxg"
+        }
+      ],
+      "tempo": [
+        128,
+        132
+      ],
+      "swing": 0.3,
+      "confidence": "low",
+      "notes": "UK funky (Crazy Cousinz, Roska, Marcus Nasty) descends from garage with soca and afro-house percussion; sources confirm the lineage but give no grid. Programmed by me.",
+      "sources": [
+        "https://www.reasonstudios.com/news/post/how-to-make-uk-garage",
+        "https://daily.bandcamp.com/lists/uk-south-africa-dance-music-list"
+      ]
+    },
+    {
+      "name": "jungle",
+      "description": "jungle: chopped Amen break; kick on 1, the and of 1 and the and/a of 3, snares on 2 and 4 with the Amen's skipping ghosts, 8th ride, crash in bar 2",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.x.......xx....|X.x.......x....."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X..x.x..X..x|....X..x.x....x."
+        },
+        {
+          "voice": "ride",
+          "steps": "x.x.x.x.x.x.x.x."
+        },
+        {
+          "voice": "crash",
+          "steps": "................|..........x....."
+        }
+      ],
+      "tempo": [
+        160,
+        175
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Bar 1 is the Amen's main bar; bar 2 is its late-crash variation. The ride is on the break and producers usually keep it.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Amen_break",
+        "https://forum.renoise.com/t/how-do-you-program-old-school-jungle/27145"
+      ]
+    },
+    {
+      "name": "bossa_nova",
+      "description": "bossa nova: cross-stick on the bossa clave over two bars, kick on 1 and 3 with pickups on the and of 2 and 4, 8th hats, hat foot on 2 and 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....x.X.....x."
+        },
+        {
+          "voice": "rim",
+          "steps": "x.....x.....x...|....x.....x....."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.x.x.x.x.x.x.x."
+        },
+        {
+          "voice": "pedal_hat",
+          "steps": "....x.......x..."
+        }
+      ],
+      "tempo": [
+        120,
+        145
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Standard kit bossa. The cross-stick plays the bossa clave (1, and of 2, 4 | 2, and of 3); some drummers start on the 2-side.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Bossa_nova",
+        "https://en.wikipedia.org/wiki/Clave_(rhythm)",
+        "https://cruiseshipdrummer.com/?p=3383"
+      ]
+    },
+    {
+      "name": "samba",
+      "description": "samba: surdo kick on every beat with pickups and accents on 2 and 4, 16th ganzá shaker accented on the a, tamborim rim figure over two bars, two-tone agogo",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "x..xX..xx..xX..x"
+        },
+        {
+          "voice": "shaker",
+          "steps": "xggXxggXxggXxggX"
+        },
+        {
+          "voice": "rim",
+          "steps": "x.xx.x.x.xx.x.x.|x.x.xx.x.x.x.xx."
+        },
+        {
+          "voice": "agogo_high",
+          "steps": "x.x...x.x.x...x."
+        },
+        {
+          "voice": "agogo_low",
+          "steps": "...x.....x.....x"
+        }
+      ],
+      "tempo": [
+        90,
+        110
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "One 4/4 bar here = two 2/4 samba bars. Surdo/kick and ganzá are standard; tamborim and agogo figures vary widely between schools and these are representative, not transcribed.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Samba",
+        "https://cruiseshipdrummer.com/?p=3383"
+      ]
+    },
+    {
+      "name": "cumbia",
+      "description": "cumbia: kick on 1 and 3, guiro scraping an 8th and two 16ths, cowbell on the off-beats, conga mutes on the beat with open tones on the and of 2 and 4, cross-stick on 2 and 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.......X......."
+        },
+        {
+          "voice": "guiro",
+          "steps": "x.xxx.xxx.xxx.xx"
+        },
+        {
+          "voice": "cowbell",
+          "steps": "..x...x...x...x."
+        },
+        {
+          "voice": "conga_mute",
+          "steps": "x...x...x...x..."
+        },
+        {
+          "voice": "conga_high",
+          "steps": "......x.......x."
+        },
+        {
+          "voice": "conga_low",
+          "steps": "...............x"
+        },
+        {
+          "voice": "rim",
+          "steps": "....x.......x..."
+        }
+      ],
+      "tempo": [
+        85,
+        100
+      ],
+      "swing": 0.0,
+      "confidence": "medium",
+      "notes": "Colombian/Mexican cumbia kit style; the guacharaca/guiro 'x.xx' scrape is the signature. Often notated in 2/4 at double this tempo.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cumbia"
+      ]
+    },
+    {
+      "name": "salsa",
+      "description": "salsa: son clave 2-3 (one 4/4 bar = one cut-time clave cycle); campana bell on the beats, conga tumbao with a slap and open tones on 4 and the and of 4, light kick on the bass anticipations",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "clave",
+          "steps": "..x.x...x..x..x."
+        },
+        {
+          "voice": "cowbell",
+          "steps": "X.x.X.x.X.x.X.x."
+        },
+        {
+          "voice": "conga_mute",
+          "steps": "xxXxxx..xxXxxx.."
+        },
+        {
+          "voice": "conga_high",
+          "steps": "......x.......x."
+        },
+        {
+          "voice": "conga_low",
+          "steps": ".......x.......x"
+        },
+        {
+          "voice": "kick",
+          "steps": "...g..g....g..g."
+        }
+      ],
+      "tempo": [
+        85,
+        105
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Written at 16ths with one son clave cycle per bar, i.e. cut-time salsa at 170-210 counted as 85-105. For 3-2 swap the clave's halves ('x..x..x...x.x...'). Tumbao: heel/toe mutes, slap on 2 (accented mute), open tones on 4 and 4-and (conga then tumba).",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Clave_(rhythm)",
+        "https://en.wikipedia.org/wiki/Tumbao"
+      ]
+    },
+    {
+      "name": "rnb",
+      "description": "r&b: modern R&B (SZA, Summer Walker); sparse kick on 1 and the a of 2, late snap-clap on 2 and 4, 16th hats with rolls, ghost rim, light shaker",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......x..x.....|X.........x..x.."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X...",
+          "late": 0.12
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "x.xxx.x.x.xxx.x.|x.x.x.x.x.x.xxxx",
+          "late": 0.05
+        },
+        {
+          "voice": "rim",
+          "steps": "..........g.....|.......g........",
+          "late": 0.12
+        },
+        {
+          "voice": "shaker",
+          "steps": "..x...x...x...x."
+        }
+      ],
+      "tempo": [
+        60,
+        80
+      ],
+      "swing": 0.12,
+      "confidence": "medium",
+      "notes": "Trap-informed R&B at full time (backbeat on 2 and 4); trap_soul is the same idea counted half-time.",
+      "sources": [
+        "(not web-sourced: programmed from the description and general producer practice)"
+      ]
+    },
+    {
+      "name": "rnb_new_jack_swing",
+      "description": "r&b: 90s new jack swing; punchy kick on 1, the and of 2 and the and of 3, snare and clap on 2 and 4, heavily swung 16th hats, tambourine on 2 and 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X.....x...x.....|X.....x.x.x...x."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xgxgxgxgxgxgxgxg"
+        },
+        {
+          "voice": "tambourine",
+          "steps": "....x.......x..."
+        }
+      ],
+      "tempo": [
+        100,
+        115
+      ],
+      "swing": 0.45,
+      "confidence": "medium",
+      "notes": "New jack swing (Teddy Riley): drum-machine 16th swing near 66%; the swing is the genre.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/New_jack_swing"
+      ]
+    },
+    {
+      "name": "gfunk",
+      "description": "g-funk: West Coast; laid-back kick on 1, the a of 2 and 3, snare and clap on 2 and 4, accented 16th hats, 8th shaker, open hat on the and of 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X......xX.......|X......xX....x.."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X...",
+          "late": 0.08
+        },
+        {
+          "voice": "clap",
+          "steps": "....X.......X...",
+          "late": 0.08
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "XxxxXxxxXxxxXxx."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..............x."
+        },
+        {
+          "voice": "shaker",
+          "steps": "x.x.x.x.x.x.x.x."
+        }
+      ],
+      "tempo": [
+        88,
+        98
+      ],
+      "swing": 0.12,
+      "confidence": "medium",
+      "notes": "Dr. Dre / DJ Quik era programmed drums (808-ish kit, live-funk feel). Common practice, not a transcription.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/G-funk"
+      ]
+    },
+    {
+      "name": "disco",
+      "description": "disco: four-on-the-floor kick, snare on 2 and 4, open hat on every off-beat with closed hats around it, tambourine on 2 and 4",
+      "meter": [
+        4,
+        4
+      ],
+      "grid": 4,
+      "lanes": [
+        {
+          "voice": "kick",
+          "steps": "X...X...X...X..."
+        },
+        {
+          "voice": "snare",
+          "steps": "....X.......X..."
+        },
+        {
+          "voice": "open_hat",
+          "steps": "..X...X...X...X."
+        },
+        {
+          "voice": "closed_hat",
+          "steps": "xx.xxx.xxx.xxx.x"
+        },
+        {
+          "voice": "tambourine",
+          "steps": "....x.......x..."
+        }
+      ],
+      "tempo": [
+        110,
+        125
+      ],
+      "swing": 0.0,
+      "confidence": "high",
+      "notes": "Classic disco kit.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Disco"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,16 @@
   "schema": "flowstate.libraryCatalog.v1",
   "packs": [
     {
+      "id": "flowstate-grooves",
+      "title": "Flowstate Grooves",
+      "producer": "Flowstate",
+      "credit": "Grooves by Flowstate.",
+      "licenseId": "flowstate-built-in",
+      "notes": [
+        "Drums only: the grooves are rhythm patterns. Chords, bass and melodies come from the planner and the other packs."
+      ]
+    },
+    {
       "id": "godflow",
       "title": "Flowstate MIDI Starter",
       "producer": "GodFlow (flowknows)",
@@ -17,6 +27,7102 @@
     }
   ],
   "clips": [
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/four-on-floor",
+        "origin": "library",
+        "title": "Four on floor",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "house"
+        ],
+        "tags": [
+          "groove",
+          "four-on-floor"
+        ],
+        "feel": "kick on every beat, clap on 2 and 4, off-beat open hats, rolling 16th shaker",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 124,
+        "tempoMin": 120,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.729,
+        "density": 0.8,
+        "complexity": 0.525,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--four-on-floor.mid",
+      "sha256": "5f176601fd8e7307ebc01d1a3e222f67c120b2fac692a612ad979f389c0a7bd3",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Four on floor",
+        "context": {
+          "tempo": 124,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "house"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Four on floor",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 84,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": ".x.x .x.x .g.x .x.x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/tech-house",
+        "origin": "library",
+        "title": "Tech house",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "tech-house"
+        ],
+        "tags": [
+          "groove",
+          "tech-house"
+        ],
+        "feel": "four-on-the-floor kick, clap on 2 and 4, off-beat pedal hat, ride on the beat, a pushed ghost snare",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 126,
+        "tempoMin": 124,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.702,
+        "density": 0.692,
+        "complexity": 0.441,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--tech-house.mid",
+      "sha256": "f4b804a3a548b87ed916162dd74582234b8ccea2d42872c227d371bd6fb8b624",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Tech house",
+        "context": {
+          "tempo": 126,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "tech-house"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Tech house",
+            "low": "C2",
+            "high": "D#3",
+            "grid": 4,
+            "velocity": 90,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... ...g .... ...."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "x... x... x... x..."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/boom-bap",
+        "origin": "library",
+        "title": "Boom bap",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "boom-bap"
+        ],
+        "tags": [
+          "groove",
+          "boom-bap"
+        ],
+        "feel": "syncopated kick, laid-back snare on 2 and 4, 8th hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 91,
+        "tempoMin": 86,
+        "tempoMax": 96,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.711,
+        "density": 0.68,
+        "complexity": 0.437,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--boom-bap.mid",
+      "sha256": "e3c8d132886e9ae756eaea2950448c5635de0f65fffc851324b0de2987a7c5dd",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Boom bap",
+        "context": {
+          "tempo": 91,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "boom-bap"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Boom bap",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 4,
+            "velocity": 94,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...x ..X. .... | X.x. .... ..X. ...."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... .... | .... .... .... x..."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/lofi",
+        "origin": "library",
+        "title": "Lofi",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "lofi"
+        ],
+        "tags": [
+          "groove",
+          "lofi"
+        ],
+        "feel": "soft kick with an off-beat push, late snare and clap on 2 and 4, ghosted hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 80,
+        "tempoMin": 70,
+        "tempoMax": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.639,
+        "density": 0.68,
+        "complexity": 0.387,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--lofi.mid",
+      "sha256": "5ed535ff6deccdf424e737e0825bed6f88a9c57df75af7eb8ce9f9ef027d17c7",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Lofi",
+        "context": {
+          "tempo": 80,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "lofi"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Lofi",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ..X. X... .... | X... .... X..X ...."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... g... .... g..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.g. x.g. x.g. x.g."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/trap",
+        "origin": "library",
+        "title": "Trap",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "trap"
+        ],
+        "tags": [
+          "groove",
+          "trap"
+        ],
+        "feel": "sparse kicks, clap on 3, 8th hats with a 32nd roll before the bar line",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 150,
+        "tempoMin": 130,
+        "tempoMax": 170,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.682,
+        "density": 0.733,
+        "complexity": 0.53,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--trap.mid",
+      "sha256": "312fb7f5e7727f67532269bf40258446a289b6b513d535c29ab3fc6a019d77b8",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Trap",
+        "context": {
+          "tempo": 150,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "trap"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Trap",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 8,
+            "velocity": 80,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X....... ........ ........ ....X... | ....X... ........ ........ ........"
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "........ ........ X....... ........"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x...x... x...x... x...x... x...x... | x...x... x...x... x...x... xgxgxgxg"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "........ ........ ........ ........ | ........ ........ ........ ....x..."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/drill",
+        "origin": "library",
+        "title": "Drill",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "uk-drill"
+        ],
+        "tags": [
+          "groove",
+          "drill"
+        ],
+        "feel": "half-time snare on 3 then on 4 in bar 2, sliding kicks off the downbeat, tresillo hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 142,
+        "tempoMin": 138,
+        "tempoMax": 146,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.69,
+        "density": 0.652,
+        "complexity": 0.398,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--drill.mid",
+      "sha256": "abf22cf565e860f0ed63292fe183d38f4d86112560c1dac4833313e2070c260d",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Drill",
+        "context": {
+          "tempo": 142,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "uk-drill"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Drill",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 92,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... .... .... ..x. | X..x ..x. .... ..x."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... .... X... .... | .... .... .... X..g"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x..x ..x. x..x ..xg | x..x ..x. x..x ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/dembow",
+        "origin": "library",
+        "title": "Dembow",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "reggaeton-dembow"
+        ],
+        "tags": [
+          "groove",
+          "dembow"
+        ],
+        "feel": "kick on every beat, snare on the 3-3-2 dembow accents",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 94,
+        "tempoMin": 88,
+        "tempoMax": 100,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.658,
+        "density": 0.714,
+        "complexity": 0.371,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--dembow.mid",
+      "sha256": "fabc1fa792055db306e57f13aa4d1c698ab46994d56b4a86f98b38ddb660ce22",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Dembow",
+        "context": {
+          "tempo": 94,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "reggaeton-dembow"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Dembow",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "...X ..X. ...X ..X."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "g.g. g.g. g.g. g.g."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/funk",
+        "origin": "library",
+        "title": "Funk",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "funk"
+        ],
+        "tags": [
+          "groove",
+          "funk"
+        ],
+        "feel": "syncopated kick, backbeat snare with ghost notes, accented 16th hats opening on the e of 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 103,
+        "tempoMin": 95,
+        "tempoMax": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.721,
+        "density": 0.8,
+        "complexity": 0.525,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--funk.mid",
+      "sha256": "9bbad8fa97175fb0412ec205bc6fb379cc1c507d5f762cd2d412b3bf6a2e0eec",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Funk",
+        "context": {
+          "tempo": 103,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "funk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Funk",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 4,
+            "velocity": 81,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X.X. .... ..X. .X.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X..g .g.g X..g"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "Xxxx X.xx Xxxx X.xx"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .x.. .... .x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/rock",
+        "origin": "library",
+        "title": "Rock",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "rock"
+        ],
+        "tags": [
+          "groove",
+          "rock"
+        ],
+        "feel": "kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 125,
+        "tempoMin": 110,
+        "tempoMax": 140,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.717,
+        "density": 0.667,
+        "complexity": 0.375,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--rock.mid",
+      "sha256": "21ab6caaa1609e140c9c49901fbcfee509872cc46b2eaf7d161d1d7f91dc866c",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Rock",
+        "context": {
+          "tempo": 125,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "rock"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Rock",
+            "low": "C2",
+            "high": "C#3",
+            "grid": 2,
+            "velocity": 98,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "x. .x x. .. | x. .x x. x."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".. X. .. X."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx xx xx xx"
+                  },
+                  {
+                    "voice": "crash",
+                    "steps": "x. .. .. .. | .. .. .. .."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/pop",
+        "origin": "library",
+        "title": "Pop",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "pop"
+        ],
+        "tags": [
+          "groove",
+          "pop"
+        ],
+        "feel": "kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 112,
+        "tempoMin": 100,
+        "tempoMax": 124,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.686,
+        "density": 0.667,
+        "complexity": 0.375,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--pop.mid",
+      "sha256": "c3c5f3cc506e9e1c47c92e374d4f38959a0db31ec36d1a96d60822a1c94f5ee5",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Pop",
+        "context": {
+          "tempo": 112,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "pop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Pop",
+            "low": "C2",
+            "high": "F#3",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "x. .x x. .. | X. .x x. .. | x. .x x. .. | x. .x x. .."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".. X. .. X."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx xx xx xx"
+                  },
+                  {
+                    "voice": "tambourine",
+                    "steps": ".. x. .. x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/ballad",
+        "origin": "library",
+        "title": "Ballad",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "ballad"
+        ],
+        "tags": [
+          "groove",
+          "ballad"
+        ],
+        "feel": "soft kick on 1 and 3, cross-stick on 2 and 4, gentle 8th hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 70,
+        "tempoMin": 60,
+        "tempoMax": 80,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.619,
+        "density": 0.667,
+        "complexity": 0.331,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--ballad.mid",
+      "sha256": "a1035982985470dd2869c0ddeead377e908c098e43b926e25bff93e9bf2dd5b8",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Ballad",
+        "context": {
+          "tempo": 70,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "ballad"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Ballad",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 2,
+            "velocity": 72,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X. .. X. .."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".. x. .. x. | .. X. .. X. | .. X. .. x. | .. x. .. x."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xg Xg xg xg | xg xg xg xg | Xg xg Xg xg | xg xg xg xg"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/neo-soul",
+        "origin": "library",
+        "title": "Neo soul",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "neo-soul"
+        ],
+        "tags": [
+          "groove",
+          "neo-soul"
+        ],
+        "feel": "behind-the-beat pocket, late snare and hats, ghosted 16ths",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 84,
+        "tempoMin": 75,
+        "tempoMax": 92,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.69,
+        "density": 0.742,
+        "complexity": 0.392,
+        "groove": "swing",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--neo-soul.mid",
+      "sha256": "c9ae598a5f3da77547401287987ff2a937f7ec7eda563329a1fb4e090ca3e5de",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Neo soul",
+        "context": {
+          "tempo": 84,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0.1,
+          "style": [
+            "neo-soul"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Neo soul",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 81,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...x ..X. .... | X... .... ..X. .X.. | X... ...X ..X. .... | X... .... ..X. .X.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X... | .... X... .... X..g"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.xg x.x. x.xg x.x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/dnb",
+        "origin": "library",
+        "title": "Dnb",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "drum-and-bass"
+        ],
+        "tags": [
+          "groove",
+          "dnb"
+        ],
+        "feel": "two-step kick and snare with ghost snares, ride 8ths, off-beat hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 173,
+        "tempoMin": 170,
+        "tempoMax": 176,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.655,
+        "density": 0.733,
+        "complexity": 0.43,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--dnb.mid",
+      "sha256": "f03550cb03f3b5fea20314365103f49dfacfafeb3c95bf7a7c37c7c1acfe9bbf",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Dnb",
+        "context": {
+          "tempo": 173,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "drum-and-bass"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Dnb",
+            "low": "C2",
+            "high": "D#3",
+            "grid": 4,
+            "velocity": 73,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... .... ..X. ...."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X..g .g.. X..g"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "..g. ..g. ..g. ..g."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/half-time",
+        "origin": "library",
+        "title": "Half time",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "half-time"
+        ],
+        "tags": [
+          "groove",
+          "half-time"
+        ],
+        "feel": "kick on 1, snare on 3, 8th hats; slow hip hop and builds",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 70,
+        "tempoMin": 60,
+        "tempoMax": 80,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.683,
+        "density": 0.667,
+        "complexity": 0.331,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--half-time.mid",
+      "sha256": "b75b185ff2ea26db94d43bcd15153f6a445c0f85552e68ebf9901f7417c6aefa",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Half time",
+        "context": {
+          "tempo": 70,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "half-time"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Half time",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 2,
+            "velocity": 89,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "x. .. .x .. | x. .. .x .. | X. .. .x .. | x. .. .x .."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".. .. X. .."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx xx xx xx"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/cinematic-toms",
+        "origin": "library",
+        "title": "Cinematic toms",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "cinematic"
+        ],
+        "tags": [
+          "groove",
+          "cinematic-toms"
+        ],
+        "feel": "big low-tom ostinato over kick on 1 and 3, crash on the first downbeat",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 95,
+        "tempoMin": 80,
+        "tempoMax": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.668,
+        "density": 0.579,
+        "complexity": 0.284,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--cinematic-toms.mid",
+      "sha256": "60bd9dacf94982d65424a3c407c019e40e6bccc809a21a108a9df96fef81f6c6",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Cinematic toms",
+        "context": {
+          "tempo": 95,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "cinematic"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Cinematic toms",
+            "low": "C2",
+            "high": "C#3",
+            "grid": 2,
+            "velocity": 96,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "x. .. x. .."
+                  },
+                  {
+                    "voice": "low_tom",
+                    "steps": "x. .x x. .. | x. .x x. xx"
+                  },
+                  {
+                    "voice": "mid_tom",
+                    "steps": ".. x. .. x."
+                  },
+                  {
+                    "voice": "crash",
+                    "steps": "x. .. .. .. | .. .. .. .."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/sparse-pulse",
+        "origin": "library",
+        "title": "Sparse pulse",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "ambient"
+        ],
+        "tags": [
+          "groove",
+          "sparse-pulse"
+        ],
+        "feel": "a soft pulse; kick on 1, ride quarter notes, light shaker",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 75,
+        "tempoMin": 60,
+        "tempoMax": 90,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.595,
+        "density": 0.667,
+        "complexity": 0.331,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--sparse-pulse.mid",
+      "sha256": "bdb1e9d4eae11319cf77f696656f3cd29bb734aec8419414468ab732c7fd757a",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Sparse pulse",
+        "context": {
+          "tempo": 75,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "ambient"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Sparse pulse",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 2,
+            "velocity": 66,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X. .. .. .."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "X. X. X. x. | X. x. X. X. | X. X. X. X. | X. X. X. X."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": ".g .x .x .g | .x .g .x .g | .x .x .g .g | .g .x .g .x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afrobeats",
+        "origin": "library",
+        "title": "Afrobeats",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afrobeats"
+        ],
+        "tags": [
+          "groove",
+          "afrobeats"
+        ],
+        "feel": "Naija afropop pocket; kick on 1, the and of 2 and 3",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 108,
+        "tempoMin": 100,
+        "tempoMax": 115,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.701,
+        "density": 0.8,
+        "complexity": 0.606,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afrobeats.mid",
+      "sha256": "2dc8c28c597e131beb79fa1aca3d4b68415c555949d472e2a4a7f8f80297954a",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afrobeats",
+        "context": {
+          "tempo": 108,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afrobeats"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afrobeats",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ..X. X... .... | X... ..X. X... ..X."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... .... .... X... | .... .... .... x... | .... .... .... X... | .... .... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...X ..x. ..x. X..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "X.xg X.xg X.xg X.xg"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "gxxx gxxx gxxx gxxx"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "..x. .... x.x. ..x."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".... ...x .... ...x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afrobeats-bounce",
+        "origin": "library",
+        "title": "Afrobeats bounce",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afrobeats"
+        ],
+        "tags": [
+          "groove",
+          "afrobeats-bounce"
+        ],
+        "feel": "bouncy percussion-led afropop; 3-3-2 kick, rim answering on the e and a, clap on 2 and 4, agogo bell line, rolling 16th shaker, interlocking congas and bongos",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 112,
+        "tempoMin": 105,
+        "tempoMax": 118,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.694,
+        "density": 0.8,
+        "complexity": 0.65,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afrobeats-bounce.mid",
+      "sha256": "dc49e7c3700b8a7834b58e8fca84121df4cafbe528f6878a188f7dacc3902203",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afrobeats bounce",
+        "context": {
+          "tempo": 112,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afrobeats"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afrobeats bounce",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 75,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..X ..X. X... .... | X..X ..X. X... ..X."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...x ..x. ...x ..x. | ...x ..x. ...x ..x. | ...x ..x. ...x ..X. | ...x ..x. ...x ..x."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "Xgxg Xgxg Xgxg Xgxg | Xgxg Xgxg Xgxg xgxg | Xgxg Xgxg Xgxg Xgxg | Xgxg Xgxg Xgxg Xgxg"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "..x. ..x. ..X. x.x. | ..x. ..x. ..x. x.X. | ..x. ..x. ..x. x.x. | ..X. ..x. ..x. x.x."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".... ..x. .... ..xx"
+                  },
+                  {
+                    "voice": "bongo_high",
+                    "steps": ".g.x .g.x .g.x .g.x"
+                  },
+                  {
+                    "voice": "agogo_high",
+                    "steps": "x.x. .x.x .x.x ..x."
+                  },
+                  {
+                    "voice": "agogo_low",
+                    "steps": ".... x... .... x..."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afrobeats-afrofusion",
+        "origin": "library",
+        "title": "Afrobeats afrofusion",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afrobeats"
+        ],
+        "tags": [
+          "groove",
+          "afrobeats-afrofusion"
+        ],
+        "feel": "slow afro-fusion - afro-R&B; soft kick on 1, the a of 2 and 3, late rim on the clave skips, snap-clap on 4, laid-back hats with ghosts, light shaker and conga",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 93,
+        "tempoMin": 85,
+        "tempoMax": 100,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.658,
+        "density": 0.75,
+        "complexity": 0.623,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afrobeats-afrofusion.mid",
+      "sha256": "459d66ff870d499e26b47b51974e034017be145508c33aa6fbd1a073a140f996",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afrobeats afrofusion",
+        "context": {
+          "tempo": 93,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afrobeats"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afrobeats afrofusion",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 72,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... .....X X..... ...... | X..... .....X ...X.. ......"
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... ...... ...... X....."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".....x ...x.. ...x.. ...... | .....x ...x.. ...x.. ...... | .....x ...X.. ...X.. ...... | .....x ...x.. ...x.. ......"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x..g.x x..g.. X..g.x x..g.. | x..g.x x..g.. x..g.x x..g.. | x..g.x X..g.. x..g.x x..g.. | x..g.x x..g.. x..g.x x..g.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "g..x.. g..x.. g..x.. g..x.."
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "...... ...... ..x..X ...... | ...... ...... ..x..x ...... | ...... ...... ..x..x ...... | ...... ...... ..x..x ......"
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": "...... ...... ...... ...X.. | ...... ...... ...... ...x.. | ...... ...... ...... ...x.. | ...... ...... ...... ...x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afroswing",
+        "origin": "library",
+        "title": "Afroswing",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afroswing"
+        ],
+        "tags": [
+          "groove",
+          "afroswing"
+        ],
+        "feel": "UK afroswing",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 103,
+        "tempoMin": 95,
+        "tempoMax": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.679,
+        "density": 0.8,
+        "complexity": 0.613,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afroswing.mid",
+      "sha256": "0d6c60d631e795379344ab4e2b41aa952c2e8573cf78e48d7f9f0dd8405b4166",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afroswing",
+        "context": {
+          "tempo": 103,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afroswing"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afroswing",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 71,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X....X ...X.. ...X.. ...... | X....X ...X.. ...X.. ..X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...... .....x ...... ...x.. | ...... .....x ...... ...x.. | ...... .....X ...... ...X.. | ...... .....X ...... ...x.."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x..x.x x..x.g X..x.x x..x.g | x..x.x x..x.g x..x.x x..x.g | X..x.x X..x.g x..x.x x..x.g | x..x.x x..x.g x..x.x X..x.g"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "g.xg.x g.xg.x g.xg.x x.xg.x | g.xg.x g.xg.x g.xg.x g.xg.x | g.xx.x g.xg.x g.xg.x g.xg.x | g.xg.x g.xg.x g.xg.x g.xg.x"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "...x.. ...... ...X.. ...x.. | ...X.. ...... ...X.. ...X.. | ...X.. ...... ...x.. ...X.. | ...x.. ...... ...x.. ...X.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/amapiano",
+        "origin": "library",
+        "title": "Amapiano",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "amapiano"
+        ],
+        "tags": [
+          "groove",
+          "amapiano"
+        ],
+        "feel": "classic piano; soft four-on-the-floor kick, quiet clap on 2 and 4, off-beat open hat, swung 16th shaker, syncopated rim and conga clave around the log drum",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 113,
+        "tempoMin": 110,
+        "tempoMax": 115,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.707,
+        "density": 0.8,
+        "complexity": 0.706,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--amapiano.mid",
+      "sha256": "5da83c23c8afad34dbf9b3fc838d4326b3a677addebea155c9032fd02709f031",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Amapiano",
+        "context": {
+          "tempo": 113,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "amapiano"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Amapiano",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 78,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... X..... X..... X....."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... x..... ...... X..... | ...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".....x ...x.. .....x ...x.. | .....x ...x.. ...x.. ..x..x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "...x.. ...x.. ...x.. ...x.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "x.gx.g x.gx.g x.gx.g x.gx.g"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "...... x....x ...x.. x....."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": "...... ...... ...... ...x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/amapiano-private-school",
+        "origin": "library",
+        "title": "Amapiano private school",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "amapiano"
+        ],
+        "tags": [
+          "groove",
+          "amapiano-private-school"
+        ],
+        "feel": "private school; soft kick on 1 and 3, late rim and shaker, off-beat open hat, brushed snare ghosts, lots of space for keys and log drum",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 111,
+        "tempoMin": 108,
+        "tempoMax": 113,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.658,
+        "density": 0.8,
+        "complexity": 0.663,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--amapiano-private-school.mid",
+      "sha256": "cb08c869b2dd7fdc619c64342d363e45ba63cf75c38004f1779456ff741dc52f",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Amapiano private school",
+        "context": {
+          "tempo": 111,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "amapiano"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Amapiano private school",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 65,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... ...... X..... ...... | X..... ...... X..... ...g.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "..x... .....x ..x... .....g | ..g... .....x ..g... .....x | ..g... .....x ..x... .....g | ..g... .....g ..x... .....g"
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".....x ...... ...X.. ...... | .....X ...... ...X.. ..X... | .....X ...... ...X.. ...... | .....X ...... ...X.. ..X..."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "...X.. ...X.. ...X.. ...X.. | ...X.. ...X.. ...X.. ...X.. | ...X.. ...X.. ...X.. ...X.. | ...X.. ...X.. ...x.. ...X.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "x.gx.x x.gx.g x.gx.x x.gx.x | x.xx.g x.xx.x x.xx.x x.xx.g | x.xx.x x.xx.x x.gx.x x.gx.x | x.gx.g x.xx.x x.gx.x x.xx.x"
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": "...... ...X.. ...... ...X.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/amapiano-bacardi",
+        "origin": "library",
+        "title": "Amapiano bacardi",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "amapiano"
+        ],
+        "tags": [
+          "groove",
+          "amapiano-bacardi"
+        ],
+        "feel": "bacardi - sgija; busy syncopated kick, clipped snare on 2 and 4, rattling accented 16th shaker, syncopated low and mid toms, off-beat open hat, clap pickups",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 115,
+        "tempoMin": 112,
+        "tempoMax": 118,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.739,
+        "density": 0.8,
+        "complexity": 0.656,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--amapiano-bacardi.mid",
+      "sha256": "2faab5825f030e20eebf3b2490ca54f333d94249a1c2b348a344b4e1116f9a40",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Amapiano bacardi",
+        "context": {
+          "tempo": 115,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "amapiano"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Amapiano bacardi",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 86,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..x ..x. X... X... | X..x ..x. X..x ..x. | X..x ..X. X... X... | X..x ..x. X..x ..x."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... ...x .... ...x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "low_tom",
+                    "steps": "..x. .... x.x. .... | ..x. .... x.x. ..x."
+                  },
+                  {
+                    "voice": "mid_tom",
+                    "steps": ".x.. .x.. .... .x.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "xxxx xxxx xxxx xxxx"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afro-house",
+        "origin": "library",
+        "title": "Afro house",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afro-house"
+        ],
+        "tags": [
+          "groove",
+          "afro-house"
+        ],
+        "feel": "four-on-the-floor kick, clap on 2 and 4, off-beat open hat, 16th shaker, rim on the 3-2 clave, conga and bongo interplay",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 121,
+        "tempoMin": 118,
+        "tempoMax": 124,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.709,
+        "density": 0.8,
+        "complexity": 0.7,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afro-house.mid",
+      "sha256": "1cf88c8bc75f628f3026524fa2169d534ab48797ed23fd1a7c61c8cb9cb4fc01",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afro house",
+        "context": {
+          "tempo": 121,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afro-house"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afro house",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 79,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "x..x ..x. ..x. x..."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "gxxx gxxx gxxx gxxx"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "..x. .x.. ..x. .xx."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".... ..x. .... ..x."
+                  },
+                  {
+                    "voice": "bongo_high",
+                    "steps": ".x.. .... .x.x ...."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/afro-house-tribal",
+        "origin": "library",
+        "title": "Afro house tribal",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "afro-house"
+        ],
+        "tags": [
+          "groove",
+          "afro-house-tribal"
+        ],
+        "feel": "tribal - percussive; four-on-the-floor kick, no clap, toms carrying the 3-3-2, 16th shaker, clave alternating 3-2 and 2-3, woodblock and off-beat cowbell",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 121,
+        "tempoMin": 118,
+        "tempoMax": 124,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.701,
+        "density": 0.8,
+        "complexity": 0.65,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--afro-house-tribal.mid",
+      "sha256": "7c920d2e58d1a2056f83c1e67c166dc66cf539684b56bd70a10e6d02e0575d54",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Afro house tribal",
+        "context": {
+          "tempo": 121,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "afro-house"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Afro house tribal",
+            "low": "C2",
+            "high": "E5",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "low_tom",
+                    "steps": "X..x ..X. .... .... | X..x ..X. .... X... | X..X ..X. .... .... | X..X ..X. .... X..."
+                  },
+                  {
+                    "voice": "mid_tom",
+                    "steps": ".... .... X..X ..X. | .... .... X..X ..x. | .... .... X..X ..X. | .... .... X..X ..X."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "xgxg xgxg xgxg xgxg"
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": ".x.. .x.x .x.. .x.."
+                  },
+                  {
+                    "voice": "clave",
+                    "steps": "x..x ..x. ..x. x... | ..x. x... x..x ..x."
+                  },
+                  {
+                    "voice": "woodblock",
+                    "steps": ".... ...x .... ...x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/gqom",
+        "origin": "library",
+        "title": "Gqom",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "gqom"
+        ],
+        "tags": [
+          "groove",
+          "gqom"
+        ],
+        "feel": "Durban broken beat; no four-on-the-floor, kick on 1 and the 3-3-2 skips with gaps, heavy toms answering, snare on 3, sparse off-beat shaker, rim stabs",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 124,
+        "tempoMin": 120,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.727,
+        "density": 0.742,
+        "complexity": 0.593,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--gqom.mid",
+      "sha256": "57af01341e0c229f76662a26ad3aef437909cbc115a2bbcbc077bd242466eff2",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Gqom",
+        "context": {
+          "tempo": 124,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "gqom"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Gqom",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 90,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..x ..x. ..x. .... | X..x .... ..x. .x.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... .x.. .... ...x"
+                  },
+                  {
+                    "voice": "low_tom",
+                    "steps": ".... .... ...x ..x. | .... ..x. ...x ...."
+                  },
+                  {
+                    "voice": "mid_tom",
+                    "steps": ".x.. .... .... .... | .x.. .... .... .x.x"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "..x. ..x. ..x. ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/dancehall",
+        "origin": "library",
+        "title": "Dancehall",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "dancehall"
+        ],
+        "tags": [
+          "groove",
+          "dancehall"
+        ],
+        "feel": "modern bounce; kick on 1 and the a of 1 in each half bar, snare on the and of 2 and the and of 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 98,
+        "tempoMin": 90,
+        "tempoMax": 105,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.685,
+        "density": 0.8,
+        "complexity": 0.519,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--dancehall.mid",
+      "sha256": "a15ce4a25e89cf1877269c00ba4ab1cd8f02f0f4203f96d0f1d4ee433447d10f",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Dancehall",
+        "context": {
+          "tempo": 98,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "dancehall"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Dancehall",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 72,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..X .... X..X .... | X..X .... X..X ..X."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... ..X. .... ..X."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... x... .... x..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.x. X.x. | x.x. X.x. x.x. x.x. | x.x. x.x. x.x. x.x. | x.x. x.x. x.x. x.x."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "gxgx gxgx gxgx gxgx"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/dancehall-steppers",
+        "origin": "library",
+        "title": "Dancehall steppers",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "dancehall"
+        ],
+        "tags": [
+          "groove",
+          "dancehall-steppers"
+        ],
+        "feel": "digital steppers; four-on-the-floor kick under a snare punching the full 3-3-2 twice a bar, closed hats around an off-beat open hat",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 103,
+        "tempoMin": 95,
+        "tempoMax": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.756,
+        "density": 0.8,
+        "complexity": 0.525,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--dancehall-steppers.mid",
+      "sha256": "0a215c66284f5abb39986cd1453fce1f10689ef43b427606a2cc31c3e4367837",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Dancehall steppers",
+        "context": {
+          "tempo": 103,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "dancehall"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Dancehall steppers",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 4,
+            "velocity": 90,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "X..x ..x. X..x ..x."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx.x xx.x xx.x xx.x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/reggae-one-drop",
+        "origin": "library",
+        "title": "Reggae one drop",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "reggae-one-drop"
+        ],
+        "tags": [
+          "groove",
+          "reggae-one-drop"
+        ],
+        "feel": "kick and cross-stick together on beat 3 only, nothing on 1, shuffled triplet hats, hat foot on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 75,
+        "tempoMin": 65,
+        "tempoMax": 85,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.659,
+        "density": 0.667,
+        "complexity": 0.375,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--reggae-one-drop.mid",
+      "sha256": "c5436d24458de4ac3f3ec518160ef4e1c720b696c89f87d71960db5d53e71e6e",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Reggae one drop",
+        "context": {
+          "tempo": 75,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "reggae-one-drop"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Reggae one drop",
+            "low": "C2",
+            "high": "G#2",
+            "grid": 3,
+            "velocity": 83,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "... ... X.. ..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "... ... X.. ..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x x.x x.x x.x"
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": "... x.. ... x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/reggaeton-perreo",
+        "origin": "library",
+        "title": "Reggaeton perreo",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "reggaeton"
+        ],
+        "tags": [
+          "groove",
+          "reggaeton-perreo"
+        ],
+        "feel": "modern perreo; four-on-the-floor kick, dembow snare with clap on the strong hits, a pickup in bar 2, accented 16th hats, open hat and timbale fill at the end of bar 2",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 93,
+        "tempoMin": 88,
+        "tempoMax": 98,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.758,
+        "density": 0.758,
+        "complexity": 0.585,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--reggaeton-perreo.mid",
+      "sha256": "b2dc77c79aa7b8a86f50602bfa102149ee735b8e066e14e4b564a661904206f3",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Reggaeton perreo",
+        "context": {
+          "tempo": 93,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "reggaeton"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Reggaeton perreo",
+            "low": "C2",
+            "high": "F4",
+            "grid": 4,
+            "velocity": 96,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "...x ..X. ...x ..X. | ...x ..X. ...x .xX."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... ..x. .... ..x. | .... ..x. .... ..X. | .... ..x. .... ..X. | .... ..x. .... ..x."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.xx x.xx x.xx x.xx"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... .... | .... .... .... ..x."
+                  },
+                  {
+                    "voice": "timbale_high",
+                    "steps": ".... .... .... .... | .... .... .... x.xx"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/moombahton",
+        "origin": "library",
+        "title": "Moombahton",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "moombahton"
+        ],
+        "tags": [
+          "groove",
+          "moombahton"
+        ],
+        "feel": "Dutch-house reggaeton; four-on-the-floor kick, clap on the dembow accents, rolling 16th hats, off-beat open hat, tom pickup in bar 2",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 109,
+        "tempoMin": 105,
+        "tempoMax": 112,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.712,
+        "density": 0.8,
+        "complexity": 0.569,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--moombahton.mid",
+      "sha256": "0d16bed1b1b69c394e830b2d726cba9936f4d1252ef91b4fe5014e470a2376ab",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Moombahton",
+        "context": {
+          "tempo": 109,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "moombahton"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Moombahton",
+            "low": "C2",
+            "high": "B2",
+            "grid": 4,
+            "velocity": 79,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...x ..X. ...x ..X. | ...x ..X. ...x ..X. | ...x ..X. ...X ..X. | ...x ..X. ...x ..X."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xgxg xgxg xgxg xgxg"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "mid_tom",
+                    "steps": ".... .... .... .... | .... .... .... .Xx. | .... .... .... .... | .... .... .... .XX."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/baile-funk",
+        "origin": "library",
+        "title": "Baile funk",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "baile-funk"
+        ],
+        "tags": [
+          "groove",
+          "baile-funk"
+        ],
+        "feel": "tamborzão",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 130,
+        "tempoMin": 125,
+        "tempoMax": 135,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.757,
+        "density": 0.778,
+        "complexity": 0.533,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--baile-funk.mid",
+      "sha256": "80d1fd7577aeb5055eb166bdef6e36fad585fe5a6d82e2a1c84790f3cc8e80b1",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Baile funk",
+        "context": {
+          "tempo": 130,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "baile-funk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Baile funk",
+            "low": "C2",
+            "high": "E4",
+            "grid": 4,
+            "velocity": 94,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..x ..x. ..x. .x.. | X..x ..x. ..x. .xx."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...x .... ...x ...."
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "..x. .x.. .... .x.."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".x.. ...x .x.. ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/baile-funk-mandelao",
+        "origin": "library",
+        "title": "Baile funk mandelao",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "baile-funk"
+        ],
+        "tags": [
+          "groove",
+          "baile-funk-mandelao"
+        ],
+        "feel": "mandelão - funk automotivo",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 140,
+        "tempoMin": 130,
+        "tempoMax": 150,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.761,
+        "density": 0.778,
+        "complexity": 0.461,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--baile-funk-mandelao.mid",
+      "sha256": "f37564348a8c03004076b72059df67f60eeb04cd648c947dc1276aa7eaac24f2",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Baile funk mandelao",
+        "context": {
+          "tempo": 140,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "baile-funk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Baile funk mandelao",
+            "low": "C2",
+            "high": "G#3",
+            "grid": 4,
+            "velocity": 94,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..x ..x. X..x ..x."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": ".x.. ...x .x.. ...x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/trap-triplet",
+        "origin": "library",
+        "title": "Trap triplet",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "trap"
+        ],
+        "tags": [
+          "groove",
+          "trap-triplet"
+        ],
+        "feel": "triplet-hat flow",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 145,
+        "tempoMin": 130,
+        "tempoMax": 160,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.693,
+        "density": 0.771,
+        "complexity": 0.556,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--trap-triplet.mid",
+      "sha256": "11751472232e028fb5088f2a7173671370f997959d081d6c5e252caaa0c37bc5",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Trap triplet",
+        "context": {
+          "tempo": 145,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "trap"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Trap triplet",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 6,
+            "velocity": 78,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... ...... ...... X..... | ..X... ...... ..X... ......"
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... ...... X..... ......"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x.x. x.x.x. x.x.x. x.x.x. | x.x.x. x.x.x. x.x.x. xgxgxg"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "...... ...... ...... ...... | ...... ...... ...... x....."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/trap-rage",
+        "origin": "library",
+        "title": "Trap rage",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "trap"
+        ],
+        "tags": [
+          "groove",
+          "trap-rage"
+        ],
+        "feel": "rage",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 158,
+        "tempoMin": 145,
+        "tempoMax": 170,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.704,
+        "density": 0.692,
+        "complexity": 0.535,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--trap-rage.mid",
+      "sha256": "8f76b080a51da7a7a590a1a847bf2d10b7a93669620192c225a8daa2e59b76eb",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Trap rage",
+        "context": {
+          "tempo": 158,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "trap"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Trap rage",
+            "low": "C2",
+            "high": "C#3",
+            "grid": 4,
+            "velocity": 91,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ..x. ..x. .... | X.x. .... ..x. .x.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... .... .... .... | .... .... .... ...x"
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... ..x."
+                  },
+                  {
+                    "voice": "crash",
+                    "steps": "x... .... .... .... | .... .... .... ...."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/trap-plugg",
+        "origin": "library",
+        "title": "Trap plugg",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "trap"
+        ],
+        "tags": [
+          "groove",
+          "trap-plugg"
+        ],
+        "feel": "plugg - pluggnb",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 150,
+        "tempoMin": 140,
+        "tempoMax": 160,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.705,
+        "density": 0.714,
+        "complexity": 0.509,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--trap-plugg.mid",
+      "sha256": "f8ecd35e8de746d708f57f0b8f1279277e440993b6d2ab7caf259f7eb0eafd42",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Trap plugg",
+        "context": {
+          "tempo": 150,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "trap"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Trap plugg",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 4,
+            "velocity": 88,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...x ..x. .... | X... .... ..x. .x.."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... .... .... .x.."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.x. xxx. | x.x. x.x. x.xx x.x."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... ..x. .... ...."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/trap-soul",
+        "origin": "library",
+        "title": "Trap soul",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "trap-soul"
+        ],
+        "tags": [
+          "groove",
+          "trap-soul"
+        ],
+        "feel": "Bryson Tiller-style; sparse kick, late clap on 3, 8th hats with 16th flourishes, ghosted rim, soft shaker",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 135,
+        "tempoMin": 120,
+        "tempoMax": 150,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.647,
+        "density": 0.733,
+        "complexity": 0.473,
+        "groove": "swing",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--trap-soul.mid",
+      "sha256": "3c5d6ccd61f436a9baf7bc4baaaac89953f7c33c3154bb30848ab09c08a4c004",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Trap soul",
+        "context": {
+          "tempo": 135,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0.05,
+          "style": [
+            "trap-soul"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Trap soul",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 71,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... .... ..X. .... | X... .... X... ..X."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...g .... ...g .... | ...g .... ...x .... | ...g .... ...g .... | ...g .... ...g ...."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.xx X.x. | x.x. x.x. X.x. xgxg | x.x. x.x. x.xx x.x. | x.x. X.x. x.x. Xgxg"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "..g. ..g. ..g. ..g."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/drill-ny",
+        "origin": "library",
+        "title": "Drill ny",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "drill"
+        ],
+        "tags": [
+          "groove",
+          "drill-ny"
+        ],
+        "feel": "NY - Brooklyn drill",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 143,
+        "tempoMin": 140,
+        "tempoMax": 145,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.702,
+        "density": 0.724,
+        "complexity": 0.554,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--drill-ny.mid",
+      "sha256": "3345eea679d5225ee72469f0b0f85ae33fae241c0ab2cdfd7bd3908ee5fe2a75",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Drill ny",
+        "context": {
+          "tempo": 143,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "drill"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Drill ny",
+            "low": "C2",
+            "high": "A#2",
+            "grid": 4,
+            "velocity": 86,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...X .... .... | X... ...x ..X. .... | X... ...x .... .... | X... ...x ..x. ...."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... .... X... .... | .... ..g. X... ..X. | .... .... X... .... | .... ..g. X... ..x."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... .... ...x .... | ...x .... .... ...."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x..x ..x. x.x. x..x | x..x ..x. x..x xx.x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/phonk-drift",
+        "origin": "library",
+        "title": "Phonk drift",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "phonk"
+        ],
+        "tags": [
+          "groove",
+          "phonk-drift"
+        ],
+        "feel": "drift phonk; hard kick on 1 and the a of 2, clap on 2 and 4, driving cowbell on the 3-3-2, 16th hats, open hat on the and of 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 130,
+        "tempoMin": 120,
+        "tempoMax": 140,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.729,
+        "density": 0.8,
+        "complexity": 0.569,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--phonk-drift.mid",
+      "sha256": "37771700148a5803b719648662a786864971b8ab95b703d15e60e188a725795f",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Phonk drift",
+        "context": {
+          "tempo": 130,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "phonk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Phonk drift",
+            "low": "C2",
+            "high": "G#3",
+            "grid": 4,
+            "velocity": 84,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...x ..x. .... | X... ...X ..X. .x.. | X... ...X ..X. .... | X... ...x ..X. .X.."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xxxx xxxx xxxx xx.x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... ..x."
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": "x..x ..x. x..x ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/phonk-memphis",
+        "origin": "library",
+        "title": "Phonk memphis",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "phonk"
+        ],
+        "tags": [
+          "groove",
+          "phonk-memphis"
+        ],
+        "feel": "Memphis - classic phonk",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 140,
+        "tempoMin": 130,
+        "tempoMax": 150,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.69,
+        "density": 0.8,
+        "complexity": 0.519,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--phonk-memphis.mid",
+      "sha256": "dd9664fef67d125e955c547b5399ab3705a334d7473ddf4a1cfeaf965ae692e9",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Phonk memphis",
+        "context": {
+          "tempo": 140,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "phonk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Phonk memphis",
+            "low": "C2",
+            "high": "G#3",
+            "grid": 4,
+            "velocity": 74,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ..X. ..X. .... | X... ..X. X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... .... X... ...."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xgxg xgxg xgxg xgxg | xgxg xgxg xgxg xgxg | xgxg xgxg xgxg xgxg | xgxg Xgxg xgxg xgxg"
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": "..x. ..x. ..x. x..x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/jersey-club",
+        "origin": "library",
+        "title": "Jersey club",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "jersey-club"
+        ],
+        "tags": [
+          "groove",
+          "jersey-club"
+        ],
+        "feel": "the five-kick bounce on 1, 2, 3, the a of 3 and the and of 4; clap on 2 and 4, 8th hats, rim on the and",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 138,
+        "tempoMin": 130,
+        "tempoMax": 145,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.732,
+        "density": 0.714,
+        "complexity": 0.415,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--jersey-club.mid",
+      "sha256": "10a6dbd350617ddcec72b555270633360e1cd5dd2efece0c4283f4de9b7a20a4",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Jersey club",
+        "context": {
+          "tempo": 138,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "jersey-club"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Jersey club",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 95,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X..X ..X."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "..x. ..x. ..x. ...x"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/jersey-club-bounce",
+        "origin": "library",
+        "title": "Jersey club bounce",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "jersey-club"
+        ],
+        "tags": [
+          "groove",
+          "jersey-club-bounce"
+        ],
+        "feel": "kick-roll variant; five-kick pattern in bar 1, bar 2 rolls 1-3-5-9-11-13-15, clap on 2 and 4 with a pickup on the a of 4, 16th hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 143,
+        "tempoMin": 135,
+        "tempoMax": 150,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.709,
+        "density": 0.8,
+        "complexity": 0.431,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--jersey-club-bounce.mid",
+      "sha256": "c1059bc819003ea2661fba31451b7e0985782a604b34ddd20c2c2d615e020ab1",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Jersey club bounce",
+        "context": {
+          "tempo": 143,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "jersey-club"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Jersey club bounce",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 4,
+            "velocity": 78,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X..X ..X. | X.X. X... X.X. X.X."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X... | .... X... .... X..X"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xgxg xgxg xgxg xgxg"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/uk-garage",
+        "origin": "library",
+        "title": "Uk garage",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "uk-garage"
+        ],
+        "tags": [
+          "groove",
+          "uk-garage"
+        ],
+        "feel": "2-step; kick on 1 and the and of 3",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 134,
+        "tempoMin": 130,
+        "tempoMax": 138,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.668,
+        "density": 0.8,
+        "complexity": 0.663,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--uk-garage.mid",
+      "sha256": "85a20295aed51f12c52f358536fa4947786f143d35973b6da1bb2772e412fc9e",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Uk garage",
+        "context": {
+          "tempo": 134,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "uk-garage"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Uk garage",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 68,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... ...... ...X.. ...... | X..... ...... ...X.. ..X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "...... .....X ..X... ...X.. | .....X .....X ..x... ...... | ...... .....X ..X... ...X.. | .....X .....X ..X... ......"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "...x.. ...x.. ...x.. ...x.. | ...x.. ...x.. ...x.. g..x.."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "...... ...... ...... ...... | ...... ...... ...... ...X.. | ...... ...... ...... ...... | ...... ...... ...... ...x.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "g.xx.x g.xx.x g.xg.x x.xx.x | g.xx.x g.xg.x x.xg.x g.xg.x | g.xx.x x.xx.x x.xx.x g.xx.x | x.xg.x g.xg.x g.xg.x g.xx.x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/uk-garage-shuffle",
+        "origin": "library",
+        "title": "Uk garage shuffle",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "uk-garage"
+        ],
+        "tags": [
+          "groove",
+          "uk-garage-shuffle"
+        ],
+        "feel": "4x4 garage shuffle; kick on 1 with soft off-beat kicks, snare on 2 and 4 with a ghost at the bar end, low clap under, swung ghosted hats and shaker",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 124,
+        "tempoMin": 120,
+        "tempoMax": 128,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.637,
+        "density": 0.8,
+        "complexity": 0.569,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--uk-garage-shuffle.mid",
+      "sha256": "c2e45b5ab1fa57cf67eedc59202b1bae967cfc2d6b4a9fbe5f8731e998ba4a2f",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Uk garage shuffle",
+        "context": {
+          "tempo": 124,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "uk-garage"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Uk garage shuffle",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 60,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... ...x.. ...X.. ..x... | X..... ...x.. .....x ...X.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "...... X..... ...... X....x"
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... x..... ...... x....."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.xx.x x.xX.x x.xx.x X.xx.x | x.xx.x x.xX.x x.xx.x X.xx.x | x.Xx.x x.xX.x x.xx.x X.xx.x | x.xx.x x.xX.x x.xx.x X.xx.x"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "x.xx.x x.xx.x x.xx.x x.xx.x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/uk-funky",
+        "origin": "library",
+        "title": "Uk funky",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "uk-funky"
+        ],
+        "tags": [
+          "groove",
+          "uk-funky"
+        ],
+        "feel": "tribal syncopated kick, clap on 2 and 4, rim on the 3-3-2 skips, congas, off-beat open hat, swung 16th shaker",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 130,
+        "tempoMin": 128,
+        "tempoMax": 132,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.696,
+        "density": 0.8,
+        "complexity": 0.706,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--uk-funky.mid",
+      "sha256": "2338ed35dbeb039fabccbca8b2dc251f639e858ae2b201296ac99584a4c8f192",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Uk funky",
+        "context": {
+          "tempo": 130,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "uk-funky"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Uk funky",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 6,
+            "velocity": 75,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... .....X ...X.. ...... | X..... .....X ...X.. ...X.."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".....x ...x.. .....x ...x.."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "...x.. ...x.. ...x.. ...x.."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "x.gx.g x.gx.g x.gx.g x.gx.g"
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": "..x... x..... x....x ......"
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": "...... ...x.. ...... ...x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/jungle",
+        "origin": "library",
+        "title": "Jungle",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "jungle"
+        ],
+        "tags": [
+          "groove",
+          "jungle"
+        ],
+        "feel": "chopped Amen break; kick on 1, the and of 1 and the and-a of 3, snares on 2 and 4 with the Amen's skipping ghosts, 8th ride, crash in bar 2",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 168,
+        "tempoMin": 160,
+        "tempoMax": 175,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.735,
+        "density": 0.733,
+        "complexity": 0.48,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--jungle.mid",
+      "sha256": "c09e04e643a356d5a173c6082d588cdc842fb48d36995ae5eeeb0ebd78fa95db",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Jungle",
+        "context": {
+          "tempo": 168,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "jungle"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Jungle",
+            "low": "C2",
+            "high": "D#3",
+            "grid": 4,
+            "velocity": 94,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X.x. .... ..xx .... | X.x. .... ..x. ...."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X..x .x.. X..x | .... X..x .x.. ..x."
+                  },
+                  {
+                    "voice": "crash",
+                    "steps": ".... .... .... .... | .... .... ..x. ...."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/bossa-nova",
+        "origin": "library",
+        "title": "Bossa nova",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "bossa-nova"
+        ],
+        "tags": [
+          "groove",
+          "bossa-nova"
+        ],
+        "feel": "cross-stick on the bossa clave over two bars, kick on 1 and 3 with pickups on the and of 2 and 4, 8th hats, hat foot on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 133,
+        "tempoMin": 120,
+        "tempoMax": 145,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.68,
+        "density": 0.667,
+        "complexity": 0.375,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--bossa-nova.mid",
+      "sha256": "3d83f1e1bfcd4b76204baa9aa3344a423b6fedb63afebe900ec148daa9b2b84c",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Bossa nova",
+        "context": {
+          "tempo": 133,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "bossa-nova"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Bossa nova",
+            "low": "C2",
+            "high": "G#2",
+            "grid": 2,
+            "velocity": 88,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X. .x X. .x | X. .x X. .X | X. .x X. .x | X. .x X. .x"
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "x. .x .. x. | .. x. .x .."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx xx xx xx"
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": ".. x. .. x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/samba",
+        "origin": "library",
+        "title": "Samba",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "samba"
+        ],
+        "tags": [
+          "groove",
+          "samba"
+        ],
+        "feel": "surdo kick on every beat with pickups and accents on 2 and 4, 16th ganzá shaker accented on the a, tamborim rim figure over two bars, two-tone agogo",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 100,
+        "tempoMin": 90,
+        "tempoMax": 110,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.7,
+        "density": 0.8,
+        "complexity": 0.519,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--samba.mid",
+      "sha256": "b06aa8c05a5efbc2dd0bba2f3e5791411607741ca5a28b31cffe9f6453a50505",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Samba",
+        "context": {
+          "tempo": 100,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "samba"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Samba",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..X X..X X..X X..X"
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "x.xx .x.x .xx. x.x. | x.x. xx.x .x.x .xx. | X.xx .x.x .xx. x.x. | x.x. xx.x .x.x .xx."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "xggx xggx xggx xggx"
+                  },
+                  {
+                    "voice": "agogo_high",
+                    "steps": "x.x. ..x. x.x. ..x."
+                  },
+                  {
+                    "voice": "agogo_low",
+                    "steps": "...x .... .x.. ...x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/cumbia",
+        "origin": "library",
+        "title": "Cumbia",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "cumbia"
+        ],
+        "tags": [
+          "groove",
+          "cumbia"
+        ],
+        "feel": "kick on 1 and 3, guiro scraping an 8th and two 16ths, cowbell on the off-beats, conga mutes on the beat with open tones on the and of 2 and 4, cross-stick on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 93,
+        "tempoMin": 85,
+        "tempoMax": 100,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.675,
+        "density": 0.75,
+        "complexity": 0.573,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--cumbia.mid",
+      "sha256": "1001cde8254a00b9e4ab4522793d655db6195ae9ae67df8c994824d2d24ab826",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Cumbia",
+        "context": {
+          "tempo": 93,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "cumbia"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Cumbia",
+            "low": "C2",
+            "high": "C#5",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... .... X... ...."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... x... .... x..."
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": "..x. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": ".... ..x. .... ..x."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".... .... .... ...x"
+                  },
+                  {
+                    "voice": "conga_mute",
+                    "steps": "x... x... x... x..."
+                  },
+                  {
+                    "voice": "guiro",
+                    "steps": "x.xx x.xx x.xx x.xx"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/salsa",
+        "origin": "library",
+        "title": "Salsa",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "salsa"
+        ],
+        "tags": [
+          "groove",
+          "salsa"
+        ],
+        "feel": "son clave 2-3",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 95,
+        "tempoMin": 85,
+        "tempoMax": 105,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.7,
+        "density": 0.8,
+        "complexity": 0.563,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--salsa.mid",
+      "sha256": "30efefd98550e726656006aae9a0b7fb7e67c1c1ac8d0582b17f961e8eca7aa5",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Salsa",
+        "context": {
+          "tempo": 95,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "salsa"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Salsa",
+            "low": "C2",
+            "high": "D#5",
+            "grid": 4,
+            "velocity": 76,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "...g ..g. ...g ..g."
+                  },
+                  {
+                    "voice": "cowbell",
+                    "steps": "X.x. X.x. X.x. X.x."
+                  },
+                  {
+                    "voice": "conga_high",
+                    "steps": ".... ..x. .... ..x."
+                  },
+                  {
+                    "voice": "conga_low",
+                    "steps": ".... ...x .... ...x"
+                  },
+                  {
+                    "voice": "conga_mute",
+                    "steps": "xxXx xx.. xxXx xx.. | xxXx xx.. xxXx xx.. | xxXx xx.. xxXx xx.. | xxxx xx.. xxXx xx.."
+                  },
+                  {
+                    "voice": "clave",
+                    "steps": "..x. x... x..x ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/rnb",
+        "origin": "library",
+        "title": "Rnb",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "randb"
+        ],
+        "tags": [
+          "groove",
+          "rnb"
+        ],
+        "feel": "modern R&B",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 70,
+        "tempoMin": 60,
+        "tempoMax": 80,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.693,
+        "density": 0.733,
+        "complexity": 0.473,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--rnb.mid",
+      "sha256": "3517159585f7793a62846298989476db82b0e60193d3cfeef0fb329de1b24ef7",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Rnb",
+        "context": {
+          "tempo": 70,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "randb"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Rnb",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 83,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...x ..X. .... | X... .... ..x. .X.. | X... ...X ..X. .... | X... .... ..X. .X.."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".... .... ..g. .... | .... ...g .... ...."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.xx x.x. x.xx x.x. | x.x. x.x. x.x. xxxx"
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "..x. ..x. ..x. ..x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/rnb-new-jack-swing",
+        "origin": "library",
+        "title": "Rnb new jack swing",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "randb"
+        ],
+        "tags": [
+          "groove",
+          "rnb-new-jack-swing"
+        ],
+        "feel": "90s new jack swing; punchy kick on 1, the and of 2 and the and of 3, snare and clap on 2 and 4, heavily swung 16th hats, tambourine on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 108,
+        "tempoMin": 100,
+        "tempoMax": 115,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.706,
+        "density": 0.8,
+        "complexity": 0.569,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--rnb-new-jack-swing.mid",
+      "sha256": "0e336c203ecc66392b63b62c4aa59ede42cae1d4499716a11428065cd88a3c0e",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Rnb new jack swing",
+        "context": {
+          "tempo": 108,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "randb"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Rnb new jack swing",
+            "low": "C2",
+            "high": "F#3",
+            "grid": 6,
+            "velocity": 78,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X..... ...X.. ...X.. ...... | X..... ...X.. X..X.. ...X.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": "...... X..... ...... X....."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x.gx.g x.gx.g x.gx.g x.gx.g"
+                  },
+                  {
+                    "voice": "tambourine",
+                    "steps": "...... x..... ...... x....."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/gfunk",
+        "origin": "library",
+        "title": "Gfunk",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "g-funk"
+        ],
+        "tags": [
+          "groove",
+          "gfunk"
+        ],
+        "feel": "West Coast; laid-back kick on 1, the a of 2 and 3, snare and clap on 2 and 4, accented 16th hats, 8th shaker, open hat on the and of 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 93,
+        "tempoMin": 88,
+        "tempoMax": 98,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.736,
+        "density": 0.789,
+        "complexity": 0.606,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--gfunk.mid",
+      "sha256": "eacef25995abc2f1b4794f03f4936e68886d9dfa2c1433a3f8fc2fd1a5d911f4",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Gfunk",
+        "context": {
+          "tempo": 93,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "g-funk"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Gfunk",
+            "low": "C2",
+            "high": "A#4",
+            "grid": 4,
+            "velocity": 87,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... ...X X... .... | X... ...x X... .x.. | X... ...x X... .... | X... ...x X... .x.."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "clap",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xxxx xxxx xxxx xxx. | Xxxx Xxxx xxxx Xxx. | Xxxx Xxxx Xxxx xxx. | xxxx Xxxx xxxx Xxx."
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": ".... .... .... ..x."
+                  },
+                  {
+                    "voice": "shaker",
+                    "steps": "x.x. x.x. x.x. x.x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/disco",
+        "origin": "library",
+        "title": "Disco",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "disco"
+        ],
+        "tags": [
+          "groove",
+          "disco"
+        ],
+        "feel": "four-on-the-floor kick, snare on 2 and 4, open hat on every off-beat with closed hats around it, tambourine on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 118,
+        "tempoMin": 110,
+        "tempoMax": 125,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.758,
+        "density": 0.8,
+        "complexity": 0.569,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--disco.mid",
+      "sha256": "9c1e052b705fc789af8c1fb85d6564cfc3cd2d8915a87058df72b7e6f7407c5c",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Disco",
+        "context": {
+          "tempo": 118,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "disco"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Disco",
+            "low": "C2",
+            "high": "F#3",
+            "grid": 4,
+            "velocity": 91,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X... X... X... X..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".... X... .... X..."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "xx.x xx.x xx.x xx.x"
+                  },
+                  {
+                    "voice": "open_hat",
+                    "steps": "..x. ..x. ..X. ..x. | ..x. ..x. ..x. ..x. | ..x. ..x. ..x. ..x. | ..X. ..x. ..x. ..x."
+                  },
+                  {
+                    "voice": "tambourine",
+                    "steps": ".... x... .... x..."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/jazz-swing",
+        "origin": "library",
+        "title": "Jazz swing",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "jazz-swing"
+        ],
+        "tags": [
+          "groove",
+          "jazz-swing"
+        ],
+        "feel": "spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick, cross-stick on 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 150,
+        "tempoMin": 120,
+        "tempoMax": 180,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.561,
+        "density": 0.6,
+        "complexity": 0.308,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--jazz-swing.mid",
+      "sha256": "b5c8b35ddaa0adf964450f43512796c41b28a66d4dbebfdb5313f61f1008dc45",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Jazz swing",
+        "context": {
+          "tempo": 150,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "jazz-swing"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Jazz swing",
+            "low": "C2",
+            "high": "D#3",
+            "grid": 3,
+            "velocity": 66,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "g.. g.. x.. g.. | g.. x.. g.. x.. | g.. x.. x.. x.. | x.. x.. g.. x.."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": "... ... ... g.. | ... ... ... x.. | ... ... ... x.. | ... ... ... g.."
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": "... x.. ... x.."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "X.. X.x x.. X.x | X.. X.x X.. X.x | X.. X.x X.. X.x | X.. X.x X.. X.x"
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/brush-swing",
+        "origin": "library",
+        "title": "Brush swing",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "brushes"
+        ],
+        "tags": [
+          "groove",
+          "brush-swing"
+        ],
+        "feel": "swirling brush snare, feathered kick, hi-hat foot on 2 and 4",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 110,
+        "tempoMin": 90,
+        "tempoMax": 130,
+        "meterNumerator": 4,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.593,
+        "density": 0.667,
+        "complexity": 0.331,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--brush-swing.mid",
+      "sha256": "498d30bd38971cf145732b36a75f8b1088ea30f1373867cbbed9aa53ea8a633c",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Brush swing",
+        "context": {
+          "tempo": 110,
+          "meterNumerator": 4,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "brushes"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Brush swing",
+            "low": "C2",
+            "high": "G#2",
+            "grid": 3,
+            "velocity": 66,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "g.. ... x.. ... | g.. ... x.. ... | g.. ... g.. ... | g.. ... g.. ..."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": "X.g X.x X.g X.x | X.x X.g X.x X.g | X.g X.g X.x X.x | X.x X.x X.x X.x"
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": "... x.. ... x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/jazz-waltz",
+        "origin": "library",
+        "title": "Jazz waltz",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "jazz-waltz"
+        ],
+        "tags": [
+          "groove",
+          "jazz-waltz"
+        ],
+        "feel": "skipping ride, hi-hat foot on 2 and 3, feathered kick",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 150,
+        "tempoMin": 120,
+        "tempoMax": 180,
+        "meterNumerator": 3,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.574,
+        "density": 0.571,
+        "complexity": 0.231,
+        "groove": "triplet",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--jazz-waltz.mid",
+      "sha256": "1f4ecafcc5cdbbe5790e057100f9fdb971c3793a13b5f1527dac89b61ded4b74",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Jazz waltz",
+        "context": {
+          "tempo": 150,
+          "meterNumerator": 3,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "jazz-waltz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Jazz waltz",
+            "low": "C2",
+            "high": "D#3",
+            "grid": 3,
+            "velocity": 73,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "g.. ... ..."
+                  },
+                  {
+                    "voice": "pedal_hat",
+                    "steps": "... x.. x.."
+                  },
+                  {
+                    "voice": "ride",
+                    "steps": "x.. x.x x.."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/waltz",
+        "origin": "library",
+        "title": "Waltz",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "waltz"
+        ],
+        "tags": [
+          "groove",
+          "waltz"
+        ],
+        "feel": "kick on 1, cross-stick on 2 and 3, 8th hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 90,
+        "tempoMin": 80,
+        "tempoMax": 100,
+        "meterNumerator": 3,
+        "meterDenominator": 4,
+        "bars": 4,
+        "energy": 0.594,
+        "density": 0.5,
+        "complexity": 0.131,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--waltz.mid",
+      "sha256": "05d66fbcf209de628a3b0437689e618b859f89bd8b71cdedcb470c263c4331ff",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Waltz",
+        "context": {
+          "tempo": 90,
+          "meterNumerator": 3,
+          "meterDenominator": 4,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "waltz"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Waltz",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 2,
+            "velocity": 87,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "x. .. .."
+                  },
+                  {
+                    "voice": "rim",
+                    "steps": ".. x. x."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x. x. x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/six-eight",
+        "origin": "library",
+        "title": "Six eight",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "6-8"
+        ],
+        "tags": [
+          "groove",
+          "six-eight"
+        ],
+        "feel": "kick on 1, snare on 4, every eighth on the hats with accents on 1 and 4; ballads and folk",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 70,
+        "tempoMin": 60,
+        "tempoMax": 80,
+        "meterNumerator": 6,
+        "meterDenominator": 8,
+        "bars": 4,
+        "energy": 0.624,
+        "density": 0.5,
+        "complexity": 0.131,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--six-eight.mid",
+      "sha256": "7dd18106ec494fe42ca15f78438d1184bc1b91430c24e96ec97460fdf26b98da",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Six eight",
+        "context": {
+          "tempo": 70,
+          "meterNumerator": 6,
+          "meterDenominator": 8,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "6-8"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Six eight",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 2,
+            "velocity": 95,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X. .. .. .. .. .."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".. .. .. X. .. .."
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x. x. x. x. x. x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "entry": {
+        "id": "lib:flowstate-grooves/gospel-shuffle",
+        "origin": "library",
+        "title": "Gospel shuffle",
+        "roles": [
+          "drums"
+        ],
+        "genres": [
+          "gospel-6-8"
+        ],
+        "tags": [
+          "groove",
+          "gospel-shuffle"
+        ],
+        "feel": "kick on 1 with a pickup on 6, snare on 4 with a ghost, accented hats",
+        "tonic": null,
+        "mode": null,
+        "keyNote": "Blank: drums have no key",
+        "tempo": 75,
+        "tempoMin": 65,
+        "tempoMax": 85,
+        "meterNumerator": 6,
+        "meterDenominator": 8,
+        "bars": 4,
+        "energy": 0.624,
+        "density": 0.538,
+        "complexity": 0.188,
+        "groove": "straight",
+        "credit": {
+          "packId": "flowstate-grooves",
+          "packTitle": "Flowstate Grooves",
+          "producer": "Flowstate",
+          "text": "Grooves by Flowstate.",
+          "licenseId": "flowstate-built-in",
+          "allowsExport": true,
+          "allowsStyleExamples": true
+        },
+        "nodeId": null,
+        "prompt": null,
+        "kind": null,
+        "createdAtMs": null
+      },
+      "file": "flowstate-grooves--gospel-shuffle.mid",
+      "sha256": "51818fed8d28322a08032281ea9c111318a27e051a66d3076b40cc8050a78b30",
+      "harmony": [],
+      "fidelity": {
+        "rhythm": 1,
+        "pitch": 1,
+        "notes": 1,
+        "literalNotes": 0
+      },
+      "score": {
+        "ir": "flowstate.score.v0",
+        "title": "Gospel shuffle",
+        "context": {
+          "tempo": 75,
+          "meterNumerator": 6,
+          "meterDenominator": 8,
+          "tonic": "C",
+          "mode": "major",
+          "bars": 4,
+          "swing": 0,
+          "style": [
+            "gospel-6-8"
+          ]
+        },
+        "form": [
+          {
+            "name": "A",
+            "startBar": 1,
+            "bars": 4,
+            "energy": 0.6
+          }
+        ],
+        "harmony": "",
+        "motifs": [],
+        "parts": [
+          {
+            "id": "drums",
+            "role": "drums",
+            "name": "Gospel shuffle",
+            "low": "C2",
+            "high": "F#2",
+            "grid": 2,
+            "velocity": 90,
+            "blocks": [
+              {
+                "startBar": 1,
+                "endBar": 4,
+                "drums": [
+                  {
+                    "voice": "kick",
+                    "steps": "X. .. .. .. .. x."
+                  },
+                  {
+                    "voice": "snare",
+                    "steps": ".. .. .. X. .. .g"
+                  },
+                  {
+                    "voice": "closed_hat",
+                    "steps": "x. x. x. x. x. x. | x. x. x. X. x. x. | X. x. x. X. x. x. | X. x. x. x. x. x."
+                  }
+                ],
+                "fill": "none"
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "entry": {
         "id": "lib:godflow/rnb-jazz-chords-01",

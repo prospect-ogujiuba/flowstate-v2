@@ -137,6 +137,27 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   if (!keyFile || !args._.length) { console.error("usage: tsx src/score-ab.ts --key <pack>.key.json <sheet.csv> [...]"); process.exit(2); }
   const key = JSON.parse(readFileSync(path.resolve(keyFile), "utf8")) as { pack: string; kind?: string; entries: { promptId: string; v2Option: 1 | 2 }[] };
   const v2OptionById = new Map(key.entries.map((e) => [e.promptId, e.v2Option]));
+  if (key.kind === "groove") {
+    // P1-3's genre library: which grooves sound like their style, weakest-sourced first.
+    const meta = new Map((key.entries as unknown as { promptId: string; confidence: string }[]).map((e) => [e.promptId, e.confidence]));
+    for (const sheet of args._) {
+      const rows = parseCsv(readFileSync(path.resolve(sheet), "utf8"));
+      const header = (rows.shift() ?? []).map((h) => h.trim().toLowerCase());
+      const col = (n: string) => header.indexOf(n);
+      const judged = rows.map((r) => ({ id: (r[col("prompt_id")] ?? "").trim(), ok: (r[col("authentic")] ?? "").trim().toLowerCase(),
+        m: score(r[col("musicality")]), notes: (r[col("notes")] ?? "").trim() })).filter((j) => meta.has(j.id) && ["y", "n"].includes(j.ok));
+      const yes = judged.filter((j) => j.ok === "y").length;
+      console.log(`# Groove results: ${key.pack} (${path.basename(sheet)})\n`);
+      console.log(`- judged: ${judged.length} of ${meta.size}; sounds like its style: ${yes} (${pct(judged.length ? yes / judged.length : null)})`);
+      for (const c of ["low", "medium", "high"]) {
+        const of = judged.filter((j) => meta.get(j.id) === c);
+        if (of.length) console.log(`  - ${c} confidence: ${of.filter((j) => j.ok === "y").length} of ${of.length}`);
+      }
+      const misses = judged.filter((j) => j.ok === "n");
+      if (misses.length) console.log(`\nTo rework:\n${misses.map((j) => `- ${j.id} (${meta.get(j.id)}, musicality ${j.m ?? "–"})${j.notes ? `: ${j.notes}` : ""}`).join("\n")}`);
+    }
+    process.exit(0);
+  }
   if (key.kind === "capture") {
     const intentOf = new Map((key.entries as unknown as { promptId: string; intent: string }[]).map((e) => [e.promptId, e.intent]));
     for (const sheet of args._) {

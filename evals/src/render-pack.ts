@@ -122,7 +122,9 @@ async function main() {
     const template = templateFor((fields.style ?? "").split(",").map((s) => s.trim()).filter(Boolean), prompt);
     // A capture A/B pack also has the riff both options answer.
     const riff = existsSync(path.join(dir, "riff.mid"));
-    for (const clip of soundBank ? ["option-1", "option-2", ...(riff ? ["riff"] : [])] : []) {
+    // A groove pack has one clip per item.
+    const clips = ["option-1", ...(existsSync(path.join(dir, "option-2.mid")) ? ["option-2"] : []), ...(riff ? ["riff"] : [])];
+    for (const clip of soundBank ? clips : []) {
       const song = readSmf(readFileSync(path.join(dir, `${clip}.mid`)));
       const audio = renderSong(soundBank!, song, template, loops);
       encode(audioToWav(audio, SAMPLE_RATE), path.join(dir, `${clip}.mp3`));

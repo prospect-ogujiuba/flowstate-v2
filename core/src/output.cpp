@@ -39,7 +39,7 @@ std::string notesJson(const Realization& r, int indent) {
         if (p.role == Role::Drums) {
             // Fixed voice -> GM note -> v1 sublane table for per-sublane export.
             ordered_json voices = ordered_json::array();
-            for (int v = 0; v <= static_cast<int>(DrumVoice::Cowbell); ++v) {
+            for (int v = 0; v < kDrumVoiceCount; ++v) {
                 const auto voice = static_cast<DrumVoice>(v);
                 const int note = drumVoiceNote(voice);
                 voices.push_back({{"voice", toString(voice)}, {"note", note}, {"sublane", drumSublaneForNote(note)}});

@@ -1,0 +1,1101 @@
+{
+  "schema": "flowstate.libraryPack.v2",
+  "id": "flowstate-grooves",
+  "title": "Flowstate Grooves",
+  "producer": "Flowstate",
+  "credit": "Grooves by Flowstate.",
+  "creditFile": "CREDITS.md",
+  "license": {
+    "id": "flowstate-built-in",
+    "name": "Flowstate built-in content",
+    "allowsPreview": true,
+    "allowsExport": true,
+    "allowsStyleExamples": true
+  },
+  "laneNotes": [
+    "Drums only: the grooves are rhythm patterns. Chords, bass and melodies come from the planner and the other packs."
+  ],
+  "omitted": [],
+  "entries": [
+    {
+      "id": "four-on-floor",
+      "file": "midi/drums/house/four_on_floor.mid",
+      "lane": "drums",
+      "title": "Four on floor",
+      "genres": [
+        "house"
+      ],
+      "tags": [
+        "groove",
+        "four-on-floor"
+      ],
+      "feel": "kick on every beat, clap on 2 and 4, off-beat open hats, rolling 16th shaker",
+      "tempoMin": 120,
+      "tempoMax": 128,
+      "key": null,
+      "notes": "Core's four_on_floor groove. Pairs with a drums block's \"groove\": \"four_on_floor\"."
+    },
+    {
+      "id": "tech-house",
+      "file": "midi/drums/tech-house/tech_house.mid",
+      "lane": "drums",
+      "title": "Tech house",
+      "genres": [
+        "tech-house"
+      ],
+      "tags": [
+        "groove",
+        "tech-house"
+      ],
+      "feel": "four-on-the-floor kick, clap on 2 and 4, off-beat pedal hat, ride on the beat, a pushed ghost snare",
+      "tempoMin": 124,
+      "tempoMax": 128,
+      "key": null,
+      "notes": "Core's tech_house groove. Pairs with a drums block's \"groove\": \"tech_house\"."
+    },
+    {
+      "id": "boom-bap",
+      "file": "midi/drums/boom-bap/boom_bap.mid",
+      "lane": "drums",
+      "title": "Boom bap",
+      "genres": [
+        "boom-bap"
+      ],
+      "tags": [
+        "groove",
+        "boom-bap"
+      ],
+      "feel": "syncopated kick, laid-back snare on 2 and 4, 8th hats",
+      "tempoMin": 86,
+      "tempoMax": 96,
+      "key": null,
+      "notes": "Core's boom_bap groove, with swing 0.15. Pairs with a drums block's \"groove\": \"boom_bap\"."
+    },
+    {
+      "id": "lofi",
+      "file": "midi/drums/lofi/lofi.mid",
+      "lane": "drums",
+      "title": "Lofi",
+      "genres": [
+        "lofi"
+      ],
+      "tags": [
+        "groove",
+        "lofi"
+      ],
+      "feel": "soft kick with an off-beat push, late snare and clap on 2 and 4, ghosted hats",
+      "tempoMin": 70,
+      "tempoMax": 90,
+      "key": null,
+      "notes": "Core's lofi groove, with swing 0.2. Pairs with a drums block's \"groove\": \"lofi\"."
+    },
+    {
+      "id": "trap",
+      "file": "midi/drums/trap/trap.mid",
+      "lane": "drums",
+      "title": "Trap",
+      "genres": [
+        "trap"
+      ],
+      "tags": [
+        "groove",
+        "trap"
+      ],
+      "feel": "sparse kicks, clap on 3, 8th hats with a 32nd roll before the bar line",
+      "tempoMin": 130,
+      "tempoMax": 170,
+      "key": null,
+      "notes": "Core's trap groove. Pairs with a drums block's \"groove\": \"trap\"."
+    },
+    {
+      "id": "drill",
+      "file": "midi/drums/uk-drill/drill.mid",
+      "lane": "drums",
+      "title": "Drill",
+      "genres": [
+        "uk-drill"
+      ],
+      "tags": [
+        "groove",
+        "drill"
+      ],
+      "feel": "half-time snare on 3 then on 4 in bar 2, sliding kicks off the downbeat, tresillo hats",
+      "tempoMin": 138,
+      "tempoMax": 146,
+      "key": null,
+      "notes": "Core's drill groove. Pairs with a drums block's \"groove\": \"drill\"."
+    },
+    {
+      "id": "dembow",
+      "file": "midi/drums/reggaeton-dembow/dembow.mid",
+      "lane": "drums",
+      "title": "Dembow",
+      "genres": [
+        "reggaeton-dembow"
+      ],
+      "tags": [
+        "groove",
+        "dembow"
+      ],
+      "feel": "kick on every beat, snare on the 3-3-2 dembow accents",
+      "tempoMin": 88,
+      "tempoMax": 100,
+      "key": null,
+      "notes": "Core's dembow groove. Pairs with a drums block's \"groove\": \"dembow\"."
+    },
+    {
+      "id": "funk",
+      "file": "midi/drums/funk/funk.mid",
+      "lane": "drums",
+      "title": "Funk",
+      "genres": [
+        "funk"
+      ],
+      "tags": [
+        "groove",
+        "funk"
+      ],
+      "feel": "syncopated kick, backbeat snare with ghost notes, accented 16th hats opening on the e of 2 and 4",
+      "tempoMin": 95,
+      "tempoMax": 110,
+      "key": null,
+      "notes": "Core's funk groove, with swing 0.1. Pairs with a drums block's \"groove\": \"funk\"."
+    },
+    {
+      "id": "rock",
+      "file": "midi/drums/rock/rock.mid",
+      "lane": "drums",
+      "title": "Rock",
+      "genres": [
+        "rock"
+      ],
+      "tags": [
+        "groove",
+        "rock"
+      ],
+      "feel": "kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat",
+      "tempoMin": 110,
+      "tempoMax": 140,
+      "key": null,
+      "notes": "Core's rock groove. Pairs with a drums block's \"groove\": \"rock\"."
+    },
+    {
+      "id": "pop",
+      "file": "midi/drums/pop/pop.mid",
+      "lane": "drums",
+      "title": "Pop",
+      "genres": [
+        "pop"
+      ],
+      "tags": [
+        "groove",
+        "pop"
+      ],
+      "feel": "kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats",
+      "tempoMin": 100,
+      "tempoMax": 124,
+      "key": null,
+      "notes": "Core's pop groove. Pairs with a drums block's \"groove\": \"pop\"."
+    },
+    {
+      "id": "ballad",
+      "file": "midi/drums/ballad/ballad.mid",
+      "lane": "drums",
+      "title": "Ballad",
+      "genres": [
+        "ballad"
+      ],
+      "tags": [
+        "groove",
+        "ballad"
+      ],
+      "feel": "soft kick on 1 and 3, cross-stick on 2 and 4, gentle 8th hats",
+      "tempoMin": 60,
+      "tempoMax": 80,
+      "key": null,
+      "notes": "Core's ballad groove. Pairs with a drums block's \"groove\": \"ballad\"."
+    },
+    {
+      "id": "neo-soul",
+      "file": "midi/drums/neo-soul/neo_soul.mid",
+      "lane": "drums",
+      "title": "Neo soul",
+      "genres": [
+        "neo-soul"
+      ],
+      "tags": [
+        "groove",
+        "neo-soul"
+      ],
+      "feel": "behind-the-beat pocket, late snare and hats, ghosted 16ths",
+      "tempoMin": 75,
+      "tempoMax": 92,
+      "key": null,
+      "notes": "Core's neo_soul groove, with swing 0.15. Pairs with a drums block's \"groove\": \"neo_soul\"."
+    },
+    {
+      "id": "dnb",
+      "file": "midi/drums/drum-and-bass/dnb.mid",
+      "lane": "drums",
+      "title": "Dnb",
+      "genres": [
+        "drum-and-bass"
+      ],
+      "tags": [
+        "groove",
+        "dnb"
+      ],
+      "feel": "two-step kick and snare with ghost snares, ride 8ths, off-beat hats",
+      "tempoMin": 170,
+      "tempoMax": 176,
+      "key": null,
+      "notes": "Core's dnb groove. Pairs with a drums block's \"groove\": \"dnb\"."
+    },
+    {
+      "id": "half-time",
+      "file": "midi/drums/half-time/half_time.mid",
+      "lane": "drums",
+      "title": "Half time",
+      "genres": [
+        "half-time"
+      ],
+      "tags": [
+        "groove",
+        "half-time"
+      ],
+      "feel": "kick on 1, snare on 3, 8th hats; slow hip hop and builds",
+      "tempoMin": 60,
+      "tempoMax": 80,
+      "key": null,
+      "notes": "Core's half_time groove. Pairs with a drums block's \"groove\": \"half_time\"."
+    },
+    {
+      "id": "cinematic-toms",
+      "file": "midi/drums/cinematic/cinematic_toms.mid",
+      "lane": "drums",
+      "title": "Cinematic toms",
+      "genres": [
+        "cinematic"
+      ],
+      "tags": [
+        "groove",
+        "cinematic-toms"
+      ],
+      "feel": "big low-tom ostinato over kick on 1 and 3, crash on the first downbeat",
+      "tempoMin": 80,
+      "tempoMax": 110,
+      "key": null,
+      "notes": "Core's cinematic_toms groove. Pairs with a drums block's \"groove\": \"cinematic_toms\"."
+    },
+    {
+      "id": "sparse-pulse",
+      "file": "midi/drums/ambient/sparse_pulse.mid",
+      "lane": "drums",
+      "title": "Sparse pulse",
+      "genres": [
+        "ambient"
+      ],
+      "tags": [
+        "groove",
+        "sparse-pulse"
+      ],
+      "feel": "a soft pulse; kick on 1, ride quarter notes, light shaker",
+      "tempoMin": 60,
+      "tempoMax": 90,
+      "key": null,
+      "notes": "Core's sparse_pulse groove. Pairs with a drums block's \"groove\": \"sparse_pulse\"."
+    },
+    {
+      "id": "afrobeats",
+      "file": "midi/drums/afrobeats/afrobeats.mid",
+      "lane": "drums",
+      "title": "Afrobeats",
+      "genres": [
+        "afrobeats"
+      ],
+      "tags": [
+        "groove",
+        "afrobeats"
+      ],
+      "feel": "Naija afropop pocket; kick on 1, the and of 2 and 3",
+      "tempoMin": 100,
+      "tempoMax": 115,
+      "key": null,
+      "notes": "Core's afrobeats groove, with swing 0.15. Pairs with a drums block's \"groove\": \"afrobeats\"."
+    },
+    {
+      "id": "afrobeats-bounce",
+      "file": "midi/drums/afrobeats/afrobeats_bounce.mid",
+      "lane": "drums",
+      "title": "Afrobeats bounce",
+      "genres": [
+        "afrobeats"
+      ],
+      "tags": [
+        "groove",
+        "afrobeats-bounce"
+      ],
+      "feel": "bouncy percussion-led afropop; 3-3-2 kick, rim answering on the e and a, clap on 2 and 4, agogo bell line, rolling 16th shaker, interlocking congas and bongos",
+      "tempoMin": 105,
+      "tempoMax": 118,
+      "key": null,
+      "notes": "Core's afrobeats_bounce groove, with swing 0.18. Pairs with a drums block's \"groove\": \"afrobeats_bounce\"."
+    },
+    {
+      "id": "afrobeats-afrofusion",
+      "file": "midi/drums/afrobeats/afrobeats_afrofusion.mid",
+      "lane": "drums",
+      "title": "Afrobeats afrofusion",
+      "genres": [
+        "afrobeats"
+      ],
+      "tags": [
+        "groove",
+        "afrobeats-afrofusion"
+      ],
+      "feel": "slow afro-fusion - afro-R&B; soft kick on 1, the a of 2 and 3, late rim on the clave skips, snap-clap on 4, laid-back hats with ghosts, light shaker and conga",
+      "tempoMin": 85,
+      "tempoMax": 100,
+      "key": null,
+      "notes": "Core's afrobeats_afrofusion groove, with swing 0.22. Pairs with a drums block's \"groove\": \"afrobeats_afrofusion\"."
+    },
+    {
+      "id": "afroswing",
+      "file": "midi/drums/afroswing/afroswing.mid",
+      "lane": "drums",
+      "title": "Afroswing",
+      "genres": [
+        "afroswing"
+      ],
+      "tags": [
+        "groove",
+        "afroswing"
+      ],
+      "feel": "UK afroswing",
+      "tempoMin": 95,
+      "tempoMax": 110,
+      "key": null,
+      "notes": "Core's afroswing groove, with swing 0.25. Pairs with a drums block's \"groove\": \"afroswing\"."
+    },
+    {
+      "id": "amapiano",
+      "file": "midi/drums/amapiano/amapiano.mid",
+      "lane": "drums",
+      "title": "Amapiano",
+      "genres": [
+        "amapiano"
+      ],
+      "tags": [
+        "groove",
+        "amapiano"
+      ],
+      "feel": "classic piano; soft four-on-the-floor kick, quiet clap on 2 and 4, off-beat open hat, swung 16th shaker, syncopated rim and conga clave around the log drum",
+      "tempoMin": 110,
+      "tempoMax": 115,
+      "key": null,
+      "notes": "Core's amapiano groove, with swing 0.2. Pairs with a drums block's \"groove\": \"amapiano\"."
+    },
+    {
+      "id": "amapiano-private-school",
+      "file": "midi/drums/amapiano/amapiano_private_school.mid",
+      "lane": "drums",
+      "title": "Amapiano private school",
+      "genres": [
+        "amapiano"
+      ],
+      "tags": [
+        "groove",
+        "amapiano-private-school"
+      ],
+      "feel": "private school; soft kick on 1 and 3, late rim and shaker, off-beat open hat, brushed snare ghosts, lots of space for keys and log drum",
+      "tempoMin": 108,
+      "tempoMax": 113,
+      "key": null,
+      "notes": "Core's amapiano_private_school groove, with swing 0.25. Pairs with a drums block's \"groove\": \"amapiano_private_school\"."
+    },
+    {
+      "id": "amapiano-bacardi",
+      "file": "midi/drums/amapiano/amapiano_bacardi.mid",
+      "lane": "drums",
+      "title": "Amapiano bacardi",
+      "genres": [
+        "amapiano"
+      ],
+      "tags": [
+        "groove",
+        "amapiano-bacardi"
+      ],
+      "feel": "bacardi - sgija; busy syncopated kick, clipped snare on 2 and 4, rattling accented 16th shaker, syncopated low and mid toms, off-beat open hat, clap pickups",
+      "tempoMin": 112,
+      "tempoMax": 118,
+      "key": null,
+      "notes": "Core's amapiano_bacardi groove, with swing 0.15. Pairs with a drums block's \"groove\": \"amapiano_bacardi\"."
+    },
+    {
+      "id": "afro-house",
+      "file": "midi/drums/afro-house/afro_house.mid",
+      "lane": "drums",
+      "title": "Afro house",
+      "genres": [
+        "afro-house"
+      ],
+      "tags": [
+        "groove",
+        "afro-house"
+      ],
+      "feel": "four-on-the-floor kick, clap on 2 and 4, off-beat open hat, 16th shaker, rim on the 3-2 clave, conga and bongo interplay",
+      "tempoMin": 118,
+      "tempoMax": 124,
+      "key": null,
+      "notes": "Core's afro_house groove, with swing 0.12. Pairs with a drums block's \"groove\": \"afro_house\"."
+    },
+    {
+      "id": "afro-house-tribal",
+      "file": "midi/drums/afro-house/afro_house_tribal.mid",
+      "lane": "drums",
+      "title": "Afro house tribal",
+      "genres": [
+        "afro-house"
+      ],
+      "tags": [
+        "groove",
+        "afro-house-tribal"
+      ],
+      "feel": "tribal - percussive; four-on-the-floor kick, no clap, toms carrying the 3-3-2, 16th shaker, clave alternating 3-2 and 2-3, woodblock and off-beat cowbell",
+      "tempoMin": 118,
+      "tempoMax": 124,
+      "key": null,
+      "notes": "Core's afro_house_tribal groove, with swing 0.1. Pairs with a drums block's \"groove\": \"afro_house_tribal\"."
+    },
+    {
+      "id": "gqom",
+      "file": "midi/drums/gqom/gqom.mid",
+      "lane": "drums",
+      "title": "Gqom",
+      "genres": [
+        "gqom"
+      ],
+      "tags": [
+        "groove",
+        "gqom"
+      ],
+      "feel": "Durban broken beat; no four-on-the-floor, kick on 1 and the 3-3-2 skips with gaps, heavy toms answering, snare on 3, sparse off-beat shaker, rim stabs",
+      "tempoMin": 120,
+      "tempoMax": 128,
+      "key": null,
+      "notes": "Core's gqom groove. Pairs with a drums block's \"groove\": \"gqom\"."
+    },
+    {
+      "id": "dancehall",
+      "file": "midi/drums/dancehall/dancehall.mid",
+      "lane": "drums",
+      "title": "Dancehall",
+      "genres": [
+        "dancehall"
+      ],
+      "tags": [
+        "groove",
+        "dancehall"
+      ],
+      "feel": "modern bounce; kick on 1 and the a of 1 in each half bar, snare on the and of 2 and the and of 4",
+      "tempoMin": 90,
+      "tempoMax": 105,
+      "key": null,
+      "notes": "Core's dancehall groove, with swing 0.08. Pairs with a drums block's \"groove\": \"dancehall\"."
+    },
+    {
+      "id": "dancehall-steppers",
+      "file": "midi/drums/dancehall/dancehall_steppers.mid",
+      "lane": "drums",
+      "title": "Dancehall steppers",
+      "genres": [
+        "dancehall"
+      ],
+      "tags": [
+        "groove",
+        "dancehall-steppers"
+      ],
+      "feel": "digital steppers; four-on-the-floor kick under a snare punching the full 3-3-2 twice a bar, closed hats around an off-beat open hat",
+      "tempoMin": 95,
+      "tempoMax": 110,
+      "key": null,
+      "notes": "Core's dancehall_steppers groove. Pairs with a drums block's \"groove\": \"dancehall_steppers\"."
+    },
+    {
+      "id": "reggae-one-drop",
+      "file": "midi/drums/reggae-one-drop/reggae_one_drop.mid",
+      "lane": "drums",
+      "title": "Reggae one drop",
+      "genres": [
+        "reggae-one-drop"
+      ],
+      "tags": [
+        "groove",
+        "reggae-one-drop"
+      ],
+      "feel": "kick and cross-stick together on beat 3 only, nothing on 1, shuffled triplet hats, hat foot on 2 and 4",
+      "tempoMin": 65,
+      "tempoMax": 85,
+      "key": null,
+      "notes": "Core's reggae_one_drop groove. Pairs with a drums block's \"groove\": \"reggae_one_drop\"."
+    },
+    {
+      "id": "reggaeton-perreo",
+      "file": "midi/drums/reggaeton/reggaeton_perreo.mid",
+      "lane": "drums",
+      "title": "Reggaeton perreo",
+      "genres": [
+        "reggaeton"
+      ],
+      "tags": [
+        "groove",
+        "reggaeton-perreo"
+      ],
+      "feel": "modern perreo; four-on-the-floor kick, dembow snare with clap on the strong hits, a pickup in bar 2, accented 16th hats, open hat and timbale fill at the end of bar 2",
+      "tempoMin": 88,
+      "tempoMax": 98,
+      "key": null,
+      "notes": "Core's reggaeton_perreo groove. Pairs with a drums block's \"groove\": \"reggaeton_perreo\"."
+    },
+    {
+      "id": "moombahton",
+      "file": "midi/drums/moombahton/moombahton.mid",
+      "lane": "drums",
+      "title": "Moombahton",
+      "genres": [
+        "moombahton"
+      ],
+      "tags": [
+        "groove",
+        "moombahton"
+      ],
+      "feel": "Dutch-house reggaeton; four-on-the-floor kick, clap on the dembow accents, rolling 16th hats, off-beat open hat, tom pickup in bar 2",
+      "tempoMin": 105,
+      "tempoMax": 112,
+      "key": null,
+      "notes": "Core's moombahton groove. Pairs with a drums block's \"groove\": \"moombahton\"."
+    },
+    {
+      "id": "baile-funk",
+      "file": "midi/drums/baile-funk/baile_funk.mid",
+      "lane": "drums",
+      "title": "Baile funk",
+      "genres": [
+        "baile-funk"
+      ],
+      "tags": [
+        "groove",
+        "baile-funk"
+      ],
+      "feel": "tamborzão",
+      "tempoMin": 125,
+      "tempoMax": 135,
+      "key": null,
+      "notes": "Core's baile_funk groove. Pairs with a drums block's \"groove\": \"baile_funk\"."
+    },
+    {
+      "id": "baile-funk-mandelao",
+      "file": "midi/drums/baile-funk/baile_funk_mandelao.mid",
+      "lane": "drums",
+      "title": "Baile funk mandelao",
+      "genres": [
+        "baile-funk"
+      ],
+      "tags": [
+        "groove",
+        "baile-funk-mandelao"
+      ],
+      "feel": "mandelão - funk automotivo",
+      "tempoMin": 130,
+      "tempoMax": 150,
+      "key": null,
+      "notes": "Core's baile_funk_mandelao groove. Pairs with a drums block's \"groove\": \"baile_funk_mandelao\"."
+    },
+    {
+      "id": "trap-triplet",
+      "file": "midi/drums/trap/trap_triplet.mid",
+      "lane": "drums",
+      "title": "Trap triplet",
+      "genres": [
+        "trap"
+      ],
+      "tags": [
+        "groove",
+        "trap-triplet"
+      ],
+      "feel": "triplet-hat flow",
+      "tempoMin": 130,
+      "tempoMax": 160,
+      "key": null,
+      "notes": "Core's trap_triplet groove. Pairs with a drums block's \"groove\": \"trap_triplet\"."
+    },
+    {
+      "id": "trap-rage",
+      "file": "midi/drums/trap/trap_rage.mid",
+      "lane": "drums",
+      "title": "Trap rage",
+      "genres": [
+        "trap"
+      ],
+      "tags": [
+        "groove",
+        "trap-rage"
+      ],
+      "feel": "rage",
+      "tempoMin": 145,
+      "tempoMax": 170,
+      "key": null,
+      "notes": "Core's trap_rage groove. Pairs with a drums block's \"groove\": \"trap_rage\"."
+    },
+    {
+      "id": "trap-plugg",
+      "file": "midi/drums/trap/trap_plugg.mid",
+      "lane": "drums",
+      "title": "Trap plugg",
+      "genres": [
+        "trap"
+      ],
+      "tags": [
+        "groove",
+        "trap-plugg"
+      ],
+      "feel": "plugg - pluggnb",
+      "tempoMin": 140,
+      "tempoMax": 160,
+      "key": null,
+      "notes": "Core's trap_plugg groove. Pairs with a drums block's \"groove\": \"trap_plugg\"."
+    },
+    {
+      "id": "trap-soul",
+      "file": "midi/drums/trap-soul/trap_soul.mid",
+      "lane": "drums",
+      "title": "Trap soul",
+      "genres": [
+        "trap-soul"
+      ],
+      "tags": [
+        "groove",
+        "trap-soul"
+      ],
+      "feel": "Bryson Tiller-style; sparse kick, late clap on 3, 8th hats with 16th flourishes, ghosted rim, soft shaker",
+      "tempoMin": 120,
+      "tempoMax": 150,
+      "key": null,
+      "notes": "Core's trap_soul groove, with swing 0.1. Pairs with a drums block's \"groove\": \"trap_soul\"."
+    },
+    {
+      "id": "drill-ny",
+      "file": "midi/drums/drill/drill_ny.mid",
+      "lane": "drums",
+      "title": "Drill ny",
+      "genres": [
+        "drill"
+      ],
+      "tags": [
+        "groove",
+        "drill-ny"
+      ],
+      "feel": "NY - Brooklyn drill",
+      "tempoMin": 140,
+      "tempoMax": 145,
+      "key": null,
+      "notes": "Core's drill_ny groove. Pairs with a drums block's \"groove\": \"drill_ny\"."
+    },
+    {
+      "id": "phonk-drift",
+      "file": "midi/drums/phonk/phonk_drift.mid",
+      "lane": "drums",
+      "title": "Phonk drift",
+      "genres": [
+        "phonk"
+      ],
+      "tags": [
+        "groove",
+        "phonk-drift"
+      ],
+      "feel": "drift phonk; hard kick on 1 and the a of 2, clap on 2 and 4, driving cowbell on the 3-3-2, 16th hats, open hat on the and of 4",
+      "tempoMin": 120,
+      "tempoMax": 140,
+      "key": null,
+      "notes": "Core's phonk_drift groove. Pairs with a drums block's \"groove\": \"phonk_drift\"."
+    },
+    {
+      "id": "phonk-memphis",
+      "file": "midi/drums/phonk/phonk_memphis.mid",
+      "lane": "drums",
+      "title": "Phonk memphis",
+      "genres": [
+        "phonk"
+      ],
+      "tags": [
+        "groove",
+        "phonk-memphis"
+      ],
+      "feel": "Memphis - classic phonk",
+      "tempoMin": 130,
+      "tempoMax": 150,
+      "key": null,
+      "notes": "Core's phonk_memphis groove. Pairs with a drums block's \"groove\": \"phonk_memphis\"."
+    },
+    {
+      "id": "jersey-club",
+      "file": "midi/drums/jersey-club/jersey_club.mid",
+      "lane": "drums",
+      "title": "Jersey club",
+      "genres": [
+        "jersey-club"
+      ],
+      "tags": [
+        "groove",
+        "jersey-club"
+      ],
+      "feel": "the five-kick bounce on 1, 2, 3, the a of 3 and the and of 4; clap on 2 and 4, 8th hats, rim on the and",
+      "tempoMin": 130,
+      "tempoMax": 145,
+      "key": null,
+      "notes": "Core's jersey_club groove. Pairs with a drums block's \"groove\": \"jersey_club\"."
+    },
+    {
+      "id": "jersey-club-bounce",
+      "file": "midi/drums/jersey-club/jersey_club_bounce.mid",
+      "lane": "drums",
+      "title": "Jersey club bounce",
+      "genres": [
+        "jersey-club"
+      ],
+      "tags": [
+        "groove",
+        "jersey-club-bounce"
+      ],
+      "feel": "kick-roll variant; five-kick pattern in bar 1, bar 2 rolls 1-3-5-9-11-13-15, clap on 2 and 4 with a pickup on the a of 4, 16th hats",
+      "tempoMin": 135,
+      "tempoMax": 150,
+      "key": null,
+      "notes": "Core's jersey_club_bounce groove. Pairs with a drums block's \"groove\": \"jersey_club_bounce\"."
+    },
+    {
+      "id": "uk-garage",
+      "file": "midi/drums/uk-garage/uk_garage.mid",
+      "lane": "drums",
+      "title": "Uk garage",
+      "genres": [
+        "uk-garage"
+      ],
+      "tags": [
+        "groove",
+        "uk-garage"
+      ],
+      "feel": "2-step; kick on 1 and the and of 3",
+      "tempoMin": 130,
+      "tempoMax": 138,
+      "key": null,
+      "notes": "Core's uk_garage groove, with swing 0.45. Pairs with a drums block's \"groove\": \"uk_garage\"."
+    },
+    {
+      "id": "uk-garage-shuffle",
+      "file": "midi/drums/uk-garage/uk_garage_shuffle.mid",
+      "lane": "drums",
+      "title": "Uk garage shuffle",
+      "genres": [
+        "uk-garage"
+      ],
+      "tags": [
+        "groove",
+        "uk-garage-shuffle"
+      ],
+      "feel": "4x4 garage shuffle; kick on 1 with soft off-beat kicks, snare on 2 and 4 with a ghost at the bar end, low clap under, swung ghosted hats and shaker",
+      "tempoMin": 120,
+      "tempoMax": 128,
+      "key": null,
+      "notes": "Core's uk_garage_shuffle groove, with swing 0.45. Pairs with a drums block's \"groove\": \"uk_garage_shuffle\"."
+    },
+    {
+      "id": "uk-funky",
+      "file": "midi/drums/uk-funky/uk_funky.mid",
+      "lane": "drums",
+      "title": "Uk funky",
+      "genres": [
+        "uk-funky"
+      ],
+      "tags": [
+        "groove",
+        "uk-funky"
+      ],
+      "feel": "tribal syncopated kick, clap on 2 and 4, rim on the 3-3-2 skips, congas, off-beat open hat, swung 16th shaker",
+      "tempoMin": 128,
+      "tempoMax": 132,
+      "key": null,
+      "notes": "Core's uk_funky groove, with swing 0.3. Pairs with a drums block's \"groove\": \"uk_funky\"."
+    },
+    {
+      "id": "jungle",
+      "file": "midi/drums/jungle/jungle.mid",
+      "lane": "drums",
+      "title": "Jungle",
+      "genres": [
+        "jungle"
+      ],
+      "tags": [
+        "groove",
+        "jungle"
+      ],
+      "feel": "chopped Amen break; kick on 1, the and of 1 and the and-a of 3, snares on 2 and 4 with the Amen's skipping ghosts, 8th ride, crash in bar 2",
+      "tempoMin": 160,
+      "tempoMax": 175,
+      "key": null,
+      "notes": "Core's jungle groove. Pairs with a drums block's \"groove\": \"jungle\"."
+    },
+    {
+      "id": "bossa-nova",
+      "file": "midi/drums/bossa-nova/bossa_nova.mid",
+      "lane": "drums",
+      "title": "Bossa nova",
+      "genres": [
+        "bossa-nova"
+      ],
+      "tags": [
+        "groove",
+        "bossa-nova"
+      ],
+      "feel": "cross-stick on the bossa clave over two bars, kick on 1 and 3 with pickups on the and of 2 and 4, 8th hats, hat foot on 2 and 4",
+      "tempoMin": 120,
+      "tempoMax": 145,
+      "key": null,
+      "notes": "Core's bossa_nova groove. Pairs with a drums block's \"groove\": \"bossa_nova\"."
+    },
+    {
+      "id": "samba",
+      "file": "midi/drums/samba/samba.mid",
+      "lane": "drums",
+      "title": "Samba",
+      "genres": [
+        "samba"
+      ],
+      "tags": [
+        "groove",
+        "samba"
+      ],
+      "feel": "surdo kick on every beat with pickups and accents on 2 and 4, 16th ganzá shaker accented on the a, tamborim rim figure over two bars, two-tone agogo",
+      "tempoMin": 90,
+      "tempoMax": 110,
+      "key": null,
+      "notes": "Core's samba groove. Pairs with a drums block's \"groove\": \"samba\"."
+    },
+    {
+      "id": "cumbia",
+      "file": "midi/drums/cumbia/cumbia.mid",
+      "lane": "drums",
+      "title": "Cumbia",
+      "genres": [
+        "cumbia"
+      ],
+      "tags": [
+        "groove",
+        "cumbia"
+      ],
+      "feel": "kick on 1 and 3, guiro scraping an 8th and two 16ths, cowbell on the off-beats, conga mutes on the beat with open tones on the and of 2 and 4, cross-stick on 2 and 4",
+      "tempoMin": 85,
+      "tempoMax": 100,
+      "key": null,
+      "notes": "Core's cumbia groove. Pairs with a drums block's \"groove\": \"cumbia\"."
+    },
+    {
+      "id": "salsa",
+      "file": "midi/drums/salsa/salsa.mid",
+      "lane": "drums",
+      "title": "Salsa",
+      "genres": [
+        "salsa"
+      ],
+      "tags": [
+        "groove",
+        "salsa"
+      ],
+      "feel": "son clave 2-3",
+      "tempoMin": 85,
+      "tempoMax": 105,
+      "key": null,
+      "notes": "Core's salsa groove. Pairs with a drums block's \"groove\": \"salsa\"."
+    },
+    {
+      "id": "rnb",
+      "file": "midi/drums/randb/rnb.mid",
+      "lane": "drums",
+      "title": "Rnb",
+      "genres": [
+        "randb"
+      ],
+      "tags": [
+        "groove",
+        "rnb"
+      ],
+      "feel": "modern R&B",
+      "tempoMin": 60,
+      "tempoMax": 80,
+      "key": null,
+      "notes": "Core's rnb groove, with swing 0.12. Pairs with a drums block's \"groove\": \"rnb\"."
+    },
+    {
+      "id": "rnb-new-jack-swing",
+      "file": "midi/drums/randb/rnb_new_jack_swing.mid",
+      "lane": "drums",
+      "title": "Rnb new jack swing",
+      "genres": [
+        "randb"
+      ],
+      "tags": [
+        "groove",
+        "rnb-new-jack-swing"
+      ],
+      "feel": "90s new jack swing; punchy kick on 1, the and of 2 and the and of 3, snare and clap on 2 and 4, heavily swung 16th hats, tambourine on 2 and 4",
+      "tempoMin": 100,
+      "tempoMax": 115,
+      "key": null,
+      "notes": "Core's rnb_new_jack_swing groove, with swing 0.45. Pairs with a drums block's \"groove\": \"rnb_new_jack_swing\"."
+    },
+    {
+      "id": "gfunk",
+      "file": "midi/drums/g-funk/gfunk.mid",
+      "lane": "drums",
+      "title": "Gfunk",
+      "genres": [
+        "g-funk"
+      ],
+      "tags": [
+        "groove",
+        "gfunk"
+      ],
+      "feel": "West Coast; laid-back kick on 1, the a of 2 and 3, snare and clap on 2 and 4, accented 16th hats, 8th shaker, open hat on the and of 4",
+      "tempoMin": 88,
+      "tempoMax": 98,
+      "key": null,
+      "notes": "Core's gfunk groove, with swing 0.12. Pairs with a drums block's \"groove\": \"gfunk\"."
+    },
+    {
+      "id": "disco",
+      "file": "midi/drums/disco/disco.mid",
+      "lane": "drums",
+      "title": "Disco",
+      "genres": [
+        "disco"
+      ],
+      "tags": [
+        "groove",
+        "disco"
+      ],
+      "feel": "four-on-the-floor kick, snare on 2 and 4, open hat on every off-beat with closed hats around it, tambourine on 2 and 4",
+      "tempoMin": 110,
+      "tempoMax": 125,
+      "key": null,
+      "notes": "Core's disco groove. Pairs with a drums block's \"groove\": \"disco\"."
+    },
+    {
+      "id": "jazz-swing",
+      "file": "midi/drums/jazz-swing/jazz_swing.mid",
+      "lane": "drums",
+      "title": "Jazz swing",
+      "genres": [
+        "jazz-swing"
+      ],
+      "tags": [
+        "groove",
+        "jazz-swing"
+      ],
+      "feel": "spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick, cross-stick on 4",
+      "tempoMin": 120,
+      "tempoMax": 180,
+      "key": null,
+      "notes": "Core's jazz_swing groove. Pairs with a drums block's \"groove\": \"jazz_swing\"."
+    },
+    {
+      "id": "brush-swing",
+      "file": "midi/drums/brushes/brush_swing.mid",
+      "lane": "drums",
+      "title": "Brush swing",
+      "genres": [
+        "brushes"
+      ],
+      "tags": [
+        "groove",
+        "brush-swing"
+      ],
+      "feel": "swirling brush snare, feathered kick, hi-hat foot on 2 and 4",
+      "tempoMin": 90,
+      "tempoMax": 130,
+      "key": null,
+      "notes": "Core's brush_swing groove. Pairs with a drums block's \"groove\": \"brush_swing\"."
+    },
+    {
+      "id": "jazz-waltz",
+      "file": "midi/drums/jazz-waltz/jazz_waltz.mid",
+      "lane": "drums",
+      "title": "Jazz waltz",
+      "genres": [
+        "jazz-waltz"
+      ],
+      "tags": [
+        "groove",
+        "jazz-waltz"
+      ],
+      "feel": "skipping ride, hi-hat foot on 2 and 3, feathered kick",
+      "tempoMin": 120,
+      "tempoMax": 180,
+      "key": null,
+      "notes": "Core's jazz_waltz groove. Pairs with a drums block's \"groove\": \"jazz_waltz\"."
+    },
+    {
+      "id": "waltz",
+      "file": "midi/drums/waltz/waltz.mid",
+      "lane": "drums",
+      "title": "Waltz",
+      "genres": [
+        "waltz"
+      ],
+      "tags": [
+        "groove",
+        "waltz"
+      ],
+      "feel": "kick on 1, cross-stick on 2 and 3, 8th hats",
+      "tempoMin": 80,
+      "tempoMax": 100,
+      "key": null,
+      "notes": "Core's waltz groove. Pairs with a drums block's \"groove\": \"waltz\"."
+    },
+    {
+      "id": "six-eight",
+      "file": "midi/drums/6-8/six_eight.mid",
+      "lane": "drums",
+      "title": "Six eight",
+      "genres": [
+        "6-8"
+      ],
+      "tags": [
+        "groove",
+        "six-eight"
+      ],
+      "feel": "kick on 1, snare on 4, every eighth on the hats with accents on 1 and 4; ballads and folk",
+      "tempoMin": 60,
+      "tempoMax": 80,
+      "key": null,
+      "notes": "Core's six_eight groove. Pairs with a drums block's \"groove\": \"six_eight\"."
+    },
+    {
+      "id": "gospel-shuffle",
+      "file": "midi/drums/gospel-6-8/gospel_shuffle.mid",
+      "lane": "drums",
+      "title": "Gospel shuffle",
+      "genres": [
+        "gospel-6-8"
+      ],
+      "tags": [
+        "groove",
+        "gospel-shuffle"
+      ],
+      "feel": "kick on 1 with a pickup on 6, snare on 4 with a ghost, accented hats",
+      "tempoMin": 65,
+      "tempoMax": 85,
+      "key": null,
+      "notes": "Core's gospel_shuffle groove. Pairs with a drums block's \"groove\": \"gospel_shuffle\"."
+    }
+  ]
+}

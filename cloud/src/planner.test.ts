@@ -100,7 +100,7 @@ describe("planScore", () => {
     const trap: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 4, meterDenominator: 4 } };
     const { backend, systems } = setup(JSON.stringify(score));
     await planScore(trap, backend);
-    assert.match(systems[0]!, /<style_pack>[\s\S]*drum grooves for these styles: trap \(see Grooves\)[\s\S]*<\/style_pack>$/);
+    assert.match(systems[0]!, /<style_pack>[\s\S]*drum grooves for these styles: trap(, trap_[a-z]+)+ \(see Grooves\)[\s\S]*<\/style_pack>$/);
     assert.ok(systems[0]!.indexOf("### Grooves") < systems[0]!.indexOf("<style_pack>"), "the fixed prompt stays a cacheable prefix");
     const waltz: PlanRequest = { ...request, controls: { ...request.controls, style: ["trap"], meterNumerator: 3, meterDenominator: 4 } };
     const second = setup(JSON.stringify(score));

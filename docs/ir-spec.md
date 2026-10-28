@@ -140,7 +140,8 @@ For melody, if `motif` is set, `rhythm` is ignored and the motif's own rhythm is
 
 ### Drum voices
 
-`kick snare clap rim closed_hat pedal_hat open_hat low_tom mid_tom high_tom crash ride ride_bell shaker tambourine cowbell`. These map to General MIDI on channel 10. They also map to v1's seven sublanes (kick, snare, clap_rim, hats, toms, cymbals, aux_kit) for per-sublane export.
+`kick snare clap rim closed_hat pedal_hat open_hat low_tom mid_tom high_tom crash ride ride_bell shaker tambourine cowbell`, and hand percussion (P1-3, 2026-10-27) for afrobeats, amapiano, latin and dancehall: `conga_high conga_low conga_mute bongo_high bongo_low clave timbale_high timbale_low agogo_high agogo_low cabasa guiro woodblock triangle`. These map to General MIDI on channel 10 (congas 63, 64 and 62; bongos 60 and 61; clave 75; timbales 65 and 66; agogo 67 and 68; cabasa 69; guiro 73; woodblock 76; triangle 81). They also map to v1's seven sublanes (kick, snare, clap_rim, hats, toms, cymbals, aux_kit) for per-sublane export; hand percussion goes to aux_kit.
+- **Density:** a clave never changes (it is the pattern the others lock to); cabasa, guiro and triangle fill like hats; the other hand drums and bells get ghost notes between the beats, like the kick and snare.
 
 ### Grooves
 
@@ -155,7 +156,6 @@ A drums block can call a groove by name instead of writing every lane. Each groo
 | `trap` | 4/4 | Trap (half-time at 130-170 BPM): sparse kicks, clap on 3, 8th hats with a 32nd roll before the bar line |
 | `drill` | 4/4 | UK drill: half-time snare on 3 then on 4 in bar 2, sliding kicks off the downbeat, tresillo hats |
 | `dembow` | 4/4 | Reggaeton dembow: kick on every beat, snare on the 3-3-2 dembow accents (soft, then strong), light 8th hats |
-| `afrobeats` | 4/4 | Afrobeats: kick on 1, the and of 2, and 4; a rim on the skipping accents instead of a backbeat; accented 16th shaker |
 | `funk` | 4/4 | Funk (Funky Drummer): syncopated kick, backbeat snare with ghost notes, accented 16th hats opening on the e of 2 and 4 |
 | `rock` | 4/4 | Rock: kick on 1 and 3 with pushes, snare on 2 and 4, 8th hats, crash on the first downbeat |
 | `pop` | 4/4 | Pop: kick on 1 and the and of 2 and 3, clap and tambourine on 2 and 4, 8th hats |
@@ -165,6 +165,44 @@ A drums block can call a groove by name instead of writing every lane. Each groo
 | `half_time` | 4/4 | Half-time: kick on 1, snare on 3, 8th hats; slow hip hop and builds |
 | `cinematic_toms` | 4/4 | Cinematic: big low-tom ostinato over kick on 1 and 3, crash on the first downbeat |
 | `sparse_pulse` | 4/4 | Ambient: a soft pulse; kick on 1, ride quarter notes, light shaker |
+| `afrobeats` | 4/4 | Afrobeats: Naija afropop pocket; kick on 1, the and of 2 and 3 (a push on the and of 4 in bar 2), rim on the 3-2 clave skips, clap on 4, galloping hats, swung 16th shaker, conga answers (100-115 BPM, pair with swing around 0.15) |
+| `afrobeats_bounce` | 4/4 | Afrobeats: bouncy percussion-led afropop; 3-3-2 kick, rim answering on the e and a, clap on 2 and 4, agogo bell line, rolling 16th shaker, interlocking congas and bongos (105-118 BPM, pair with swing around 0.18) |
+| `afrobeats_afrofusion` | 4/4 | Afrobeats: slow afro-fusion / afro-R&B; soft kick on 1, the a of 2 and 3, late rim on the clave skips, snap-clap on 4, laid-back hats with ghosts, light shaker and conga (85-100 BPM, pair with swing around 0.22) |
+| `afroswing` | 4/4 | Afroswing: UK afroswing (J Hus, Kojo Funds); dancehall-style 3-3-2 kick, clap on 2 and 4, rim skip on the a of 2 and the and of 4, swung galloping hats and shaker (95-110 BPM, pair with swing around 0.25) |
+| `amapiano` | 4/4 | Amapiano: classic piano; soft four-on-the-floor kick, quiet clap on 2 and 4, off-beat open hat, swung 16th shaker, syncopated rim and conga clave around the log drum (110-115 BPM, pair with swing around 0.2) |
+| `amapiano_private_school` | 4/4 | Amapiano: private school; soft kick on 1 and 3, late rim and shaker, off-beat open hat, brushed snare ghosts, lots of space for keys and log drum (108-113 BPM, pair with swing around 0.25) |
+| `amapiano_bacardi` | 4/4 | Amapiano: bacardi / sgija; busy syncopated kick, clipped snare on 2 and 4, rattling accented 16th shaker, syncopated low and mid toms, off-beat open hat, clap pickups (112-118 BPM, pair with swing around 0.15) |
+| `afro_house` | 4/4 | Afro house: four-on-the-floor kick, clap on 2 and 4, off-beat open hat, 16th shaker, rim on the 3-2 clave, conga and bongo interplay (118-124 BPM, pair with swing around 0.12) |
+| `afro_house_tribal` | 4/4 | Afro house: tribal / percussive; four-on-the-floor kick, no clap, toms carrying the 3-3-2, 16th shaker, clave alternating 3-2 and 2-3, woodblock and off-beat cowbell (118-124 BPM, pair with swing around 0.1) |
+| `gqom` | 4/4 | Gqom: Durban broken beat; no four-on-the-floor, kick on 1 and the 3-3-2 skips with gaps, heavy toms answering, snare on 3, sparse off-beat shaker, rim stabs (120-128 BPM) |
+| `dancehall` | 4/4 | Dancehall: modern bounce; kick on 1 and the a of 1 in each half bar, snare on the and of 2 and the and of 4 (together the 3-3-2), rim on 2 and 4, 8th hats, 16th shaker (90-105 BPM, pair with swing around 0.08) |
+| `dancehall_steppers` | 4/4 | Dancehall: digital steppers; four-on-the-floor kick under a snare punching the full 3-3-2 twice a bar, closed hats around an off-beat open hat (95-110 BPM) |
+| `reggae_one_drop` | 4/4 | Reggae one drop (triplet grid): kick and cross-stick together on beat 3 only, nothing on 1, shuffled triplet hats, hat foot on 2 and 4 (65-85 BPM) |
+| `reggaeton_perreo` | 4/4 | Reggaeton: modern perreo; four-on-the-floor kick, dembow snare with clap on the strong hits, a pickup in bar 2, accented 16th hats, open hat and timbale fill at the end of bar 2 (88-98 BPM) |
+| `moombahton` | 4/4 | Moombahton: Dutch-house reggaeton; four-on-the-floor kick, clap on the dembow accents, rolling 16th hats, off-beat open hat, tom pickup in bar 2 (105-112 BPM) |
+| `baile_funk` | 4/4 | Baile funk: tamborzão (funk carioca); heavy kick cell on 1, the a of 1, the and of 2, 3 and the e of 4, conga/atabaque answers, clap on 2 and 4, dry rim (125-135 BPM) |
+| `baile_funk_mandelao` | 4/4 | Baile funk: mandelão / funk automotivo (São Paulo); fast, kick on the 3-3-2 every half bar, clap on 2 and 4, off-beat rim, cowbell stabs (130-150 BPM) |
+| `trap_triplet` | 4/4 | Trap: triplet-hat flow (16th-triplet grid); kick on 1 and pushes, clap on 3, hats in 8th triplets with a 16th-triplet roll at the end of bar 2, open hat answer (130-160 BPM) |
+| `trap_rage` | 4/4 | Trap: rage (half-time); hard kick on 1 and stuttered pushes, clap on 3, snare pickup at the end of bar 2, plain 8th hats, open hat on the and of 4, crash every 2 bars (145-170 BPM) |
+| `trap_plugg` | 4/4 | Trap: plugg / pluggnb (half-time); bouncy kick on 1, the a of 2 and the and of 3, clap on 3, 8th hats with occasional 16th doubles, rim on the a of 4, soft open hat (140-160 BPM) |
+| `trap_soul` | 4/4 | Trap soul (half-time): Bryson Tiller-style; sparse kick, late clap on 3, 8th hats with 16th flourishes, ghosted rim, soft shaker (120-150 BPM, pair with swing around 0.1) |
+| `drill_ny` | 4/4 | Drill: NY / Brooklyn drill (Pop Smoke, 808Melo); half-time snare on 3 with a ghost before it and a pickup in bar 2, bouncy syncopated hats, kick on 1 and the a of 2, perc rim stabs (140-145 BPM) |
+| `phonk_drift` | 4/4 | Phonk: drift phonk; hard kick on 1 and the a of 2, clap on 2 and 4, driving cowbell on the 3-3-2, 16th hats, open hat on the and of 4 (120-140 BPM) |
+| `phonk_memphis` | 4/4 | Phonk: Memphis / classic phonk (half-time); 808 kick on 1 and pushes, clap and snare on 3, 16th 808 hats, cowbell off-beats (130-150 BPM) |
+| `jersey_club` | 4/4 | Jersey club: the five-kick bounce on 1, 2, 3, the a of 3 and the and of 4; clap on 2 and 4, 8th hats, rim on the and (130-145 BPM) |
+| `jersey_club_bounce` | 4/4 | Jersey club: kick-roll variant; five-kick pattern in bar 1, bar 2 rolls 1-3-5-9-11-13-15, clap on 2 and 4 with a pickup on the a of 4, 16th hats (135-150 BPM) |
+| `uk_garage` | 4/4 | Uk garage: 2-step; kick on 1 and the and of 3 (skipping beat 3), snare on 2 and 4, shuffled off-beat hats with ghosts, syncopated rim, swung shaker (130-138 BPM, pair with swing around 0.45) |
+| `uk_garage_shuffle` | 4/4 | Uk garage: 4x4 garage shuffle; kick on 1 with soft off-beat kicks, snare on 2 and 4 with a ghost at the bar end, low clap under, swung ghosted hats and shaker (120-128 BPM, pair with swing around 0.45) |
+| `uk_funky` | 4/4 | Uk funky: tribal syncopated kick, clap on 2 and 4, rim on the 3-3-2 skips, congas, off-beat open hat, swung 16th shaker (128-132 BPM, pair with swing around 0.3) |
+| `jungle` | 4/4 | Jungle: chopped Amen break; kick on 1, the and of 1 and the and/a of 3, snares on 2 and 4 with the Amen's skipping ghosts, 8th ride, crash in bar 2 (160-175 BPM) |
+| `bossa_nova` | 4/4 | Bossa nova: cross-stick on the bossa clave over two bars, kick on 1 and 3 with pickups on the and of 2 and 4, 8th hats, hat foot on 2 and 4 (120-145 BPM) |
+| `samba` | 4/4 | Samba: surdo kick on every beat with pickups and accents on 2 and 4, 16th ganzá shaker accented on the a, tamborim rim figure over two bars, two-tone agogo (90-110 BPM) |
+| `cumbia` | 4/4 | Cumbia: kick on 1 and 3, guiro scraping an 8th and two 16ths, cowbell on the off-beats, conga mutes on the beat with open tones on the and of 2 and 4, cross-stick on 2 and 4 (85-100 BPM) |
+| `salsa` | 4/4 | Salsa: son clave 2-3 (one 4/4 bar = one cut-time clave cycle); campana bell on the beats, conga tumbao with a slap and open tones on 4 and the and of 4, light kick on the bass anticipations (85-105 BPM) |
+| `rnb` | 4/4 | R&b: modern R&B (SZA, Summer Walker); sparse kick on 1 and the a of 2, late snap-clap on 2 and 4, 16th hats with rolls, ghost rim, light shaker (60-80 BPM, pair with swing around 0.12) |
+| `rnb_new_jack_swing` | 4/4 | R&b: 90s new jack swing; punchy kick on 1, the and of 2 and the and of 3, snare and clap on 2 and 4, heavily swung 16th hats, tambourine on 2 and 4 (100-115 BPM, pair with swing around 0.45) |
+| `gfunk` | 4/4 | G-funk: West Coast; laid-back kick on 1, the a of 2 and 3, snare and clap on 2 and 4, accented 16th hats, 8th shaker, open hat on the and of 4 (88-98 BPM, pair with swing around 0.12) |
+| `disco` | 4/4 | Disco: four-on-the-floor kick, snare on 2 and 4, open hat on every off-beat with closed hats around it, tambourine on 2 and 4 (110-125 BPM) |
 | `jazz_swing` | 4/4 | Jazz swing (triplet grid): spang-a-lang ride, hi-hat foot on 2 and 4, feathered kick, cross-stick on 4 |
 | `brush_swing` | 4/4 | Brushes (triplet grid): swirling brush snare, feathered kick, hi-hat foot on 2 and 4 |
 | `jazz_waltz` | 3/4 | Jazz waltz (triplet grid): skipping ride, hi-hat foot on 2 and 3, feathered kick |

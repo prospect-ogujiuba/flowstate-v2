@@ -6,6 +6,7 @@
     "validate": "tsx src/cli.ts validate",
     "build": "tsx src/cli.ts build",
     "check": "tsx src/cli.ts check",
+    "grooves": "tsx src/grooves-pack.ts",
     "test": "tsx --test src/*.test.ts"
   },
   "dependencies": {

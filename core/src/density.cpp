@@ -128,16 +128,30 @@ DensityKind drumDensityKind(DrumVoice voice) {
         case DrumVoice::OpenHat:
         case DrumVoice::Ride:
         case DrumVoice::Shaker:
+        case DrumVoice::Cabasa:
+        case DrumVoice::Guiro:
+        case DrumVoice::Triangle:
         case DrumVoice::Tambourine: return DensityKind::DrumTime;
         case DrumVoice::Kick:
         case DrumVoice::Snare:
         case DrumVoice::Clap:
         case DrumVoice::Rim:
+        case DrumVoice::CongaHigh:
+        case DrumVoice::CongaLow:
+        case DrumVoice::CongaMute:
+        case DrumVoice::BongoHigh:
+        case DrumVoice::BongoLow:
+        case DrumVoice::TimbaleHigh:
+        case DrumVoice::TimbaleLow:
+        case DrumVoice::AgogoHigh:
+        case DrumVoice::AgogoLow:
+        case DrumVoice::Woodblock:
         case DrumVoice::Cowbell: return DensityKind::DrumGhost;
         case DrumVoice::LowTom:
         case DrumVoice::MidTom:
         case DrumVoice::HighTom:
         case DrumVoice::Crash:
+        case DrumVoice::Clave:
         case DrumVoice::RideBell: return DensityKind::DrumFixed;
     }
     return DensityKind::DrumFixed;

@@ -91,7 +91,20 @@ test("a capture pack asks whether the result fits the riff, with no preference",
   assert.deepEqual(rows[2], ["b", "", "", ""]);
 });
 
+test("a groove pack asks whether each groove sounds like its style", () => {
+  const page = runPage("groove");
+  assert.match(page.html, /id="authentic"/);
+  assert.doesNotMatch(page.html, /id="pref"/);
+  page.set("authentic", "n");
+  page.set("m1", "2");
+  assert.equal(page.progress(), "1 of 2 scored");
+  const rows = page.save();
+  assert.equal(rows[0]!.join(","), SHEET_HEADER.groove);
+  assert.deepEqual(rows[1], ["a", "n", "2", ""]);
+});
+
 test("the pack kind comes from the scoresheet header", () => {
+  assert.equal(packKind(SHEET_HEADER.groove), "groove");
   assert.equal(packKind(SHEET_HEADER.capture), "capture");
   assert.equal(packKind(SHEET_HEADER.reroll), "reroll");
   assert.equal(packKind(SHEET_HEADER.generators), "generators");

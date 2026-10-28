@@ -27,14 +27,19 @@ test("the committed catalog is what a fresh build writes", () => {
 
 test("the catalog is a valid LibraryCatalog, and every clip carries the pack's credit", () => {
   const catalog = LibraryCatalog.parse(JSON.parse(readFileSync(path.join(catalogRoot, "catalog.json"), "utf8")));
-  assert.equal(catalog.clips.length, manifest.entries.length);
-  assert.deepEqual(catalog.packs.map((p) => p.id), ["godflow"]);
+  const packs = build.results.map((r) => r.packId).sort();
+  assert.deepEqual(packs, ["flowstate-grooves", "godflow"]);
+  assert.deepEqual(catalog.packs.map((p) => p.id).sort(), packs);
+  const manifests = new Map(packs.map((id) => [id, JSON.parse(readFileSync(path.join(packsRoot, id, "manifest.json"), "utf8")) as LibraryPackManifest]));
+  assert.equal(catalog.clips.length, [...manifests.values()].reduce((n, m) => n + m.entries.length, 0));
   for (const clip of catalog.clips) {
+    const [, pack, id] = /^lib:([a-z0-9-]+)\/([a-z0-9-]+)$/.exec(clip.entry.id) ?? [];
+    const m = manifests.get(pack!)!;
+    assert.ok(m, clip.entry.id);
     assert.equal(clip.entry.origin, "library");
-    assert.equal(clip.entry.credit?.text, "MIDI by GodFlow (flowknows) for Flowstate.");
-    assert.equal(clip.entry.credit?.producer, "GodFlow (flowknows)");
-    assert.match(clip.entry.id, /^lib:godflow\/[a-z0-9-]+$/);
-    assert.equal(clip.file, clipFileName("godflow", clip.entry.id.split("/")[1]!));
+    assert.equal(clip.entry.credit?.text, m.credit);
+    assert.equal(clip.entry.credit?.producer, m.producer);
+    assert.equal(clip.file, clipFileName(pack!, id!));
     Score.parse(clip.score);
   }
 });
@@ -62,7 +67,7 @@ test("classification: lanes, genres, meter and length match the content", () => 
 test("a key is either detected with its evidence or blank with the reason", () => {
   for (const c of build.catalog.clips) {
     if (c.entry.tonic) assert.match(c.entry.keyNote!, /^(Detected|Set by the producer)/, c.entry.id);
-    else assert.match(c.entry.keyNote!, /^Blank: (no clear tonal centre|ambiguous between|too few notes)/, c.entry.id);
+    else assert.match(c.entry.keyNote!, /^Blank: (no clear tonal centre|ambiguous between|too few notes|drums have no key)/, c.entry.id);
     assert.equal(c.entry.tonic === null, c.entry.mode === null);
   }
 });

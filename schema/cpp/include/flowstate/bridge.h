@@ -210,7 +210,7 @@ json encode(const std::vector<T>& value) {
 enum class Role { Chords, Pad, Arp, Bass, Melody, Counter, Drums };
 enum class Tonic { C, CSharp, Db, D, DSharp, Eb, E, F, FSharp, Gb, G, GSharp, Ab, A, ASharp, Bb, B };
 enum class Mode { Major, Minor, Dorian, Phrygian, Lydian, Mixolydian, Locrian, HarmonicMinor, MelodicMinor, MajorPentatonic, MinorPentatonic, Blues };
-enum class DrumVoice { Kick, Snare, Clap, Rim, ClosedHat, PedalHat, OpenHat, LowTom, MidTom, HighTom, Crash, Ride, RideBell, Shaker, Tambourine, Cowbell };
+enum class DrumVoice { Kick, Snare, Clap, Rim, ClosedHat, PedalHat, OpenHat, LowTom, MidTom, HighTom, Crash, Ride, RideBell, Shaker, Tambourine, Cowbell, CongaHigh, CongaLow, CongaMute, BongoHigh, BongoLow, Clave, TimbaleHigh, TimbaleLow, AgogoHigh, AgogoLow, Cabasa, Guiro, Woodblock, Triangle };
 enum class ErrorCode { BadRequest, UnknownNode, UnknownPart, Busy, Cancelled, Unavailable, Refused, Truncated, InvalidScore, Provider, Network, Internal, Unauthorized, RateLimited };
 enum class CaptureIntent { Continue, Harmonize, AddBass, AddDrums, Answer };
 enum class KeySource { Override, Score, Detected, Default };
@@ -1158,6 +1158,20 @@ inline const char* toString(DrumVoice value) {
         case DrumVoice::Shaker: return "shaker";
         case DrumVoice::Tambourine: return "tambourine";
         case DrumVoice::Cowbell: return "cowbell";
+        case DrumVoice::CongaHigh: return "conga_high";
+        case DrumVoice::CongaLow: return "conga_low";
+        case DrumVoice::CongaMute: return "conga_mute";
+        case DrumVoice::BongoHigh: return "bongo_high";
+        case DrumVoice::BongoLow: return "bongo_low";
+        case DrumVoice::Clave: return "clave";
+        case DrumVoice::TimbaleHigh: return "timbale_high";
+        case DrumVoice::TimbaleLow: return "timbale_low";
+        case DrumVoice::AgogoHigh: return "agogo_high";
+        case DrumVoice::AgogoLow: return "agogo_low";
+        case DrumVoice::Cabasa: return "cabasa";
+        case DrumVoice::Guiro: return "guiro";
+        case DrumVoice::Woodblock: return "woodblock";
+        case DrumVoice::Triangle: return "triangle";
     }
     return "?";
 }
@@ -1179,6 +1193,20 @@ inline std::optional<DrumVoice> parseDrumVoice(std::string_view text) {
     if (text == "shaker") return DrumVoice::Shaker;
     if (text == "tambourine") return DrumVoice::Tambourine;
     if (text == "cowbell") return DrumVoice::Cowbell;
+    if (text == "conga_high") return DrumVoice::CongaHigh;
+    if (text == "conga_low") return DrumVoice::CongaLow;
+    if (text == "conga_mute") return DrumVoice::CongaMute;
+    if (text == "bongo_high") return DrumVoice::BongoHigh;
+    if (text == "bongo_low") return DrumVoice::BongoLow;
+    if (text == "clave") return DrumVoice::Clave;
+    if (text == "timbale_high") return DrumVoice::TimbaleHigh;
+    if (text == "timbale_low") return DrumVoice::TimbaleLow;
+    if (text == "agogo_high") return DrumVoice::AgogoHigh;
+    if (text == "agogo_low") return DrumVoice::AgogoLow;
+    if (text == "cabasa") return DrumVoice::Cabasa;
+    if (text == "guiro") return DrumVoice::Guiro;
+    if (text == "woodblock") return DrumVoice::Woodblock;
+    if (text == "triangle") return DrumVoice::Triangle;
     return std::nullopt;
 }
 

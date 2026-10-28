@@ -3,7 +3,9 @@
 // The preview synth (from the Phase 0 spike): minimal voices so the instrument variant is audible
 // with zero routing.
 // Tones (every channel but 10): band-limited-enough triangle with an ADSR.
-// Drums (channel 10): kick = pitch-swept sine, everything else = short noise burst.
+// Drums (channel 10): kick = pitch-swept sine; toms and hand drums (congas, bongos, timbales) = a pitched,
+// slightly falling sine; bells and woods (cowbell, agogo, clave, woodblock, triangle) = a short bright tone;
+// everything else = a short noise burst.
 // All rendering is allocation-free.
 
 #include <juce_audio_basics/juce_audio_basics.h>
@@ -98,7 +100,9 @@ public:
         const auto sr = getSampleRate();
         isKick = note == 35 || note == 36;
         isHat = note == 42 || note == 44 || note == 46;
-        remaining = (int) (sr * (isKick ? 0.18 : isHat ? 0.045 : 0.12));
+        pitch = membraneHz (note);
+        bell = pitch > 0.0 ? 0.0 : bellHz (note);
+        remaining = (int) (sr * (isKick ? 0.18 : isHat ? 0.045 : pitch > 0.0 ? 0.16 : bell > 0.0 ? (note == 81 ? 0.4 : 0.07) : 0.12));
         total = remaining;
         level = 0.3f * velocity;
         phase = 0.0;
@@ -136,6 +140,16 @@ public:
                 phase += juce::MathConstants<double>::twoPi * freq / sr;
                 s = (float) std::sin (phase);
             }
+            else if (pitch > 0.0)
+            {
+                phase += juce::MathConstants<double>::twoPi * pitch * (1.0 + 0.15 * (1.0 - t)) / sr;
+                s = (float) std::sin (phase) * 0.9f + (random.nextFloat() * 2.0f - 1.0f) * 0.1f * (1.0f - t);
+            }
+            else if (bell > 0.0)
+            {
+                phase += juce::MathConstants<double>::twoPi * bell / sr;
+                s = (float) (std::sin (phase) * 0.6 + std::sin (phase * 1.48) * 0.4);
+            }
             else
             {
                 s = random.nextFloat() * 2.0f - 1.0f;
@@ -159,7 +173,43 @@ public:
     }
 
 private:
+    // Toms and hand drums: a pitch per GM note (0 = not a membrane).
+    static double membraneHz (int note)
+    {
+        switch (note)
+        {
+            case 41: case 43: return 90.0;   // low toms
+            case 45: case 47: return 130.0;  // low and mid toms
+            case 48: case 50: return 180.0;  // high toms
+            case 60: return 420.0;           // bongo high
+            case 61: return 300.0;           // bongo low
+            case 62: return 260.0;           // conga mute
+            case 63: return 240.0;           // conga high
+            case 64: return 170.0;           // conga low
+            case 65: return 520.0;           // timbale high
+            case 66: return 380.0;           // timbale low
+            default: return 0.0;
+        }
+    }
+
+    // Bells and woods: a bright tone per GM note (0 = none).
+    static double bellHz (int note)
+    {
+        switch (note)
+        {
+            case 56: return 800.0;              // cowbell
+            case 67: return 1000.0;             // agogo high
+            case 68: return 750.0;              // agogo low
+            case 75: return 2500.0;             // clave
+            case 76: return 1800.0;             // woodblock high
+            case 77: return 1300.0;             // woodblock low
+            case 80: case 81: return 4200.0;    // triangle
+            default: return 0.0;
+        }
+    }
+
     bool isKick = false, isHat = false;
+    double pitch = 0.0, bell = 0.0;
     int remaining = 0, total = 1;
     float level = 0.0f, last = 0.0f;
     double phase = 0.0;

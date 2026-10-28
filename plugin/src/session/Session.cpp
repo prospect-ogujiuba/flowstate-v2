@@ -27,7 +27,7 @@ fb::Transport HostSnapshot::toTransport() const {
 
 std::vector<fb::DrumVoiceNote> drumVoiceMap() {
     std::vector<fb::DrumVoiceNote> voices;
-    for (int v = 0; v <= static_cast<int>(DrumVoice::Cowbell); ++v) {
+    for (int v = 0; v < kDrumVoiceCount; ++v) {
         const auto voice = static_cast<DrumVoice>(v);
         const int note = drumVoiceNote(voice);
         voices.push_back({fb::parseDrumVoice(toString(voice)).value_or(fb::DrumVoice::Kick), note, drumSublaneForNote(note)});

@@ -13,7 +13,7 @@ describe("style examples", () => {
   it("picks clips that share a style tag, in a requested lane and meter, one lane before a second", () => {
     const picked = pickExamples(catalog, neoSoul, 2);
     assert.equal(picked.length, 2);
-    assert.ok(picked.every((c) => c.entry.genres.includes("neo-soul")));
+    assert.ok(picked.every((c) => c.entry.genres.some((g) => neoSoul.style.includes(g))));
     assert.deepEqual(pickExamples(catalog, neoSoul, 2), picked, "deterministic");
 
     const hipHop = pickExamples(catalog, { ...neoSoul, style: ["hip-hop", "rnb"], tempo: 90 }, 2);
@@ -21,9 +21,9 @@ describe("style examples", () => {
   });
 
   it("picks nothing for an unrelated style, another meter, absent lanes or count 0", () => {
-    assert.deepEqual(pickExamples(catalog, { ...neoSoul, style: ["drum-and-bass"] }, 3), []);
+    assert.deepEqual(pickExamples(catalog, { ...neoSoul, style: ["polka"] }, 3), []);
     assert.deepEqual(pickExamples(catalog, { ...neoSoul, meterNumerator: 6, meterDenominator: 8 }, 3), []);
-    assert.deepEqual(pickExamples(catalog, { ...neoSoul, lanes: ["drums"] }, 3), []);
+    assert.deepEqual(pickExamples(catalog, { ...neoSoul, lanes: ["pad"] }, 3), []);
     assert.deepEqual(pickExamples(catalog, neoSoul, 0), []);
   });
 

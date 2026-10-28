@@ -737,19 +737,20 @@ TEST_CASE("catalog: library clips and AI results in one search") {
     REQUIRE(r["ok"] == true);
     CHECK(r["session"].is_null());
     const auto total = r["catalog"]["total"].get<int>();
-    CHECK(total == 30);  // 29 GodFlow clips + the AI result
+    CHECK(total == 90);  // 29 GodFlow clips, 60 Flowstate grooves and the AI result
     int library = 0;
     for (const auto& e : r["catalog"]["entries"]) {
         if (e["origin"] == "library") {
             ++library;
-            CHECK(e["credit"]["text"] == "MIDI by GodFlow (flowknows) for Flowstate.");
+            const auto credit = e["credit"]["text"].get<std::string>();
+            CHECK((credit == "MIDI by GodFlow (flowknows) for Flowstate." || credit == "Grooves by Flowstate."));
         } else {
             CHECK(e["id"] == "node:" + ai);
             CHECK(e["prompt"] == "late-night dorian loop");
             CHECK(e["credit"].is_null());
         }
     }
-    CHECK(library == 29);
+    CHECK(library == 89);
 
     auto q = query;
     q["origins"] = {"ai"};
@@ -761,7 +762,7 @@ TEST_CASE("catalog: library clips and AI results in one search") {
     q["text"] = "neo-soul";
     q["limit"] = 5;
     r = reply(c, {{"type", "searchCatalog"}, {"query", q}});
-    CHECK(r["catalog"]["total"] == 17);  // 16 R&B clips + the example score, tagged neo-soul
+    CHECK(r["catalog"]["total"] == 18);  // 16 R&B clips, the neo-soul groove and the example score
     CHECK(r["catalog"]["entries"].size() == 5);
 
     // Fit to the session: C major at 120 puts a C major clip (rnb-jazz-chords-15/16) first.

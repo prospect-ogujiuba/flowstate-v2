@@ -14,7 +14,8 @@
     "typecheck": "tsc -p .",
     "capture:build": "tsx src/capture-set.ts",
     "reroll:build": "tsx src/reroll-set.ts",
-    "capture:pack": "tsx src/capture-pack.ts"
+    "capture:pack": "tsx src/capture-pack.ts",
+    "groove:pack": "tsx src/groove-pack.ts"
   },
   "dependencies": {
     "@flowstate/cloud": "*",

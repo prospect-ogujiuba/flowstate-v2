@@ -3,6 +3,7 @@
 // It works opened straight from disk (file://); the data is embedded, the audio sits next to it.
 // A re-roll pack (build-ab-pack --kind reroll) asks "same idea?" instead of how each option fits the prompt.
 // A capture pack (capture-pack, P1-20) plays the riff and Flowstate's answer to it, and asks whether it fits.
+// A groove pack (groove-pack, P1-3) plays one groove per item and asks whether it sounds like its style.
 
 export interface PlayerEntry {
   folder: string;
@@ -17,19 +18,20 @@ export interface PlayerEntry {
 
 /** What a pack compares: two generators, an idea as written against its re-roll (P1-22), or a played riff
  * against what Flowstate made from it (P1-20). */
-export type PackKind = "generators" | "reroll" | "capture";
+export type PackKind = "generators" | "reroll" | "capture" | "groove";
 
 /** The scoresheet columns for each kind, as build-ab-pack writes them and score-ab reads them. */
 export const SHEET_HEADER: Record<PackKind, string> = {
   generators: "prompt_id,preferred,musicality_1,musicality_2,fits_prompt_1,fits_prompt_2,notes",
   reroll: "prompt_id,preferred,musicality_1,musicality_2,same_idea,notes",
   capture: "prompt_id,fits,musicality,notes",
+  groove: "prompt_id,authentic,musicality,notes",
 };
 
 /** The kind of a pack, from its scoresheet's header. */
 export function packKind(sheetHeader: string): PackKind {
   const columns = sheetHeader.split(",").map((h) => h.trim().toLowerCase());
-  return columns.includes("same_idea") ? "reroll" : columns.includes("fits") ? "capture" : "generators";
+  return columns.includes("same_idea") ? "reroll" : columns.includes("fits") ? "capture" : columns.includes("authentic") ? "groove" : "generators";
 }
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
@@ -38,6 +40,7 @@ export function playerHtml(packName: string, entries: PlayerEntry[], kind: PackK
   const data = JSON.stringify(entries).replace(/</g, "\\u003c");
   const reroll = kind === "reroll";
   const capture = kind === "capture";
+  const groove = kind === "groove";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -78,7 +81,9 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
 <body>
 <main>
   <h1>Listening: ${esc(packName)}</h1>
-  <p class="sub">${capture
+  <p class="sub">${groove
+    ? "One drum groove per item, played on its own. Does it sound like the style it's named for?"
+    : capture
     ? "Per riff: the riff as it was played, then what Flowstate made from it (with the riff, where it keeps it). Does Flowstate's part fit?"
     : reroll
     ? "Two options per idea, in a random order: the idea as written, and the same idea with every part re-rolled. Same sounds for both; judge the notes."
@@ -96,14 +101,21 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
     <div class="options">
       <button id="opt0" aria-pressed="false" hidden>Riff</button>
       <button id="opt1" aria-pressed="false">${capture ? "Your riff" : "Option 1"}</button>
-      <button id="opt2" aria-pressed="false">${capture ? "With Flowstate" : "Option 2"}</button>
+      <button id="opt2" aria-pressed="false"${groove ? " hidden" : ""}>${capture ? "With Flowstate" : "Option 2"}</button>
     </div>
     <div class="transport">
       <button id="play" aria-label="Play or pause">Play</button>
       <button id="restart" aria-label="Back to the start">⟲ Start</button>
       <span class="time" id="time">0:00</span>
     </div>
-    ${capture ? `<div class="row">
+    ${groove ? `<div class="row">
+      <label for="authentic">Sounds like the style it's named for?</label>
+      <select id="authentic" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
+    </div>
+    <div class="row">
+      <label for="m1">Musicality (1-5)</label>
+      <select id="m1" style="width:auto"></select>
+    </div>` : capture ? `<div class="row">
       <label for="fits">Does Flowstate's part fit your riff?</label>
       <select id="fits" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
     </div>
@@ -119,7 +131,7 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
       <label for="same">Same idea, played differently?</label>
       <select id="same" style="width:auto"><option value="">-</option><option value="y">Yes</option><option value="n">No</option></select>
     </div>` : ""}
-    ${capture ? "" : `<div class="row">
+    ${capture || groove ? "" : `<div class="row">
       <label for="pref">Preferred</label>
       <select id="pref" style="width:auto"><option value="">-</option><option value="1">Option 1</option><option value="2">Option 2</option><option value="tie">Tie</option></select>
     </div>`}
@@ -139,8 +151,10 @@ kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; font-si
 const ENTRIES = ${data};
 const REROLL = ${reroll};
 const CAPTURE = ${capture};
+const GROOVE = ${groove};
+const SINGLE = CAPTURE || GROOVE;
 const HEADER = ${JSON.stringify(SHEET_HEADER[kind])};
-const FIELDS = CAPTURE ? ["fits", "m2"] : REROLL ? ["m1", "m2", "same"] : ["m1", "m2", "f1", "f2"];
+const FIELDS = GROOVE ? ["authentic", "m1"] : CAPTURE ? ["fits", "m2"] : REROLL ? ["m1", "m2", "same"] : ["m1", "m2", "f1", "f2"];
 const STORE = "flowstate-listening-${esc(packName)}";
 const $ = (id) => document.getElementById(id);
 let scores = {};
@@ -149,13 +163,13 @@ const save = () => { try { localStorage.setItem(STORE, JSON.stringify(scores)); 
 let index = 0, active = 1;
 const audio = { 0: $("a0"), 1: $("a1"), 2: $("a2") };
 
-for (const id of FIELDS.filter((f) => f !== "same" && f !== "fits")) {
+for (const id of FIELDS.filter((f) => f !== "same" && f !== "fits" && f !== "authentic")) {
   $(id).innerHTML = '<option value="">-</option>' + [1, 2, 3, 4, 5].map((n) => '<option>' + n + '</option>').join("");
 }
 ENTRIES.forEach((e, i) => { const o = document.createElement("option"); o.value = i; o.textContent = (i + 1) + ". " + e.promptId; $("jump").appendChild(o); });
 
-function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", same: "", fits: "", notes: "" }); }
-function complete(s) { return !!s && (CAPTURE ? !!s.fits && !!s.m2 : !!s.preferred && (!REROLL || !!s.same)); }
+function entryScore(e) { return scores[e.promptId] || (scores[e.promptId] = { preferred: "", m1: "", m2: "", f1: "", f2: "", same: "", fits: "", authentic: "", notes: "" }); }
+function complete(s) { return !!s && (GROOVE ? !!s.authentic && !!s.m1 : CAPTURE ? !!s.fits && !!s.m2 : !!s.preferred && (!REROLL || !!s.same)); }
 function progress() {
   const done = ENTRIES.filter((e) => complete(scores[e.promptId])).length;
   $("progress").textContent = done + " of " + ENTRIES.length + " scored";
@@ -173,7 +187,7 @@ function show(i) {
   $("jump").value = String(index);
   const s = entryScore(e);
   for (const f of FIELDS) $(f).value = s[f] || "";
-  if (!CAPTURE) $("pref").value = s.preferred;
+  if (!SINGLE) $("pref").value = s.preferred;
   $("notes").value = s.notes;
   select(1, false);
   $("play").textContent = "Play";
@@ -197,7 +211,7 @@ function bind(id, key) {
   $(id).addEventListener("change", () => { entryScore(ENTRIES[index])[key] = $(id).value; save(); progress(); });
 }
 for (const f of FIELDS) bind(f, f);
-if (!CAPTURE) bind("pref", "preferred");
+if (!SINGLE) bind("pref", "preferred");
 $("notes").addEventListener("input", () => { entryScore(ENTRIES[index]).notes = $("notes").value; save(); });
 $("opt0").onclick = () => select(0); $("opt1").onclick = () => select(1); $("opt2").onclick = () => select(2);
 $("play").onclick = toggle;
@@ -218,7 +232,7 @@ $("export").onclick = () => {
   const rows = [HEADER];
   for (const e of ENTRIES) {
     const s = entryScore(e);
-    const marks = CAPTURE ? [s.fits, s.m2] : [s.preferred, ...(REROLL ? [s.m1, s.m2, s.same] : [s.m1, s.m2, s.f1, s.f2])];
+    const marks = GROOVE ? [s.authentic, s.m1] : CAPTURE ? [s.fits, s.m2] : [s.preferred, ...(REROLL ? [s.m1, s.m2, s.same] : [s.m1, s.m2, s.f1, s.f2])];
     rows.push([e.promptId, ...marks.map((v) => v || ""), q(s.notes || "")].join(","));
   }
   const a = document.createElement("a");

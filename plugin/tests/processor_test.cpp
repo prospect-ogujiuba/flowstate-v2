@@ -662,8 +662,9 @@ TEST_CASE("library: the bundled catalog is searchable and a clip becomes an idea
                         {"fitContext", false}, {"limit", 100}, {"offset", 0}};
     auto r = command(p, {{"type", "searchCatalog"}, {"query", query}});
     REQUIRE(r["ok"] == true);
-    CHECK(r["catalog"]["total"] == 29);
-    for (const auto& e : r["catalog"]["entries"]) CHECK(e["credit"]["text"] == "MIDI by GodFlow (flowknows) for Flowstate.");
+    CHECK(r["catalog"]["total"] == 89);  // 29 GodFlow clips and 60 Flowstate grooves
+    for (const auto& e : r["catalog"]["entries"])
+        CHECK((e["credit"]["text"] == "MIDI by GodFlow (flowknows) for Flowstate." || e["credit"]["text"] == "Grooves by Flowstate."));
 
     r = command(p, {{"type", "useEntry"}, {"entryId", "lib:godflow/bass-05"}});
     REQUIRE(r["ok"] == true);

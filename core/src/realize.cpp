@@ -272,6 +272,20 @@ int drumVoiceNote(DrumVoice voice) {
         case DrumVoice::Shaker: return 70;
         case DrumVoice::Tambourine: return 54;
         case DrumVoice::Cowbell: return 56;
+        case DrumVoice::CongaHigh: return 63;
+        case DrumVoice::CongaLow: return 64;
+        case DrumVoice::CongaMute: return 62;
+        case DrumVoice::BongoHigh: return 60;
+        case DrumVoice::BongoLow: return 61;
+        case DrumVoice::Clave: return 75;
+        case DrumVoice::TimbaleHigh: return 65;
+        case DrumVoice::TimbaleLow: return 66;
+        case DrumVoice::AgogoHigh: return 67;
+        case DrumVoice::AgogoLow: return 68;
+        case DrumVoice::Cabasa: return 69;
+        case DrumVoice::Guiro: return 73;
+        case DrumVoice::Woodblock: return 76;
+        case DrumVoice::Triangle: return 81;
     }
     return 36;
 }

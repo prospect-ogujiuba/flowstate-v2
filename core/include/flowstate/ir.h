@@ -26,8 +26,12 @@ enum class Articulation { Legato, Normal, Staccato };
 
 enum class DrumVoice {
     Kick, Snare, Clap, Rim, ClosedHat, PedalHat, OpenHat, LowTom, MidTom, HighTom,
-    Crash, Ride, RideBell, Shaker, Tambourine, Cowbell
+    Crash, Ride, RideBell, Shaker, Tambourine, Cowbell,
+    // Hand percussion (P1-3): afrobeats, amapiano, latin, dancehall.
+    CongaHigh, CongaLow, CongaMute, BongoHigh, BongoLow, Clave, TimbaleHigh, TimbaleLow, AgogoHigh, AgogoLow, Cabasa, Guiro, Woodblock, Triangle
 };
+
+inline constexpr int kDrumVoiceCount = static_cast<int>(DrumVoice::Triangle) + 1;
 
 enum class Fill { None, SnareRoll, TomRun, KickBuild, CrashEnd, HalfTimeBreak };
 

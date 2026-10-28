@@ -57,14 +57,28 @@ const std::array<std::pair<const char*, Articulation>, 3> kArticulations{{
     {"legato", Articulation::Legato}, {"normal", Articulation::Normal},
     {"staccato", Articulation::Staccato}}};
 
-const std::array<std::pair<const char*, DrumVoice>, 16> kDrumVoices{{
+const std::array<std::pair<const char*, DrumVoice>, kDrumVoiceCount> kDrumVoices{{
     {"kick", DrumVoice::Kick}, {"snare", DrumVoice::Snare}, {"clap", DrumVoice::Clap},
     {"rim", DrumVoice::Rim}, {"closed_hat", DrumVoice::ClosedHat},
     {"pedal_hat", DrumVoice::PedalHat}, {"open_hat", DrumVoice::OpenHat},
     {"low_tom", DrumVoice::LowTom}, {"mid_tom", DrumVoice::MidTom},
     {"high_tom", DrumVoice::HighTom}, {"crash", DrumVoice::Crash}, {"ride", DrumVoice::Ride},
     {"ride_bell", DrumVoice::RideBell}, {"shaker", DrumVoice::Shaker},
-    {"tambourine", DrumVoice::Tambourine}, {"cowbell", DrumVoice::Cowbell}}};
+    {"tambourine", DrumVoice::Tambourine}, {"cowbell", DrumVoice::Cowbell},
+    {"conga_high", DrumVoice::CongaHigh},
+    {"conga_low", DrumVoice::CongaLow},
+    {"conga_mute", DrumVoice::CongaMute},
+    {"bongo_high", DrumVoice::BongoHigh},
+    {"bongo_low", DrumVoice::BongoLow},
+    {"clave", DrumVoice::Clave},
+    {"timbale_high", DrumVoice::TimbaleHigh},
+    {"timbale_low", DrumVoice::TimbaleLow},
+    {"agogo_high", DrumVoice::AgogoHigh},
+    {"agogo_low", DrumVoice::AgogoLow},
+    {"cabasa", DrumVoice::Cabasa},
+    {"guiro", DrumVoice::Guiro},
+    {"woodblock", DrumVoice::Woodblock},
+    {"triangle", DrumVoice::Triangle}}};
 
 const std::array<std::pair<const char*, Fill>, 6> kFills{{
     {"none", Fill::None}, {"snare_roll", Fill::SnareRoll}, {"tom_run", Fill::TomRun},

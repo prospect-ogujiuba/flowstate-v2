@@ -45,6 +45,20 @@ double voiceLevel(DrumVoice v) {
         case DrumVoice::Shaker: return 0.7;
         case DrumVoice::Tambourine: return 0.75;
         case DrumVoice::Cowbell: return 0.8;
+        case DrumVoice::CongaHigh: return 0.85;
+        case DrumVoice::CongaLow: return 0.85;
+        case DrumVoice::CongaMute: return 0.75;
+        case DrumVoice::BongoHigh: return 0.8;
+        case DrumVoice::BongoLow: return 0.8;
+        case DrumVoice::Clave: return 0.75;
+        case DrumVoice::TimbaleHigh: return 0.85;
+        case DrumVoice::TimbaleLow: return 0.85;
+        case DrumVoice::AgogoHigh: return 0.75;
+        case DrumVoice::AgogoLow: return 0.75;
+        case DrumVoice::Cabasa: return 0.65;
+        case DrumVoice::Guiro: return 0.65;
+        case DrumVoice::Woodblock: return 0.75;
+        case DrumVoice::Triangle: return 0.6;
     }
     return 1.0;
 }

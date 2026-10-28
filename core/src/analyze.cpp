@@ -49,9 +49,23 @@ std::optional<DrumVoice> voiceForGmNote(int p) {
         case 49: case 52: case 55: case 57: return DrumVoice::Crash;
         case 51: case 59: return DrumVoice::Ride;
         case 53: return DrumVoice::RideBell;
-        case 69: case 70: case 82: return DrumVoice::Shaker;
+        case 70: case 82: return DrumVoice::Shaker;
         case 54: return DrumVoice::Tambourine;
         case 56: return DrumVoice::Cowbell;
+        case 63: return DrumVoice::CongaHigh;
+        case 64: return DrumVoice::CongaLow;
+        case 62: return DrumVoice::CongaMute;
+        case 60: return DrumVoice::BongoHigh;
+        case 61: return DrumVoice::BongoLow;
+        case 75: return DrumVoice::Clave;
+        case 65: return DrumVoice::TimbaleHigh;
+        case 66: return DrumVoice::TimbaleLow;
+        case 67: return DrumVoice::AgogoHigh;
+        case 68: return DrumVoice::AgogoLow;
+        case 69: return DrumVoice::Cabasa;
+        case 73: return DrumVoice::Guiro;
+        case 76: return DrumVoice::Woodblock;
+        case 81: return DrumVoice::Triangle;
         default: return std::nullopt;
     }
 }
